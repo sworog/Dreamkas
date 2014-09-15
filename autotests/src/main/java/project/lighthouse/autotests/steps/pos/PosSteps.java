@@ -160,6 +160,6 @@ public class PosSteps extends ScenarioSteps {
     @Step
     public void assertSuccessTitle(String value) {
         String expected = String.format("Выдайте сдачу\n%s", value);
-        receiptModalPage.checkValue("receiptSuccessTitle", expected);
+        receiptModalPage.checkValue("заголовок успешной продажи", expected);
     }
 }

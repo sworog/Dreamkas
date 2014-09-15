@@ -20,13 +20,13 @@ public class ReceiptModalPage extends ModalWindowPage{
 
     @Override
     public void createElements() {
-        put("totalPrice", new NonType(this, "//*[@name='totalPrice']"));
-        put("change", new NonType(this, "//*[@name='change']"));
-        put("payment.amountTendered", new Input(this, "//*[@name='payment.amountTendered']"));
-        put("payment.type", new SelectByLabel(this, "//*[@name='payment.type']"));
-        put("receiptSuccessTitle", new NonType(this, "//*[@class='modal_receipt__successTitle']"));
-        put("receiptChangeSum", new NonType(this, "//*[@class='modal_receipt__changeSum']"));
-        put("defaultPaymentType", new NonType(this, "//label[input[@name='payment.type' and @checked='']]"));
+        put("сумма к оплате", new NonType(this, "//*[@name='totalPrice']"));
+        put("сдача", new NonType(this, "//*[@name='change']"));
+        put("внесенная сумма наличными", new Input(this, "//*[@name='payment.amountTendered']"));
+        put("тип оплаты", new SelectByLabel(this, "//*[@name='payment.type']"));
+        put("заголовок успешной продажи", new NonType(this, "//*[@class='modal_receipt__successTitle']"));
+        put("сумма сдачи, необходимую выдать", new NonType(this, "//*[@class='modal_receipt__changeSum']"));
+        put("тип оплаты по умолчанию", new NonType(this, "//label[input[@name='payment.type' and @checked='']]"));
     }
 
     @Override
