@@ -110,7 +110,7 @@ define(function(require, exports, module) {
             }, 0);
         },
 
-        setParams: function(params) {
+        setParams: function(params, silent) {
             var page = this;
 
             deepExtend(page.params, params);
@@ -119,7 +119,9 @@ define(function(require, exports, module) {
                 result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
             }));
 
-            page.render();
+			if (!silent) {
+				page.render();
+			}
         }
     });
 });

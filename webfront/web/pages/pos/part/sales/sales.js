@@ -25,7 +25,7 @@ define(function(require, exports, module) {
 
 				this.listenTo(receipts, {
 					reset: function() {
-						page.setParams(receipts.filters);
+						page.setParams(receipts.filters, true);
 					}
 				});
 
