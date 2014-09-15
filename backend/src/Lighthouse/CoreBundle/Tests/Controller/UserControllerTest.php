@@ -461,12 +461,9 @@ class UserControllerTest extends WebTestCase
                 201,
                 array('email' => 'TEST@TEST.COM'),
             ),
-            'not valid email for domain level 2' => array(
-                400,
+            'valid email for domain level 2' => array(
+                201,
                 array('email' => 'test@test'),
-                array(
-                    'errors.children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
-                ),
             ),
             'not valid email without at' => array(
                 400,
