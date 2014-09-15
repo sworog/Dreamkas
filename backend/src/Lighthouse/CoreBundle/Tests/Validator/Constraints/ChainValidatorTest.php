@@ -9,16 +9,8 @@ use Symfony\Component\Validator\Constraints\Range;
 use Symfony\Component\Validator\Validator\LegacyValidator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ChainValidatorTest extends ContainerAwareTestCase
+class ChainValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @return LegacyValidator|ValidatorInterface
-     */
-    protected function getValidator()
-    {
-        return $this->getContainer()->get('validator');
-    }
-
     public function testValidationPasses()
     {
         $value = 6;
@@ -28,7 +20,7 @@ class ChainValidatorTest extends ContainerAwareTestCase
         $options = array($notBlank, $range);
         $constraint = new Chain($options);
 
-        $violationList = $this->getValidator()->validateValue($value, $constraint);
+        $violationList = $this->getValidator()->validate($value, $constraint, null);
         $this->assertCount(0, $violationList);
     }
 
@@ -51,7 +43,7 @@ class ChainValidatorTest extends ContainerAwareTestCase
             )
         );
 
-        $violationList = $this->getValidator()->validateValue($value, $constraint);
+        $violationList = $this->getValidator()->validate($value, $constraint, null);
         $this->assertCount(1, $violationList);
         $this->assertEquals($expectedMessageTemplate, $violationList->get(0)->getMessageTemplate());
     }
