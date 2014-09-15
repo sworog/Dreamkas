@@ -8,7 +8,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception;
-use Symfony\Component\Validator\MetadataInterface;
+use Symfony\Component\Validator\Mapping\MetadataInterface;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

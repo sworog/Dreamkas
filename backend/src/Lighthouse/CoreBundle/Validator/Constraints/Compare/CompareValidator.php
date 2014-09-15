@@ -34,14 +34,13 @@ abstract class CompareValidator extends ConstraintValidator
         $normalizedMaxFieldValue = $this->normalizeFieldValue($maxFieldValue);
 
         if ($this->doCompare($normalizedMinFieldValue, $normalizedMaxFieldValue, $constraint)) {
-            $this->context->addViolationAt(
-                $constraint->minField,
-                $constraint->message,
-                array(
-                    '{{ firstValue }}' => $this->formatMessageValue($minFieldValue, $constraint),
-                    '{{ secondValue }}' => $this->formatMessageValue($maxFieldValue, $constraint),
-                )
-            );
+            $this->context
+                ->buildViolation($constraint->message)
+                    ->atPath($constraint->minField)
+                    ->setParameter('{{ firstValue }}', $this->formatMessageValue($minFieldValue, $constraint))
+                    ->setParameter('{{ secondValue }}', $this->formatMessageValue($maxFieldValue, $constraint))
+                ->addViolation()
+            ;
         }
     }
 
