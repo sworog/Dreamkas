@@ -30,7 +30,10 @@ class RangeValidator extends ConstraintValidator
         try {
             $comparison = $this->createComparison($value, $constraint);
         } catch (UnexpectedTypeException $e) {
-            $this->addViolation($constraint, $constraint->invalidMessage, array('{{ value }}' => $value));
+            $this->context
+                ->buildViolation($constraint->invalidMessage)
+                    ->atPath($constraint instanceof ClassConstraintInterface ? $constraint->getField() : null)
+                ->addViolation();
             return;
         }
 
@@ -75,14 +78,15 @@ class RangeValidator extends ConstraintValidator
 
         try {
             if (null !== $limit && !$comparison->compare($limit, $operator)) {
-                $this->addViolation(
-                    $constraint,
-                    $constraint->getMessage($operator),
-                    $params = array(
-                        '{{ value }}' => $this->formatValueMessage($comparison, $constraint, $operator),
-                        '{{ limit }}' => $this->formatLimitMessage($limit, $constraint, $operator, $comparison),
-                    )
-                );
+                $formattedValue = $this->formatValueMessage($comparison, $constraint, $operator);
+                $formattedLimit = $this->formatLimitMessage($limit, $constraint, $operator, $comparison);
+                $this->context
+                    ->buildViolation($constraint->getMessage($operator))
+                        ->atPath($constraint instanceof ClassConstraintInterface ? $constraint->getField() : null)
+                        ->setParameter('{{ value }}', $formattedValue)
+                        ->setParameter('{{ limit }}', $formattedLimit)
+                    ->addViolation()
+                ;
                 return false;
             }
         } catch (UnexpectedTypeException $e) {
@@ -112,41 +116,5 @@ class RangeValidator extends ConstraintValidator
     protected function formatLimitMessage($limit, Range $constraint, $operator, Comparison $comparison)
     {
         return (string) $limit;
-    }
-
-    /**
-     * @param Range $constraint
-     * @param $message
-     * @param array $params
-     * @param null $invalidValue
-     * @param null $pluralization
-     * @param null $code
-     */
-    protected function addViolation(
-        Range $constraint,
-        $message,
-        array $params = array(),
-        $invalidValue = null,
-        $pluralization = null,
-        $code = null
-    ) {
-        if ($constraint instanceof ClassConstraintInterface) {
-            $this->context->addViolationAt(
-                $constraint->getField(),
-                $message,
-                $params,
-                $invalidValue,
-                $pluralization,
-                $code
-            );
-        } else {
-            $this->context->addViolation(
-                $message,
-                $params,
-                $invalidValue,
-                $pluralization,
-                $code
-            );
-        }
     }
 }

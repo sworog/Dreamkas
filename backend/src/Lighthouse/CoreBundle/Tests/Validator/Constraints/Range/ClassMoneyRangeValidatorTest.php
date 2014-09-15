@@ -2,43 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\Test\TestCase;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRange;
-use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassMoneyRangeValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ExecutionContextInterface;
 use stdClass;
 
-class ClassMoneyRangeValidatorTest extends TestCase
+class ClassMoneyRangeValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var ClassMoneyRangeValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $numericFactory = new NumericFactory(2, 2);
-        $moneyTransformer = new MoneyModelTransformer($numericFactory);
-        $this->validator = new ClassMoneyRangeValidator($moneyTransformer);
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     public function testLimitFields()
     {
         $value = new stdClass;
@@ -52,13 +23,9 @@ class ClassMoneyRangeValidatorTest extends TestCase
             'lt' => 'maxPrice',
         );
 
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     public function testNestedLimitFields()
@@ -75,13 +42,9 @@ class ClassMoneyRangeValidatorTest extends TestCase
             'lt' => 'parent.maxPrice',
         );
 
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     public function testNullLimitField()
@@ -95,13 +58,9 @@ class ClassMoneyRangeValidatorTest extends TestCase
             'gt' => 'minPrice',
         );
 
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     public function testNullValueField()
@@ -115,13 +74,9 @@ class ClassMoneyRangeValidatorTest extends TestCase
             'gt' => 'minPrice',
         );
 
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     /**
@@ -139,7 +94,7 @@ class ClassMoneyRangeValidatorTest extends TestCase
         );
 
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 
     public function testValueIsNotMoney()
@@ -153,23 +108,15 @@ class ClassMoneyRangeValidatorTest extends TestCase
             'gt' => 'minPrice',
         );
 
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolation');
-
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolationAt')
-            ->with(
-                'price',
-                'lighthouse.validation.errors.money_range.not_numeric',
-                array('{{ value }}' => $value)
-            );
-
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+
+        $this->assertCount(1, $violations);
+        $this->assertTrue($violations->has(0));
+        $violation = $violations->get(0);
+
+        $this->assertEquals('lighthouse.validation.errors.money_range.not_numeric', $violation->getMessageTemplate());
+        $this->assertEquals('price', $violation->getPropertyPath());
     }
 
     public function testValueAndLimitFormatInViolationMessage()
@@ -183,21 +130,12 @@ class ClassMoneyRangeValidatorTest extends TestCase
             'gt' => 'minPrice',
         );
 
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolationAt')
-            ->with(
-                'price',
-                'lighthouse.validation.errors.range.gt',
-                array(
-                    '{{ value }}' => '10.11',
-                    '{{ limit }}' => '15.09'
-                )
-            );
-
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
+        $violation = $violations->get(0);
+        $this->assertConstraintViolationParameterEquals('10.11', '{{ value }}', $violation);
+        $this->assertConstraintViolationParameterEquals('15.09', '{{ limit }}', $violation);
     }
 
     public function testConstraintTarget()
@@ -239,6 +177,6 @@ class ClassMoneyRangeValidatorTest extends TestCase
             'lt' => 'minPrice',
         );
         $constraint = new ClassMoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 }
