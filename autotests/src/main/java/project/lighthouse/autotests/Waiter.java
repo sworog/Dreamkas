@@ -94,14 +94,6 @@ public class Waiter {
         }
     }
 
-    public Boolean isElementVisible(By findBy) {
-        try {
-            return getPresentWebElement(findBy).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
     public Boolean invisibilityOfElementLocated(final WebElement parentElement, final By childFindBy) {
         try {
             return waiter.until(new ExpectedCondition<Boolean>() {
@@ -124,13 +116,5 @@ public class Waiter {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public WebElement elementToBeClickable(By findBy) {
-        return waiter.until(ExpectedConditions.elementToBeClickable(findBy));
-    }
-
-    public WebElement elementToBeClickable(WebElement element) {
-        return waiter.until(ExpectedConditions.elementToBeClickable(element));
     }
 }

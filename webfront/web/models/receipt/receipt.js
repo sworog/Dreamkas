@@ -11,18 +11,27 @@ define(function(require, exports, module) {
             products: require('collections/receiptProducts/receiptProducts')
         },
         defaults: {
-            paymentType: 'cash'
+            payment: {
+                type: 'cash',
+                amountTendered: null
+            }
         },
         saveData: function(){
 
-            return {
+            var data = {
                 products: this.collections.products.map(function(receiptProductModel) {
                     return receiptProductModel.getData();
                 }),
-                amountTendered: this.get('paymentType') === 'bankcard' ? 999999 : normalizeNumber(this.get('amountTendered')),
-                paymentType: this.get('paymentType'),
+                payment: {
+                    type: this.get('payment.type'),
+                    amountTendered: normalizeNumber(this.get('payment.amountTendered'))
+                },
                 date: new Date
-            }
+            };
+
+            this.get('payment.type') === 'bankcard' && delete data.payment.amountTendered;
+
+            return data;
         }
     });
 });

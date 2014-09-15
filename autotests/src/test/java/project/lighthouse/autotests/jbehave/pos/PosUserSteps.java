@@ -5,7 +5,10 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.pos.PosSteps;
+
+import java.io.IOException;
 
 public class PosUserSteps {
 
@@ -47,6 +50,16 @@ public class PosUserSteps {
         posSteps.confirmClearReceipt();
     }
 
+    @When("пользователь совершает продажу")
+    public void whenUserRegistersSale() {
+        posSteps.clickOnRegisterSaleButton();
+    }
+
+    @When("пользователь нажимает на кнопку продолжить работу")
+    public void whenUserClicksOnContinueWorkButton() {
+        posSteps.clickOnContinueButton();
+    }
+
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")
     public void thenExactCompareWithExamplesTable(ExamplesTable examplesTable) {
         posSteps.exactComparePosAutocompleteResultsCollectionWithExamplesTable(examplesTable);
@@ -75,5 +88,15 @@ public class PosUserSteps {
     @Then("пользователь проверяет, что последний добавленный продукт в чек прикреплен к концу чека")
     public void thenTheUsercheckTheLastAddedProductIsPinned() {
         posSteps.checkTheLastAddedProductIsPinned();
+    }
+
+    @Then("пользователь c адресом электронной почты '$email' проверяет, что у товара с именем '$productName' в магазине с именем '$storeName' остатки равны '$inventory'")
+    public void thenUserChecksStoreProductHasInventory(String email, String productName, String storeName, String inventory) throws IOException, JSONException {
+        posSteps.assertStoreProductInventory(email, storeName, productName, inventory);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешной продажи гласит Выдайте сдачу '$value'")
+    public void thenTheUserChecksReceiptSuccessTitle(String value) {
+        posSteps.assertSuccessTitle(value);
     }
 }

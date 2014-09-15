@@ -13,7 +13,7 @@
                         form="form_receipt"
                         type="submit"
                         class="btn btn-primary pull-right">
-                    Расчитать
+                    Рассчитать
                 </button>
 
                 <h4 class="modal-title">
@@ -34,7 +34,7 @@
         <div class="modal-content">
             <div class="modal-body" style="text-align: center">
 
-                <% if (models.receipt.get('paymentType') === 'cash') { %>
+                <% if (models.receipt.get('payment.type') === 'cash') { %>
 
                 <div class="modal_receipt__successTitle">
                     Выдайте сдачу

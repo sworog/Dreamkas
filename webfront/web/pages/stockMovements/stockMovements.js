@@ -24,13 +24,17 @@ define(function(require, exports, module) {
 
                 page.listenTo(stockMovementsCollection, {
                     remove: function() {
-                        var modal = $('.modal:visible');
+                        var $modal = $('.modal:visible');
 
-                        modal.one('modal.hidden', function(e) {
+                        $modal.one('modal.hidden', function(e) {
                             page.render();
                         });
 
-                        modal.modal('hide');
+                        if ($modal[0].block) {
+                            $modal[0].block.hide();
+                        } else {
+                            $modal.modal('hide');
+                        }
                     }
                 });
 

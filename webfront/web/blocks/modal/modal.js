@@ -37,6 +37,8 @@ define(function(require, exports, module) {
 
             block.render(data);
 
+            document.body.classList.add('modal-open');
+
             block.$el
                 .show()
                 .find('[autofocus]').focus();
@@ -45,6 +47,8 @@ define(function(require, exports, module) {
         },
         hide: function() {
             var block = this;
+
+            document.body.classList.remove('modal-open');
 
             block.$el.hide();
 

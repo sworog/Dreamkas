@@ -7,11 +7,12 @@ define(function(require, exports, module) {
         dialog: 'receipt',
         events: {
             'click .modal_receipt__reloadLink': function() {
-                var block = this;
+                var block = this,
+                    ReceiptModel = require('models/receipt/receipt');
 
                 block.hide();
 
-                block.models.receipt.clear();
+                PAGE.models.receipt = new ReceiptModel();
 
                 PAGE.render();
             }
