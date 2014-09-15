@@ -12,11 +12,16 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".view.LighthouseDemoActivity_"
-            android:label="@string/title_activity_lighhouse_demo" >
+            android:label="@string/title_activity_lighhouse_demo"
+            android:screenOrientation="reverseLandscape"
+            >
         </activity>
         <activity
             android:name=".view.LoginActivity_"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:screenOrientation="reverseLandscape"
+            android:theme="@style/android:Theme.Holo.Light.NoActionBar.Fullscreen"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

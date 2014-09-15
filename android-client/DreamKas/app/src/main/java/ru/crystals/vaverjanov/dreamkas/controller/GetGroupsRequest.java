@@ -15,15 +15,10 @@ import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
 import ru.crystals.vaverjanov.dreamkas.model.Token;
 
 @EBean
-public class GetGroupsRequest extends BaseAuthorisedRequest<NamedObjects> {
+public class GetGroupsRequest extends BaseAuthorisedRequest {
 
     @RestService
     LighthouseRestClient restClient;
-
-    public GetGroupsRequest()
-    {
-        super(NamedObjects.class);
-    }
 
     @Override
     public NamedObjects loadDataFromNetwork() throws Exception

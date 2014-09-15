@@ -30,4 +30,11 @@ public class AuthRequestTest extends InstrumentationTestCase {
         Token response = authRequest.loadDataFromNetwork();
         assertTrue(response!=null);
     }
+
+    @SmallTest
+    public void test_loginActivityKilled() throws Exception
+    {
+        Token response = authRequest.loadDataFromNetwork();
+        assertTrue(response!=null);
+    }
 }

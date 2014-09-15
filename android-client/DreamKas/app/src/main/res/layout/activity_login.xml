@@ -4,10 +4,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    >
-
-
+    android:paddingBottom="@dimen/activity_vertical_margin">
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
@@ -22,7 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
 
         <EditText
             android:id="@+id/txtUsername"
@@ -44,6 +44,7 @@
             android:password="true"
             android:drawableLeft="@drawable/password"
             android:text="lighthouse"
+
             />
 
         <Button
@@ -53,6 +54,7 @@
             android:padding="10dp"
             android:layout_margin="4dp"
             android:text="Войти"
+            android:background="@color/DarkCyan"
             />
     </LinearLayout>
 

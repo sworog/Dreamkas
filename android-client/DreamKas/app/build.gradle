@@ -71,6 +71,7 @@ dependencies
 
     apt "org.androidannotations:androidannotations:3.0"
 
+    compile 'com.android.support:support-v4:19.0.0'
     compile 'com.octo.android.robospice:robospice:1.4.12'
     compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'

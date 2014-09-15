@@ -8,25 +8,26 @@ import org.androidannotations.annotations.rest.RestService;
 
 import java.lang.reflect.ParameterizedType;
 
+import ru.crystals.vaverjanov.dreamkas.model.NamedObject;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
 import ru.crystals.vaverjanov.dreamkas.model.Token;
 
-//@Bean
-public abstract class BaseAuthorisedRequest<T> extends SpiceRequest<T>
+@EBean
+public abstract class BaseAuthorisedRequest extends SpiceRequest<NamedObjects>
 {
-    public BaseAuthorisedRequest(Class<T> clazz)
-    {
-        super(clazz);
-    }
-
-  //  @RestService
-  //  protected LighthouseRestClient restClient;
+    @RestService
+    protected LighthouseRestClient restClient;
     protected String token;
+
+    public BaseAuthorisedRequest()
+    {
+        super(NamedObjects.class);
+    }
 
     public void setToken(String token)
     {
         this.token = token;
-        //restClient.setHeader("Authorization", "Bearer " + token);
+        restClient.setHeader("Authorization", "Bearer " + token);
     }
 
    /* @Override

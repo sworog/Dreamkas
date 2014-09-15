@@ -23,6 +23,10 @@ public interface LighthouseRestClient
     @RequiresHeader("Authorization")
     NamedObjects getGroups();
 
+    @Get("/api/1/stores")
+    @RequiresHeader("Authorization")
+    NamedObjects getStores();
+
     void setHeader(String name, String value);
     String getHeader(String name);
 

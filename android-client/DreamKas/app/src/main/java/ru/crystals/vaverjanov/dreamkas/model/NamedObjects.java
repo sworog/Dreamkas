@@ -7,5 +7,7 @@ public class NamedObjects extends ArrayList<NamedObject>
     public NamedObjects()
     {
     }
+
+
 }
 
