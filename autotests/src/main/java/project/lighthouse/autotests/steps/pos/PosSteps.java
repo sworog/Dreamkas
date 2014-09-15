@@ -41,7 +41,7 @@ public class PosSteps extends ScenarioSteps {
     @Step
     public void navigateToPosPage(String storeName) {
         String storeId = Storage.getCustomVariableStorage().getStores().get(storeName).getId();
-        String posUrl = String.format("%s/pos/stores/%s", UrlHelper.getWebFrontUrl(), storeId);
+        String posUrl = String.format("%s/pos/store/%s", UrlHelper.getWebFrontUrl(), storeId);
         posLaunchPage.getDriver().navigate().to(posUrl);
     }
 
