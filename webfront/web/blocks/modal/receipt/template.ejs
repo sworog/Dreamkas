@@ -1,0 +1,67 @@
+<div id="modal_receipt"
+     class="modal modal_receipt">
+
+    <div class="modal-dialog modal-md <%- dialog === 'receipt' ? '' : 'modal__dialog_hidden' %>">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button disabled
+                        form="form_receipt"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    Рассчитать
+                </button>
+
+                <h4 class="modal-title">
+                    Расчет
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <b block="form_receipt"></b>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog modal-md <%- dialog === 'success' ? '' : 'modal__dialog_hidden' %>">
+        <div class="modal-content">
+            <div class="modal-body" style="text-align: center">
+
+                <% if (models.receipt.get('payment.type') === 'cash') { %>
+
+                <div class="modal_receipt__successTitle">
+                    Выдайте сдачу
+
+                    <div class="modal_receipt__changeSum">
+                        <%- formatMoney(models.receipt.get('change')) %> <i class="fa fa-rub"></i>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="modal_receipt__successTitle" style="padding-bottom: 50px;">
+                    Оплачено банковской картой
+                </div>
+                <% } %>
+
+                <p style="padding-bottom: 30px;">
+                    Продажа зарегистрирована
+                </p>
+
+                <div style="padding-bottom: 30px;">
+                    <a class="btn btn-primary modal_receipt__reloadLink"
+                       style="padding: 10px 30px;">
+
+                        Продолжить работу
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

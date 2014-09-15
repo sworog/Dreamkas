@@ -3,7 +3,6 @@ package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
@@ -26,7 +25,7 @@ public class NonType extends CommonItem {
     @Override
     public void setValue(String value) {
         fail(
-                String.format(CommonPage.ERROR_MESSAGE, "NonType")
+                String.format("Can't setValue() with '%s' common item type", "NonType")
         );
     }
 }

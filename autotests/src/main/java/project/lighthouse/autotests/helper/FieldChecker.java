@@ -2,10 +2,7 @@ package project.lighthouse.autotests.helper;
 
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.elements.items.DateTime;
-import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -34,17 +31,11 @@ public class FieldChecker {
     }
 
     public void assertValueEqual(String expectedValue) {
-        String actualValue;
+        assertThat(commonItem.getText(), is(expectedValue));
+    }
 
-        if (commonItem instanceof SelectByVisibleText) {
-            actualValue = commonItem.getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
-        } else if (commonItem instanceof Input || commonItem instanceof DateTime || commonItem instanceof InvoiceProductAutoComplete) {
-            actualValue = commonItem.getVisibleWebElementFacade().getValue();
-        } else {
-            actualValue = commonItem.getVisibleWebElementFacade().getText();
-        }
-
-        assertThat(actualValue, is(expectedValue));
+    public void assertValueEqual(String message, String expectedValue) {
+        assertThat(message, commonItem.getText(), is(expectedValue));
     }
 
     public void assertFieldLength(String elementName, int fieldLength) {

@@ -10,6 +10,9 @@ define(function(require) {
         model: null,
         collection: null,
         redirectUrl: null,
+        id: function(){
+            return this.cid;
+        },
         data: function(){
             var block = this;
 
@@ -134,8 +137,14 @@ define(function(require) {
                 errorElement.innerHTML = getText(errorMessage);
             }
 
+            if (data.children){
+                _.each(data.children, function(data, key){
+                    block.showFieldError(data, field + '.' + key);
+                });
+            }
+
         },
-        showErrors: function(error, response) {
+        showErrors: function(error) {
             var block = this;
 
             block.removeErrors();

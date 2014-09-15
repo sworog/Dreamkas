@@ -1,9 +1,17 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page');
+    var Page = require('blocks/page/page'),
+        cookies = require('cookies');
 
     return Page.extend({
         template: require('ejs!./template.ejs'),
+        initialize: function(){
+            var page = this;
+
+            cookies.set('posStoreId', page.params.storeId);
+
+            Page.prototype.initialize.apply(page, arguments);
+        },
         models: {
             store: function(){
                 var page = this,
@@ -17,8 +25,9 @@ define(function(require, exports, module) {
         },
         blocks: {
             productFinder: require('blocks/productFinder/productFinder'),
-            form_receipt: require('blocks/form/receipt/receipt'),
-            modal_receiptProduct: require('blocks/modal/receiptProduct/receiptProduct')
+            receipt: require('blocks/receipt/receipt'),
+            modal_receiptProduct: require('blocks/modal/receiptProduct/receiptProduct'),
+            modal_receipt: require('blocks/modal/receipt/receipt')
         }
     });
 });

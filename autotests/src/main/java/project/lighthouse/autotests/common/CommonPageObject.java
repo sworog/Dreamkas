@@ -106,6 +106,10 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         items.get(elementName).getFieldChecker().assertValueEqual(value);
     }
 
+    public void checkValue(String message, String elementName, String value) {
+        items.get(elementName).getFieldChecker().assertValueEqual(message, value);
+    }
+
     public void checkValues(ExamplesTable examplesTable) {
         for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");

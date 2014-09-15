@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.jbehave.stockMovement;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;

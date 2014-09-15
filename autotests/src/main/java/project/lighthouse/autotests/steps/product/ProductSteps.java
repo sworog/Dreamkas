@@ -3,14 +3,15 @@ package project.lighthouse.autotests.steps.product;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.product.ProductCollection;
 import project.lighthouse.autotests.pages.catalog.group.GroupPage;
-import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;
 import project.lighthouse.autotests.pages.catalog.group.modal.ProductCreateModalWindow;
+import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;
@@ -59,24 +60,26 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowMarkUpValue(String value) {
-        assertThat(createNewProductModalWindow.getMarkUpValueWebElement().getText(), is(value));
+        createNewProductModalWindow.checkValue("markUpValue", value);
     }
 
     @Step
     public void assertEditProductModalWindowMarkUpValue(String value) {
-        assertThat(editProductModalWindow.getMarkUpValueWebElement().getText(), is(value));
+        editProductModalWindow.checkValue("markUpValue", value);
     }
 
     @Step
     public void assertCreateNewProductModalWindowMarkUpIsNotVisible() {
-        if (!createNewProductModalWindow.invisibilityOfElementLocated(createNewProductModalWindow.getMarkUpValueWebElement())) {
+        By markUpValueFindBy = createNewProductModalWindow.getItems().get("markUpValue").getFindBy();
+        if (!createNewProductModalWindow.invisibilityOfElementLocated(markUpValueFindBy)) {
             fail("The markUp value is visible in create new product modal window");
         }
     }
 
     @Step
     public void assertEditProductModalWindowMarkUpIsNotVisible() {
-        if (!editProductModalWindow.invisibilityOfElementLocated(editProductModalWindow.getMarkUpValueWebElement())) {
+        By markUpValueFindBy = editProductModalWindow.getItems().get("markUpValue").getFindBy();
+        if (!editProductModalWindow.invisibilityOfElementLocated(markUpValueFindBy)) {
             fail("The markUp value is visible in create new product modal window");
         }
     }

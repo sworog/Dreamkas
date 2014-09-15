@@ -1,52 +1,74 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form'),
-        formatMoney = require('kit/formatMoney/formatMoney'),
-        normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
+    var Form = require('blocks/form/form');
 
     return Form.extend({
-        model: function(){
-            return PAGE.models.receipt;
-        },
         template: require('ejs!./template.ejs'),
+        id: 'form_receipt',
+        model: function() {
+            return PAGE.models.receipt
+        },
         events: {
-            'click .form_receipt__productLink': function(e){
-                document.getElementById('modal_receiptProduct').block.show({
-                    models: {
-                        receiptProduct: PAGE.models.receipt.collections.products.get(e.currentTarget.dataset.receiptProductCid)
-                    }
-                });
+            'change input[name="payment.type"]': function(e) {
+                var block = this,
+                    $form_receipt__cashInput = block.$('.form_receipt__cashInput'),
+                    $form_receipt__change = block.$('.form_receipt__change');
+
+                if (e.target.value === 'cash') {
+                    $form_receipt__cashInput.show();
+                    block.checkChange();
+                    block.el.querySelector('input[name="payment.amountTendered"]').focus();
+
+                } else {
+                    $form_receipt__cashInput.hide();
+                    $form_receipt__change.hide();
+                    block.enable();
+                }
+
             },
-            'click .form_receipt__clearLink .confirmLink__confirmation': function(e){
+            'keyup input[name="payment.amountTendered"]': function() {
                 var block = this;
 
-                block.model.clear();
+                block.checkChange();
             }
         },
-        initialize: function(){
+        submitSuccess: function(){
             var block = this;
-            
-            Form.prototype.initialize.apply(block, arguments);
 
-            block.listenTo(block.model.collections.products, {
-                'add remove reset change': function(){
-                    block.render();
-                    block.$('.form_receipt__scrollContainer').scrollTop(block.$('.form_receipt__scrollContainer table').height());
-                }
+            document.getElementById('modal_receipt').block.show({
+                dialog: 'success'
             });
         },
-        calculateItemPrice: function(receiptProductModel){
-            return formatMoney(normalizeNumber(receiptProductModel.get('quantity')) * normalizeNumber(receiptProductModel.get('price')));
+        checkChange: function(){
+            var block = this,
+                $form_receipt__change = block.$('.form_receipt__change');
+
+            if (!block.data.change || block.normalizeNumber(block.data.change) < 0) {
+                $form_receipt__change.hide();
+                block.disable();
+            } else {
+                $form_receipt__change.show();
+                block.enable();
+            }
         },
-        calculateTotalPrice: function(){
+        calculateTotalPrice: function() {
             var block = this,
                 totalPrice = 0;
 
-            block.model.collections.products.forEach(function(receiptProductModel){
-                totalPrice += normalizeNumber(block.calculateItemPrice(receiptProductModel));
+            block.model.collections.products.forEach(function(receiptProductModel) {
+                totalPrice += block.normalizeNumber(receiptProductModel.get('quantity')) * block.normalizeNumber(receiptProductModel.get('price'));
             });
 
-            return formatMoney(totalPrice);
+            return block.formatMoney(totalPrice);
+        },
+        calculateChange: function() {
+            var block = this,
+                totalPrice = block.calculateTotalPrice(),
+                change = block.normalizeNumber(block.data.payment.amountTendered) - block.normalizeNumber(totalPrice);
+
+            block.data.change = _.isNaN(change) ? null : block.formatMoney(change);
+
+            return block.data.change;
         }
     });
 });

@@ -3,6 +3,10 @@ package project.lighthouse.autotests.common;
 import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.elements.items.Input;
+import project.lighthouse.autotests.elements.items.SelectByVisibleText;
+import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
 import project.lighthouse.autotests.helper.FieldChecker;
 import project.lighthouse.autotests.helper.FieldErrorChecker;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
@@ -99,5 +103,15 @@ abstract public class CommonItem {
 
     public void selectByVisibleText(String label) {
         pageObject.getCommonActions().selectByVisibleText(label, findBy);
+    }
+
+    public String getText() {
+        if (this instanceof SelectByVisibleText) {
+            return getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
+        } else if (this instanceof Input || this instanceof DateTime || this instanceof InvoiceProductAutoComplete) {
+            return getVisibleWebElementFacade().getValue();
+        } else {
+            return getVisibleWebElementFacade().getText();
+        }
     }
 }

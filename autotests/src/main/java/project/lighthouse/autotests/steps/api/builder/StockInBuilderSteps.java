@@ -5,7 +5,6 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.api.factories.ApiFactory;
 import project.lighthouse.autotests.api.objects.stockmovement.stockin.StockIn;
-import project.lighthouse.autotests.api.objects.stockmovement.writeoff.WriteOff;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;

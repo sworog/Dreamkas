@@ -23,7 +23,7 @@ define(function(require, exports, module) {
                     remove: function(){
                         var modal = $('.modal:visible');
 
-                        modal.one('hidden.bs.modal', function(e) {
+                        modal.one('modal.hidden', function(e) {
                             page.render();
                         });
 
@@ -47,7 +47,7 @@ define(function(require, exports, module) {
                     destroy: function() {
                         var modal = $('.modal:visible');
 
-                        modal.one('hidden.bs.modal', function(e) {
+                        modal.one('modal.hidden', function(e) {
                             router.navigate('/catalog');
                         });
 
@@ -93,7 +93,7 @@ define(function(require, exports, module) {
                 form_group.on('submit:success', function() {
                     var modal = $('.modal:visible');
 
-                    modal.one('hidden.bs.modal', function(e) {
+                    modal.one('modal.hidden', function(e) {
                         page.collections.groups.fetch().then(function() {
                             page.render()
                         });
@@ -114,7 +114,7 @@ define(function(require, exports, module) {
                 form_product.on('submit:success', function(response) {
                     var modal = $('.modal:visible');
 
-                    modal.one('hidden.bs.modal', function(e) {
+                    modal.one('modal.hidden', function(e) {
                         if (response.subCategory.id === page.models.group.id){
                             page.collections.products.add(response);
                             page.render();
@@ -140,7 +140,7 @@ define(function(require, exports, module) {
                 form_product.on('submit:success', function(response) {
                     var modal = $('.modal:visible');
 
-                    modal.one('hidden.bs.modal', function(e) {
+                    modal.one('modal.hidden', function(e) {
                         if (response.subCategory.id === page.models.group.id){
                             page.render();
                         } else {

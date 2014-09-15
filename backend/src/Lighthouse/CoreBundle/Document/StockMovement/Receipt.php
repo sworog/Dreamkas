@@ -25,7 +25,6 @@ class Receipt extends StockMovement
     /**
      * @MongoDB\String
      * @MongoDB\UniqueIndex(order="asc", sparse=true)
-     * @Assert\NotBlank
      * @var string
      */
     protected $hash;

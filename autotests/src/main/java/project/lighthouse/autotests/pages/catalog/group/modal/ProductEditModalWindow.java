@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.pages.catalog.group.modal;
 
-import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,9 +9,6 @@ import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
  * Edit product modal window
  */
 public class ProductEditModalWindow extends ProductCreateModalWindow {
-
-    @FindBy(xpath = "//*[@id='modal-productEdit']//*[contains(@class, 'product__markup')]")
-    private WebElement markUpValueWebElement;
 
     public ProductEditModalWindow(WebDriver driver) {
         super(driver);
@@ -43,7 +39,4 @@ public class ProductEditModalWindow extends ProductCreateModalWindow {
         new PrimaryBtnFacade(this, "Сохранить").click();
     }
 
-    public WebElement getMarkUpValueWebElement() {
-        return markUpValueWebElement;
-    }
 }

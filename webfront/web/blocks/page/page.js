@@ -3,6 +3,7 @@ define(function(require, exports, module) {
     var Block = require('kit/block/block'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
+        cookies = require('cookies'),
         _ = require('lodash');
 
     var posWindowReference = null;
@@ -14,8 +15,14 @@ define(function(require, exports, module) {
 
         activeNavigationItem: 'main',
 
+        posUrl: function(){
+            var posStoreId = cookies.get('posStoreId');
+
+            return '/pos' + (posStoreId ? ('/stores/' + posStoreId) : '');
+        },
+
         events: {
-            'click .posLink': function(e) {
+            'click .page__posLink': function(e) {
                 e.preventDefault();
 
                 var page = this;
@@ -28,7 +35,7 @@ define(function(require, exports, module) {
             if (posWindowReference == null || posWindowReference.closed) {
                 /* if the pointer to the window object in memory does not exist
                  or if such pointer exists but the window was closed */
-                posWindowReference = window.open('/pos', 'pos', 'innerWidth=1000, innerHeight=800');
+                posWindowReference = window.open(this.get('posUrl'), 'pos', 'innerWidth=1000, innerHeight=800');
                 /* then create it. The new window will be created and
                  will be brought on top of any other window. */
             } else {

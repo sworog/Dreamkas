@@ -4,6 +4,9 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\Range;
 
 use Lighthouse\CoreBundle\Validator\Constraints\ClassConstraintInterface;
 
+/**
+ * @Annotation
+ */
 class ClassMoneyRange extends MoneyRange implements ClassConstraintInterface
 {
     /**
