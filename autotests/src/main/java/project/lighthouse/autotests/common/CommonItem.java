@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.elements.items.DateTime;
@@ -112,6 +113,18 @@ abstract public class CommonItem {
             return getVisibleWebElementFacade().getValue();
         } else {
             return getVisibleWebElementFacade().getText();
+        }
+    }
+
+    public void shouldBeVisible() {
+        if (!getPageObject().visibilityOfElementLocated(getFindBy())) {
+            Assert.fail("the element should be visible");
+        }
+    }
+
+    public void shouldBeNotVisible() {
+        if (!getPageObject().invisibilityOfElementLocated(getFindBy())) {
+            Assert.fail("the element should be not visible");
         }
     }
 }

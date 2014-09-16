@@ -53,4 +53,14 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     public void assertTitle(String title) {
         assertThat(getCurrentPageObject().getTitle(), is(title));
     }
+
+    @Step
+    public void elementShouldBeVisible(String elementName) {
+        getCurrentPageObject().elementShouldBeVisible(elementName);
+    }
+
+    @Step
+    public void elementShouldBeNotVisible(String elementName) {
+        getCurrentPageObject().elementShouldBeNotVisible(elementName);
+    }
 }
