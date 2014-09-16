@@ -26,7 +26,12 @@ define(function(require) {
 				};
 			},
 			url: function() {
-				return uri(Collection.baseApiUrl + '/stores/' + this.storeId + '/sales').query(this.filters).toString();
+				var filters = _.extend({}, this.filters);
+
+				//сервер не учитывает последний день, поэтому увеличиваем его на 1
+				filters.dateTo = moment(filters.dateTo, 'DD-MM-YYYY').add(1, 'days').format('DD-MM-YYYY');
+
+				return uri(Collection.baseApiUrl + '/stores/' + this.storeId + '/sales').query(filters).toString();
 			},
             find: function(dateFrom, dateTo, product) {
                 var collection = this;

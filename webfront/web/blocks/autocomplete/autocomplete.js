@@ -27,6 +27,9 @@ define(function(require) {
 					.focus();
 
 				this.trigger('input:clear');
+			},
+			'keyup input.form-control': function(e) {
+				e.stopPropagation();
 			}
 		},
         remoteUrl: null,
@@ -39,7 +42,11 @@ define(function(require) {
 				block.initEngine();
 				block.initTypeahead();
 			});
-        },
+
+			block.$el.on('typeahead:selected', function(e, item) {
+				block.$el.find('input.form-control').blur();
+			});
+		},
         initEngine: function() {
             var block = this;
 

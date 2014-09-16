@@ -50,7 +50,13 @@ define(function(require, exports, module) {
 				return productAutocomplete;
 			},
 			inputDateRange: require('blocks/inputDateRange/inputDateRange'),
-			receiptFinder__results: require('./receiptFinder__results')
+			receiptFinder__results: function(params) {
+				var ReceiptFinderResults = require('./receiptFinder__results');
+
+				params.collection = this.collections.receipts;
+
+				return new ReceiptFinderResults(params);
+			}
 		},
 		findReceipts: function(input) {
 			var dateFromInput = this.$el.find('.inputDateRange input[name="dateFrom"]'),

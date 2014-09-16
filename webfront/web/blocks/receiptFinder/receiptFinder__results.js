@@ -4,7 +4,6 @@ define(function(require, exports, module) {
     var CollectionBlock = require('kit/collectionBlock/collectionBlock');
 
     return CollectionBlock.extend({
-        collection: require('collections/receipts/receipts'),
         template: require('ejs!./receiptFinder__results.ejs'),
 		itemSelector: '.receiptFinder__resultLink',
 		isDifferentDates: function(time1, time2) {
