@@ -46,7 +46,7 @@ class NotFloatValidatorTest extends ConstraintTestCase
     {
         $constraint = new NotFloat();
 
-        $violations = $this->getValidator()->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
         $this->assertCount(0, $violations);
     }
 
