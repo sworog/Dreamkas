@@ -45,46 +45,20 @@ abstract class ConstraintValidator extends BaseConstraintValidator
     {
         $validator = $this->context->getValidator();
 
-        $validator
+        $preViolationsCount = $this->context->getViolations()->count();
+
+        $violations = $validator
             ->inContext($this->context)
-            ->atPath($subPath);
+            ->atPath($subPath)
+            ->validate($value, $constraints, $groups)
+            ->getViolations();
 
-        $violations = $validator->validate($value, $constraints, $groups);
-
-        if ($violations->count() > 0) {
-            $this->addViolationsToContext($violations);
+        if ($violations->count() > $preViolationsCount) {
             return false;
         } else {
             return true;
         }
     }
-
-    /**
-     * @param ConstraintViolationListInterface $violations
-     */
-    protected function addViolationsToContext(ConstraintViolationListInterface $violations)
-    {
-        foreach ($violations as $violation) {
-            $this->addViolationToContext($violation);
-        }
-    }
-
-    /**
-     * TODO Dummy workaround to add violation to current context just by rebuilding it
-     * @param ConstraintViolationInterface $violation
-     */
-    protected function addViolationToContext(ConstraintViolationInterface $violation)
-    {
-        $this->context
-            ->buildViolation($violation->getMessageTemplate())
-                ->atPath($violation->getPropertyPath())
-                ->setParameters($violation->getMessageParameters())
-                ->setPlural($violation->getMessagePluralization())
-                ->setInvalidValue($violation->getInvalidValue())
-                ->setCode($violation->getCode())
-            ->addViolation();
-    }
-
 
     /**
      * @param $value

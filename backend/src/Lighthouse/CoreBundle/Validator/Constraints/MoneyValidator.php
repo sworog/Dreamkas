@@ -70,6 +70,7 @@ class MoneyValidator extends ConstraintValidator
                 'precision' => $value->getPrecision(),
             )
         );
+        $precisionConstraint->groups = $constraint->groups;
 
         $this->validateValue($value, $precisionConstraint);
     }
