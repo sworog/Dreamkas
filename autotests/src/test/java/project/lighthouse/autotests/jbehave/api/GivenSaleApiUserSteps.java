@@ -17,7 +17,7 @@ public class GivenSaleApiUserSteps {
         saleBuilderSteps.createSale(date, "cash", amountTendered);
     }
 
-    @Given("пользователь добавляет пробивает товар в чек с именем '$productName', количеством '$quantity' и по цене '$price'")
+    @Given("пользователь добавляет товар в чек с именем '$productName', количеством '$quantity' и по цене '$price'")
     public void givenUserAddsProductToSale(String productName,
                                            String quantity,
                                            String price) throws JSONException {
