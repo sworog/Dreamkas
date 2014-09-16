@@ -28,7 +28,7 @@ define(function(require) {
 			url: function() {
 				return uri(Collection.baseApiUrl + '/stores/' + this.storeId + '/sales').query(this.filters).toString();
 			},
-            find: function(dateFrom, dateTo, product){
+            find: function(dateFrom, dateTo, product) {
                 var collection = this;
 
                 collection.filters.dateFrom = dateFrom;
