@@ -92,7 +92,6 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
     public void onAuthSuccessRequest(Token authResult)
     {
         progressDialog.dismiss();
-        setProgressBarIndeterminateVisibility(false);
 
         //showMsg(authResult.getAccess_token());
 
@@ -107,6 +106,7 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
     public void onAuthFailureRequest(SpiceException spiceException)
     {
         progressDialog.dismiss();
+
         String msg = "";
         if(spiceException.getCause() instanceof HttpClientErrorException)
         {
@@ -114,7 +114,7 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
             if(exception.getStatusCode().equals(HttpStatus.BAD_REQUEST))
             {
                 //wrong credentials
-                msg = "Неверный логин или пароль";
+                msg = getResources().getString(R.string.error_bad_credentials);
             }
             else
             {
@@ -134,7 +134,6 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
         }
 
         showMsg(msg);
-        setProgressBarIndeterminateVisibility(false);
         //final String msg = spiceException.getCause().getMessage();
     }
 
@@ -175,13 +174,13 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
 
         if (!StringUtils.hasText(username))
         {
-            txtUsername.setError("Поле должно быть заполнено");
+            txtUsername.setError(getResources().getString(R.string.error_empty_field));
             result = false;
         }
 
         if (!StringUtils.hasText(password))
         {
-            txtPassword.setError("Поле должно быть заполнено");
+            txtPassword.setError(getResources().getString(R.string.error_empty_field));
             result = false;
         }
         return result;

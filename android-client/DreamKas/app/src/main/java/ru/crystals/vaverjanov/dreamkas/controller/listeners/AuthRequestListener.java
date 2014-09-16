@@ -20,16 +20,16 @@ public class AuthRequestListener implements RequestListener<Token>, IdlingResour
     @Override
     public void onRequestSuccess(Token authResult)
     {
-        isReady=true;
         //do some logic here
         managedActivity.onAuthSuccessRequest(authResult);
+        isReady=true;
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException)
     {
-        isReady=true;
         managedActivity.onAuthFailureRequest(spiceException);
+        isReady=true;
     }
 
 

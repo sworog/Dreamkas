@@ -30,5 +30,8 @@
     <string name="Save">Сохранить</string>
     <string name="ChangeStore">Перейти к кассе</string>
     <string name="current_store_id">current_store_id</string>
+    <string name="auth_dialog_title">Авторизация...</string>
+    <string name="error_bad_credentials">Неверный логин или пароль</string>
+    <string name="error_empty_field">Поле должно быть заполнено</string>
 
 </resources>
