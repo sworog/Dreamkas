@@ -23,6 +23,7 @@
 @import "/blocks/radioButton/radioButton.css";
 @import "/blocks/radioGroup/radioGroup.css";
 @import "/blocks/modal/modal.css";
+@import "/blocks/sale/sale.css";
 
 body:before {
     content: "";

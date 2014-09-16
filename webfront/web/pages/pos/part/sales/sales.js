@@ -57,6 +57,17 @@ define(function(require, exports, module) {
 				receiptFinder = new ReceiptFinder(params);
 
 				return receiptFinder;
+			},
+			sale: function(params)
+			{
+				var Sale = require('blocks/sale/sale'),
+					sale;
+
+				//params.model =
+
+				sale = new Sale(params);
+
+				return sale;
 			}
 		}
     });
