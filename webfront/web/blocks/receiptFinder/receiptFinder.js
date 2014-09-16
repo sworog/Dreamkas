@@ -27,8 +27,7 @@ define(function(require, exports, module) {
 				var block = this,
 					product = this.models.product,
 					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
-					productAutocomplete,
-					input = block.$el.find('.autocomplete .form-control');
+					productAutocomplete;
 
 				params.resetLink = true;
 				if (product) {
@@ -40,11 +39,11 @@ define(function(require, exports, module) {
 					var Product = require('models/product/product');
 
 					block.models.product = new Product(product);
-					block.findReceipts(input);
+					block.findReceipts(block.$el.find('.autocomplete input.form-control'));
 				});
 				productAutocomplete.on('input:clear', function(e, product) {
 					block.models.product = null;
-					block.findReceipts(input);
+					block.findReceipts(block.$el.find('.autocomplete input.form-control'));
 				});
 
 				return productAutocomplete;
@@ -59,9 +58,13 @@ define(function(require, exports, module) {
 			}
 		},
 		findReceipts: function(input) {
-			var dateFromInput = this.$el.find('.inputDateRange input[name="dateFrom"]'),
-				dateToInput = this.$el.find('.inputDateRange input[name="dateTo"]'),
+			var dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
+				dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val(),
 				product;
+
+			if (!dateFrom || !dateTo) {
+				return;
+			}
 
 			if (this.models.product) {
 				product = this.models.product.get('id');
@@ -69,7 +72,7 @@ define(function(require, exports, module) {
 
 			$(input).addClass('loading');
 
-			this.collections.receipts.find(dateFromInput.val(), dateToInput.val(), product).then(function() {
+			this.collections.receipts.find(dateFrom, dateTo, product).then(function() {
 				$(input).removeClass('loading');
 			});
 		}

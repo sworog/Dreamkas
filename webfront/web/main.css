@@ -211,7 +211,7 @@ table.table-vcenter > tbody > tr > td {
 }
 
 select.loading, input.loading {
-    background-color: #eee;
+    background-color: #eee !important;
 }
 
 .datepicker.dropdown-menu {
