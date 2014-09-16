@@ -20,7 +20,7 @@ abstract public class AbstractProductableObject extends AbstractObject {
         }
     }
 
-    protected void putProduct(AbstractProductObject product) {
+    public void putProduct(AbstractProductObject product) {
         try {
             if (getJsonObject().has("products")) {
                 JSONArray jsonArray = getJsonObject().getJSONArray("products");

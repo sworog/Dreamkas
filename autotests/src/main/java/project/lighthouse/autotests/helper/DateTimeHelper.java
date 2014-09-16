@@ -15,6 +15,7 @@ public class DateTimeHelper {
     private static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String DATE_PATTERN_REVERT = "dd.MM.yyyy";
+    public static final String ISO_8601 = "yyyy-MM-dd'T'HH:mm'Z'";
 
     public DateTimeHelper(String value) {
         days = getDays(value);
@@ -86,11 +87,13 @@ public class DateTimeHelper {
                 return getTodayDate(DATE_TIME_PATTERN);
             case "todayDate":
                 return getTodayDate(DATE_PATTERN_REVERT);
+            case "saleTodayDate":
+                return getTodayDate(ISO_8601);
             default:
-                if (value.contains("-")) {
+                if (value.contains("saleTodayDate-")) {
                     String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
                     int numberOfDay = Integer.parseInt(replacedValue);
-                    return getTodayDate(DATE_TIME_PATTERN, numberOfDay);
+                    return getTodayDate(ISO_8601, numberOfDay);
                 }
                 return value;
         }
