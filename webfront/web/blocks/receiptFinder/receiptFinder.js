@@ -63,6 +63,10 @@ define(function(require, exports, module) {
 				dateToInput = this.$el.find('.inputDateRange input[name="dateTo"]'),
 				product;
 
+			//при клике на уже выбранную дату происходит её очищение - предотвращаем это
+			dateFromInput.val(dateFromInput.attr('value'));
+			dateToInput.val(dateToInput.attr('value'));
+
 			if (this.models.product) {
 				product = this.models.product.get('id');
 			}
