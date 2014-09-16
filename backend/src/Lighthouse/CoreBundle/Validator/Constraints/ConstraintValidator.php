@@ -70,12 +70,14 @@ abstract class ConstraintValidator extends BaseConstraintValidator
     }
 
     /**
+     * TODO Dummy workaround to add violation to current context just by rebuilding it
      * @param ConstraintViolationInterface $violation
      */
     protected function addViolationToContext(ConstraintViolationInterface $violation)
     {
         $this->context
             ->buildViolation($violation->getMessageTemplate())
+                ->atPath($violation->getPropertyPath())
                 ->setParameters($violation->getMessageParameters())
                 ->setPlural($violation->getMessagePluralization())
                 ->setInvalidValue($violation->getInvalidValue())
