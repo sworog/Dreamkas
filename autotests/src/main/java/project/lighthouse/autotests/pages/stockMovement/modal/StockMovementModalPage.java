@@ -20,7 +20,7 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
     public void createElements() {
         put("date", new DateInput(this, "//*[@name='date']"));
         put("store", new SelectByVisibleText(this, "//*[@name='store']"));
-        put("product.name", new InvoiceProductAutoComplete(this, "//*[@name='product.name']"));
+        put("product.name", new InvoiceProductAutoComplete(this, "//*[@name='product.name' and contains(@class, 'input')]"));
         put("price", new Input(this, "//*[@name='price']"));
         put("quantity", new Input(this, "//*[@name='quantity']"));
     }
