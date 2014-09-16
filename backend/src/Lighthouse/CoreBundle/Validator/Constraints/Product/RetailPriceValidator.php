@@ -36,7 +36,7 @@ class RetailPriceValidator extends ConstraintValidator
                     'retailPriceMin'
                 );
                 if ($retailPriceMinValid) {
-                    $this->context->validateValue(
+                    $this->validateValue(
                         $value->retailMarkupMin,
                         $retailMarkupConstraints,
                         'retailMarkupMin'
@@ -48,7 +48,7 @@ class RetailPriceValidator extends ConstraintValidator
                     'retailPriceMax'
                 );
                 if ($retailPriceMaxValid) {
-                    $this->context->validateValue(
+                    $this->validateValue(
                         $value->retailMarkupMax,
                         $retailMarkupConstraints,
                         'retailMarkupMax'
@@ -66,7 +66,7 @@ class RetailPriceValidator extends ConstraintValidator
                     'retailMarkupMin'
                 );
                 if ($retailMarkupMinValid) {
-                    $this->context->validateValue(
+                    $this->validateValue(
                         $value->retailPriceMin,
                         $retailPriceConstraints,
                         'retailPriceMin'
@@ -78,7 +78,7 @@ class RetailPriceValidator extends ConstraintValidator
                     'retailMarkupMax'
                 );
                 if ($retailMarkupMaxValid) {
-                    $this->context->validateValue(
+                    $this->validateValue(
                         $value->retailPriceMax,
                         $retailPriceConstraints,
                         'retailPriceMax'
@@ -190,7 +190,7 @@ class RetailPriceValidator extends ConstraintValidator
             ),
         );
 
-        $this->context->validateValue($value, $comparePriceConstraints);
+        $this->validateValue($value, $comparePriceConstraints);
     }
 
     /**
@@ -214,6 +214,6 @@ class RetailPriceValidator extends ConstraintValidator
                 )
             ),
         );
-        $this->context->validateValue($value, $compareMarkupConstraints);
+        $this->validateValue($value, $compareMarkupConstraints);
     }
 }

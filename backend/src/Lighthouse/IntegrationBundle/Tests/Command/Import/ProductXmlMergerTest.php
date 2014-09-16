@@ -5,8 +5,6 @@ namespace Lighthouse\IntegrationBundle\Tests\Command\Import;
 use Lighthouse\IntegrationBundle\Command\Import\ProductsXmlMerger;
 use Lighthouse\IntegrationBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Test\Assert;
-use Symfony\Component\Console\Helper\HelperSet;
-use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Tester\CommandTester;
 use FilesystemIterator;
 use SplFileInfo;
@@ -38,10 +36,6 @@ class ProductXmlMergerTest extends ContainerAwareTestCase
         $file = tempnam('/tmp', 'lighthouse-xml-merge-');
 
         $command = new ProductsXmlMerger();
-
-        $helperSet = new HelperSet();
-        $helperSet->set(new TableHelper());
-        $command->setHelperSet($helperSet);
 
         $commandTester = new CommandTester($command);
         $input = array(

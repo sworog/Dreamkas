@@ -2,39 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\Test\TestCase;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassNumericRange;
-use Lighthouse\CoreBundle\Validator\Constraints\Range\ClassNumericRangeValidator;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ExecutionContextInterface;
 use stdClass;
 
-class ClassNumericRangeValidatorTest extends TestCase
+class ClassNumericRangeValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var MockObject|ExecutionContextInterface
-     */
-    protected $context;
-
-    /**
-     * @var ClassNumericRangeValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $this->validator = new ClassNumericRangeValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     /**
      * @expectedException \Lighthouse\CoreBundle\Exception\NullValueException
      * @expectedExceptionMessage field is null
@@ -51,7 +25,7 @@ class ClassNumericRangeValidatorTest extends TestCase
                 'lt' => 'min'
             )
         );
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 
     /**
@@ -70,7 +44,7 @@ class ClassNumericRangeValidatorTest extends TestCase
                 'lt' => 'min'
             )
         );
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 
     /**
@@ -89,7 +63,7 @@ class ClassNumericRangeValidatorTest extends TestCase
                 'lt' => 'mid'
             )
         );
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 
     /**
@@ -105,7 +79,7 @@ class ClassNumericRangeValidatorTest extends TestCase
                 'lt' => 'min'
             )
         );
-        $this->validator->validate(9, $constraint);
+        $this->getValidator()->validate(9, $constraint, null);
     }
 
     public function testObjectValueIsNotNumeric()
@@ -120,15 +94,11 @@ class ClassNumericRangeValidatorTest extends TestCase
             )
         );
 
-        $this->context
-             ->expects($this->once())
-             ->method('addViolationAt')
-             ->with(
-                 $this->equalTo('max'),
-                 $this->equalTo('lighthouse.validation.errors.range.invalid')
-             );
-
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
+        $violation = $violations->get(0);
+        $this->assertEquals('lighthouse.validation.errors.range.invalid', $violation->getMessageTemplate());
+        $this->assertEquals('max', $violation->getPropertyPath());
     }
 
     /**
@@ -149,15 +119,11 @@ class ClassNumericRangeValidatorTest extends TestCase
             )
         );
 
-        $this->context
-            ->expects($this->once())
-            ->method('addViolationAt')
-            ->with(
-                $this->equalTo('max'),
-                $this->equalTo($expectedMessage)
-            );
-
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
+        $violation = $violations->get(0);
+        $this->assertEquals($expectedMessage, $violation->getMessageTemplate());
+        $this->assertEquals('max', $violation->getPropertyPath());
     }
 
     /**
@@ -206,11 +172,8 @@ class ClassNumericRangeValidatorTest extends TestCase
             )
         );
 
-        $this->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     /**

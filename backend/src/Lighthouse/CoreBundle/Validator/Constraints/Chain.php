@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  */
 class Chain extends Constraint
 {
+    /**
+     * @var Constraint[]
+     */
     public $constraints = array();
 
     /**

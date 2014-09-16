@@ -34,7 +34,11 @@ class NotBlankFieldsValidator extends ConstraintValidator
 
         if ($blankFieldsCount > 0) {
             foreach ($blankFields as $blankField) {
-                $this->context->addViolationAt($blankField, $constraint->message);
+                $this->context
+                    ->buildViolation($constraint->message)
+                        ->atPath($blankField)
+                    ->addViolation()
+                ;
             }
         }
     }

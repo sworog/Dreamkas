@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
+ * @property Money      $price
  * @property Money      $priceEntered
  * @property Money      $priceWithoutVAT
  * @property Money      $totalPriceWithoutVAT
