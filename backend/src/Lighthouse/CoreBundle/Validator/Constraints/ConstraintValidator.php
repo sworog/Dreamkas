@@ -43,16 +43,15 @@ abstract class ConstraintValidator extends BaseConstraintValidator
      */
     protected function validateValue($value, $constraints, $subPath = '', $groups = null)
     {
-
         $validator = $this->context->getValidator();
-        $preViolations = $this->context->getViolations();
 
         $validator
             ->inContext($this->context)
             ->atPath($subPath);
+
         $violations = $validator->validate($value, $constraints, $groups);
 
-        if ($preViolations->count() <> $violations->count()) {
+        if ($violations->count() > 0) {
             $this->addViolationsToContext($violations);
             return false;
         } else {
