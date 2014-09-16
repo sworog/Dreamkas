@@ -94,7 +94,7 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-
+        getActionBar().setTitle(getResources().getString(R.string.dream_kas_title));
         drawerToggle = new ActionBarDrawerToggle(this, drawer_layout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
         {
             public void onDrawerClosed(View view)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">DreamKas</string>
+    <string name="app_name">Dreamkas</string>
     <string name="hello_world">Success</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_lighhouse_demo">LighhouseDemoActivity</string>

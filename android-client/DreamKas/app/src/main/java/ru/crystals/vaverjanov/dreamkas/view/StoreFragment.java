@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.octo.android.robospice.SpiceManager;
@@ -75,6 +76,9 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
         storesRequest.setToken(((LighthouseDemoActivity)getActivity()).getToken());
         changeFragmentCallback.getRestClient().execute(storesRequest, null, DurationInMillis.NEVER, storesRequestListener);
         showProgressDialog("Загрузка магазинов");
+
+        View empty = getActivity().findViewById(R.id.empty1);
+        spStores.setEmptyView(empty);
     }
 
     @Click(R.id.btnSaveStoreSettings)
@@ -133,6 +137,6 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     public void onGetStoresFailureRequest(SpiceException spiceException)
     {
         progressDialog.dismiss();
-        Toast.makeText(getActivity(), spiceException.getMessage(), Toast.LENGTH_LONG);
+        Toast.makeText(getActivity(), spiceException.getMessage(), Toast.LENGTH_LONG).show();
     }
 }

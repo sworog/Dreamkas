@@ -8,6 +8,17 @@ public class NamedObject
     private String id;
     private String name;
 
+    public NamedObject(String id, String name)
+    {
+        this.id = id;
+        this.name = name;
+    }
+
+    public NamedObject()
+    {
+
+    }
+
     public String getId() {
         return id;
     }

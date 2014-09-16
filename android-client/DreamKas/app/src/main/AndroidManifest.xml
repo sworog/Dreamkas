@@ -13,13 +13,13 @@
         <activity
             android:name=".view.LighthouseDemoActivity_"
             android:label="@string/title_activity_lighhouse_demo"
-            android:screenOrientation="reverseLandscape"
+            android:screenOrientation="landscape"
             >
         </activity>
         <activity
             android:name=".view.LoginActivity_"
-            android:label="@string/title_activity_login"
-            android:screenOrientation="reverseLandscape"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
             android:theme="@style/android:Theme.Holo.Light.NoActionBar.Fullscreen"
             >
             <intent-filter>

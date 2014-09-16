@@ -16,16 +16,29 @@
             android:layout_marginTop="10dip"
             android:text="@string/store_select_label"
             />
-        <Spinner
-            android:id="@+id/spStores"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:prompt="@string/store_select_prompt"
-            android:textColor="@color/Black"
-            android:minEms="50"
-            android:maxEms="50"
 
-            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/empty1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Список пуст"/>
+            <Spinner
+                android:id="@+id/spStores"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:prompt="@string/store_select_prompt"
+                android:textColor="@color/Black"
+                android:minEms="50"
+                android:maxEms="50"
+
+                />
+            </RelativeLayout>
+
         <Button
             android:text="@string/ChangeStore"
             android:id="@+id/btnSaveStoreSettings"
