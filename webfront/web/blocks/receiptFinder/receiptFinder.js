@@ -59,9 +59,13 @@ define(function(require, exports, module) {
 			}
 		},
 		findReceipts: function(input) {
-			var dateFromInput = this.$el.find('.inputDateRange input[name="dateFrom"]'),
-				dateToInput = this.$el.find('.inputDateRange input[name="dateTo"]'),
+			var dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
+				dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val(),
 				product;
+
+			if (!dateFrom || !dateTo) {
+				return;
+			}
 
 			if (this.models.product) {
 				product = this.models.product.get('id');
@@ -69,7 +73,7 @@ define(function(require, exports, module) {
 
 			$(input).addClass('loading');
 
-			this.collections.receipts.find(dateFromInput.val(), dateToInput.val(), product).then(function() {
+			this.collections.receipts.find(dateFrom, dateTo, product).then(function() {
 				$(input).removeClass('loading');
 			});
 		}
