@@ -1,0 +1,19 @@
+<div class="autocomplete input-group">
+	<div class="autocomplete-items-wrap">
+		<span class="input-group-addon">
+			<i class="fa fa-search"></i>
+		</span>
+
+		<input autofocus
+		   placeholder="Наименование или артикул товара"
+		   type="text"
+		   class="form-control"
+		   value="<%- value %>">
+
+		<% if (resetLink) { %>
+			<span class="autocomplete__resetButton input-group-addon">
+				<i class="fa fa-times"></i>
+			</span>
+		<% } %>
+	</div>
+</div>

@@ -7,7 +7,17 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
 		activeNavigationItem: 'sales',
 		models: {
-			store: PosPart.prototype.models.store
+			store: PosPart.prototype.models.store,
+			product: function() {
+				var Product = require('models/product/product'),
+					product;
+
+				product = new Product({
+					id: this.params.product
+				});
+
+				return product;
+			}
 		},
 		collections: {
 			receipts: function() {
@@ -32,6 +42,7 @@ define(function(require, exports, module) {
 				return receipts;
 			}
 		},
+
 		blocks: {
 			receiptFinder: function(params)
 			{
@@ -39,6 +50,9 @@ define(function(require, exports, module) {
 					receiptFinder;
 
 				params.receipts = this.collections.receipts;
+				if (this.models.product.id) {
+					params.product = this.models.product;
+				}
 
 				receiptFinder = new ReceiptFinder(params);
 

@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var Block = require('kit/block/block'),
+		checkKey = require('kit/checkKey/checkKey');
 
     require('datepicker');
     require('i18n!nls/datepicker');
@@ -10,6 +11,14 @@ define(function(require, exports, module) {
         dateFrom: null,
         dateTo: null,
         endDate: null,
+		events: {
+			'keypress input': function(e) {
+				return false;
+			},
+			'keyup input': function(e) {
+				e.stopPropagation();
+			}
+		},
         render: function(){
             var block = this;
 
