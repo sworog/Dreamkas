@@ -6,6 +6,7 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
         rivets = require('kit/rivets/rivets'),
+        globalEvents = require('kit/globalEvents/globalEvents'),
         _ = require('lodash');
 
     require('sortable');
@@ -27,15 +28,9 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
-            block.initResources();
-            block.render();
-        },
-
-        helpers: {
-            formatMoney: require('kit/formatMoney/formatMoney'),
-            formatAmount: require('kit/formatAmount/formatAmount'),
-            formatDate: require('kit/formatDate/formatDate'),
-			formatTime: require('kit/formatTime/formatTime')
+            $.when(block.initData()).then(function() {
+                block.render();
+            });
         },
 
         formatMoney: require('kit/formatMoney/formatMoney'),
@@ -48,17 +43,21 @@ define(function(require, exports, module) {
 
             data && block.set(data);
 
+            if (typeof block.template !== 'function') {
+                return;
+            }
+
             block.removeBlocks();
 
-            if (typeof block.template === 'function') {
-                block.setElement($(block.template(block)).replaceAll(block.el));
-            }
+            block.bindings && block.bindings.unbind();
+
+            block.setElement($(block.template(block)).replaceAll(block.el));
 
             block.bindings = rivets.bind(block.el, block);
 
-            block.el.block = this;
-
             block.initBlocks();
+
+            block.el.block = this;
         },
 
         get: function() {
@@ -73,8 +72,10 @@ define(function(require, exports, module) {
             return set.apply(null, args);
         },
 
-        initResources: function(){
+        initData: function(data) {
             var block = this;
+
+            data && block.set(data);
 
             block.collections = _.transform(block.collections, function(result, collectionInitializer, key) {
                 result[key] = block.get('collections.' + key);
@@ -98,8 +99,9 @@ define(function(require, exports, module) {
             $blocks.each(function() {
                 var placeholder = this,
                     blockName = placeholder.getAttribute('block'),
-                    params = _.extend({}, placeholder.dataset, {el: placeholder}),
-                    __block = block.get('blocks.' + blockName, [params]);
+                    params = _.extend({}, placeholder.dataset, {el: placeholder});
+
+                var __block = block.get('blocks.' + blockName, [params]);
 
                 if (__block && __block.el) {
 
@@ -109,7 +111,7 @@ define(function(require, exports, module) {
 
                     block.__blocks[blockName].push(__block);
 
-                    if (!block.$(__block.el).length){
+                    if (!block.$(__block.el).length) {
                         __block.$el.replaceAll(placeholder);
                     }
                 }
@@ -119,7 +121,7 @@ define(function(require, exports, module) {
         fetch: function() {
             var block = this;
 
-            var dataList =  _.values(block.collections).concat(_.filter(block.models, function(model) {
+            var dataList = _.values(block.collections).concat(_.filter(block.models, function(model) {
                 return model && model.id;
             }));
 
@@ -130,12 +132,19 @@ define(function(require, exports, module) {
             return $.when.apply($, fetchList);
         },
 
+        unbind: function() {
+            var block = this;
+
+            block.stopListening();
+            block.undelegateEvents();
+            block.bindings && block.bindings.unbind();
+        },
+
         remove: function() {
             var block = this;
 
+            block.unbind();
             block.removeBlocks();
-
-            block.bindings && block.bindings.unbind();
 
             return View.prototype.remove.apply(block, arguments);
         },
@@ -154,6 +163,13 @@ define(function(require, exports, module) {
             });
 
             block.__blocks = {};
+        },
+        trigger: function(event, data){
+            var block = this;
+
+            View.prototype.trigger.apply(block, arguments);
+
+            globalEvents.trigger(event, data, block);
         }
     });
 });
