@@ -9,6 +9,7 @@ define(function(require) {
     return Block.extend({
 		value: '',
 		resetLink: false,
+        autofocus: false,
 		template: require('ejs!./template.ejs'),
 		events: {
 			'change input.form-control': function(e) {
@@ -38,10 +39,8 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-			PAGE.on('status:loaded', function() {
-				block.initEngine();
-				block.initTypeahead();
-			});
+            block.initEngine();
+            block.initTypeahead();
 
 			block.$el.on('typeahead:selected', function(e, item) {
 				block.$el.find('input.form-control').blur();
