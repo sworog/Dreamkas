@@ -5,12 +5,6 @@ define(function(require, exports, module) {
 	return Block.extend({
 		template: require('ejs!./template.ejs'),
 		events: {
-			'hide .inputDateRange input[name="dateFrom"]': function(e) {
-				this.findReceipts(e.currentTarget);
-			},
-			'hide .inputDateRange input[name="dateTo"]': function(e) {
-				this.findReceipts(e.currentTarget);
-			},
 			'click .receiptFinder__resultLink': function(e) {
 				e.preventDefault();
 
@@ -56,7 +50,17 @@ define(function(require, exports, module) {
 
 				return productAutocomplete;
 			},
-			inputDateRange: require('blocks/inputDateRange/inputDateRange'),
+			dateRangeInput: function(params) {
+				var block = this,
+					DateRangeInput = require('blocks/inputDateRange/inputDateRange'),
+					dateRangeInput = new DateRangeInput(params);
+
+				dateRangeInput.on('change:values', function(data) {
+					block.findReceipts(block.$el.find('.inputDateRange input'));
+				});
+
+				return dateRangeInput;
+			},
 			receiptFinder__results: function(params) {
 				var ReceiptFinderResults = require('./receiptFinder__results');
 
@@ -65,23 +69,18 @@ define(function(require, exports, module) {
 				return new ReceiptFinderResults(params);
 			}
 		},
-		findReceipts: function(input) {
-			var dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
-				dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val(),
+		findReceipts: function(inputs) {
+			var dateRangeInput = this.__blocks.dateRangeInput[0],
 				product;
-
-			if (!dateFrom || !dateTo) {
-				return;
-			}
 
 			if (this.models.product) {
 				product = this.models.product.get('id');
 			}
 
-			$(input).addClass('loading');
+			$(inputs).addClass('loading');
 
-			this.collections.receipts.find(dateFrom, dateTo, product).then(function() {
-				$(input).removeClass('loading');
+			this.collections.receipts.find(dateRangeInput.dateFrom, dateRangeInput.dateTo, product).then(function() {
+				$(inputs).removeClass('loading');
 			});
 		}
 	});
