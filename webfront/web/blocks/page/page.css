@@ -67,7 +67,8 @@
 .page_pos .row,
 .page_pos .productFinder,
 .page_pos .receipt,
-.page_pos .receiptFinder {
+.page_pos .receiptFinder,
+.page_pos .sale {
     height: 100%;
     position: relative;
 }

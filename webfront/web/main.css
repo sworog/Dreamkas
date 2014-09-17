@@ -23,6 +23,7 @@
 @import "/blocks/radioButton/radioButton.css";
 @import "/blocks/radioGroup/radioGroup.css";
 @import "/blocks/modal/modal.css";
+@import "/blocks/sale/sale.css";
 
 body:before {
     content: "";
@@ -210,7 +211,7 @@ table.table-vcenter > tbody > tr > td {
 }
 
 select.loading, input.loading {
-    background-color: #eee;
+    background-color: #eee !important;
 }
 
 .datepicker.dropdown-menu {

@@ -27,8 +27,7 @@ define(function(require, exports, module) {
 				var block = this,
 					product = this.models.product,
 					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
-					productAutocomplete,
-					input = block.$el.find('.autocomplete .form-control');
+					productAutocomplete;
 
 				params.resetLink = true;
 				if (product) {
@@ -40,11 +39,11 @@ define(function(require, exports, module) {
 					var Product = require('models/product/product');
 
 					block.models.product = new Product(product);
-					block.findReceipts(input);
+					block.findReceipts(block.$el.find('.autocomplete input.form-control'));
 				});
 				productAutocomplete.on('input:clear', function(e, product) {
 					block.models.product = null;
-					block.findReceipts(input);
+					block.findReceipts(block.$el.find('.autocomplete input.form-control'));
 				});
 
 				return productAutocomplete;

@@ -12,7 +12,7 @@ define(function(require, exports, module) {
         dateTo: null,
         endDate: null,
 		events: {
-			'keypress input': function(e) {
+			'keydown input': function(e) {
 				return false;
 			},
 			'keyup input': function(e) {
