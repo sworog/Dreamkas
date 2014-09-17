@@ -19,7 +19,7 @@ define(function(require, exports, module) {
             var block = this;
 
             deepExtend(block, params);
-
+            
             View.apply(block, arguments);
         },
 
