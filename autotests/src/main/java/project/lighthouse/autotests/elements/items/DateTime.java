@@ -167,4 +167,9 @@ public class DateTime extends CommonItem {
         int month = cal.get(Calendar.MONTH);
         return month + 1;
     }
+
+    @Override
+    public String getText() {
+        return getVisibleWebElementFacade().getValue();
+    }
 }

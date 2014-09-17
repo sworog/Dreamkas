@@ -20,4 +20,9 @@ public class InvoiceProductAutoComplete extends CommonItem {
             getPageObject().findVisibleElement(By.xpath("//*[contains(@class, 'tt-dataset')]//*[text()='" + value + "']")).click();
         }
     }
+
+    @Override
+    public String getText() {
+        return getVisibleWebElementFacade().getValue();
+    }
 }

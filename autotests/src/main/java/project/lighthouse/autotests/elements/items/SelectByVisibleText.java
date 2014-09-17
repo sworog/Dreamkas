@@ -27,4 +27,9 @@ public class SelectByVisibleText extends CommonItem {
     public void setValue(String label) {
         selectByVisibleText(label);
     }
+
+    @Override
+    public String getText() {
+        return getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
+    }
 }
