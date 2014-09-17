@@ -10,6 +10,14 @@ define(function(require, exports, module) {
 			},
 			'hide .inputDateRange input[name="dateTo"]': function(e) {
 				this.findReceipts(e.currentTarget);
+			},
+			'click .receiptFinder__resultLink': function(e) {
+				e.preventDefault();
+
+				var block = this;
+				var receipt = block.collections.receipts.get(e.currentTarget.dataset.receiptId);
+
+				block.trigger('click:receipt', receipt);
 			}
 		},
 		models: {

@@ -46,7 +46,8 @@ define(function(require, exports, module) {
 		blocks: {
 			receiptFinder: function(params)
 			{
-				var ReceiptFinder = require('blocks/receiptFinder/receiptFinder'),
+				var page = this,
+					ReceiptFinder = require('blocks/receiptFinder/receiptFinder'),
 					receiptFinder;
 
 				params.receipts = this.collections.receipts;
@@ -55,20 +56,15 @@ define(function(require, exports, module) {
 				}
 
 				receiptFinder = new ReceiptFinder(params);
+				receiptFinder.on('click:receipt', function(receipt) {
+					page.__blocks.sale[0].render({
+						model: receipt
+					});
+				});
 
 				return receiptFinder;
 			},
-			sale: function(params)
-			{
-				var Sale = require('blocks/sale/sale'),
-					sale;
-
-				//params.model =
-
-				sale = new Sale(params);
-
-				return sale;
-			}
+			sale: require('blocks/sale/sale')
 		}
     });
 });

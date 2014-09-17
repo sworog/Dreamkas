@@ -1,7 +1,9 @@
 <% if (model) { %>
 
 <div class="sale">
-	<span>Чек на сумму</span>
+	<span class="sale__title">Чек на сумму <%- helpers.formatAmount(model.get('sumTotal')) %></span>
+	<span role="button"
+		  class="sale__refundButton btn btn-primary btn-md">Возврат</span>
 </div>
 
 <% } else { %>
