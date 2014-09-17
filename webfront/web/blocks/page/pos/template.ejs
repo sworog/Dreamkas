@@ -1,52 +1,38 @@
-<div class="page page_pos page_posPart <%- (isSidebarVisible() ? 'page_posPartVisibleSidebar' : '') %>">
-	<nav id="sidebar" role="navigation" class="navbar-default navbar-static-side" style="min-height: 100%">
+<div class="page page_pos">
 
-		<nav id="topbar" role="navigation" style="margin-bottom: 0;">
-			<div class="navbar-header">
-				<a id="logo" href="/" class="navbar-brand">
-					<span style="font-size: 22px;" class="logo-text">LightHOUSE</span>
-				</a>
-			</div>
-		</nav>
+    <nav class="sideBar">
+        <a href="/pos/stores/<%- params.storeId %>" class="sideBar__logo">
+            DREAMKAS
+        </a>
 
-		<div class="sidebar-collapse menu-scroll">
-			<ul id="side-menu" class="nav">
+        <a href="/pos/stores/<%- params.storeId %>"
+           class="sideBar__item <%- activeNavigationItem === 'store' ? 'sideBar__item_active' : '' %>">
+            <i class="fa fa-shopping-cart fa-fw"></i>
+            Касса
+        </a>
 
-				<li></li>
-				<li class="<%- activeNavigationItem === 'store' && 'active' %>">
-					<a href="/pos/stores/<%- params.storeId %>">
-						<i class="fa fa-shopping-cart fa-fw"></i>
-						<span class="menu-title">Касса</span>
-					</a>
-				</li>
+        <a href="/pos/stores/<%- params.storeId %>/sales"
+           class="sideBar__item <%- activeNavigationItem === 'sales' ? 'sideBar__item_active' : '' %>">
+            <i class="fa fa-exchange fa-fw"></i>
+            История продаж
+        </a>
 
-				<li class="<%- activeNavigationItem === 'sales' && 'active' %>">
-					<a href="/pos/stores/<%- params.storeId %>/sales">
-						<i class="fa fa-exchange fa-fw"></i>
-						<span class="menu-title">История продаж</span>
-					</a>
-				</li>
+        <a href="/pos"
+           class="sideBar__item">
+            Сменить магазин
+        </a>
+    </nav>
 
-				<li class="<%- activeNavigationItem === 'pos' && 'active' %>">
-					<a href="/pos">
-						<span class="menu-title">Сменить магазин</span>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	<div id="page-wrapper">
-		<div class="page__head">
-			<div class="page__title">
-				<i class="page_pos__PartSidebarIcon fa fa-bars" style="font-size: 25px; margin-right: 10px;"></i>
-					<%- models.store.get('name') + ': ' + title %>
-			</div>
-		</div>
+    <div class="page__head">
+        <div class="page__title">
+            <a class="page__sideBarLink fa fa-bars"></a>
+            <%- models.store.get('name') + ': ' + title %>
+        </div>
+    </div>
 
-		<div class="page__content">
-			<div class="row">
-				<%= content(obj) %>
-			</div>
-		</div>
+    <div class="page__content">
+        <div class="row">
+            <%= content(obj) %>
+        </div>
     </div>
 </div>

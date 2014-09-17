@@ -1,9 +1,15 @@
+.page {
+    min-height: 100%;
+    position: relative;
+}
+
 .page__head {
     padding: 10px 30px;
     background: #ffffff;
     -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
-    clear: both;
+    position: relative;
+    z-index: 20;
 }
 
 .page__headControls {
@@ -17,6 +23,9 @@
 
 .page__content {
     padding: 20px 30px 50px;
+    position: relative;
+    background-color: #f0f2f5;
+    z-index: 10;
 }
 
 .page__panel {
@@ -24,35 +33,29 @@
     padding: 15px;
 }
 
+.page__sideBarLink {
+    font-size: 25px;
+    margin-right: 10px;
+}
 
 /*-------------------- page pos -----------------------*/
 
 .page_pos {
     height: 100%;
+    transition: transform .2s;
 }
 
-.page_pos .nav > li {
-    white-space: nowrap;
+.page_pos.page_sideBarVisible {
+    transform: translate3d(250px, 0, 0);
 }
 
-.page_pos__PartSidebarIcon {
-    cursor: pointer;
-}
-.page_posPart #sidebar {
-    overflow: hidden;
-}
-
-.page_posPart:not(.page_posPartVisibleSidebar) #sidebar {
-    width: 0;
-}
-
-.page_posPart:not(.page_posPartVisibleSidebar) #page-wrapper {
-    margin: 0 !important;
+.page_pos .sideBar {
+    left: -250px;
 }
 
 .page_pos .page__content {
     position: absolute;
-    top: 60px;
+    top: 55px;
     bottom: 0;
     left: 0;
     width: 100%;
