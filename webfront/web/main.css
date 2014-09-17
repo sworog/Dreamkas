@@ -253,3 +253,7 @@ select.loading, input.loading {
 .modal.fade .modal-dialog{
     transform: none !important;
 }
+
+.twitter-typeahead{
+    width: 100%;
+}

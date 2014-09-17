@@ -105,7 +105,7 @@ define(function(require, exports, module) {
         blocks: {
             autocomplete_products: function(){
                 var block = this,
-                    Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
+                    Autocomplete_products = require('blocks/autocomplete/autocomplete_products/deprecated'),
                     autocomplete_products = new Autocomplete_products({
                         el: block.$('.autocomplete_products')
                     });
