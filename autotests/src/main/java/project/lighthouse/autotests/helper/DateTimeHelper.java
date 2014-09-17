@@ -94,6 +94,10 @@ public class DateTimeHelper {
                     String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
                     int numberOfDay = Integer.parseInt(replacedValue);
                     return getTodayDate(ISO_8601, numberOfDay);
+                } else if (value.contains("todayDate-")) {
+                    String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
+                    int numberOfDay = Integer.parseInt(replacedValue);
+                    return getTodayDate(DATE_PATTERN_REVERT, numberOfDay);
                 }
                 return value;
         }
