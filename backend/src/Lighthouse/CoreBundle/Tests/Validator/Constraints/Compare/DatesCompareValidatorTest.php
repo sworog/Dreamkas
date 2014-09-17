@@ -2,38 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Compare;
 
-use DateTime;
-use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Tests\Validator\Constraints\CompareObjectFixture;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompare;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\DatesCompareValidator;
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use DateTime;
 
-class DatesCompareValidatorTest extends TestCase
+class DatesCompareValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContext|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var DatesCompareValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $this->validator = new DatesCompareValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     /**
      * @dataProvider validValuesProvider
      * @param DateTime $orderDate
@@ -41,12 +17,8 @@ class DatesCompareValidatorTest extends TestCase
      */
     public function testValidValues(DateTime $orderDate = null, DateTime $createdDate = null)
     {
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
-        $this->doValidate($orderDate, $createdDate);
+        $violations = $this->doValidate($orderDate, $createdDate);
+        $this->assertCount(0, $violations);
     }
 
     /**
@@ -85,12 +57,8 @@ class DatesCompareValidatorTest extends TestCase
      */
     public function testInvalidValues(DateTime $orderDate, DateTime $createdDate)
     {
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolationAt');
-
-        $this->doValidate($orderDate, $createdDate);
+        $violations = $this->doValidate($orderDate, $createdDate);
+        $this->assertCount(1, $violations);
     }
 
     /**
@@ -125,7 +93,7 @@ class DatesCompareValidatorTest extends TestCase
         );
         $constraint = new DatesCompare($options);
 
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 
     public function unexpectedValueTypeProvider()
@@ -188,6 +156,7 @@ class DatesCompareValidatorTest extends TestCase
     /**
      * @param \DateTime $orderDate
      * @param \DateTime $createdDate
+     * @return ConstraintViolationListInterface
      */
     protected function doValidate($orderDate = null, $createdDate = null)
     {
@@ -202,6 +171,6 @@ class DatesCompareValidatorTest extends TestCase
         $value->orderDate = $orderDate;
         $value->createdDate = $createdDate;
 
-        $this->validator->validate($value, $constraint);
+        return $this->getValidator()->validate($value, $constraint, null);
     }
 }

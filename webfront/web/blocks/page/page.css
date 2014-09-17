@@ -35,24 +35,19 @@
     white-space: nowrap;
 }
 
-.page_posPartHiddenSidebar #page-wrapper {
-    height: 100%;
-}
-
 .page_pos__PartSidebarIcon {
     cursor: pointer;
 }
-
-.page_posPartHiddenSidebar #page-wrapper {
-    margin: 0 !important;
-}
-
 .page_posPart #sidebar {
     overflow: hidden;
 }
 
-.page_posPartHiddenSidebar #sidebar {
+.page_posPart:not(.page_posPartVisibleSidebar) #sidebar {
     width: 0;
+}
+
+.page_posPart:not(.page_posPartVisibleSidebar) #page-wrapper {
+    margin: 0 !important;
 }
 
 .page_pos .page__content {
@@ -67,7 +62,8 @@
 .page_pos .row,
 .page_pos .productFinder,
 .page_pos .receipt,
-.page_pos .receiptFinder {
+.page_pos .receiptFinder,
+.page_pos .sale {
     height: 100%;
     position: relative;
 }

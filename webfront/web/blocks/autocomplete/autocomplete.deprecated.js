@@ -1,38 +1,13 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block/block'),
+    var Block = require('kit/block/block.deprecated'),
         config = require('config'),
         cookies = require('cookies');
 
     require('typeahead');
 
     return Block.extend({
-		value: '',
-		resetLink: false,
-        autofocus: false,
-		template: require('ejs!./template.ejs'),
-		events: {
-			'change input.form-control': function(e) {
-				if ($(e.currentTarget).val() == '')
-				{
-					this.trigger('input:clear');
-				}
-			},
-			'click .autocomplete__resetButton': function(e) {
-				e.preventDefault();
-
-				var block = this;
-
-				block.$el.find('input.form-control')
-					.typeahead('val', '')
-					.focus();
-
-				this.trigger('input:clear');
-			},
-			'keyup input.form-control': function(e) {
-				e.stopPropagation();
-			}
-		},
+        el: '.autocomplete',
         remoteUrl: null,
         initialize: function() {
             var block = this;
@@ -41,11 +16,7 @@ define(function(require) {
 
             block.initEngine();
             block.initTypeahead();
-
-			block.$el.on('typeahead:selected', function(e, item) {
-				block.$el.find('input.form-control').blur();
-			});
-		},
+        },
         initEngine: function() {
             var block = this;
 
@@ -64,22 +35,24 @@ define(function(require) {
             });
 
             block.engine.initialize();
+
         },
         initTypeahead: function() {
             var block = this;
 
-           	block.$el.find('input').typeahead({
-				highlight: true,
-				minLength: 3
-			},
-			{
-				source: block.engine.ttAdapter()
-			});
+            block.$el.typeahead({
+                    highlight: true,
+                    minLength: 3
+                },
+                {
+                    source: block.engine.ttAdapter()
+                });
+
         },
         remove: function() {
             var block = this;
 
-            block.$el.find('input.form-control').typeahead('destroy');
+            block.$el.typeahead('destroy');
 
             Block.prototype.remove.apply(block, arguments);
         }

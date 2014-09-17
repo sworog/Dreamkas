@@ -2,36 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\NotFloat;
-use Lighthouse\CoreBundle\Validator\Constraints\NotFloatValidator;
-use Symfony\Component\Validator\ExecutionContextInterface;
 
-class NotFloatValidatorTest extends TestCase
+class NotFloatValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var NotFloatValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $this->validator = new NotFloatValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     /**
      * @dataProvider validationFailedProvider
      * @param $value
@@ -39,15 +13,17 @@ class NotFloatValidatorTest extends TestCase
     public function testValidationFailed($value)
     {
         $constraint = new NotFloat();
-        $this->context
-             ->expects($this->once())
-             ->method('addViolation')
-             ->with(
-                 $this->equalTo('lighthouse.validation.errors.not_float.invalid'),
-                 $this->equalTo(array('{{ value }}' => $value))
-             );
 
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+
+        $this->assertCount(1, $violations);
+        $this->assertTrue($violations->has(0));
+        $violation = $violations->get(0);
+        $this->assertEquals('lighthouse.validation.errors.not_float.invalid', $violation->getMessageTemplate());
+
+        $parameters = $violation->getMessageParameters();
+        $this->assertArrayHasKey('{{ value }}', $parameters);
+        $this->assertEquals($value, $parameters['{{ value }}']);
     }
 
     /**
@@ -69,11 +45,9 @@ class NotFloatValidatorTest extends TestCase
     public function testValidationPassed($value)
     {
         $constraint = new NotFloat();
-        $this->context
-            ->expects($this->never())
-            ->method('addViolation');
 
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     public function validationPassedProvider()

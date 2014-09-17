@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.pos;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -18,6 +19,11 @@ public class PosUserSteps {
     @Given("пользователь открывает страницу кассы магазина с названием '$storeName'")
     public void givenUserOpenStorePosPageWithName(String storeName) {
         posSteps.navigateToPosPage(storeName);
+    }
+
+    @Given("пользователь открывает страницу запуска кассы")
+    public void givenUserOpenPosLaunchPage() {
+        posSteps.openPosLaunchPage();
     }
 
     @When("пользователь нажимает на кнопку Далее на странице выбора кассы")
@@ -58,6 +64,27 @@ public class PosUserSteps {
     @When("пользователь нажимает на кнопку продолжить работу")
     public void whenUserClicksOnContinueWorkButton() {
         posSteps.clickOnContinueButton();
+    }
+
+    @When("пользователь нажимает на кнопку чтобы скрыть боковое меню навигации кассы")
+    @Alias("пользователь нажимает на кнопку чтобы показать боковое меню навигации кассы")
+    public void whenTheUserInteractsWithCashRegistrySideMenuButton() {
+        posSteps.clickOnSideMenuInteractionButton();
+    }
+
+    @When("пользователь нажимает на ссылку с названием История продаж в боковом меню кассы")
+    public void whenUserClickOnSaleHistorySideMenuLink() {
+        posSteps.clickOnSaleHistorySideMenuLink();
+    }
+
+    @When("пользователь нажимает на ссылку с названием 'Сменить магазин' в боковом меню кассы")
+    public void whenUserСlickOnChangeStoreSideMenuLink() {
+        posSteps.clickOnChangeStoreSideMenuLink();
+    }
+
+    @Then("пользователь проверяет, что ссылка с названием 'Касса' активна (выбрана) в боковом меню навигации кассы")
+    public void thenUserAssertCashRegistrySideMenuLinkIsActive() {
+        posSteps.assertCashRegistrySideMenuLinkIsActive();
     }
 
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")

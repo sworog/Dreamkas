@@ -14,11 +14,11 @@ class ReferenceValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if ($value instanceof NullObjectInterface) {
-            $this->context->addViolation(
-                $constraint->message,
-                array(),
-                $value->getNullObjectIdentifier()
-            );
+            $this->context
+                ->buildViolation($constraint->message)
+                    ->setInvalidValue($value->getNullObjectIdentifier())
+                ->addViolation()
+            ;
         }
     }
 }

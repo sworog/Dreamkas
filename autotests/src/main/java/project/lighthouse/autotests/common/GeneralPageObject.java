@@ -15,4 +15,8 @@ public interface GeneralPageObject {
     public void checkItemErrorMessage(String elementName, String errorMessage);
 
     public String getTitle();
+
+    public void elementShouldBeVisible(String elementName);
+
+    public void elementShouldBeNotVisible(String elementName);
 }

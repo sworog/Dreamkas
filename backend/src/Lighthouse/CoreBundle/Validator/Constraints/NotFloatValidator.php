@@ -17,12 +17,11 @@ class NotFloatValidator extends ConstraintValidator
         }
 
         if ((string) (int) $value !== (string) $value) {
-            $this->context->addViolation(
-                $constraint->invalidMessage,
-                array(
-                    '{{ value }}' => $value,
-                )
-            );
+            $this->context
+                ->buildViolation($constraint->invalidMessage)
+                    ->setParameter('{{ value }}', $value)
+                ->addViolation()
+            ;
         }
     }
 }

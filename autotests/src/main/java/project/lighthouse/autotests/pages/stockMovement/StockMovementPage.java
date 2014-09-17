@@ -6,7 +6,7 @@ import project.lighthouse.autotests.common.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DropdownBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
-import project.lighthouse.autotests.elements.items.Input;
+import project.lighthouse.autotests.elements.items.JSInput;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementListObjectCollection;
 
@@ -41,8 +41,8 @@ public class StockMovementPage extends BootstrapPageObject {
     @Override
     public void createElements() {
         put("types", new SelectByVisibleText(this, "types"));
-        put("dateFrom", new Input(this, "dateFrom"));
-        put("dateTo", new Input(this, "dateTo"));
+        put("dateFrom", new JSInput(this, "dateFrom"));
+        put("dateTo", new JSInput(this, "dateTo"));
     }
 
     public StockMovementListObjectCollection getStockMovementObjectCollection() {

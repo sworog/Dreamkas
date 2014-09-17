@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.common;
 
-import junit.framework.Assert;
 import net.thucydides.core.pages.PageObject;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
@@ -138,11 +137,11 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         return getWaiter().visibilityOfElementLocated(findBy);
     }
 
+    public void elementShouldBeVisible(String elementName) {
+        getItems().get(elementName).shouldBeVisible();
+    }
+
     public void elementShouldBeNotVisible(String elementName) {
-        CommonItem commonItem = getItems().get(elementName);
-        if (!invisibilityOfElementLocated(commonItem.getFindBy())) {
-            String message = String.format("Element with name '%s' is visible, but shouldnt not be visible", elementName);
-            Assert.fail(message);
-        }
+        getItems().get(elementName).shouldBeNotVisible();
     }
 }

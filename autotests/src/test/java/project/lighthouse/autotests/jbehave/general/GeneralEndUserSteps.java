@@ -50,4 +50,14 @@ public class GeneralEndUserSteps {
     public void thenUserAssertsTheModalWindowTitle(String title) {
         generalSteps.assertTitle(title);
     }
+
+    @Then("пользователь* проверяет, что элемент с именем '$elementName' должен быть видимым")
+    public void thenUserChecksTheElementWithNameShouldBeVisible(String elementName) {
+        generalSteps.elementShouldBeVisible(elementName);
+    }
+
+    @Then("пользователь* проверяет, что элемент с именем '$elementName' должен быть невидимым")
+    public void thenUserChecksTheElementWithNameShouldBeNotVisible(String elementName) {
+        generalSteps.elementShouldBeNotVisible(elementName);
+    }
 }

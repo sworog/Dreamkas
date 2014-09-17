@@ -2,37 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\Test\TestCase;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\Range;
-use Lighthouse\CoreBundle\Validator\Constraints\Range\RangeValidator;
-use Symfony\Component\Validator\ExecutionContextInterface;
 use stdClass;
 
-class RangeValidatorTest extends TestCase
+class RangeValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var RangeValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $this->validator = new RangeValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     /**
      * @dataProvider validValuesProvider
      * @param $options
@@ -40,13 +15,9 @@ class RangeValidatorTest extends TestCase
      */
     public function testValidValues(array $options, $value = null)
     {
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolation');
-
         $constraint = new Range($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     /**
@@ -131,24 +102,17 @@ class RangeValidatorTest extends TestCase
      * @param array $options
      * @param int|float $value
      * @param int|float $limit
-     * @param string $message
+     * @param string $expectedMessage
      */
-    public function testValidationFail($options, $value, $limit, $message)
+    public function testValidationFail($options, $value, $limit, $expectedMessage)
     {
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolation')
-            ->with(
-                $message,
-                array(
-                    '{{ value }}' => $value,
-                    '{{ limit }}' => $limit
-                )
-            );
-
         $constraint = new Range($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
+        $violation = $violations->get(0);
+        $this->assertEquals($expectedMessage, $violation->getMessageTemplate());
+        $this->assertConstraintViolationParameterEquals($value, '{{ value }}', $violation);
+        $this->assertConstraintViolationParameterEquals($limit, '{{ limit }}', $violation);
     }
 
     /**
@@ -209,19 +173,11 @@ class RangeValidatorTest extends TestCase
      */
     public function testNotNumericValue(array $options, $value)
     {
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolation')
-            ->with(
-                'lighthouse.validation.errors.range.invalid',
-                array(
-                    '{{ value }}' => $value,
-                )
-            );
-
         $constraint = new Range($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
+        $violation = $violations->get(0);
+        $this->assertEquals('lighthouse.validation.errors.range.invalid', $violation->getMessageTemplate());
     }
 
     /**
@@ -269,7 +225,7 @@ class RangeValidatorTest extends TestCase
     {
         $constraint = new Range($options);
 
-        $this->validator->validate(1, $constraint);
+        $this->getValidator()->validate(1, $constraint, null);
     }
 
     /**
