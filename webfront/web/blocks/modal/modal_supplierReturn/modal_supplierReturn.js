@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Modal = require('blocks/modal/modal');
+    var Modal = require('blocks/modal/modal.deprecated');
 
     return Modal.extend({
         template: require('ejs!./modal_supplierReturn.ejs'),
