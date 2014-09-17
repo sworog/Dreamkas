@@ -1,13 +1,13 @@
 define(function(require, exports, module) {
     //requirements
-    var PosPart = require('pages/pos/part/part');
+    var Page_pos = require('blocks/page/pos/pos');
 
-    return PosPart.extend({
+    return Page_pos.extend({
 		title: 'История продаж',
         content: require('ejs!./content.ejs'),
 		activeNavigationItem: 'sales',
 		models: {
-			store: PosPart.prototype.models.store,
+			store: Page_pos.prototype.models.store,
 			product: function() {
 				var Product = require('models/product/product'),
 					product;

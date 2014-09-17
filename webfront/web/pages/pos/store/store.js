@@ -1,9 +1,9 @@
 define(function(require, exports, module) {
     //requirements
-    var PosPart = require('pages/pos/part/part'),
+    var Page_pos = require('blocks/page/pos/pos'),
         cookies = require('cookies');
 
-    return PosPart.extend({
+    return Page_pos.extend({
 		title: 'Касса',
         content: require('ejs!./content.ejs'),
 		activeNavigationItem: 'store',
@@ -12,7 +12,7 @@ define(function(require, exports, module) {
 
             cookies.set('posStoreId', page.params.storeId);
 
-            PosPart.prototype.initialize.apply(page, arguments);
+            Page_pos.prototype.initialize.apply(page, arguments);
         },
         models: {
             receipt: require('models/receipt/receipt')

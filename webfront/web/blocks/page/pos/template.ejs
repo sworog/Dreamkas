@@ -1,4 +1,4 @@
-<div class="page page_pos page_posPart <%= (isSidebarVisible() ? 'page_posPartVisibleSidebar' : '') %>">
+<div class="page page_pos page_posPart <%- (isSidebarVisible() ? 'page_posPartVisibleSidebar' : '') %>">
 	<nav id="sidebar" role="navigation" class="navbar-default navbar-static-side" style="min-height: 100%">
 
 		<nav id="topbar" role="navigation" style="margin-bottom: 0;">
@@ -13,21 +13,21 @@
 			<ul id="side-menu" class="nav">
 
 				<li></li>
-				<li class="<%- activeNavigationItem === 'store' ? 'active' : '' %>">
+				<li class="<%- activeNavigationItem === 'store' && 'active' %>">
 					<a href="/pos/stores/<%- params.storeId %>">
 						<i class="fa fa-shopping-cart fa-fw"></i>
 						<span class="menu-title">Касса</span>
 					</a>
 				</li>
 
-				<li class="<%- activeNavigationItem === 'sales' ? 'active' : '' %>">
+				<li class="<%- activeNavigationItem === 'sales' && 'active' %>">
 					<a href="/pos/stores/<%- params.storeId %>/sales">
 						<i class="fa fa-exchange fa-fw"></i>
 						<span class="menu-title">История продаж</span>
 					</a>
 				</li>
 
-				<li class="<%- activeNavigationItem === 'pos' ? 'active' : '' %>">
+				<li class="<%- activeNavigationItem === 'pos' && 'active' %>">
 					<a href="/pos">
 						<span class="menu-title">Сменить магазин</span>
 					</a>
