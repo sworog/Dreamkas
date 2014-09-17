@@ -1,9 +1,21 @@
 <% if (model) { %>
 
 <div class="sale">
-	<span class="sale__title">Чек на сумму <%- helpers.formatAmount(model.get('sumTotal')) %></span>
+	<div class="sale__header">
+	<span class="sale__title">Чек на сумму <%- formatAmount(model.get('sumTotal')) %> <i class="fa fa-rub"></i></span>
 	<span role="button"
 		  class="sale__refundButton btn btn-primary btn-md">Возврат</span>
+	</div>
+	<div class="sale__info">
+		<div>
+			<%= model.get('payment.type') == 'cash' ?
+				'<i class="fa fa-money"></i>Наличные' :
+				'<i class="fa fa-credit-card"></i>Банковская карта' %>
+		</div>
+		<div>
+			<i class="fa fa-clock-o"></i><%= formatDateTime(model.get('date')) %>
+		</div>
+	</div>
 </div>
 
 <% } else { %>

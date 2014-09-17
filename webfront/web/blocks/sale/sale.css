@@ -2,11 +2,30 @@
     background: #fff;
 }
 
+.sale__header {
+    padding: 24px 32px;
+    border-bottom: 1px solid #eee;
+}
+
 .sale__title {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
 }
 
-.sale__refundButton {
+.btn.sale__refundButton {
     float: right;
+    padding: 6px 42px;
+}
+
+.sale__info {
+    font-size: 15px;
+    padding: 24px 24px 24px 40px;
+}
+
+.sale__info > div {
+    padding-bottom: 10px;
+}
+
+.sale__info > div .fa {
+    margin-right: 14px;
 }
