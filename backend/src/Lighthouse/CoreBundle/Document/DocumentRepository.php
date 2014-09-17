@@ -145,18 +145,7 @@ class DocumentRepository extends BaseRepository
      */
     protected function aggregate(array $ops, $timeout = -1)
     {
-        if (null !== $timeout) {
-            $backupTimeout = MongoCursor::$timeout;
-            MongoCursor::$timeout = $timeout;
-        }
-
-        $result = $this->getDocumentCollection()->aggregate($ops);
-
-        if (isset($backupTimeout)) {
-            MongoCursor::$timeout = $backupTimeout;
-        }
-
-        return $result;
+        return $this->getDocumentCollection()->aggregate($ops, array('timeout' => $timeout));
     }
 
     /**
