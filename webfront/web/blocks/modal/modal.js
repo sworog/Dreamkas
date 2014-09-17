@@ -32,6 +32,13 @@ define(function(require, exports, module) {
                 block.hide();
             }
         },
+        render: function(){
+            var block = this;
+
+            Block.prototype.render.apply(block, arguments);
+
+            block.$el.appendTo('.page');
+        },
         show: function(data) {
             var block = this;
 
