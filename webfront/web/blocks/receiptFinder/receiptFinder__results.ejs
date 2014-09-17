@@ -5,18 +5,18 @@
 		<% var prevTime = 0; %>
         <% collection.forEach(function(receipt){ %>
 
-			<% time = receipt.get('date'); %>
+			<% var time = receipt.get('date'); %>
 			<% if (isDifferentDates(prevTime, time)) { %>
 				<% prevTime = time; %>
 
-				<div class="receiptFinder__resultsDate"><%- helpers.formatDate(time, { format: 'dddd, DD MMMM' }) %></div>
+				<div class="receiptFinder__resultsDate"><%- formatDate(time, { format: 'dddd, DD MMMM' }) %></div>
 				<% } %>
 
 			<button data-receipt-id="<%- receipt.id %>"
 			   name="receipt"
 			   class="receiptFinder__resultLink list-group-item">
-				<span name="price" class="receiptFinder__resultLinkAmount"><%= helpers.formatAmount(receipt.get('sumTotal')) %> <i class="fa fa-rub"></i></span>
-				<span name="time" class="receiptFinder__resultLinkTime"><%= helpers.formatTime(time) %></span>
+				<span name="price" class="receiptFinder__resultLinkAmount"><%= formatAmount(receipt.get('sumTotal')) %> <i class="fa fa-rub"></i></span>
+				<span name="time" class="receiptFinder__resultLinkTime"><%= formatTime(time) %></span>
 			</button>
 
         <% }) %>
