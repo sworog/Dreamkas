@@ -14,6 +14,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/munkie/ProfilerBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/crystalservice/mongodb"
         }
     ],
     "require": {
@@ -35,6 +39,7 @@
         "nelmio/api-doc-bundle": "~2.3",
         "doctrine/mongodb-odm-bundle": "~3.0@beta",
         "doctrine/mongodb-odm": "~1.0@beta",
+        "doctrine/mongodb": "dev-aggregate-timeout as 1.1.7",
         "doctrine/data-fixtures": "~1.0",
         "ekino/newrelic-bundle": "~1.0",
         "leezy/pheanstalk-bundle": "~2.1",
