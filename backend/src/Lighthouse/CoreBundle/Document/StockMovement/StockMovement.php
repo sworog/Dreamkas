@@ -80,6 +80,11 @@ abstract class StockMovement extends AbstractDocument implements Storeable
     protected $itemsCount;
 
     /**
+     * @Assert\Valid(traverse=true)
+     * @Assert\Count(
+     *      min=1,
+     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
+     * )
      * @var Collection|PersistentCollection|StockMovementProduct[]
      */
     protected $products;
@@ -118,7 +123,7 @@ abstract class StockMovement extends AbstractDocument implements Storeable
         }
 
         foreach ($this->products as $product) {
-            $product->setReasonParent($this);
+            $product->parent = $this;
         }
     }
 
@@ -140,7 +145,7 @@ abstract class StockMovement extends AbstractDocument implements Storeable
     public function setProducts($products)
     {
         foreach ($products as $product) {
-            $product->setReasonParent($this);
+            $product->parent = $this;
         }
 
         $this->products = $products;

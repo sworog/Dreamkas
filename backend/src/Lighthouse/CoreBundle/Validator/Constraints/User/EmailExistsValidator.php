@@ -41,13 +41,11 @@ class EmailExistsValidator extends ConstraintValidator
 
         $user = $this->userRepository->findOneByEmail($value);
         if (!$user) {
-            $this->context->addViolation(
-                $constraint->message,
-                array(
-                    '{{ email }}' => $value,
-                ),
-                $value
-            );
+            $this->context
+                ->buildViolation($constraint->message)
+                    ->setParameter('{{ email }}', $value)
+                ->addViolation()
+            ;
         }
     }
 }

@@ -2,38 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Compare;
 
-use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Tests\Validator\Constraints\CompareObjectFixture;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompare;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\MoneyCompareValidator;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class MoneyCompareValidatorTest extends TestCase
+class MoneyCompareValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var MoneyCompareValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $this->validator = new MoneyCompareValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     /**
      * @dataProvider invalidFieldValueProvider
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
@@ -62,6 +38,7 @@ class MoneyCompareValidatorTest extends TestCase
     /**
      * @param $minValue
      * @param $maxValue
+     * @return ConstraintViolationListInterface
      */
     protected function doValidate($minValue, $maxValue)
     {
@@ -76,6 +53,6 @@ class MoneyCompareValidatorTest extends TestCase
         $object->fieldMin = $minValue;
         $object->fieldMax = $maxValue;
 
-        $this->validator->validate($object, $constraint);
+        return $this->getValidator()->validate($object, $constraint, null);
     }
 }

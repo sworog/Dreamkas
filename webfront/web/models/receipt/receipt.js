@@ -14,7 +14,10 @@ define(function(require, exports, module) {
             payment: {
                 type: 'cash',
                 amountTendered: null
-            }
+            },
+			amount: function() {
+				return this.amount();
+			}
         },
         saveData: function(){
 

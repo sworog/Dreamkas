@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -28,30 +27,13 @@ class WriteOff extends StockMovement
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="parent"
-     * )
-     * @Assert\Valid(traverse=true)
-     * @Assert\Count(
-     *      min=1,
-     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
      * )
      * @Serializer\MaxDepth(4)
      * @var WriteOffProduct[]|Collection
      */
     protected $products;
-
-    /**
-     * @param WriteOffProduct[] $products
-     */
-    public function setProducts($products)
-    {
-        foreach ($products as $product) {
-            $product->setReasonParent($this);
-        }
-
-        $this->products = $products;
-    }
 }

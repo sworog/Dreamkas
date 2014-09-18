@@ -10,10 +10,10 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
-use Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
@@ -28,7 +28,7 @@ use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Stopwatch\StopwatchPeriod;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
 use Exception;
@@ -409,7 +409,7 @@ class SalesImporter
 
     /**
      * @param PositionElement $positionElement
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct
+     * @return \Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct
      */
     public function createSaleProduct(PositionElement $positionElement)
     {
@@ -423,7 +423,7 @@ class SalesImporter
 
     /**
      * @param PositionElement $positionElement
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct
+     * @return \Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct
      */
     public function createReturnProduct(PositionElement $positionElement)
     {

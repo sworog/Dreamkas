@@ -5,7 +5,7 @@ namespace Lighthouse\IntegrationBundle\OneC\Import\Invoices;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -268,7 +268,7 @@ class InvoicesImporter
     /**
      * @param array $row
      * @param Invoice $invoice
-     * @return InvoiceProduct|null
+     * @return \Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct|null
      */
     protected function createInvoiceProduct(array $row, Invoice $invoice)
     {

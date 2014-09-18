@@ -3,9 +3,9 @@
 namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
@@ -46,7 +46,7 @@ class CostOfGoodsTest extends WebTestCase
             $prevEndIndex = '0.000';
             $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
-                InvoiceProduct::REASON_TYPE
+                InvoiceProduct::TYPE
             );
             foreach ($trailBalances as $trailBalance) {
                 $this->assertInstanceOf(Quantity::getClassName(), $trailBalance->startIndex);
@@ -106,7 +106,7 @@ class CostOfGoodsTest extends WebTestCase
             $prevEndIndex = '0.000';
             $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
-                SaleProduct::REASON_TYPE
+                SaleProduct::TYPE
             );
             $this->assertEquals($countAssertions[$productId], $trailBalances->count(true));
             foreach ($trailBalances as $trailBalance) {
@@ -138,7 +138,7 @@ class CostOfGoodsTest extends WebTestCase
         $prevEndIndex = '0.000';
         $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
             $storeProductId,
-            SaleProduct::REASON_TYPE
+            SaleProduct::TYPE
         );
         $this->assertEquals(3, $trailBalances->count(true));
         foreach ($trailBalances as $trailBalance) {
@@ -180,7 +180,7 @@ class CostOfGoodsTest extends WebTestCase
         $endIndex = $this->getNumericFactory()->createQuantity($end);
 
         $cursor = $this->getTrialBalanceRepository()->findByIndexRange(
-            InvoiceProduct::REASON_TYPE,
+            InvoiceProduct::TYPE,
             $storeProductId,
             $startIndex,
             $endIndex
@@ -191,7 +191,7 @@ class CostOfGoodsTest extends WebTestCase
             $trialBalance = $cursor->getNext();
             $this->assertNotNull($trialBalance);
             /* @var Invoice $invoice */
-            $invoice = $trialBalance->reason->getReasonParent();
+            $invoice = $trialBalance->reason->parent;
             $this->assertEquals($expectedSku, $invoice->number);
         }
     }
@@ -764,7 +764,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->assertStoreProductTrialBalance(
             $storeProductId,
-            InvoiceProduct::REASON_TYPE,
+            InvoiceProduct::TYPE,
             array(
                 array(
                     'reasonId' => $invoice1->products[0]->id,
@@ -803,7 +803,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $trialBalanceSaleProduct1 = $this->getTrialBalanceRepository()
-            ->findOneByReasonTypeReasonId($sale1->products[0]->id, SaleProduct::REASON_TYPE);
+            ->findOneByReasonTypeReasonId($sale1->products[0]->id, SaleProduct::TYPE);
         $this->assertEquals(700, $trialBalanceSaleProduct1->costOfGoods->toNumber());
 
         $this->factory()
@@ -843,18 +843,18 @@ class CostOfGoodsTest extends WebTestCase
         foreach ($expectations as $expected) {
             /* @var TrialBalance $trialBalance */
             $trialBalance = $trialBalances->getNext();
-            $this->assertEquals($expected['reasonId'], $trialBalance->reason->getReasonId());
+            $this->assertEquals($expected['reasonId'], $trialBalance->reason->id);
             $this->assertEquals($expected['status'], $trialBalance->processingStatus, 'Status does not match');
         }
     }
 
     /**
-     * @param SaleProduct $saleProduct
+     * @param \Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct $saleProduct
      * @param string $expectedCostOfGood
      */
     protected function assertCostOfGood(SaleProduct $saleProduct, $expectedCostOfGood)
     {
-        $trialBalance = $this->getTrialBalanceRepository()->findOneByReason($saleProduct);
+        $trialBalance = $this->getTrialBalanceRepository()->findOneByStockMovementProduct($saleProduct);
         $this->assertSame($expectedCostOfGood, $trialBalance->costOfGoods->toString());
     }
 

@@ -24,13 +24,33 @@
     padding: 15px;
 }
 
-.page__posLink {
-    font-size: 14px;
-    width: 200px;
-    margin: 0 auto;
+
+/*-------------------- page pos -----------------------*/
+
+.page_pos {
+    height: 100%;
 }
 
-.page_pos .page__content{
+.page_pos .nav > li {
+    white-space: nowrap;
+}
+
+.page_pos__PartSidebarIcon {
+    cursor: pointer;
+}
+.page_posPart #sidebar {
+    overflow: hidden;
+}
+
+.page_posPart:not(.page_posPartVisibleSidebar) #sidebar {
+    width: 0;
+}
+
+.page_posPart:not(.page_posPartVisibleSidebar) #page-wrapper {
+    margin: 0 !important;
+}
+
+.page_pos .page__content {
     position: absolute;
     top: 60px;
     bottom: 0;
@@ -38,7 +58,12 @@
     width: 100%;
 }
 
-.page_pos .col, .page_pos .row, .page_pos .productFinder, .page_pos .receipt {
+.page_pos .col,
+.page_pos .row,
+.page_pos .productFinder,
+.page_pos .receipt,
+.page_pos .receiptFinder,
+.page_pos .sale {
     height: 100%;
     position: relative;
 }

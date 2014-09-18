@@ -4,10 +4,10 @@ namespace Lighthouse\CoreBundle\Test\Factory\Invoice;
 
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InvoiceBuilder
 {

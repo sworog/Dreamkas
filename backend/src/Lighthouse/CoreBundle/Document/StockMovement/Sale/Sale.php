@@ -7,7 +7,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
 use Lighthouse\CoreBundle\Document\Payment\Payment;
 use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -26,14 +25,11 @@ class Sale extends Receipt
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="parent"
      * )
-     *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
-     * @Assert\Valid(traverse=true)
      * @var SaleProduct[]|Collection
      */
     protected $products;

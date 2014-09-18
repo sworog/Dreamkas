@@ -13,10 +13,11 @@ class BlankValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$this->isNull($value)) {
-            $this->context->addViolation(
-                $constraint->message,
-                array('{{ value }}' => $value)
-            );
+            $this->context
+                ->buildViolation($constraint->message)
+                    ->setParameter('{{ value }}', $value)
+                ->addViolation()
+            ;
         }
     }
 }

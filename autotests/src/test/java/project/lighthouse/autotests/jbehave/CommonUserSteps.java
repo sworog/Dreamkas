@@ -117,6 +117,7 @@ public class CommonUserSteps {
 
     @BeforeScenario
     @Given("Пользователь переключается на главное окно браузера если это необходимо")
+    @Alias("пользователь закрывает окно с кассой и переключается на основное окно приложения")
     public void givenUserSwitchesToTheMainWindowHandle() {
         commonSteps.beforeScenarioSwitchToMainWindowHandleIfNeeded();
     }

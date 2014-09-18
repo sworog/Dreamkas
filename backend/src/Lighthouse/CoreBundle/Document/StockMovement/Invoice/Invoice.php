@@ -6,7 +6,6 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
@@ -121,16 +120,10 @@ class Invoice extends StockMovement
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="parent"
-     * )
-     *
-     * @Assert\Valid(traverse=true)
-     * @Assert\Count(
-     *      min=1,
-     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
      * )
      * @Serializer\MaxDepth(4)
      * @var InvoiceProduct[]|Collection

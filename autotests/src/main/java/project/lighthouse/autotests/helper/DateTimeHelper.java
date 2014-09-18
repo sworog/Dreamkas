@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * The helper is used for formatting and getting date and time values
@@ -15,6 +16,7 @@ public class DateTimeHelper {
     private static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String DATE_PATTERN_REVERT = "dd.MM.yyyy";
+    public static final String ISO_8601 = "yyyy-MM-dd'T'HH:mm'Z'";
 
     public DateTimeHelper(String value) {
         days = getDays(value);
@@ -86,11 +88,17 @@ public class DateTimeHelper {
                 return getTodayDate(DATE_TIME_PATTERN);
             case "todayDate":
                 return getTodayDate(DATE_PATTERN_REVERT);
+            case "saleTodayDate":
+                return getTodayDateForSaleRegistering();
             default:
-                if (value.contains("-")) {
+                if (value.contains("saleTodayDate-")) {
                     String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
                     int numberOfDay = Integer.parseInt(replacedValue);
-                    return getTodayDate(DATE_TIME_PATTERN, numberOfDay);
+                    return getTodayDateForSaleRegistering(numberOfDay);
+                } else if (value.contains("todayDate-")) {
+                    String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
+                    int numberOfDay = Integer.parseInt(replacedValue);
+                    return getTodayDate(DATE_PATTERN_REVERT, numberOfDay);
                 }
                 return value;
         }
@@ -98,5 +106,20 @@ public class DateTimeHelper {
 
     public static String getTodayDate(String pattern) {
         return new SimpleDateFormat(pattern).format(new Date());
+    }
+
+    public static String getTodayDateForSaleRegistering() {
+        return getDateForSaleRegistering(new Date());
+    }
+
+    public static String getTodayDateForSaleRegistering(int days) {
+        return getDateForSaleRegistering(new org.joda.time.DateTime().minusDays(days).toDate());
+    }
+
+    private static String getDateForSaleRegistering(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(ISO_8601);
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        simpleDateFormat.setTimeZone(timeZone);
+        return simpleDateFormat.format(date);
     }
 }

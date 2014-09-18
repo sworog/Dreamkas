@@ -1,0 +1,50 @@
+.receiptFinder__results .list-group {
+    margin-bottom: 0;
+}
+
+.receiptFinder__results {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    top: 120px;
+    overflow: auto;
+    border-top: 1px solid #ddd;
+}
+
+.receiptFinder__resultsDate {
+    background-color: #F9F9F9;
+    font-weight: bold;
+    padding: 6px 16px;
+}
+
+.receiptFinder__resultLink {
+    display: block;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+    border-left: none;
+    border-right: none;
+    padding: 12px 16px;
+}
+
+.receiptFinder__resultLink:focus,
+.receiptFinder__resultLink:hover {
+    background-color: #0A819C;
+    color: #fff;
+}
+
+.receiptFinder__resultLinkAmount {
+    font-size: 17px;
+}
+
+.receiptFinder__resultLinkTime {
+    float: right;
+    font-size: 14px;
+}
+
+.receiptFinder .receiptFinder__input,
+.receiptFinder .inputDateRange {
+    padding-bottom: 14px;
+}

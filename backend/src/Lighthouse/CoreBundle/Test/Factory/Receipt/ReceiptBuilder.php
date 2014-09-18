@@ -5,16 +5,16 @@ namespace Lighthouse\CoreBundle\Test\Factory\Receipt;
 use Lighthouse\CoreBundle\Document\Payment\BankCardPayment;
 use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ReceiptBuilder
 {
@@ -118,7 +118,7 @@ class ReceiptBuilder
         $quantity = ($quantity) ?: 1;
         $price = ($price) ?: 5.99;
 
-        $receiptProduct->setReasonParent($this->receipt);
+        $receiptProduct->parent = $this->receipt;
         $receiptProduct->product = $this->factory->createProductVersion($productId);
         $receiptProduct->quantity = $this->numericFactory->createQuantity($quantity);
         $receiptProduct->price = $this->numericFactory->createMoney($price);

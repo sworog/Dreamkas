@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -161,5 +162,32 @@ public class PosSteps extends ScenarioSteps {
     public void assertSuccessTitle(String value) {
         String expected = String.format("Выдайте сдачу\n%s", value);
         receiptModalPage.checkValue("заголовок успешной продажи", expected);
+    }
+
+    @Step
+    public void openPosLaunchPage() {
+        posLaunchPage.open();
+    }
+
+    @Step
+    public void assertCashRegistrySideMenuLinkIsActive() {
+        if (!posPage.getCashRegistrySideMenuLink().isActive()) {
+            Assert.fail("Ссылка 'Касса' не активна в боковом меню навигации кассы");
+        }
+    }
+
+    @Step
+    public void clickOnSaleHistorySideMenuLink() {
+        posPage.clickOnSaleHistorySideMenuLink();
+    }
+
+    @Step
+    public void clickOnChangeStoreSideMenuLink() {
+        posPage.clickOnChangeStoreSideMenuLink();
+    }
+
+    @Step
+    public void clickOnSideMenuInteractionButton() {
+        posPage.clickOnSideBarInteraction();
     }
 }

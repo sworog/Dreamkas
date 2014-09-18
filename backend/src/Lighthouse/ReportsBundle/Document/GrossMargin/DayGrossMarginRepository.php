@@ -6,7 +6,7 @@ use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use DateTime;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -76,7 +76,7 @@ class DayGrossMarginRepository extends DocumentRepository
         $ops = array(
             array(
                 '$match' => array(
-                    'reason.$ref' => SaleProduct::REASON_TYPE,
+                    'reason.$ref' => SaleProduct::TYPE,
                 ),
             ),
             array(

@@ -609,6 +609,218 @@ class SaleControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider getSalesByFilterProvider
+     * @param array $query
+     * @param int $expectedCount
+     * @param array $assertions
+     */
+    public function testGetSalesByFilter(array $query, $expectedCount, array $assertions = array())
+    {
+        $store = $this->factory()->store()->getStore();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 1, 49.79)
+                ->createReceiptProduct($productIds['2'], 2, 19.79)
+                ->createReceiptProduct($productIds['3'], 3, 9.79)
+            ->persist()
+                ->createSale($store, '2014-09-05T09:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 2, 49.79)
+            ->persist()
+                ->createSale($store, '2014-09-06T05:31:50+04:00')
+                ->createReceiptProduct($productIds['2'], 4, 19.79)
+            ->persist()
+                ->createSale($store, '2014-09-13T09:31:50+04:00')
+                ->createReceiptProduct($productIds['3'], 6, 9.79)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $pairs = $this->createReplacePairs($productIds, 'product-');
+        $replacedQuery = $this->replaceValues($query, $pairs);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/sales",
+            null,
+            $replacedQuery
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount($expectedCount, '*.id', $getResponse);
+
+        $this->performJsonAssertions($getResponse, $assertions);
+    }
+
+    /**
+     * @param array $values
+     * @param string $prefix
+     * @return array
+     */
+    protected function createReplacePairs(array $values, $prefix = '')
+    {
+        $pairs = array();
+        foreach ($values as $key => $value) {
+            $pairs["{{$prefix}{$key}}"] = $value;
+        }
+        return $pairs;
+    }
+
+    /**
+     * @param array $values
+     * @param array $pairs
+     * @return array
+     */
+    protected function replaceValues(array $values, array $pairs)
+    {
+        return array_map(
+            function ($value) use ($pairs) {
+                return strtr($value, $pairs);
+            },
+            $values
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getSalesByFilterProvider()
+    {
+        return array(
+            '2014-09-01 - 2014-09-30' => array(
+                array('dateFrom' => '2014-09-01', 'dateTo' => '2014-09-30'),
+                4,
+                array(
+                    '0.date' => '2014-09-13T09:31:50+0400',
+                    '1.date' => '2014-09-11T19:31:50+0400',
+                    '2.date' => '2014-09-06T05:31:50+0400',
+                    '3.date' => '2014-09-05T09:31:50+0400',
+                )
+            ),
+            '2014-09-05 - 2014-09-07' => array(
+                array('dateFrom' => '2014-09-05', 'dateTo' => '2014-09-07'),
+                2,
+                array(
+                    '0.date' => '2014-09-06T05:31:50+0400',
+                    '1.date' => '2014-09-05T09:31:50+0400',
+                )
+            ),
+            'product 1' => array(
+                array('dateFrom' => '2014-09-01', 'dateTo' => '2014-09-30', 'product' => '{product-1}'),
+                2,
+                array(
+                    '0.date' => '2014-09-11T19:31:50+0400',
+                    '1.date' => '2014-09-05T09:31:50+0400',
+                )
+            ),
+            'product 2 with dates' => array(
+                array('dateFrom' => '2014-09-01', 'dateTo' => '2014-09-07', 'product' => '{product-2}'),
+                1,
+                array(
+                    '0.date' => '2014-09-06T05:31:50+0400',
+                )
+            ),
+            'product 3 not in dates' => array(
+                array('dateFrom' => '2014-08-01', 'dateTo' => '2014-08-02', 'product' => '{product-3}'),
+                0
+            )
+        );
+    }
+
+    /**
+     * @dataProvider getSalesFilterValidationProvider
+     * @param array $query
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testGetSalesFilterValidation(array $query, $expectedResponseCode, array $assertions)
+    {
+        $store = $this->factory()->store()->getStore();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 1, 49.79)
+                ->createReceiptProduct($productIds['2'], 2, 19.79)
+                ->createReceiptProduct($productIds['3'], 3, 9.79)
+            ->persist()
+                ->createSale($store, '2014-09-05T09:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 2, 49.79)
+            ->persist()
+                ->createSale($store, '2014-09-06T05:31:50+04:00')
+                ->createReceiptProduct($productIds['2'], 4, 19.79)
+            ->persist()
+                ->createSale($store, '2014-09-13T09:31:50+04:00')
+                ->createReceiptProduct($productIds['3'], 6, 9.79)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/sales",
+            null,
+            $query
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($getResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function getSalesFilterValidationProvider()
+    {
+        return array(
+            'missing dateTo' => array(
+                array('dateFrom' => '2014-09-01'),
+                400,
+                array('errors.children.dateTo.errors.0' => 'Заполните это поле')
+            ),
+            'missing dateFrom' => array(
+                array('dateTo' => '2014-09-01'),
+                400,
+                array('errors.children.dateFrom.errors.0' => 'Заполните это поле')
+            ),
+            'empty query' => array(
+                array(),
+                400,
+                array(
+                    'errors.children.dateFrom.errors.0' => 'Заполните это поле',
+                    'errors.children.dateTo.errors.0' => 'Заполните это поле'
+                )
+            ),
+            'invalid dates' => array(
+                array('dateFrom' => 'aaaa', 'dateTo' => 'bbb'),
+                400,
+                array(
+                    'errors.children.dateFrom.errors.0'
+                    =>
+                    'Вы ввели неверную дату aaaa, формат должен быть следующий дд.мм.гггг чч:мм',
+                    'errors.children.dateTo.errors.0'
+                    =>
+                    'Вы ввели неверную дату bbb, формат должен быть следующий дд.мм.гггг чч:мм'
+                )
+            ),
+            'invalid product id' => array(
+                array('product' => 'aaaa'),
+                400,
+                array(
+                    'errors.children.product.errors.0' => 'Такого товара не существует',
+                )
+            )
+        );
+    }
+
+    /**
      * @param Store $store
      * @param string $date
      * @param string $productId

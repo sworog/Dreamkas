@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
@@ -1077,7 +1077,7 @@ class SupplierReturnControllerTest extends WebTestCase
     }
 
     /**
-     * @return SupplierReturnProductRepository
+     * @return StockMovementProductRepository
      */
     protected function getSupplierReturnProductRepository()
     {

@@ -4,7 +4,9 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleFilter;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Form\StockMovement\Sale\SaleFilterType;
 use Lighthouse\CoreBundle\Form\StockMovement\Sale\SaleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormInterface;
@@ -60,5 +62,29 @@ class SaleController extends AbstractRestController
     public function getStoreSaleAction(Store $store, Sale $sale)
     {
         return $sale;
+    }
+
+    /**
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc
+     *
+     * @param Request $request
+     * @param Store $store
+     * @return FormInterface|Sale[]
+     */
+    public function getStoreSalesAction(Request $request, Store $store)
+    {
+        $repository = $this->documentRepository;
+
+        return $this->processFormCallback(
+            $request,
+            function (SaleFilter $filter) use ($repository, $store) {
+                $filter->store = $store;
+                return $repository->findSalesByFilter($filter);
+            },
+            new SaleFilter(),
+            new SaleFilterType()
+        );
     }
 }
