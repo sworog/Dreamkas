@@ -14,9 +14,9 @@ public abstract class CommonPosPage extends BootstrapPageObject {
     }
 
     private void putSideBarElements() {
-        put("боковое меню", new NonType(this, By.id("sidebar")));
-        put("боковое меню раскрыто", new NonType(this, By.id("sidebar")));
-        put("боковое меню спрятано", new NonType(this, By.id("sidebar")));
+        put("боковое меню", new NonType(this, By.className("sideBar")));
+        put("боковое меню раскрыто", new NonType(this, By.xpath("//*[contains(@class, 'page page_pos page_sideBarVisible')]")));
+        put("боковое меню спрятано", new NonType(this, By.xpath("//*[contains(@class, 'page page_pos')]")));
     }
 
     public SideMenuLink getCashRegistrySideMenuLink() {
@@ -32,6 +32,6 @@ public abstract class CommonPosPage extends BootstrapPageObject {
     }
 
     public void clickOnSideBarInteraction() {
-        click(By.xpath("//*[contains(@class, 'page_pos__PartSidebarIcon')]"));
+        click(By.xpath("//*[contains(@class, sideBarLink')]"));
     }
 }
