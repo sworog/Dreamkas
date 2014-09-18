@@ -16,8 +16,36 @@ public class JSInput extends CommonItem {
 
     @Override
     public void setValue(String value) {
-        String jsScript = String.format("document.getElementsByName('%s')[0].setAttribute('value', '%s')", name, value);
+        getVisibleWebElementFacade();
+        String jsScript = String.format(
+                "document.getElementsByName('%s')[0].value='%s'",
+                name,
+                DateTimeHelper.getDate(value));
         getPageObject().evaluateJavascript(jsScript);
+        evaluateUpdatingQueryScript();
+    }
+
+    public void evaluateUpdatingQueryScript() {
+        String commitChangesScript = String.format(
+                "document.querySelector('.receiptFinder').block.findReceipts('[name=\"%s\"]')",
+                name);
+        getPageObject().evaluateJavascript(commitChangesScript);
+    }
+
+    @Override
+    public String getText() {
+        return getVisibleWebElementFacade().getValue();
+    }
+
+    @Override
+    public FieldChecker getFieldChecker() {
+        return new FieldChecker(this) {
+            @Override
+            public void assertValueEqual(String expectedValue) {
+                String convertedValue = DateTimeHelper.getDate(expectedValue);
+                super.assertValueEqual(convertedValue);
+            }
+        };
     }
 
     @Override
