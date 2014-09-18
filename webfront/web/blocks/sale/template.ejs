@@ -1,43 +1,47 @@
 <% if (model) { %>
 
 <div class="sale">
-	<div class="sale__header">
-	<span class="sale__title">Чек на сумму <%- formatAmount(model.get('sumTotal'), '0,0.[0000]') %> <i class="fa fa-rub"></i></span>
+    <div class="sale__header">
+        <span class="sale__title">Чек на сумму <%- formatMoney(model.get('sumTotal')) %> <i class="fa fa-rub"></i></span>
 	<span role="button"
-		  class="sale__refundButton btn btn-primary btn-md">Возврат</span>
-	</div>
-	<div class="sale__info">
-		<div>
-			<%= model.get('payment.type') == 'cash' ?
-				'<i class="fa fa-money"></i>Наличные' :
-				'<i class="fa fa-credit-card"></i>Банковская карта' %>
-		</div>
-		<div>
-			<i class="fa fa-clock-o"></i><%= formatDateTime(model.get('date'), { format: 'DD MMMM YYYY, HH:mm' }) %>
-		</div>
-	</div>
-	<div class="sale__products">
-		<div class="sale__productsTitle">Товары</div>
-		<table>
+          data-modal="modal_refund"
+          class="sale__refundButton btn btn-primary btn-md">Возврат</span>
+    </div>
+    <div class="sale__info">
+        <div>
+            <%= model.get('payment.type') == 'cash' ?
+                    '<i class="fa fa-money"></i>Наличные' :
+                    '<i class="fa fa-credit-card"></i>Банковская карта' %>
+        </div>
+        <div>
+            <i class="fa fa-clock-o"></i><%- formatDateTime(model.get('date'), { format: 'DD MMMM YYYY, HH:mm' }) %>
+        </div>
+    </div>
+    <div class="sale__products">
+        <div class="sale__productsTitle">Товары</div>
+        <table>
 
-		<% model.collections.products.forEach(function(receiptProduct){ %>
+            <% model.collections.products.forEach(function(receiptProduct){ %>
 
-			<tr class="sale__product">
-				<td class="sale__productName"><%= receiptProduct.get('product.name') %></td>
-				<td class="sale__productQuantity"><%= receiptProduct.get('quantity') %> шт</td>
-				<td class="sale__productPrice"><%= formatAmount(receiptProduct.get('price'), '0,0.00[00]') %> <i class="fa fa-rub"></i></td>
-			</tr>
+            <tr class="sale__product">
+                <td class="sale__productName"><%- receiptProduct.get('product.name') %></td>
+                <td class="sale__productQuantity"><%- receiptProduct.get('quantity') %> шт</td>
+                <td class="sale__productPrice"><%- formatMoney(receiptProduct.get('price')) %> <i class="fa fa-rub"></i></td>
+            </tr>
 
-		<% }) %>
+            <% }) %>
 
-		</table>
-	</div>
+        </table>
+    </div>
+
+    <b block="modal_refund"></b>
+
 </div>
 
 <% } else { %>
 
 <div class="alert alert-info">
-	Чтобы посмотреть подробную информацию, выберите чек из списка
+    Чтобы посмотреть подробную информацию, выберите чек из списка
 </div>
 
 <% } %>
