@@ -5,13 +5,13 @@ import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
-public class InvoiceProductAutoComplete extends CommonItem {
+public class ProductAutoComplete extends CommonItem {
 
-    public InvoiceProductAutoComplete(ModalWindowPage modalWindowPage, String xpath) {
+    public ProductAutoComplete(ModalWindowPage modalWindowPage, String xpath) {
         super(modalWindowPage, xpath);
     }
 
-    public InvoiceProductAutoComplete(CommonPageObject pageObject, org.openqa.selenium.By findBy) {
+    public ProductAutoComplete(CommonPageObject pageObject, org.openqa.selenium.By findBy) {
         super(pageObject, findBy);
     }
 
