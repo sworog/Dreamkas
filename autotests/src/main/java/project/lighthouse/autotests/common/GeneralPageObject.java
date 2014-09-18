@@ -19,4 +19,8 @@ public interface GeneralPageObject {
     public void elementShouldBeVisible(String elementName);
 
     public void elementShouldBeNotVisible(String elementName);
+
+    public void exactCompareExampleTable(ExamplesTable examplesTable);
+
+    public void compareWithExampleTable(ExamplesTable examplesTable);
 }
