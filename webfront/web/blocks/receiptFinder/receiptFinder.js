@@ -69,19 +69,24 @@ define(function(require, exports, module) {
 				return new ReceiptFinderResults(params);
 			}
 		},
-		findReceipts: function(inputs) {
-			var dateRangeInput = this.__blocks.dateRangeInput[0],
-				product;
+        findReceipts: function(input) {
+            var dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
+                dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val(),
+                product;
 
-			if (this.models.product) {
-				product = this.models.product.get('id');
-			}
+            if (!dateFrom || !dateTo) {
+                return;
+            }
 
-			$(inputs).addClass('loading');
+            if (this.models.product) {
+                product = this.models.product.get('id');
+            }
 
-			this.collections.receipts.find(dateRangeInput.dateFrom, dateRangeInput.dateTo, product).then(function() {
-				$(inputs).removeClass('loading');
-			});
-		}
+            $(input).addClass('loading');
+
+            this.collections.receipts.find(dateFrom, dateTo, product).then(function() {
+                $(input).removeClass('loading');
+            });
+        }
 	});
 });

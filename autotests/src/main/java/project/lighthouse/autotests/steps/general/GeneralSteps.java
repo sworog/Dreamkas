@@ -65,4 +65,14 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     public void elementShouldBeNotVisible(String elementName) {
         getCurrentPageObject().elementShouldBeNotVisible(elementName);
     }
+
+    @Step
+    public void exactCompareExampleTable(ExamplesTable examplesTable) {
+        getCurrentPageObject().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void compareWithExampleTable(ExamplesTable examplesTable) {
+        getCurrentPageObject().compareWithExampleTable(examplesTable);
+    }
 }
