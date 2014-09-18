@@ -18,12 +18,15 @@ public class SaleBuilderSteps {
     private SaleObject sale;
 
     @Step
-    public void createSale(String date,
-                           String type,
-                           String amountTendered) throws JSONException {
+    public void createSale(String date, String type) throws JSONException {
         String convertedDate = DateTimeHelper.getDate(date);
         Storage.getCustomVariableStorage().getSalesMap().put(date, convertedDate);
-        sale = new SaleObject(convertedDate, type, amountTendered);
+        sale = new SaleObject(convertedDate, type);
+    }
+
+    @Step
+    public void setAmountTendered(String amountTendered) throws JSONException {
+        sale.setAmountTendered(amountTendered);
     }
 
     @Step

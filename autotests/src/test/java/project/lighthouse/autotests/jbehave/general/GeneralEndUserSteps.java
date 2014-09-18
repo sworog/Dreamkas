@@ -61,12 +61,12 @@ public class GeneralEndUserSteps {
         generalSteps.elementShouldBeNotVisible(elementName);
     }
 
-    @Then("пользователь* проверяет, что список содержит точные данные $examplesTable")
+    @Then("пользователь* проверяет, что список '$collectionName' содержит точные данные $examplesTable")
     public void thenUserExactCompareCollectionWithExamplesTable(ExamplesTable examplesTable) {
         generalSteps.exactCompareExampleTable(examplesTable);
     }
 
-    @Then("пользователь* проверяет, что список содержит данные $examplesTable")
+    @Then("пользователь* проверяет, что список '$collectionName' содержит данные $examplesTable")
     public void thenUserCompareCollectionWithExamplesTable(ExamplesTable examplesTable) {
         generalSteps.compareWithExampleTable(examplesTable);
     }
