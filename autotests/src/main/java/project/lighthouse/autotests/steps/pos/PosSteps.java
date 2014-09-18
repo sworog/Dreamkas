@@ -171,7 +171,7 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void assertCashRegistrySideMenuLinkIsActive() {
-        if (!posPage.getCashRegistrySideMenuLink().isActive()) {
+        if (!posPage.getCashRegistrySideMenuLink().getAttribute("class").contains("active")) {
             Assert.fail("Ссылка 'Касса' не активна в боковом меню навигации кассы");
         }
     }
