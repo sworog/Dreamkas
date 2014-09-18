@@ -16,6 +16,7 @@ public class JSInput extends CommonItem {
 
     @Override
     public void setValue(String value) {
+        getVisibleWebElementFacade();
         String jsScript = String.format(
                 "document.getElementsByName('%s')[0].value='%s'",
                 name,
