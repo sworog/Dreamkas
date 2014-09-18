@@ -16,7 +16,7 @@
 				data-receipt-date="<%- formatDate(date, { format: 'dddd, DD MMMM' }) %>"
 				name="receipt"
 				class="receiptFinder__resultLink list-group-item">
-			<span name="price" class="receiptFinder__resultLinkAmount"><%= formatAmount(receipt.get('sumTotal')) %> <i class="fa fa-rub"></i></span>
+			<span name="price" class="receiptFinder__resultLinkAmount"><%= formatAmount(receipt.get('sumTotal'), '0,0.00[00]') %> <i class="fa fa-rub"></i></span>
 			<span name="time" class="receiptFinder__resultLinkTime"><%= formatTime(date) %></span>
 		</button>
 

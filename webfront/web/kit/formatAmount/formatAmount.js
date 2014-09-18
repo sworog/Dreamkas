@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var numeral = require('numeral');
 
-    return function(amount){
-        return numeral(amount).format('0,0.0[00]');
+    return function(amount, format){
+        return numeral(amount).format(format || '0,0.0[00]');
     }
 });
