@@ -5,11 +5,6 @@ define(function(require, exports, module) {
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Block.extend({
-        models: {
-            receipt: function() {
-                return PAGE.models.receipt;
-            }
-        },
         template: require('ejs!./template.ejs'),
         events: {
             'click .receipt__productLink': function(e) {
@@ -22,15 +17,18 @@ define(function(require, exports, module) {
             'click .receipt__clearLink .confirmLink__confirmation': function(e) {
                 var block = this;
 
-                block.models.receipt.collections.products.reset([]);
+                PAGE.models.receipt.collections.products.reset([]);
             }
+        },
+        blocks: {
+            modal_receipt: require('blocks/modal/receipt/receipt')
         },
         initialize: function() {
             var block = this;
 
             Block.prototype.initialize.apply(block, arguments);
 
-            block.listenTo(block.models.receipt.collections.products, {
+            block.listenTo(PAGE.models.receipt.collections.products, {
                 'add remove reset change': function() {
                     block.render();
                     block.$('.receipt__scrollContainer').scrollTop(block.$('.receipt__scrollContainer table').height());
@@ -44,7 +42,7 @@ define(function(require, exports, module) {
             var block = this,
                 totalPrice = 0;
 
-            block.models.receipt.collections.products.forEach(function(receiptProductModel) {
+            PAGE.models.receipt.collections.products.forEach(function(receiptProductModel) {
                 totalPrice += normalizeNumber(block.calculateItemPrice(receiptProductModel));
             });
 

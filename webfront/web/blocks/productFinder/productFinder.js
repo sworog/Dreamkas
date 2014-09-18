@@ -8,11 +8,6 @@ define(function(require, exports, module) {
         collections: {
             products: require('collections/products/products')
         },
-        models: {
-            receipt: function(){
-                return PAGE.models.receipt;
-            }
-        },
         events: {
             'keyup input[name="product"]': function(e) {
                 var block = this;
@@ -43,12 +38,11 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            productFinder__results: function(opt) {
+            productFinder__results: function() {
                 var block = this,
                     ProductFinder__results = require('./productFinder__results');
 
                 return new ProductFinder__results({
-                    el: opt.el,
                     collection: block.collections.products
                 });
             }
@@ -72,7 +66,7 @@ define(function(require, exports, module) {
                 });
 
             if (receiptProductModel.get('price')){
-                block.models.receipt.collections.products.add(receiptProductModel);
+                PAGE.models.receipt.collections.products.add(receiptProductModel);
             } else {
                 document.getElementById('modal_receiptProduct').block.show({
                     models: {

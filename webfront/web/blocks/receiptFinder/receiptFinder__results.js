@@ -3,6 +3,7 @@ define(function(require, exports, module) {
     var CollectionBlock = require('kit/collectionBlock/collectionBlock');
 
     return CollectionBlock.extend({
+        itemSelector: '.receiptFinder__resultLink',
         collection: function(){
             return PAGE.collections.receipts;
         },
