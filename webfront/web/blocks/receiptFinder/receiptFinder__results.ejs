@@ -8,7 +8,7 @@
 
         <% var date = receipt.get('date'); %>
 
-        <% if (prevDate !== date) { %>
+        <% if (isDifferentDates(prevDate, date)) { %>
 
         <% prevDate = date; %>
 
