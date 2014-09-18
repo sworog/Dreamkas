@@ -39,7 +39,7 @@ define(function(require, exports, module) {
 
             Block.prototype.render.apply(block, arguments);
 
-            block.$el.appendTo(modal__wrapper);
+            $(modal__wrapper).append(block.$el);
         },
         show: function(data) {
             var block = this;
@@ -55,7 +55,7 @@ define(function(require, exports, module) {
 
             document.getElementById('modal__wrapper').classList.add('modal__wrapper_visible');
 
-            block.el.querySelector('[autofocus]').focus();
+            block.$('[autofocus]').focus();
 
             block.trigger('shown');
         },

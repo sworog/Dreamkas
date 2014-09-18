@@ -113,7 +113,7 @@ define(function(require, exports, module) {
 
                     block.__blocks[blockName].push(__block);
 
-                    if (!block.$(__block.el).length) {
+                    if (!block.$(__block.el).length && block.$(placeholder).length) {
                         __block.$el.replaceAll(placeholder);
                     }
                 }

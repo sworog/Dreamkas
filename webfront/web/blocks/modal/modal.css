@@ -11,7 +11,7 @@
     display: none;
 }
 
-.modal__wrapper_visible {
+#modal__wrapper.modal__wrapper_visible {
     display: block;
 }
 
@@ -25,7 +25,7 @@
     overflow: visible !important;
 }
 
-.modal_visible {
+#modal__wrapper .modal_visible {
     display: block;
 }
 
