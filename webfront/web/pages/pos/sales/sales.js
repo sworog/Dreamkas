@@ -7,7 +7,6 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
 		activeNavigationItem: 'sales',
 		models: {
-			store: Page_pos.prototype.models.store,
 			product: function() {
 				var Product = require('models/product/product'),
 					product;
@@ -24,22 +23,22 @@ define(function(require, exports, module) {
 				var page = this,
 					ReceiptsCollection = require('collections/receipts/receipts'),
 					filters,
-					receipts;
+					receiptsCollection;
 
 				filters = _.pick(page.params, 'dateFrom', 'dateTo', 'product');
 
-				receipts = new ReceiptsCollection([], {
+				receiptsCollection = new ReceiptsCollection([], {
 					storeId: this.params.storeId,
 					filters: filters
 				});
 
-				this.listenTo(receipts, {
+				this.listenTo(receiptsCollection, {
 					reset: function() {
-						page.setParams(receipts.filters, true);
+						page.setParams(receiptsCollection.filters, true);
 					}
 				});
 
-				return receipts;
+				return receiptsCollection;
 			}
 		},
 

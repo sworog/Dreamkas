@@ -4,6 +4,7 @@ define(function(require, exports, module) {
         makeClass = require('kit/makeClass/makeClass'),
         deepExtend = require('kit/deepExtend/deepExtend'),
 		get = require('kit/get/get'),
+        set = require('kit/set/set'),
         Backbone = require('backbone'),
         _ = require('lodash');
 
@@ -12,11 +13,32 @@ define(function(require, exports, module) {
             _.extend(this, options);
         },
         fetch: function(options) {
-			var collection = this;
 
-            return Backbone.Collection.prototype.fetch.call(this, _.extend({
+            options = deepExtend({});
+
+            this.request && this.request.abort();
+
+            this.request = Backbone.Collection.prototype.fetch.call(this, _.extend({
                 reset: true
             }, options));
+
+            return this.request;
+        },
+        get: function() {
+            var args = [this].concat([].slice.call(arguments));
+
+            return get.apply(null, args);
+        },
+
+        set: function() {
+            var args = [this].concat([].slice.call(arguments));
+
+            return set.apply(null, args);
+        },
+        filter: function(filters){
+            this.set('filters', filters);
+
+            return this.fetch();
         }
     });
 
