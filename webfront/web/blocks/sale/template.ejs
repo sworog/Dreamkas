@@ -27,7 +27,7 @@
 
 			<tr class="sale__product">
 				<td class="sale__productName" name="name"><%- receiptProduct.get('product.name') %></td>
-				<td class="sale__productQuantity" name="quantity"><%- receiptProduct.get('quantity') %> шт</td>
+				<td class="sale__productQuantity" name="quantity"><%- receiptProduct.get('quantity') %> <%- receiptProduct.get('product.units') %></td>
 				<td class="sale__productPrice" name="price"><%- formatAmount(receiptProduct.get('price'), '0,0.00[00]') %> <i class="fa fa-rub"></i></td>
 			</tr>
 
