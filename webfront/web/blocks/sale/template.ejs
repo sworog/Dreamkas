@@ -6,26 +6,26 @@
 	<span role="button"
 		  class="sale__refundButton btn btn-primary btn-md">Возврат</span>
 	</div>
-	<div class="sale__info">
+	<div name="sale" class="sale__info">
 		<div>
 			<%= model.get('payment.type') == 'cash' ?
-				'<i class="fa fa-money"></i>Наличные' :
-				'<i class="fa fa-credit-card"></i>Банковская карта' %>
+				'<i class="fa fa-money"></i><span name="cash">Наличные</span>' :
+				'<i class="fa fa-credit-card"></i><span name="bankcard">Банковская карта</span>' %>
 		</div>
 		<div>
 			<i class="fa fa-clock-o"></i><%= formatDateTime(model.get('date'), { format: 'DD MMMM YYYY, HH:mm' }) %>
 		</div>
 	</div>
-	<div class="sale__products">
+	<div name="products" class="sale__products">
 		<div class="sale__productsTitle">Товары</div>
 		<table>
 
 		<% model.collections.products.forEach(function(receiptProduct){ %>
 
 			<tr class="sale__product">
-				<td class="sale__productName"><%= receiptProduct.get('product.name') %></td>
-				<td class="sale__productQuantity"><%= receiptProduct.get('quantity') %> шт</td>
-				<td class="sale__productPrice"><%= formatAmount(receiptProduct.get('price'), '0,0.00[00]') %> <i class="fa fa-rub"></i></td>
+				<td class="sale__productName" name="name"><%= receiptProduct.get('product.name') %></td>
+				<td class="sale__productQuantity" name="quantity"><%= receiptProduct.get('quantity') %> шт</td>
+				<td class="sale__productPrice" name="price"><%= formatAmount(receiptProduct.get('price'), '0,0.00[00]') %> <i class="fa fa-rub"></i></td>
 			</tr>
 
 		<% }) %>
