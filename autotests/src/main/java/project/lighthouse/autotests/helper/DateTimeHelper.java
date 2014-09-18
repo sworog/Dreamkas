@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * The helper is used for formatting and getting date and time values
@@ -88,12 +89,16 @@ public class DateTimeHelper {
             case "todayDate":
                 return getTodayDate(DATE_PATTERN_REVERT);
             case "saleTodayDate":
-                return getTodayDate(ISO_8601);
+                return getTodayDateForSaleRegistering();
             default:
                 if (value.contains("saleTodayDate-")) {
                     String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
                     int numberOfDay = Integer.parseInt(replacedValue);
-                    return getTodayDate(ISO_8601, numberOfDay);
+                    return getTodayDateForSaleRegistering(numberOfDay);
+                } else if (value.contains("todayDate-")) {
+                    String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
+                    int numberOfDay = Integer.parseInt(replacedValue);
+                    return getTodayDate(DATE_PATTERN_REVERT, numberOfDay);
                 }
                 return value;
         }
@@ -101,5 +106,20 @@ public class DateTimeHelper {
 
     public static String getTodayDate(String pattern) {
         return new SimpleDateFormat(pattern).format(new Date());
+    }
+
+    public static String getTodayDateForSaleRegistering() {
+        return getDateForSaleRegistering(new Date());
+    }
+
+    public static String getTodayDateForSaleRegistering(int days) {
+        return getDateForSaleRegistering(new org.joda.time.DateTime().minusDays(days).toDate());
+    }
+
+    private static String getDateForSaleRegistering(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(ISO_8601);
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        simpleDateFormat.setTimeZone(timeZone);
+        return simpleDateFormat.format(date);
     }
 }

@@ -30,7 +30,10 @@ framework:
         strict_requirements: %kernel.debug%
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
+    validation:
+        enable_annotations: true
+        api: auto
+        strict_email: true
     templating:
         engines: ['twig', 'php']
         #assets_version: SomeVersionScheme

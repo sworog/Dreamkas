@@ -2,38 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Compare;
 
-use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Tests\Validator\Constraints\CompareObjectFixture;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare;
-use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompareValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class NumbersCompareValidatorTest extends TestCase
+class NumbersCompareValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var NumbersCompareValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $this->validator = new NumbersCompareValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     /**
      * @dataProvider validValuesProvider
      * @param int $minValue
@@ -41,12 +17,8 @@ class NumbersCompareValidatorTest extends TestCase
      */
     public function testValidValues($minValue = null, $maxValue = null)
     {
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
-        $this->doValidate($minValue, $maxValue);
+        $violations = $this->doValidate($minValue, $maxValue);
+        $this->assertCount(0, $violations);
     }
 
     /**
@@ -85,12 +57,8 @@ class NumbersCompareValidatorTest extends TestCase
      */
     public function testInvalidValues($minValue, $maxValue)
     {
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolationAt');
-
-        $this->doValidate($minValue, $maxValue);
+        $violations = $this->doValidate($minValue, $maxValue);
+        $this->assertCount(1, $violations);
     }
 
     /**
@@ -125,7 +93,7 @@ class NumbersCompareValidatorTest extends TestCase
         );
         $constraint = new NumbersCompare($options);
 
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 
     public function unexpectedValueTypeProvider()
@@ -200,6 +168,7 @@ class NumbersCompareValidatorTest extends TestCase
     /**
      * @param $minValue
      * @param $maxValue
+     * @return ConstraintViolationListInterface
      */
     protected function doValidate($minValue, $maxValue)
     {
@@ -214,6 +183,6 @@ class NumbersCompareValidatorTest extends TestCase
         $object->fieldMin = $minValue;
         $object->fieldMax = $maxValue;
 
-        $this->validator->validate($object, $constraint);
+        return $this->getValidator()->validate($object, $constraint, null);
     }
 }

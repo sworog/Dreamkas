@@ -18,6 +18,10 @@ public class SaleObject extends AbstractProductableObject {
                         .put("amountTendered", amountTendered));
     }
 
+    public SaleObject(String date, String type) throws JSONException {
+        this(date, type, "");
+    }
+
     @Override
     public String getApiUrl() {
         return String.format("/stores/%s/sales", store.getId());
@@ -25,5 +29,9 @@ public class SaleObject extends AbstractProductableObject {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public void setAmountTendered(String amountTendered) throws JSONException {
+        getJsonObject().getJSONObject("payment").put("amountTendered", amountTendered);
     }
 }

@@ -121,7 +121,7 @@ class StoreProductControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $this->storeId . '/products/' . $productId,
+            "/api/1/stores/{$this->storeId}/products/{$productId}",
             $putData
         );
 

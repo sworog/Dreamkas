@@ -41,12 +41,12 @@ class StockMovementController extends AbstractRestController
      */
     public function getStockMovementsAction(Request $request)
     {
-        $filter = new StockMovementFilter();
-        $form = $this->submitForm($request, $filter);
-        if (!$form->isValid()) {
-            return $form;
-        } else {
-            return $this->documentRepository->findByFilter($filter);
-        }
+        $repository = $this->documentRepository;
+        return $this->processFormCallback(
+            $request,
+            function (StockMovementFilter $filter) use ($repository) {
+                return $repository->findByFilter($filter);
+            }
+        );
     }
 }

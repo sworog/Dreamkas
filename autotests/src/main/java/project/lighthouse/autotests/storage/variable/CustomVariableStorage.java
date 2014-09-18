@@ -80,6 +80,12 @@ public class CustomVariableStorage implements StorageClearable {
         return subCategoryProducts;
     }
 
+    public Map<String, String> salesMap = new HashMap<>();
+
+    public Map<String, String> getSalesMap() {
+        return salesMap;
+    }
+
     public void clear() {
         Storage.getOrderVariableStorage().resetNumber();
         Storage.getInvoiceVariableStorage().resetNumber();
@@ -90,5 +96,6 @@ public class CustomVariableStorage implements StorageClearable {
         getProducts().clear();
         getSubCategories().clear();
         getSubCategoryProducts().clear();
+        salesMap.clear();
     }
 }

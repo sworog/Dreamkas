@@ -1,12 +1,9 @@
 package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.elements.items.DateTime;
-import project.lighthouse.autotests.elements.items.Input;
-import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
 import project.lighthouse.autotests.helper.FieldChecker;
 import project.lighthouse.autotests.helper.FieldErrorChecker;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
@@ -106,12 +103,18 @@ abstract public class CommonItem {
     }
 
     public String getText() {
-        if (this instanceof SelectByVisibleText) {
-            return getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
-        } else if (this instanceof Input || this instanceof DateTime || this instanceof InvoiceProductAutoComplete) {
-            return getVisibleWebElementFacade().getValue();
-        } else {
-            return getVisibleWebElementFacade().getText();
+        return getVisibleWebElementFacade().getText();
+    }
+
+    public void shouldBeVisible() {
+        if (!getPageObject().visibilityOfElementLocated(getFindBy())) {
+            Assert.fail("the element should be visible");
+        }
+    }
+
+    public void shouldBeNotVisible() {
+        if (!getPageObject().invisibilityOfElementLocated(getFindBy())) {
+            Assert.fail("the element should be not visible");
         }
     }
 }

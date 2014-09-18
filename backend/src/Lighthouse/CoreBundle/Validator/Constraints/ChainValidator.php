@@ -13,6 +13,7 @@ class ChainValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         foreach ($constraint->constraints as $chainConstraint) {
+            $chainConstraint->groups = $constraint->groups;
             if (!$this->validateValue($value, $chainConstraint)) {
                 return;
             }

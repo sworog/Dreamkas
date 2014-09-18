@@ -48,17 +48,22 @@ class StockMovementRepository extends DocumentRepository
      */
     public function findByFilter(StockMovementFilter $filter)
     {
-        $criteria = array();
+        $qb = $this->createQueryBuilder();
+
         if (isset($filter->types)) {
-            $criteria['type'] = array('$in' => $filter->types);
+            $qb->field('type')->in($filter->types);
+        } else {
+            $qb->field('type')->notIn(Receipt::getReceiptTypes());
         }
         if (isset($filter->dateFrom)) {
-            $criteria['date']['$gte'] = $filter->dateFrom;
+            $qb->field('date')->gte($filter->dateFrom);
         }
         if (isset($filter->dateTo)) {
-            $criteria['date']['$lte'] = $filter->dateTo;
+            $qb->field('date')->lte($filter->dateTo);
         }
-        return $this->findBy($criteria, array('date' => self::SORT_DESC));
+        $qb->sort('date', self::SORT_DESC);
+
+        return $qb->getQuery()->execute();
     }
 
     /**

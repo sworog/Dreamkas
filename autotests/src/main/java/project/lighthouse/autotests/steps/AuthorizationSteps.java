@@ -96,6 +96,10 @@ public class AuthorizationSteps extends ScenarioSteps {
             if (token != null) {
                 getDriver().manage().deleteCookie(token);
             }
+            Cookie posStoreId = getDriver().manage().getCookieNamed("posStoreId");
+            if (posStoreId != null) {
+                getDriver().manage().deleteCookie(posStoreId);
+            }
         }
     }
 

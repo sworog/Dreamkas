@@ -6,8 +6,10 @@ define(function(require, exports, module) {
     return CollectionBlock.extend({
         template: require('ejs!./receiptFinder__results.ejs'),
 		itemSelector: '.receiptFinder__resultLink',
-		isDifferentDates: function(time1, time2) {
-			return moment(time1).diff(time2, 'days');
+		isDifferentDates: function(date1, date2) {
+			var formatDate = this.helpers.formatDate;
+
+			return formatDate(date1) != formatDate(date2);
 		}
     });
 });

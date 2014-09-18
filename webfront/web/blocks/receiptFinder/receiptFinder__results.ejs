@@ -2,28 +2,31 @@
 <div name="receiptsList" class="receiptFinder__results">
     <div class="list-group">
 
-		<% var prevTime = 0; %>
+        <% var prevDate = 0; %>
         <% collection.forEach(function(receipt){ %>
 
-			<% time = receipt.get('date'); %>
-			<% if (isDifferentDates(prevTime, time)) { %>
-				<% prevTime = time; %>
+        <% var date = receipt.get('date'); %>
+        <% if (isDifferentDates(prevDate, date)) { %>
+        <% prevDate = date; %>
 
-				<div class="receiptFinder__resultsDate"><%- helpers.formatDate(time, { format: 'dddd, DD MMMM' }) %></div>
-				<% } %>
+        <div class="receiptFinder__resultsDate"><%- helpers.formatDate(date, {format: 'dddd, DD MMMM'}) %></div>
+        <% } %>
 
-			<button data-receipt-id="<%- receipt.id %>"
-			   name="receipt"
-			   class="receiptFinder__resultLink list-group-item">
-				<span name="price" class="receiptFinder__resultLinkAmount"><%= helpers.formatAmount(receipt.get('sumTotal')) %> <i class="fa fa-rub"></i></span>
-				<span name="time" class="receiptFinder__resultLinkTime"><%= helpers.formatTime(time) %></span>
-			</button>
+        <button data-receipt-id="<%- receipt.id %>"
+                data-receipt-date="<%- formatDate(date, { format: 'dddd, DD MMMM' }) %>"
+                name="receipt"
+                class="receiptFinder__resultLink list-group-item">
+            <span name="price"
+                  class="receiptFinder__resultLinkAmount"><%= helpers.formatAmount(receipt.get('sumTotal'), '0,0.00[00]') %> <i
+                        class="fa fa-rub"></i></span>
+            <span name="time" class="receiptFinder__resultLinkTime"><%= helpers.formatTime(date) %></span>
+        </button>
 
         <% }) %>
     </div>
 </div>
 <% } else { %>
 <div class="alert alert-info">
-    Продаж не найдено
+    Продаж не найдено.
 </div>
 <% } %>

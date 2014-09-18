@@ -21,20 +21,22 @@ define(function(require, exports, module) {
 				});
 			}
 		},
-		isSidebarVisible: true,
+		isSidebarVisible: function() {
+			return document.isPosSidebarVisible || false;
+		},
 		changeSidebarVisibility: function() {
 			var $sidebar = $('#sidebar');
 			var $el = this.$el;
 
-			if (this.isSidebarVisible)
+			if (this.isSidebarVisible())
 			{
-				$el.addClass('page_posPartHiddenSidebar');
-				this.isSidebarVisible = false;
+				$el.removeClass('page_posPartVisibleSidebar');
+				document.isPosSidebarVisible = false;
 			}
 			else
 			{
-				$el.removeClass('page_posPartHiddenSidebar');
-				this.isSidebarVisible = true;
+				$el.addClass('page_posPartVisibleSidebar');
+				document.isPosSidebarVisible = true;
 			}
 		}
     });

@@ -55,15 +55,14 @@ class BarcodeUniqueValidator extends ConstraintValidator
                 }
                 foreach ($barcodes as $subPath => $barcode) {
                     if ($product->hasProductBarcode($barcode)) {
-                        $this->context->addViolationAt(
-                            $subPath,
-                            $constraint->outerMessage,
-                            array(
-                                '{{ product.name }}' => $product->name,
-                                '{{ product.sku }}' => $product->sku
-                            ),
-                            $barcode
-                        );
+                        $this->context
+                            ->buildViolation($constraint->outerMessage)
+                                ->atPath($subPath)
+                                ->setParameter('{{ product.name }}', $product->name)
+                                ->setParameter('{{ product.sku }}', $product->sku)
+                                ->setInvalidValue($barcode)
+                            ->addViolation()
+                        ;
                     }
                 }
             }
@@ -80,12 +79,12 @@ class BarcodeUniqueValidator extends ConstraintValidator
             $duplicateProperties = array_keys($barcodes, $barcode);
             foreach ($duplicateProperties as $duplicateProperty) {
                 if ($duplicateProperty != $property) {
-                    $this->context->addViolationAt(
-                        $duplicateProperty,
-                        $constraint->innerMessage,
-                        array(),
-                        $barcodes[$duplicateProperty]
-                    );
+                    $this->context
+                        ->buildViolation($constraint->innerMessage)
+                            ->atPath($duplicateProperty)
+                            ->setInvalidValue($barcodes[$duplicateProperty])
+                        ->addViolation()
+                    ;
                     unset($barcodes[$duplicateProperty]);
                 }
             }
