@@ -16,8 +16,15 @@ public class JSInput extends CommonItem {
 
     @Override
     public void setValue(String value) {
-        String jsScript = String.format("document.getElementsByName('%s')[0].setAttribute('value', '%s')", name, value);
+        String jsScript = String.format(
+                "document.getElementsByName('%s')[0].value='%s'",
+                name,
+                DateTimeHelper.getDate(value));
+        String commitChangesScript = String.format(
+                "document.querySelector('.receiptFinder').block.findReceipts('[name=\"%s\"]')",
+                name);
         getPageObject().evaluateJavascript(jsScript);
+        getPageObject().evaluateJavascript(commitChangesScript);
     }
 
     @Override
