@@ -21,10 +21,14 @@ public class JSInput extends CommonItem {
                 "document.getElementsByName('%s')[0].value='%s'",
                 name,
                 DateTimeHelper.getDate(value));
+        getPageObject().evaluateJavascript(jsScript);
+        evaluateUpdatingQueryScript();
+    }
+
+    public void evaluateUpdatingQueryScript() {
         String commitChangesScript = String.format(
                 "document.querySelector('.receiptFinder').block.findReceipts('[name=\"%s\"]')",
                 name);
-        getPageObject().evaluateJavascript(jsScript);
         getPageObject().evaluateJavascript(commitChangesScript);
     }
 
