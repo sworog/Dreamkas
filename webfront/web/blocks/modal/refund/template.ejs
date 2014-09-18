@@ -1,10 +1,10 @@
-<div class="modal" id="modal_refund">
+<div class="modal modal_refund" id="modal_refund">
     <div class="modal__header">
         <a class="modal__closeLink fa fa-times"></a>
 
         <button form="form_refund"
                 type="submit"
-                class="btn btn-primary pull-right">
+                class="modal_refund__button btn btn-primary pull-right">
             Вернуть
         </button>
 
@@ -14,7 +14,25 @@
     </div>
     <div class="modal__body">
 
+        <table class="table">
 
+            <% models.receipt.collections.products.forEach(function(receiptProductModel){ %>
+
+            <tr>
+                <td>
+                    <div>
+                        <%- receiptProductModel.get('product.name') %>
+                    </div>
+                    <div>
+                        <%- receiptProductModel.get('product.barcode') %>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+
+            <% }) %>
+
+        </table>
 
     </div>
 </div>

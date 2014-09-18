@@ -21,7 +21,15 @@ define(function(require, exports, module) {
             });
         },
         blocks: {
-            modal_refund: require('blocks/modal/refund/refund')
+            modal_refund: function(){
+                var Modal_refund = require('blocks/modal/refund/refund');
+
+                return new Modal_refund({
+                    models: {
+                        receipt: this.model
+                    }
+                });
+            }
         }
     });
 });
