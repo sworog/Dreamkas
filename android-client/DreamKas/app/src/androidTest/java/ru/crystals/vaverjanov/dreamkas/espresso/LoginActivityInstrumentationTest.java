@@ -26,6 +26,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
+import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.hasErrorText;
 import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.waitKeyboard;
 import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.withResourceName;
 
@@ -61,16 +62,11 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         //enter empty credentials
         enterCredentialsAndClick("", "");
 
-        //don't know how to check error icon visibility inside edittext when icon is system default
-        //todo make it when got style for app from uix
+        //check error icon visibility inside edittext
+        onView(withId(R.id.txtUsername)).check(matches(hasErrorText(getActivity().getString(R.string.error_empty_field))));
 
-        //onView(withResourceName("android:icon@drawable/ic_error")).check(matches(isDisplayed()));
-        //onView(allOf(withParent(withId(R.id.txtUsername)), withText(R.string.error_empty_field))).check(matches(isDisplayed()));
-        //onView(allOf(withParent(withId(R.id.txtPassword)), withText(R.string.error_empty_field))).check(matches(isDisplayed()));
-        //onView(withText(R.string.error_empty_field)).check(matches(isDisplayed()));
-        //onView(withId(R.id.txtPassword)).perform(ViewActions.click(), closeSoftKeyboard());
-        //waitKeyboard(200);
-        //onView(withText(R.string.error_empty_field)).check(matches(isDisplayed()));
+        //check error icon visibility inside edittext
+        onView(withId(R.id.txtPassword)).check(matches(hasErrorText(getActivity().getString(R.string.error_empty_field))));
 
         tearDown();
     }
