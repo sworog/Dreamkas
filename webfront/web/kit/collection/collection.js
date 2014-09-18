@@ -9,12 +9,18 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     var Collection = makeClass(Backbone.Collection, {
+        filters: {},
         initialize: function(data, options){
-            _.extend(this, options);
+
+            this.filters = get(this, 'filters');
+
+            deepExtend(this, options);
         },
         fetch: function(options) {
 
-            options = deepExtend({});
+            options = deepExtend({
+                data: this.filters
+            }, options);
 
             this.request && this.request.abort();
 
@@ -24,19 +30,8 @@ define(function(require, exports, module) {
 
             return this.request;
         },
-        get: function() {
-            var args = [this].concat([].slice.call(arguments));
-
-            return get.apply(null, args);
-        },
-
-        set: function() {
-            var args = [this].concat([].slice.call(arguments));
-
-            return set.apply(null, args);
-        },
         filter: function(filters){
-            this.set('filters', filters);
+            set(this, 'filters', filters);
 
             return this.fetch();
         }

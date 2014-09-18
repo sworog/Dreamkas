@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return Autocomplete.extend({
         remoteUrl: '/products/search?properties[]=name&properties[]=sku&query=%QUERY',
+        resetLink: true,
         initTypeahead: function() {
             var block = this;
 

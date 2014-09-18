@@ -1,17 +1,19 @@
-<% if (collection.length) { %>
+<% if (PAGE.collections.receipts.length) { %>
 <div name="receiptsList" class="receiptFinder__results">
 	<div class="list-group">
 
-		<% var prevDate = 0; %>
-		<% collection.forEach(function(receipt){ %>
+		<% var prevDate = null; %>
+
+		<% PAGE.collections.receipts.forEach(function(receipt){ %>
 
         <% var date = receipt.get('date'); %>
 
-        <% if (isDifferentDates(prevDate, date)) { %>
+        <% if (prevDate !== date) { %>
 
         <% prevDate = date; %>
 
         <div class="receiptFinder__resultsDate"><%- formatDate(date, {format: 'dddd, DD MMMM'}) %></div>
+
         <% } %>
 
         <button data-receipt-id="<%- receipt.id %>"
