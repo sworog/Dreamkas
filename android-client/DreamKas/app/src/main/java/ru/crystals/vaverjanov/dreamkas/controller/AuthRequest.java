@@ -1,11 +1,6 @@
 package ru.crystals.vaverjanov.dreamkas.controller;
 
-import android.util.Log;
-
-import com.google.android.apps.common.testing.ui.espresso.IdlingResource;
 import com.octo.android.robospice.request.SpiceRequest;
-import com.octo.android.robospice.request.listener.RequestProgress;
-import com.octo.android.robospice.request.listener.RequestStatus;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.rest.RestService;

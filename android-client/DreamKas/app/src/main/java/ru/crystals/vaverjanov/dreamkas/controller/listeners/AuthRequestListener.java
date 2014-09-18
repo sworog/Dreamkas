@@ -1,13 +1,10 @@
 package ru.crystals.vaverjanov.dreamkas.controller.listeners;
 
 import android.util.Log;
-
-import com.google.android.apps.common.testing.ui.espresso.IdlingResource;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 import com.octo.android.robospice.request.listener.RequestProgress;
 import com.octo.android.robospice.request.listener.RequestProgressListener;
-import com.octo.android.robospice.request.listener.RequestStatus;
 
 import ru.crystals.vaverjanov.dreamkas.model.Token;
 
