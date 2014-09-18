@@ -17,7 +17,7 @@
                 name="receipt"
                 class="receiptFinder__resultLink list-group-item">
             <span name="price"
-                  class="receiptFinder__resultLinkAmount"><%= helpers.formatAmount(receipt.get('sumTotal')) %> <i
+                  class="receiptFinder__resultLinkAmount"><%= helpers.formatAmount(receipt.get('sumTotal'), '0,0.00[00]') %> <i
                         class="fa fa-rub"></i></span>
             <span name="time" class="receiptFinder__resultLinkTime"><%= helpers.formatTime(date) %></span>
         </button>
