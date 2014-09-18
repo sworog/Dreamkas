@@ -47,20 +47,4 @@ public class JSInput extends CommonItem {
             }
         };
     }
-
-    @Override
-    public String getText() {
-        return getVisibleWebElementFacade().getValue();
-    }
-
-    @Override
-    public FieldChecker getFieldChecker() {
-        return new FieldChecker(this) {
-            @Override
-            public void assertValueEqual(String expectedValue) {
-                String convertedValue = DateTimeHelper.getDate(expectedValue);
-                super.assertValueEqual(convertedValue);
-            }
-        };
-    }
 }
