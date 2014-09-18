@@ -32,6 +32,6 @@ public abstract class CommonPosPage extends BootstrapPageObject {
     }
 
     public void clickOnSideBarInteraction() {
-        click(By.xpath("//*[contains(@class, sideBarLink')]"));
+        click(By.xpath("//*[contains(@class, 'sideBarLink')]"));
     }
 }
