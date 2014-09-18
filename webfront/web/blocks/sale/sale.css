@@ -1,4 +1,11 @@
+
 .sale {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    top: 0;
+    overflow: auto;
     background: #fff;
 }
 
@@ -31,7 +38,7 @@
 }
 
 .sale__products {
-    padding: 0 32px;
+    padding: 0 32px 20px 32px;
 }
 
 .sale__productsTitle {
@@ -39,18 +46,32 @@
     padding: 0 0 20px 0;
 }
 
-.sale__product {
-    display: table;
+.sale__products table {
     width: 100%;
+}
+
+.sale__product {
     border-top: 1px solid #eee;
 }
 
-.sale__product > div {
-    display: table-cell;
+.sale__product:last-child {
+    border-bottom: 1px solid #eee;
+}
+
+.sale__product td {
     white-space: nowrap;
     padding: 14px;
 }
 
 .sale__productName {
     width: 100%;
+}
+
+.sale__productQuantity,
+.sale__productPrice {
+    text-align: right;
+}
+
+.sale__productPrice .fa {
+    font-size: 12px;
 }
