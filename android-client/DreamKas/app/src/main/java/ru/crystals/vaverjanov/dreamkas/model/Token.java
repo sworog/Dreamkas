@@ -6,8 +6,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Token
 {
     private String access_token;
+    private String refresh_token;
 
     public String getAccess_token() {
+        return access_token;
+    }
+    public String getRefresh_token() {
         return access_token;
     }
 

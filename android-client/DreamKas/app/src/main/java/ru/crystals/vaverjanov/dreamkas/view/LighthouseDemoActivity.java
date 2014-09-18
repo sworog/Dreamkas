@@ -40,6 +40,7 @@ import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.GetGroupsRequest;
 import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetGroupsRequestListener;
+import ru.crystals.vaverjanov.dreamkas.model.DreamkasFragments;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
 
 @EActivity(R.layout.activity_lighhouse_demo)
@@ -65,22 +66,6 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
 
         Intent intent = getIntent();
         token = intent.getStringExtra("access_token");
-
-
-
-        if(token == null)
-        {
-
-        }
-
-
-       /* SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);;
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.clear();
-        editor.commit();*/
-
-
-
     }
 
     @AfterViews
@@ -195,8 +180,8 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
     {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
 
-        ad.setTitle(getResources().getString(R.string.exitDialogTitle));  // заголовок
-        ad.setMessage(getResources().getString(R.string.exitDialogMsg)); // сообщение
+        ad.setTitle(getResources().getString(R.string.exitDialogTitle));
+        ad.setMessage(getResources().getString(R.string.exitDialogMsg));
         ad.setPositiveButton(getResources().getString(R.string.Yes), new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int arg1)
@@ -223,22 +208,12 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
         finish();
     }
 
-    public void onGetGroupsSuccessRequest(NamedObjects result)
-    {
-        Log.d("AAA",result.toString());
-    }
-
-    public void onGetGroupsFailureRequest(SpiceException spiceException)
-    {
-        Log.d("AAA", spiceException.getMessage());
-    }
-
     public String getToken() {
         return token;
     }
 
     @Override
-    public void onFragmentChange(KasFragments target)
+    public void onFragmentChange(DreamkasFragments target)
     {
         displayView(target.getValue());
     }

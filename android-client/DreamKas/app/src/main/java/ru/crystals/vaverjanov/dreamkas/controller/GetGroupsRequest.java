@@ -23,7 +23,6 @@ public class GetGroupsRequest extends BaseAuthorisedRequest {
     @Override
     public NamedObjects loadDataFromNetwork() throws Exception
     {
-        //super.loadDataFromNetwork();
         NamedObjects groups = restClient.getGroups();
         return groups;
     }

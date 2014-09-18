@@ -18,10 +18,14 @@ import org.androidannotations.annotations.ViewById;
 import org.springframework.util.StringUtils;
 
 import ru.crystals.vaverjanov.dreamkas.R;
+import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
+import ru.crystals.vaverjanov.dreamkas.model.DreamkasFragments;
 
 @EFragment(R.layout.fragment_kas)
 public class KasFragment extends BaseFragment
 {
+    private PreferencesManager preferences;
+
     @ViewById
     TextView lblStore;
 
@@ -30,17 +34,16 @@ public class KasFragment extends BaseFragment
     {
         super.onStart();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String currentStoreId = preferences.getString(getResources().getString(R.string.current_store_id), "");
+        preferences = PreferencesManager.getInstance();
 
-        if(StringUtils.hasText(currentStoreId))
+        if(StringUtils.hasText(preferences.getCurrentStore()))
         {
 
-            lblStore.setText(currentStoreId);
+            lblStore.setText(preferences.getCurrentStore());
         }
         else
         {
-            changeFragmentCallback.onFragmentChange(KasFragments.Store);
+            changeFragmentCallback.onFragmentChange(DreamkasFragments.Store);
         }
 
     }

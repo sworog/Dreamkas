@@ -19,12 +19,12 @@ public class GetGroupsRequestListener implements RequestListener<NamedObjects> {
     public void onRequestSuccess(NamedObjects result)
     {
         //do some logic here
-        managedActivity.onGetGroupsSuccessRequest(result);
+        //managedActivity.onGetGroupsSuccessRequest(result);
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException)
     {
-        managedActivity.onGetGroupsFailureRequest(spiceException);
+//        managedActivity.onGetGroupsFailureRequest(spiceException);
     }
 }

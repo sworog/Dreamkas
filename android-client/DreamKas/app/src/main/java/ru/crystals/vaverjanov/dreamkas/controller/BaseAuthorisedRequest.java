@@ -29,11 +29,4 @@ public abstract class BaseAuthorisedRequest extends SpiceRequest<NamedObjects>
         this.token = token;
         restClient.setHeader("Authorization", "Bearer " + token);
     }
-
-   /* @Override
-    public T loadDataFromNetwork() throws Exception
-    {
-        restClient.setHeader("Authorization", "Bearer " + token);
-        return null;
-    }*/
 }

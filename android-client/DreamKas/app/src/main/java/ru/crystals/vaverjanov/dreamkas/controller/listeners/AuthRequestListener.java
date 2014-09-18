@@ -1,64 +1,47 @@
 package ru.crystals.vaverjanov.dreamkas.controller.listeners;
 
+import android.util.Log;
+
 import com.google.android.apps.common.testing.ui.espresso.IdlingResource;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+import com.octo.android.robospice.request.listener.RequestProgress;
+import com.octo.android.robospice.request.listener.RequestProgressListener;
+import com.octo.android.robospice.request.listener.RequestStatus;
 
 import ru.crystals.vaverjanov.dreamkas.model.Token;
 
-public class AuthRequestListener implements RequestListener<Token>, IdlingResource {
+public class AuthRequestListener implements RequestListener<Token>, RequestProgressListener{
 
     private final IAuthRequestHandler managedActivity;
+
 
     public AuthRequestListener(IAuthRequestHandler activity)
     {
         managedActivity = activity;
     }
 
-    private boolean isReady;
-
     @Override
     public void onRequestSuccess(Token authResult)
     {
         //do some logic here
         managedActivity.onAuthSuccessRequest(authResult);
-        isReady=true;
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException)
     {
         managedActivity.onAuthFailureRequest(spiceException);
-        isReady=true;
-    }
-
-
-    private ResourceCallback callback;
-
-    @Override
-    public String getName()
-    {
-        return "authorization";
     }
 
     @Override
-    public boolean isIdleNow()
+    public void onRequestProgressUpdate(RequestProgress progress)
     {
-        boolean isIdle = false;
+        Log.d("AAA", "dasd");
 
-        if (!isReady) {
-            isIdle = false;
-            callback.onTransitionToIdle();
-        } else {
-            isIdle = true;
-        }
-
-        return isIdle;
     }
 
-    @Override
-    public void registerIdleTransitionCallback(ResourceCallback resourceCallback)
-    {
-        this.callback = resourceCallback;
+    public void requestStarted() {
+
     }
 }

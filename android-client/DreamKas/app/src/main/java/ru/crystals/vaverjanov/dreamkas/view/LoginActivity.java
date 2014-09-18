@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.inputmethod.InputMethodManager;
@@ -26,6 +27,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.AuthRequest;
 import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
+import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.IAuthRequestHandler;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.AuthRequestListener;
 import ru.crystals.vaverjanov.dreamkas.model.AuthObject;
@@ -42,21 +44,47 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
     @ViewById
     EditText txtUsername;
 
+    private Context context;
+
     @Bean
     public AuthRequest authRequest;
 
     private SpiceManager spiceManager = new SpiceManager(LighthouseSpiceService.class);
-    public final AuthRequestListener authRequestListener = new AuthRequestListener(this);
+    public AuthRequestListener authRequestListener;// = new AuthRequestListener(this);
+    //public final AuthRequestListener authRequestListener = new AuthRequestListener(this);
 
     public ProgressDialog progressDialog;
+    private PreferencesManager preferences;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        PreferencesManager.initializeInstance(getApplicationContext());
+        context = this;
+    }
 
     @Override
     public void onStart()
     {
+        preferences = PreferencesManager.getInstance();
+
+
+
         spiceManager.start(this);
         super.onStart();
         isActive = true;
         addEditTextChangeListeners();
+
+        //authRequestListener = new AuthRequestListener(this);
+
+        /*String token = preferences.getToken();
+
+        if(!token.equals(""))
+        {
+            //todo autologin
+            //todo update token
+        }*/
     }
 
     @Override
@@ -78,13 +106,20 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
         if(isValid)
         {
             showProgressDialog();
+
             String username = txtUsername.getText().toString();
             String password = txtPassword.getText().toString();
 
             //todo get secret from? get client_id from?
             AuthObject ao = new AuthObject("webfront_webfront", username, password, "secret");
             authRequest.setCredentials(ao);
+
+            if(this.authRequestListener == null)
+            {
+                init();
+            }
             spiceManager.execute(authRequest, null, DurationInMillis.NEVER, authRequestListener);
+            authRequestListener.requestStarted();
         }
     }
 
@@ -133,7 +168,8 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
             msg = spiceException.getMessage();
         }
 
-        showMsg(msg);
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+
         //final String msg = spiceException.getCause().getMessage();
     }
 
@@ -195,17 +231,24 @@ public class LoginActivity extends Activity implements IAuthRequestHandler
         }
     }
 
-    private void showMsg(String msg)
-    {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
+
 
     protected void showProgressDialog()
     {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Авторизация...");
+        progressDialog.setMessage(getResources().getString(R.string.auth_dialog_title));
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(true);
         progressDialog.show();
+    }
+
+    public void init(AuthRequestListener authRequestIdlingResource)
+    {
+        this.authRequestListener = authRequestIdlingResource;
+    }
+
+    public void init()
+    {
+        this.authRequestListener = new AuthRequestListener(this);
     }
 }

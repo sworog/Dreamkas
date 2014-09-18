@@ -33,11 +33,13 @@ import org.androidannotations.annotations.ViewById;
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.GetGroupsRequest;
 import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
+import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.AuthRequestListener;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetGroupsRequestListener;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetStoresRequestListener;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.IStoresRequestHandler;
 import ru.crystals.vaverjanov.dreamkas.controller.GetStoresRequest;
+import ru.crystals.vaverjanov.dreamkas.model.DreamkasFragments;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObject;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
 import ru.crystals.vaverjanov.dreamkas.view.adapters.NamedObjectSpinnerAdapter;
@@ -46,6 +48,8 @@ import ru.crystals.vaverjanov.dreamkas.view.adapters.NamedObjectsAdapter;
 @EFragment(R.layout.fragment_store)
 public class StoreFragment extends BaseFragment implements IStoresRequestHandler
 {
+    private PreferencesManager preferences;
+
     @ViewById
     Spinner spStores;
 
@@ -61,7 +65,11 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     @Override
     public void onStart()
     {
+
         super.onStart();
+
+        preferences = PreferencesManager.getInstance();
+
     }
 
     @Override
@@ -84,7 +92,7 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     @Click(R.id.btnSaveStoreSettings)
     void openKas()
     {
-        changeFragmentCallback.onFragmentChange(KasFragments.Kas);
+        changeFragmentCallback.onFragmentChange(DreamkasFragments.Kas);
     }
 
     @Override
@@ -104,10 +112,7 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(getResources().getString(R.string.current_store_id), ((NamedObject)spStores.getAdapter().getItem(i)).getId());
-                editor.apply();
+                preferences.setCurrentStore(((NamedObject)spStores.getAdapter().getItem(i)).getId());
             }
 
             @Override
@@ -118,12 +123,10 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
         });
 
         int currentStorePosition = 0;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String currentStoreId = preferences.getString(getResources().getString(R.string.current_store_id), "");
 
         for(int i = 0; i < stores.size(); i++)
         {
-            if(stores.get(i).getId().equals(currentStoreId))
+            if(stores.get(i).getId().equals(preferences.getCurrentStore()))
             {
                 currentStorePosition = i;
                 break;
