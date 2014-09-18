@@ -18,6 +18,16 @@
 	</div>
 	<div class="sale__products">
 		<div class="sale__productsTitle">Товары</div>
+
+		<% model.collections.products.forEach(function(receiptProduct){ %>
+
+		<div class="sale__product">
+			<div class="sale__productName"><%= receiptProduct.get('product.name') %></div>
+			<div><%= receiptProduct.get('quantity') %> шт</div>
+			<div><%= receiptProduct.get('price') %> <i class="fa fa-rub"></i></div>
+		</div>
+
+		<% }) %>
 	</div>
 </div>
 
