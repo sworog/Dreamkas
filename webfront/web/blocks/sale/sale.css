@@ -30,7 +30,27 @@
     margin-right: 14px;
 }
 
+.sale__products {
+    padding: 0 32px;
+}
+
 .sale__productsTitle {
     font-size: 18px;
-    padding: 0 32px 20px 32px;
+    padding: 0 0 20px 0;
+}
+
+.sale__product {
+    display: table;
+    width: 100%;
+    border-top: 1px solid #eee;
+}
+
+.sale__product > div {
+    display: table-cell;
+    white-space: nowrap;
+    padding: 14px;
+}
+
+.sale__productName {
+    width: 100%;
 }
