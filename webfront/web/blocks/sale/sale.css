@@ -19,7 +19,7 @@
 
 .sale__info {
     font-size: 15px;
-    padding: 24px 24px 24px 40px;
+    padding: 24px 32px 40px 32px;
 }
 
 .sale__info > div {
@@ -28,4 +28,9 @@
 
 .sale__info > div .fa {
     margin-right: 14px;
+}
+
+.sale__productsTitle {
+    font-size: 18px;
+    padding: 0 32px 20px 32px;
 }
