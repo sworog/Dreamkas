@@ -7,6 +7,12 @@ define(function(require, exports, module) {
 		events: {
 			'click .receiptFinder__resultLink': function(e) {
 				e.preventDefault();
+
+                $(e.currentTarget)
+                    .addClass('receiptFinder__resultLink_active')
+                    .siblings('.receiptFinder__resultLink')
+                    .removeClass('receiptFinder__resultLink_active');
+
                 this.trigger('click:receipt', e.currentTarget.dataset.receiptId);
 			}
 		},

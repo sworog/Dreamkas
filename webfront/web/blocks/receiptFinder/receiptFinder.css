@@ -30,9 +30,10 @@
 }
 
 .receiptFinder__resultLink:focus,
-.receiptFinder__resultLink:hover {
+.receiptFinder__resultLink:hover,
+.receiptFinder__resultLink_active {
     background-color: #0A819C;
-    color: #fff;
+    color: #fff !important;
 }
 
 .receiptFinder__resultLinkAmount {
