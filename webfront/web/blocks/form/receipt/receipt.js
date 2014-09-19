@@ -33,9 +33,9 @@ define(function(require, exports, module) {
             }
         },
         submitSuccess: function(){
-            //document.getElementById('modal_receipt').block.show({
-            //    success: true
-            //});
+            document.getElementById('modal_receipt').block.show({
+                success: true
+            });
         },
         checkChange: function(){
             var block = this,
