@@ -4,9 +4,9 @@ import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.receiptHistory.HistoryReceiptCollection;
 import project.lighthouse.autotests.elements.items.JSInput;
 import project.lighthouse.autotests.elements.items.autocomplete.ProductAutoComplete;
-import project.lighthouse.autotests.objects.web.receiptHistory.HistoryReceiptCollection;
 
 public class PosSaleHistoryPage extends CommonPosPage {
 

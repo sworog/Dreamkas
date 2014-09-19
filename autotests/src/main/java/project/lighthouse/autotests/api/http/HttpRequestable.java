@@ -2,7 +2,7 @@ package project.lighthouse.autotests.api.http;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
+import project.lighthouse.autotests.api.objects.abstraction.AbstractObject;
 
 import java.io.IOException;
 

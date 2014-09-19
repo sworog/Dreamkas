@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.storage.variable;
 
-import project.lighthouse.autotests.objects.api.Store;
+import project.lighthouse.autotests.api.objects.Store;
 
 public class StoreVariableStorage {
 

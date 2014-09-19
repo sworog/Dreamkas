@@ -2,8 +2,8 @@ package project.lighthouse.autotests.pages.stockMovement.modal.writeOff;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.writeOffProduct.WriteOffProductCollection;
 import project.lighthouse.autotests.elements.items.Input;
-import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 
 public class WriteOffCreateModalWindow extends StockMovementModalPage {

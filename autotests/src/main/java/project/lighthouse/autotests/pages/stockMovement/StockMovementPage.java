@@ -2,13 +2,13 @@ package project.lighthouse.autotests.pages.stockMovement;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.stockMovement.StockMovementListObjectCollection;
 import project.lighthouse.autotests.common.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DropdownBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.JSInput;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementListObjectCollection;
 
 @DefaultUrl("/stockMovements")
 public class StockMovementPage extends BootstrapPageObject {

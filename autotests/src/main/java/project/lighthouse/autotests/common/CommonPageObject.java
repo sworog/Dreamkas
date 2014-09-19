@@ -7,8 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.elements.items.NonType;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
 import java.util.Map;
 
@@ -157,5 +157,9 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
 
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         getObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    public void clickOnCollectionObjectByLocator(String locator) {
+        getObjectCollection().clickByLocator(locator);
     }
 }

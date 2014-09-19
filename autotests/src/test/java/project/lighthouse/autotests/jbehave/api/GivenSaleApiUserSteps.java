@@ -14,12 +14,17 @@ public class GivenSaleApiUserSteps {
 
     @Given("пользователь создает чек c датой '$date'")
     public void gicenUserCreatesSaleWithCashType(String date) throws JSONException {
-        saleBuilderSteps.createSale(date, "cash");
+        saleBuilderSteps.createSale(date);
     }
 
     @Given("пользователь вносит наличные в размере '$amountTendered' рублей")
-    public void givenUserSetsAmountTendered(String amountTendered) throws JSONException {
-        saleBuilderSteps.setAmountTendered(amountTendered);
+    public void givenUserPaysWithCash(String amountTendered) throws JSONException {
+        saleBuilderSteps.payWithCash(amountTendered);
+    }
+
+    @Given("пользователь использует для оплаты банковскую карту")
+    public void givenUserUsesBankCardForPayment() throws JSONException {
+        saleBuilderSteps.payWithBankCard();
     }
 
     @Given("пользователь добавляет товар в чек с именем '$productName', количеством '$quantity' и по цене '$price'")

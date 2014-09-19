@@ -2,7 +2,7 @@ package project.lighthouse.autotests.storage.containers.user;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.objects.api.Store;
+import project.lighthouse.autotests.api.objects.Store;
 
 /**
  * Class to store user data
