@@ -25,6 +25,7 @@
 @import "/blocks/modal/modal.css";
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
+@import "/blocks/inputNumber/inputNumber.css";
 
 body {
     overflow-x: hidden;

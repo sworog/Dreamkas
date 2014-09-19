@@ -11,11 +11,3 @@
 .form_receipt__change {
     display: none;
 }
-
-.form_receiptProduct__quantityPlusLink, .form_receiptProduct__quantityMinusLink {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none
-}
