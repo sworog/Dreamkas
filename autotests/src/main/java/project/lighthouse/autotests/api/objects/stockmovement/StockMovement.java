@@ -2,7 +2,7 @@ package project.lighthouse.autotests.api.objects.stockmovement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import project.lighthouse.autotests.objects.api.abstraction.AbstractProductableObject;
+import project.lighthouse.autotests.api.objects.abstraction.AbstractProductableObject;
 
 public abstract class StockMovement<T extends StockMovementProduct> extends AbstractProductableObject {
 

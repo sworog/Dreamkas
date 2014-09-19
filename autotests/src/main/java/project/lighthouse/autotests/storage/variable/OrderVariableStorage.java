@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.storage.variable;
 
-import project.lighthouse.autotests.objects.api.Product;
-import project.lighthouse.autotests.objects.api.Supplier;
+import project.lighthouse.autotests.api.objects.Product;
+import project.lighthouse.autotests.api.objects.Supplier;
 
 public class OrderVariableStorage {
 

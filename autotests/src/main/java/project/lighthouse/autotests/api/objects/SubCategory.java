@@ -1,9 +1,9 @@
-package project.lighthouse.autotests.objects.api;
+package project.lighthouse.autotests.api.objects;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.api.objects.abstraction.AbstractClassifierNode;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNode;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.variable.CustomVariableStorage;
 

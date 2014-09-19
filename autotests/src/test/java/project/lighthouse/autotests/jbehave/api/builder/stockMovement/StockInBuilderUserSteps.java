@@ -2,8 +2,8 @@ package project.lighthouse.autotests.jbehave.api.builder.stockMovement;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import project.lighthouse.autotests.objects.api.Product;
-import project.lighthouse.autotests.objects.api.Store;
+import project.lighthouse.autotests.api.objects.Product;
+import project.lighthouse.autotests.api.objects.Store;
 import project.lighthouse.autotests.steps.api.builder.StockInBuilderSteps;
 import project.lighthouse.autotests.storage.Storage;
 

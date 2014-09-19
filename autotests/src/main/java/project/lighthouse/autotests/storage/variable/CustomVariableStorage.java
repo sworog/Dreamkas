@@ -1,9 +1,9 @@
 package project.lighthouse.autotests.storage.variable;
 
-import project.lighthouse.autotests.objects.api.Product;
-import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.objects.api.Supplier;
+import project.lighthouse.autotests.api.objects.Product;
+import project.lighthouse.autotests.api.objects.Store;
+import project.lighthouse.autotests.api.objects.SubCategory;
+import project.lighthouse.autotests.api.objects.Supplier;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.StorageClearable;
 

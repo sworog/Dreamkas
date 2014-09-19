@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.api.abstraction;
+package project.lighthouse.autotests.api.objects.abstraction;
 
 import org.json.JSONException;
 import org.json.JSONObject;
