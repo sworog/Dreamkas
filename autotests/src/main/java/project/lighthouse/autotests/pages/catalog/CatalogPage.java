@@ -3,9 +3,9 @@ package project.lighthouse.autotests.pages.catalog;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.common.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
-import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 
 /**
  * Catalog page object

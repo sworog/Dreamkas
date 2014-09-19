@@ -3,13 +3,13 @@ package project.lighthouse.autotests.pages.pos;
 import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
+import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.collection.receiptHistory.Receipt;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.items.NonType;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.FieldChecker;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.receiptHistory.Receipt;
 import project.lighthouse.autotests.storage.Storage;
 
 public class ReceiptElement extends CommonPageObject {
