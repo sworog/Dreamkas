@@ -13,24 +13,33 @@ define(function(require, exports, module) {
 
             document.getElementById(dataset.modal).block.show(_.extend({}, dataset));
         })
-        .on('click', function(e){
-            if (e.target.classList.contains('modal')){
-                e.target.block && e.target.block.hide();
+        .on('click', function(e) {
+            if (e.target.classList.contains('modal__wrapper')) {
+                $(e.target).find('.modal:visible')[0].block.hide();
             }
         })
-        .on('keyup', function(e){
+        .on('keyup', function(e) {
             var modal = $('.modal:visible')[0];
-
-            checkKey(e.keyCode, ['ESC']) && modal && modal.block && modal.block.hide();
+            checkKey(e.keyCode, ['ESC']) && modal && modal.block.hide();
         });
 
     return Block.extend({
         events: {
-            'click .close': function() {
+            'click .modal__closeLink': function(e) {
                 var block = this;
 
-                block.hide();
+                if (!e.target.dataset.referrer) {
+                    block.hide();
+                }
             }
+        },
+        render: function() {
+            var block = this,
+                modal__wrapper = document.getElementById('modal__wrapper') || $('<div id="modal__wrapper"></div>').appendTo('body');
+
+            Block.prototype.render.apply(block, arguments);
+
+            $(modal__wrapper).append(block.$el);
         },
         show: function(data) {
             var block = this;
@@ -40,19 +49,26 @@ define(function(require, exports, module) {
             document.body.classList.add('modal-open');
 
             block.$el
-                .show()
-                .find('[autofocus]').focus();
+                .addClass('modal_visible')
+                .siblings('.modal')
+                .removeClass('modal_visible');
 
-            block.$el.trigger('modal.shown');
+            document.getElementById('modal__wrapper').classList.add('modal__wrapper_visible');
+
+            block.$('[autofocus]').focus();
+
+            block.trigger('shown');
         },
         hide: function() {
             var block = this;
 
             document.body.classList.remove('modal-open');
 
-            block.$el.hide();
+            block.el.classList.remove('modal_visible');
 
-            block.$el.trigger('modal.hidden');
+            document.getElementById('modal__wrapper').classList.remove('modal__wrapper_visible');
+
+            block.trigger('hidden');
         }
     });
 });

@@ -6,7 +6,35 @@ define(function(require, exports, module) {
         cookies = require('cookies'),
         _ = require('lodash');
 
-    var posWindowReference = null;
+    var posWindowReference = null,
+        previousPage;
+
+    var openPos = function() {
+
+        var posStoreId = cookies.get('posStoreId'),
+            posUrl = '/pos' + (posStoreId ? ('/stores/' + posStoreId) : '');
+
+        if (posWindowReference == null || posWindowReference.closed) {
+            /* if the pointer to the window object in memory does not exist
+             or if such pointer exists but the window was closed */
+            posWindowReference = window.open(posUrl, 'pos', 'innerWidth=1000, innerHeight=800');
+            /* then create it. The new window will be created and
+             will be brought on top of any other window. */
+        } else {
+            posWindowReference.focus();
+            /* else the window reference must exist and the window
+             is not closed; therefore, we can bring it back on top of any other
+             window with the focus() method. There would be no need to re-create
+             the window or to reload the referenced resource. */
+        }
+    };
+
+    $(document)
+        .on('click', '.page__posLink', function(e) {
+            e.preventDefault();
+
+            openPos();
+        });
 
     return Block.extend({
 
@@ -14,38 +42,6 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
 
         activeNavigationItem: 'main',
-
-        posUrl: function(){
-            var posStoreId = cookies.get('posStoreId');
-
-            return '/pos' + (posStoreId ? ('/stores/' + posStoreId) : '');
-        },
-
-        events: {
-            'click .page__posLink': function(e) {
-                e.preventDefault();
-
-                var page = this;
-
-                page.openPos();
-            }
-        },
-
-        openPos: function() {
-            if (posWindowReference == null || posWindowReference.closed) {
-                /* if the pointer to the window object in memory does not exist
-                 or if such pointer exists but the window was closed */
-                posWindowReference = window.open(this.get('posUrl'), 'pos', 'innerWidth=1000, innerHeight=800');
-                /* then create it. The new window will be created and
-                 will be brought on top of any other window. */
-            } else {
-                posWindowReference.focus();
-                /* else the window reference must exist and the window
-                 is not closed; therefore, we can bring it back on top of any other
-                 window with the focus() method. There would be no need to re-create
-                 the window or to reload the referenced resource. */
-            }
-        },
 
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
@@ -57,11 +53,17 @@ define(function(require, exports, module) {
             page.setStatus('starting');
             page.setStatus('loading');
 
-            page.initResources();
+            previousPage = window.PAGE;
+            window.PAGE = page;
 
-            $.when(page.fetch()).then(function() {
-                page.render();
-                page.setStatus('loaded');
+            Block.prototype.initialize.apply(page, arguments);
+        },
+
+        initData: function() {
+            var page = this;
+
+            return $.when(Block.prototype.initData.apply(page, arguments)).then(function() {
+                return page.fetch();
             });
         },
 
@@ -69,11 +71,10 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
-            if (window.PAGE && window.PAGE !== page) {
-                window.PAGE.remove();
+            if (previousPage) {
+                previousPage.remove();
+                previousPage = null;
             }
-
-            window.PAGE = page;
 
             Block.prototype.render.apply(page, arguments);
 
@@ -85,14 +86,14 @@ define(function(require, exports, module) {
                 }, 0);
             }
 
+            page.setStatus('loaded');
+
         },
 
         remove: function() {
             var page = this;
 
-            page.stopListening();
-            page.undelegateEvents();
-
+            page.unbind();
             page.removeBlocks();
         },
 

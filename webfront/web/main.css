@@ -24,6 +24,11 @@
 @import "/blocks/radioGroup/radioGroup.css";
 @import "/blocks/modal/modal.css";
 @import "/blocks/sale/sale.css";
+@import "/blocks/sideBar/sideBar.css";
+
+body {
+    overflow-x: hidden;
+}
 
 body:before {
     content: "";

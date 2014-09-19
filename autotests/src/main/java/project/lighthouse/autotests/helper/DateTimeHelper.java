@@ -2,8 +2,11 @@ package project.lighthouse.autotests.helper;
 
 import org.joda.time.DateTime;
 
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -121,5 +124,18 @@ public class DateTimeHelper {
         TimeZone timeZone = TimeZone.getTimeZone("UTC");
         simpleDateFormat.setTimeZone(timeZone);
         return simpleDateFormat.format(date);
+    }
+
+    public static String getExpectedSaleDate(String saleDate, String pattern) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateTimeHelper.ISO_8601, new Locale("ru"));
+            Date convertedSaleDate = new org.joda.time.DateTime(simpleDateFormat.parse(saleDate)).plusHours(4).toDate();
+            String[] months = {"января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"};
+            DateFormatSymbols customDateFormatSymbols = DateFormatSymbols.getInstance(new Locale("ru"));
+            customDateFormatSymbols.setMonths(months);
+            return new SimpleDateFormat(pattern, customDateFormatSymbols).format(convertedSaleDate);
+        } catch (ParseException e) {
+            throw new AssertionError(e);
+        }
     }
 }

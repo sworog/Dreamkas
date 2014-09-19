@@ -7,7 +7,7 @@ define(function(require, exports, module) {
         template: require('ejs!./receiptFinder__results.ejs'),
 		itemSelector: '.receiptFinder__resultLink',
 		isDifferentDates: function(date1, date2) {
-			var formatDate = this.helpers.formatDate;
+			var formatDate = this.formatDate;
 
 			return formatDate(date1) != formatDate(date2);
 		}

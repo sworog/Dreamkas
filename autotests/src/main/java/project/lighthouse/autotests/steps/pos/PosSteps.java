@@ -10,10 +10,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.api.http.HttpExecutor;
+import project.lighthouse.autotests.collection.posAutoComplete.PosAutoCompleteCollection;
+import project.lighthouse.autotests.collection.receipt.ReceiptCollection;
+import project.lighthouse.autotests.collection.receipt.ReceiptObject;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.objects.web.posAutoComplete.PosAutoCompleteCollection;
-import project.lighthouse.autotests.objects.web.receipt.ReceiptCollection;
-import project.lighthouse.autotests.objects.web.receipt.ReceiptObject;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
 import project.lighthouse.autotests.pages.pos.ReceiptModalPage;
@@ -171,7 +171,7 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void assertCashRegistrySideMenuLinkIsActive() {
-        if (!posPage.getCashRegistrySideMenuLink().isActive()) {
+        if (!posPage.getCashRegistrySideMenuLink().getAttribute("class").contains("active")) {
             Assert.fail("Ссылка 'Касса' не активна в боковом меню навигации кассы");
         }
     }

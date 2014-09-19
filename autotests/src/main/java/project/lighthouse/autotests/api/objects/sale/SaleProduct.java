@@ -2,7 +2,7 @@ package project.lighthouse.autotests.api.objects.sale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.objects.api.abstraction.AbstractProductObject;
+import project.lighthouse.autotests.api.objects.abstraction.AbstractProductObject;
 
 public class SaleProduct extends AbstractProductObject {
 

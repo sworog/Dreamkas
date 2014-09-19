@@ -4,6 +4,16 @@ define(function(require, exports, module) {
 
 	return Block.extend({
 		template: require('ejs!./template.ejs'),
+		events: {
+			'click .receiptFinder__resultLink': function(e) {
+				e.preventDefault();
+
+				var block = this;
+				var receipt = block.collections.receipts.get(e.currentTarget.dataset.receiptId);
+
+				block.trigger('click:receipt', receipt);
+			}
+		},
 		models: {
 			product: function() {
 				return this.product;
