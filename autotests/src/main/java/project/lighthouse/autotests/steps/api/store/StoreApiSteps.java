@@ -22,7 +22,6 @@ public class StoreApiSteps extends ScenarioSteps {
         if (!customVariableStorage.getStores().containsKey(store.getName())) {
             new ApiFactory(userContainer.getEmail(), userContainer.getPassword()).createObject(store);
             customVariableStorage.getStores().put(store.getName(), store);
-            Storage.getStoreVariableStorage().setStore(store);
             userContainer.setStore(store);
             return store;
         } else {
