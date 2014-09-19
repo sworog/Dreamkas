@@ -4,28 +4,20 @@ import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.objects.api.Supplier;
-import project.lighthouse.autotests.objects.api.product.ExtraBarcode;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.StorageClearable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CustomVariableStorage implements StorageClearable {
-
-    private List<ExtraBarcode> extraBarcodes = new ArrayList<>();
 
     private String email;
 
     private String name;
 
     private String mainWindowHandle;
-
-    public List<ExtraBarcode> getExtraBarcodes() {
-        return extraBarcodes;
-    }
 
     public String getEmail() {
         return email;

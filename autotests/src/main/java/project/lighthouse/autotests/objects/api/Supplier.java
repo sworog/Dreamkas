@@ -13,13 +13,6 @@ public class Supplier extends AbstractObject {
         super(jsonObject);
     }
 
-    @Deprecated
-    public Supplier(String name) throws JSONException {
-        this(new JSONObject()
-                        .put("name", name)
-        );
-    }
-
     public Supplier(String name,
                     String address,
                     String phone,
