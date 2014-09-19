@@ -24,7 +24,6 @@
 .page__content {
     padding: 20px 30px 50px;
     position: relative;
-    background-color: #f0f2f5;
     z-index: 10;
 }
 
@@ -52,10 +51,6 @@
 .page_pos .page__content,
 .page_pos .page__head {
     transition: opacity .2s;
-}
-
-.page_pos.page_sideBarVisible {
-    background-color: #333;
 }
 
 .page_pos.page_sideBarVisible .sideBar {

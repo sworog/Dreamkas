@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./template.ejs'),
         blocks: {
-            inputNumber: require('blocks/inputNumber/inputNumber')
+            form_refund: require('blocks/form/refund/refund')
         }
     });
 });

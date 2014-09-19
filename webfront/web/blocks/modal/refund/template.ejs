@@ -1,7 +1,3 @@
-<% var models = {
-    receipt: PAGE.collections.receipts.get(PAGE.params.receiptId)
-} %>
-
 <div class="modal modal_refund" id="modal_refund">
     <div class="modal__header">
         <a class="modal__closeLink fa fa-times"></a>
@@ -18,26 +14,7 @@
     </div>
     <div class="modal__body">
 
-        <% models.receipt.collections.products.forEach(function(receiptProductModel){ %>
-
-        <div name="position" class="modal_refund__position row">
-
-            <div class="col col-md-8">
-                <div name="productName" class="modal_refund__productName">
-                    <%- receiptProductModel.get('product.name') %>
-                </div>
-                <div name="productBarcode">
-                    <%- receiptProductModel.get('product.barcode') %>
-                </div>
-            </div>
-
-            <div class="col col-md-4">
-                <b block="inputNumber"></b>
-            </div>
-
-        </div>
-
-        <% }) %>
+        <b block="form_refund"></b>
 
     </div>
 </div>
