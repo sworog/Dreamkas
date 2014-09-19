@@ -1,17 +1,9 @@
-buildscript {
-
-    repositories {
-        mavenCentral()
-    }
-
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.2'
-    }
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+
+repositories {
+    mavenCentral()
+}
 
 android
 {
