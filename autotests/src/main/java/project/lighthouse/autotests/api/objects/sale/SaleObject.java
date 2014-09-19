@@ -9,17 +9,11 @@ public class SaleObject extends AbstractProductableObject {
 
     private Store store;
 
-    public SaleObject(String date, String type, String amountTendered) throws JSONException {
+    public SaleObject(String date) throws JSONException {
         super();
         getJsonObject()
                 .put("date", date)
-                .put("payment", new JSONObject()
-                        .put("type", type)
-                        .put("amountTendered", amountTendered));
-    }
-
-    public SaleObject(String date, String type) throws JSONException {
-        this(date, type, "");
+                .put("payment", new JSONObject());
     }
 
     @Override
@@ -33,5 +27,9 @@ public class SaleObject extends AbstractProductableObject {
 
     public void setAmountTendered(String amountTendered) throws JSONException {
         getJsonObject().getJSONObject("payment").put("amountTendered", amountTendered);
+    }
+
+    public void setPaymentMethod(String type) throws JSONException {
+        getJsonObject().getJSONObject("payment").put("type", type);
     }
 }
