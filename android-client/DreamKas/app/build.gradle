@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
 repositories {
+    maven {
+        url "${System.getenv("ANDROID_HOME")}/extras/android/m2repository"
+    }
     mavenCentral()
 }
 
