@@ -82,6 +82,10 @@
     font-weight: bold;
 }
 
+.modal_refund__position {
+    padding-bottom: 15px;
+}
+
 .modal_refund__productName {
     font-size: 20px;
 }
