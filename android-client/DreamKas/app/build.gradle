@@ -1,9 +1,17 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.2'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-
-repositories {
-    mavenCentral()
-}
 
 android
 {
@@ -51,7 +59,7 @@ android
         }
         debug
         {
-            packageNameSuffix ".debug"
+            applicationIdSuffix ".debug"
         }
     }
     productFlavors
@@ -78,7 +86,7 @@ dependencies
 
     apt "org.androidannotations:androidannotations:3.0"
 
-    compile 'com.android.support:support-v4:19.1.+'
+    compile 'com.android.support:support-v4:19.0.0'
     compile 'com.octo.android.robospice:robospice:1.4.12'
     compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
