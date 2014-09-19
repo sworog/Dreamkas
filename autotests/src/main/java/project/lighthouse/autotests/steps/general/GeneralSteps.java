@@ -6,6 +6,7 @@ import project.lighthouse.autotests.common.GeneralPageObject;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
 import project.lighthouse.autotests.pages.pos.PosSaleHistoryPage;
+import project.lighthouse.autotests.pages.pos.ReceiptElement;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("выбора кассы", PosLaunchPage.class);
             put("выбранной кассы", PosPage.class);
             put("истории продаж кассы", PosSaleHistoryPage.class);
+            put("чека", ReceiptElement.class);
         }};
     }
 
@@ -74,5 +76,10 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     @Step
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         getCurrentPageObject().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void clickOnCollectionObjectByLocator(String locator) {
+        getCurrentPageObject().clickOnCollectionObjectByLocator(locator);
     }
 }

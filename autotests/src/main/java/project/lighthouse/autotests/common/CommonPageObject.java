@@ -158,4 +158,8 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         getObjectCollection().compareWithExampleTable(examplesTable);
     }
+
+    public void clickOnCollectionObjectByLocator(String locator) {
+        getObjectCollection().clickByLocator(locator);
+    }
 }

@@ -31,6 +31,11 @@ public class GeneralEndUserSteps {
         generalSteps.input(elementName, value);
     }
 
+    @When("пользователь* нажимает на элемент списка '$collectionName' с именем '$locator'")
+    public void whenUserClicksOnCollectionObjectByLocator(String locator) {
+        generalSteps.clickOnCollectionObjectByLocator(locator);
+    }
+
     @Then("пользователь* проверяет, что поле с именем '$elementName' имеет значение '$value'")
     public void thenUserChecksValue(String elementName, String value) {
         generalSteps.checkValue(elementName, value);

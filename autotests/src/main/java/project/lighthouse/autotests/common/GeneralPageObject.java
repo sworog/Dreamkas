@@ -23,4 +23,6 @@ public interface GeneralPageObject {
     public void exactCompareExampleTable(ExamplesTable examplesTable);
 
     public void compareWithExampleTable(ExamplesTable examplesTable);
+
+    public void clickOnCollectionObjectByLocator(String locator);
 }
