@@ -68,7 +68,15 @@ define(function(require, exports, module) {
 
             document.getElementById('modal__wrapper').classList.remove('modal__wrapper_visible');
 
+            block.reset();
+
             block.trigger('hidden');
+        },
+        reset: function(){
+
+            this.$('form').each(function(){
+                this.block && this.block.reset();
+            });
         }
     });
 });

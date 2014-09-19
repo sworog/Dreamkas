@@ -33,9 +33,9 @@ define(function(require, exports, module) {
             }
         },
         submitSuccess: function(){
-            document.getElementById('modal_receipt').block.show({
-                success: true
-            });
+            //document.getElementById('modal_receipt').block.show({
+            //    success: true
+            //});
         },
         checkChange: function(){
             var block = this,
@@ -53,7 +53,7 @@ define(function(require, exports, module) {
             var block = this,
                 totalPrice = 0;
 
-            block.model.collections.products.forEach(function(receiptProductModel) {
+            block.model.collections.receiptProducts.forEach(function(receiptProductModel) {
                 totalPrice += block.normalizeNumber(receiptProductModel.get('quantity')) * block.normalizeNumber(receiptProductModel.get('price'));
             });
 

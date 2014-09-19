@@ -41,7 +41,7 @@ define(function(require, exports, module) {
             }
         },
         collection: function(){
-            return PAGE.models.receipt.collections.products;
+            return PAGE.models.receipt.collections.receiptProducts;
         },
         submit: function(){
             var block = this,

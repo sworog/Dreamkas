@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 	//requirements
-	var Block = require('kit/block/block');
+	var Block = require('kit/block/block'),
+        moment = require('moment');
 
 	return Block.extend({
 		template: require('ejs!./template.ejs'),

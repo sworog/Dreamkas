@@ -66,7 +66,7 @@ define(function(require, exports, module) {
                 });
 
             if (receiptProductModel.get('price')){
-                PAGE.models.receipt.collections.products.add(receiptProductModel);
+                PAGE.models.receipt.collections.receiptProducts.add(receiptProductModel);
             } else {
                 document.getElementById('modal_receiptProduct').block.show({
                     models: {

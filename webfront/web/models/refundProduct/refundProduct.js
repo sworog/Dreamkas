@@ -8,12 +8,12 @@ define(function(require, exports, module) {
             quantity: 1
         },
         models: {
-            product: require('models/product/product')
+            receiptProduct: require('models/receiptProduct/receiptProduct')
         },
         saveData: function() {
 
             return {
-                product: this.models.product.id,
+                product: this.models.receiptProduct.models.product.id,
                 quantity: this.get('quantity')
             };
         }

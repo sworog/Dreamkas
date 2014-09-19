@@ -10,7 +10,7 @@ define(function(require, exports, module) {
             'click .receipt__productLink': function(e) {
                 document.getElementById('modal_receiptProduct').block.show({
                     models: {
-                        receiptProduct: PAGE.models.receipt.collections.products.get(e.currentTarget.dataset.receiptProductCid)
+                        receiptProduct: PAGE.models.receipt.collections.receiptProducts.get(e.currentTarget.dataset.receiptProductCid)
                     }
                 });
             },
@@ -28,7 +28,7 @@ define(function(require, exports, module) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            block.listenTo(PAGE.models.receipt.collections.products, {
+            block.listenTo(PAGE.models.receipt.collections.receiptProducts, {
                 'add remove reset change': function() {
                     block.render();
                     block.$('.receipt__scrollContainer').scrollTop(block.$('.receipt__scrollContainer table').height());
@@ -42,7 +42,7 @@ define(function(require, exports, module) {
             var block = this,
                 totalPrice = 0;
 
-            PAGE.models.receipt.collections.products.forEach(function(receiptProductModel) {
+            PAGE.models.receipt.collections.receiptProducts.forEach(function(receiptProductModel) {
                 totalPrice += normalizeNumber(block.calculateItemPrice(receiptProductModel));
             });
 

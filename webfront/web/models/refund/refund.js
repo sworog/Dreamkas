@@ -7,13 +7,13 @@ define(function(require, exports, module) {
             return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/sales/' + this.get('receiptId') + '/refund';
         },
         collections: {
-            products: require('collections/refundProducts/refundProducts')
+            refundProducts: require('collections/refundProducts/refundProducts')
         },
         saveData: function(){
 
             return {
-                products: this.collections.products.map(function(receiptProductModel) {
-                    return receiptProductModel.getData();
+                products: this.collections.refundProducts.map(function(refundProductModel) {
+                    return refundProductModel.getData();
                 }),
                 date: new Date
             };

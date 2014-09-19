@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             return Model.baseApiUrl + '/stores/' + PAGE.params.storeId + '/sales';
         },
         collections: {
-            products: require('collections/receiptProducts/receiptProducts')
+            receiptProducts: require('collections/receiptProducts/receiptProducts')
         },
         defaults: {
             payment: {
@@ -22,7 +22,7 @@ define(function(require, exports, module) {
         saveData: function(){
 
             var data = {
-                products: this.collections.products.map(function(receiptProductModel) {
+                products: this.collections.receiptProducts.map(function(receiptProductModel) {
                     return receiptProductModel.getData();
                 }),
                 payment: {

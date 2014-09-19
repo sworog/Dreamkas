@@ -1,10 +1,10 @@
-<% if(PAGE.models.receipt.collections.products.length) { %>
+<% if(PAGE.models.receipt.collections.receiptProducts.length) { %>
 <div class="receipt">
 
     <div class="receipt__scrollContainer">
         <table name="productList" class="table table-striped table-hover">
 
-            <% PAGE.models.receipt.collections.products.forEach(function(receiptProductModel){ %>
+            <% PAGE.models.receipt.collections.receiptProducts.forEach(function(receiptProductModel){ %>
             <tr class="receipt__productLink" data-receipt-product-cid="<%- receiptProductModel.cid %>" name="product">
                 <td>
                     <div class="receipt__itemName" name="name"><%- receiptProductModel.models.product.get('name') %></div>

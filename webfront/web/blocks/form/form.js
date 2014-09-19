@@ -16,7 +16,7 @@ define(function(require) {
         data: function(){
             var block = this;
 
-            return block.model && block.model.toJSON();
+            return block.model && _.cloneDeep(block.model.toJSON());
         },
         events: {
             'change :input': function() {
@@ -61,10 +61,18 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
         },
-        render: function(){
+        initData: function(){
             var block = this;
 
+            block.__data = block.data;
+            block.__model = block.model;
+
+            Block.prototype.initData.apply(block, arguments);
+
             block.data = block.get('data');
+        },
+        render: function(){
+            var block = this;
 
             Block.prototype.render.apply(block, arguments);
 
@@ -205,7 +213,8 @@ define(function(require) {
 
             block.el.reset();
 
-            block.serialize();
+            block.model = block.get('__model');
+            block.data = block.get('__data');
         },
         clear: function(){
             var block = this;
