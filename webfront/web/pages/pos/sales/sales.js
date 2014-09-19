@@ -6,6 +6,13 @@ define(function(require, exports, module) {
         title: 'История продаж',
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'sales',
+        globalEvents: {
+            'click:receipt': function(receiptId){
+                this.setParams({
+                    receiptId: receiptId
+                });
+            }
+        },
         models: {
             product: function() {
                 var Product = require('models/product/product'),

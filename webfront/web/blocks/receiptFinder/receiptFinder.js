@@ -7,10 +7,7 @@ define(function(require, exports, module) {
 		events: {
 			'click .receiptFinder__resultLink': function(e) {
 				e.preventDefault();
-
-				PAGE.setParams({
-                    receiptId: e.currentTarget.dataset.receiptId
-                });
+                this.trigger('click:receipt', e.currentTarget.dataset.receiptId);
 			}
 		},
 		blocks: {
