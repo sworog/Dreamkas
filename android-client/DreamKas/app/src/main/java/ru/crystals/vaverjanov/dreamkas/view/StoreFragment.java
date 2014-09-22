@@ -34,6 +34,7 @@ import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.GetGroupsRequest;
 import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
+import ru.crystals.vaverjanov.dreamkas.controller.adapters.NamedObjectSpinnerAdapter;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.AuthRequestListener;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetGroupsRequestListener;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetStoresRequestListener;
@@ -42,8 +43,6 @@ import ru.crystals.vaverjanov.dreamkas.controller.GetStoresRequest;
 import ru.crystals.vaverjanov.dreamkas.model.DreamkasFragments;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObject;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
-import ru.crystals.vaverjanov.dreamkas.view.adapters.NamedObjectSpinnerAdapter;
-import ru.crystals.vaverjanov.dreamkas.view.adapters.NamedObjectsAdapter;
 
 @EFragment(R.layout.fragment_store)
 public class StoreFragment extends BaseFragment implements IStoresRequestHandler

@@ -34,7 +34,6 @@
             android:lines="1"
             android:hint="Email"
             android:drawableLeft="@drawable/email"
-            android:text="owner@lighthouse.pro"
             />
 
         <EditText
@@ -49,8 +48,6 @@
             android:lines="1"
             android:password="true"
             android:drawableLeft="@drawable/password"
-            android:text="lighthouse"
-
             />
 
         <Button

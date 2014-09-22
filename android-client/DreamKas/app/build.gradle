@@ -6,6 +6,7 @@ repositories {
         url "${System.getenv("ANDROID_HOME")}/extras/android/m2repository"
     }
     mavenCentral()
+    jcenter()
 }
 
 android
@@ -35,8 +36,9 @@ android
         applicationId 'ru.crystals.vaverjanov.dreamkas'
         minSdkVersion 14
         targetSdkVersion 19
+        buildConfigField 'String', 'ServerAddress', '"http://av.staging.api.lighthouse.pro"'
         versionCode 1
-        versionName '1.0'
+        versionName '0.113.1'
         testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
     }
 
@@ -81,6 +83,7 @@ dependencies
 
     apt "org.androidannotations:androidannotations:3.0"
 
+    androidTestCompile 'com.google.guava:guava:11.0.2'
     compile 'com.android.support:support-v4:19.0.0'
     compile 'com.octo.android.robospice:robospice:1.4.12'
     compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'

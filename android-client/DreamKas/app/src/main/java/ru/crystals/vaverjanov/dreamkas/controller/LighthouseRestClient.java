@@ -8,12 +8,13 @@ import org.androidannotations.annotations.rest.RequiresHeader;
 import org.androidannotations.annotations.rest.Rest;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+import ru.crystals.vaverjanov.dreamkas.BuildConfig;
 import ru.crystals.vaverjanov.dreamkas.model.AuthObject;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObject;
 import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
 import ru.crystals.vaverjanov.dreamkas.model.Token;
 
-@Rest(rootUrl = "http://av.staging.api.lighthouse.pro", converters = { MappingJackson2HttpMessageConverter.class })
+@Rest(rootUrl = BuildConfig.ServerAddress, converters = { MappingJackson2HttpMessageConverter.class })
 public interface LighthouseRestClient
 {
     @Post("/oauth/v2/token")
