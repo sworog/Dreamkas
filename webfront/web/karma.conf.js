@@ -7,7 +7,6 @@ module.exports = function(config) {
         // base path, that will be used to resolve files and exclude
         basePath: '',
 
-
         // frameworks to use
         frameworks: ['jasmine', 'requirejs'],
 
@@ -30,7 +29,11 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots'],
+        reporters: ['allure'],
+
+		allureReport: {
+			reportDir: 'report'
+		},
 
         preprocessors: {
             // source files, that you wanna generate coverage for
