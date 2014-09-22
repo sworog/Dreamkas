@@ -76,10 +76,11 @@ apt
 
 dependencies
 {
+    provided 'com.jakewharton.espresso:espresso-support-v4:1.1-r3'
     androidTestCompile ('com.jakewharton.espresso:espresso-support-v4:1.1-r3')
-    {
-        exclude group: 'com.android.support'
-    }
+            {
+                exclude group:'com.android.support', module:'support-v4'
+            }
 
     apt "org.androidannotations:androidannotations:3.0"
 
