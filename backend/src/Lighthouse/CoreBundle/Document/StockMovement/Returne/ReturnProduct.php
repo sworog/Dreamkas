@@ -20,10 +20,8 @@ class ReturnProduct extends StockMovementProduct
     const TYPE = 'ReturnProduct';
 
     /**
-     * Цена продажи
+     * Цена возврата
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank(groups={"Default","products"})
-     * @LighthouseAssert\Money(notBlank=true, groups={"Default","products"})
      * @var Money
      */
     protected $price;
