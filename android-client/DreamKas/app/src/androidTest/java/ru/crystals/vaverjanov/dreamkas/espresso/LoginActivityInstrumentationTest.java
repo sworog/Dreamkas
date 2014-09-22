@@ -42,6 +42,7 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         super("ru.crystals.vaverjanov.dreamkas.view", LoginActivity_.class);
     }
 
+    @Override
     protected void setUp() throws Exception
     {
         super.setUp();
@@ -57,6 +58,11 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         }
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+    }
+
     public void test_emptyCredentials_Login() throws Exception
     {
         //enter empty credentials
@@ -67,8 +73,6 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
 
         //check error icon visibility inside edittext
         onView(withId(R.id.txtPassword)).check(matches(hasErrorText(getActivity().getString(R.string.error_empty_field))));
-
-        tearDown();
     }
 
     public void test_wrongCredentials_Login() throws Exception
@@ -81,8 +85,6 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
 
         //expect toast with error message
         onView(withText(R.string.error_bad_credentials)).inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
-
-        tearDown();
     }
 
     public void test_rightCredentials_Login() throws Exception
@@ -98,8 +100,6 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
 
         //check if login activity is finishing
         assertTrue(mStartActivity.isFinishing());
-
-        tearDown();
     }
 
 
@@ -124,7 +124,6 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
                 assertTrue(Iterables.get(activities, 0) instanceof LighthouseDemoActivity);
             }
         });
-        tearDown();
     }
 
     private void enterCredentialsAndClick(String username, String password)
