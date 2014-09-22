@@ -9,6 +9,11 @@ define(function(require, exports, module) {
                 this.render();
             }
         },
+        models: {
+            receipt: function(){
+                return PAGE.collections.receipts.get(PAGE.params.receiptId);
+            }
+        },
         blocks: {
             modal_refund: require('blocks/modal/refund/refund')
         }

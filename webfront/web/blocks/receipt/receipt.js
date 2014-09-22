@@ -29,8 +29,7 @@ define(function(require, exports, module) {
             Block.prototype.initialize.apply(block, arguments);
 
             block.listenTo(PAGE.models.receipt.collections.receiptProducts, {
-                'add remove reset change': function() {
-                    console.log(arguments);
+                'add remove change': function() {
                     block.render();
                     block.$('.receipt__scrollContainer').scrollTop(block.$('.receipt__scrollContainer table').height());
                 }

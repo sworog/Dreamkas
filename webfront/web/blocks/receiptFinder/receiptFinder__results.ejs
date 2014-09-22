@@ -1,10 +1,10 @@
-<% if (PAGE.collections.receipts.length) { %>
+<% if (collection.length) { %>
 <div name="receiptsList" class="receiptFinder__results">
 	<div class="list-group">
 
 		<% var prevDate = null; %>
 
-		<% PAGE.collections.receipts.forEach(function(receipt){ %>
+		<% collection.forEach(function(receipt){ %>
 
         <% var date = receipt.get('date'); %>
 

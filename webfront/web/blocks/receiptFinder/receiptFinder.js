@@ -17,6 +17,11 @@ define(function(require, exports, module) {
                 this.trigger('click:receipt', e.currentTarget.dataset.receiptId);
 			}
 		},
+        collections: {
+            receipts: function(){
+                return PAGE.collections.receipts;
+            }
+        },
 		blocks: {
 			product_autocomplete: function() {
 				var block = this,
@@ -54,7 +59,8 @@ define(function(require, exports, module) {
 			receiptFinder__results: require('./receiptFinder__results')
 		},
         findReceipts: function(input) {
-            var dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
+            var block = this,
+                dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
                 dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val();
 
             if (!dateFrom || !dateTo) {
@@ -63,13 +69,13 @@ define(function(require, exports, module) {
 
             $(input).addClass('loading');
 
-            PAGE.collections.receipts.filter({
+            this.collections.receipts.filter({
                 dateFrom: dateFrom,
                 dateTo: dateTo,
                 product: PAGE.models.product.get('id')
             }).then(function() {
 
-                PAGE.setParams(PAGE.collections.receipts.filters, {
+                PAGE.setParams(block.collections.receipts.filters, {
                     render: false
                 });
 
