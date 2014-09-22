@@ -63,7 +63,7 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         super.tearDown();
     }
 
-    public void test_emptyCredentials_Login() throws Exception
+    public void testUserWillGetErrorMessagesIfTryToLoginWithEmptyCredentials() throws Exception
     {
         //enter empty credentials
         enterCredentialsAndClick("", "");
@@ -75,7 +75,7 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         onView(withId(R.id.txtPassword)).check(matches(hasErrorText(getActivity().getString(R.string.error_empty_field))));
     }
 
-    public void test_wrongCredentials_Login() throws Exception
+    public void testUserWillGetErrorToastMessageIfTryToLoginWithWrongCredentials() throws Exception
     {
         //register idling resource for wait async operation
         Espresso.registerIdlingResources((AuthRequestIdlingResource)mStartActivity.authRequestListener);
@@ -87,10 +87,16 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         onView(withText(R.string.error_bad_credentials)).inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
-    public void test_rightCredentials_Login() throws Exception
+    public void testUserWillAuthorizeSuccessFully() throws Exception
     {
         //enter right credentials
         enterCredentialsAndClick("owner@lighthouse.pro", "lighthouse");
+
+        //check if loading dialog is displayed
+        //onView(withText(R.string.auth_dialog_title)).check(matches(isDisplayed()));
+
+        //check that loading dialog is dismissed
+        onView(withText(R.string.auth_dialog_title)).check(doesNotExist());
 
         //here we got new opened activity after login and here we should see action bar with title
         onView(allOf(isDescendantOfA(withResourceName("android:id/action_bar_container")), withText(R.string.dream_kas_title)));
@@ -103,18 +109,16 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
     }
 
 
-    public void test_exitByBackBtn_Login() throws Exception
+    public void testLoginActivityIsSingleInstanceAfterLogOut() throws Exception
     {
         enterCredentialsAndClick("owner@lighthouse.pro", "lighthouse");
 
         //now on back button click we expected exit from app, because login activity disappeared
         pressBack();
 
-        getInstrumentation().runOnMainSync(new Runnable()
-        {
+        getInstrumentation().runOnMainSync(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                 Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
 
                 //in that moment we expect that only one activity is still alive
@@ -126,11 +130,9 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         });
     }
 
-    private void enterCredentialsAndClick(String username, String password)
-    {
-        Boolean isExpectedLoadingDialog = !StringUtils.isEmpty(username) && !StringUtils.isEmpty(password);
+    private void enterCredentialsAndClick(String userName, String password) {
 
-        onView(withId(R.id.txtUsername)).perform(clearText()).perform(ViewActions.typeText(username), closeSoftKeyboard());
+        onView(withId(R.id.txtUsername)).perform(clearText()).perform(ViewActions.typeText(userName), closeSoftKeyboard());
 
         //hack, espresso bug here. without waiting cause exception
         waitKeyboard(200);
@@ -142,14 +144,5 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
 
         //click on login button
         onView(withId(R.id.btnLogin)).perform(click());
-
-        if(isExpectedLoadingDialog)
-        {
-            //check if loading dialog is displayed
-            //onView(withText(R.string.auth_dialog_title)).check(matches(isDisplayed()));
-
-            //check that loading dialog is dismissed
-            onView(withText(R.string.auth_dialog_title)).check(doesNotExist());
-        }
     }
 }
