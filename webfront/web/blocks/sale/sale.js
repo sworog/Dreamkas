@@ -5,7 +5,8 @@ define(function(require, exports, module) {
     return Block.extend({
         template: require('ejs!./template.ejs'),
         globalEvents: {
-            'click:receipt': function(){
+            'click:receipt': function(receiptId){
+                this.models.receipt = PAGE.collections.receipts.get(receiptId);
                 this.render();
             }
         },

@@ -8,16 +8,23 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         events: {
             'click .receipt__productLink': function(e) {
+                var block = this;
+
                 document.getElementById('modal_receiptProduct').block.show({
                     models: {
-                        receiptProduct: PAGE.models.receipt.collections.receiptProducts.get(e.currentTarget.dataset.receiptProductCid)
+                        receiptProduct: block.models.receipt.collections.products.get(e.currentTarget.dataset.receiptProductCid)
                     }
                 });
             },
             'click .receipt__clearLink .confirmLink__confirmation': function(e) {
                 var block = this;
 
-                PAGE.models.receipt.collections.products.reset([]);
+                block.models.receipt.collections.products.reset([]);
+            }
+        },
+        models: {
+            receipt: function(){
+                return PAGE.models.receipt;
             }
         },
         blocks: {
@@ -28,8 +35,8 @@ define(function(require, exports, module) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            block.listenTo(PAGE.models.receipt.collections.receiptProducts, {
-                'add remove change': function() {
+            block.listenTo(block.models.receipt.collections.products, {
+                'add remove change reset': function() {
                     block.render();
                     block.$('.receipt__scrollContainer').scrollTop(block.$('.receipt__scrollContainer table').height());
                 }
@@ -42,7 +49,7 @@ define(function(require, exports, module) {
             var block = this,
                 totalPrice = 0;
 
-            PAGE.models.receipt.collections.receiptProducts.forEach(function(receiptProductModel) {
+            block.models.receipt.collections.products.forEach(function(receiptProductModel) {
                 totalPrice += normalizeNumber(block.calculateItemPrice(receiptProductModel));
             });
 

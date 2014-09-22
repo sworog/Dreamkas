@@ -10,12 +10,7 @@ define(function(require, exports, module) {
 
             return new RefundModel({
                 storeId: PAGE.params.storeId,
-                receiptId: PAGE.params.receiptId,
-                products: PAGE.collections.receipts.get(PAGE.params.receiptId).collections.receiptProducts.map(function(receiptProductModel){
-                    return {
-                        receiptProduct: receiptProductModel.toJSON()
-                    }
-                })
+                receiptId: PAGE.params.receiptId
             });
         },
         blocks: {

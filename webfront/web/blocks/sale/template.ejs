@@ -27,7 +27,7 @@
         <div class="sale__productsTitle">Товары</div>
         <table>
 
-            <% models.receipt.collections.receiptProducts.forEach(function(receiptProduct){ %>
+            <% models.receipt.collections.products.forEach(function(receiptProduct){ %>
 
             <tr class="sale__product">
                 <td class="sale__productName" name="name"><%- receiptProduct.get('product.name') %></td>

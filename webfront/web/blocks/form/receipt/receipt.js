@@ -53,7 +53,7 @@ define(function(require, exports, module) {
             var block = this,
                 totalPrice = 0;
 
-            block.model.collections.receiptProducts.forEach(function(receiptProductModel) {
+            block.model.collections.products.forEach(function(receiptProductModel) {
                 totalPrice += block.normalizeNumber(receiptProductModel.get('quantity')) * block.normalizeNumber(receiptProductModel.get('price'));
             });
 

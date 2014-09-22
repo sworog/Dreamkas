@@ -8,6 +8,11 @@ define(function(require, exports, module) {
         collections: {
             products: require('collections/products/products')
         },
+        models: {
+            receipt: function(){
+                return PAGE.models.receipt;
+            }
+        },
         events: {
             'keyup input[name="product"]': function(e) {
                 var block = this;
@@ -66,7 +71,7 @@ define(function(require, exports, module) {
                 });
 
             if (receiptProductModel.get('price')){
-                PAGE.models.receipt.collections.receiptProducts.add(receiptProductModel);
+                block.models.receipt.collections.products.add(receiptProductModel);
             } else {
                 document.getElementById('modal_receiptProduct').block.show({
                     models: {

@@ -17,6 +17,11 @@ define(function(require, exports, module) {
                 this.trigger('click:receipt', e.currentTarget.dataset.receiptId);
 			}
 		},
+        models: {
+            product: function(){
+                return PAGE.models.product;
+            }
+        },
         collections: {
             receipts: function(){
                 return PAGE.collections.receipts;
@@ -30,16 +35,16 @@ define(function(require, exports, module) {
 					productAutocomplete;
 
 				productAutocomplete = new ProductAutocomplete({
-                    value: PAGE.models.product.get('name')
+                    value: block.models.product.get('name')
                 });
 
 				productAutocomplete.$el.on('typeahead:selected', function(e, product) {
-					PAGE.models.product.set(product);
+					block.models.product.set(product);
                     block.findReceipts(autocompleteInput);
 				});
 
 				productAutocomplete.on('input:clear', function(e, product) {
-                    PAGE.models.product.clear();
+                    block.models.product.clear();
 					block.findReceipts(autocompleteInput);
 				});
 
@@ -72,7 +77,7 @@ define(function(require, exports, module) {
             this.collections.receipts.filter({
                 dateFrom: dateFrom,
                 dateTo: dateTo,
-                product: PAGE.models.product.get('id')
+                product: block.models.product.get('id')
             }).then(function() {
 
                 PAGE.setParams(block.collections.receipts.filters, {
