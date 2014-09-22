@@ -5,20 +5,9 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         id: 'form_refund',
-        model: function() {
-            var RefundModel = require('models/refund/refund');
-
-            return new RefundModel({
-                storeId: PAGE.params.storeId,
-                receiptId: PAGE.params.receiptId
-            });
-        },
+        model: require('models/refund/refund'),
         blocks: {
-            inputNumber: function(){
-                var InputNumber = require('blocks/inputNumber/inputNumber');
-
-                return new InputNumber();
-            }
+            inputNumber: require('blocks/inputNumber/inputNumber')
         },
         submitSuccess: function(){
             document.getElementById('modal_refund').block.show({
