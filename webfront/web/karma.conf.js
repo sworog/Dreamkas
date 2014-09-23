@@ -37,7 +37,8 @@ module.exports = function(config) {
 		},
 
 		coverageReporter: {
-			type: 'teamcity',
+			type: 'html',
+			dir: 'coverage/'
 		},
 
         preprocessors: {
