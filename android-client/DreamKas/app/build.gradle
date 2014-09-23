@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+
+repositories {
+    maven {
+        url "${System.getenv("ANDROID_HOME")}/extras/android/m2repository"
+    }
+    mavenCentral()
+    jcenter()
+}
+
+android
+{
+    compileSdkVersion 19
+    buildToolsVersion '20.0.0'
+
+    lintOptions
+    {
+        abortOnError false
+    }
+
+    packagingOptions
+    {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'LICENSE.txt'
+    }
+
+    defaultConfig
+    {
+        applicationId 'ru.crystals.vaverjanov.dreamkas'
+        minSdkVersion 14
+        targetSdkVersion 19
+        buildConfigField 'String', 'ServerAddress', '"http://av.staging.api.lighthouse.pro"'
+        versionCode 1
+        versionName '0.113.1'
+        testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
+    }
+
+    testOptions
+    {
+        reportDir = "$project.buildDir/reports/"
+    }
+
+    buildTypes
+    {
+        release
+        {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug
+        {
+            applicationIdSuffix ".debug"
+        }
+    }
+    productFlavors
+    {
+
+    }
+}
+
+apt
+{
+    arguments
+    {
+        resourcePackageName android.defaultConfig.packageName
+        androidManifestFile variant.processResources.manifestFile
+    }
+}
+
+dependencies
+{
+    provided 'com.jakewharton.espresso:espresso-support-v4:1.1-r3'
+    androidTestCompile ('com.jakewharton.espresso:espresso-support-v4:1.1-r3')
+            {
+                exclude group:'com.android.support', module:'support-v4'
+            }
+
+    apt "org.androidannotations:androidannotations:3.0"
+
+    androidTestCompile 'com.google.guava:guava:11.0.2'
+    compile 'com.android.support:support-v4:19.0.0'
+    compile 'com.octo.android.robospice:robospice:1.4.12'
+    compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'
+    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
+    compile 'org.androidannotations:androidannotations-api:3.0'
+}
+
+
