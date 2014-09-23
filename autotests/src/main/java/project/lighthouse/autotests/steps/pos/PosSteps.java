@@ -148,6 +148,11 @@ public class PosSteps extends ScenarioSteps {
     }
 
     @Step
+    public void clickOnRefundContinueButton() {
+        refundModalWindowPage.clickOnContinueButton();
+    }
+
+    @Step
     public void assertStoreProductInventory(String email, String storeName, String productName, String inventory) throws IOException, JSONException {
         UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         String storeId = Storage.getCustomVariableStorage().getStores().get(storeName).getId();
@@ -162,6 +167,18 @@ public class PosSteps extends ScenarioSteps {
     public void assertSuccessTitle(String value) {
         String expected = String.format("Выдайте сдачу\n%s", value);
         receiptModalPage.checkValue("заголовок успешной продажи", expected);
+    }
+
+    @Step
+    public void assertRefundSuccessTitle(String value) {
+        String expected = String.format("Выдайте деньги\n%s", value);
+        refundModalWindowPage.checkValue("заголовок успешного возврата", expected);
+    }
+
+    @Step
+    public void assertRefundSuccessBankTitle(String value) {
+        String expected = String.format("Сделайте возврат на банковскую карту\n%s", value);
+        refundModalWindowPage.checkValue("заголовок успешного возврата", expected);
     }
 
     @Step

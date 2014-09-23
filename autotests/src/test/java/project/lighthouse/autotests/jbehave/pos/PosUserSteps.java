@@ -66,6 +66,11 @@ public class PosUserSteps {
         posSteps.clickOnContinueButton();
     }
 
+    @When("пользователь нажимает на кнопку продолжить работу в окошке успешного возврата")
+    public void whenUserClicksOnRefundContinueWorkButton() {
+        posSteps.clickOnRefundContinueButton();
+    }
+
     @When("пользователь нажимает на кнопку чтобы скрыть боковое меню навигации кассы")
     @Alias("пользователь нажимает на кнопку чтобы показать боковое меню навигации кассы")
     public void whenTheUserInteractsWithCashRegistrySideMenuButton() {
@@ -146,6 +151,16 @@ public class PosUserSteps {
     @Then("пользователь проверяет, что заголовок успешной продажи гласит Выдайте сдачу '$value'")
     public void thenTheUserChecksReceiptSuccessTitle(String value) {
         posSteps.assertSuccessTitle(value);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешного возврата гласит 'Выдайте деньги $value'")
+    public void thenTheUserChecksRefundSuccessTitle(String value) {
+        posSteps.assertRefundSuccessTitle(value);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешного возврата гласит 'Сделайте возврат на банковскую карту $value'")
+    public void thenTheUserChecksRefundBakSuccessTitle(String value) {
+        posSteps.assertRefundSuccessBankTitle(value);
     }
 
     @Then("пользователь проверяет, что количество равно '$quantity' продукта с именем '$name'")

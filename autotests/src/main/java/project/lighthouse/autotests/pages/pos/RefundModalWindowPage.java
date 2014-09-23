@@ -23,6 +23,8 @@ public class RefundModalWindowPage extends ModalWindowPage {
     @Override
     public void createElements() {
         put("сумма возврата на кнопке вернуть", new NonType(this, "//*[contains(@class, 'modal_refund__button')]"));
+        put("заголовок успешного возврата", new NonType(this, "//*[@class='modal_receipt__successTitle']"));
+        put("сумма сдачи, необходимую выдать", new NonType(this, "//*[@class='modal_receipt__changeSum']"));
     }
 
     @Override
@@ -38,6 +40,15 @@ public class RefundModalWindowPage extends ModalWindowPage {
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Вернуть").click();
+        clickInTheModalWindowByXpath("//*[contains(@class, 'btn btn-primary') and contains(text(), 'Вернуть')]");
+    }
+
+    public void clickOnContinueButton() {
+        new PrimaryBtnFacade(this, "Продолжить работу").click();
+    }
+
+    @Override
+    public String getTitle() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
 }

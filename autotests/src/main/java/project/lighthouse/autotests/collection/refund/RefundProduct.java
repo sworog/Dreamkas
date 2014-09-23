@@ -32,8 +32,8 @@ public class RefundProduct extends AbstractObject implements ObjectLocatable, Re
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
-                .compare("name", name, "name")
-                .compare("barcode", barcode, "barcode");
+                .compare("name", name, row.get("name"))
+                .compare("barcode", barcode, row.get("barcode"));
     }
 
     public void setQuantity(String quantity) {
@@ -51,6 +51,6 @@ public class RefundProduct extends AbstractObject implements ObjectLocatable, Re
     }
 
     public String getQuantity() {
-        return getElement().findElement(By.name("quantity")).getText();
+        return getElement().findElement(By.name("quantity")).getAttribute("value");
     }
 }

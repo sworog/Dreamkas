@@ -8,6 +8,7 @@ import project.lighthouse.autotests.pages.catalog.group.modal.ProductCreateModal
 import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;
 import project.lighthouse.autotests.pages.pos.ReceiptModalPage;
 import project.lighthouse.autotests.pages.pos.ReceiptPositionEditModalWindow;
+import project.lighthouse.autotests.pages.pos.RefundModalWindowPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
@@ -40,6 +41,7 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("редактирования возврата поставщику", SupplierReturnEditModalWindow.class);
             put("редактирования товарной позиции", ReceiptPositionEditModalWindow.class);
             put("расчета продажи", ReceiptModalPage.class);
+            put("возврата товарной позиции", RefundModalWindowPage.class);
         }};
     }
 
