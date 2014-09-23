@@ -87,6 +87,27 @@ public class PosUserSteps {
         posSteps.assertCashRegistrySideMenuLinkIsActive();
     }
 
+    @When("пользователь вводит количество '$quantity' продукту с именем '$productName' для совершения возврата")
+    @Alias("пользователь вводит количество c значением quantity продукту с именем '$productName' для совершения возврата")
+    public void whenUserSetRefundProductQuantity(String quantity, String productName) {
+        posSteps.setRefundProductQuantityByName(productName, quantity);
+    }
+
+    @When("пользователь увеличивает количество на единицу продукту с именем '$productName' путем нажатия на кнопку с плюсом для совершения возврата")
+    public void clickOnRefundProductPlusButtonByName(String productName) {
+        posSteps.clickOnRefundProductPlusButtonByName(productName);
+    }
+
+    @When("пользователь уменьшивает количество на единицу продукту с именем '$productName' путем нажатия на кнопку с минусом для совершения возврата")
+    public void clickOnRefundProductMinusButtonByName(String productName) {
+        posSteps.clickOnRefundProductMinusButtonByName(productName);
+    }
+
+    @When("пользователь нажимает на кнопку возврата")
+    public void whenTheUserClicksOnRefundButton() {
+        posSteps.clickOnRefundButton();
+    }
+
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")
     public void thenExactCompareWithExamplesTable(ExamplesTable examplesTable) {
         posSteps.exactComparePosAutocompleteResultsCollectionWithExamplesTable(examplesTable);
@@ -125,5 +146,10 @@ public class PosUserSteps {
     @Then("пользователь проверяет, что заголовок успешной продажи гласит Выдайте сдачу '$value'")
     public void thenTheUserChecksReceiptSuccessTitle(String value) {
         posSteps.assertSuccessTitle(value);
+    }
+
+    @Then("пользователь проверяет, что количество равно '$quantity' продукта с именем '$name'")
+    public void thenUserAssertsRefundProductQuantity(String quantity, String name) {
+        posSteps.assertRefundPorductQuantity(name, quantity);
     }
 }
