@@ -17,6 +17,9 @@ module.exports = function(config) {
             {pattern: '**/*.ejs', included: false}
         ],
 
+
+
+
         // list of files to exclude
         exclude: [
             'karma.conf.js',
@@ -27,11 +30,23 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots'],
+        reporters: ['dots', 'allure', 'coverage'],
 
 		allureReport: {
 			reportDir: 'report'
 		},
+
+		coverageReporter: {
+			type: 'teamcity',
+		},
+
+        preprocessors: {
+            // source files, that you wanna generate coverage for
+            // do not include tests or libraries
+            // (these files will be instrumented by Istanbul),
+            //'requireDom.js': 'coverage',
+			'**/*.js': ['coverage']
+        },
 
         // web server port
         port: 9876,
