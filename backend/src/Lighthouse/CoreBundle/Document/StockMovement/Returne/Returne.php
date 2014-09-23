@@ -10,11 +10,11 @@ use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
-use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @property ReturnProduct[]|Collection|PersistentCollection  $products
+ * @property Sale  $sale
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository")
  */
@@ -39,8 +39,11 @@ class Returne extends Receipt
      *     simple=true,
      *     cascade="persist"
      * )
-     * @Assert\NotBlank(message="lighthouse.validation.errors.return.sale.empty")
-     * @AssertLH\Reference(message="lighthouse.validation.errors.return.sale.does_not_exists")
+     * @Assert\NotBlank(message="lighthouse.validation.errors.return.sale.empty", groups={"Default", "products"})
+     * @AssertLH\Reference(
+     *      message="lighthouse.validation.errors.return.sale.does_not_exists",
+     *      groups={"Default", "products"}
+     * )
      * @Serializer\MaxDepth(2)
      * @var Sale
      */
@@ -80,6 +83,7 @@ class Returne extends Receipt
                 );
                 if (!$saleProducts->isEmpty()) {
                     $product->price = $saleProducts->first()->price;
+                    $product->saleProduct = $saleProducts->first();
                 }
             }
 

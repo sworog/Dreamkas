@@ -77,7 +77,7 @@ class ReturnControllerTest extends WebTestCase
 
         $returnData = array(
             'date' => '',
-            'sale' => '',
+            'sale' => $sale1->id,
             'products' => array(
                 $data + array(
                     'product' => $productIds['1'],
@@ -100,7 +100,6 @@ class ReturnControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions);
         if (400 == $expectedCode) {
             Assert::assertNotJsonHasPath('errors.children.date.errors.0', $response);
-            Assert::assertNotJsonHasPath('errors.children.sale.errors.0', $response);
         } else {
             Assert::assertNotJsonHasPath('date', $response);
         }
@@ -208,7 +207,7 @@ class ReturnControllerTest extends WebTestCase
                 array(
                     'errors.children.products.children.0.children.quantity.errors.0'
                     =>
-                    'Нельзя вернуть больше чем было продано'
+                    'Нельзя вернуть больше чем 10.000'
                 )
             ),
             /***********************************************************************************************
@@ -286,5 +285,123 @@ class ReturnControllerTest extends WebTestCase
                 array('errors.children.sale.errors.0' => 'Продажа не найдена'),
             ),
         );
+    }
+
+    public function testTwoReturnForOneSaleQuantityValidation()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $sale = $this->factory()->receipt()
+            ->createSale($store, '2014-09-11T19:31:50+0400')
+            ->createReceiptProduct($productId, 10, 13.33)
+            ->flush();
+
+
+        $returnData = array(
+            'date' => '2014-09-11T20:31:50+0400',
+            'sale' => $sale->id,
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 7
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/returns",
+            $returnData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals(Returne::TYPE, 'type', $response);
+        Assert::assertJsonPathEquals('2014-09-11T20:31:50+0400', 'date', $response);
+        Assert::assertJsonPathEquals($store->id, 'store.id', $response);
+
+        Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
+
+        Assert::assertJsonPathCount(1, 'products.*.id', $response);
+        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals('7.000', 'products.0.quantity', $response);
+        Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
+        Assert::assertJsonPathEquals('93.31', 'products.0.totalPrice', $response);
+
+        Assert::assertJsonPathEquals('1', 'itemsCount', $response);
+        Assert::assertJsonPathEquals('93.31', 'sumTotal', $response);
+
+
+        $returnData = array(
+            'date' => '2014-09-12T20:31:50+0400',
+            'sale' => $sale->id,
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 6
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/returns",
+            $returnData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Нельзя вернуть больше чем 3.000',
+            'errors.children.products.children.0.children.quantity.errors.0',
+            $response
+        );
+
+
+        $returnData = array(
+            'date' => '2014-09-12T20:31:50+0400',
+            'sale' => $sale->id,
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 3
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/returns",
+            $returnData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals(Returne::TYPE, 'type', $response);
+        Assert::assertJsonPathEquals('2014-09-12T20:31:50+0400', 'date', $response);
+        Assert::assertJsonPathEquals($store->id, 'store.id', $response);
+
+        Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
+
+        Assert::assertJsonPathCount(1, 'products.*.id', $response);
+        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals('3.000', 'products.0.quantity', $response);
+        Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
+        Assert::assertJsonPathEquals('39.99', 'products.0.totalPrice', $response);
+
+        Assert::assertJsonPathEquals('1', 'itemsCount', $response);
+        Assert::assertJsonPathEquals('39.99', 'sumTotal', $response);
     }
 }
