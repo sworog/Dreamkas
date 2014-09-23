@@ -14,6 +14,13 @@ define(function(require, exports, module) {
                 return Form_refund({
                     model: this.models.refund
                 });
+            },
+            submitButton: function(){
+                var SubmitButton = require('./submitButton');
+
+                return new SubmitButton({
+                    collection: this.models.refund.collections.products
+                });
             }
         }
     });

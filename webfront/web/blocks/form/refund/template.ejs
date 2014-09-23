@@ -3,14 +3,14 @@
 
     <% model.collections.products.forEach(function(refundProductModel){ %>
 
-    <div name="position" class="modal_refund__position row">
+    <div name="position" data-model-cid="<%- refundProductModel.cid %>" class="modal_refund__position row">
 
         <div class="col col-md-8">
             <div name="productName" class="modal_refund__productName">
-                <%- refundProductModel.models.receiptProduct.models.product.get('name') %>
+                <%- refundProductModel.models.product.get('name') %>
             </div>
             <div name="productBarcode">
-                <%- refundProductModel.models.receiptProduct.models.product.get('barcode') %>
+                <%- refundProductModel.models.product.get('barcode') %>
             </div>
         </div>
 

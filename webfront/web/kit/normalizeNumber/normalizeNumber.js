@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return function(string) {
 
-        var normalizedString = (string || '').toString()
+        var normalizedString = (typeof string === undefined ? '' : string).toString()
             .replace(' ', '', 'gi')
             .replace(',', '.', 'gi');
         

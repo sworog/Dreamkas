@@ -10,7 +10,7 @@ define(function(require, exports, module) {
             }
         },
         urlRoot: function(){
-            return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/sales/refund';
+            return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/return';
         },
         collections: {
             products: require('collections/refundProducts/refundProducts')
@@ -22,18 +22,10 @@ define(function(require, exports, module) {
         },
         initialize: function(){
 
-            var RefundProductsCollection = require('collections/refundProducts/refundProducts'),
-                RefundProductModel = require('models/refundProduct/refundProduct');
+            var RefundProductsCollection = require('collections/refundProducts/refundProducts');
 
             this.collections.products = new RefundProductsCollection(this.models.sale.collections.products.map(function(receiptProductModel){
-
-                var refundProductModel = new RefundProductModel({
-                    receiptProduct: receiptProductModel.toJSON()
-                });
-
-                refundProductModel.models.receiptProduct = receiptProductModel;
-
-                return refundProductModel;
+                return receiptProductModel.pick('product', 'price')
             }));
         },
         saveData: function(){

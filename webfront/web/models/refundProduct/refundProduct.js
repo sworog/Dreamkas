@@ -5,15 +5,15 @@ define(function(require, exports, module) {
 
     return Model.extend({
         defaults: {
-            quantity: 1
+            quantity: 0
         },
         models: {
-            receiptProduct: require('models/receiptProduct/receiptProduct')
+            product: require('models/product/product')
         },
         saveData: function() {
 
             return {
-                product: this.models.receiptProduct.models.product.id,
+                product: this.models.product.id,
                 quantity: this.get('quantity')
             };
         }

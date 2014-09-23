@@ -7,22 +7,27 @@ define(function(require, exports, module) {
         id: 'form_refund',
         model: require('models/refund/refund'),
         blocks: {
-            inputNumber: require('blocks/inputNumber/inputNumber')
+            inputNumber: function(){
+                var block = this,
+                    InputNumber = require('blocks/inputNumber/inputNumber'),
+                    inputNumber = new InputNumber;
+
+                inputNumber.on({
+                    'change': function(value){
+
+                        var refundProductModelCid = this.$el.closest('.modal_refund__position').data('modelCid');
+
+                        block.model.collections.products.get(refundProductModelCid).set('quantity', value);
+                    }
+                });
+
+                return inputNumber;
+            }
         },
         submitSuccess: function(){
             document.getElementById('modal_refund').block.show({
                 success: true
             });
-        },
-        calculateTotalPrice: function() {
-            var block = this,
-                totalPrice = 0;
-
-            block.model.collections.products.forEach(function(receiptProductModel) {
-                totalPrice += block.normalizeNumber(receiptProductModel.get('quantity')) * block.normalizeNumber(receiptProductModel.get('price'));
-            });
-
-            return block.formatMoney(totalPrice);
         }
     });
 });
