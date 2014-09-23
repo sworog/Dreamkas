@@ -17,9 +17,6 @@ module.exports = function(config) {
             {pattern: '**/*.ejs', included: false}
         ],
 
-
-
-
         // list of files to exclude
         exclude: [
             'karma.conf.js',
@@ -30,7 +27,11 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['allure'],
+        reporters: ['dots'],
+
+		allureReport: {
+			reportDir: 'report'
+		},
 
         // web server port
         port: 9876,
