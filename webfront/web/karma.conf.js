@@ -17,9 +17,6 @@ module.exports = function(config) {
             {pattern: '**/*.ejs', included: false}
         ],
 
-
-
-
         // list of files to exclude
         exclude: [
             'karma.conf.js',
@@ -30,10 +27,14 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots'],
+        reporters: ['dots', 'coverage'],
 
 		allureReport: {
 			reportDir: 'report'
+		},
+
+		coverageReporter: {
+			type: 'teamcity'
 		},
 
         preprocessors: {
@@ -41,7 +42,7 @@ module.exports = function(config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
             //'requireDom.js': 'coverage',
-			//'**/*.js': ['coverage']
+			'**/*.js': ['coverage']
         },
 
         // web server port
@@ -69,7 +70,7 @@ module.exports = function(config) {
         // - Safari (only Mac)
         // - PhantomJS
         // - IE (only Windows)
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['PhantomJS'],
 
 
         // If browser does not capture in given timeout [ms], kill it
