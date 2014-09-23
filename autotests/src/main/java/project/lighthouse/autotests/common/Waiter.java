@@ -1,4 +1,4 @@
-package project.lighthouse.autotests;
+package project.lighthouse.autotests.common;
 
 import jline.internal.Nullable;
 import org.openqa.selenium.*;

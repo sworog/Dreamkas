@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.common;
+package project.lighthouse.autotests.common.item;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;

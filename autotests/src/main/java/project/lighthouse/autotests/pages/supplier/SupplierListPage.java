@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.supplier;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.collection.supplier.SupplierCollection;
-import project.lighthouse.autotests.common.BootstrapPageObject;
+import project.lighthouse.autotests.common.objects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 @DefaultUrl("/suppliers")

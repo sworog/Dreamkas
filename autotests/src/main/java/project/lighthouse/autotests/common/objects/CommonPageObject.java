@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.common;
+package project.lighthouse.autotests.common.objects;
 
 import net.thucydides.core.pages.PageObject;
 import org.apache.commons.lang.NotImplementedException;
@@ -6,8 +6,11 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.common.CommonActions;
+import project.lighthouse.autotests.common.Waiter;
+import project.lighthouse.autotests.common.item.CommonItem;
+import project.lighthouse.autotests.common.item.CommonItemMap;
 import project.lighthouse.autotests.elements.items.NonType;
 
 import java.util.Map;

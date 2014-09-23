@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.elements.bootstrap.buttons;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.objects.CommonPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.abstraction.AbstractBtnFacade;
 
 /**

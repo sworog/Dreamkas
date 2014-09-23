@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.handler.field;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.common.item.CommonItem;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 
 import static org.hamcrest.Matchers.is;

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.common;
+package project.lighthouse.autotests.common.objects;
 
 public interface ModalWindowPageObject extends GeneralPageObject {
 

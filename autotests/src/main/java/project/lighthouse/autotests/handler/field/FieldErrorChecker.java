@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.common.item.CommonItem;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.elements.items.autocomplete.AutoComplete;
 

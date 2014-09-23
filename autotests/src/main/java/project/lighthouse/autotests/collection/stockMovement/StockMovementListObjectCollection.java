@@ -3,8 +3,8 @@ package project.lighthouse.autotests.collection.stockMovement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.common.Waiter;
 
 import java.util.List;
 
