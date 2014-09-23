@@ -4,8 +4,8 @@ import net.thucydides.core.pages.WebElementFacade;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.helper.FieldChecker;
-import project.lighthouse.autotests.helper.FieldErrorChecker;
+import project.lighthouse.autotests.handler.field.FieldChecker;
+import project.lighthouse.autotests.handler.field.FieldErrorChecker;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 /**

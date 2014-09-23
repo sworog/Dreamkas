@@ -9,8 +9,8 @@ import project.lighthouse.autotests.collection.receiptHistory.Receipt;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.NonType;
+import project.lighthouse.autotests.handler.field.FieldChecker;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.helper.FieldChecker;
 import project.lighthouse.autotests.storage.Storage;
 
 public class ReceiptElement extends CommonPageObject {

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.helper;
+package project.lighthouse.autotests.handler.field;
 
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
