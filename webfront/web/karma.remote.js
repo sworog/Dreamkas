@@ -48,7 +48,7 @@ module.exports = function(config) {
 
         customLaunchers: {
             'Remote-Firefox': {
-                base: 'WebDriver',
+                base: 'WebdriverJS',
                 config: {
                     host: 'selenium.lighthouse.pro',
                     port: 80,
@@ -58,7 +58,7 @@ module.exports = function(config) {
                 }
             },
             'Remote-Chrome': {
-                base: 'WebDriver',
+                base: 'WebdriverJS',
                 config: {
                     host: 'selenium.lighthouse.pro',
                     port: 80,
