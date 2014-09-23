@@ -46,5 +46,4 @@ class ReturnProductQuantityValidator extends ConstraintValidator
             }
         }
     }
-
 }
