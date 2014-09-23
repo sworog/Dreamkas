@@ -4,8 +4,18 @@ define(function(require, exports, module) {
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
+        success: false,
         models: {
             refund: require('models/refund/refund')
+        },
+        events: {
+            'click .modal_refund__reloadLink': function(){
+                var block = this;
+
+                block.hide();
+
+                PAGE.render();
+            }
         },
         blocks: {
             form_refund: function(){
@@ -22,6 +32,15 @@ define(function(require, exports, module) {
                     collection: this.models.refund.collections.products
                 });
             }
+        },
+        reset: function(){
+            Modal.prototype.reset.apply(this, arguments);
+
+            this.models.refund.collections.products.each(function(productModel){
+                productModel.set('quantity', 0, {
+                    silent: true
+                });
+            });
         }
     });
 });

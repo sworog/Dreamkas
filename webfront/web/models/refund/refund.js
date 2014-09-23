@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Model = require('kit/model/model'),
+        normalizeNumber = require('kit/normalizeNumber/normalizeNumber'),
         _ = require('lodash');
 
     return Model.extend({
@@ -10,7 +11,7 @@ define(function(require, exports, module) {
             }
         },
         urlRoot: function(){
-            return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/return';
+            return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/returns';
         },
         collections: {
             products: require('collections/refundProducts/refundProducts')
@@ -30,10 +31,16 @@ define(function(require, exports, module) {
         },
         saveData: function(){
 
+            var products = this.collections.products.map(function(refundProductModel) {
+                return refundProductModel.getData();
+            });
+
+            products = _.filter(products, function(product){
+                return normalizeNumber(product.quantity);
+            });
+
             return {
-                products: this.collections.products.map(function(refundProductModel) {
-                    return refundProductModel.getData();
-                }),
+                products: products,
                 sale: this.models.sale.id,
                 date: new Date
             };

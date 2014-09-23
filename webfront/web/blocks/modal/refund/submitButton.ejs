@@ -1,5 +1,12 @@
+<% var totalPrice = calculateTotalPrice() %>
+
 <button form="form_refund"
         type="submit"
         class="modal_refund__button btn btn-primary pull-right">
-    Вернуть <%- calculateTotalPrice() %>
+    Вернуть
+
+    <% if (totalPrice !== '0,00') { %>
+        <%- totalPrice %> <i class="fa fa-rub"></i>
+    <% } %>
+
 </button>

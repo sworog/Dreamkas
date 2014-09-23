@@ -1,4 +1,6 @@
 <div class="modal modal_refund" id="modal_refund">
+
+    <% if (!success) { %>
     <div class="modal__header">
         <a class="modal__closeLink fa fa-times"></a>
 
@@ -13,4 +15,39 @@
         <b block="form_refund"></b>
 
     </div>
+    <% } else { %>
+
+    <div class="modal__body" style="text-align: center">
+
+        <div class="modal_receipt__successTitle">
+            <% if (models.refund.models.sale.get('payment.type') === 'cash') { %>
+
+            Выдайте деньги
+
+            <% } else { %>
+
+            Сделайте возврат на банковскую карту
+
+            <% } %>
+
+            <div class="modal_receipt__changeSum">
+                <%- formatMoney(models.refund.get('sumTotal')) %> <i class="fa fa-rub"></i>
+            </div>
+
+        </div>
+
+        <p style="padding-bottom: 30px;">
+            Возврат зарегистрирован
+        </p>
+
+        <div style="padding-bottom: 30px;">
+            <a class="btn btn-primary modal_refund__reloadLink"
+               style="padding: 10px 30px;">
+
+                Продолжить работу
+            </a>
+        </div>
+    </div>
+
+    <% } %>
 </div>

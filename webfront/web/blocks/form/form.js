@@ -93,6 +93,8 @@ define(function(require) {
         submitStart: function() {
             var block = this;
 
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
+
             block.$submitButton.addClass('loading');
             block.disable();
             block.removeErrors();
@@ -100,6 +102,8 @@ define(function(require) {
         },
         submitComplete: function() {
             var block = this;
+
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
 
             block.$submitButton.removeClass('loading');
             block.enable();

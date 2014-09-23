@@ -12,7 +12,6 @@ define(function(require, exports, module) {
             if (block.collection) {
                 block.listenTo(block.collection, {
                     'change add remove reset': function() {
-                        console.log(111);
                         block.render();
                     }
                 });

@@ -4,7 +4,11 @@ define(function(require, exports, module) {
 
     return function(string) {
 
-        var normalizedString = (typeof string === undefined ? '' : string).toString()
+        if (_.isUndefined(string) || _.isNull(string)){
+            string = ''
+        }
+
+        var normalizedString = string.toString()
             .replace(' ', '', 'gi')
             .replace(',', '.', 'gi');
         
