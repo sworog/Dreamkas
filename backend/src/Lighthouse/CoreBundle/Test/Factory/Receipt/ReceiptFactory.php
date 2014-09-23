@@ -17,7 +17,7 @@ class ReceiptFactory extends AbstractFactory
      * @param Sale $sale
      * @return ReceiptBuilder
      */
-    public function createReturn(Store $store = null, $date = null, $sale = null)
+    public function createReturn(Store $store = null, $date = null, Sale $sale = null)
     {
         $builder = new ReceiptBuilder(
             $this->factory,
