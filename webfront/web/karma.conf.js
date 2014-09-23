@@ -30,14 +30,15 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['progress', 'allure', 'coverage', 'teamcity'],
+        reporters: ['progress', 'allure', 'coverage'],
 
 		allureReport: {
 			reportDir: 'report'
 		},
 
 		coverageReporter: {
-			type : 'teamcity'
+			type: 'teamcity',
+			dir: 'coverage/'
 		},
 
         preprocessors: {
