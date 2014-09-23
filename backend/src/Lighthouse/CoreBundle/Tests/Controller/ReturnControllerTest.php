@@ -77,7 +77,7 @@ class ReturnControllerTest extends WebTestCase
 
         $returnData = array(
             'date' => '',
-            'sale' => $sale1->id,
+            'sale' => '',
             'products' => array(
                 $data + array(
                     'product' => $productIds['1'],
@@ -100,6 +100,7 @@ class ReturnControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions);
         if (400 == $expectedCode) {
             Assert::assertNotJsonHasPath('errors.children.date.errors.0', $response);
+            Assert::assertNotJsonHasPath('errors.children.sale.errors.0', $response);
         } else {
             Assert::assertNotJsonHasPath('date', $response);
         }
