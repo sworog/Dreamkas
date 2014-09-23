@@ -21,7 +21,7 @@ class ReturnProductQuantityValidator extends ConstraintValidator
             return;
         }
 
-        $otherReturnProductQuantity = 0;
+        $otherReturnProductQuantity = '0.0';
         if ($value->saleProduct->returnProducts) {
             foreach ($value->saleProduct->returnProducts as $returnProduct) {
                 if ($returnProduct->id != $value->id) {
@@ -31,7 +31,12 @@ class ReturnProductQuantityValidator extends ConstraintValidator
         }
 
         if (null != $value->quantity) {
-            if ($value->quantity->add($otherReturnProductQuantity) > $value->saleProduct->quantity) {
+            if ($value->saleProduct->quantity == $otherReturnProductQuantity) {
+                $this->context
+                    ->buildViolation($constraint->messageAllReturned)
+                    ->atPath("quantity")
+                    ->addViolation();
+            } elseif ($value->quantity->add($otherReturnProductQuantity) > $value->saleProduct->quantity) {
                 $this->context
                     ->buildViolation($constraint->message)
                     ->atPath("quantity")

@@ -207,7 +207,7 @@ class ReturnControllerTest extends WebTestCase
                 array(
                     'errors.children.products.children.0.children.quantity.errors.0'
                     =>
-                    'Нельзя вернуть больше чем 10.000'
+                    'По этой позиции нельзя вернуть такое количество товара'
                 )
             ),
             /***********************************************************************************************
@@ -360,7 +360,7 @@ class ReturnControllerTest extends WebTestCase
         $this->assertResponseCode(400);
 
         Assert::assertJsonPathEquals(
-            'Нельзя вернуть больше чем 3.000',
+            'По этой позиции нельзя вернуть такое количество товара',
             'errors.children.products.children.0.children.quantity.errors.0',
             $response
         );
@@ -403,5 +403,34 @@ class ReturnControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('1', 'itemsCount', $response);
         Assert::assertJsonPathEquals('39.99', 'sumTotal', $response);
+
+
+        $returnData = array(
+            'date' => '2014-09-12T20:31:50+0400',
+            'sale' => $sale->id,
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 6
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/returns",
+            $returnData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Эта товарная позиция полностью возвращена',
+            'errors.children.products.children.0.children.quantity.errors.0',
+            $response
+        );
     }
 }
