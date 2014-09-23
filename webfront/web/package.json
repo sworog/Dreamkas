@@ -8,7 +8,7 @@
     "karma-jasmine": "~0.2.0",
     "karma-requirejs": "~0.2",
     "karma-teamcity-reporter": "~0.1",
-    "karma-webdriverjs-launcher": "git://github.com/tatablack/karma-webdriverjs-launcher.git"
+    "karma-webdriver-launcher": "~0.2"
   },
   "scripts": {
     "test": "node ./node_modules/karma/bin/karma start --reporters teamcity --single-run",
