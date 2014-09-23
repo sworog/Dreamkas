@@ -22,9 +22,11 @@ class ReturnProductQuantityValidator extends ConstraintValidator
         }
 
         $otherReturnProductQuantity = 0;
-        foreach ($value->saleProduct->returnProducts as $returnProduct) {
-            if ($returnProduct->id != $value->id) {
-                $otherReturnProductQuantity = $returnProduct->quantity->add($otherReturnProductQuantity);
+        if ($value->saleProduct->returnProducts) {
+            foreach ($value->saleProduct->returnProducts as $returnProduct) {
+                if ($returnProduct->id != $value->id) {
+                    $otherReturnProductQuantity = $returnProduct->quantity->add($otherReturnProductQuantity);
+                }
             }
         }
 

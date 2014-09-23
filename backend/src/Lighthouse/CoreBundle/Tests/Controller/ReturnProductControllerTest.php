@@ -17,7 +17,7 @@ class ReturnProductControllerTest extends WebTestCase
         $saleObject1 = $this->factory()
             ->receipt()
             ->createSale($store, '2012-05-12T00:00:00.000+04:00')
-            ->createReceiptProduct($products['3'], 1, 513)
+            ->createReceiptProduct($products['3'], 100, 513)
             ->createReceiptProduct($products['4'], 25, 180)
             ->createReceiptProduct($products['1'], 1.57, 36)
             ->createReceiptProduct($products['3'], 3.576, 36)
