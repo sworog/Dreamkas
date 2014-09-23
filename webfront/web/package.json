@@ -3,7 +3,7 @@
     "karma": "~0.12",
     "karma-allure-reporter": "git://github.com/allure-framework/karma-allure-reporter.git",
     "karma-chrome-launcher": "~0.1",
-    "karma-coverage": "~0.1",
+    "karma-coverage": "~0.2.6",
     "karma-firefox-launcher": "~0.1",
     "karma-jasmine": "~0.2.0",
     "karma-requirejs": "~0.2",
