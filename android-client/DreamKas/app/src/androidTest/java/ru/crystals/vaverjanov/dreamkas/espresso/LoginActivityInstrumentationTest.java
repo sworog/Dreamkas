@@ -77,9 +77,6 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
 
     public void testUserWillGetErrorToastMessageIfTryToLoginWithWrongCredentials() throws Exception
     {
-        //register idling resource for wait async operation
-        Espresso.registerIdlingResources((AuthRequestIdlingResource)mStartActivity.authRequestListener);
-
         //enter wrong credentials
         enterCredentialsAndClick("wrong_name", "wrong_password");
 
