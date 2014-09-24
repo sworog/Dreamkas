@@ -3,6 +3,8 @@
 namespace Controller;
 
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -432,5 +434,95 @@ class ReturnControllerTest extends WebTestCase
             'errors.children.products.children.0.children.quantity.errors.0',
             $response
         );
+    }
+
+    public function testProductInventoryChangeOnReturn()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $this->factory()
+            ->invoice()
+            ->createInvoice(array(), $store->id)
+            ->createInvoiceProduct($productId, 100, 15.00)
+            ->flush();
+
+        $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
+
+        $sale = $this->factory()
+            ->receipt()
+            ->createSale($store, '2014-09-07T08:23:12+04:00')
+            ->createReceiptProduct($productId, 90, 15)
+            ->flush();
+
+        $this->assertStoreProductTotals($store->id, $productId, 10, 15.00);
+
+        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:23:12+04:00', $productId, 10);
+
+        $this->assertStoreProductTotals($store->id, $productId, 20, 15.00);
+
+        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:24:54+04:00', $productId, 4.555);
+
+        $this->assertStoreProductTotals($store->id, $productId, 24.555, 15.00);
+    }
+
+    /**
+     * @param Store $store
+     * @param Sale $sale
+     * @param string $date
+     * @param string $productId
+     * @param float $quantity
+     * @return string Return id
+     */
+    protected function postReturnWithOneProduct(
+        Store $store,
+        Sale $sale,
+        $date,
+        $productId,
+        $quantity
+    ) {
+        $products = array(
+            array(
+                'product' => $productId,
+                'quantity' => $quantity
+            )
+        );
+
+        return $this->postReturn($store, $sale, $date, $products);
+    }
+
+    /**
+     * @param Store $store
+     * @param Sale $sale
+     * @param string $date
+     * @param array $products
+     * @return string
+     */
+    protected function postReturn(
+        Store $store,
+        Sale $sale,
+        $date,
+        array $products
+    ) {
+        $returnData = array(
+            'date' => $date,
+            'sale' => $sale->id,
+            'products' => $products,
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/returns",
+            $returnData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+
+        return $response['id'];
     }
 }
