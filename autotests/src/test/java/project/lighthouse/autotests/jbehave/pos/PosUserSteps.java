@@ -92,10 +92,10 @@ public class PosUserSteps {
         posSteps.assertCashRegistrySideMenuLinkIsActive();
     }
 
-    @When("пользователь вводит количество '$quantity' продукту с именем '$productName' для совершения возврата")
-    @Alias("пользователь вводит количество c значением quantity продукту с именем '$productName' для совершения возврата")
-    public void whenUserSetRefundProductQuantity(String quantity, String productName) {
-        posSteps.setRefundProductQuantityByName(productName, quantity);
+    @When("пользователь вводит количество '$quantityValue' продукту с именем '$productName' для совершения возврата")
+    @Alias("пользователь вводит количество c значением quantityValue продукту с именем '$productName' для совершения возврата")
+    public void whenUserSetRefundProductQuantity(String quantityValue, String productName) {
+        posSteps.setRefundProductQuantityByName(productName, quantityValue);
     }
 
     @When("пользователь увеличивает количество на единицу продукту с именем '$productName' путем нажатия на кнопку с плюсом для совершения возврата")
