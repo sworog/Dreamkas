@@ -461,12 +461,9 @@ class UserControllerTest extends WebTestCase
                 201,
                 array('email' => 'TEST@TEST.COM'),
             ),
-            'not valid email for domain level 2' => array(
-                400,
+            'valid email for domain level 2' => array(
+                201,
                 array('email' => 'test@test'),
-                array(
-                    'errors.children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
-                ),
             ),
             'not valid email without at' => array(
                 400,
@@ -744,6 +741,7 @@ class UserControllerTest extends WebTestCase
                     ),
                     'organizations' => array(),
                     'organizations/{organization}/bankAccounts' => array(),
+                    'others' => array(),
                     'products' => array(
                         'GET',
                         'GET::search',
@@ -792,10 +790,9 @@ class UserControllerTest extends WebTestCase
                         'GET::returnProducts',
                         'GET::writeOffProducts',
                     ),
-                    'stores/{store}/returns' => array(
-                        'POST'
-                    ),
                     'stores/{store}/sales' => array(
+                        'GET',
+                        'GET::{sale}',
                         'POST'
                     ),
                     'stores/{store}/stockIns' => array(
@@ -833,7 +830,6 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
-                    'others' => array()
                 )
             ),
             User::ROLE_STORE_MANAGER => array(
@@ -892,7 +888,6 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'PUT',
                     ),
-                    'stores/{store}/returns' => array(),
                     'stores/{store}/sales' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
@@ -1030,7 +1025,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices' => array(),
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
-                    'stores/{store}/returns' => array(),
                     'stores/{store}/sales' => array(),
                     'stores/{store}/stockIns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
@@ -1119,7 +1113,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices' => array(),
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
-                    'stores/{store}/returns' => array(),
                     'stores/{store}/sales' => array(),
                     'stores/{store}/stockIns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),

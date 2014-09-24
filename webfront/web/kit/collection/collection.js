@@ -3,6 +3,7 @@ define(function(require, exports, module) {
     var config = require('config'),
         makeClass = require('kit/makeClass/makeClass'),
         deepExtend = require('kit/deepExtend/deepExtend'),
+		get = require('kit/get/get'),
         Backbone = require('backbone'),
         _ = require('lodash');
 
@@ -11,6 +12,8 @@ define(function(require, exports, module) {
             _.extend(this, options);
         },
         fetch: function(options) {
+			var collection = this;
+
             return Backbone.Collection.prototype.fetch.call(this, _.extend({
                 reset: true
             }, options));

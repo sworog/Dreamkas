@@ -7,7 +7,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
@@ -18,7 +17,9 @@ use DateTime;
 
 /**
  * @MongoDB\HasLifecycleCallbacks
- * @MongoDB\MappedSuperclass
+ * @MongoDB\MappedSuperclass(
+ *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository"
+ * )
  *
  * @property int            $id
  * @property Money          $price
@@ -30,9 +31,9 @@ use DateTime;
  * @property StockMovement  $parent
  * @property Store          $store
  */
-abstract class StockMovementProduct extends AbstractDocument implements Reasonable
+abstract class StockMovementProduct extends AbstractDocument
 {
-    const REASON_TYPE = 'abstract';
+    const TYPE = 'abstract';
 
     /**
      * @MongoDB\Id
@@ -140,57 +141,17 @@ abstract class StockMovementProduct extends AbstractDocument implements Reasonab
     /**
      * @return string
      */
-    public function getReasonId()
+    public function getType()
     {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReasonType()
-    {
-        return static::REASON_TYPE;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getReasonDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return Quantity
-     */
-    public function getProductQuantity()
-    {
-        return $this->quantity;
+        return static::TYPE;
     }
 
     /**
      * @return Product
      */
-    public function getReasonProduct()
+    public function getOriginalProduct()
     {
         return $this->product->getObject();
-    }
-
-    /**
-     * @return Money
-     */
-    public function getProductPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @return StockMovement
-     */
-    public function getReasonParent()
-    {
-        return $this->parent;
     }
 
     /**
@@ -208,4 +169,9 @@ abstract class StockMovementProduct extends AbstractDocument implements Reasonab
     {
         $this->quantity = $quantity;
     }
+
+    /**
+     * @return bool
+     */
+    abstract public function increaseAmount();
 }

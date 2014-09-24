@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block.deprecated'),
         router = require('router'),
+        cookies = require('cookies'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
@@ -9,7 +10,35 @@ define(function(require, exports, module) {
     require('datepicker');
     require('i18n!nls/datepicker');
 
-    var posWindowReference = null;
+    var posWindowReference = null,
+        previousPage;
+
+    var openPos = function() {
+
+        var posStoreId = cookies.get('posStoreId'),
+            posUrl = '/pos' + (posStoreId ? ('/stores/' + posStoreId) : '');
+
+        if (posWindowReference == null || posWindowReference.closed) {
+            /* if the pointer to the window object in memory does not exist
+             or if such pointer exists but the window was closed */
+            posWindowReference = window.open(posUrl, 'pos', 'innerWidth=1000, innerHeight=800');
+            /* then create it. The new window will be created and
+             will be brought on top of any other window. */
+        } else {
+            posWindowReference.focus();
+            /* else the window reference must exist and the window
+             is not closed; therefore, we can bring it back on top of any other
+             window with the focus() method. There would be no need to re-create
+             the window or to reload the referenced resource. */
+        }
+    };
+
+    $(document)
+        .on('click', '.page__posLink', function(e) {
+            e.preventDefault();
+
+            openPos();
+        });
 
     return Block.extend({
 
@@ -20,33 +49,7 @@ define(function(require, exports, module) {
         models: {},
 
         activeNavigationItem: 'main',
-
-        events: {
-            'click .posLink': function(e) {
-                e.preventDefault();
-
-                var page = this;
-
-                page.openPos();
-            }
-        },
-
-        openPos: function() {
-            if (posWindowReference == null || posWindowReference.closed) {
-                /* if the pointer to the window object in memory does not exist
-                 or if such pointer exists but the window was closed */
-                posWindowReference = window.open('/pos', 'pos', 'innerWidth=1000, innerHeight=800');
-                /* then create it. The new window will be created and
-                 will be brought on top of any other window. */
-            } else {
-                posWindowReference.focus();
-                /* else the window reference must exist and the window
-                 is not closed; therefore, we can bring it back on top of any other
-                 window with the focus() method. There would be no need to re-create
-                 the window or to reload the referenced resource. */
-            }
-        },
-
+        
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
         },

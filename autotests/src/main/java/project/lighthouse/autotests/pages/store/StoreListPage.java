@@ -2,9 +2,9 @@ package project.lighthouse.autotests.pages.store;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.store.StoreObjectCollection;
 import project.lighthouse.autotests.common.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
-import project.lighthouse.autotests.objects.web.store.StoreObjectCollection;
 
 @DefaultUrl("/stores")
 public class StoreListPage extends BootstrapPageObject {

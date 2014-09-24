@@ -4,14 +4,14 @@
         <%- supplierReturnProductModel.get('product.name') %>
     </td>
     <td name="price">
-        <%- helpers.formatMoney(supplierReturnProductModel.get('price')) %>
+        <%- formatMoney(supplierReturnProductModel.get('price')) %>
     </td>
     <td name="quantity">
-        <%- helpers.formatAmount(supplierReturnProductModel.get('quantity')) %>
+        <%- formatAmount(supplierReturnProductModel.get('quantity')) %>
         <%- supplierReturnProductModel.get('product.object.units') || 'шт.' %>
     </td>
     <td name="totalPrice">
-        <%- helpers.formatMoney(supplierReturnProductModel.get('totalPrice')) %>
+        <%- formatMoney(supplierReturnProductModel.get('totalPrice')) %>
     </td>
     <td>
         <a style="font-size: 17px; position: relative; left: 4px; top: -2px;"

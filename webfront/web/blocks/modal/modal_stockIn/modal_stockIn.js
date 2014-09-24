@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Modal = require('blocks/modal/modal');
+    var Modal = require('blocks/modal/modal.deprecated');
 
     return Modal.extend({
         template: require('ejs!./modal_stockIn.ejs'),
@@ -43,7 +43,7 @@ define(function(require, exports, module) {
                 });
 
                 form_stockIn.on('submit:success', function(){
-                    block.$el.one('hidden.bs.modal', function(e) {
+                    block.$el.one('modal.hidden', function(e) {
                         PAGE.render();
                     });
 

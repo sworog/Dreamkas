@@ -3,8 +3,7 @@
 namespace Lighthouse\IntegrationBundle\Tests\OneC\Import\Invoices;
 
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
-
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
@@ -144,7 +143,7 @@ class InvoicesImporterTest extends WebTestCase
     }
 
     /**
-     * @return InvoiceProductRepository
+     * @return StockMovementProductRepository
      */
     protected function getInvoiceProductRepository()
     {

@@ -31,6 +31,11 @@ public class GeneralEndUserSteps {
         generalSteps.input(elementName, value);
     }
 
+    @When("пользователь* нажимает на элемент списка '$collectionName' с именем '$locator'")
+    public void whenUserClicksOnCollectionObjectByLocator(String locator) {
+        generalSteps.clickOnCollectionObjectByLocator(locator);
+    }
+
     @Then("пользователь* проверяет, что поле с именем '$elementName' имеет значение '$value'")
     public void thenUserChecksValue(String elementName, String value) {
         generalSteps.checkValue(elementName, value);
@@ -49,5 +54,25 @@ public class GeneralEndUserSteps {
     @Then("пользователь* проверяет, что заголовок равен '$title'")
     public void thenUserAssertsTheModalWindowTitle(String title) {
         generalSteps.assertTitle(title);
+    }
+
+    @Then("пользователь* проверяет, что элемент с именем '$elementName' должен быть видимым")
+    public void thenUserChecksTheElementWithNameShouldBeVisible(String elementName) {
+        generalSteps.elementShouldBeVisible(elementName);
+    }
+
+    @Then("пользователь* проверяет, что элемент с именем '$elementName' должен быть невидимым")
+    public void thenUserChecksTheElementWithNameShouldBeNotVisible(String elementName) {
+        generalSteps.elementShouldBeNotVisible(elementName);
+    }
+
+    @Then("пользователь* проверяет, что список '$collectionName' содержит точные данные $examplesTable")
+    public void thenUserExactCompareCollectionWithExamplesTable(ExamplesTable examplesTable) {
+        generalSteps.exactCompareExampleTable(examplesTable);
+    }
+
+    @Then("пользователь* проверяет, что список '$collectionName' содержит данные $examplesTable")
+    public void thenUserCompareCollectionWithExamplesTable(ExamplesTable examplesTable) {
+        generalSteps.compareWithExampleTable(examplesTable);
     }
 }

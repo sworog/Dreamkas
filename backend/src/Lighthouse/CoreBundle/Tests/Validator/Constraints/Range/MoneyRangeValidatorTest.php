@@ -2,41 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\Range;
 
-use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
-use Lighthouse\CoreBundle\Test\TestCase;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRange;
-use Lighthouse\CoreBundle\Validator\Constraints\Range\MoneyRangeValidator;
-use Symfony\Component\Validator\ExecutionContextInterface;
 
-class MoneyRangeValidatorTest extends TestCase
+class MoneyRangeValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var MoneyRangeValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $numericFactory = new NumericFactory(2, 2);
-        $moneyTransformer = new MoneyModelTransformer($numericFactory);
-        $this->validator = new MoneyRangeValidator($moneyTransformer);
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     /**
      * @param array $options
      * @param $value
@@ -45,18 +16,9 @@ class MoneyRangeValidatorTest extends TestCase
      */
     public function testValidValues(array $options, $value)
     {
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolation');
-
         $constraint = new MoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(0, $violations);
     }
 
     /**
@@ -138,7 +100,7 @@ class MoneyRangeValidatorTest extends TestCase
         $value = new Money(1011);
 
         $constraint = new MoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $this->getValidator()->validate($value, $constraint, null);
     }
 
     public function invalidOptionsProvider()
@@ -183,21 +145,10 @@ class MoneyRangeValidatorTest extends TestCase
             'invalidMessage' => 'invalidMessage',
         );
 
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolation')
-            ->with(
-                'invalidMessage'
-            );
-
         $constraint = new MoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
+        $this->assertEquals('invalidMessage', $violations->get(0)->getMessageTemplate());
     }
 
     public function invalidValueProvider()
@@ -238,25 +189,13 @@ class MoneyRangeValidatorTest extends TestCase
             'gt' => new Money(1509),
         );
 
-        $this
-            ->context
-            ->expects($this->never())
-            ->method('addViolationAt');
-
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolation')
-            ->with(
-                'lighthouse.validation.errors.range.gt',
-                array(
-                    '{{ value }}' => '10.11',
-                    '{{ limit }}' => '15.09'
-                )
-            );
-
         $constraint = new MoneyRange($options);
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
+        $violation = $violations->get(0);
+        $this->assertEquals('lighthouse.validation.errors.range.gt', $violation->getMessageTemplate());
+        $this->assertConstraintViolationParameterEquals('10.11', '{{ value }}', $violation);
+        $this->assertConstraintViolationParameterEquals('15.09', '{{ limit }}', $violation);
     }
 
     public function testConstraintValidatedBy()

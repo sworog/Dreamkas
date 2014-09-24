@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.WebElementFacade;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.FieldChecker;
@@ -99,5 +100,21 @@ abstract public class CommonItem {
 
     public void selectByVisibleText(String label) {
         pageObject.getCommonActions().selectByVisibleText(label, findBy);
+    }
+
+    public String getText() {
+        return getVisibleWebElementFacade().getText();
+    }
+
+    public void shouldBeVisible() {
+        if (!getPageObject().visibilityOfElementLocated(getFindBy())) {
+            Assert.fail("the element should be visible");
+        }
+    }
+
+    public void shouldBeNotVisible() {
+        if (!getPageObject().invisibilityOfElementLocated(getFindBy())) {
+            Assert.fail("the element should be not visible");
+        }
     }
 }

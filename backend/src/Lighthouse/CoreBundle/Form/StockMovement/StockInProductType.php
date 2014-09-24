@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form\StockMovement;
 
-use Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInProduct;
 
 class StockInProductType extends StockMovementProductType
 {

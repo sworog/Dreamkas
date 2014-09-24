@@ -4,11 +4,11 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Console\DotHelper;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -41,12 +41,15 @@ class CostOfGoodsCalculator
      * @var array
      */
     protected $supportRangeIndex = array(
-        InvoiceProduct::REASON_TYPE,
-        SaleProduct::REASON_TYPE,
+        InvoiceProduct::TYPE,
+        SaleProduct::TYPE,
     );
 
+    /**
+     * @var array
+     */
     protected $supportCostOfGoods = array(
-        SaleProduct::REASON_TYPE,
+        SaleProduct::TYPE,
     );
 
     /**
@@ -91,7 +94,7 @@ class CostOfGoodsCalculator
     public function calculateByIndexRange($storeProductId, Quantity $startIndex, Quantity $endIndex)
     {
         $invoiceProductTrials = $this->trialBalanceRepository->findByIndexRange(
-            InvoiceProduct::REASON_TYPE,
+            InvoiceProduct::TYPE,
             $storeProductId,
             $startIndex,
             $endIndex
@@ -202,13 +205,13 @@ class CostOfGoodsCalculator
     }
 
     /**
-     * @param Reasonable $reason
+     * @param StockMovementProduct $stockMovementProduct
      * @return bool
      */
-    public function supportsRangeIndex(Reasonable $reason)
+    public function supportsRangeIndex(StockMovementProduct $stockMovementProduct)
     {
         return in_array(
-            $reason->getReasonType(),
+            $stockMovementProduct->getType(),
             $this->getSupportRangeIndex()
         );
     }
@@ -222,10 +225,14 @@ class CostOfGoodsCalculator
         return $this->supportsCostOfGoods($trialBalance->reason);
     }
 
-    public function supportsCostOfGoods(Reasonable $reason)
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return bool
+     */
+    public function supportsCostOfGoods(StockMovementProduct $stockMovementProduct)
     {
         return in_array(
-            $reason->getReasonType(),
+            $stockMovementProduct->getType(),
             $this->getSupportCostOfGoods()
         );
     }

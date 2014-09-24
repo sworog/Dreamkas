@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
@@ -1156,7 +1156,7 @@ class WriteOffControllerTest extends WebTestCase
     }
 
     /**
-     * @return WriteOffProductRepository
+     * @return StockMovementProductRepository
      */
     protected function getWriteOffProductRepository()
     {

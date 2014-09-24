@@ -1,0 +1,77 @@
+
+.sale {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    top: 0;
+    overflow: auto;
+    background: #fff;
+}
+
+.sale__header {
+    padding: 24px 32px;
+    border-bottom: 1px solid #eee;
+}
+
+.sale__title {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.btn.sale__refundButton {
+    float: right;
+    padding: 6px 42px;
+}
+
+.sale__info {
+    font-size: 15px;
+    padding: 24px 32px 40px 32px;
+}
+
+.sale__info > div {
+    padding-bottom: 10px;
+}
+
+.sale__info > div .fa {
+    margin-right: 14px;
+}
+
+.sale__products {
+    padding: 0 32px 20px 32px;
+}
+
+.sale__productsTitle {
+    font-size: 18px;
+    padding: 0 0 20px 0;
+}
+
+.sale__products table {
+    width: 100%;
+}
+
+.sale__product {
+    border-top: 1px solid #eee;
+}
+
+.sale__product:last-child {
+    border-bottom: 1px solid #eee;
+}
+
+.sale__product td {
+    white-space: nowrap;
+    padding: 14px;
+}
+
+.sale__productName {
+    width: 100%;
+}
+
+.sale__productQuantity,
+.sale__productPrice {
+    text-align: right;
+}
+
+.sale__productPrice .fa {
+    font-size: 12px;
+}

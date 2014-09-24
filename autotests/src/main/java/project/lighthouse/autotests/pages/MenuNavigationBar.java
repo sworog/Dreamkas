@@ -1,17 +1,14 @@
 package project.lighthouse.autotests.pages;
 
-import net.thucydides.core.annotations.findby.FindBy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.localNavigation.NavigationLinkFacade;
 import project.lighthouse.autotests.elements.Buttons.navigationBar.NavigationBarLinkFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
+import project.lighthouse.autotests.elements.items.NonType;
 
 public class MenuNavigationBar extends CommonPageObject {
-
-    @FindBy(xpath = "//*[@id='side-menu']/*[@class='user-panel']/*[@class='info']/p")
-    @SuppressWarnings("unused")
-    private WebElement userNameWebElement;
 
     public MenuNavigationBar(WebDriver driver) {
         super(driver);
@@ -19,14 +16,7 @@ public class MenuNavigationBar extends CommonPageObject {
 
     @Override
     public void createElements() {
-    }
-
-    public String getUserEmailText() {
-        return findVisibleElement(userNameWebElement).getText();
-    }
-
-    public void userNameLinkClick() {
-        findVisibleElement(userNameWebElement).click();
+        put("userName", new NonType(this, By.xpath("//*[@id='side-menu']/*[@class='user-panel']/*[@class='info']/p")));
     }
 
     public NavigationBarLinkFacade getReportMenuItem() {
@@ -71,5 +61,9 @@ public class MenuNavigationBar extends CommonPageObject {
 
     public void launchPostButtonClick() {
         new PrimaryBtnFacade(this, "Запустить кассу").click();
+    }
+
+    public void logOutButtonClick() {
+        new NavigationLinkFacade(this, "Выйти").click();
     }
 }

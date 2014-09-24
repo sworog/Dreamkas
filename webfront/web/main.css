@@ -16,7 +16,19 @@
 @import "/blocks/autocomplete/autocomplete.css";
 @import "/blocks/page/page.css";
 @import "/blocks/productFinder/productFinder.css";
+@import "/blocks/receiptFinder/receiptFinder.css";
+@import "/blocks/modal/modal.css";
 @import "/blocks/form/form.css";
+@import "/blocks/receipt/receipt.css";
+@import "/blocks/radioButton/radioButton.css";
+@import "/blocks/radioGroup/radioGroup.css";
+@import "/blocks/modal/modal.css";
+@import "/blocks/sale/sale.css";
+@import "/blocks/sideBar/sideBar.css";
+
+body {
+    overflow-x: hidden;
+}
 
 body:before {
     content: "";
@@ -62,7 +74,7 @@ a:hover .fa {
     color: #0a819c;
 }
 
-.navbar-static-side ul li a .fa{
+.navbar-static-side ul li a .fa {
     color: #fff !important;
 }
 
@@ -204,7 +216,7 @@ table.table-vcenter > tbody > tr > td {
 }
 
 select.loading, input.loading {
-    background-color: #eee;
+    background-color: #eee !important;
 }
 
 .datepicker.dropdown-menu {
@@ -228,4 +240,25 @@ select.loading, input.loading {
 
 .dropdown-menu-item:hover {
     background-color: #f4f4f4;
+}
+
+.btn.disabled, .btn[disabled] {
+    background-color: #dadada;
+    border-color: #dadada;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal.fade {
+    opacity: 1;
+}
+
+.modal.fade .modal-dialog{
+    transform: none !important;
+}
+
+.twitter-typeahead{
+    width: 100%;
 }

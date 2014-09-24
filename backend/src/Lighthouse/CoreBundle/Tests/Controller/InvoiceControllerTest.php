@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -3485,7 +3485,7 @@ class InvoiceControllerTest extends WebTestCase
     }
 
     /**
-     * @return InvoiceProductRepository
+     * @return StockMovementProductRepository
      */
     protected function getInvoiceProductRepository()
     {

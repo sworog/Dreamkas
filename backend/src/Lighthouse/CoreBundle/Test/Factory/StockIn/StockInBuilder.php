@@ -2,14 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\StockIn;
 
-use Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class StockInBuilder
 {

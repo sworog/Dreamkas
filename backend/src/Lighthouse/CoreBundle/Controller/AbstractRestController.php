@@ -40,12 +40,39 @@ abstract class AbstractRestController extends FOSRestController
         $save = true,
         $clearMissing = true
     ) {
+        return $this->processFormCallback(
+            $request,
+            array($this, 'saveDocument'),
+            $document,
+            $formType,
+            $save,
+            $clearMissing
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param callable $callback
+     * @param AbstractDocument $document
+     * @param FormTypeInterface $formType
+     * @param bool $save
+     * @param bool $clearMissing
+     * @return AbstractDocument|FormInterface
+     */
+    protected function processFormCallback(
+        Request $request,
+        $callback,
+        AbstractDocument $document = null,
+        FormTypeInterface $formType = null,
+        $save = true,
+        $clearMissing = true
+    ) {
         $form = $this->submitForm($request, $document, $formType, $clearMissing);
 
         if ($form->isValid()) {
             $document = ($document) ?: $form->getData();
             if ($save && !$this->isValidate($request)) {
-                return $this->saveDocument($document, $form);
+                return call_user_func($callback, $document, $form);
             } else {
                 return $document;
             }

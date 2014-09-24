@@ -58,7 +58,6 @@ define(function(require, exports, module) {
             }
 
             block.showGlobalError(errorList);
-
         }
     });
 });

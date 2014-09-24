@@ -3,6 +3,11 @@ define(function(require, exports, module) {
     var Page = require('blocks/page/page');
 
     return Page.extend({
+		initialize: function() {
+			Page.prototype.initialize.call(this);
+
+			document.isPosSidebarVisible = false;
+		},
         template: require('ejs!./template.ejs'),
         events: {
             'change select[name="store"]': function(e){

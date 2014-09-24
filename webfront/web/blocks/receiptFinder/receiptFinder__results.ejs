@@ -1,0 +1,36 @@
+<% if (collection.length) { %>
+<div name="receiptsList" class="receiptFinder__results">
+	<div class="list-group">
+
+		<% var prevDate = 0; %>
+		<% collection.forEach(function(receipt){ %>
+
+        <% var date = receipt.get('date'); %>
+
+        <% if (isDifferentDates(prevDate, date)) { %>
+
+        <% prevDate = date; %>
+
+        <div class="receiptFinder__resultsDate"><%- formatDate(date, {format: 'dddd, DD MMMM'}) %></div>
+        <% } %>
+
+        <button data-receipt-id="<%- receipt.id %>"
+                data-receipt-date="<%- formatDate(date, {format: 'dddd, DD MMMM'}) %>"
+                name="receipt"
+                class="receiptFinder__resultLink list-group-item">
+
+            <span name="price" class="receiptFinder__resultLinkAmount"><%- formatMoney(receipt.get('sumTotal')) %>
+                <i class="fa fa-rub"></i>
+            </span>
+
+            <span name="time" class="receiptFinder__resultLinkTime"><%- formatTime(date) %></span>
+        </button>
+
+        <% }) %>
+    </div>
+</div>
+<% } else { %>
+<div class="alert alert-info">
+    Продаж не найдено.
+</div>
+<% } %>

@@ -3,7 +3,7 @@ package project.lighthouse.autotests.api.factories;
 import org.json.JSONException;
 import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.api.http.HttpRequestable;
-import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
+import project.lighthouse.autotests.api.objects.abstraction.AbstractObject;
 
 import java.io.IOException;
 

@@ -1,12 +1,13 @@
 package project.lighthouse.autotests.common;
 
-import junit.framework.Assert;
 import net.thucydides.core.pages.PageObject;
+import org.apache.commons.lang.NotImplementedException;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.elements.items.NonType;
 
 import java.util.Map;
@@ -106,6 +107,10 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         items.get(elementName).getFieldChecker().assertValueEqual(value);
     }
 
+    public void checkValue(String message, String elementName, String value) {
+        items.get(elementName).getFieldChecker().assertValueEqual(message, value);
+    }
+
     public void checkValues(ExamplesTable examplesTable) {
         for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");
@@ -134,11 +139,27 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         return getWaiter().visibilityOfElementLocated(findBy);
     }
 
+    public void elementShouldBeVisible(String elementName) {
+        getItems().get(elementName).shouldBeVisible();
+    }
+
     public void elementShouldBeNotVisible(String elementName) {
-        CommonItem commonItem = getItems().get(elementName);
-        if (!invisibilityOfElementLocated(commonItem.getFindBy())) {
-            String message = String.format("Element with name '%s' is visible, but shouldnt not be visible", elementName);
-            Assert.fail(message);
-        }
+        getItems().get(elementName).shouldBeNotVisible();
+    }
+
+    public AbstractObjectCollection getObjectCollection() {
+        throw new NotImplementedException();
+    }
+
+    public void exactCompareExampleTable(ExamplesTable examplesTable) {
+        getObjectCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    public void compareWithExampleTable(ExamplesTable examplesTable) {
+        getObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    public void clickOnCollectionObjectByLocator(String locator) {
+        getObjectCollection().clickByLocator(locator);
     }
 }

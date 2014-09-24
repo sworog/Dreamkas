@@ -1,9 +1,7 @@
 package project.lighthouse.autotests.storage.variable;
 
-import org.json.JSONException;
-import project.lighthouse.autotests.helper.ObjectsFactory;
-import project.lighthouse.autotests.objects.api.Product;
-import project.lighthouse.autotests.objects.api.Supplier;
+import project.lighthouse.autotests.api.objects.Product;
+import project.lighthouse.autotests.api.objects.Supplier;
 import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 
 import java.util.ArrayList;
@@ -25,11 +23,6 @@ public class InvoiceVariableStorage {
     private Integer number = 10000;
 
     private List<Invoice> invoiceList = new ArrayList<>();
-
-    public InvoiceVariableStorage() throws JSONException {
-        supplier = ObjectsFactory.getSupplierObject();
-        product = ObjectsFactory.getProductObject();
-    }
 
     public String getNumber() {
         return number.toString();

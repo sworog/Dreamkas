@@ -23,13 +23,12 @@ class PrecisionValidator extends ConstraintValidator
 
         $floatingPart = $this->getFloatingPart($value);
         if (strlen($floatingPart) > $constraint->precision) {
-            $this->context->addViolation(
-                $constraint->message,
-                array(
-                    '{{ value }}' => $value,
-                    '{{ precision }}' => $constraint->precision
-                )
-            );
+            $this->context
+                ->buildViolation($constraint->message)
+                    ->setParameter('{{ value }}', $value)
+                    ->setParameter('{{ precision }}', $constraint->precision)
+                ->addViolation()
+            ;
         }
     }
 

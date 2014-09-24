@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnProduct;
 use Lighthouse\CoreBundle\Form\StockMovement\StockMovementProductType;
 
 class SupplierReturnProductType extends StockMovementProductType

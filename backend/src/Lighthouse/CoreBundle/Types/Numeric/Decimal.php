@@ -115,6 +115,14 @@ class Decimal implements Numeric, RawValue, ClassNameable
      */
     public function __clone()
     {
+        return $this->copy();
+    }
+
+    /**
+     * @return Decimal Cloned instance
+     */
+    public function copy()
+    {
         return static::createFromNumeric($this->toString(), $this->getPrecision());
     }
 

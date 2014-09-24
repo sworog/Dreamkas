@@ -13,6 +13,8 @@ define(function(require, exports, module) {
                 parse: true
             }, options);
 
+            this.__defaults = _.cloneDeep(this.defaults);
+
             Backbone.Model.call(this, attributes, options);
         },
         toJSON: function(options) {
@@ -93,6 +95,10 @@ define(function(require, exports, module) {
 
             var model = this;
 
+            Backbone.Model.prototype.clear.apply(model, arguments);
+
+            model.set(model.__defaults);
+
             _.forEach(model.collections, function(nestedCollection) {
                 nestedCollection.reset([]);
             });
@@ -101,7 +107,7 @@ define(function(require, exports, module) {
                 nestedModel.clear();
             });
 
-            return Backbone.Model.prototype.clear.apply(model, arguments);
+            return model;
         }
     });
 

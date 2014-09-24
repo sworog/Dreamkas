@@ -46,6 +46,7 @@ class LighthouseCoreExtensionTest extends TestCase
             'doctrine_mongodb.odm.generator.increment.collection',
             'doctrine_mongodb.odm.metadata.annotation.class',
             'doctrine_mongodb.odm.metadata_factory.class',
+            'lighthouse.core.document.repository.stock_movement_product',
             'lighthouse.core.job.tube.prefix',
             'lighthouse.core.job.worker.max_runtime',
             'lighthouse.core.job.worker.reserve_timeout',

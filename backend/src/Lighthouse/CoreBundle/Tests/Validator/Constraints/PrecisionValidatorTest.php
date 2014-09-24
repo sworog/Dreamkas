@@ -2,36 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Precision;
-use Lighthouse\CoreBundle\Validator\Constraints\PrecisionValidator;
-use Symfony\Component\Validator\ExecutionContextInterface;
 
-class PrecisionValidatorTest extends TestCase
+class PrecisionValidatorTest extends ConstraintTestCase
 {
-    /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $context;
-
-    /**
-     * @var PrecisionValidator
-     */
-    protected $validator;
-
-    public function setUp()
-    {
-        $this->context = $this->getMock('Symfony\\Component\\Validator\\ExecutionContext', array(), array(), '', false);
-        $this->validator = new PrecisionValidator();
-        $this->validator->initialize($this->context);
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->validator = null;
-    }
-
     public function testAnnotation()
     {
         $constraint = new Precision();
@@ -47,11 +21,10 @@ class PrecisionValidatorTest extends TestCase
      */
     public function testValid($value)
     {
-        $this->context
-                ->expects($this->never())
-                ->method('addViolation');
         $constraint = new Precision();
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+
+        $this->assertCount(0, $violations);
     }
 
     /**
@@ -74,11 +47,9 @@ class PrecisionValidatorTest extends TestCase
      */
     public function testInvalid($value)
     {
-        $this->context
-            ->expects($this->once())
-            ->method('addViolation');
         $constraint = new Precision();
-        $this->validator->validate($value, $constraint);
+        $violations = $this->getValidator()->validate($value, $constraint, null);
+        $this->assertCount(1, $violations);
     }
 
     /**
