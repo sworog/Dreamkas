@@ -11,11 +11,6 @@
 
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string-array name="views_array">
-        <item>Касса</item>
-        <item>Сменить магазин</item>
-        <item>Выйти</item>
-    </string-array>
 
     <string name="hello_kas_fragment">Касса</string>
     <string name="hello_store_fragment">Магазин</string>
@@ -33,5 +28,7 @@
     <string name="auth_dialog_title">Авторизация...</string>
     <string name="error_bad_credentials">Неверный логин или пароль</string>
     <string name="error_empty_field">Поле должно быть заполнено</string>
+    <string name="load_stores">Загрузка магазинов...</string>
+    <string name="empty_list">Список пуст</string>
 
 </resources>

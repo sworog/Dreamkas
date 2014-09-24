@@ -1,4 +1,4 @@
-package ru.crystals.vaverjanov.dreamkas.espresso;
+package ru.crystals.vaverjanov.dreamkas.espresso.helpers;
 
 import android.view.View;
 import android.widget.EditText;
@@ -53,17 +53,20 @@ public class EspressoExtends
         };
     }
 
-    private static class ErrorTextMatcher extends TypeSafeMatcher<View> {
-
+    private static class ErrorTextMatcher extends TypeSafeMatcher<View>
+    {
         private final String mExpectedError;
 
-        private ErrorTextMatcher(String expectedError) {
+        private ErrorTextMatcher(String expectedError)
+        {
             mExpectedError = expectedError;
         }
 
         @Override
-        public boolean matchesSafely(View view) {
-            if(!(view instanceof EditText)) {
+        public boolean matchesSafely(View view)
+        {
+            if(!(view instanceof EditText))
+            {
                 return false;
             }
 
@@ -73,7 +76,8 @@ public class EspressoExtends
         }
 
         @Override
-        public void describeTo(Description description) {
+        public void describeTo(Description description)
+        {
             description.appendText("with error: " + mExpectedError);
         }
     }

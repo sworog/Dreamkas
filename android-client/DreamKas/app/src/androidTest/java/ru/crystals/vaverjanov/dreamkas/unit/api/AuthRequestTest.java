@@ -2,19 +2,16 @@ package ru.crystals.vaverjanov.dreamkas.unit.api;
 
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
-
-import ru.crystals.vaverjanov.dreamkas.controller.AuthRequest;
-import ru.crystals.vaverjanov.dreamkas.controller.AuthRequest_;
-import ru.crystals.vaverjanov.dreamkas.controller.LighthouseRestClient_;
-import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
-import ru.crystals.vaverjanov.dreamkas.model.AuthObject;
-import ru.crystals.vaverjanov.dreamkas.model.Token;
+import ru.crystals.vaverjanov.dreamkas.controller.requests.AuthRequest_;
+import ru.crystals.vaverjanov.dreamkas.model.api.AuthObject;
+import ru.crystals.vaverjanov.dreamkas.model.api.Token;
 
 public class AuthRequestTest extends InstrumentationTestCase {
     private AuthRequest_ authRequest;
 
     @Override
-    protected void setUp() throws Exception {
+    protected void setUp() throws Exception
+    {
         super.setUp();
 
         AuthObject ao = new AuthObject("webfront_webfront", "owner@lighthouse.pro", "lighthouse", "secret");

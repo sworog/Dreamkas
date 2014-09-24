@@ -1,4 +1,4 @@
-package ru.crystals.vaverjanov.dreamkas.espresso;
+package ru.crystals.vaverjanov.dreamkas.espresso.tests.activities;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
@@ -7,9 +7,9 @@ import com.google.android.apps.common.testing.testrunner.Stage;
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
 import com.google.common.collect.Iterables;
-import org.apache.commons.lang3.StringUtils;
 import java.util.Collection;
 import ru.crystals.vaverjanov.dreamkas.R;
+import ru.crystals.vaverjanov.dreamkas.espresso.helpers.RequestIdlingResource;
 import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity;
 import ru.crystals.vaverjanov.dreamkas.view.LoginActivity;
 import ru.crystals.vaverjanov.dreamkas.view.LoginActivity_;
@@ -26,9 +26,9 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
-import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.hasErrorText;
-import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.waitKeyboard;
-import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.withResourceName;
+import static ru.crystals.vaverjanov.dreamkas.espresso.helpers.EspressoExtends.hasErrorText;
+import static ru.crystals.vaverjanov.dreamkas.espresso.helpers.EspressoExtends.waitKeyboard;
+import static ru.crystals.vaverjanov.dreamkas.espresso.helpers.EspressoExtends.withResourceName;
 
 
 public class LoginActivityInstrumentationTest extends ActivityInstrumentationTestCase2<LoginActivity_>
@@ -49,13 +49,8 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
 
         mStartActivity = getActivity();
 
-        if(mStartActivity.authRequestListener == null)
-        {
-            mStartActivity.init(new AuthRequestIdlingResource(mStartActivity));
-
-            //register idling resource for wait async operation
-            Espresso.registerIdlingResources((AuthRequestIdlingResource)mStartActivity.authRequestListener);
-        }
+        //register idling resource for auth request listener
+        Espresso.registerIdlingResources(new RequestIdlingResource(mStartActivity.authRequestListener));
     }
 
     @Override
@@ -105,7 +100,6 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         assertTrue(mStartActivity.isFinishing());
     }
 
-
     public void testLoginActivityIsSingleInstanceAfterLogOut() throws Exception
     {
         enterCredentialsAndClick("owner@lighthouse.pro", "lighthouse");
@@ -127,8 +121,8 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         });
     }
 
-    private void enterCredentialsAndClick(String userName, String password) {
-
+    private void enterCredentialsAndClick(String userName, String password)
+    {
         onView(withId(R.id.txtUsername)).perform(clearText()).perform(ViewActions.typeText(userName), closeSoftKeyboard());
 
         //hack, espresso bug here. without waiting cause exception

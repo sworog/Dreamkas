@@ -1,14 +1,10 @@
-package ru.crystals.vaverjanov.dreamkas.controller.listeners;
+package ru.crystals.vaverjanov.dreamkas.controller.listeners.request;
 
-import android.util.Log;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
-import com.octo.android.robospice.request.listener.RequestProgress;
 import com.octo.android.robospice.request.listener.RequestProgressListener;
+import ru.crystals.vaverjanov.dreamkas.model.api.Token;
 
-import ru.crystals.vaverjanov.dreamkas.model.Token;
-
-public class AuthRequestListener implements RequestListener<Token>, RequestProgressListener{
+public class AuthRequestListener extends ExtRequestListener<Token> implements RequestProgressListener{
 
     private final IAuthRequestHandler managedActivity;
 
@@ -23,22 +19,20 @@ public class AuthRequestListener implements RequestListener<Token>, RequestProgr
     {
         //do some logic here
         managedActivity.onAuthSuccessRequest(authResult);
+        super.onRequestSuccess(authResult);
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException)
     {
         managedActivity.onAuthFailureRequest(spiceException);
+        super.onRequestFailure(spiceException);
     }
 
-    @Override
+    /*@Override
     public void onRequestProgressUpdate(RequestProgress progress)
     {
-        Log.d("AAA", "dasd");
+        super.onRequestFailure(spiceException);
 
-    }
-
-    public void requestStarted() {
-
-    }
+    }*/
 }

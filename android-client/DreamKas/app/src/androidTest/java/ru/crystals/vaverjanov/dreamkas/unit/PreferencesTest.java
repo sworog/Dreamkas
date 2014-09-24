@@ -1,17 +1,9 @@
 package ru.crystals.vaverjanov.dreamkas.unit;
 
-import android.content.Context;
 import android.test.InstrumentationTestCase;
-import android.test.mock.MockContext;
 import android.test.suitebuilder.annotation.SmallTest;
-
 import junit.framework.Assert;
-
-import ru.crystals.vaverjanov.dreamkas.controller.AuthRequest;
-import ru.crystals.vaverjanov.dreamkas.controller.LighthouseRestClient_;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
-import ru.crystals.vaverjanov.dreamkas.model.AuthObject;
-import ru.crystals.vaverjanov.dreamkas.model.Token;
 
 public class PreferencesTest extends InstrumentationTestCase
 {

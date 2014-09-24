@@ -1,9 +1,8 @@
-package ru.crystals.vaverjanov.dreamkas.controller.listeners;
+package ru.crystals.vaverjanov.dreamkas.controller.listeners.request;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
-
-import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
+import ru.crystals.vaverjanov.dreamkas.model.api.NamedObjects;
 import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity;
 
 public class GetGroupsRequestListener implements RequestListener<NamedObjects> {
