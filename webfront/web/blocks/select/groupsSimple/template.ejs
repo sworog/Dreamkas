@@ -1,0 +1,11 @@
+<select class="form-control" name="store">
+
+    <option value="" selected disabled>Выберите группу</option>
+
+    <% collection.forEach(function(group){ %>
+        <option <%- group.id === selected && 'selected' %> value="<%- group.id %>">
+            <%- group.get('name') %>
+        </option>
+    <% }) %>
+
+</select>
