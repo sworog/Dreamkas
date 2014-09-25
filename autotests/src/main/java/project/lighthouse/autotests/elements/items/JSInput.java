@@ -1,9 +1,9 @@
 package project.lighthouse.autotests.elements.items;
 
-import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.item.CommonItem;
+import project.lighthouse.autotests.common.objects.CommonPageObject;
+import project.lighthouse.autotests.handler.field.FieldChecker;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.helper.FieldChecker;
 
 public class JSInput extends CommonItem {
 

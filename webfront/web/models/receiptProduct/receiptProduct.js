@@ -6,7 +6,10 @@ define(function(require, exports, module) {
 	return Model.extend({
 		defaults: {
 			quantity: 1,
-			price: null
+			price: null,
+            storeId: function(){
+                return PAGE.params.storeId;
+            }
 		},
 		models: {
 			product: require('models/product/product')
@@ -14,7 +17,7 @@ define(function(require, exports, module) {
 		initialize: function(){
 			this.get('price') || this.set('price', this.models.product.get('sellingPrice') || 0)
 		},
-		saveData: function() {
+		getData: function() {
 
 			return {
 				product: this.models.product.id,
@@ -23,13 +26,13 @@ define(function(require, exports, module) {
 			};
 		},
 		validate: function(data){
-			var validateUrl = Model.baseApiUrl + '/stores/' + PAGE.params.storeId + '/sales?validate=1&validationGroups=products';
+			var validateUrl = Model.baseApiUrl + '/stores/' + this.get('storeId') + '/sales?validate=1&validationGroups=products';
 
 			return $.ajax({
 				url: validateUrl,
 				type: 'POST',
 				data: {
-					products: [data]
+					products: [_.extend(this.getData(), data)]
 				}
 			});
 		}

@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.elements.Buttons.localNavigation;
 
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.objects.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
 
 /**

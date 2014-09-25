@@ -13,11 +13,7 @@ define(function(require) {
             dateFrom: null,
             dateTo: null
         },
-        url: function() {
-            var collection = this;
-
-            return uri(Collection.baseApiUrl + '/stockMovements').query(collection.filters).toString();
-        },
+        url: Collection.baseApiUrl + '/stockMovements',
         parse: function(data) {
             var collection = this;
             data.forEach(function(item) {

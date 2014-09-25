@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 	//requirements
-	var Block = require('kit/block/block');
+	var Block = require('kit/block/block'),
+        moment = require('moment');
 
 	return Block.extend({
 		template: require('ejs!./template.ejs'),
@@ -8,83 +9,81 @@ define(function(require, exports, module) {
 			'click .receiptFinder__resultLink': function(e) {
 				e.preventDefault();
 
-				var block = this;
-				var receipt = block.collections.receipts.get(e.currentTarget.dataset.receiptId);
+                $(e.currentTarget)
+                    .addClass('receiptFinder__resultLink_active')
+                    .siblings('.receiptFinder__resultLink')
+                    .removeClass('receiptFinder__resultLink_active');
 
-				block.trigger('click:receipt', receipt);
+                this.trigger('click:receipt', e.currentTarget.dataset.receiptId);
 			}
 		},
-		models: {
-			product: function() {
-				return this.product;
-			}
-		},
-		collections: {
-			receipts: function() {
-				return this.receipts;
-			}
-		},
+        models: {
+            product: function(){
+                return PAGE.models.product;
+            }
+        },
+        collections: {
+            receipts: function(){
+                return PAGE.collections.receipts;
+            }
+        },
 		blocks: {
-			productAutocomplete: function(params) {
+			product_autocomplete: function() {
 				var block = this,
-					product = this.models.product,
+                    autocompleteInput = block.$('.autocomplete input.form-control'),
 					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
 					productAutocomplete;
 
-				params.resetLink = true;
-				if (product) {
-					params.value = product.get('name');
-				}
+				productAutocomplete = new ProductAutocomplete({
+                    value: block.models.product.get('name')
+                });
 
-				productAutocomplete = new ProductAutocomplete(params);
 				productAutocomplete.$el.on('typeahead:selected', function(e, product) {
-					var Product = require('models/product/product');
-
-					block.models.product = new Product(product);
-					block.findReceipts(block.$el.find('.autocomplete input.form-control'));
+					block.models.product.set(product);
+                    block.findReceipts(autocompleteInput);
 				});
+
 				productAutocomplete.on('input:clear', function(e, product) {
-					block.models.product = null;
-					block.findReceipts(block.$el.find('.autocomplete input.form-control'));
+                    block.models.product.clear();
+					block.findReceipts(autocompleteInput);
 				});
 
 				return productAutocomplete;
 			},
-			dateRangeInput: function(params) {
+            inputDateRange: function(params) {
 				var block = this,
 					DateRangeInput = require('blocks/inputDateRange/inputDateRange'),
 					dateRangeInput = new DateRangeInput(params);
 
 				dateRangeInput.on('change:values', function(data) {
-					block.findReceipts(block.$el.find('.inputDateRange input'));
+					block.findReceipts(block.$('.inputDateRange input'));
 				});
 
 				return dateRangeInput;
 			},
-			receiptFinder__results: function(params) {
-				var ReceiptFinderResults = require('./receiptFinder__results');
-
-				params.collection = this.collections.receipts;
-
-				return new ReceiptFinderResults(params);
-			}
+			receiptFinder__results: require('./receiptFinder__results')
 		},
         findReceipts: function(input) {
-            var dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
-                dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val(),
-                product;
+            var block = this,
+                dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
+                dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val();
 
             if (!dateFrom || !dateTo) {
                 return;
             }
 
-            if (this.models.product) {
-                product = this.models.product.get('id');
-            }
-
             $(input).addClass('loading');
 
-            this.collections.receipts.find(dateFrom, dateTo, product).then(function() {
+            this.collections.receipts.filter({
+                dateFrom: dateFrom,
+                dateTo: dateTo,
+                product: block.models.product.get('id')
+            }).then(function() {
+
+                PAGE.setParams(block.collections.receipts.filters, {
+                    render: false
+                });
+
                 $(input).removeClass('loading');
             });
         }
