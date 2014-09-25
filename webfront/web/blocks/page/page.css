@@ -39,21 +39,21 @@
 
 /*-------------------- reports ------------------------*/
 
-.page-reports__linksLeft,
-.page-reports__linksRight {
+.page_reports__linksLeft,
+.page_reports__linksRight {
     list-style: none;
     margin: 0;
 }
 
-.page-reports__linksLeft {
+.page_reports__linksLeft {
     padding: 14px 6px 14px 12px;
 }
 
-.page-reports__linksRight {
+.page_reports__linksRight {
     padding: 14px 12px 14px 6px;
 }
 
-.page-reports__link {
+.page_reports__link {
     display: block;
     border: 1px solid #e5e5e5;
     background-color: #fafafa;
@@ -62,11 +62,11 @@
     font-size: 14px;
 }
 
-.page-reports__link:hover{
+.page_reports__link:hover{
     background-color: #f4f4f4;
 }
 
-.page-reports__link .fa{
+.page_reports__link .fa{
     font-size: 20px;
     font-weight: bold;
     margin-right: -10px;
