@@ -37,6 +37,41 @@
     margin-right: 10px;
 }
 
+/*-------------------- reports ------------------------*/
+
+.page-reports__linksLeft,
+.page-reports__linksRight {
+    list-style: none;
+    margin: 0;
+}
+
+.page-reports__linksLeft {
+    padding: 14px 6px 14px 12px;
+}
+
+.page-reports__linksRight {
+    padding: 14px 12px 14px 6px;
+}
+
+.page-reports__link {
+    display: block;
+    border: 1px solid #e5e5e5;
+    background-color: #fafafa;
+    padding: 18px 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.page-reports__link:hover{
+    background-color: #f4f4f4;
+}
+
+.page-reports__link .fa{
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: -10px;
+}
+
 /*-------------------- page pos -----------------------*/
 
 .page_pos {

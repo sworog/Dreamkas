@@ -6,15 +6,18 @@ define(function(require) {
         '(/)': require('pages/main/main'),
         'logout(/)': require('kit/logout/logout'),
 
+		//stockMovement
+		'stockMovements(/)': require('pages/stockMovements/stockMovements'),
+
+		//reports
+		'reports(/)': require('pages/reports/reports'),
+
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
         'catalog/groups/:groupId(/)': require('pages/catalog/groups/group/group'),
 
         //suppliers
         'suppliers(/)': require('pages/suppliers/suppliers'),
-
-        //stockMovement
-        'stockMovements(/)': require('pages/stockMovements/stockMovements'),
 
         //stores
         'stores(/)': require('pages/stores/stores'),
