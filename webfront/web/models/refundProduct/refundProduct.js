@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 
             return {
                 product: this.models.product.id,
-                quantity: this.get('quantity')
+                quantity: normalizeNumber(this.get('quantity'))
             };
         }
     });

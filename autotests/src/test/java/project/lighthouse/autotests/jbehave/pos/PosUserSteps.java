@@ -21,6 +21,11 @@ public class PosUserSteps {
         posSteps.navigateToPosPage(storeName);
     }
 
+    @Given("пользователь открывает страницу истории продаж кассы магазина с названием '$storeName'")
+    public void givenUserOpenStorePosSalesPageWithName(String storeName) {
+        posSteps.navigateToPosSalesPage(storeName);
+    }
+
     @Given("пользователь открывает страницу запуска кассы")
     public void givenUserOpenPosLaunchPage() {
         posSteps.openPosLaunchPage();
