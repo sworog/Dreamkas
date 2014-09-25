@@ -1,5 +1,6 @@
 .receiptFinder__results .list-group {
     margin-bottom: 0;
+    position: relative;
 }
 
 .receiptFinder__results {
