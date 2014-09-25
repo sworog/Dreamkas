@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
+		activeNavigationItem: 'reports',
 		collections: {
 			stores: require('collections/stores/stores'),
 			groups: require('collections/groups/groups')
