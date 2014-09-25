@@ -111,8 +111,12 @@ define(function(require, exports, module) {
             }, 0);
         },
 
-        setParams: function(params, silent) {
+        setParams: function(params, opt) {
             var page = this;
+
+            opt = deepExtend({
+                render: false
+            }, opt);
 
             deepExtend(page.params, params);
 
@@ -120,7 +124,7 @@ define(function(require, exports, module) {
                 result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
             }));
 
-			if (!silent) {
+			if (opt.render) {
 				page.render();
 			}
         }

@@ -79,15 +79,13 @@ public class CustomVariableStorage implements StorageClearable {
     }
 
     public void clear() {
-        Storage.getOrderVariableStorage().resetNumber();
-        Storage.getInvoiceVariableStorage().resetNumber();
         Storage.getUserVariableStorage().getUserContainers().clear();
         Storage.getUserVariableStorage().getUserTokens().clear();
-        getSuppliers().clear();
-        getStores().clear();
-        getProducts().clear();
-        getSubCategories().clear();
-        getSubCategoryProducts().clear();
+        suppliers.clear();
+        stores.clear();
+        products.clear();
+        subCategories.clear();
+        subCategoryProducts.clear();
         salesMap.clear();
     }
 }

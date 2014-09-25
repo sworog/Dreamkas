@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.pos;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.common.BootstrapPageObject;
+import project.lighthouse.autotests.common.objects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.items.NonType;
 
 public abstract class CommonPosPage extends BootstrapPageObject {
@@ -32,6 +32,6 @@ public abstract class CommonPosPage extends BootstrapPageObject {
     }
 
     public void clickOnSideBarInteraction() {
-        click(By.xpath("//*[contains(@class, 'sideBarLink')]"));
+        click(By.xpath("//*[@class='page__head']//*[contains(@class, 'sideBarLink')]"));
     }
 }

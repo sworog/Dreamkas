@@ -43,12 +43,11 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            productFinder__results: function(opt) {
+            productFinder__results: function() {
                 var block = this,
                     ProductFinder__results = require('./productFinder__results');
 
                 return new ProductFinder__results({
-                    el: opt.el,
                     collection: block.collections.products
                 });
             }

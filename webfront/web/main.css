@@ -25,6 +25,7 @@
 @import "/blocks/modal/modal.css";
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
+@import "/blocks/inputNumber/inputNumber.css";
 
 body {
     overflow-x: hidden;
@@ -248,17 +249,21 @@ select.loading, input.loading {
 }
 
 .modal {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal.fade {
     opacity: 1;
 }
 
-.modal.fade .modal-dialog{
+.modal.fade .modal-dialog {
     transform: none !important;
 }
 
-.twitter-typeahead{
+.twitter-typeahead {
     width: 100%;
+}
+
+.tt-input {
+    background-color: #fff !important;
 }
