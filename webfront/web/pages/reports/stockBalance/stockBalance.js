@@ -5,10 +5,12 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
 		collections: {
-			stores: require('collections/stores/stores')
+			stores: require('collections/stores/stores'),
+			groups: require('collections/groups/groups')
 		},
 		blocks: {
-			select_stores: require('blocks/select/stores/stores')
+			select_stores: require('blocks/select/stores/stores'),
+			select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple')
 		}
     });
 });
