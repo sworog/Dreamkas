@@ -243,11 +243,6 @@ select.loading, input.loading {
     background-color: #f4f4f4;
 }
 
-.btn.disabled, .btn[disabled] {
-    background-color: #dadada;
-    border-color: #dadada;
-}
-
 .modal {
     background-color: rgba(0, 0, 0, 0.5);
 }

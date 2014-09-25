@@ -37,6 +37,12 @@
     margin-right: 10px;
 }
 
+.page__posLink {
+    font-size: 14px;
+    width: 200px;
+    margin: 0 auto;
+}
+
 /*-------------------- reports ------------------------*/
 
 .page_reports__links {
