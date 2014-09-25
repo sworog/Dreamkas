@@ -32,11 +32,17 @@ define(function(require, exports, module) {
         saveData: function(){
 
             var products = this.collections.products.map(function(refundProductModel) {
-                return refundProductModel.getData();
+                var data = refundProductModel.getData();
+
+                if (_.isNaN(data.quantity)){
+                    data.quantity = 'x';
+                }
+
+                return data;
             });
 
             products = _.filter(products, function(product){
-                return normalizeNumber(product.quantity);
+                return product.quantity !== 0;
             });
 
             return {
