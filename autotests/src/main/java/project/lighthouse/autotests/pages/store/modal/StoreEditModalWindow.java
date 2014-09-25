@@ -10,11 +10,6 @@ public class StoreEditModalWindow extends StoreCreateModalWindow {
     }
 
     @Override
-    public String modalWindowXpath() {
-        return "//*[@id='modal-storeEdit']";
-    }
-
-    @Override
     public void confirmationOkClick() {
         new PrimaryBtnFacade(this, "Сохранить").click();
     }
