@@ -4,7 +4,6 @@ define(function(require, exports, module) {
 
     return Modal.extend({
         supplierId: 0,
-        referrer: null,
         template: require('ejs!./template.ejs'),
         blocks: {
             form_supplier: function(){

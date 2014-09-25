@@ -3,14 +3,8 @@
 
     <div class="modal__header">
 
-        <% if (!referrer) { %>
         <a type="button"
            class="modal__closeLink fa fa-times"></a>
-        <% } else { %>
-        <a type="button"
-           data-modal="<%- referrer %>"
-           class="modal__closeLink fa fa fa-long-arrow-left"></a>
-        <% } %>
 
         <button form="form_supplier"
                 type="submit"
