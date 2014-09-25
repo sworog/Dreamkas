@@ -46,6 +46,13 @@ public class PosSteps extends ScenarioSteps {
         posLaunchPage.getDriver().navigate().to(posUrl);
     }
 
+    @Step
+    public void navigateToPosSalesPage(String storeName) {
+        String storeId = Storage.getCustomVariableStorage().getStores().get(storeName).getId();
+        String posUrl = String.format("%s/pos/stores/%s/sales", UrlHelper.getWebFrontUrl(), storeId);
+        posLaunchPage.getDriver().navigate().to(posUrl);
+    }
+
     public PosAutoCompleteCollection getPosAutoCompleteCollection() {
         PosAutoCompleteCollection abstractObjectCollection = null;
         try {
