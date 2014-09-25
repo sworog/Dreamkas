@@ -11,6 +11,7 @@ define(function(require) {
 
 		//reports
 		'reports(/)': require('pages/reports/reports'),
+		'reports/productRemnants(/)': require('pages/reports/productRemnants/productRemnants'),
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
