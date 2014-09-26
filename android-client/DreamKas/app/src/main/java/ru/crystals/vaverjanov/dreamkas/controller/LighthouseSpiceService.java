@@ -6,8 +6,8 @@ import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.exception.CacheCreationException;
 import com.octo.android.robospice.persistence.springandroid.json.jackson2.Jackson2ObjectPersister;
 
-import ru.crystals.vaverjanov.dreamkas.model.AuthObject;
-import ru.crystals.vaverjanov.dreamkas.model.Token;
+import ru.crystals.vaverjanov.dreamkas.model.api.AuthObject;
+import ru.crystals.vaverjanov.dreamkas.model.api.Token;
 
 public class LighthouseSpiceService extends SpiceService {
 

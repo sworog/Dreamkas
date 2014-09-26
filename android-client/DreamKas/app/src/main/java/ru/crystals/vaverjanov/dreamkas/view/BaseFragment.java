@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 
+import ru.crystals.vaverjanov.dreamkas.controller.IChangeFragmentContainer;
+
 public class BaseFragment extends Fragment
 {
-    protected IChangeFragmentHandler changeFragmentCallback;
+    protected IChangeFragmentContainer changeFragmentCallback;
     public ProgressDialog progressDialog;
 
     @Override
@@ -15,7 +17,7 @@ public class BaseFragment extends Fragment
         super.onAttach(activity);
 
         try {
-            changeFragmentCallback = (IChangeFragmentHandler) activity;
+            changeFragmentCallback = (IChangeFragmentContainer) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement IChangeFragmentHandler");

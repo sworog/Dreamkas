@@ -1,4 +1,4 @@
-package ru.crystals.vaverjanov.dreamkas.model;
+package ru.crystals.vaverjanov.dreamkas.model.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

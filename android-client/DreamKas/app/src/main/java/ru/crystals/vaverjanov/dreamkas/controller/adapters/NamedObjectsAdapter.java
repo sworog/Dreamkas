@@ -6,17 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import ru.crystals.vaverjanov.dreamkas.model.NamedObject;
 
-public class NamedObjectsAdapter extends ArrayAdapter<NamedObject> {
+import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
 
+public class NamedObjectsAdapter extends ArrayAdapter<NamedObject>
+{
     Context context;
     int layoutResourceId;
     ArrayList<NamedObject> data = null;
+
+    class NamedObjectHolder
+    {
+        TextView txtTitle;
+    }
 
     public NamedObjectsAdapter(Context context, int layoutResourceId, ArrayList<NamedObject> data)
     {
