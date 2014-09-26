@@ -16,7 +16,8 @@ define(function(require, exports, module) {
 		},
 		blocks: {
 			select_stores: require('blocks/select/stores/stores'),
-			select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple')
+			select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple'),
+            table_stockBalance: require('blocks/table/stockBalance/stockBalance')
 		},
 		fetch: function() {
 			var block = this,

@@ -26,6 +26,7 @@
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
 @import "/blocks/inputNumber/inputNumber.css";
+@import "/blocks/table/table.css";
 
 body {
     overflow-x: hidden;
