@@ -27,10 +27,14 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots'],
+        reporters: ['dots', 'allure', 'teamcity'],
 
 		allureReport: {
 			reportDir: 'report'
+		},
+
+		coverageReporter: {
+			type : 'teamcity'
 		},
 
         preprocessors: {
@@ -38,7 +42,7 @@ module.exports = function(config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
             //'requireDom.js': 'coverage',
-			//'**/*.js': ['coverage']
+            '**/*.js': ['coverage']
         },
 
         // web server port
