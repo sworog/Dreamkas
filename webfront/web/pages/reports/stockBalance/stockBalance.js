@@ -7,7 +7,8 @@ define(function(require, exports, module) {
         activeNavigationItem: 'reports',
         events: {
             'change select[name="store"]': function(e) {
-                var page = this;
+                var page = this,
+                    select = e.currentTarget;
 
                 page.$('select[name="group"]').removeAttr('disabled');
 
@@ -48,11 +49,11 @@ define(function(require, exports, module) {
 
                 page.collections.storeProducts = new StoreProductsCollection;
 
-                if (page.collections.stores.length === 1) {
-                    return page.findProducts({
-                        storeId: page.collections.stores.at(0).id
-                    });
+                if (page.collections.stores.length === 1){
+                    page.params.storeId = page.collections.stores.at(0).id
                 }
+
+                return page.params.storeId && page.findProducts();
             });
         },
         findProducts: function(params) {
@@ -66,9 +67,9 @@ define(function(require, exports, module) {
 
             storeProductsCollection.storeId = params.storeId;
 
-            return storeProductsCollection.filter({subCategory: params.groupId}).then(function() {
-                page.setParams(params);
-            });
+            page.setParams(params);
+
+            return storeProductsCollection.filter({subCategory: params.groupId});
         }
     });
 });
