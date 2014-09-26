@@ -29,20 +29,6 @@ define(function(require, exports, module) {
 			select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple'),
             table_stockBalance: require('blocks/table/stockBalance/stockBalance')
 		},
-		storeId: function() {
-			var page = this,
-				storeId = page.params.storeId,
-				stores = page.collections.stores;
-
-			if (!storeId && stores.length == 1) {
-				storeId = stores.at(0).get('id');
-			}
-
-			return storeId;
-		},
-		groupId: function() {
-			return this.params.groupId;
-		},
 		fetch: function() {
 			var page = this,
 				Products = require('collections/storeProducts/storeProducts'),
@@ -64,7 +50,9 @@ define(function(require, exports, module) {
 				} else if (stores.length == 1) {
 
 					page.productParams.storeId = stores.at(0).get('id');
-					promise = page.findProducts();
+					page.setParams(page.productParams);
+
+					promise = page.findProducts({ setParams: false });
 				}
 
 				return promise;
