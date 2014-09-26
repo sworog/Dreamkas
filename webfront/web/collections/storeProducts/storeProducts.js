@@ -9,8 +9,7 @@ define(function(require) {
 			return Collection.baseApiUrl + '/stores/' + this.storeId + '/products';
 		},
 		filters: {
-			properties: ['name', 'sku', 'barcode'],
-			subCategory: null
+			properties: ['name', 'sku', 'barcode']
 		}
 	});
 });
