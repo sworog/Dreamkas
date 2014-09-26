@@ -29,10 +29,10 @@
                     <div class="row" style="padding-bottom: 20px;">
                         <div class="col-md-3">
                             <b block="select_stores"
-                               data-selected="<%- collections.stores.length == 1 ? collections.stores.at(0).id : null %>"></b>
+                               data-selected="<%- storeId() %>"></b>
                         </div>
                         <div class="col-md-3">
-                            <b block="select_groupsSimple"></b>
+                            <b block="select_groupsSimple" data-selected="<%- groupId() %>"></b>
                         </div>
                     </div>
 

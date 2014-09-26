@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             groups: require('collections/groups/groups'),
             products: function(){
                 var page = this,
-                    ProductsCollection = require('collections/products/products'),
+                    ProductsCollection = require('collections/groupProducts/groupProducts'),
                     productCollection = new ProductsCollection([], {
                         groupId: page.params.groupId
                     });
