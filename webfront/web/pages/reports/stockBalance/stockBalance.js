@@ -41,7 +41,7 @@ define(function(require, exports, module) {
 
 				page.productParams = _.pick(page.params, 'storeId', 'groupId');
 
-				collections.storeProducts = new Products();
+				collections.storeProducts = new Products()
 
 				if (page.productParams.storeId) {
 
