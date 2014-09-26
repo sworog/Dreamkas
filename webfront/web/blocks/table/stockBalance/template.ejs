@@ -1,0 +1,51 @@
+<table class="table table-striped table_stockBalance">
+    <thead>
+        <tr>
+            <th data-sort-by="product.name">
+                Наименование
+            </th>
+            <th data-sort-by="inventoryDays">
+                Запас
+            </th>
+            <th data-sort-by="averageDailySales">
+                Расход
+            </th>
+            <th data-sort-by="inventory">
+                Остаток
+            </th>
+        </tr>
+    </thead>
+    <tbody name="products">
+
+        <% sortedCollection.forEach(function(storeProductModel){ %>
+            <tr>
+                <td>
+                    <div name="name" style="padding-bottom: 5px;">
+                        <%- storeProductModel.get('product.name') %>
+                    </div>
+                    <div name="barcode" class="table_stockBalance__barcode">
+                        <%- storeProductModel.get('product.barcode') %>
+                    </div>
+                </td>
+                <td name="inventoryDays">
+                    <%- storeProductModel.get('inventoryDays') %>
+                    <span class="table_stockBalance__units">
+                        дн.
+                    </span>
+                </td>
+                <td name="averageDailySales">
+                    <%- storeProductModel.get('averageDailySales') %>
+                    <span class="table_stockBalance__units">
+                        <%- storeProductModel.get('product.units') %> / дн.
+                    </span>
+                </td>
+                <td name="inventory">
+                    <%- storeProductModel.get('inventory') %>
+                    <span class="table_stockBalance__units">
+                        <%- storeProductModel.get('product.units') %>
+                    </span>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
