@@ -8,8 +8,8 @@ import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.espresso.helpers.FragmentHelper;
 import ru.crystals.vaverjanov.dreamkas.espresso.helpers.PreconditionHelper;
 import ru.crystals.vaverjanov.dreamkas.espresso.helpers.RequestIdlingResource;
-import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
 import ru.crystals.vaverjanov.dreamkas.espresso.helpers.ScreenshotFailureHandler;
+import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
 import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
 import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity;
 import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity_;
@@ -153,6 +153,4 @@ public class StoresFragmentInstrumentationTest extends ActivityInstrumentationTe
         //user will see kas fragment with storeId text on it
         onView(withId(R.id.lblStore)).check(matches(withText(item2.getId())));
     }
-
-
 }

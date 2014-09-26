@@ -2,10 +2,6 @@ package ru.crystals.vaverjanov.dreamkas.espresso.tests.activities;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import org.hamcrest.Matchers;
-
-import java.util.regex.Matcher;
-
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
 import ru.crystals.vaverjanov.dreamkas.espresso.helpers.ScreenshotFailureHandler;
@@ -27,24 +23,23 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
-public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumentationTestCase2<LighthouseDemoActivity_>
-{
+public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumentationTestCase2<LighthouseDemoActivity_> {
+
     private LighthouseDemoActivity mStartActivity;
 
     @SuppressWarnings("deprecation")
-    public LighthouseDemoActivityInstrumentationTest()
-    {
+    public LighthouseDemoActivityInstrumentationTest() {
         // This constructor was deprecated - but we want to support lower API levels.
         super("ru.crystals.vaverjanov.dreamkas.view", LighthouseDemoActivity_.class);
     }
 
     @Override
-    protected void setUp() throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
         PreferencesManager.initializeInstance(getInstrumentation().getContext());
         PreferencesManager preferences = PreferencesManager.getInstance();
@@ -55,8 +50,7 @@ public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumen
     }
 
     @Override
-    protected void tearDown() throws Exception
-    {
+    protected void tearDown() throws Exception {
         super.tearDown();
     }
 
@@ -68,37 +62,34 @@ public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumen
 
         onView(withText(R.string.load_stores)).check(matches(isDisplayed()));
 
-        StoreFragment storeFragment = (StoreFragment)mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Store.getValue()));
+        StoreFragment storeFragment = (StoreFragment) mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Store.getValue()));
 
-        assertThat("StoreFragment does't exists in current activity", storeFragment, Matchers.notNullValue());
-        assertThat("StoreFragment should be visible", storeFragment.isVisible(), Matchers.is(true));
+        assertThat("StoreFragment does't exists in current activity", storeFragment, notNullValue());
+        assertThat("StoreFragment should be visible", storeFragment.isVisible(), is(true));
     }
 
-    public void testUserWillSeeKasFragmentIfItIsNotFirstAppLaunch()
-    {
+    public void testUserWillSeeKasFragmentIfItIsNotFirstAppLaunch() {
         mStartActivity = getActivity();
 
-        KasFragment kasFragment = (KasFragment)mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Kas.getValue()));
+        KasFragment kasFragment = (KasFragment) mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Kas.getValue()));
 
-        assertThat("KasFragment does't exists in current activity",kasFragment, Matchers.notNullValue());
-        assertThat("KasFragment should be visible",kasFragment.isVisible(), Matchers.is(true));
+        assertThat("KasFragment does't exists in current activity", kasFragment, notNullValue());
+        assertThat("KasFragment should be visible", kasFragment.isVisible(), is(true));
     }
 
-    public void testUserWillSeeSelectStoreFragmentIfClickOnDrawerStoreItem()
-    {
+    public void testUserWillSeeSelectStoreFragmentIfClickOnDrawerStoreItem() {
         openDrawer(R.id.drawer_layout);
 
         onView(withId(R.id.drawer_layout)).check(matches(isOpen()));
 
         onData(allOf(is(instanceOf(String.class)), is(DrawerMenu.getMenuItems().get(DrawerMenu.AppStates.Store)))).inAdapterView(withId(R.id.lstDrawer)).perform(click());
 
-        StoreFragment storeFragment = (StoreFragment)mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Store.getValue()));
-        assertThat("StoreFragment does't exists in current activity",storeFragment, Matchers.notNullValue());
-        assertThat("StoreFragment should be visible",storeFragment.isVisible(), Matchers.is(true));
+        StoreFragment storeFragment = (StoreFragment) mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Store.getValue()));
+        assertThat("StoreFragment does't exists in current activity", storeFragment, notNullValue());
+        assertThat("StoreFragment should be visible", storeFragment.isVisible(), is(true));
     }
 
-    public void testUserWillSeeOpenedDrawerWhenClickOnActionbarAppIcon()
-    {
+    public void testUserWillSeeOpenedDrawerWhenClickOnActionbarAppIcon() {
         // Drawer should not be open to start.
         onView(withId(R.id.drawer_layout)).check(matches(isClosed()));
 

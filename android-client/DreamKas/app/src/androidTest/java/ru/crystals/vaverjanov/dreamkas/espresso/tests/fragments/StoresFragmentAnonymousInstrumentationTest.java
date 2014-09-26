@@ -24,23 +24,21 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.Is.is;
 
-public class StoresFragmentAnonimInstrumentationTest extends ActivityInstrumentationTestCase2<LighthouseDemoActivity_>
-{
+public class StoresFragmentAnonymousInstrumentationTest extends ActivityInstrumentationTestCase2<LighthouseDemoActivity_> {
+
     private LighthouseDemoActivity mStartActivity;
     private StoreFragment mStoreFragment;
     private NetworkManager networkManager;
 
 
     @SuppressWarnings("deprecation")
-    public StoresFragmentAnonimInstrumentationTest()
-    {
+    public StoresFragmentAnonymousInstrumentationTest() {
         // This constructor was deprecated - but we want to support lower API levels.
         super("ru.crystals.vaverjanov.dreamkas.view", LighthouseDemoActivity_.class);
     }
 
     @Override
-    protected void setUp() throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
         //clear preferences
@@ -51,7 +49,7 @@ public class StoresFragmentAnonimInstrumentationTest extends ActivityInstrumenta
         mStartActivity = getActivity();
 
         //get fragment and register idle resource for request listener
-        mStoreFragment = (StoreFragment)mStartActivity.getCurrentFragment();
+        mStoreFragment = (StoreFragment) mStartActivity.getCurrentFragment();
         Espresso.registerIdlingResources(new RequestIdlingResource(mStoreFragment.storesRequestListener));
 
         //wait for fragment transactions ends
@@ -62,19 +60,16 @@ public class StoresFragmentAnonimInstrumentationTest extends ActivityInstrumenta
     }
 
     @Override
-    protected void tearDown() throws Exception
-    {
+    protected void tearDown() throws Exception {
         super.tearDown();
     }
 
-    public void testUserWillGetToastWithErrorWhenOffline() throws Exception
-    {
+    public void testUserWillGetToastWithErrorWhenOffline() throws Exception {
         //Wait for toast with error text
         onView(withText(R.string.error_unauthorized)).inRoot(withDecorView(CoreMatchers.not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
-    public void testEmptySpinnerView() throws Exception
-    {
+    public void testEmptySpinnerView() throws Exception {
         //expect empty placeholder instead stores spinner
         onView(withText(R.string.empty_list)).check(matches(isDisplayed()));
     }
