@@ -7,16 +7,18 @@ define(function(require, exports, module) {
 		activeNavigationItem: 'reports',
 		events: {
 			'change select[name="store"]': function(e) {
-				var page = this;
+				var page = this,
+					select = $(e.target);
 
-				page.productParams.storeId = $(e.target).val();
-				page.findProducts();
+				page.productParams.storeId = select.val();
+				page.findProducts({ select: select });
 			},
 			'change select[name="group"]': function(e) {
-				var page = this;
+				var page = this,
+					select = $(e.target);
 
-				page.productParams.groupId = $(e.target).val() || undefined;
-				page.findProducts();
+				page.productParams.groupId = select.val() || undefined;
+				page.findProducts({ select: select });
 			}
 		},
 		productParams: {},
@@ -60,13 +62,17 @@ define(function(require, exports, module) {
 		},
 		findProducts: function(params) {
 			var page = this,
-				products = this.collections.storeProducts;
+				products = this.collections.storeProducts,
+				select = $(params.select);
 
 			products.storeId = page.productParams.storeId;
-
 			params = _.extend({ setParams: true }, params);
+			select.addClass('loading');
 
 			return products.filter({ subCategory: page.productParams.groupId }).then(function() {
+
+				select.removeClass('loading');
+
 				if (params.setParams)
 				{
 					page.setParams(page.productParams, {
