@@ -5,6 +5,11 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
 		activeNavigationItem: 'reports',
+		events: {
+			'change select[name="store"]': function(e) {
+
+			}
+		},
 		collections: {
 			stores: require('collections/stores/stores'),
 			groups: require('collections/groups/groups')
