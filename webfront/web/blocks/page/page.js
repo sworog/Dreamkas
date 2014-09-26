@@ -115,7 +115,7 @@ define(function(require, exports, module) {
             var page = this;
 
             opt = deepExtend({
-                render: true
+                render: false
             }, opt);
 
             deepExtend(page.params, params);

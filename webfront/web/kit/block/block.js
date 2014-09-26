@@ -13,13 +13,16 @@ define(function(require, exports, module) {
 
     var View = Backbone.View;
 
+    // Cached regex to split keys for `delegate`.
+    var delegateEventSplitter = /^(\S+)\s*(.*)$/;
+
     return makeClass(View, {
 
         constructor: function(params) {
             var block = this;
 
             deepExtend(block, params);
-            
+
             View.apply(block, arguments);
         },
 
@@ -27,6 +30,8 @@ define(function(require, exports, module) {
 
         initialize: function() {
             var block = this;
+
+            this.delegateGlobalEvents();
 
             $.when(block.initData()).then(function() {
                 block.render();
@@ -36,8 +41,8 @@ define(function(require, exports, module) {
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate/formatDate'),
-		formatTime: require('kit/formatTime/formatTime'),
-		formatDateTime: require('kit/formatDateTime/formatDateTime'),
+        formatTime: require('kit/formatTime/formatTime'),
+        formatDateTime: require('kit/formatDateTime/formatDateTime'),
         normalizeNumber: require('kit/normalizeNumber/normalizeNumber'),
 
         render: function(data) {
@@ -166,12 +171,30 @@ define(function(require, exports, module) {
 
             block.__blocks = {};
         },
-        trigger: function(event, data){
+
+        trigger: function(event, data) {
             var block = this;
 
             View.prototype.trigger.apply(block, arguments);
 
             globalEvents.trigger(event, data, block);
+        },
+
+        delegateGlobalEvents: function() {
+
+            for (var key in this.globalEvents) {
+                var method = this.globalEvents[key];
+
+                var match = key.match(delegateEventSplitter);
+
+                var eventName = match[1], selector = match[2];
+
+                method = _.bind(method, this);
+
+                this.listenTo(globalEvents, eventName, method);
+            }
+
+            return this;
         }
     });
 });

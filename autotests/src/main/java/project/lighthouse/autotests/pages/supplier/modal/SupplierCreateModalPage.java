@@ -13,7 +13,7 @@ public class SupplierCreateModalPage extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal-supplierAdd']";
+        return "//*[@id='modal_supplier']";
     }
 
     @Override

@@ -1,10 +1,10 @@
 package project.lighthouse.autotests.elements.items.autocomplete;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.collection.posAutoComplete.PosAutoCompleteCollection;
+import project.lighthouse.autotests.common.item.CommonItem;
+import project.lighthouse.autotests.common.objects.CommonPageObject;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
-import project.lighthouse.autotests.objects.web.posAutoComplete.PosAutoCompleteCollection;
 
 public class PosAutoComplete extends CommonItem {
 

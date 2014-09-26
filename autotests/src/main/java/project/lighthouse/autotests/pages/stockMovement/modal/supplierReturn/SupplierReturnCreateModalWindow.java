@@ -2,8 +2,8 @@ package project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.stockMovement.supplierReturn.SupplierReturnProductCollection;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.stockMovement.supplierReturn.SupplierReturnProductCollection;
 import project.lighthouse.autotests.pages.stockMovement.modal.PayableStockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 

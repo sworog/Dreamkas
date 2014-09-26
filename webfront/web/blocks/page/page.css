@@ -24,7 +24,6 @@
 .page__content {
     padding: 20px 30px 50px;
     position: relative;
-    background-color: #f0f2f5;
     z-index: 10;
 }
 
@@ -38,19 +37,68 @@
     margin-right: 10px;
 }
 
+.page__posLink {
+    font-size: 14px;
+    width: 200px;
+    margin: 0 auto;
+}
+
+/*-------------------- reports ------------------------*/
+
+.page_reports__links {
+    list-style: none;
+    margin: 0;
+    padding: 16px 2px;
+}
+
+.page_reports__links li {
+    width: 50%;
+    float: left;
+    padding: 0 12px 8px 12px;
+}
+
+.page_reports__link {
+    display: block;
+    border: 1px solid #e5e5e5;
+    background-color: #fafafa;
+    padding: 18px 15px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.page_reports__link:hover{
+    background-color: #f4f4f4;
+}
+
+.page_reports__link .fa{
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: -10px;
+}
+
 /*-------------------- page pos -----------------------*/
 
 .page_pos {
     height: 100%;
-    transition: transform .2s;
-}
-
-.page_pos.page_sideBarVisible {
-    transform: translate3d(250px, 0, 0);
 }
 
 .page_pos .sideBar {
-    left: -250px;
+    transition: transform .2s;
+    transform: translate3d(-250px, 0, 0);
+}
+
+.page_pos .page__content,
+.page_pos .page__head {
+    transition: opacity .2s;
+}
+
+.page_pos.page_sideBarVisible .sideBar {
+    transform: translate3d(0, 0, 0);
+}
+
+.page_pos.page_sideBarVisible .page__content,
+.page_pos.page_sideBarVisible .page__head {
+    opacity: .4;
 }
 
 .page_pos .page__content {

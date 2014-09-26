@@ -4,16 +4,16 @@ define(function(require, exports, module) {
 
     return Block.extend({
         template: require('ejs!./template.ejs'),
-        initialize: function() {
-            var block = this;
-
-            Block.prototype.initialize.apply(this, arguments);
-
-            this.listenTo(PAGE, {
-                'change:params.receiptId': function() {
-                    block.render();
-                }
-            });
+        globalEvents: {
+            'click:receipt': function(receiptId){
+                this.models.receipt = PAGE.collections.receipts.get(receiptId);
+                this.render();
+            }
+        },
+        models: {
+            receipt: function(){
+                return PAGE.collections.receipts.get(PAGE.params.receiptId);
+            }
         },
         blocks: {
             modal_refund: require('blocks/modal/refund/refund')

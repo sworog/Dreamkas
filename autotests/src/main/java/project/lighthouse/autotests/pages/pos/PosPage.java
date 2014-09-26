@@ -2,9 +2,9 @@ package project.lighthouse.autotests.pages.pos;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.posAutoComplete.PosAutoCompleteCollection;
+import project.lighthouse.autotests.collection.receipt.ReceiptCollection;
 import project.lighthouse.autotests.elements.items.autocomplete.PosAutoComplete;
-import project.lighthouse.autotests.objects.web.posAutoComplete.PosAutoCompleteCollection;
-import project.lighthouse.autotests.objects.web.receipt.ReceiptCollection;
 
 public class PosPage extends CommonPosPage {
 

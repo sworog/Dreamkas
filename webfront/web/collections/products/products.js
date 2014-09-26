@@ -4,30 +4,41 @@ define(function(require) {
 
         return Collection.extend({
             model: require('models/product/product'),
+			storeId: null,
             groupId: null,
             searchQuery: null,
             url: function(){
                 return Collection.baseApiUrl + '/subcategories/' + this.groupId + '/products'
             },
             find: function(query){
-                var collection = this;
+                var url = Collection.baseApiUrl + '/products/search';
 
-                collection.searchQuery = query;
+				return this.findByUrl(url, query);
+            },
+			findByStore: function(query) {
+				var url = Collection.baseApiUrl + '/stores/' + this.storeId + '/products';
 
-                collection.searchRequest && collection.searchRequest.abort();
+				return this.findByUrl(url, query);
+			},
+			findByUrl: function(url, query) {
+				var collection = this;
 
-                collection.searchRequest = $.ajax({
-                    url: Collection.baseApiUrl + '/products/search',
-                    data: {
-                        properties: ['name', 'sku', 'barcode'],
-                        query: collection.searchQuery
-                    }
-                });
+				collection.searchQuery = query;
 
-                return collection.searchRequest.then(function(data){
-                    collection.reset(data);
-                });
-            }
+				collection.searchRequest && collection.searchRequest.abort();
+
+				collection.searchRequest = $.ajax({
+					url: Collection.baseApiUrl + '/products/search',
+					data: {
+						properties: ['name', 'sku', 'barcode'],
+						query: collection.searchQuery
+					}
+				});
+
+				return collection.searchRequest.then(function(data){
+					collection.reset(data);
+				});
+			}
         });
     }
 );

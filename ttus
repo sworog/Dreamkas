@@ -1,0 +1,538 @@
+[33mcommit 4d96403fe92cae8d8e0839a60744a7e2db3987fa[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Fri Sep 19 15:11:25 2014 +0400
+
+    Added local maven repo
+
+[33mcommit 6ea4a1b1be90526ee98819cba9753439d0a14108[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Fri Sep 19 14:49:51 2014 +0400
+
+    working out with build.gradle
+
+[33mcommit 4cafb5aad92da89752d37290ed034582f4140a59[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Fri Sep 19 12:55:35 2014 +0400
+
+    use com.android.tools.build:gradle:0.12.2 dependency for android.support to work
+
+[33mcommit 093f5c0e11cd7a2fbfb5c91bc742fcc7fc04e598[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Thu Sep 18 20:43:32 2014 +0400
+
+    Try com.android.support:support-v4:19.1.+ version
+
+[33mcommit d2151a98a3ce2481f9d4ce4bf2ef923aedb47081[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Thu Sep 18 19:49:47 2014 +0400
+
+    delete espresso-contrib-1.1-bundled.jar
+    fix dependencies in build.gradle
+
+[33mcommit b8044f7fc386543bff4e4fb88ee2d1a166c084cd[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Thu Sep 18 18:50:46 2014 +0400
+
+    add custom matcher for error-popup in EditText
+    fix espresso loginActivity test
+
+[33mcommit acc20950c5783189885ee64a9e9cf33571838dcf[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Thu Sep 18 16:08:36 2014 +0400
+
+    fix espresso login tests
+    fix work with idlingresource
+    add preferences test
+
+[33mcommit 6062d45d5439c719c28da5d9f49bb91ce8a740eb[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Tue Sep 16 17:19:30 2014 +0400
+
+    add espresso-contrib
+    remove espresso
+    add espresso extensions
+    change login test
+
+[33mcommit 63959dc98eb8db2eb80f0de447fbbc6c810f7aad[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Tue Sep 16 12:02:29 2014 +0400
+
+    add empty view for stores spinner
+    fix app title
+
+[33mcommit 7030107e279bcd312f3090d62bb8edad378e999d[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Mon Sep 15 18:58:43 2014 +0400
+
+    add drawer
+    add logoff
+    add login error messages
+    add stores load, select and save current store
+
+[33mcommit 8defbce4b389a04beb41f5069c5633fa024e4615[m
+Merge: 60125f1 c3c49e9
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 11 14:54:25 2014 +0400
+
+    Merge remote-tracking branch 'origin/dev-android-client' into us-113.1
+
+[33mcommit c3c49e979d360b51440658005d1b25b4a7f39679[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Wed Sep 10 16:13:08 2014 +0400
+
+    edit espresso-test
+
+[33mcommit 49bd029948bc4e1c4883e93acbf536c91cd10bd0[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Wed Sep 10 12:24:02 2014 +0400
+
+    change emulator_hacks.apk to signed apk
+
+[33mcommit 4a22772fc19a6492f573577d745adc9280fc75ba[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Wed Sep 10 11:15:48 2014 +0400
+
+    add emulator_hacks.apk to config CI emulator for run espresso-test
+
+[33mcommit 999844fd800bdd61e40bce6d0b4ae5ea7e639f22[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Tue Sep 9 17:28:26 2014 +0400
+
+    add espresso test
+
+[33mcommit 5a37e55004edc81598686743948c268348e68749[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Tue Sep 9 17:23:24 2014 +0400
+
+    remove espresso test
+
+[33mcommit fd011d045e0aedfacf5ce51d367b8281b1630acc[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Tue Sep 9 16:43:27 2014 +0400
+
+    add auth unit test
+
+[33mcommit 20593f87caf9b424d5a7170d61bbc4f8bdfcd0da[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Tue Sep 9 11:17:54 2014 +0400
+
+    edit gradle config
+
+[33mcommit cac304e0f6e53afe8c6d311c68a4df208c8aaa75[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Mon Sep 8 19:08:12 2014 +0400
+
+    edit gradle config
+
+[33mcommit e1ab26d19e3b5799421156400ebe4d5931f75068[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Mon Sep 8 18:40:42 2014 +0400
+
+    Gradle version 1.12
+
+[33mcommit c632458a12e9e8b2b87ccf7085717cad3110f575[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Mon Sep 8 18:07:05 2014 +0400
+
+    Added stabilitron and d.raslov to authorized keys
+
+[33mcommit f87c2641157679aca6a13f3f85d11227a30045b2[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Mon Sep 8 18:05:12 2014 +0400
+
+    Removed unused Berksfile
+
+[33mcommit c7234083e7e1e53ced82487cba0a23d845b09570[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Mon Sep 8 18:02:46 2014 +0400
+
+    Renamed agent-autotests node config to faro.lighthouse.org so you can easily run knife solo cook without node
+
+[33mcommit 3cc9dc50d3513bee1f4d54e6c15e475ec5e40137[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Mon Sep 8 17:59:29 2014 +0400
+
+    Added gradle to chef
+
+[33mcommit 152c84653e54c6f3e3e10d699c70cffb32a0a831[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Mon Sep 8 17:56:44 2014 +0400
+
+    edit gradle config
+
+[33mcommit 256bc1b4826f52ee64a15681e44d7fec8418a48a[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Mon Sep 8 16:56:41 2014 +0400
+
+    remove an extra dependencies
+
+[33mcommit 3025d6f4652eb7d0f56c5391c9010a9fcf977123[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Mon Sep 8 16:47:19 2014 +0400
+
+    login with lighthouse-api. espresso-test it.
+
+[33mcommit ab98d12eba63ab0eb3d5eff4668df9432b1c2d53[m
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Mon Sep 8 14:55:24 2014 +0400
+
+    Update cheffile
+
+[33mcommit 0ebdfea910209cd6fe53990fb3765af1a5046669[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Wed Sep 3 18:36:08 2014 +0400
+
+    change Build Tools ver to 20
+
+[33mcommit 9c4c1f376149020285bc2d44516b788e1b1d3ed3[m
+Author: Stabilitron <stabilitron@gmail.com>
+Date:   Wed Sep 3 17:38:13 2014 +0400
+
+    add gradle dists zip
+
+[33mcommit 60125f1ddc2ef7ceb7d04ec7dc3cd82e7b7bd438[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 11 11:54:26 2014 +0400
+
+    Version 0.42.113.1
+
+[33mcommit ffcf99fedf66131879d1e888c08f01d0616c84a4[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 11 11:51:21 2014 +0400
+
+    Version up
+
+[33mcommit 9927625de7ec7f084aef8e3c3b3b37681f16527c[m
+Merge: f5aaaa1 7885be6
+Author: Mikhail Shamin <munk13@gmail.com>
+Date:   Wed Sep 10 15:05:25 2014 +0400
+
+    Merge pull request #77 from crystalservice/sprint-41
+    
+    Sprint 41 to primary
+
+[33mcommit 7885be62f7a0548972e25ec56c8b89477d46d69a[m
+Merge: 279c5e3 babf576
+Author: Andrey Vase4kin <andrey.tolpeev@gmail.com>
+Date:   Mon Sep 8 19:12:23 2014 +0400
+
+    Merge pull request #78 from crystalservice/us-111.5
+    
+    US 111.5. Очистка чека
+
+[33mcommit babf576238da1036bcfe2da01fe10aa4298e265b[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Mon Sep 8 18:23:42 2014 +0400
+
+    fix receipt product validation
+
+[33mcommit 7a61ab1f435a8d939aafb8c011fe56eaff2786e4[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Mon Sep 8 17:00:26 2014 +0400
+
+    Added us-111.5 story test scenario
+
+[33mcommit 137f95dbc61fd679f97efbdde4ae25f8b87148d1[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Mon Sep 8 16:47:00 2014 +0400
+
+    fix price validation
+
+[33mcommit 1cfce95ac65d1a334b90593396f10f6370e72acd[m
+Merge: fd164bb 279c5e3
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Mon Sep 8 16:18:55 2014 +0400
+
+    Merge remote-tracking branch 'origin/sprint-41' into us-111.5
+
+[33mcommit 279c5e36a6ebed535bbac9d73a24b7cf1133faf2[m
+Merge: 28250eb 85d3b60
+Author: Andrey Vase4kin <andrey.tolpeev@gmail.com>
+Date:   Mon Sep 8 16:17:16 2014 +0400
+
+    Merge pull request #76 from crystalservice/us-111.3
+    
+    US 111.3. Редактирование товарной позиции в чеке продажи
+
+[33mcommit 85d3b602f9016057b7a2913f1f05b62ff333b9d9[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Mon Sep 8 15:13:47 2014 +0400
+
+    Removed test meta tag from us-111.3 validation story file
+
+[33mcommit 61616500665b7a2866ae98ab34fbc15a4add8cfe[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Mon Sep 8 15:02:18 2014 +0400
+
+    Added us-111.3 story sellingPrice/quantity validation tests
+
+[33mcommit fd164bbe46a681f4331d78db6b174589aed44e33[m
+Merge: 693a221 e7320a9
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Mon Sep 8 13:11:15 2014 +0400
+
+    Merge branch 'us-111.3' into us-111.5
+
+[33mcommit 693a221627444c42f66a19884df0cb11bec7e7fa[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Sat Sep 6 21:22:05 2014 +0400
+
+    remove select on icons
+
+[33mcommit fa59aea235469a7c15498e9f7aa8f95abbccc5b6[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Sat Sep 6 21:17:18 2014 +0400
+
+    add confirmation to receipt
+
+[33mcommit f6eb9972d6c5b96b3df40037e0b93f0f1102cd8c[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Sat Sep 6 21:04:49 2014 +0400
+
+    remove select on icons
+
+[33mcommit 50ee8978d2f00784e0261d629e2a1f3e196c74fa[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Sat Sep 6 16:20:06 2014 +0400
+
+    Fixed receipt page object locators
+
+[33mcommit c52c85d7a0ee9c55a08d082f85c6c184ef9f8638[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Fri Sep 5 18:53:39 2014 +0400
+
+    Replaced count property by quantity in receipt modal window
+
+[33mcommit b4f3e5e4caf6f08b3a0b1c10089d5770511470d7[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Fri Sep 5 18:49:04 2014 +0400
+
+    Added receipt product position delete
+
+[33mcommit 07f4e44d6256cd09407d2fd126eeb267f30ce431[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 18:41:27 2014 +0400
+
+    Sale proce cannot be zero
+
+[33mcommit bdd6eec8ec3a0cc73803325fef10e3e262e25d18[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 18:40:15 2014 +0400
+
+    Fixed user permsissions
+
+[33mcommit 29cd50b616a79b8db5d5a523a4e857525b698e55[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 18:36:06 2014 +0400
+
+    Fixed assertions in return products tests
+
+[33mcommit 2416ee3780bf656a1c8be032d7f769287120031f[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 18:46:34 2014 +0400
+
+    fix icon in nav bar
+
+[33mcommit bcfb5e8f66660d2cb0aca38bfeb64da0e0a06dd9[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 18:38:29 2014 +0400
+
+    fix esc with modal
+
+[33mcommit 533c06817cbb020255e581bfaba873549a520e9f[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 18:24:12 2014 +0400
+
+    remove product from receipt
+
+[33mcommit 7cda966c84ccfe964c1c8f0cffa06e0338f5f11c[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 18:24:03 2014 +0400
+
+    Added totals calculation on validation tests
+
+[33mcommit 7bd45d4ed3474c10b3b06010687ff02bae1830c5[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Fri Sep 5 18:17:33 2014 +0400
+
+    Replaced count property by quantity
+
+[33mcommit b48f712e9167aa1d316e191e30bdda3bbf60a6b0[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 17:24:36 2014 +0400
+
+    Fixed WriteOffProductType cause was accedently deleted
+
+[33mcommit 07de5c4d7e65f1b190a36f8a6068579b9b57bbe2[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 17:27:13 2014 +0400
+
+    add validation error
+
+[33mcommit f7219f705ace4f25a38e1323ab060ebf4eeb642f[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Fri Sep 5 17:19:17 2014 +0400
+
+    fixed us-111.2 test scenarios
+
+[33mcommit f99a2d51e19d076aa728a9cdf45a4f1b3191dc40[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 17:05:03 2014 +0400
+
+    Moved Invoice Controller test methods to InvoiceControllerTest
+
+[33mcommit 63f71eead3e0296ecac3b16c4d686ad08b370822[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Fri Sep 5 16:54:57 2014 +0400
+
+    Added main edit receipt position test scenarios
+
+[33mcommit 2a29247706e0314bca1a6092649639d4d930ab49[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 16:46:41 2014 +0400
+
+    Code cleanup
+
+[33mcommit 9273efe2bd75aefa926eb49031752b7ef98a041d[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 16:37:17 2014 +0400
+
+    Fixed Sale and Return reference mappings
+
+[33mcommit 14ed1b01c59005e38f02506fb96e81690ad5d6a9[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 16:37:02 2014 +0400
+
+    Renamed supplerreturn to supplier_return
+
+[33mcommit 26e413535e3daee8b5c647d1cf397c5c93f928e4[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 16:16:17 2014 +0400
+
+    SupplierReturnProduct extends StockMovementProduct
+
+[33mcommit b92956cda3edc41b60faa3963bbc524ba850c5fe[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 16:13:53 2014 +0400
+
+    StockInProduct extends StockMovementProduct
+
+[33mcommit 10d6bf754290dcdcfad16af04bbc6df932dadfa5[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 16:11:32 2014 +0400
+
+    Test return post validation
+
+[33mcommit 77531a5ae0c49b15e6b0b6fb186372095a9a2d1c[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 15:44:03 2014 +0400
+
+    ReceiptController post method
+
+[33mcommit d314f10d8fa5494d2652b49e0eeb9469ab958bcc[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 15:43:43 2014 +0400
+
+    SaleProduct and ReceiptProduct extends StockMovementProduct
+
+[33mcommit ff132ce9f4ef8a4613a36dcb7bcfad26484db33c[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 15:41:01 2014 +0400
+
+    Extracted base StockMovementProductType form type
+
+[33mcommit efe5e212f3bda57b89208527a13d3d5dbbb885d9[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 4 21:18:19 2014 +0400
+
+    Fixed parent path
+
+[33mcommit 6849faecb4f8595661c8110b30331e09f2f161dc[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 4 19:40:18 2014 +0400
+
+    Added MappedSuperclass to Base StockMovementProduct class because some fields were not stored in db
+
+[33mcommit 4090801aac3efb0f306dedb0c727105d67776dca[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 4 19:27:18 2014 +0400
+
+    Added MongoDB annotation for price fields
+
+[33mcommit 9653d62449d684ad16780ea6c4b60ffc9947e3b3[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 4 19:11:50 2014 +0400
+
+    Fixed parent reference in stockMovements
+
+[33mcommit 8a5bc3157dde855a36e81e6536a31192901635a7[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Thu Sep 4 18:37:26 2014 +0400
+
+    Extracted StockMovementProduct base class
+
+[33mcommit 78aa0fcecfdd78144e2d1eb30ef5b12dd6579f2f[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 16:03:03 2014 +0400
+
+    fix block init
+
+[33mcommit 6df939573cbe30ca91e145a7d00a6abb0b017c9f[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 15:41:15 2014 +0400
+
+    add name attrs
+
+[33mcommit e7320a9c891cf3307f1500ee0a16e85791737abd[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Sat Sep 6 16:20:06 2014 +0400
+
+    Fixed receipt page object locators
+
+[33mcommit a48813db0051fdec13f0d5745d57652e3d8f3b6e[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Fri Sep 5 18:53:39 2014 +0400
+
+    Replaced count property by quantity in receipt modal window
+
+[33mcommit 25d0b617c2d9fbe83d3919f276826b17073365ba[m
+Author: Andrey Tolpeev <atolpeev@crystals.ru>
+Date:   Fri Sep 5 18:49:04 2014 +0400
+
+    Added receipt product position delete
+
+[33mcommit 958aaf35be7fe57631fbd929d2c7d3bd51059eb0[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 18:41:27 2014 +0400
+
+    Sale proce cannot be zero
+
+[33mcommit 03e60f9ef0046657d08ef79881913735e32d5f1f[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 18:40:15 2014 +0400
+
+    Fixed user permsissions
+
+[33mcommit 040484226d8aaf948d2c4305be3b60d6b2418b64[m
+Author: Mikhail Shamin <mshamin@crystals.ru>
+Date:   Fri Sep 5 18:36:06 2014 +0400
+
+    Fixed assertions in return products tests
+
+[33mcommit 4a6e81028030bb7a8804ecb42dc17fa643c2ad68[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 18:46:34 2014 +0400
+
+    fix icon in nav bar
+
+[33mcommit 5c10c5750f93560908a8c2f5211d2fc656f9d246[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 18:38:29 2014 +0400
+
+    fix esc with modal
+
+[33mcommit 0c3788786f0975a4499348f991480bb6aca08927[m
+Author: Andrew Borovin <a.borovin@crystals.ru>
+Date:   Fri Sep 5 18:24:12 2014 +0400
+
+    remove product from receipt

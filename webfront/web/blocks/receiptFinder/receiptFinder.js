@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
 	//requirements
-	var Block = require('kit/block/block');
+	var Block = require('kit/block/block'),
+        moment = require('moment');
 
 	return Block.extend({
 		template: require('ejs!./template.ejs'),
@@ -8,11 +9,24 @@ define(function(require, exports, module) {
 			'click .receiptFinder__resultLink': function(e) {
 				e.preventDefault();
 
-				PAGE.setParams({
-                    receiptId: e.currentTarget.dataset.receiptId
-                });
+                $(e.currentTarget)
+                    .addClass('receiptFinder__resultLink_active')
+                    .siblings('.receiptFinder__resultLink')
+                    .removeClass('receiptFinder__resultLink_active');
+
+                this.trigger('click:receipt', e.currentTarget.dataset.receiptId);
 			}
 		},
+        models: {
+            product: function(){
+                return PAGE.models.product;
+            }
+        },
+        collections: {
+            receipts: function(){
+                return PAGE.collections.receipts;
+            }
+        },
 		blocks: {
 			product_autocomplete: function() {
 				var block = this,
@@ -21,16 +35,16 @@ define(function(require, exports, module) {
 					productAutocomplete;
 
 				productAutocomplete = new ProductAutocomplete({
-                    value: PAGE.models.product.get('name')
+                    value: block.models.product.get('name')
                 });
 
 				productAutocomplete.$el.on('typeahead:selected', function(e, product) {
-					PAGE.models.product.set(product);
+					block.models.product.set(product);
                     block.findReceipts(autocompleteInput);
 				});
 
 				productAutocomplete.on('input:clear', function(e, product) {
-                    PAGE.models.product.clear();
+                    block.models.product.clear();
 					block.findReceipts(autocompleteInput);
 				});
 
@@ -50,7 +64,8 @@ define(function(require, exports, module) {
 			receiptFinder__results: require('./receiptFinder__results')
 		},
         findReceipts: function(input) {
-            var dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
+            var block = this,
+                dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
                 dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val();
 
             if (!dateFrom || !dateTo) {
@@ -59,13 +74,13 @@ define(function(require, exports, module) {
 
             $(input).addClass('loading');
 
-            PAGE.collections.receipts.filter({
+            this.collections.receipts.filter({
                 dateFrom: dateFrom,
                 dateTo: dateTo,
-                product: PAGE.models.product.get('id')
+                product: block.models.product.get('id')
             }).then(function() {
 
-                PAGE.setParams(PAGE.collections.receipts.filters, {
+                PAGE.setParams(block.collections.receipts.filters, {
                     render: false
                 });
 

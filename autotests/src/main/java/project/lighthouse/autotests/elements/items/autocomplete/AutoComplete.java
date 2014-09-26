@@ -2,8 +2,8 @@ package project.lighthouse.autotests.elements.items.autocomplete;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.objects.web.product.autocomplete.GroupAutoCompleteResultCollection;
+import project.lighthouse.autotests.collection.product.autocomplete.GroupAutoCompleteResultCollection;
+import project.lighthouse.autotests.common.item.CommonItem;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class AutoComplete extends CommonItem {

@@ -2,9 +2,9 @@ package project.lighthouse.autotests.pages.stockMovement.modal.invoice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.stockMovement.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.pages.stockMovement.modal.PayableStockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 

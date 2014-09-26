@@ -6,6 +6,14 @@
     width: 250px;
     left: 0;
     top: 0;
+    z-index: 30;
+}
+
+.sideBar .page__sideBarLink{
+    position: absolute;
+    z-index: 10;
+    left: 15px;
+    top: 21px;
 }
 
 .sideBar a, .sideBar .fa {

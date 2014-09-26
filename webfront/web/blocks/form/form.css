@@ -12,10 +12,17 @@
     display: none;
 }
 
-.form_receiptProduct__quantityPlusLink, .form_receiptProduct__quantityMinusLink {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none
+.form_refund__position {
+    padding-bottom: 15px;
+}
+
+.form_refund__productName {
+    font-size: 20px;
+}
+
+.form_refund .form_refund__position .form__errorMessage{
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 15px;
+    clear: both;
 }

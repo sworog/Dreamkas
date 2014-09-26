@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             document.getElementById(dataset.modal).block.show(_.extend({}, dataset));
         })
         .on('click', function(e) {
-            if (e.target.classList.contains('modal__wrapper')) {
+            if (e.target.classList.contains('modal__wrapper_visible')) {
                 $(e.target).find('.modal:visible')[0].block.hide();
             }
         })
@@ -68,7 +68,15 @@ define(function(require, exports, module) {
 
             document.getElementById('modal__wrapper').classList.remove('modal__wrapper_visible');
 
+            block.reset();
+
             block.trigger('hidden');
+        },
+        reset: function(){
+
+            this.$('form').each(function(){
+                this.block && this.block.reset();
+            });
         }
     });
 });

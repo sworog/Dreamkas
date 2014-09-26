@@ -14,13 +14,22 @@ define(function(require) {
 
                 return {
                     dateFrom: formatDate(moment(currentTime).subtract(1, 'week')),
-                    dateTo: formatDate(moment(currentTime).add(1, 'days'))
+                    dateTo: formatDate(currentTime)
                 }
             },
 
 			url: function() {
 				return Collection.baseApiUrl + '/stores/' + this.storeId + '/sales';
-			}
+			},
+
+            fetch: function(){
+
+                return Collection.prototype.fetch.call(this, {
+                    data: {
+                        dateTo: formatDate(moment(this.filters.dateTo, 'DD.MM.YYYY').add(1, 'days'))
+                    }
+                });
+            }
         });
     }
 );

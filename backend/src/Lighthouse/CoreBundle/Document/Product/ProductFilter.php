@@ -22,6 +22,16 @@ class ProductFilter implements FilterInterface
     protected $purchasePriceNotEmpty;
 
     /**
+     * @var string
+     */
+    protected $subCategory;
+
+    /**
+     * @var boolean
+     */
+    protected $propertiesRequired = true;
+
+    /**
      * @return array
      */
     public function getProperties()
@@ -113,11 +123,54 @@ class ProductFilter implements FilterInterface
     }
 
     /**
+     * @param string $subCategoryId
+     */
+    public function setSubCategory($subCategoryId)
+    {
+        $this->subCategory = $subCategoryId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubCategory()
+    {
+        return $this->subCategory;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSubCategory()
+    {
+        return null !== $this->subCategory;
+    }
+
+    /**
+     * @param $emptyProperties
+     */
+    public function setPropertiesRequired($emptyProperties)
+    {
+        $this->propertiesRequired = (bool) $emptyProperties;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPropertiesRequired()
+    {
+        return $this->propertiesRequired;
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
     {
-        return !$this->hasQuery() && !$this->hasProperties();
+        return !$this->hasQuery()
+            && !$this->hasProperties()
+            && !$this->hasSubCategory()
+            && $this->isPropertiesRequired();
     }
 
     /**
@@ -134,6 +187,9 @@ class ProductFilter implements FilterInterface
         }
         if (isset($data['purchasePriceNotEmpty'])) {
             $this->setPurchasePriceNotEmpty($data['purchasePriceNotEmpty']);
+        }
+        if (isset($data['subCategory'])) {
+            $this->setSubCategory($data['subCategory']);
         }
     }
 }

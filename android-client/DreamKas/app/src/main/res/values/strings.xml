@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Dreamkas</string>
+    <string name="hello_world">Success</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_lighhouse_demo">LighhouseDemoActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="drawer_open">Open navigation drawer</string>
+
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string-array name="views_array">
+        <item>Касса</item>
+        <item>Сменить магазин</item>
+        <item>Выйти</item>
+    </string-array>
+
+    <string name="hello_kas_fragment">Касса</string>
+    <string name="hello_store_fragment">Магазин</string>
+    <string name="drawer_title">Меню</string>
+    <string name="dream_kas_title">Dreamkas</string>
+    <string name="exitDialogTitle">Подтверждение</string>
+    <string name="exitDialogMsg">Вы уверены, что хотите выйти?</string>
+    <string name="Yes">Да</string>
+    <string name="No">Нет</string>
+    <string name="store_select_label">Магазин</string>
+    <string name="store_select_prompt">Выберите магазин</string>
+    <string name="Save">Сохранить</string>
+    <string name="ChangeStore">Перейти к кассе</string>
+    <string name="current_store_id">current_store_id</string>
+    <string name="auth_dialog_title">Авторизация...</string>
+    <string name="error_bad_credentials">Неверный логин или пароль</string>
+    <string name="error_empty_field">Поле должно быть заполнено</string>
+
+</resources>
