@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 			'change select[name="group"]': function(e) {
 				var page = this;
 
-				page.productParams.groupId = $(e.target).val();
+				page.productParams.groupId = $(e.target).val() || undefined;
 				page.findProducts();
 			}
 		},
@@ -64,7 +64,7 @@ define(function(require, exports, module) {
 
 			products.storeId = page.productParams.storeId;
 
-			params = _.extend({ setParams: true }, params || {});
+			params = _.extend({ setParams: true }, params);
 
 			return products.filter({ subCategory: page.productParams.groupId }).then(function() {
 				if (params.setParams)
