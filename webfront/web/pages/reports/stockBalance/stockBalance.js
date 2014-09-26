@@ -55,9 +55,10 @@ define(function(require, exports, module) {
 
 				page.productParams = _.pick(page.params, 'storeId', 'groupId');
 
-				collections.products = new Products();
+				collections.storeProducts = new Products();
 
 				if (page.productParams.storeId) {
+
 					promise = page.findProducts({ setParams: false });
 
 				} else if (stores.length == 1) {
