@@ -72,7 +72,7 @@ define(function(require, exports, module) {
 		},
 		findProducts: function(params) {
 			var page = this,
-				products = this.collections.products;
+				products = this.collections.storeProducts;
 
 			products.storeId = page.productParams.storeId;
 
