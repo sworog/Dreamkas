@@ -9,6 +9,8 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseReportsBundle:GrossSales\Product\GrossSalesProductReport
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.reports.document.gross_sales.subcategory.repository:
         parent: doctrine_mongodb.odm.repository

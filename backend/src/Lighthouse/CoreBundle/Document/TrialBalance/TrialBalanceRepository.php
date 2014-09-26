@@ -515,6 +515,7 @@ class TrialBalanceRepository extends DocumentRepository
                 '$project' => array(
                     'storeProduct' => 1,
                     'totalPrice' => 1,
+                    'quantity' => 1,
                     'year' => array('$year' => '$createdDate.date'),
                     'month' => array('$month' => '$createdDate.date'),
                     'day' => array('$dayOfMonth' => '$createdDate.date'),
@@ -531,6 +532,7 @@ class TrialBalanceRepository extends DocumentRepository
                         'hour' => '$hour',
                     ),
                     'hourSum' => array('$sum' => '$totalPrice'),
+                    'hourQuantity' => array('$sum' => '$quantity.count'),
                 ),
             ),
         );
