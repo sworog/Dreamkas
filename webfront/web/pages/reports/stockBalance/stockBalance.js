@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 					select = $(e.target);
 
 				page.productParams.storeId = select.val();
+				page.$el.find('select[name="group"]').removeAttr('disabled');
 				page.findProducts({ select: select });
 			},
 			'change select[name="group"]': function(e) {

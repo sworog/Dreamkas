@@ -29,10 +29,10 @@
                     <div class="row" style="padding-bottom: 20px;">
                         <div class="col-md-3">
                             <b block="select_stores"
-                               data-selected="<%- this.params.storeId %>"></b>
+                               data-selected="<%- params.storeId %>"></b>
                         </div>
                         <div class="col-md-3">
-                            <b block="select_groupsSimple" data-selected="<%- this.params.groupId %>"></b>
+                            <b block="select_groupsSimple" data-selected="<%- params.groupId %>" data-disabled="<%- params.storeId ? 0 : 1 %>"></b>
                         </div>
                     </div>
 
