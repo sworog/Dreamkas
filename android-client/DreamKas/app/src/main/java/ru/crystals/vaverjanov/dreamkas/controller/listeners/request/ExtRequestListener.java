@@ -9,7 +9,7 @@ public class ExtRequestListener<T> implements RequestListener<T>, RequestProgres
 {
     OnRequestEventListener mListener;
 
-    private boolean mIsInProgress = true;
+    private boolean mIsInProgress = false;
 
     public boolean isInProgress()
     {
@@ -34,27 +34,27 @@ public class ExtRequestListener<T> implements RequestListener<T>, RequestProgres
     @Override
     public void onRequestSuccess(T result)
     {
-        mIsInProgress = true;
+        mIsInProgress = false;
         invoke(RequestEventType.RequestSuccess);
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException)
     {
-        mIsInProgress = true;
+        mIsInProgress = false;
         invoke(RequestEventType.RequestFailure);
     }
 
     @Override
     public void onRequestProgressUpdate(RequestProgress progress)
     {
-        mIsInProgress = false;
+        mIsInProgress = true;
         invoke(RequestEventType.RequestProgressUpdate);
     }
 
     public void requestStarted()
     {
-        mIsInProgress = false;
+        mIsInProgress = true;
         invoke(RequestEventType.RequestStarted);
     }
 

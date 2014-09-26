@@ -6,7 +6,8 @@ import ru.crystals.vaverjanov.dreamkas.controller.requests.AuthRequest_;
 import ru.crystals.vaverjanov.dreamkas.model.api.AuthObject;
 import ru.crystals.vaverjanov.dreamkas.model.api.Token;
 
-public class AuthRequestTest extends InstrumentationTestCase {
+public class AuthRequestTest extends InstrumentationTestCase
+{
     private AuthRequest_ authRequest;
 
     @Override

@@ -2,8 +2,13 @@ package ru.crystals.vaverjanov.dreamkas.espresso.tests.activities;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import org.hamcrest.Matchers;
+
+import java.util.regex.Matcher;
+
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
+import ru.crystals.vaverjanov.dreamkas.espresso.helpers.ScreenshotFailureHandler;
 import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
 import ru.crystals.vaverjanov.dreamkas.view.KasFragment;
 import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity;
@@ -12,11 +17,13 @@ import ru.crystals.vaverjanov.dreamkas.view.StoreFragment;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.setFailureHandler;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.contrib.DrawerActions.openDrawer;
 import static com.google.android.apps.common.testing.ui.espresso.contrib.DrawerMatchers.isClosed;
 import static com.google.android.apps.common.testing.ui.espresso.contrib.DrawerMatchers.isOpen;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.assertThat;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
@@ -44,6 +51,7 @@ public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumen
         preferences.clear();
         preferences.setCurrentStore("test_store");
         mStartActivity = getActivity();
+        setFailureHandler(new ScreenshotFailureHandler(getInstrumentation().getTargetContext(), mStartActivity));
     }
 
     @Override
@@ -61,8 +69,9 @@ public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumen
         onView(withText(R.string.load_stores)).check(matches(isDisplayed()));
 
         StoreFragment storeFragment = (StoreFragment)mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Store.getValue()));
-        assertNotNull(storeFragment);
-        assertTrue(storeFragment.isVisible());
+
+        assertThat("StoreFragment does't exists in current activity", storeFragment, Matchers.notNullValue());
+        assertThat("StoreFragment should be visible", storeFragment.isVisible(), Matchers.is(true));
     }
 
     public void testUserWillSeeKasFragmentIfItIsNotFirstAppLaunch()
@@ -71,8 +80,8 @@ public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumen
 
         KasFragment kasFragment = (KasFragment)mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Kas.getValue()));
 
-        assertNotNull(kasFragment);
-        assertTrue(kasFragment.isVisible());
+        assertThat("KasFragment does't exists in current activity",kasFragment, Matchers.notNullValue());
+        assertThat("KasFragment should be visible",kasFragment.isVisible(), Matchers.is(true));
     }
 
     public void testUserWillSeeSelectStoreFragmentIfClickOnDrawerStoreItem()
@@ -84,8 +93,8 @@ public class LighthouseDemoActivityInstrumentationTest extends ActivityInstrumen
         onData(allOf(is(instanceOf(String.class)), is(DrawerMenu.getMenuItems().get(DrawerMenu.AppStates.Store)))).inAdapterView(withId(R.id.lstDrawer)).perform(click());
 
         StoreFragment storeFragment = (StoreFragment)mStartActivity.getFragmentManager().findFragmentByTag(String.valueOf(DrawerMenu.AppStates.Store.getValue()));
-        assertNotNull(storeFragment);
-        assertTrue(storeFragment.isVisible());
+        assertThat("StoreFragment does't exists in current activity",storeFragment, Matchers.notNullValue());
+        assertThat("StoreFragment should be visible",storeFragment.isVisible(), Matchers.is(true));
     }
 
     public void testUserWillSeeOpenedDrawerWhenClickOnActionbarAppIcon()

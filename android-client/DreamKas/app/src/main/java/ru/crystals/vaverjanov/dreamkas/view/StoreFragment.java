@@ -6,12 +6,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
+
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
 import ru.crystals.vaverjanov.dreamkas.controller.adapters.NamedObjectSpinnerAdapter;
@@ -121,6 +126,33 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     public void onGetStoresFailureRequest(SpiceException spiceException)
     {
         progressDialog.dismiss();
-        Toast.makeText(getActivity(), spiceException.getMessage(), Toast.LENGTH_LONG).show();
+
+        String msg = "";
+        if(spiceException.getCause() instanceof HttpClientErrorException)
+        {
+            HttpClientErrorException exception = (HttpClientErrorException)spiceException.getCause();
+            if(exception.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
+            {
+                //wrong credentials
+                msg = getResources().getString(R.string.error_unauthorized);
+            }
+            else
+            {
+                //other Network exception
+                msg = spiceException.getMessage();
+            }
+        }
+        else if(spiceException instanceof RequestCancelledException)
+        {
+            //cancelled
+            msg = spiceException.getMessage();
+        }
+        else
+        {
+            //other exception
+            msg = spiceException.getMessage();
+        }
+
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 }

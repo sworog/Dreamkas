@@ -9,6 +9,7 @@ import ru.crystals.vaverjanov.dreamkas.espresso.helpers.FragmentHelper;
 import ru.crystals.vaverjanov.dreamkas.espresso.helpers.PreconditionHelper;
 import ru.crystals.vaverjanov.dreamkas.espresso.helpers.RequestIdlingResource;
 import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
+import ru.crystals.vaverjanov.dreamkas.espresso.helpers.ScreenshotFailureHandler;
 import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
 import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity;
 import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity_;
@@ -16,6 +17,7 @@ import ru.crystals.vaverjanov.dreamkas.view.StoreFragment;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onData;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.setFailureHandler;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.contrib.DrawerActions.openDrawer;
@@ -56,6 +58,8 @@ public class StoresFragmentInstrumentationTest extends ActivityInstrumentationTe
 
         //wait fragment transactions
         waitFragmentTransactionEnds();
+
+        setFailureHandler(new ScreenshotFailureHandler(getInstrumentation().getTargetContext(), mStartActivity));
     }
 
     private void registerStoresRequestListener() {
@@ -149,4 +153,6 @@ public class StoresFragmentInstrumentationTest extends ActivityInstrumentationTe
         //user will see kas fragment with storeId text on it
         onView(withId(R.id.lblStore)).check(matches(withText(item2.getId())));
     }
+
+
 }

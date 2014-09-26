@@ -14,7 +14,7 @@ public class RequestIdlingResource implements IdlingResource, ExtRequestListener
     public RequestIdlingResource(ExtRequestListener requestListener)
     {
         requestListener.setRequestEventListener(this);
-        isIdle = requestListener.isInProgress();
+        isIdle = !requestListener.isInProgress();
 
         salt = String.valueOf(new Date().getTime());
     }

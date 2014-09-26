@@ -30,5 +30,6 @@
     <string name="error_empty_field">Поле должно быть заполнено</string>
     <string name="load_stores">Загрузка магазинов...</string>
     <string name="empty_list">Список пуст</string>
+    <string name="error_unauthorized">Ошибка авторизации</string>
 
 </resources>
