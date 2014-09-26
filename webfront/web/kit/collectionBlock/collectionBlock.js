@@ -45,9 +45,9 @@ define(function(require, exports, module) {
         },
         render: function() {
             var block = this,
-                sortedList = block.collection.sortBy(block.sortBy);
+                sortedList = block.collection.sortBy(block.get('sortBy'));
 
-            if (block.sortDirection === 'descending') {
+            if (block.get('sortDirection') === 'descending') {
                 sortedList.reverse();
             }
 
