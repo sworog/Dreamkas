@@ -4,83 +4,71 @@ define(function(require, exports, module) {
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
-		activeNavigationItem: 'reports',
-		events: {
-			'change select[name="store"]': function(e) {
-				var page = this,
-					select = $(e.target);
+        activeNavigationItem: 'reports',
+        events: {
+            'change select[name="store"]': function(e) {
+                var page = this;
 
-				page.productParams.storeId = select.val();
-				page.$el.find('select[name="group"]').removeAttr('disabled');
-				page.findProducts({ select: select });
-			},
-			'change select[name="group"]': function(e) {
-				var page = this,
-					select = $(e.target);
+                page.$('select[name="group"]').removeAttr('disabled');
 
-				page.productParams.groupId = select.val() || undefined;
-				page.findProducts({ select: select });
-			}
-		},
-		productParams: {},
-		collections: {
-			stores: require('collections/stores/stores'),
-			groups: require('collections/groups/groups')
-		},
-		blocks: {
-			select_stores: require('blocks/select/stores/stores'),
-			select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple'),
+                page.findProducts({
+                    storeId: e.currentTarget.value
+                }).then(function() {
+                    select.classList.remove('loading');
+                });
+            },
+            'change select[name="group"]': function(e) {
+                var page = this,
+                    select = e.currentTarget;
+
+                select.classList.add('loading');
+
+                page.findProducts({
+                    groupId: select.value || undefined
+                }).then(function() {
+                    select.classList.remove('loading');
+                });
+            }
+        },
+        collections: {
+            stores: require('collections/stores/stores'),
+            groups: require('collections/groups/groups'),
+            storeProducts: null
+        },
+        blocks: {
+            select_stores: require('blocks/select/stores/stores'),
+            select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple'),
             table_stockBalance: require('blocks/table/stockBalance/stockBalance')
-		},
-		fetch: function() {
-			var page = this,
-				Products = require('collections/storeProducts/storeProducts'),
-				products;
+        },
+        fetch: function() {
+            var page = this,
+                StoreProductsCollection = require('collections/storeProducts/storeProducts');
 
-			return Page.prototype.fetch.call(page).then(function() {
-				var collections = page.collections,
-					stores = collections.stores,
-					promise;
+            return Page.prototype.fetch.apply(page, arguments).then(function() {
 
-				page.productParams = _.pick(page.params, 'storeId', 'groupId');
+                page.collections.storeProducts = new StoreProductsCollection;
 
-				collections.storeProducts = new Products();
+                if (page.collections.stores.length === 1) {
+                    return page.findProducts({
+                        storeId: page.collections.stores.at(0).id
+                    });
+                }
+            });
+        },
+        findProducts: function(params) {
+            var page = this,
+                storeProductsCollection = this.collections.storeProducts;
 
-				if (page.productParams.storeId) {
+            params = _.extend({
+                storeId: page.params.storeId,
+                groupId: page.params.groupId
+            }, params);
 
-					promise = page.findProducts({ setParams: false });
+            storeProductsCollection.storeId = params.storeId;
 
-				} else if (stores.length == 1) {
-
-					page.productParams.storeId = stores.at(0).get('id');
-					page.setParams(page.productParams);
-
-					promise = page.findProducts({ setParams: false });
-				}
-
-				return promise;
-			});
-		},
-		findProducts: function(params) {
-			var page = this,
-				products = this.collections.storeProducts,
-				select = $(params.select);
-
-			products.storeId = page.productParams.storeId;
-			params = _.extend({ setParams: true }, params);
-			select.addClass('loading');
-
-			return products.filter({ subCategory: page.productParams.groupId }).then(function() {
-
-				select.removeClass('loading');
-
-				if (params.setParams)
-				{
-					page.setParams(page.productParams, {
-						render: false
-					});
-				}
-			});
-		}
+            return storeProductsCollection.filter({subCategory: params.groupId}).then(function() {
+                page.setParams(params);
+            });
+        }
     });
 });
