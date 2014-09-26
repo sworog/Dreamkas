@@ -22,8 +22,10 @@ define(function(require, exports, module) {
 				var collections = block.collections;
 				var stores = collections.stores;
 
+				collections.products = new Products();
+
 				if (stores.length == 1) {
-					collections.products = new Products([], { storeId: stores.at(0).get('id') });
+					collections.products.storeId = stores.at(0).get('id');
 
 					return collections.products.findByStore();
 				}
