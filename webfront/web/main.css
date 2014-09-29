@@ -165,11 +165,6 @@ input.invalid {
     padding: 20px 65px;
 }
 
-.product__markup {
-    height: 34px;
-    line-height: 34px;
-}
-
 .product__link,
 .supplier__link,
 .store__link,

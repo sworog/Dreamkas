@@ -1,0 +1,24 @@
+<div id="modal_product"
+     class="modal">
+
+    <div class="modal__header">
+        <a class="modal__closeLink pull-left fa fa-times"></a>
+
+        <button form="form_product"
+                type="submit"
+                class="btn btn-primary pull-right">
+            <%- models.product ? 'Сохранить' : 'Добавить' %>
+        </button>
+
+        <h4 class="modal__title">
+            <%- models.product ? 'Редактирование товара #' + models.product.get('sku') : 'Добавление товара' %>
+        </h4>
+
+    </div>
+    <div class="modal__body">
+
+        <b block="form_product"></b>
+
+    </div>
+
+</div>
