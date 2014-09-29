@@ -78,6 +78,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.11</version>
                 <configuration>
+                    <disableXmlReport>true</disableXmlReport>
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/Test*.java</include>
