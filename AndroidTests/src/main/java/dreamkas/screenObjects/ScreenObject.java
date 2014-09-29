@@ -10,4 +10,8 @@ public class ScreenObject extends PageObject {
         WebDriverFacade webDriverFacade = (WebDriverFacade)getDriver();
         return  (AppiumDriver)webDriverFacade.getProxiedDriver();
     }
+
+    public String getCurrentActivity() {
+        return getAppiumDriver().currentActivity();
+    }
 }

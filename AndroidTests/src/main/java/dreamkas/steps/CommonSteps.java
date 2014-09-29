@@ -2,8 +2,9 @@ package dreamkas.steps;
 
 import dreamkas.screenObjects.ScreenObject;
 import net.thucydides.core.annotations.Step;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.*;
 
 public class CommonSteps {
 
@@ -11,8 +12,8 @@ public class CommonSteps {
 
     @Step
     public void assertCurrentActivity(String expectedActivity) {
-        Assert.assertThat(
-                screenObject.getAppiumDriver().currentActivity(),
-                Matchers.is(expectedActivity));
+        assertThat(
+                screenObject.getCurrentActivity(),
+                is(expectedActivity));
     }
 }
