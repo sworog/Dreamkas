@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page');
+    var Page = require('blocks/page/page'),
+        checkKey = require('kit/checkKey/checkKey');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
@@ -29,6 +30,40 @@ define(function(require, exports, module) {
                 }).then(function() {
                     select.classList.remove('loading');
                 });
+            },
+            'click .productFinder__resetLink': function(e){
+                var productFilterInput = document.querySelector('[name="productFilter"]');
+
+                productFilterInput.value = '';
+
+                productFilterInput.classList.add('loading');
+
+                this.findProducts({
+                    productFilter: undefined
+                }).then(function() {
+                    productFilterInput.classList.remove('loading');
+                });
+            },
+            'keyup input[name="productFilter"]': function(e){
+                var page = this,
+                    input = e.target;
+
+                if (checkKey(e.keyCode, ['UP', 'DOWN', 'LEFT', 'RIGHT'])) {
+                    return;
+                }
+
+                if (checkKey(e.keyCode, ['ESC'])) {
+                    input.value = '';
+                }
+
+                input.classList.add('loading');
+
+                page.findProducts({
+                    productFilter: input.value || undefined
+                }).then(function() {
+                    input.classList.remove('loading');
+                });
+
             }
         },
         collections: {
@@ -62,14 +97,18 @@ define(function(require, exports, module) {
 
             params = _.extend({
                 storeId: page.params.storeId,
-                groupId: page.params.groupId
+                groupId: page.params.groupId,
+                productFilter: page.params.productFilter
             }, params);
 
             storeProductsCollection.storeId = params.storeId;
 
             page.setParams(params);
 
-            return storeProductsCollection.filter({subCategory: params.groupId});
+            return storeProductsCollection.filter({
+                subCategory: params.groupId,
+                query: params.productFilter
+            });
         }
     });
 });
