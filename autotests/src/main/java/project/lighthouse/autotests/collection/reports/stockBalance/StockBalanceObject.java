@@ -33,10 +33,10 @@ public class StockBalanceObject extends AbstractObject implements ResultComparab
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
-                .compare("name", name, row.get("name"))
-                .compare("barcode", barcode, row.get("barcode"))
-                .compare("inventoryDays", inventoryDays, row.get("inventoryDays"))
-                .compare("averageDailySales", averageDailySales, row.get("averageDailySales"))
-                .compare("inventory", inventory, row.get("inventory"));
+                .compare("name", name, row.get("название"))
+                .compare("barcode", barcode, row.get("штрихкод"))
+                .compare("inventoryDays", inventoryDays, row.get("запас"))
+                .compare("averageDailySales", averageDailySales, row.get("расход"))
+                .compare("inventory", inventory, row.get("остаток"));
     }
 }
