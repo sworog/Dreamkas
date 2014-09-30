@@ -31,19 +31,19 @@
 						</div>
 					</td>
 					<td name="inventoryDays">
-						<%- storeProductModel.get('inventoryDays') %>
+						<%- formatNumber(storeProductModel.get('inventoryDays')) %>
 						<span class="table_stockBalance__units">
 							дн.
 						</span>
 					</td>
 					<td name="averageDailySales">
-						<%- storeProductModel.get('averageDailySales') %>
+						<%- formatAmount(storeProductModel.get('averageDailySales')) %>
 						<span class="table_stockBalance__units">
 							<%- storeProductModel.get('product.units') %> / дн.
 						</span>
 					</td>
 					<td name="inventory">
-						<%- storeProductModel.get('inventory') %>
+						<%- formatAmount(storeProductModel.get('inventory')) %>
 						<span class="table_stockBalance__units">
 							<%- storeProductModel.get('product.units') %>
 						</span>
