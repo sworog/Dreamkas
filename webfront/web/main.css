@@ -68,7 +68,7 @@ body[status="loaded"]:before {
     transition: transform 1s, opacity 1s;
 }
 
-a {
+a, [href] {
     cursor: pointer;
 }
 

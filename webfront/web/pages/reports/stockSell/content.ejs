@@ -23,6 +23,30 @@
     <div class="row">
         <div class="col-md-12">
 
+            <% if (collections.stores.length) { %>
+            <div class="panel">
+                <div class="panel-body">
+
+                    <div class="row" style="padding-bottom: 20px;">
+                        <div class="col-md-3">
+                            <b block="select_store" data-all="1"></b>
+                        </div>
+
+                        <div class="col-md-4">
+                            <b block="inputDateRange"></b>
+                        </div>
+                    </div>
+
+                    <b block="table_stockSell"></b>
+
+                </div>
+            </div>
+            <% } else { %>
+            <div class="alert alert-info">
+                У вас ещё нет ни одного магазина. Для просмотра отчета добавьте хотя бы один магазин.
+            </div>
+            <% } %>
+
         </div>
     </div>
 

@@ -1,6 +1,10 @@
 <select class="form-control" name="store">
 
-    <option value="" selected disabled>Выберите магазин</option>
+    <% if (all == 1) { %>
+        <option value="" selected>По сети</option>
+    <% } else { %>
+        <option value="" selected disabled>Выберите магазин</option>
+    <% } %>
 
     <% collection.forEach(function(storeModel){ %>
         <option <%- storeModel.id === selected && 'selected' %> value="<%- storeModel.id %>">

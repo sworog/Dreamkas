@@ -15,7 +15,7 @@ define(function(require, exports, module) {
             stores: require('collections/stores/stores')
         },
         blocks: {
-            select_stores: require('blocks/select/stores/stores')
+            select_stores: require('blocks/select/store/store')
         }
     });
 });
