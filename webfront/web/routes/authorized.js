@@ -12,6 +12,7 @@ define(function(require) {
 		//reports
 		'reports(/)': require('pages/reports/reports'),
 		'reports/stockBalance(/)': require('pages/reports/stockBalance/stockBalance'),
+		'reports/stockSell(/)': require('pages/reports/stockSell/stockSell'),
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
