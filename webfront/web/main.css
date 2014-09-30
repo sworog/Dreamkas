@@ -264,6 +264,7 @@ select.loading, input.loading {
     background-color: #fff !important;
 }
 
-.page-title .fa-long-arrow-left {
+.page-title .fa-long-arrow-left,
+.page-title .fa-edit{
     color: #999;
 }
