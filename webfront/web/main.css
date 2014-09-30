@@ -27,6 +27,7 @@
 @import "/blocks/sideBar/sideBar.css";
 @import "/blocks/inputNumber/inputNumber.css";
 @import "/blocks/table/table.css";
+@import "/blocks/breadcrumbs/breadcrumbs.css";
 
 body {
     overflow-x: hidden;
@@ -70,6 +71,10 @@ body[status="loaded"]:before {
 
 a, [href] {
     cursor: pointer;
+}
+
+a {
+    color: #428bca;
 }
 
 a:hover .fa {
@@ -257,4 +262,8 @@ select.loading, input.loading {
 
 .tt-input {
     background-color: #fff !important;
+}
+
+.page-title .fa-long-arrow-left {
+    color: #999;
 }

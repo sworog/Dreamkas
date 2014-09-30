@@ -16,6 +16,15 @@ define(function(require, exports, module) {
                 });
             }
         },
+        models: {
+            group: function(){
+                var GroupModel = require('models/group/group');
+
+                return new GroupModel({
+                    id: this.params.groupId
+                });
+            }
+        },
         blocks: {
             select_store: require('blocks/select/store/store'),
             inputDateRange: require('blocks/inputDateRange/inputDateRange'),
