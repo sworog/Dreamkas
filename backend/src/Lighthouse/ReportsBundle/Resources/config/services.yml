@@ -42,3 +42,11 @@ services:
         calls:
             - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.reports.document.gross_margin_sales.product.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseReportsBundle:GrossMarginSales\Product\GrossMarginSalesProductReport
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
