@@ -12,6 +12,8 @@ define(function(require, exports, module) {
 
                 page.$('select[name="group"]').removeAttr('disabled');
 
+                select.classList.add('loading');
+
                 page.findProducts({
                     storeId: e.currentTarget.value
                 }).then(function() {
