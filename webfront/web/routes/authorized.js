@@ -13,6 +13,7 @@ define(function(require) {
 		'reports(/)': require('pages/reports/reports'),
 		'reports/stockBalance(/)': require('pages/reports/stockBalance/stockBalance'),
 		'reports/stockSell(/)': require('pages/reports/stockSell/stockSell'),
+		'reports/stockSell/groups/:groupId(/)': require('pages/reports/stockSell/groups/group/group'),
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
