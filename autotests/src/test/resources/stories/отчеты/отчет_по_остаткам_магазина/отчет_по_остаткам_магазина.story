@@ -1,7 +1,6 @@
 Meta:
 @sprint_43
 @us_115.1
-@test
 
 Narrative:
 Как владелец,
