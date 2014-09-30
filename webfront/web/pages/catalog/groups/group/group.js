@@ -20,7 +20,7 @@ define(function(require, exports, module) {
         models: {
             group: function() {
                 var page = this,
-                    GroupModel = require('models/group/group'),
+                    GroupModel = require('resources/group/model'),
                     groupModel = new GroupModel({
                         id: page.params.groupId
                     });

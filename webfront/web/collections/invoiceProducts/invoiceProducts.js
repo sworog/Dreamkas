@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Collection = require('kit/collection/collection'),
-            InvoiceProductModel = require('models/invoiceProduct/invoiceProduct'),
+            InvoiceProductModel = require('resources/invoiceProduct/model'),
             cookies = require('cookies');
 
         return Collection.extend({

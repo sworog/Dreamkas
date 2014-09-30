@@ -18,7 +18,7 @@ define(function(require, exports, module) {
         },
         models: {
             group: function(){
-                var GroupModel = require('models/group/group');
+                var GroupModel = require('resources/group/model');
 
                 return new GroupModel({
                     id: this.params.groupId

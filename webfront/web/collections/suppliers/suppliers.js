@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Collection = require('kit/collection/collection');
 
     return Collection.extend({
-        model: require('models/supplier/supplier'),
+        model: require('resources/supplier/model'),
         url: Collection.baseApiUrl + '/suppliers'
     });
 });

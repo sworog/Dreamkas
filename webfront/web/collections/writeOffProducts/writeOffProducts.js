@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Collection = require('kit/collection/collection'),
-            WriteOffProductModel = require('models/writeOffProduct/writeOffProduct'),
+            WriteOffProductModel = require('resources/writeOffProduct/model'),
             cookies = require('cookies');
 
         return Collection.extend({

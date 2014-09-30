@@ -15,7 +15,7 @@ define(function(require, exports, module) {
         },
         models: {
             product: function() {
-                var Product = require('models/product/product'),
+                var Product = require('resources/product/model'),
                     product;
 
                 product = new Product({

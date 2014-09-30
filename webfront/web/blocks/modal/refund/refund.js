@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         success: false,
         models: {
-            refund: require('models/refund/refund')
+            refund: require('resources/refund/model')
         },
         events: {
             'click .modal_refund__reloadLink': function(){

@@ -10,7 +10,7 @@ define(function(require, exports, module) {
             group: null
         },
         render: function() {
-            var GroupModel = require('models/group/group');
+            var GroupModel = require('resources/group/model');
 
             this.models.group = PAGE.models.group || PAGE.collections.groups.get(this.groupId) || new GroupModel;
 

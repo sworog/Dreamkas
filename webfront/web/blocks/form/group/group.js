@@ -7,7 +7,7 @@ define(function(require, exports, module) {
         groupId: 0,
         template: require('ejs!./template.ejs'),
         model: function(){
-            var GroupModel = require('models/group/group');
+            var GroupModel = require('resources/group/model');
 
             return PAGE.collections.groups.get(this.groupId) || new GroupModel;
         },

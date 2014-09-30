@@ -3,6 +3,6 @@ define(function(require, exports, module) {
     var Collection = require('kit/collection/collection');
 
     return Collection.extend({
-        model: require('models/receiptProduct/receiptProduct')
+        model: require('resources/receiptProduct/model')
     });
 });

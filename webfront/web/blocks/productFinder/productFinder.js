@@ -65,7 +65,7 @@ define(function(require, exports, module) {
         },
         addProductToReceipt: function(productId) {
             var block = this,
-                ReceiptProductModel = require('models/receiptProduct/receiptProduct'),
+                ReceiptProductModel = require('resources/receiptProduct/model'),
                 receiptProductModel = new ReceiptProductModel({
                     product: block.collections.products.get(productId).toJSON()
                 });

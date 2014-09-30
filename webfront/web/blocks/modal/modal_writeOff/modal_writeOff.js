@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block.deprecated'),
-        ProductModel = require('models/product/product');
+        ProductModel = require('resources/product/model');
 
     return Block.extend({
         el: '.modal_writeOff',
@@ -25,7 +25,7 @@ define(function(require, exports, module) {
         blocks: {
             form_writeOff: function() {
                 var block = this,
-                    WriteOffModel = require('models/writeOff/writeOff'),
+                    WriteOffModel = require('resources/writeOff/model'),
                     Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
                     form_writeOff = new Form_writeOff({
                         el: block.$('.form_writeOff'),

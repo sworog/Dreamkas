@@ -12,7 +12,7 @@ define(function(require, exports, module) {
             }
 		},
 		models: {
-			product: require('models/product/product')
+			product: require('resources/product/model')
 		},
 		initialize: function(){
 			this.get('price') || this.set('price', this.models.product.get('sellingPrice') || 0)

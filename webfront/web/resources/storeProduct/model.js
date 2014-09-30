@@ -5,8 +5,8 @@ define(function(require) {
 
     return Model.extend({
 		models: {
-			product: require('models/product/product'),
-			store: require('models/store/store')
+			product: require('resources/product/model'),
+			store: require('resources/store/model')
 		}
     });
 });

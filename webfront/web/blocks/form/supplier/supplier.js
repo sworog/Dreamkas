@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         model: function() {
-            var SupplierModel = require('models/supplier/supplier');
+            var SupplierModel = require('resources/supplier/model');
 
             return PAGE.get('collections.suppliers').get(this.supplierId) || new SupplierModel;
         },

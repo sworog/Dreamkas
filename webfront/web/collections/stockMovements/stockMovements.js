@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
     var Collection = require('kit/collection/collection'),
-        InvoiceModel = require('models/invoice/invoice'),
+        InvoiceModel = require('resources/invoice/model'),
         uri = require('uri'),
-        WriteOffModel = require('models/writeOff/writeOff'),
-        StockInModel = require('models/stockIn/stockIn'),
-        SupplierReturnModel = require('models/supplierReturn/supplierReturn');
+        WriteOffModel = require('resources/writeOff/model'),
+        StockInModel = require('resources/stockIn/model'),
+        SupplierReturnModel = require('resources/supplierReturn/model');
 
     return Collection.extend({
         filters: {

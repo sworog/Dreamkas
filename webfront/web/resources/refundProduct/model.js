@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             quantity: 0
         },
         models: {
-            product: require('models/product/product')
+            product: require('resources/product/model')
         },
         saveData: function() {
 

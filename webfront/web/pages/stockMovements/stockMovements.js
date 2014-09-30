@@ -70,7 +70,7 @@ define(function(require, exports, module) {
             'click .supplierReturn__link': function(e) {
                 var page = this,
                     supplierReturnId = e.currentTarget.dataset.supplierReturnId,
-                    SupplierReturnModel = require('models/supplierReturn/supplierReturn');
+                    SupplierReturnModel = require('resources/supplierReturn/model');
 
                 page.el.querySelector('.modal_supplierReturn').block.show({
                     models: {
@@ -91,7 +91,7 @@ define(function(require, exports, module) {
             },
             'click .page__addStockInLink': function(e) {
                 var page = this,
-                    StockInModel = require('models/stockIn/stockIn');
+                    StockInModel = require('resources/stockIn/model');
 
                 page.el.querySelector('.modal_stockIn').block.show({
                     models: {

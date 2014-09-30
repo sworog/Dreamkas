@@ -6,7 +6,7 @@ define(function(require) {
 			formatDate = require('kit/formatDate/formatDate');
 
         return Collection.extend({
-            model: require('models/receipt/receipt'),
+            model: require('resources/receipt/model'),
             storeId: null,
 			filters: function(){
 
