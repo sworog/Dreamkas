@@ -7,6 +7,8 @@ import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
 import project.lighthouse.autotests.pages.pos.PosSaleHistoryPage;
 import project.lighthouse.autotests.pages.pos.ReceiptElement;
+import project.lighthouse.autotests.pages.reports.ReportsMainPage;
+import project.lighthouse.autotests.pages.reports.stockBalance.StockBalanceReport;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 
 import java.util.HashMap;
@@ -25,6 +27,8 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("выбранной кассы", PosPage.class);
             put("истории продаж кассы", PosSaleHistoryPage.class);
             put("чека", ReceiptElement.class);
+            put("странице отчетов", ReportsMainPage.class);
+            put("странице отчета остатка товаров", StockBalanceReport.class);
         }};
     }
 
