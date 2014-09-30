@@ -74,10 +74,12 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         return getWaiter().getOnlyVisibleElementFromTheList(findBy);
     }
 
+    @Override
     public void input(String elementName, String value) {
         commonActions.input(elementName, value);
     }
 
+    @Override
     public void input(ExamplesTable examplesTable) {
         for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");
@@ -106,6 +108,7 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         items.get(elementName).getFieldChecker().assertLabelTitle();
     }
 
+    @Override
     public void checkValue(String elementName, String value) {
         items.get(elementName).getFieldChecker().assertValueEqual(value);
     }
@@ -114,6 +117,7 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         items.get(elementName).getFieldChecker().assertValueEqual(message, value);
     }
 
+    @Override
     public void checkValues(ExamplesTable examplesTable) {
         for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");
@@ -122,6 +126,7 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         }
     }
 
+    @Override
     public void checkItemErrorMessage(String elementName, String errorMessage) {
         items.get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
@@ -142,10 +147,12 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         return getWaiter().visibilityOfElementLocated(findBy);
     }
 
+    @Override
     public void elementShouldBeVisible(String elementName) {
         getItems().get(elementName).shouldBeVisible();
     }
 
+    @Override
     public void elementShouldBeNotVisible(String elementName) {
         getItems().get(elementName).shouldBeNotVisible();
     }
@@ -154,15 +161,28 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         throw new NotImplementedException();
     }
 
+    @Override
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
         getObjectCollection().exactCompareExampleTable(examplesTable);
     }
 
+    @Override
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         getObjectCollection().compareWithExampleTable(examplesTable);
     }
 
+    @Override
     public void clickOnCollectionObjectByLocator(String locator) {
         getObjectCollection().clickByLocator(locator);
+    }
+
+    @Override
+    public String getCommonItemAttributeValue(String commonItemName, String attribute) {
+        return getItems().get(commonItemName).getVisibleWebElement().getAttribute(attribute);
+    }
+
+    @Override
+    public void clickOnCommonItemWihName(String commonItemName) {
+        getItems().get(commonItemName).click();
     }
 }

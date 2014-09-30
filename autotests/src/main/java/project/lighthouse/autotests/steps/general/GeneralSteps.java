@@ -86,4 +86,16 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     public void clickOnCollectionObjectByLocator(String locator) {
         getCurrentPageObject().clickOnCollectionObjectByLocator(locator);
     }
+
+    @Step
+    public void assertCommonItemAttributeValue(String commonItemName, String attribute, String value) {
+        assertThat(
+                getCurrentPageObject().getCommonItemAttributeValue(commonItemName, attribute),
+                is(value));
+    }
+
+    @Step
+    public void clickOnCommonItemWihName(String commonItemName) {
+        getCurrentPageObject().clickOnCommonItemWihName(commonItemName);
+    }
 }
