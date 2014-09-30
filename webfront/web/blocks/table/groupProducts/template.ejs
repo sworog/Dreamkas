@@ -1,0 +1,40 @@
+<% if (sortedCollection.length) { %>
+
+<div class="panel">
+    <div class="panel-body">
+        <table style="margin-bottom: 0"
+               class="table table_products table-hover table-striped">
+            <thead>
+            <tr>
+                <th data-sort-by="name">
+                    Название
+                </th>
+                <th data-sort-by="sellingPrice">
+                    Цена продажи, <i class="fa fa-rub"></i>
+                </th>
+                <th data-sort-by="barcode">
+                    Штрих-код
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% sortedCollection.forEach(function(productModel){ %>
+            <tr data-modal="modal_product" data-product-id="<%- productModel.id %>">
+                <td name="name"><%- productModel.get('name') %></td>
+                <td name="sellingPrice"><%- productModel.get('sellingPrice') ? formatMoney(productModel.get('sellingPrice')) : '' %></td>
+                <td name="barcode"><%- productModel.get('barcode') %></td>
+            </tr>
+            <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<% } else { %>
+
+<div class="alert alert-info">
+    В этой группе пока нет ни одного товара.
+</div>
+
+<% } %>

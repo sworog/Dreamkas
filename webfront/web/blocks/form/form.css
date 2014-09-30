@@ -26,3 +26,8 @@
     padding-right: 15px;
     clear: both;
 }
+
+.form_product__markup {
+    height: 34px;
+    line-height: 34px;
+}

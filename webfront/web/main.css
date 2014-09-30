@@ -26,6 +26,7 @@
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
 @import "/blocks/inputNumber/inputNumber.css";
+@import "/blocks/table/table.css";
 
 body {
     overflow-x: hidden;
@@ -162,11 +163,6 @@ input.invalid {
 
 .modal-body {
     padding: 20px 65px;
-}
-
-.product__markup {
-    height: 34px;
-    line-height: 34px;
 }
 
 .product__link,
