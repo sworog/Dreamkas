@@ -20,6 +20,6 @@ public class ReportsMainPage extends BootstrapPageObject {
     }
 
     public void clickOnStockBalanceReport() {
-        click(By.className("page_reports__link"));
+        click(By.xpath("//*[contains(text(), 'Остатки товаров')]/.."));
     }
 }

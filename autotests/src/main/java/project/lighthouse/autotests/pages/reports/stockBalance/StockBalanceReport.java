@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.pages.reports.stockBalance;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
@@ -29,6 +30,14 @@ public class StockBalanceReport extends BootstrapPageObject {
 
     @Override
     public AbstractObjectCollection getObjectCollection() {
+        try {
+            return getAbstractObjectCollection();
+        } catch (StaleElementReferenceException e) {
+            return getAbstractObjectCollection();
+        }
+    }
+
+    private AbstractObjectCollection getAbstractObjectCollection() {
         return new AbstractObjectCollection(getDriver(), By.xpath("//*[@name='products']/tr")) {
 
             @Override
