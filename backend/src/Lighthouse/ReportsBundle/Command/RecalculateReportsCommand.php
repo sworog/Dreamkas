@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Command;
 
 use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -27,21 +28,30 @@ class RecalculateReportsCommand extends Command implements ProjectableCommand
     protected $grossMarginManager;
 
     /**
+     * @var GrossMarginSalesReportManager
+     */
+    protected $grossMarginSalesReportManager;
+
+    /**
      * @DI\InjectParams({
      *      "grossSalesManager" = @DI\Inject("lighthouse.reports.gross_sales.manager"),
-     *      "grossMarginManager" = @DI\Inject("lighthouse.reports.gross_margin.manager")
+     *      "grossMarginManager" = @DI\Inject("lighthouse.reports.gross_margin.manager"),
+     *      "grossMarginSalesReportManager" = @DI\Inject("lighthouse.reports.gross_margin_sales.manager"),
      * })
      * @param GrossSalesReportManager $grossSalesManager
      * @param GrossMarginManager $grossMarginManager
+     * @param GrossMarginSalesReportManager $grossMarginSalesReportManager
      */
     public function __construct(
         GrossSalesReportManager $grossSalesManager,
-        GrossMarginManager $grossMarginManager
+        GrossMarginManager $grossMarginManager,
+        GrossMarginSalesReportManager $grossMarginSalesReportManager
     ) {
         parent::__construct('lighthouse:reports:recalculate');
 
         $this->grossSalesManager = $grossSalesManager;
         $this->grossMarginManager = $grossMarginManager;
+        $this->grossMarginSalesReportManager = $grossMarginSalesReportManager;
     }
 
     /**
@@ -80,6 +90,9 @@ class RecalculateReportsCommand extends Command implements ProjectableCommand
         $this->grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
         $this->grossMarginManager->recalculateStoreGrossMargin();
         $this->grossMarginManager->recalculateDayGrossMargin();
+
+        $output->writeln("<info>Gross Margin Sales</info>");
+        $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport();
 
         $output->writeln("<info>Recalculate reports finished</info>");
 

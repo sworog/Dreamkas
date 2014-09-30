@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Tests\Command;
 
 use Lighthouse\ReportsBundle\Command\RecalculateReportsCommand;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -35,7 +36,21 @@ class RecalculateReportsCommandTest extends TestCase
             ->expects($this->exactly(3))
             ->method($this->anything());
 
-        $command = new RecalculateReportsCommand($grossSalesManagerMock, $grossMarginManagerMock);
+        /* @var GrossMarginSalesReportManager|\PHPUnit_Framework_MockObject_MockObject $grossMarginManagerMock */
+        $grossMarginSalesReportManagerMock = $this
+            ->getMockBuilder('Lighthouse\\ReportsBundle\\Reports\\GrossMarginSales\\GrossMarginSalesReportManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $grossMarginSalesReportManagerMock
+            ->expects($this->exactly(1))
+            ->method($this->anything());
+
+        $command = new RecalculateReportsCommand(
+            $grossSalesManagerMock,
+            $grossMarginManagerMock,
+            $grossMarginSalesReportManagerMock
+        );
 
         $commandTester = new CommandTester($command);
 
