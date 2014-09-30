@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     return Block.extend({
         template: require('ejs!./template.ejs'),
         collections: {
-            products: require('collections/products/products')
+            products: require('resources/product/collection')
         },
         models: {
             receipt: function(){

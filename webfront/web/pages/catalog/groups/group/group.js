@@ -7,10 +7,10 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'catalog',
         collections: {
-            groups: require('collections/groups/groups'),
+            groups: require('resources/group/collection'),
             groupProducts: function(){
                 var page = this,
-                    ProductsCollection = require('collections/groupProducts/groupProducts');
+                    ProductsCollection = require('resources/groupProduct/collection');
 
                 return new ProductsCollection([], {
                     groupId: page.params.groupId

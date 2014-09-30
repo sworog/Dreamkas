@@ -12,12 +12,12 @@ define(function(require, exports, module) {
             types: null
         },
         collections: {
-            suppliers: require('collections/suppliers/suppliers'),
-            stores: require('collections/stores/stores'),
-            groups: require('collections/groups/groups'),
+            suppliers: require('resources/supplier/collection'),
+            stores: require('resources/store/collection'),
+            groups: require('resources/group/collection'),
             stockMovements: function() {
                 var page = this,
-                    StockMovementsCollection = require('collections/stockMovements/stockMovements'),
+                    StockMovementsCollection = require('resources/stockMovement/collection'),
                     stockMovementsCollection = new StockMovementsCollection([], {
                         filters: _.pick(page.params, 'dateFrom', 'dateTo', 'types')
                     });

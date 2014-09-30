@@ -6,8 +6,8 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'reports',
         collections: {
-            stores: require('collections/stores/stores'),
-            stockSell: require('collections/stockSell/stockSell')
+            stores: require('resources/store/collection'),
+            stockSell: require('resources/stockSell/collection')
         },
         blocks: {
             select_store: require('blocks/select/store/store'),

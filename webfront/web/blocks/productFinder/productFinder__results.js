@@ -4,7 +4,7 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     return CollectionBlock.extend({
-        collection: require('collections/products/products'),
+        collection: require('resources/product/collection'),
         template: require('ejs!./productFinder__results.ejs'),
 		itemSelector: '.productFinder__resultLink',
         highlight: function(string){

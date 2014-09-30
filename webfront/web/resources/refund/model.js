@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/returns';
         },
         collections: {
-            products: require('collections/refundProducts/refundProducts')
+            products: require('resources/refundProduct/collection')
         },
         models: {
             sale: function(){
@@ -23,7 +23,7 @@ define(function(require, exports, module) {
         },
         initialize: function(){
 
-            var RefundProductsCollection = require('collections/refundProducts/refundProducts');
+            var RefundProductsCollection = require('resources/refundProduct/collection');
 
             this.collections.products = new RefundProductsCollection(this.models.sale.collections.products.map(function(receiptProductModel){
                 return receiptProductModel.pick('product', 'price')

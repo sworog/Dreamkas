@@ -9,7 +9,7 @@ define(function(require) {
         collections: {
             products: function() {
                 var model = this,
-                    WriteOffProductsCollection = require('collections/writeOffProducts/writeOffProducts');
+                    WriteOffProductsCollection = require('resources/writeOffProduct/collection');
 
                 return new WriteOffProductsCollection();
             }

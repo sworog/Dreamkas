@@ -7,9 +7,9 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'reports',
         collections: {
-            stores: require('collections/stores/stores'),
+            stores: require('resources/store/collection'),
             groupStockSell: function(){
-                var GroupStockSellCollection = require('collections/groupStockSell/groupStockSell');
+                var GroupStockSellCollection = require('resources/groupStockSell/collection');
 
                 return new GroupStockSellCollection([], {
                     groupId: this.params.groupId

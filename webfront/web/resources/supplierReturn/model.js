@@ -6,7 +6,7 @@ define(function(require) {
     return Model.extend({
         storeId: null,
         collections: {
-            products: require('collections/supplierReturnProducts/supplierReturnProducts')
+            products: require('resources/supplierReturnProduct/collection')
         },
         urlRoot: Model.baseApiUrl + '/supplierReturns',
         defaults: {

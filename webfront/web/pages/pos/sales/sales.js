@@ -28,7 +28,7 @@ define(function(require, exports, module) {
         collections: {
             receipts: function() {
                 var page = this,
-                    ReceiptsCollection = require('collections/receipts/receipts');
+                    ReceiptsCollection = require('resources/receipt/collection');
 
                 return new ReceiptsCollection([], {
                     storeId: this.params.storeId,

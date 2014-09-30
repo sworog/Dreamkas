@@ -12,7 +12,7 @@ define(function(require, exports, module) {
             }
         },
         collections: {
-            stores: require('collections/stores/stores')
+            stores: require('resources/store/collection')
         },
         blocks: {
             select_stores: require('blocks/select/store/store')

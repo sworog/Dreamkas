@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'catalog',
         collections: {
-            groups: require('collections/groups/groups')
+            groups: require('resources/group/collection')
         },
         blocks: {
             modal_group: require('blocks/modal/group/group'),

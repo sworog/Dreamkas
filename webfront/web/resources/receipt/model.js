@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             return Model.baseApiUrl + '/stores/' + PAGE.params.storeId + '/sales';
         },
         collections: {
-            products: require('collections/receiptProducts/receiptProducts')
+            products: require('resources/receiptProduct/collection')
         },
         defaults: {
             payment: {

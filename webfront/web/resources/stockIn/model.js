@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Model.extend({
         urlRoot: Model.baseApiUrl + '/stockIns',
         collections: {
-            products: require('collections/stockInProducts/stockInProducts')
+            products: require('resources/stockInProduct/collection')
         },
         saveData: function() {
             return {
