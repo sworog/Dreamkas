@@ -21,6 +21,10 @@
     font-weight: 300;
 }
 
+.page__title .fa {
+    color: #999;
+}
+
 .page__content {
     padding: 20px 30px 50px;
     position: relative;
