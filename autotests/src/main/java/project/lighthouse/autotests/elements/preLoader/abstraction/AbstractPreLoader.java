@@ -3,7 +3,7 @@ package project.lighthouse.autotests.elements.preLoader.abstraction;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.common.Waiter;
 import project.lighthouse.autotests.storage.Storage;
 
 public abstract class AbstractPreLoader {

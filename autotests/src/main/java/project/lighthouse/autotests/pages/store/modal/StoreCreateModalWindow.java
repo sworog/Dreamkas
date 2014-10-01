@@ -19,7 +19,7 @@ public class StoreCreateModalWindow extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal-storeAdd']";
+        return "//*[@id='modal_store']";
     }
 
     @Override

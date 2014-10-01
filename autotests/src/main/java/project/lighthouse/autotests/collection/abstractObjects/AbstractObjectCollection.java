@@ -6,12 +6,12 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.collection.compare.CompareResultHashMap;
 import project.lighthouse.autotests.collection.compare.CompareResults;
+import project.lighthouse.autotests.common.Waiter;
 
 import java.util.ArrayList;
 import java.util.Iterator;

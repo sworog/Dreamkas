@@ -13,11 +13,9 @@ import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.collection.posAutoComplete.PosAutoCompleteCollection;
 import project.lighthouse.autotests.collection.receipt.ReceiptCollection;
 import project.lighthouse.autotests.collection.receipt.ReceiptObject;
+import project.lighthouse.autotests.collection.refund.RefundProduct;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.pages.pos.PosLaunchPage;
-import project.lighthouse.autotests.pages.pos.PosPage;
-import project.lighthouse.autotests.pages.pos.ReceiptModalPage;
-import project.lighthouse.autotests.pages.pos.ReceiptPositionEditModalWindow;
+import project.lighthouse.autotests.pages.pos.*;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
 
@@ -33,6 +31,8 @@ public class PosSteps extends ScenarioSteps {
     PosPage posPage;
     ReceiptPositionEditModalWindow receiptPositionEditModalWindow;
     ReceiptModalPage receiptModalPage;
+    RefundModalWindowPage refundModalWindowPage;
+    ReceiptElement receiptElement;
 
     @Step
     public void choosePosConfirmation() {
@@ -43,6 +43,13 @@ public class PosSteps extends ScenarioSteps {
     public void navigateToPosPage(String storeName) {
         String storeId = Storage.getCustomVariableStorage().getStores().get(storeName).getId();
         String posUrl = String.format("%s/pos/stores/%s", UrlHelper.getWebFrontUrl(), storeId);
+        posLaunchPage.getDriver().navigate().to(posUrl);
+    }
+
+    @Step
+    public void navigateToPosSalesPage(String storeName) {
+        String storeId = Storage.getCustomVariableStorage().getStores().get(storeName).getId();
+        String posUrl = String.format("%s/pos/stores/%s/sales", UrlHelper.getWebFrontUrl(), storeId);
         posLaunchPage.getDriver().navigate().to(posUrl);
     }
 
@@ -148,6 +155,11 @@ public class PosSteps extends ScenarioSteps {
     }
 
     @Step
+    public void clickOnRefundContinueButton() {
+        refundModalWindowPage.clickOnContinueButton();
+    }
+
+    @Step
     public void assertStoreProductInventory(String email, String storeName, String productName, String inventory) throws IOException, JSONException {
         UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         String storeId = Storage.getCustomVariableStorage().getStores().get(storeName).getId();
@@ -162,6 +174,18 @@ public class PosSteps extends ScenarioSteps {
     public void assertSuccessTitle(String value) {
         String expected = String.format("Выдайте сдачу\n%s", value);
         receiptModalPage.checkValue("заголовок успешной продажи", expected);
+    }
+
+    @Step
+    public void assertRefundSuccessTitle(String value) {
+        String expected = String.format("Выдайте деньги\n%s", value);
+        refundModalWindowPage.checkValue("заголовок успешного возврата", expected);
+    }
+
+    @Step
+    public void assertRefundSuccessBankTitle(String value) {
+        String expected = String.format("Сделайте возврат на банковскую карту\n%s", value);
+        refundModalWindowPage.checkValue("заголовок успешного возврата", expected);
     }
 
     @Step
@@ -189,5 +213,32 @@ public class PosSteps extends ScenarioSteps {
     @Step
     public void clickOnSideMenuInteractionButton() {
         posPage.clickOnSideBarInteraction();
+    }
+
+    @Step
+    public void setRefundProductQuantityByName(String name, String quantity) {
+        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).setQuantity(quantity);
+    }
+
+    @Step
+    public void assertRefundPorductQuantity(String name, String quantity) {
+        String actualQuantity =
+                ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).getQuantity();
+        assertThat(actualQuantity, is(quantity));
+    }
+
+    @Step
+    public void clickOnRefundProductPlusButtonByName(String name) {
+        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).clickOnPlusButton();
+    }
+
+    @Step
+    public void clickOnRefundProductMinusButtonByName(String name) {
+        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).clickOnMinusButton();
+    }
+
+    @Step
+    public void clickOnRefundButton() {
+        receiptElement.clickOnRefundButton();
     }
 }

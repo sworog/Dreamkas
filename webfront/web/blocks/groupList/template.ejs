@@ -1,0 +1,25 @@
+<% if (collection.length) { %>
+<div class="panel">
+    <div class="panel-body">
+        <ul class="groupList">
+
+            <% collection.forEach(function(groupModel) { %>
+
+            <li>
+                <a class="groupList__link"
+                   href="/catalog/groups/<%- groupModel.id %>">
+                    <i class="fa fa-angle-right pull-right"></i>
+                    <%= groupModel.get('name') %>
+                </a>
+            </li>
+
+            <% }) %>
+
+        </ul>
+    </div>
+</div>
+<% } else { %>
+<div class="alert alert-info">
+    У вас пока нет ни одной группы товаров.
+</div>
+<% } %>

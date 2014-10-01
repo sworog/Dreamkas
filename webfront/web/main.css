@@ -25,6 +25,8 @@
 @import "/blocks/modal/modal.css";
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
+@import "/blocks/inputNumber/inputNumber.css";
+@import "/blocks/table/table.css";
 
 body {
     overflow-x: hidden;
@@ -163,11 +165,6 @@ input.invalid {
     padding: 20px 65px;
 }
 
-.product__markup {
-    height: 34px;
-    line-height: 34px;
-}
-
 .product__link,
 .supplier__link,
 .store__link,
@@ -242,23 +239,22 @@ select.loading, input.loading {
     background-color: #f4f4f4;
 }
 
-.btn.disabled, .btn[disabled] {
-    background-color: #dadada;
-    border-color: #dadada;
-}
-
 .modal {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal.fade {
     opacity: 1;
 }
 
-.modal.fade .modal-dialog{
+.modal.fade .modal-dialog {
     transform: none !important;
 }
 
-.twitter-typeahead{
+.twitter-typeahead {
     width: 100%;
+}
+
+.tt-input {
+    background-color: #fff !important;
 }

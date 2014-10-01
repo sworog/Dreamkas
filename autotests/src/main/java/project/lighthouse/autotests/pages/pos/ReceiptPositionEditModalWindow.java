@@ -26,11 +26,11 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
     }
 
     public void clickOnPlusButton() {
-        clickInTheModalWindowByXpath("//*[contains(@class, 'form_receiptProduct__quantityPlusLink')]");
+        clickInTheModalWindowByXpath("//*[contains(@class, 'inputNumber__countUp')]");
     }
 
     public void clickOnMinusButton() {
-        clickInTheModalWindowByXpath("//*[contains(@class, 'form_receiptProduct__quantityMinusLink')]");
+        clickInTheModalWindowByXpath("//*[contains(@class, 'inputNumber__countDown')]");
     }
 
     @Override

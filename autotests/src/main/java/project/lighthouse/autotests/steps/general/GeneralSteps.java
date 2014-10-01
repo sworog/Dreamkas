@@ -2,7 +2,7 @@ package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.GeneralPageObject;
+import project.lighthouse.autotests.common.objects.GeneralPageObject;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
 import project.lighthouse.autotests.pages.pos.PosSaleHistoryPage;

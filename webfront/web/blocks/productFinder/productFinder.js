@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 
                 e.target.value.length >= 3 && e.target.classList.add('loading');
 
-                block.collections.products.find(e.target.value).then(function() {
+                block.collections.products.filter({ query: e.target.value }).then(function() {
                     e.target.classList.remove('loading');
                 });
             },
@@ -43,12 +43,11 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            productFinder__results: function(opt) {
+            productFinder__results: function() {
                 var block = this,
                     ProductFinder__results = require('./productFinder__results');
 
                 return new ProductFinder__results({
-                    el: opt.el,
                     collection: block.collections.products
                 });
             }
@@ -86,7 +85,7 @@ define(function(require, exports, module) {
 
             block.$('input[name="product"]').val('').focus();
 
-            block.collections.products.searchQuery = null;
+            block.collections.products.filters.query = null;
             block.collections.products.reset([]);
         }
     });
