@@ -47,6 +47,7 @@
     text-align: center;
     line-height: 55px;
     float: left;
+    color: #999;
 }
 
 .modal__closeLink[data-modal] {
