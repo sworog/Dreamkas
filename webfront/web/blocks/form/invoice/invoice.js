@@ -10,6 +10,7 @@ define(function(require, exports, module) {
             return PAGE.collections.stockMovements;
         },
         blocks: {
+            inputDate: require('blocks/inputDate/inputDate'),
             select_store: require('blocks/select/store/store'),
             select_supplier: require('blocks/select/supplier/supplier')
         }

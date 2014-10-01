@@ -86,3 +86,7 @@
     font-size: 25px;
     font-weight: bold;
 }
+
+.modal_invoice {
+    width: 80% !important;
+}
