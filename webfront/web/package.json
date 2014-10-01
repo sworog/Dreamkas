@@ -12,6 +12,6 @@
   },
   "scripts": {
     "test": "node ./node_modules/karma/bin/karma start --single-run",
-    "test-remote": "node ./node_modules/karma/bin/karma start karma.remote.js --single-run --reporters=teamcity,allure"
+    "test-remote": "node ./node_modules/karma/bin/karma start karma.remote.js --single-run"
   }
 }
