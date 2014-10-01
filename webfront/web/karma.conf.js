@@ -34,8 +34,10 @@ module.exports = function(config) {
 		},
 
 		coverageReporter: {
-			type : 'html',
-			dir: 'build/coverage/'
+			reporters: [
+				{ type: 'html', dir: 'coverage/html/' },
+				{ type: 'cobertura', dir: 'coverage/conertura/' }
+			]
 		},
 
         preprocessors: {
@@ -43,7 +45,7 @@ module.exports = function(config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
             //'requireDom.js': 'coverage',
-            '**/*.js': 'coverage'
+            '**': 'coverage'
         },
 
         // web server port
