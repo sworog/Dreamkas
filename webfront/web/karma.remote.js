@@ -35,8 +35,8 @@ module.exports = function(config) {
         },
 
 		coverageReporter: {
-			type : 'cobertura',
-			dir: 'build/tests_coverage/'
+			type : 'html',
+			dir: 'build/coverage/'
 		},
 
 		preprocessors: {
@@ -44,7 +44,8 @@ module.exports = function(config) {
 			// do not include tests or libraries
 			// (these files will be instrumented by Istanbul),
 			//'requireDom.js': 'coverage',
-			'**/*.js': 'coverage'
+			'blocks/**/*.js': 'coverage',
+			'kit/**/*.js': 'coverage'
 		},
 
         // enable / disable colors in the output (reporters and logs)
