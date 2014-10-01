@@ -46,17 +46,6 @@ define(function(require, exports, module) {
             writeOff: null
         },
         events: {
-            'click .invoice__link': function(e) {
-                var page = this,
-                    invoiceId = e.currentTarget.dataset.invoice_id;
-
-                if (!page.models.invoice || page.models.invoice.id !== invoiceId) {
-                    page.models.invoice = page.collections.stockMovements.get(invoiceId);
-                    page.render();
-                }
-
-                $('#modal_invoiceEdit').modal('show');
-            },
             'click .stockIn__link': function(e) {
                 var page = this,
                     stockinId = e.currentTarget.dataset.stockinId;
@@ -103,37 +92,9 @@ define(function(require, exports, module) {
         blocks: {
             dropdown: require('blocks/dropdown/dropdown'),
             modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
+            modal_invoice: require('blocks/modal/invoice/invoice'),
             modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
-            modal_invoiceAdd: function(opt) {
-                var page = this,
-                    Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
-
-                return new Modal_invoice({
-                    el: opt.el,
-                    collections: {
-                        invoices: page.collections.stockMovements,
-                        suppliers: page.collections.suppliers
-                    }
-                });
-            },
-            modal_invoiceEdit: function(opt) {
-                var page = this,
-                    Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
-
-                if (page.models.invoice) {
-                    return new Modal_invoice({
-                        el: opt.el,
-                        collections: {
-                            invoices: page.collections.stockMovements,
-                            suppliers: page.collections.suppliers
-                        },
-                        models: {
-                            invoice: page.models.invoice
-                        }
-                    });
-                }
-            },
             modal_writeOffAdd: function(opt) {
                 var block = this,
                     Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');

@@ -1,0 +1,48 @@
+<div id="<%- id %>"
+     class="modal modal_invoice">
+
+    <div class="modal__header">
+        <a class="modal__closeLink pull-left fa fa-times"></a>
+
+        <button form="form_invoice"
+                type="submit"
+                class="btn btn-primary pull-right">
+            <%- models.invoice.id ? 'Сохранить' : 'Принять' %>
+        </button>
+
+        <h4 class="modal__title">
+            <%- models.invoice.id ? 'Редактирование приёмки товаров от поставщика' : 'Приёмка товаров от поставщика' %>
+        </h4>
+
+    </div>
+    <div class="modal__body">
+
+        <b block="form_invoice"></b>
+
+        <hr style="margin: 0 -65px;"/>
+        <h3>Товары</h3>
+
+        <b block="form_invoiceProducts"></b>
+
+        <% if (models.invoice.id) { %>
+        <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
+
+            <div class="confirmLink__trigger">
+                        <span class="removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Удалить приемку
+                        </span>
+            </div>
+
+            <div class="confirmLink__confirmation">
+                        <span class="removeLink invoice__removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Подтвердить удаление
+                        </span>
+            </div>
+
+        </div>
+        <% } %>
+    </div>
+    
+</div>

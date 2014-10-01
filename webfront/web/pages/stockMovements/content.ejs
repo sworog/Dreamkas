@@ -1,5 +1,4 @@
 <% var partials = {
-    modal_invoice: require('ejs!blocks/modal/modal_invoice/modal_invoice.ejs'),
     modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs'),
     tr: {
         invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
@@ -8,18 +7,13 @@
         supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
     }
 }; %>
-<% var helpers = {
-    formatMoney: require('kit/formatMoney/formatMoney'),
-    formatDate: require('kit/formatDate/formatDate')
-} %>
 
 <!--BEGIN TITLE PAGE-->
 <div class="page__head">
 
     <div class="pull-right">
-        <span data-target="#modal_invoiceAdd"
-              data-toggle="modal"
-              role="button"
+        <span data-modal="modal_invoice"
+              data-invoice-id="0"
               class="btn btn-primary btn-md">Принять от поставщика</span>
 
         <div class="dropdown" style="display: inline-block; position: relative">
@@ -122,28 +116,10 @@
 
 <!--MODALS-->
 
+<b block="modal_invoice"></b>
 <b block="modal_stockIn"></b>
 <b block="modal_supplierReturn"></b>
 
-<% if (models.invoice) { %>
-<%= partials.modal_invoice({
-    collections: {
-        invoices: collections.stockMovements,
-        suppliers: collections.suppliers,
-        stores: collections.stores
-    },
-    models: {
-        invoice: models.invoice
-    }
-}) %>
-<% } %>
-<%= partials.modal_invoice({
-    collections: {
-        invoices: collections.stockMovements,
-        suppliers: collections.suppliers,
-        stores: collections.stores
-    }
-}) %>
 <% if (models.writeOff) { %>
 <%= partials.modal_writeOff({
     collections: {

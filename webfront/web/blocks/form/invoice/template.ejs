@@ -1,0 +1,61 @@
+<form id="<%- id %>" class="form form_invoice">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Дата *</label>
+
+                <div class="input-group date">
+                    <input name="date"
+                           type="text"
+                           class="form-control inputDate"
+                           value="<%- model.get('date') ? formatDate(model.get('date')) : formatDate(new Date()) %>">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Магазин *</label>
+
+                <div class="input-icon right">
+
+                    <b block="select_store"></b>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Поставщик</label>
+
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <b block="select_supplier"></b>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
+                           class="addSupplierLink fa fa-plus"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="checkbox">
+            <input tabindex="5"
+                   type="checkbox"
+                   name="paid"
+                   value="true" <%- model.get('paid') ? 'checked' : '' %>/>
+                    <span class="checkbox__text">
+                        Оплачено
+                    </span>
+        </label>
+    </div>
+</form>
