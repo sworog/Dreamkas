@@ -48,13 +48,16 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
-            var page = this;
+            var page = this,
+                modal__wrapper = document.getElementById('modal__wrapper');
 
             page.setStatus('starting');
             page.setStatus('loading');
 
             previousPage = window.PAGE;
             window.PAGE = page;
+
+            modal__wrapper && modal__wrapper.classList.remove('modal__wrapper_visible');
 
             Block.prototype.initialize.apply(page, arguments);
         },

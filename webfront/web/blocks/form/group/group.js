@@ -6,6 +6,17 @@ define(function(require, exports, module) {
         id: 'form_group',
         groupId: 0,
         template: require('ejs!./template.ejs'),
+        events: {
+            'click .form_group__removeLink': function(e) {
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.model.destroy().then(function() {
+                    e.target.classList.remove('loading');
+                });
+            }
+        },
         model: function(){
             var GroupModel = require('models/group/group');
 
