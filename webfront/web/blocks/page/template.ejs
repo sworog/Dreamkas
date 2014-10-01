@@ -6,37 +6,46 @@
             DREAMKAS
         </a>
 
-        <a href="/" class="sideBar__item <%- activeNavigationItem === 'store' ? 'sideBar__item_active' : '' %>">
-            <i class="fa fa-tachometer fa-fw"></i>
-            Обзор
-        </a>
+        <div class="sideBar__scrollPanel">
 
-        <a href="/stockMovements" class="sideBar__item <%- activeNavigationItem === 'stockMovement' ? 'sideBar__item_active' : '' %>">
-            <i class="fa fa-exchange fa-fw"></i>
-            Товародвижение
-        </a>
+            <a href="/" class="sideBar__item <%- activeNavigationItem === 'store' ? 'sideBar__item_active' : '' %>">
+                <i class="fa fa-tachometer fa-fw"></i>
+                Обзор
+            </a>
 
-        <a href="/reports" class="sideBar__item <%- activeNavigationItem === 'reports' ? 'sideBar__item_active' : '' %>">
-            <i class="fa fa-bar-chart-o fa-fw"></i>
-            Отчеты
-        </a>
+            <a href="/stockMovements"
+               class="sideBar__item <%- activeNavigationItem === 'stockMovement' ? 'sideBar__item_active' : '' %>">
+                <i class="fa fa-exchange fa-fw"></i>
+                Товародвижение
+            </a>
 
-        <a href="/catalog" class="sideBar__item <%- activeNavigationItem === 'catalog' ? 'sideBar__item_active' : '' %>">
-            Ассортимент
-        </a>
+            <a href="/reports"
+               class="sideBar__item <%- activeNavigationItem === 'reports' ? 'sideBar__item_active' : '' %>">
+                <i class="fa fa-bar-chart-o fa-fw"></i>
+                Отчеты
+            </a>
 
-        <a href="/suppliers" class="sideBar__item <%- activeNavigationItem === 'suppliers' ? 'sideBar__item_active' : '' %>">
-            Поставщики
-        </a>
+            <a href="/catalog"
+               class="sideBar__item <%- activeNavigationItem === 'catalog' ? 'sideBar__item_active' : '' %>">
+                Ассортимент
+            </a>
 
-        <a href="/stores" class="sideBar__item <%- activeNavigationItem === 'stores' ? 'sideBar__item_active' : '' %>">
-            Магазины
-        </a>
+            <a href="/suppliers"
+               class="sideBar__item <%- activeNavigationItem === 'suppliers' ? 'sideBar__item_active' : '' %>">
+                Поставщики
+            </a>
+
+            <a href="/stores"
+               class="sideBar__item <%- activeNavigationItem === 'stores' ? 'sideBar__item_active' : '' %>">
+                Магазины
+            </a>
+        </div>
 
         <div class="sideBar__bottom">
             <div name="username" class="sideBar__userName">
                 <a href="/user">
-                    <%- currentUserModel.get('username') || currentUserModel.get('email') %>
+                    <i class="fa fa-user"
+                       style="margin-right: 10px;"></i><%- currentUserModel.get('username') || currentUserModel.get('email') %>
                 </a>
             </div>
             <div class="sideBar__controls">
@@ -45,7 +54,6 @@
                 </a>
             </div>
         </div>
-
     </nav>
 
     <div class="page__contentSide">

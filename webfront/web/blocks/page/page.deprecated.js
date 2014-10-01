@@ -57,7 +57,8 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
-            var page = this;
+            var page = this,
+                modal__wrapper = document.getElementById('modal__wrapper');
 
             page.setStatus('starting');
             page.setStatus('loading');
@@ -70,7 +71,7 @@ define(function(require, exports, module) {
                 result[key] = page.get('models.' + key);
             });
 
-            document.getElementById('modal__wrapper').classList.remove('modal__wrapper_visible');
+            modal__wrapper && modal__wrapper.classList.remove('modal__wrapper_visible');
 
             $.when(page.fetch()).then(function() {
                 page.render();
