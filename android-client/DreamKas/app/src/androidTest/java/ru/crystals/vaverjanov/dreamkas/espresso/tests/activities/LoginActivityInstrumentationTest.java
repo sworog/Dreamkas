@@ -1,61 +1,67 @@
-package ru.crystals.vaverjanov.dreamkas.espresso;
+package ru.crystals.vaverjanov.dreamkas.espresso.tests.activities;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
+
 import com.google.android.apps.common.testing.testrunner.ActivityLifecycleMonitorRegistry;
 import com.google.android.apps.common.testing.testrunner.Stage;
 import com.google.android.apps.common.testing.ui.espresso.Espresso;
 import com.google.android.apps.common.testing.ui.espresso.action.ViewActions;
-import com.google.common.collect.Iterables;
-import org.apache.commons.lang3.StringUtils;
+
 import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.RunnableFuture;
+
 import ru.crystals.vaverjanov.dreamkas.R;
-import ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity;
+import ru.crystals.vaverjanov.dreamkas.espresso.helpers.RequestIdlingResource;
+import ru.crystals.vaverjanov.dreamkas.espresso.helpers.ScreenshotFailureHandler;
 import ru.crystals.vaverjanov.dreamkas.view.LoginActivity;
 import ru.crystals.vaverjanov.dreamkas.view.LoginActivity_;
+
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
+import static com.google.android.apps.common.testing.ui.espresso.Espresso.setFailureHandler;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.clearText;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.closeSoftKeyboard;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.pressBack;
+import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.doesNotExist;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.RootMatchers.withDecorView;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.assertThat;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.*;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
-import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.hasErrorText;
-import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.waitKeyboard;
-import static ru.crystals.vaverjanov.dreamkas.espresso.EspressoExtends.withResourceName;
+import static ru.crystals.vaverjanov.dreamkas.espresso.helpers.EspressoExtends.hasErrorText;
+import static ru.crystals.vaverjanov.dreamkas.espresso.helpers.EspressoExtends.waitKeyboard;
+import static ru.crystals.vaverjanov.dreamkas.espresso.helpers.EspressoExtends.withResourceName;
 
 
-public class LoginActivityInstrumentationTest extends ActivityInstrumentationTestCase2<LoginActivity_>
-{
+public class LoginActivityInstrumentationTest extends ActivityInstrumentationTestCase2<LoginActivity_> {
+
     private LoginActivity mStartActivity;
 
     @SuppressWarnings("deprecation")
-    public LoginActivityInstrumentationTest()
-    {
+    public LoginActivityInstrumentationTest() {
         // This constructor was deprecated - but we want to support lower API levels.
         super("ru.crystals.vaverjanov.dreamkas.view", LoginActivity_.class);
     }
 
     @Override
-    protected void setUp() throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
         mStartActivity = getActivity();
 
-        if(mStartActivity.authRequestListener == null)
-        {
-            mStartActivity.init(new AuthRequestIdlingResource(mStartActivity));
-
-            //register idling resource for wait async operation
-            Espresso.registerIdlingResources((AuthRequestIdlingResource)mStartActivity.authRequestListener);
-        }
+        //register idling resource for auth request listener
+        Espresso.registerIdlingResources(new RequestIdlingResource(mStartActivity.authRequestListener));
+        setFailureHandler(new ScreenshotFailureHandler(getInstrumentation().getTargetContext(), mStartActivity));
     }
 
     @Override
@@ -63,8 +69,7 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         super.tearDown();
     }
 
-    public void testUserWillGetErrorMessagesIfTryToLoginWithEmptyCredentials() throws Exception
-    {
+    public void testUserWillGetErrorMessagesIfTryToLoginWithEmptyCredentials() throws Exception {
         //enter empty credentials
         enterCredentialsAndClick("", "");
 
@@ -75,17 +80,16 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         onView(withId(R.id.txtPassword)).check(matches(hasErrorText(getActivity().getString(R.string.error_empty_field))));
     }
 
-    public void testUserWillGetErrorToastMessageIfTryToLoginWithWrongCredentials() throws Exception
-    {
+    public void testUserWillGetErrorToastMessageIfTryToLoginWithWrongCredentials() throws Exception {
         //enter wrong credentials
         enterCredentialsAndClick("wrong_name", "wrong_password");
 
         //expect toast with error message
         onView(withText(R.string.error_bad_credentials)).inRoot(withDecorView(not(is(getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
     }
 
-    public void testUserWillAuthorizeSuccessFully() throws Exception
-    {
+    public void testUserWillAuthorizeSuccessFully() throws Exception {
         //enter right credentials
         enterCredentialsAndClick("owner@lighthouse.pro", "lighthouse");
 
@@ -101,34 +105,28 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
         //check that btnLogin does not exist in current context
         onView(withId(R.id.btnLogin)).check(doesNotExist());
 
-        //check if login activity is finishing
-        assertTrue(mStartActivity.isFinishing());
+        assertThat("Login activity doesn't destroy after login", mStartActivity.isFinishing(), is(true));
     }
 
-
-    public void testLoginActivityIsSingleInstanceAfterLogOut() throws Exception
-    {
+    public void testLoginActivityIsSingleInstanceAfterLogOut() throws Exception {
         enterCredentialsAndClick("owner@lighthouse.pro", "lighthouse");
 
         //now on back button click we expected exit from app, because login activity disappeared
         pressBack();
 
-        getInstrumentation().runOnMainSync(new Runnable() {
+        RunnableFuture activityInStageGetterRunnable = new FutureTask(new Callable<Integer>() {
             @Override
-            public void run() {
+            public Integer call() throws Exception {
                 Collection<Activity> activities = ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
-
-                //in that moment we expect that only one activity is still alive
-                assertTrue(activities.size() == 1);
-
-                //and that activity is LighthouseDemoActivity or its child
-                assertTrue(Iterables.get(activities, 0) instanceof LighthouseDemoActivity);
+                return activities.size();
             }
         });
+
+        getInstrumentation().runOnMainSync(new Thread(activityInStageGetterRunnable));
+        assertThat("StoreFragment does't exists in current activity", (Integer) activityInStageGetterRunnable.get(), equalTo(1));
     }
 
     private void enterCredentialsAndClick(String userName, String password) {
-
         onView(withId(R.id.txtUsername)).perform(clearText()).perform(ViewActions.typeText(userName), closeSoftKeyboard());
 
         //hack, espresso bug here. without waiting cause exception

@@ -1,4 +1,4 @@
-package ru.crystals.vaverjanov.dreamkas.model;
+package ru.crystals.vaverjanov.dreamkas.model.api;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,20 +44,4 @@ public class AuthObject
     {
         return username;
     }
-
-    /*public void setClientId(String client_id) {
-        this.client_id = client_id;
-    }
-
-    public void setSecret(String client_secret) {
-        this.client_secret = client_secret;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUsername(int username) {
-        this.username = username;
-    }*/
 }

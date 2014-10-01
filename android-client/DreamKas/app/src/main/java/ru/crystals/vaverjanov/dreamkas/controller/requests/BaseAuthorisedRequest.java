@@ -1,22 +1,17 @@
-package ru.crystals.vaverjanov.dreamkas.controller;
+package ru.crystals.vaverjanov.dreamkas.controller.requests;
 
 import com.octo.android.robospice.request.SpiceRequest;
 
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.rest.RestService;
-
-import java.lang.reflect.ParameterizedType;
-
-import ru.crystals.vaverjanov.dreamkas.model.NamedObject;
-import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
-import ru.crystals.vaverjanov.dreamkas.model.Token;
+import ru.crystals.vaverjanov.dreamkas.controller.ILighthouseRestClient;
+import ru.crystals.vaverjanov.dreamkas.model.api.NamedObjects;
 
 @EBean
 public abstract class BaseAuthorisedRequest extends SpiceRequest<NamedObjects>
 {
     @RestService
-    protected LighthouseRestClient restClient;
+    protected ILighthouseRestClient restClient;
     protected String token;
 
     public BaseAuthorisedRequest()

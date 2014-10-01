@@ -1,4 +1,4 @@
-package ru.crystals.vaverjanov.dreamkas.model;
+package ru.crystals.vaverjanov.dreamkas.model.api;
 
 public class Store extends NamedObject
 {
