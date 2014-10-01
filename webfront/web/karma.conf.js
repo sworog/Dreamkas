@@ -29,6 +29,10 @@ module.exports = function(config) {
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: ['allure', 'coverage'],
 
+		allureReport: {
+			reportDir: 'report'
+		},
+
 		coverageReporter: {
 			type : 'teamcity'
 		},
