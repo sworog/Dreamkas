@@ -41,6 +41,7 @@ define(function(require, exports, module) {
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate/formatDate'),
+        formatNumber: require('kit/formatNumber/formatNumber'),
         formatTime: require('kit/formatTime/formatTime'),
         formatDateTime: require('kit/formatDateTime/formatDateTime'),
         normalizeNumber: require('kit/normalizeNumber/normalizeNumber'),

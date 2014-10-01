@@ -26,6 +26,7 @@
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
 @import "/blocks/inputNumber/inputNumber.css";
+@import "/blocks/table/table.css";
 
 body {
     overflow-x: hidden;
@@ -241,11 +242,6 @@ select.loading, input.loading {
 
 .dropdown-menu-item:hover {
     background-color: #f4f4f4;
-}
-
-.btn.disabled, .btn[disabled] {
-    background-color: #dadada;
-    border-color: #dadada;
 }
 
 .modal {

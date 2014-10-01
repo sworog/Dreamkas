@@ -1,9 +1,31 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
+        Collection = require('kit/collection/collection'),
         checkKey = require('kit/checkKey/checkKey');
 
     return Block.extend({
+        sortedCollection: null,
+        sortBy: '',
+        sortDirection: 'ascending',
+        events: {
+            'click [data-sort-by]': function(e){
+                var block = this,
+                    sortBy = e.currentTarget.dataset.sortBy,
+                    sortDirection = e.currentTarget.dataset.sortedDirection || 'descending';
+
+                if (sortDirection === 'descending'){
+                    sortDirection = 'ascending';
+                } else {
+                    sortDirection = 'descending';
+                }
+
+                block.sort({
+                    sortBy: sortBy,
+                    sortDirection: sortDirection
+                });
+            }
+        },
         initialize: function() {
             var block = this;
 
@@ -20,6 +42,33 @@ define(function(require, exports, module) {
             if (block.itemSelector) {
                 block.bindSwitchHandlers();
             }
+        },
+        render: function() {
+            var block = this,
+                sortedList = block.collection.sortBy(block.get('sortBy'));
+
+            if (block.get('sortDirection') === 'descending') {
+                sortedList.reverse();
+            }
+
+            block.sortedCollection = new Collection(sortedList);
+
+            Block.prototype.render.apply(block, arguments);
+
+            var $sortTriggers = block.$('[data-sort-by]'),
+                $sortTrigger = block.$('[data-sort-by="' + block.sortBy + '"]');
+
+            $sortTriggers.removeAttr('data-sorted-direction');
+
+            $sortTrigger.attr('data-sorted-direction', block.sortDirection);
+        },
+        sort: function(opt) {
+
+            var block = this;
+
+            block.set(opt);
+
+            block.render();
         },
         bindSwitchHandlers: function() {
             var block = this;

@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.supplier.modal;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
@@ -13,7 +14,7 @@ public class SupplierCreateModalPage extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal-supplierAdd']";
+        return "//*[@id='modal_supplier']";
     }
 
     @Override
@@ -28,5 +29,10 @@ public class SupplierCreateModalPage extends ModalWindowPage {
         put("phone", new Input(this, "//*[@name='phone']"));
         put("email", new Input(this, "//*[@name='email']"));
         put("contactPerson", new Input(this, "//*[@name='contactPerson']"));
+    }
+
+    @Override
+    public String getTitle() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
 }

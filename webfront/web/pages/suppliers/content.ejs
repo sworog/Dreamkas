@@ -1,14 +1,9 @@
-<% var partials = {
-    modal_supplierForm: require('ejs!blocks/modal/modal_supplierForm/modal_supplierForm.ejs')
-}; %>
-
-
 <!--BEGIN TITLE PAGE-->
 <div class="page-title-breadcrumb">
 
     <div class="pull-right">
-        <span data-target="#modal-supplierAdd"
-              data-toggle="modal"
+        <span data-modal="modal_supplier"
+              data-supplier-id="0"
               role="button"
               class="btn btn-primary btn-md">Добавить поставщика</span>
     </div>
@@ -28,51 +23,13 @@
     <div class="row">
         <div class="col-md-12">
 
-            <% if (collections.suppliers.length) { %>
+            <b block="supplierList"></b>
 
-            <div class="panel">
-                <div class="panel-body">
-                    <table class="table table-hover table-striped">
-                        <tbody>
-                            <% collections.suppliers.forEach(function(supplierModel){ %>
-                                <tr class="supplier__link" data-supplier-id="<%- supplierModel.id %>">
-                                    <td name="name"><%- supplierModel.get('name') %></td>
-                                    <td style="font-size: 12px;">
-                                        <div name="address" style="padding-bottom: 5px;">
-                                            <%- supplierModel.get('address') %>
-                                        </div>
-                                        <span name="info">
-                                            <%- supplierModel.get('phone') ? supplierModel.get('phone') + ', ' : '' %>
-                                            <%- supplierModel.get('contactPerson') ? supplierModel.get('contactPerson') + ', ' : '' %>
-                                            <%- supplierModel.get('email') %>
-                                        </span>
-                                    </td>
-                                </tr>
-                            <% }) %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <% } else { %>
-            <div class="col-md-12">
-                <div class="alert alert-info">
-                    У вас ещё нет ни одного поставщика
-                </div>
-            </div>
-            <% } %>
         </div>
     </div>
 </div>
 <!--END CONTENT-->
 
-<!--MODALS-->
-
-<%= partials.modal_supplierForm() %>
-
-<% if (models.supplier) { %>
-<%= partials.modal_supplierForm({
-    supplierModel: models.supplier
-}) %>
-<% } %>
-
-<!--END MODALS-->
+<div class="modal__wrapper">
+    <b block="modal_supplier"></b>
+</div>

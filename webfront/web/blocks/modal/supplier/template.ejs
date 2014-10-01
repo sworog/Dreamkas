@@ -1,0 +1,24 @@
+<div id="modal_supplier"
+     class="modal modal_supplier">
+
+    <div class="modal__header">
+
+        <a type="button"
+           class="modal__closeLink fa fa-times"></a>
+
+        <button form="form_supplier"
+                type="submit"
+                class="btn btn-primary pull-right">
+            <%- supplierId != 0 ? 'Сохранить' : 'Добавить' %>
+        </button>
+
+        <h4 class="modal__title">
+            <%- supplierId != 0 ? 'Редактирование поставщика' : 'Добавить поставщика' %>
+        </h4>
+    </div>
+    <div class="modal__body">
+
+        <b block="form_supplier"></b>
+
+    </div>
+</div>

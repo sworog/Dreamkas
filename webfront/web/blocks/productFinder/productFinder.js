@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 
                 e.target.value.length >= 3 && e.target.classList.add('loading');
 
-                block.collections.products.find(e.target.value).then(function() {
+                block.collections.products.filter({ query: e.target.value }).then(function() {
                     e.target.classList.remove('loading');
                 });
             },
@@ -85,7 +85,7 @@ define(function(require, exports, module) {
 
             block.$('input[name="product"]').val('').focus();
 
-            block.collections.products.searchQuery = null;
+            block.collections.products.filters.query = null;
             block.collections.products.reset([]);
         }
     });

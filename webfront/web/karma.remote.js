@@ -47,16 +47,6 @@ module.exports = function(config) {
         hostname: require("os").hostname(),
 
         customLaunchers: {
-            'Remote-Firefox': {
-                base: 'WebdriverJS',
-                config: {
-                    host: 'selenium.lighthouse.pro',
-                    port: 80,
-                    desiredCapabilities: {
-                        browserName: 'firefox'
-                    }
-                }
-            },
             'Remote-Chrome': {
                 base: 'WebdriverJS',
                 config: {
@@ -64,6 +54,16 @@ module.exports = function(config) {
                     port: 80,
                     desiredCapabilities: {
                         browserName: 'chrome'
+                    }
+                }
+            },
+            'Remote-Firefox': {
+                base: 'WebdriverJS',
+                config: {
+                    host: 'selenium.lighthouse.pro',
+                    port: 80,
+                    desiredCapabilities: {
+                        browserName: 'firefox'
                     }
                 }
             }
@@ -77,7 +77,10 @@ module.exports = function(config) {
         // - Safari (only Mac)
         // - PhantomJS
         // - IE (only Windows)
-        browsers: ['Remote-Firefox', 'Remote-Chrome'],
+        browsers: [
+            //'Remote-Chrome',
+            'Remote-Firefox'
+        ],
 
         // If browser does not capture in given timeout [ms], kill it
         captureTimeout: 60000,

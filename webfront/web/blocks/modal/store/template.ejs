@@ -1,0 +1,23 @@
+<div id="modal_store"
+     class="modal modal_store">
+
+    <div class="modal__header">
+        <a type="button"
+           class="modal__closeLink fa fa-times"></a>
+
+        <button form="form_store"
+                type="submit"
+                class="btn btn-primary pull-right">
+            <%- storeId != 0 ? 'Сохранить' : 'Добавить' %>
+        </button>
+
+        <h4 class="modal__title">
+            <%- storeId != 0 ? 'Редактирование магазина' : 'Добавить магазин' %>
+        </h4>
+    </div>
+    <div class="modal__body">
+
+        <b block="form_store"></b>
+
+    </div>
+</div>

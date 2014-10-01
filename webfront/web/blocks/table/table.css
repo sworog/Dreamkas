@@ -1,0 +1,47 @@
+.table [data-sort-by] {
+    cursor: pointer;
+    color: #0a819c;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.table [data-sort-by]:after {
+    content: "";
+    visibility: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    height: 0;
+    width: 0;
+    margin-left: 10px;
+    margin-top: -1px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.table [data-sort-by][data-sorted-direction]:after{
+    visibility: visible;
+}
+
+.table [data-sorted-direction="ascending"]:after{
+    border-bottom-color: #0a819c;
+    border-top: none;
+}
+
+.table [data-sorted-direction="descending"]:after{
+    border-top-color: #0a819c;
+    border-bottom: none;
+}
+
+.table_stockBalance tbody{
+    font-size: 15px;
+}
+
+.table_stockBalance__barcode,
+.table_stockBalance__units {
+    color: #ccc;
+    font-size: 12px;
+}

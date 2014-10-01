@@ -35,14 +35,17 @@ class StoreProductController extends AbstractRestController
 
     /**
      * @param Store $store
+     * @param ProductFilter $filter
      * @return StoreProductCollection
      *
+     * @Rest\Route("stores/{store}/products")
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function getStoreProductsAction(Store $store)
+    public function getStoreProductsAction(Store $store, ProductFilter $filter)
     {
-        return $this->documentRepository->findByStore($store);
+        $filter->setPropertiesRequired(false);
+        return $this->documentRepository->search($store, $filter);
     }
 
     /**

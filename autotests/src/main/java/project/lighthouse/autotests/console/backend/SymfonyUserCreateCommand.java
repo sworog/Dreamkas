@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.console.backend;
 
 import org.apache.commons.codec.digest.UnixCrypt;
+import project.lighthouse.autotests.storage.Storage;
 
 /**
  * symfony:user:create cap command implementation
@@ -16,6 +17,8 @@ public class SymfonyUserCreateCommand extends BackendCommand {
     }
 
     private static String userProjectId(String email) {
-        return UnixCrypt.crypt(email).replace(".", "").replace("/", "");
+        String projectId = UnixCrypt.crypt(email).replace(".", "").replace("/", "");
+        Storage.getUserVariableStorage().setUserProjectName(projectId);
+        return projectId;
     }
 }

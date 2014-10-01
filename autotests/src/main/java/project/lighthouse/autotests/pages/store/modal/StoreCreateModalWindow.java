@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.store.modal;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
@@ -19,11 +20,16 @@ public class StoreCreateModalWindow extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal-storeAdd']";
+        return "//*[@id='modal_store']";
     }
 
     @Override
     public void confirmationOkClick() {
         new PrimaryBtnFacade(this, "Добавить").click();
+    }
+
+    @Override
+    public String getTitle() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
 }
