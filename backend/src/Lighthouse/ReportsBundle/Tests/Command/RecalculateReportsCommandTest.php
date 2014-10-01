@@ -80,6 +80,8 @@ class RecalculateReportsCommandTest extends TestCase
         $this->assertEquals(0, $exitCode);
 
         $this->assertContains('Recalculate reports started', $commandTester->getDisplay());
+        $this->assertContains('Recalculate reports for project id1', $commandTester->getDisplay());
+        $this->assertContains('Recalculate reports for project id', $commandTester->getDisplay());
         $this->assertContains('Recalculate reports finished', $commandTester->getDisplay());
     }
 }
