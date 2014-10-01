@@ -70,6 +70,8 @@ define(function(require, exports, module) {
                 result[key] = page.get('models.' + key);
             });
 
+            document.getElementById('modal__wrapper').classList.remove('modal__wrapper_visible');
+
             $.when(page.fetch()).then(function() {
                 page.render();
                 page.setStatus('loaded');

@@ -11,7 +11,7 @@ define(function(require, exports, module) {
                 var page = this,
                     select = e.currentTarget;
 
-                page.$('select[name="group"]').removeAttr('disabled');
+                page.$('select[name="group"], input[name="productFilter"], .productFinder__resetLink').removeAttr('disabled');
 
                 page.findProducts({
                     storeId: e.currentTarget.value
@@ -31,11 +31,10 @@ define(function(require, exports, module) {
                     select.classList.remove('loading');
                 });
             },
-            'click .productFinder__resetLink': function(e){
+            'click .productFinder__resetLink:not([disabled])': function(e){
                 var productFilterInput = document.querySelector('[name="productFilter"]');
 
                 productFilterInput.value = '';
-
                 productFilterInput.classList.add('loading');
 
                 this.findProducts({
