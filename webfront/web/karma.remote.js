@@ -35,10 +35,8 @@ module.exports = function(config) {
         },
 
 		coverageReporter: {
-			reporters: [
-				{ type: 'html', dir: 'build/coverage/html/' },
-				{ type: 'cobertura', dir: 'build/coverage/cobertura/' }
-			]
+			type : 'cobertura',
+			dir: 'build/coverage/'
 		},
 
 		preprocessors: {
