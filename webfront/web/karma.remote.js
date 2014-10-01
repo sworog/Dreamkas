@@ -36,7 +36,7 @@ module.exports = function(config) {
 
 		coverageReporter: {
 			type : 'cobertura',
-			dir: 'build/coverage/'
+			dir: 'build/tests_coverage/'
 		},
 
 		preprocessors: {
