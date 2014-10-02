@@ -49,3 +49,7 @@
 .table_stockSell__groupName {
     color: #0a819c;
 }
+
+.table_invoiceProducts__removeProductLink {
+    color: #999;
+}

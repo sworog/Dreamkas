@@ -74,7 +74,8 @@ define(function(require, exports, module) {
 
             block.clear();
 
-            block.el.querySelector('[name="product.name"]').focus();
+            block.el.querySelector('.tt-input[name="product.name"]').focus();
+
         },
 
         showErrors: function(error){
@@ -129,7 +130,7 @@ define(function(require, exports, module) {
             }
 
             block.el.querySelector('input[name="quantity"]').value = '1';
-            block.$('.invoiceProductForm .product__units').html(product.units || 'шт.');
+            block.$('.form_invoiceProducts__controls .product__units').html(product.units || 'шт.');
 
             block.renderTotalSum();
         },
