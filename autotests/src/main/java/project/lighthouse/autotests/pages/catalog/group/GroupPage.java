@@ -35,7 +35,7 @@ public class GroupPage extends BootstrapPageObject {
     }
 
     public ProductCollection getProductCollection() {
-        return new ProductCollection(getDriver(), By.className("product__link"));
+        return new ProductCollection(getDriver(), By.xpath("//tr[@data-modal='modal_product']"));
     }
 
     public void sortByNameClick() {
