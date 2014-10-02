@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.catalog.group;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.collection.product.ProductCollection;
-import project.lighthouse.autotests.common.objects.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 /**

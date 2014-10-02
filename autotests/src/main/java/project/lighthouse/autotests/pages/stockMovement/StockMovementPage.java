@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.stockMovement;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.collection.stockMovement.StockMovementListObjectCollection;
-import project.lighthouse.autotests.common.objects.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DropdownBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;

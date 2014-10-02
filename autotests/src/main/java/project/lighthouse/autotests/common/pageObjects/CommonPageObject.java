@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.common.objects;
+package project.lighthouse.autotests.common.pageObjects;
 
 import net.thucydides.core.pages.PageObject;
 import org.apache.commons.lang.NotImplementedException;
