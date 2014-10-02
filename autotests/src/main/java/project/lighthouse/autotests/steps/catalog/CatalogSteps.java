@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.collection.catalog.GroupObjectCollection;
+import project.lighthouse.autotests.common.item.interfaces.FieldErrorCheckable;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
@@ -170,11 +171,11 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void createGroupModalPageCheckFieldError(String errorMessage) {
-        createGroupModalPage.getItems().get("name").getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        ((FieldErrorCheckable) createGroupModalPage.getItems().get("name")).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
 
     @Step
     public void editGroupModalPageCheckFieldError(String errorMessage) {
-        editGroupModalPage.getItems().get("name").getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        ((FieldErrorCheckable) editGroupModalPage.getItems().get("name")).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
 }

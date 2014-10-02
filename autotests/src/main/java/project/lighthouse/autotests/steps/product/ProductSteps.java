@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.collection.product.ProductCollection;
+import project.lighthouse.autotests.common.item.interfaces.FieldErrorCheckable;
+import project.lighthouse.autotests.common.item.interfaces.Findable;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.catalog.group.GroupPage;
@@ -70,7 +72,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowMarkUpIsNotVisible() {
-        By markUpValueFindBy = createNewProductModalWindow.getItems().get("markUpValue").getFindBy();
+        By markUpValueFindBy = ((Findable) createNewProductModalWindow.getItems().get("markUpValue")).getFindBy();
         if (!createNewProductModalWindow.invisibilityOfElementLocated(markUpValueFindBy)) {
             fail("The markUp value is visible in create new product modal window");
         }
@@ -78,7 +80,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertEditProductModalWindowMarkUpIsNotVisible() {
-        By markUpValueFindBy = editProductModalWindow.getItems().get("markUpValue").getFindBy();
+        By markUpValueFindBy = ((Findable) editProductModalWindow.getItems().get("markUpValue")).getFindBy();
         if (!editProductModalWindow.invisibilityOfElementLocated(markUpValueFindBy)) {
             fail("The markUp value is visible in create new product modal window");
         }
@@ -206,12 +208,12 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
-        createNewProductModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        ((FieldErrorCheckable) createNewProductModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
 
     @Step
     public void assertEditProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
-        editProductModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        ((FieldErrorCheckable) editProductModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
 
     @Step
