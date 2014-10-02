@@ -18,7 +18,7 @@ public class GivenConsoleCommandsUserSteps {
     @Steps
     ConsoleCommandSteps consoleCommandSteps;
 
-    @Given("the user runs the recalculate_metrics cap command")
+    @Given("пользователь запускает команду пересчета метрики продуктов")
     public void givenTheRobotRunsTheRecalculateMetricsCapCommand() throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestsSymfonyProductsRecalculateMetricsCommand();
     }

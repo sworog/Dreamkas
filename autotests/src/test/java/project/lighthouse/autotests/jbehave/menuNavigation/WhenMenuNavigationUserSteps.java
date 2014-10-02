@@ -15,7 +15,7 @@ public class WhenMenuNavigationUserSteps {
         menuNavigationSteps.userNameLinkClick();
     }
 
-    @When("the user clicks the menu report item")
+    @When("пользователь нажимает на пункт меню 'Отчеты' в боковом меню навигации")
     public void whenTheUserClicksTheMenuReportItemClick() {
         menuNavigationSteps.reportMenuItemClick();
     }

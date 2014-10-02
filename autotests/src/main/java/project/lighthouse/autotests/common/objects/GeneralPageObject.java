@@ -25,4 +25,8 @@ public interface GeneralPageObject {
     public void compareWithExampleTable(ExamplesTable examplesTable);
 
     public void clickOnCollectionObjectByLocator(String locator);
+
+    public String getCommonItemAttributeValue(String commonItemName, String attribute);
+
+    public void clickOnCommonItemWihName(String commonItemName);
 }

@@ -13,6 +13,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void reportMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
         menuNavigationBar.getReportMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
     }
 
     @Step
