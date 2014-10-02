@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.common.item.interfaces.Findable;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.pages.MenuNavigationBar;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
@@ -84,7 +85,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void workAroundTypeForUserName(String inputText) {
         authorizationPage.input("userName", inputText);
-        if (!authorizationPage.getItems().get("userName").getVisibleWebElementFacade().getValue().equals(inputText)) {
+        if (!((Findable) authorizationPage.getItems().get("userName")).getVisibleWebElementFacade().getValue().equals(inputText)) {
             workAroundTypeForUserName(inputText);
         }
     }
@@ -118,7 +119,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void loginFormIsPresent() {
         try {
-            authorizationPage.getItems().get("form_login").getVisibleWebElement();
+            ((Findable) authorizationPage.getItems().get("form_login")).getVisibleWebElement();
         } catch (TimeoutException e) {
             fail("The log out is not successful!");
         }
