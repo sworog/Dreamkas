@@ -90,7 +90,7 @@ public class ProductSteps extends ScenarioSteps {
         try {
             productCollection = groupPage.getProductCollection();
         } catch (TimeoutException e) {
-            groupPage.containsText(NO_PRODUCTS_MESSAGE);
+            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
         } catch (StaleElementReferenceException e) {
             productCollection = groupPage.getProductCollection();
         } finally {
@@ -106,7 +106,7 @@ public class ProductSteps extends ScenarioSteps {
         try {
             productCollection = groupPage.getProductCollection();
         } catch (TimeoutException e) {
-            groupPage.containsText(NO_PRODUCTS_MESSAGE);
+            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
         } catch (StaleElementReferenceException e) {
             productCollection = groupPage.getProductCollection();
         } finally {
@@ -157,7 +157,7 @@ public class ProductSteps extends ScenarioSteps {
         try {
             productCollection = groupPage.getProductCollection();
         } catch (TimeoutException e) {
-            groupPage.containsText(NO_PRODUCTS_MESSAGE);
+            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
         } catch (StaleElementReferenceException e) {
             productCollection = groupPage.getProductCollection();
         } finally {
@@ -173,7 +173,7 @@ public class ProductSteps extends ScenarioSteps {
         try {
             productCollection = groupPage.getProductCollection();
         } catch (TimeoutException e) {
-            groupPage.containsText(NO_PRODUCTS_MESSAGE);
+            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
         } catch (StaleElementReferenceException e) {
             productCollection = groupPage.getProductCollection();
         } finally {

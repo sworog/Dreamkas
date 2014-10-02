@@ -185,4 +185,12 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
     public void clickOnCommonItemWihName(String commonItemName) {
         getItems().get(commonItemName).click();
     }
+
+    public void shouldContainsText(String textValue) {
+        findVisibleElement(
+                By.xpath(
+                        String.format("//*[contains(normalize-space(text()), '%s')]", textValue)
+                )
+        );
+    }
 }

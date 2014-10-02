@@ -78,11 +78,7 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void pageContainsText(String text) {
-        getCommonPageObject().getWaiter().getVisibleWebElement(
-                By.xpath(
-                        String.format("//*[contains(normalize-space(text()), '%s')]", text)
-                )
-        );
+        getCommonPageObject().shouldContainsText(text);
     }
 
     @Step
