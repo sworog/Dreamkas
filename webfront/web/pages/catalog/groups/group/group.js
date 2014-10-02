@@ -10,14 +10,7 @@ define(function(require, exports, module) {
             groups: require('collections/groups/groups'),
             groupProducts: function(){
                 var page = this,
-                    ProductsCollection = require('collections/groupProducts/groupProducts'),
-                    productCollection = new ProductsCollection([], {
-                        groupId: page.params.groupId
-                    });
-
-                page.listenTo(productCollection, {
-                    remove: function(){
-                        var modal = $('.modal:visible');
+                    ProductsCollection = require('collections/groupProducts/groupProducts');
 
                 return new ProductsCollection([], {
                     groupId: page.params.groupId

@@ -112,12 +112,12 @@ define(function(require) {
             var block = this,
                 modal = block.$el.closest('.modal')[0];
 
-            if (modal) {
-                modal.block.hide();
-            }
-
             if (block.collection) {
                 block.collection.add(block.model);
+            }
+
+            if (modal) {
+                modal.block.hide();
             }
 
             if (block.redirectUrl) {
