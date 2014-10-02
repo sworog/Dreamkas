@@ -1,0 +1,560 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CE1B3DA819DD40CA00A253D1 /* text.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D8E19DD40CA00A253D1 /* text.txt */; };
+		CE1B3DA919DD40CA00A253D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */; };
+		CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */; };
+		CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */; };
+		CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */; };
+		CE1B3DAD19DD40CA00A253D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9819DD40CA00A253D1 /* ViewController.m */; };
+		CE1B3DAE19DD40CA00A253D1 /* cert.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9B19DD40CA00A253D1 /* cert.txt */; };
+		CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DA319DD40CA00A253D1 /* Info.plist */; };
+		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
+		CE1B3DB619DD40E500A253D1 /* dreamkas-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DB419DD40E500A253D1 /* dreamkas-tests.m */; };
+		CE1B3DB719DD40E500A253D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DB519DD40E500A253D1 /* Info.plist */; };
+		CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */; };
+		CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */; };
+		CE1B3DC519DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */; };
+		CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CE1B3D7D19DD3CF100A253D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE1B3D5B19DD3CF000A253D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE1B3D6219DD3CF000A253D1;
+			remoteInfo = dreamkas;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CE1B3D6319DD3CF000A253D1 /* dreamkas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dreamkas.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE1B3D7C19DD3CF100A253D1 /* dreamkasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dreamkasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE1B3D8E19DD40CA00A253D1 /* text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = text.txt; sourceTree = "<group>"; };
+		CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CE1B3D9119DD40CA00A253D1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pages.storyboard; sourceTree = "<group>"; };
+		CE1B3D9719DD40CA00A253D1 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		CE1B3D9819DD40CA00A253D1 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		CE1B3D9B19DD40CA00A253D1 /* cert.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cert.txt; sourceTree = "<group>"; };
+		CE1B3DA319DD40CA00A253D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE1B3DA419DD40CA00A253D1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CE1B3DB419DD40E500A253D1 /* dreamkas-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "dreamkas-tests.m"; sourceTree = "<group>"; };
+		CE1B3DB519DD40E500A253D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE1B3DB819DD445700A253D1 /* dreamkas-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dreamkas-prefix.pch"; sourceTree = "<group>"; };
+		CE1B3DBB19DD46DD00A253D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		CE1B3DBD19DD46DD00A253D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		CE1B3DC019DD46DD00A253D1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = InfoPlist.strings; sourceTree = "<group>"; };
+		CE1B3DC219DD46DD00A253D1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Localizable.strings; sourceTree = "<group>"; };
+		CE1B3DC919DD4A8800A253D1 /* StyleDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleDefines.h; sourceTree = "<group>"; };
+		CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDefines.h; sourceTree = "<group>"; };
+		CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockDefines.h; sourceTree = "<group>"; };
+		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE1B3D6019DD3CF000A253D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE1B3D7919DD3CF100A253D1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CE1B3D5A19DD3CF000A253D1 = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D9019DD40CA00A253D1 /* Sources */,
+				CE1B3D8C19DD40CA00A253D1 /* Resources */,
+				CE1B3DA719DD40CA00A253D1 /* Submodules */,
+				CE1B3D6419DD3CF000A253D1 /* Products */,
+				CE1B3DB319DD40E500A253D1 /* Tests */,
+			);
+			sourceTree = "<group>";
+		};
+		CE1B3D6419DD3CF000A253D1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D6319DD3CF000A253D1 /* dreamkas.app */,
+				CE1B3D7C19DD3CF100A253D1 /* dreamkasTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CE1B3D8C19DD40CA00A253D1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D8D19DD40CA00A253D1 /* Files */,
+				CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CE1B3D8D19DD40CA00A253D1 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D8E19DD40CA00A253D1 /* text.txt */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		CE1B3D9019DD40CA00A253D1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D9119DD40CA00A253D1 /* AppDelegate.h */,
+				CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */,
+				CE1B3D9319DD40CA00A253D1 /* Pages */,
+				CE1B3D9919DD40CA00A253D1 /* Supporting Files */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		CE1B3D9319DD40CA00A253D1 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */,
+				CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */,
+				CE1B3D9619DD40CA00A253D1 /* TestScreen */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		CE1B3D9619DD40CA00A253D1 /* TestScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D9719DD40CA00A253D1 /* ViewController.h */,
+				CE1B3D9819DD40CA00A253D1 /* ViewController.m */,
+			);
+			path = TestScreen;
+			sourceTree = "<group>";
+		};
+		CE1B3D9919DD40CA00A253D1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3DB919DD46DD00A253D1 /* en.lproj */,
+				CE1B3DBE19DD46DD00A253D1 /* ru.lproj */,
+				CE1B3DA119DD40CA00A253D1 /* Headers */,
+				CE1B3D9A19DD40CA00A253D1 /* Certificates */,
+				CE1B3DA319DD40CA00A253D1 /* Info.plist */,
+				CE1B3DA419DD40CA00A253D1 /* main.m */,
+				CE1B3DB819DD445700A253D1 /* dreamkas-prefix.pch */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE1B3D9A19DD40CA00A253D1 /* Certificates */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3D9B19DD40CA00A253D1 /* cert.txt */,
+			);
+			path = Certificates;
+			sourceTree = "<group>";
+		};
+		CE1B3DA119DD40CA00A253D1 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3DC919DD4A8800A253D1 /* StyleDefines.h */,
+				CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */,
+				CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */,
+				CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		CE1B3DA719DD40CA00A253D1 /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Submodules;
+			sourceTree = "<group>";
+		};
+		CE1B3DB319DD40E500A253D1 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3DB419DD40E500A253D1 /* dreamkas-tests.m */,
+				CE1B3DB519DD40E500A253D1 /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		CE1B3DB919DD46DD00A253D1 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */,
+				CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		CE1B3DBE19DD46DD00A253D1 /* ru.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */,
+				CE1B3DC119DD46DD00A253D1 /* Localizable.strings */,
+			);
+			path = ru.lproj;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CE1B3D6219DD3CF000A253D1 /* dreamkas */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE1B3D8619DD3CF100A253D1 /* Build configuration list for PBXNativeTarget "dreamkas" */;
+			buildPhases = (
+				CE1B3D5F19DD3CF000A253D1 /* Sources */,
+				CE1B3D6019DD3CF000A253D1 /* Frameworks */,
+				CE1B3D6119DD3CF000A253D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dreamkas;
+			productName = dreamkas;
+			productReference = CE1B3D6319DD3CF000A253D1 /* dreamkas.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CE1B3D7B19DD3CF100A253D1 /* dreamkasTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE1B3D8919DD3CF100A253D1 /* Build configuration list for PBXNativeTarget "dreamkasTests" */;
+			buildPhases = (
+				CE1B3D7819DD3CF100A253D1 /* Sources */,
+				CE1B3D7919DD3CF100A253D1 /* Frameworks */,
+				CE1B3D7A19DD3CF100A253D1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CE1B3D7E19DD3CF100A253D1 /* PBXTargetDependency */,
+			);
+			name = dreamkasTests;
+			productName = dreamkasTests;
+			productReference = CE1B3D7C19DD3CF100A253D1 /* dreamkasTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CE1B3D5B19DD3CF000A253D1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = Dreamkas;
+				TargetAttributes = {
+					CE1B3D6219DD3CF000A253D1 = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+					CE1B3D7B19DD3CF100A253D1 = {
+						CreatedOnToolsVersion = 6.0.1;
+						TestTargetID = CE1B3D6219DD3CF000A253D1;
+					};
+				};
+			};
+			buildConfigurationList = CE1B3D5E19DD3CF000A253D1 /* Build configuration list for PBXProject "dreamkas" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				ru,
+			);
+			mainGroup = CE1B3D5A19DD3CF000A253D1;
+			productRefGroup = CE1B3D6419DD3CF000A253D1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CE1B3D6219DD3CF000A253D1 /* dreamkas */,
+				CE1B3D7B19DD3CF100A253D1 /* dreamkasTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CE1B3D6119DD3CF000A253D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */,
+				CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */,
+				CE1B3DA819DD40CA00A253D1 /* text.txt in Resources */,
+				CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */,
+				CE1B3DA919DD40CA00A253D1 /* Images.xcassets in Resources */,
+				CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */,
+				CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */,
+				CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */,
+				CE1B3DC519DD46DD00A253D1 /* InfoPlist.strings in Resources */,
+				CE1B3DAE19DD40CA00A253D1 /* cert.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE1B3D7A19DD3CF100A253D1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1B3DB719DD40E500A253D1 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CE1B3D5F19DD3CF000A253D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1B3DAD19DD40CA00A253D1 /* ViewController.m in Sources */,
+				CE1B3DB219DD40CA00A253D1 /* main.m in Sources */,
+				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE1B3D7819DD3CF100A253D1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE1B3DB619DD40E500A253D1 /* dreamkas-tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE1B3D7E19DD3CF100A253D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE1B3D6219DD3CF000A253D1 /* dreamkas */;
+			targetProxy = CE1B3D7D19DD3CF100A253D1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE1B3DBB19DD46DD00A253D1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE1B3DBD19DD46DD00A253D1 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE1B3DC019DD46DD00A253D1 /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CE1B3DC119DD46DD00A253D1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CE1B3DC219DD46DD00A253D1 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CE1B3D8419DD3CF100A253D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		CE1B3D8519DD3CF100A253D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CE1B3D8719DD3CF100A253D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		CE1B3D8819DD3CF100A253D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		CE1B3D8A19DD3CF100A253D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = dreamkasTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dreamkas.app/dreamkas";
+			};
+			name = Debug;
+		};
+		CE1B3D8B19DD3CF100A253D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = dreamkasTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dreamkas.app/dreamkas";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CE1B3D5E19DD3CF000A253D1 /* Build configuration list for PBXProject "dreamkas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE1B3D8419DD3CF100A253D1 /* Debug */,
+				CE1B3D8519DD3CF100A253D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE1B3D8619DD3CF100A253D1 /* Build configuration list for PBXNativeTarget "dreamkas" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE1B3D8719DD3CF100A253D1 /* Debug */,
+				CE1B3D8819DD3CF100A253D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CE1B3D8919DD3CF100A253D1 /* Build configuration list for PBXNativeTarget "dreamkasTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE1B3D8A19DD3CF100A253D1 /* Debug */,
+				CE1B3D8B19DD3CF100A253D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CE1B3D5B19DD3CF000A253D1 /* Project object */;
+}
