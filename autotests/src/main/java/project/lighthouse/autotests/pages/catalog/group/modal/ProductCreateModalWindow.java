@@ -36,6 +36,6 @@ public class ProductCreateModalWindow extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal-productAdd']";
+        return "//*[@id='modal_product']";
     }
 }

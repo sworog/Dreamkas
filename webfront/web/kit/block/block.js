@@ -67,6 +67,10 @@ define(function(require, exports, module) {
             block.initBlocks();
 
             block.el.block = this;
+
+            block.$('button[data-toggle="popover"]').popover({
+                trigger: 'focus'
+            });
         },
 
         get: function() {

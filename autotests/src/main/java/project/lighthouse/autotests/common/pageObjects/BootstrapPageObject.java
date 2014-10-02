@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.common.objects;
+package project.lighthouse.autotests.common.pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

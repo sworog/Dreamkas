@@ -2,7 +2,7 @@ package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import project.lighthouse.autotests.common.objects.GeneralPageObject;
+import project.lighthouse.autotests.common.pageObjects.GeneralPageObject;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.Map;

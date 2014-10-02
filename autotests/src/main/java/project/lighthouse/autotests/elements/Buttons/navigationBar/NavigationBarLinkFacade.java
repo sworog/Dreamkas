@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.elements.Buttons.navigationBar;
 
-import project.lighthouse.autotests.common.objects.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
 
 /**

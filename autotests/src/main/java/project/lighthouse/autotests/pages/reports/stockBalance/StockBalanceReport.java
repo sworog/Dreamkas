@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.collection.reports.stockBalance.StockBalanceObject;
-import project.lighthouse.autotests.common.objects.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NonType;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;

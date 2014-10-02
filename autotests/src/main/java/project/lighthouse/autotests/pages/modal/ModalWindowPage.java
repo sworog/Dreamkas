@@ -3,8 +3,8 @@ package project.lighthouse.autotests.pages.modal;
 import net.thucydides.core.annotations.WhenPageOpens;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.common.objects.CommonPageObject;
-import project.lighthouse.autotests.common.objects.ModalWindowPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.ModalWindowPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 /**

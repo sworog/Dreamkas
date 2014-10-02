@@ -2,7 +2,7 @@ package project.lighthouse.autotests.pages.reports;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.common.objects.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 
 public class ReportsMainPage extends BootstrapPageObject {
 

@@ -32,7 +32,7 @@ public class PosSaleHistoryPage extends CommonPosPage {
         try {
             historyReceiptCollection = new HistoryReceiptCollection(getDriver());
         } catch (TimeoutException e) {
-            containsText("Продаж не найдено.");
+            shouldContainsText("Продаж не найдено.");
         } catch (StaleElementReferenceException e) {
             historyReceiptCollection = new HistoryReceiptCollection(getDriver());
         }
