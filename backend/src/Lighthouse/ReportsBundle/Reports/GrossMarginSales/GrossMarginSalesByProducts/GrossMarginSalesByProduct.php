@@ -3,12 +3,14 @@
 namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 /**
  * @property StoreProduct   $storeProduct
+ * @property Product        $product
  * @property Money          $grossSales
  * @property Money          $costOfGoods
  * @property Money          $grossMargin
@@ -20,6 +22,11 @@ class GrossMarginSalesByProduct extends AbstractDocument
      * @var StoreProduct
      */
     protected $storeProduct;
+
+    /**
+     * @var Product
+     */
+    protected $product;
 
     /**
      * @var Money
@@ -42,10 +49,10 @@ class GrossMarginSalesByProduct extends AbstractDocument
     protected $quantity;
 
     /**
-     * @param StoreProduct $storeProduct
+     * @param Product|StoreProduct $product
      */
-    public function __construct(StoreProduct $storeProduct)
+    public function __construct(Product $product)
     {
-        $this->storeProduct = $storeProduct;
+        $this->product = $product;
     }
 }

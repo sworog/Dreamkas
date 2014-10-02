@@ -694,7 +694,7 @@ class GrossSalesReportManager
         $endDayHours = $this->extractEndDayHours($dayHours);
         $queryDates = $this->getQueryDates($dayHours);
 
-        $storeProducts = $this->storeProductRepository->findByStoreSubCategory($store, $subCategory);
+        $storeProducts = $this->storeProductRepository->findOrCreateByStoreSubCategory($store, $subCategory);
 
         $reports = $this->grossSalesProductRepository->findByDayHoursStoreProducts(
             $queryDates,

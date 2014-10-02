@@ -5,7 +5,7 @@ define(function(require) {
         return Collection.extend({
             groupId: null,
             url: function(){
-                return Collection.baseApiUrl + '/subcategories/' + this.groupId + '/products'
+                return Collection.baseApiUrl + '/catalog/groups/' + this.groupId + '/reports/grossMarginSalesByProduct'
             }
         });
     }

@@ -101,7 +101,7 @@ class StoreProductController extends AbstractRestController
      */
     public function getStoreSubcategoryProductsAction(Store $store, SubCategory $subCategory)
     {
-        return $this->documentRepository->findByStoreSubCategory($store, $subCategory);
+        return $this->documentRepository->findOrCreateByStoreSubCategory($store, $subCategory);
     }
 
     /**

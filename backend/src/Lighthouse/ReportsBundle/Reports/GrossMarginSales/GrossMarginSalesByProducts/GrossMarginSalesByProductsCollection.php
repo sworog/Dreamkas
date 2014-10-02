@@ -3,40 +3,41 @@
 namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts;
 
 use Lighthouse\CoreBundle\Document\DocumentCollection;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 
 class GrossMarginSalesByProductsCollection extends DocumentCollection
 {
     /**
-     * @param StoreProduct $storeProduct
+     * @param Product $product
      * @return bool
      */
-    public function containsStoreProduct(StoreProduct $storeProduct)
+    public function containsProduct(Product $product)
     {
-        return $this->containsKey($storeProduct->id);
+        return $this->containsKey($product->id);
     }
 
     /**
-     * @param StoreProduct $storeProduct
+     * @param Product $product
      * @return GrossMarginSalesByProduct
      */
-    public function getByStoreProduct(StoreProduct $storeProduct)
+    public function getByProduct(Product $product)
     {
-        if ($this->containsStoreProduct($storeProduct)) {
-            return $this->get($storeProduct->id);
+        if ($this->containsProduct($product)) {
+            return $this->get($product->id);
         } else {
-            return $this->createByStoreProduct($storeProduct);
+            return $this->createByProduct($product);
         }
     }
 
     /**
-     * @param StoreProduct $storeProduct
+     * @param Product $product
      * @return GrossMarginSalesByProduct
      */
-    public function createByStoreProduct(StoreProduct $storeProduct)
+    public function createByProduct(Product $product)
     {
-        $report = new GrossMarginSalesByProduct($storeProduct);
-        $this->set($storeProduct->id, $report);
+        $report = new GrossMarginSalesByProduct($product);
+        $this->set($product->id, $report);
         return $report;
     }
 }

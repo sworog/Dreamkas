@@ -3,11 +3,14 @@
 namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentCollection;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductReport;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use Doctrine\ODM\MongoDB\Cursor;
 use DateTime;
@@ -28,6 +31,11 @@ class GrossMarginSalesReportManager
      * @var StoreProductRepository
      */
     protected $storeProductRepository;
+
+    /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
 
     /**
      * @DI\InjectParams({
@@ -56,25 +64,56 @@ class GrossMarginSalesReportManager
     }
 
     /**
-     * @param Store $store
+     * @param SubCategory $subCategory
+     * @param $storeId
      * @param DateTime $startDate
      * @param DateTime $endDate
-     * @return Cursor
+     * @return GrossMarginSalesByProductsCollection
      */
-    public function getGrossSalesByProductReports(Store $store, DateTime $startDate, DateTime $endDate)
-    {
-        $storeProducts = $this->storeProductRepository->findByStore($store);
+    public function getGrossSalesByProductForStoreReports(
+        SubCategory $subCategory,
+        $storeId,
+        DateTime $startDate,
+        DateTime $endDate
+    ) {
+        $storeProducts = $this->storeProductRepository->findOrCreateByStoreIdSubCategory($storeId, $subCategory);
 
-        $reports = $this->grossMarginSalesProductRepository->findByStoreProductsAndPeriod(
-            $storeProducts->getIds(),
-            $startDate,
-            $endDate
-        );
+        return $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+    }
+
+    /**
+     * @param SubCategory $subCategory
+     * @param DateTime $startDate
+     * @param DateTime $endDate
+     * @return GrossMarginSalesByProductsCollection
+     */
+    public function getGrossSalesByProductForSubCategoryReports(
+        SubCategory $subCategory,
+        DateTime $startDate,
+        DateTime $endDate
+    ) {
+        $storeProducts = $this->storeProductRepository->findBySubCategory($subCategory);
+
+        return $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+    }
+
+    /**
+     * @param array|string[] $storeProductIds
+     * @param DateTime $startDate
+     * @param DateTime $endDate
+     * @return GrossMarginSalesByProductsCollection
+     */
+    protected function getReportsByStoreProducts($storeProductIds, DateTime $startDate, DateTime $endDate)
+    {
+        $reports = $this
+            ->grossMarginSalesProductRepository
+            ->findByStoreProductsAndPeriod($storeProductIds, $startDate, $endDate);
 
         $collection = new GrossMarginSalesByProductsCollection();
 
         foreach ($reports as $report) {
-            $grossMarginSalesByProductReport = $collection->getByStoreProduct($report->product);
+            $grossMarginSalesByProductReport = $collection->getByProduct($report->product->product);
+            $grossMarginSalesByProductReport->storeProduct = $report->product;
             $grossMarginSalesByProductReport->grossSales
                 = $report->grossSales->add($grossMarginSalesByProductReport->grossSales);
             $grossMarginSalesByProductReport->costOfGoods
