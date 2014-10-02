@@ -3,7 +3,9 @@
 namespace Lighthouse\ReportsBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProductsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
@@ -22,20 +24,30 @@ class GrossMarginSalesController extends FOSRestController
     protected $grossMarginSalesReportManager;
 
     /**
-     * @param Store $store
+     * @param SubCategory $group
      * @param Request $request
      * @return GrossMarginSalesByProductsCollection
      *
-     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
-     * @Rest\Route("stores/{store}/reports/grossMarginSalesByProduct")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("catalog/groups/{group}/reports/grossMarginSalesByProduct")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc()
      */
-    public function getReportsGrossMarginSalesByProductAction(Store $store, Request $request)
+    public function getCatalogGroupReportsGrossMarginSalesByProductAction(SubCategory $group, Request $request)
     {
+        $storeId = $request->get('store');
         $startDate = new DateTime($request->get('startDate', '-1 week 00:00:00'));
         $endDate = new DateTime($request->get('endDate', 'now'));
 
-        return $this->grossMarginSalesReportManager->getGrossSalesByProductReports($store, $startDate, $endDate);
+        if (null !== $storeId) {
+            return $this
+                ->grossMarginSalesReportManager
+                ->getGrossSalesByProductForStoreReports($group, $storeId, $startDate, $endDate);
+        } else {
+            return $this
+                ->grossMarginSalesReportManager
+                ->getGrossSalesByProductForSubCategoryReports($group, $startDate, $endDate);
+        }
+
     }
 }

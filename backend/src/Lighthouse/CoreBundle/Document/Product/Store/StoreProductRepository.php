@@ -171,6 +171,18 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param SubCategory $subCategory
+     * @param string $storeId
+     * @return StoreProductCollection
+     */
+    public function findByStoreIdSubCategory($storeId, SubCategory $subCategory)
+    {
+        $store = $this->storeRepository->find($storeId);
+
+        return $this->findByStoreSubCategory($store, $subCategory);
+    }
+
+    /**
+     * @param SubCategory $subCategory
      * @param Store $store
      * @return StoreProductCollection
      */
