@@ -70,6 +70,7 @@ define(function(require, exports, module) {
             });
 
             modal__wrapper && modal__wrapper.classList.remove('modal__wrapper_visible');
+            document.body.classList.remove('modal-open');
 
             $.when(page.fetch()).then(function() {
                 page.render();
