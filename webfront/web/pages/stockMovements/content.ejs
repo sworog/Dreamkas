@@ -53,60 +53,8 @@
 
                     <b block="form_stockMovementsFilters"></b>
 
-                    <% if (collections.stockMovements.length) { %>
-                    <table class="table table-striped table-hover table_stockMovements">
-                        <thead>
-                        <tr>
-                            <th>Дата</th>
-                            <th>Операция</th>
-                            <th>Магазин</th>
-                            <th>На сумму, <i class="fa fa-rub"></i></th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <b block="table_stockMovements"></b>
 
-                        <% _.forEach(collections.stockMovements.groupBy('date'), function(stockMovements, date){ %>
-
-                        <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
-
-                        <% if (stockMovementModel.get('type') === 'Invoice'){ %>
-                        <%= partials.tr.invoice({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
-
-                        <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
-                        <%= partials.tr.writeOff({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
-
-                        <% if (stockMovementModel.get('type') === 'StockIn'){ %>
-                        <%= partials.tr.stockIn({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
-
-                        <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
-                        <%= partials.tr.supplierReturn({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
-
-                        <% }) %>
-                        <% }) %>
-
-                        </tbody>
-                    </table>
-                    <% } else { %>
-                    <div style="margin-bottom: 0" class="alert alert-info">
-                        Не найдено ни одной операции с товарами.
-                    </div>
-                    <% } %>
                 </div>
             </div>
         </div>

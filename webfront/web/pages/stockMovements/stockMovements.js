@@ -17,28 +17,11 @@ define(function(require, exports, module) {
             groups: require('resources/group/collection'),
             stockMovements: function() {
                 var page = this,
-                    StockMovementsCollection = require('resources/stockMovement/collection'),
-                    stockMovementsCollection = new StockMovementsCollection([], {
-                        filters: _.pick(page.params, 'dateFrom', 'dateTo', 'types')
-                    });
+                    StockMovementsCollection = require('resources/stockMovement/collection');
 
-                page.listenTo(stockMovementsCollection, {
-                    remove: function() {
-                        var $modal = $('.modal:visible');
-
-                        $modal.one('modal.hidden', function(e) {
-                            page.render();
-                        });
-
-                        if ($modal[0].block) {
-                            $modal[0].block.hide();
-                        } else {
-                            $modal.modal('hide');
-                        }
-                    }
+                return new StockMovementsCollection([], {
+                    filters: _.pick(page.params, 'dateFrom', 'dateTo', 'types')
                 });
-
-                return stockMovementsCollection;
             }
         },
         models: {
@@ -95,6 +78,7 @@ define(function(require, exports, module) {
             modal_invoice: require('blocks/modal/invoice/invoice'),
             modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
+            table_stockMovements: require('blocks/table/stockMovements/stockMovements'),
             modal_writeOffAdd: function(opt) {
                 var block = this,
                     Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
