@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Select.extend({
         template: require('ejs!./template.ejs'),
         collection: function(){
-            return PAGE.collections.stores;
+            return PAGE.collections.suppliers;
         }
     });
 });
