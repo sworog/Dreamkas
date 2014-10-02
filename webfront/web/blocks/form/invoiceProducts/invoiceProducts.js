@@ -45,6 +45,13 @@ define(function(require, exports, module) {
                     collection: this.collection
                 });
             },
+            invoiceTotalPrice: function(){
+                var InvoiceTotalPrice = require('./invoiceTotalPrice');
+
+                return new InvoiceTotalPrice({
+                    collection: this.collection
+                });
+            },
             autocomplete_products: function() {
                 var block = this,
                     ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
