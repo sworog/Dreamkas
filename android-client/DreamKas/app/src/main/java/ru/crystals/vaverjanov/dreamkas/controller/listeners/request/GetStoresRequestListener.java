@@ -1,28 +1,31 @@
 package ru.crystals.vaverjanov.dreamkas.controller.listeners.request;
 
 import com.octo.android.robospice.persistence.exception.SpiceException;
-import ru.crystals.vaverjanov.dreamkas.model.api.NamedObjects;
 
-public class GetStoresRequestListener extends ExtRequestListener<NamedObjects>
+import ru.crystals.vaverjanov.dreamkas.controller.Command;
+
+public class GetStoresRequestListener<T> extends ExtRequestListener<T>
 {
-    private final IStoresRequestHandler managedActivity;
+    private final Command<T> mSuccessFinishcommand;
+    private final Command<SpiceException> mFailureFinishCommand;
 
-    public GetStoresRequestListener(IStoresRequestHandler activity)
+    public GetStoresRequestListener(Command<T> SuccessFinishCommand, Command<SpiceException> FailureFinishCommand)
     {
-        managedActivity = activity;
+        mSuccessFinishcommand = SuccessFinishCommand;
+        mFailureFinishCommand = FailureFinishCommand;
     }
 
     @Override
-    public void onRequestSuccess(NamedObjects result)
+    public void onRequestSuccess(T result)
     {
-        managedActivity.onGetStoresSuccessRequest(result);
+        mSuccessFinishcommand.execute(result);
         super.onRequestSuccess(result);
     }
 
     @Override
     public void onRequestFailure(SpiceException spiceException)
     {
-        managedActivity.onGetStoresFailureRequest(spiceException);
+        mFailureFinishCommand.execute(spiceException);
         super.onRequestFailure(spiceException);
     }
 }

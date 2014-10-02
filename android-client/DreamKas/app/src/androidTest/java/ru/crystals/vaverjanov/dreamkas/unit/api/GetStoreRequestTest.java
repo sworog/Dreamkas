@@ -6,7 +6,7 @@ import ru.crystals.vaverjanov.dreamkas.controller.requests.AuthRequest_;
 import ru.crystals.vaverjanov.dreamkas.controller.requests.GetStoresRequest;
 import ru.crystals.vaverjanov.dreamkas.controller.requests.GetStoresRequest_;
 import ru.crystals.vaverjanov.dreamkas.model.api.AuthObject;
-import ru.crystals.vaverjanov.dreamkas.model.api.NamedObjects;
+import ru.crystals.vaverjanov.dreamkas.model.api.collections.NamedObjects;
 import ru.crystals.vaverjanov.dreamkas.model.api.Token;
 
 public class GetStoreRequestTest extends InstrumentationTestCase {

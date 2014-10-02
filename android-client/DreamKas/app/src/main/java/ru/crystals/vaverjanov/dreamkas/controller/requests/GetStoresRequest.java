@@ -1,15 +1,16 @@
 package ru.crystals.vaverjanov.dreamkas.controller.requests;
+import ru.crystals.vaverjanov.dreamkas.model.api.collections.NamedObjects;
 
-import org.androidannotations.annotations.EBean;
-import ru.crystals.vaverjanov.dreamkas.model.api.NamedObjects;
-
-@EBean
-public class GetStoresRequest extends BaseAuthorisedRequest
+public class GetStoresRequest extends BaseRequest<NamedObjects>
 {
+    public GetStoresRequest(){
+        super(NamedObjects.class);
+    }
+
     @Override
     public NamedObjects loadDataFromNetwork() throws Exception
     {
-        NamedObjects groups = restClient.getStores();
+        NamedObjects groups = mRestClient.getStores();
         return groups;
     }
 }

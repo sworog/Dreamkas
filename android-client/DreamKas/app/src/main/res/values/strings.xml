@@ -31,5 +31,6 @@
     <string name="load_stores">Загрузка магазинов...</string>
     <string name="empty_list">Список пуст</string>
     <string name="error_unauthorized">Ошибка авторизации</string>
+    <string name="error_open_kas_without_store">Для начала работы с кассой необходимо выбрать магазин, в котором она находится.</string>
 
 </resources>

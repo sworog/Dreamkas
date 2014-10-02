@@ -21,19 +21,21 @@
             android:layout_height="wrap_content"
             android:text="@string/hello_kas_fragment" />
 
-        <!--<EditText android:id="@+id/inputSearch"
+        <EditText android:id="@+id/txtProductSearchQuery"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Поиск.."
             android:inputType="textVisiblePassword"/>
 
-
-
-        &lt;!&ndash; List View &ndash;&gt;
-        <ListView
-            android:id="@+id/list_view"
+        <Button
+            android:id="@+id/btnSearchProducts"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />-->
+            android:layout_height="40dp" />
+
+        <ListView
+            android:id="@+id/lvProductsSearchResult"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout android:layout_weight="3"

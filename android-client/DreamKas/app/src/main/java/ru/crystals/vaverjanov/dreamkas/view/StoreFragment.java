@@ -8,7 +8,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.octo.android.robospice.exception.RequestCancelledException;
-import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -17,19 +16,22 @@ import org.androidannotations.annotations.ViewById;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.List;
+
 import ru.crystals.vaverjanov.dreamkas.R;
+import ru.crystals.vaverjanov.dreamkas.controller.Command;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
 import ru.crystals.vaverjanov.dreamkas.controller.adapters.NamedObjectSpinnerAdapter;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.request.GetStoresRequestListener;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.request.IStoresRequestHandler;
+import ru.crystals.vaverjanov.dreamkas.controller.requests.AuthorisedRequestWrapper;
 import ru.crystals.vaverjanov.dreamkas.controller.requests.GetStoresRequest;
 import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
 import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
-import ru.crystals.vaverjanov.dreamkas.model.api.NamedObjects;
+import ru.crystals.vaverjanov.dreamkas.model.api.collections.NamedObjects;
 
 @EFragment(R.layout.fragment_store)
-public class StoreFragment extends BaseFragment implements IStoresRequestHandler
+public class StoreFragment extends BaseFragment
 {
+    private static final int NONE_STORE_SELECTED_INDEX = -1;
     private PreferencesManager preferences;
 
     @ViewById
@@ -40,10 +42,7 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     Button btnSaveStoreSettings;
 
     @Bean
-    public GetStoresRequest storesRequest;
-
-
-    public final GetStoresRequestListener storesRequestListener = new GetStoresRequestListener(this);
+    public AuthorisedRequestWrapper storesRequestWrapped;
 
     @Override
     public void onStart()
@@ -53,7 +52,6 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
         preferences = PreferencesManager.getInstance();
 
         initStores();
-        //initStores();
     }
 
     @Override
@@ -65,14 +63,56 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     //@AfterViews
     void initStores()
     {
-        storesRequest.setToken(((LighthouseDemoActivity) getActivity()).getToken());
-        changeFragmentCallback.getRestClient().execute(storesRequest, null, DurationInMillis.NEVER, storesRequestListener);
-        //todo make requestStarted call by storesRequest or something
-        storesRequestListener.requestStarted();
+        storesRequestWrapped.init(changeFragmentCallback.getRestClient(), new GetStoresRequest(), ((LighthouseDemoActivity) getActivity()).getToken());
+        storesRequestWrapped.execute(new GetStoresRequestSuccessFinishCommand(), new GetStoresRequestFailureFinishCommand());
         showProgressDialog(getActivity().getResources().getString(R.string.load_stores));
-
         View empty = getActivity().findViewById(R.id.empty1);
         spStores.setEmptyView(empty);
+    }
+
+    public class GetStoresRequestSuccessFinishCommand implements Command<NamedObjects>
+    {
+        public void execute(NamedObjects data)
+        {
+            progressDialog.dismiss();
+            setStoreSpinner(data);
+        }
+    }
+
+    public class GetStoresRequestFailureFinishCommand implements Command<SpiceException>
+    {
+        public void execute(SpiceException spiceException)
+        {
+            progressDialog.dismiss();
+
+            String msg = "";
+            if(spiceException.getCause() instanceof HttpClientErrorException)
+            {
+                HttpClientErrorException exception = (HttpClientErrorException)spiceException.getCause();
+                if(exception.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
+                {
+                    //wrong credentials
+                    msg = getResources().getString(R.string.error_unauthorized);
+                }
+                else
+                {
+                    //other Network exception
+                    msg = spiceException.getMessage();
+                }
+            }
+            else if(spiceException instanceof RequestCancelledException)
+            {
+                //cancelled
+                msg = spiceException.getMessage();
+            }
+            else
+            {
+                //other exception
+                msg = spiceException.getMessage();
+            }
+
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Click(R.id.btnSaveStoreSettings)
@@ -81,24 +121,23 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
         changeFragmentCallback.onFragmentChange(DrawerMenu.AppStates.Kas);
     }
 
-    @Override
-    public void onGetStoresSuccessRequest(NamedObjects stores)
-    {
-        progressDialog.dismiss();
-        setStoreSpinner(stores);
-    }
-
     private void setStoreSpinner(NamedObjects stores)
     {
-        ArrayAdapter<NamedObject> adapter = new NamedObjectSpinnerAdapter(getActivity(), android.R.layout.simple_spinner_item, android.R.layout.simple_spinner_dropdown_item, stores);
+        NamedObjectSpinnerAdapter adapter = new NamedObjectSpinnerAdapter(getActivity(), android.R.layout.simple_spinner_item, android.R.layout.simple_spinner_dropdown_item, stores);
+        stores = new NamedObjects(adapter.getItems());
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spStores.setAdapter(adapter);
         spStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
             {
-                preferences.setCurrentStore(((NamedObject)spStores.getAdapter().getItem(i)).getId());
+                if(position > 0){
+                    preferences.setCurrentStore(((NamedObject)spStores.getAdapter().getItem(position)).getId());
+                }else{
+                    preferences.removeCurrentStore();
+                }
             }
 
             @Override
@@ -108,7 +147,7 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
             }
         });
 
-        int currentStorePosition = 0;
+        int currentStorePosition = NONE_STORE_SELECTED_INDEX;
 
         for(int i = 0; i < stores.size(); i++)
         {
@@ -119,40 +158,6 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
             }
         }
 
-        spStores.setSelection(currentStorePosition);
-    }
-
-    @Override
-    public void onGetStoresFailureRequest(SpiceException spiceException)
-    {
-        progressDialog.dismiss();
-
-        String msg = "";
-        if(spiceException.getCause() instanceof HttpClientErrorException)
-        {
-            HttpClientErrorException exception = (HttpClientErrorException)spiceException.getCause();
-            if(exception.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
-            {
-                //wrong credentials
-                msg = getResources().getString(R.string.error_unauthorized);
-            }
-            else
-            {
-                //other Network exception
-                msg = spiceException.getMessage();
-            }
-        }
-        else if(spiceException instanceof RequestCancelledException)
-        {
-            //cancelled
-            msg = spiceException.getMessage();
-        }
-        else
-        {
-            //other exception
-            msg = spiceException.getMessage();
-        }
-
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+        spStores.setSelection(++currentStorePosition);
     }
 }

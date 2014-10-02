@@ -5,7 +5,7 @@ import com.octo.android.robospice.request.SpiceRequest;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.rest.RestService;
 
-import ru.crystals.vaverjanov.dreamkas.controller.ILighthouseRestClient;
+import ru.crystals.vaverjanov.dreamkas.controller.LighthouseRestClient;
 import ru.crystals.vaverjanov.dreamkas.model.api.AuthObject;
 import ru.crystals.vaverjanov.dreamkas.model.api.Token;
 
@@ -13,7 +13,7 @@ import ru.crystals.vaverjanov.dreamkas.model.api.Token;
 public class AuthRequest extends SpiceRequest<Token>
 {
     @RestService
-    ILighthouseRestClient restClient;
+    LighthouseRestClient restClient;
 
     private AuthObject authObject;
 
@@ -21,7 +21,6 @@ public class AuthRequest extends SpiceRequest<Token>
     {
         super(Token.class);
     }
-
 
     public void setCredentials(AuthObject authObject)
     {

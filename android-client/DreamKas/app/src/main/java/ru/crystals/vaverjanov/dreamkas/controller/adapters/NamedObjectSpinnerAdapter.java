@@ -13,13 +13,18 @@ import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
 public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements SpinnerAdapter
 {
     private int dropdownLayoutResourceId;
-    private final List<NamedObject> items;
+    private final ArrayList<NamedObject> items;
 
     public NamedObjectSpinnerAdapter(Context context, int layoutResourceId, int dropdownLayoutResourceId, ArrayList<NamedObject> data)
     {
         super(context, layoutResourceId, data);
+
         this.dropdownLayoutResourceId = dropdownLayoutResourceId;
+
+        data.add(0, new NamedObject(null, "<Магазин не выбран>"));
         items = data;
+
+        data = null;
     }
 
     @Override
@@ -29,6 +34,7 @@ public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements Sp
     }
 
     public List<NamedObject> getItems() {
-        return items;
+
+        return items.subList(1, this.getCount());
     }
 }

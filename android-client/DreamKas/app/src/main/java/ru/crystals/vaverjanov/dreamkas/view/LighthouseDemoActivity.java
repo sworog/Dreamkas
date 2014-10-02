@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.octo.android.robospice.SpiceManager;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -20,14 +22,14 @@ import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 import org.springframework.util.StringUtils;
 import ru.crystals.vaverjanov.dreamkas.R;
-import ru.crystals.vaverjanov.dreamkas.controller.IChangeFragmentContainer;
+import ru.crystals.vaverjanov.dreamkas.controller.RestFragmentContainer;
 import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
 import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
 
 
 @EActivity(R.layout.activity_lighhouse_demo)
-public class LighthouseDemoActivity extends Activity implements IChangeFragmentContainer
+public class LighthouseDemoActivity extends Activity implements RestFragmentContainer
 {
     @ViewById
     DrawerLayout drawer_layout;
@@ -82,13 +84,8 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentC
 
         drawerToggle.syncState();
 
-        if(!StringUtils.hasText(PreferencesManager.getInstance().getCurrentStore()))
-        {
-            changeState(DrawerMenu.AppStates.Store);
-        }else
-        {
-            changeState(DrawerMenu.AppStates.Kas);
-        }
+        changeState(DrawerMenu.AppStates.Kas);
+
     }
 
     @Override
@@ -136,6 +133,13 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentC
         switch (state)
         {
             case Kas:
+                if(!StringUtils.hasText(PreferencesManager.getInstance().getCurrentStore()))
+                {
+                    changeState(DrawerMenu.AppStates.Store);
+                    Toast.makeText(this, getResources().getString(R.string.error_open_kas_without_store), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 mCurrentFragment = new KasFragment_();
                 displayCurrentFragment(mCurrentFragment, String.valueOf(state.getValue()));
                 break;
