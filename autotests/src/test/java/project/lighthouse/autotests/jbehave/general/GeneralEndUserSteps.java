@@ -36,7 +36,7 @@ public class GeneralEndUserSteps {
         generalSteps.clickOnCollectionObjectByLocator(locator);
     }
 
-    @When("пользователь нажимает на елемент с именем '$name'")
+    @When("пользователь* нажимает на елемент с именем '$name'")
     public void whenTheUserClicksOnElementWithName(String name) {
         generalSteps.clickOnCommonItemWihName(name);
     }
