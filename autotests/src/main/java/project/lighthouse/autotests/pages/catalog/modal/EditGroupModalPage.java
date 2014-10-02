@@ -14,7 +14,7 @@ public class EditGroupModalPage extends CreateGroupModalPage {
     }
 
     public void deleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink']")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'removeLink')]")).click();
     }
 
     public void deleteButtonConfirmClick() {
