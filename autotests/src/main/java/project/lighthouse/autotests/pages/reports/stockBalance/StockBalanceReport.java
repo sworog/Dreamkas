@@ -8,6 +8,7 @@ import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.collection.reports.stockBalance.StockBalanceObject;
 import project.lighthouse.autotests.common.objects.BootstrapPageObject;
+import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NonType;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -27,10 +28,12 @@ public class StockBalanceReport extends BootstrapPageObject {
     public void createElements() {
         put("фильтр магазинов", new SelectByVisibleText(this, "store"));
         put("фильтр по группе", new SelectByVisibleText(this, "group"));
+        put("фильтр по товару", new Input(this, "productFilter"));
         put("колонка 'Наименование'", new NonType(this, By.xpath("//*[@data-sort-by='product.name']")));
         put("колонка 'Запас'", new NonType(this, By.xpath("//*[@data-sort-by='inventoryDays']")));
         put("колонка 'Расход'", new NonType(this, By.xpath("//*[@data-sort-by='averageDailySales']")));
         put("колонка 'Остаток'", new NonType(this, By.xpath("//*[@data-sort-by='inventory']")));
+        put("кнопка очистки данных автокомплита", new NonType(this, By.xpath("//*[@class='productFinder__resetLink input-group-addon']")));
     }
 
     @Override
