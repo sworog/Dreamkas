@@ -76,15 +76,9 @@ class GrossMarginSalesReportManager
         DateTime $startDate,
         DateTime $endDate
     ) {
-        $storeProduct = $this->storeProductRepository->findByStoreIdSubCategory($storeId, $subCategory);
+        $storeProducts = $this->storeProductRepository->findByStoreIdSubCategory($storeId, $subCategory);
 
-        $reports = $this
-            ->grossMarginSalesProductRepository
-            ->findByStoreProductsAndPeriod($storeProduct->getIds(), $startDate, $endDate);
-
-        $collection = new GrossMarginSalesByProductsCollection();
-
-        return $this->fillGrossMarginSalesByProductCollection($collection, $reports);
+        return $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
     }
 
     /**
@@ -98,16 +92,25 @@ class GrossMarginSalesReportManager
         DateTime $startDate,
         DateTime $endDate
     ) {
-        return array();
+        $storeProducts = $this->storeProductRepository->findBySubCategory($subCategory);
+
+        return $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
     }
 
     /**
-     * @param GrossMarginSalesByProductsCollection $collection
-     * @param GrossMarginSalesProductReport[]|Cursor $reports
+     * @param array|string[] $storeProductIds
+     * @param DateTime $startDate
+     * @param DateTime $endDate
      * @return GrossMarginSalesByProductsCollection
      */
-    public function fillGrossMarginSalesByProductCollection(GrossMarginSalesByProductsCollection $collection, $reports)
+    protected function getReportsByStoreProducts($storeProductIds, DateTime $startDate, DateTime $endDate)
     {
+        $reports = $this
+            ->grossMarginSalesProductRepository
+            ->findByStoreProductsAndPeriod($storeProductIds, $startDate, $endDate);
+
+        $collection = new GrossMarginSalesByProductsCollection();
+
         foreach ($reports as $report) {
             $grossMarginSalesByProductReport = $collection->getByProduct($report->product->product);
             $grossMarginSalesByProductReport->storeProduct = $report->product;

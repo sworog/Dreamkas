@@ -171,6 +171,23 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param SubCategory $subCategory
+     * @return DocumentCollection
+     */
+    public function findBySubCategory(SubCategory $subCategory)
+    {
+        $products = $this->productRepository->findBySubCategory($subCategory);
+
+        $productsCollection = new DocumentCollection($products);
+
+        $cursor = $this->findBy(array(
+            'product' => array('$in' => $productsCollection->getIds())
+        ));
+
+        return new DocumentCollection($cursor);
+    }
+
+    /**
+     * @param SubCategory $subCategory
      * @param string $storeId
      * @return StoreProductCollection
      */

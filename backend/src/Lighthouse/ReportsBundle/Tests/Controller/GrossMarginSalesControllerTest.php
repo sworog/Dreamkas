@@ -29,17 +29,15 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
     /**
      * @param Store $store
+     * @param array $productIds
+     * @param string $otherCategoryProduct
      * @return array|\string[]
      */
-    protected function initInvoiceAndSales(Store $store)
+    protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId)
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
-        $otherSubCategory = $this->factory()->catalog()->getSubCategory("other sub category");
-        $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
-
         $this->factory()
             ->invoice()
-                ->createInvoice(array('date' => date('c', strtotime('-10 days'))))
+                ->createInvoice(array('date' => date('c', strtotime('-10 days'))), $store->id)
                 ->createInvoiceProduct($productIds[1], 100, 90)
                 ->createInvoiceProduct($productIds[2], 100, 50)
                 ->createInvoiceProduct($productIds[3], 100, 100)
@@ -92,8 +90,12 @@ class GrossMarginSalesControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $subCategory = $this->factory()->catalog()->getSubCategory();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $otherSubCategory = $this->factory()->catalog()->getSubCategory("other sub category");
+        $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
 
-        $productIds = $this->initInvoiceAndSales($store);
+        $this->initInvoiceAndSales($store, $productIds, $productOtherSubCategoryId);
+
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
@@ -162,8 +164,11 @@ class GrossMarginSalesControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $subCategory = $this->factory()->catalog()->getSubCategory();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $otherSubCategory = $this->factory()->catalog()->getSubCategory("other sub category");
+        $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
 
-        $productIds = $this->initInvoiceAndSales($store);
+        $this->initInvoiceAndSales($store, $productIds, $productOtherSubCategoryId);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
@@ -231,5 +236,62 @@ class GrossMarginSalesControllerTest extends WebTestCase
         }
 
         $this->assertTrue($found, sprintf('Report for product %s, not found', $productId));
+    }
+
+    public function testGrossMarginSalesByProductForAllStores()
+    {
+        $store1 = $this->factory()->store()->getStore();
+        $store2 = $this->factory()->store()->getStore("other store");
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $subCategory = $this->factory()->catalog()->getSubCategory();
+        $otherSubCategory = $this->factory()->catalog()->getSubCategory("other sub category");
+        $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
+
+        $this->initInvoiceAndSales($store1, $productIds, $productOtherSubCategoryId);
+        $this->initInvoiceAndSales($store2, $productIds, $productOtherSubCategoryId);
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            null,
+            array(
+                'startDate' => date('c', strtotime('-4 day 00:00:00')),
+                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['1'],
+            6000,
+            3600,
+            2400,
+            40,
+            $response
+        );
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['2'],
+            5200,
+            2600,
+            2600,
+            52,
+            $response
+        );
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['3'],
+            9880,
+            7600,
+            2280,
+            76,
+            $response
+        );
     }
 }
