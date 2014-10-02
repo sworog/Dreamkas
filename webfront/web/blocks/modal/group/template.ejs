@@ -7,11 +7,11 @@
         <button form="form_group"
                 type="submit"
                 class="btn btn-primary pull-right">
-            <%- models.group ? 'Сохранить' : 'Добавить' %>
+            <%- models.group.id ? 'Сохранить' : 'Добавить' %>
         </button>
 
         <h4 class="modal__title">
-            <%- models.group ? 'Редактирование группы' : 'Добавить группу' %>
+            <%- models.group.id ? 'Редактирование группы' : 'Добавить группу' %>
         </h4>
 
     </div>
