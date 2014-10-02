@@ -30,7 +30,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     /**
      * @param Store $store
      * @param array $productIds
-     * @param string $otherCategoryProduct
+     * @param $productOtherSubCategoryId
      * @return array|\string[]
      */
     protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId)

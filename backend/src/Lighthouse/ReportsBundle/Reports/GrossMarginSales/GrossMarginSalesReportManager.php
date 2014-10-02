@@ -76,7 +76,7 @@ class GrossMarginSalesReportManager
         DateTime $startDate,
         DateTime $endDate
     ) {
-        $storeProducts = $this->storeProductRepository->findByStoreIdSubCategory($storeId, $subCategory);
+        $storeProducts = $this->storeProductRepository->findOrCreateByStoreIdSubCategory($storeId, $subCategory);
 
         return $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
     }

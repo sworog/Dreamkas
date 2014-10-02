@@ -191,11 +191,11 @@ class StoreProductRepository extends DocumentRepository
      * @param string $storeId
      * @return StoreProductCollection
      */
-    public function findByStoreIdSubCategory($storeId, SubCategory $subCategory)
+    public function findOrCreateByStoreIdSubCategory($storeId, SubCategory $subCategory)
     {
         $store = $this->storeRepository->find($storeId);
 
-        return $this->findByStoreSubCategory($store, $subCategory);
+        return $this->findOrCreateByStoreSubCategory($store, $subCategory);
     }
 
     /**
@@ -203,18 +203,18 @@ class StoreProductRepository extends DocumentRepository
      * @param Store $store
      * @return StoreProductCollection
      */
-    public function findByStoreSubCategory(Store $store, SubCategory $subCategory)
+    public function findOrCreateByStoreSubCategory(Store $store, SubCategory $subCategory)
     {
         $productsCursor = $this->productRepository->findBySubCategory($subCategory);
 
-        return $this->findByProducts($store, $productsCursor);
+        return $this->findOrCreateByProducts($store, $productsCursor);
     }
 
     /**
      * @param Product $product
      * @return StoreProduct[]|StoreProductCollection
      */
-    public function findByProduct(Product $product)
+    public function findOrCreateByProduct(Product $product)
     {
         $cursor = $this->findBy(array('product' => $product->id));
         $storeProducts = new DocumentCollection($cursor);
@@ -240,7 +240,7 @@ class StoreProductRepository extends DocumentRepository
      * @param Cursor|Product[] $productCollection
      * @return StoreProductCollection|StoreProduct[]
      */
-    protected function findByProducts(Store $store, $productCollection)
+    protected function findOrCreateByProducts(Store $store, $productCollection)
     {
         $products = array();
         $storeProductIds = array();
@@ -270,11 +270,11 @@ class StoreProductRepository extends DocumentRepository
      * @param Store $store
      * @return StoreProductCollection
      */
-    public function findByStore(Store $store)
+    public function findOrCreateByStore(Store $store)
     {
         $productCollection = $this->productRepository->findAll();
 
-        return $this->findByProducts($store, $productCollection);
+        return $this->findOrCreateByProducts($store, $productCollection);
     }
 
     /**
@@ -286,7 +286,7 @@ class StoreProductRepository extends DocumentRepository
     {
         $productCollection = $this->productRepository->search($filter);
 
-        return $this->findByProducts($store, $productCollection);
+        return $this->findOrCreateByProducts($store, $productCollection);
     }
 
     /**
