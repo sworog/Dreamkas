@@ -36,6 +36,11 @@ public class GeneralEndUserSteps {
         generalSteps.clickOnCollectionObjectByLocator(locator);
     }
 
+    @When("пользователь нажимает на елемент с именем '$name'")
+    public void whenTheUserClicksOnElementWithName(String name) {
+        generalSteps.clickOnCommonItemWihName(name);
+    }
+
     @Then("пользователь* проверяет, что поле с именем '$elementName' имеет значение '$value'")
     public void thenUserChecksValue(String elementName, String value) {
         generalSteps.checkValue(elementName, value);
@@ -74,5 +79,10 @@ public class GeneralEndUserSteps {
     @Then("пользователь* проверяет, что список '$collectionName' содержит данные $examplesTable")
     public void thenUserCompareCollectionWithExamplesTable(ExamplesTable examplesTable) {
         generalSteps.compareWithExampleTable(examplesTable);
+    }
+
+    @Then("пользователь проверяет, что у элемента с именем '$commonItemName' аттрибут '$attribute' имеет значение '$value'")
+    public void thenTheUserChecksCommonItemAttributeValue(String commonItemName, String attribute, String value) {
+        generalSteps.assertCommonItemAttributeValue(commonItemName, attribute, value);
     }
 }

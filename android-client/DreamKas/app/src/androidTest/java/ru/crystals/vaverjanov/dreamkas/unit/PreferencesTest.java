@@ -1,17 +1,16 @@
 package ru.crystals.vaverjanov.dreamkas.unit;
 
-import android.content.Context;
 import android.test.InstrumentationTestCase;
-import android.test.mock.MockContext;
 import android.test.suitebuilder.annotation.SmallTest;
-
 import junit.framework.Assert;
 
-import ru.crystals.vaverjanov.dreamkas.controller.AuthRequest;
-import ru.crystals.vaverjanov.dreamkas.controller.LighthouseRestClient_;
+import org.hamcrest.Matchers;
+
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
-import ru.crystals.vaverjanov.dreamkas.model.AuthObject;
-import ru.crystals.vaverjanov.dreamkas.model.Token;
+
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.assertThat;
+import static org.hamcrest.core.AllOf.allOf;
+import static org.hamcrest.core.Is.is;
 
 public class PreferencesTest extends InstrumentationTestCase
 {
@@ -46,18 +45,19 @@ public class PreferencesTest extends InstrumentationTestCase
 
         preferences1.clear();
 
-        Assert.assertNull(preferences1.getCurrentStore(),preferences2.getCurrentStore());
+        assertThat("Stores extracted from cleared preferences should be null", null, allOf(is(preferences1.getCurrentStore()), is(preferences2.getCurrentStore())));
 
         preferences1.setCurrentStore(storeId);
 
-        Assert.assertEquals(preferences1.getCurrentStore(), preferences2.getCurrentStore(), storeId);
+        assertThat("Stores extracted from preferences should be equals to origin", storeId, allOf(is(preferences1.getCurrentStore()), is(preferences2.getCurrentStore())));
 
         preferences1 = initPreferences();
-        Assert.assertEquals(preferences1.getCurrentStore(), preferences2.getCurrentStore(), storeId);
+
+        assertThat("Stores extracted from new instance of preferences should be equals with previous and origin", storeId, allOf(is(preferences1.getCurrentStore()), is(preferences2.getCurrentStore())));
 
         preferences2.removeCurrentStore();
 
-        Assert.assertNull(preferences1.getCurrentStore(),preferences2.getCurrentStore());
+        assertThat("After store removal  in one instance of preferences should, other should be removed too", null, allOf(is(preferences1.getCurrentStore()), is(preferences2.getCurrentStore())));
     }
 
     private PreferencesManager initPreferences()

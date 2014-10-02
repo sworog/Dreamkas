@@ -13,6 +13,8 @@ define(function(require, exports, module) {
 
                 page.$('select[name="group"], input[name="productFilter"], .productFinder__resetLink').removeAttr('disabled');
 
+                select.classList.add('loading');
+
                 page.findProducts({
                     storeId: e.currentTarget.value
                 }).then(function() {
@@ -62,7 +64,6 @@ define(function(require, exports, module) {
                 }).then(function() {
                     input.classList.remove('loading');
                 });
-
             }
         },
         collections: {
@@ -111,3 +112,4 @@ define(function(require, exports, module) {
         }
     });
 });
+

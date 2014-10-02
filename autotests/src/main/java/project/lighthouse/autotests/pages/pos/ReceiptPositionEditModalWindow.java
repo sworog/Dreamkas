@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.pos;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NonType;
@@ -41,5 +42,10 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
     @Override
     public void confirmDeleteButtonClick() {
         clickInTheModalWindowByXpath("//*[@class='confirmLink__confirmation']//*[@class='removeLink form_receiptProduct__removeLink']");
+    }
+
+    @Override
+    public String getTitle() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
 }
