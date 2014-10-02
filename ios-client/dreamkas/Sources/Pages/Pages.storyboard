@@ -39,47 +39,69 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BjF-UX-OTR">
                                 <rect key="frame" x="284" y="119" width="200" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Rnc-mT-rZC"/>
-                                    <constraint firstAttribute="width" constant="200" id="xYP-k1-Vc5"/>
+                                    <constraint firstAttribute="width" constant="200" id="IfV-Cp-Vfk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k6b-UL-jdM">
                                 <rect key="frame" x="284" y="176" width="200" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="38L-vE-qGm"/>
-                                    <constraint firstAttribute="width" constant="200" id="SyN-0b-I4u"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Afz-6P-BmU">
                                 <rect key="frame" x="334" y="233" width="100" height="30"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="3pG-Tk-iOk"/>
-                                    <constraint firstAttribute="width" constant="100" id="B0y-gC-gLG"/>
-                                </constraints>
                                 <state key="normal" title="Auth">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="authButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eac-Pm-Hcd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ire-Tf-Pk4">
+                                <rect key="frame" x="334" y="290" width="100" height="30"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="f3x-7H-T8r"/>
+                                </constraints>
+                                <state key="normal" title="Groups">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="groupsButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tuX-tx-Kbv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="Afz-6P-BmU" secondAttribute="centerX" id="0Ca-IK-CMW"/>
-                            <constraint firstAttribute="centerX" secondItem="k6b-UL-jdM" secondAttribute="centerX" id="Mzt-Y1-ceG"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Afz-6P-BmU" secondAttribute="bottom" constant="761" id="S6q-5c-1P4"/>
-                            <constraint firstAttribute="centerX" secondItem="BjF-UX-OTR" secondAttribute="centerX" id="Xd1-6p-FDv"/>
-                            <constraint firstItem="Afz-6P-BmU" firstAttribute="top" secondItem="k6b-UL-jdM" secondAttribute="bottom" constant="27" id="aEf-4h-n30"/>
-                            <constraint firstItem="k6b-UL-jdM" firstAttribute="top" secondItem="BjF-UX-OTR" secondAttribute="bottom" constant="27" id="lvY-89-Y32"/>
-                            <constraint firstItem="BjF-UX-OTR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="119" id="yoA-pz-y1U"/>
+                            <constraint firstItem="BjF-UX-OTR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DXt-V3-OG9"/>
+                            <constraint firstItem="Ire-Tf-Pk4" firstAttribute="leading" secondItem="Afz-6P-BmU" secondAttribute="leading" id="IQs-6d-jKn"/>
+                            <constraint firstItem="Ire-Tf-Pk4" firstAttribute="top" secondItem="Afz-6P-BmU" secondAttribute="bottom" constant="27" id="KmH-hH-cth"/>
+                            <constraint firstItem="BjF-UX-OTR" firstAttribute="trailing" secondItem="k6b-UL-jdM" secondAttribute="trailing" id="Q9x-zI-WZ9"/>
+                            <constraint firstItem="Afz-6P-BmU" firstAttribute="top" secondItem="k6b-UL-jdM" secondAttribute="bottom" constant="27" id="Qac-io-67Q"/>
+                            <constraint firstItem="k6b-UL-jdM" firstAttribute="top" secondItem="BjF-UX-OTR" secondAttribute="bottom" constant="27" id="Sy7-1a-ni5"/>
+                            <constraint firstItem="BjF-UX-OTR" firstAttribute="centerX" secondItem="Ire-Tf-Pk4" secondAttribute="centerX" id="XKH-Yd-Ojt"/>
+                            <constraint firstItem="BjF-UX-OTR" firstAttribute="leading" secondItem="k6b-UL-jdM" secondAttribute="leading" id="fPx-LB-HrP"/>
+                            <constraint firstItem="BjF-UX-OTR" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="119" id="fwf-uT-WOa"/>
+                            <constraint firstItem="BjF-UX-OTR" firstAttribute="centerX" secondItem="Afz-6P-BmU" secondAttribute="centerX" id="yTg-pb-UTz"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="r1U-ME-IRF" appends="YES" id="7aB-Er-sTg"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="dO0-RT-vaz"/>
+                    <connections>
+                        <outlet property="loginField" destination="BjF-UX-OTR" id="OZK-8Z-O2D"/>
+                        <outlet property="pwdField" destination="k6b-UL-jdM" id="Fq1-SE-Fbe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="r1U-ME-IRF">
+                    <connections>
+                        <action selector="viewTouched:" destination="BYZ-38-t0r" id="4Kn-jf-jYw"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-315" y="194"/>
         </scene>

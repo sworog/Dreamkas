@@ -13,6 +13,19 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 //
+// Встроенные библиотеки
+//
+
+#import <MapKit/MapKit.h>
+
+//
+// Сторонние библиотеки
+//
+
+#import "AFNetworking.h"
+#import "DPLog.h"
+
+//
 // Базовые
 //
 
