@@ -64,7 +64,7 @@ class GrossMarginSalesProductRepository extends DocumentRepository
 
         return $this->findBy(
             array(
-                'product' => array('$in' => $storeProductIds),
+                'storeProduct' => array('$in' => $storeProductIds),
                 'day' => array(
                     '$gte' => $startDate->getMongoDate(),
                     '$lte' => $endDate->getMongoDate(),
@@ -107,7 +107,8 @@ class GrossMarginSalesProductRepository extends DocumentRepository
             $report->quantity = $this->numericFactory->createQuantityFromCount($result['quantitySum']);
             $report->grossSales = $this->numericFactory->createMoneyFromCount($result['grossSales']);
             $report->grossMargin = $this->numericFactory->createMoneyFromCount($result['grossMargin']);
-            $report->product = $this->dm->getReference(StoreProduct::getClassName(), $result['_id']['storeProduct']);
+            $report->storeProduct
+                = $this->dm->getReference(StoreProduct::getClassName(), $result['_id']['storeProduct']);
 
             $this->dm->persist($report);
             $count++;

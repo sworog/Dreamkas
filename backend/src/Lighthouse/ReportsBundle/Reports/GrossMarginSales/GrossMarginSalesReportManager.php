@@ -132,8 +132,8 @@ class GrossMarginSalesReportManager
         $collection = new GrossMarginSalesByProductsCollection();
 
         foreach ($reports as $report) {
-            $grossMarginSalesByProductReport = $collection->getByProduct($report->product->product);
-            $grossMarginSalesByProductReport->storeProduct = $report->product;
+            $grossMarginSalesByProductReport = $collection->getByProduct($report->storeProduct->product);
+            $grossMarginSalesByProductReport->storeProduct = $report->storeProduct;
             $grossMarginSalesByProductReport->grossSales
                 = $report->grossSales->add($grossMarginSalesByProductReport->grossSales);
             $grossMarginSalesByProductReport->costOfGoods
