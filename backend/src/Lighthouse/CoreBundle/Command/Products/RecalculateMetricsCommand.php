@@ -69,6 +69,8 @@ class RecalculateMetricsCommand extends Command
 
             $this->metricsCalculator->recalculateAveragePrice();
             $this->metricsCalculator->recalculateDailyAverageSales();
+
+            $this->projectContext->logout();
         }
 
         $output->writeln("<info>Recalculate finished</info>");
