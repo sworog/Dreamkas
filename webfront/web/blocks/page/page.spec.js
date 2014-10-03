@@ -19,7 +19,7 @@ define(function(require, exports, module) {
                 el: null
             });
 
-            expect($('#page-wrapper', page.el).html().trim()).toBe(page.content());
+            expect($('.page__contentSide', page.el).html().trim()).toBe(page.content());
         });
 
         it('page fetch', function() {
