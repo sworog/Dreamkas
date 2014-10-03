@@ -43,8 +43,8 @@ module.exports = function(config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
             //'requireDom.js': 'coverage',
-			'blocks/**/*.js': 'coverage',
-			'kit/**/*.js': 'coverage'
+			'blocks/**/!(*.spec.js)*.js': 'coverage',
+			'kit/**/!(*.spec.js)*.js': 'coverage'
         },
 
         // web server port
