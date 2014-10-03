@@ -9,27 +9,32 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
+import ru.crystals.vaverjanov.dreamkas.model.api.Product;
 
-public class NamedObjectsAdapter extends ArrayAdapter<NamedObject>
+public class ProductsAdapter extends ArrayAdapter<Product>
 {
     Context context;
     int layoutResourceId;
-    ArrayList<NamedObject> data = null;
+    ArrayList<Product> mItems = null;
+
+    public ArrayList<Product> getItems() {
+        return mItems;
+    }
 
     class NamedObjectHolder
     {
         TextView txtTitle;
     }
 
-    public NamedObjectsAdapter(Context context, int layoutResourceId, ArrayList<NamedObject> data)
+    public ProductsAdapter(Context context, int layoutResourceId, ArrayList<Product> data)
     {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
-        this.data = data;
+        this.mItems = data;
     }
 
     @Override
@@ -48,7 +53,7 @@ public class NamedObjectsAdapter extends ArrayAdapter<NamedObject>
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new NamedObjectHolder();
-            holder.txtTitle = (TextView)row.findViewById(android.R.id.text1);
+            holder.txtTitle = (TextView)row.findViewById(R.id.txtListItemTitle);
             row.setTag(holder);
         }
         else
@@ -56,13 +61,11 @@ public class NamedObjectsAdapter extends ArrayAdapter<NamedObject>
             holder = (NamedObjectHolder)row.getTag();
         }
 
-        NamedObject namedObject = data.get(position);
+        NamedObject namedObject = mItems.get(position);
         holder.txtTitle.setText(namedObject.getName());
 
         return row;
     }
 
-    public List<? extends NamedObject> getItems() throws Exception {
-        throw new Exception("You should override getItems in subClass");
-    }
+
 }

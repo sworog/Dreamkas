@@ -68,14 +68,16 @@ public class LighthouseDemoActivity extends Activity implements RestFragmentCont
         getActionBar().setTitle(getResources().getString(R.string.dream_kas_title));
         drawerToggle = new ActionBarDrawerToggle(this, drawer_layout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
         {
+            private CharSequence mPrevTitle;
             public void onDrawerClosed(View view)
             {
-                getActionBar().setTitle(getResources().getString(R.string.dream_kas_title));
+                getActionBar().setTitle(mPrevTitle);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView)
             {
+                mPrevTitle = getActionBar().getTitle();
                 getActionBar().setTitle(getResources().getString(R.string.drawer_title));
                 invalidateOptionsMenu();
             }
@@ -146,6 +148,7 @@ public class LighthouseDemoActivity extends Activity implements RestFragmentCont
             case Store:
                 mCurrentFragment = new StoreFragment_();
                 displayCurrentFragment(mCurrentFragment,String.valueOf(state.getValue()));
+                getActionBar().setTitle(getResources().getString(R.string.title_change_current_store));
                 break;
             case Exit:
                 exitConfirmation();

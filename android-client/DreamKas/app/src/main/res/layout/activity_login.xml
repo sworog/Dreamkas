@@ -35,6 +35,8 @@
             android:hint="Email"
             android:drawableLeft="@drawable/email"
             android:inputType="textEmailAddress"
+
+            android:text="owner@lighthouse.pro"
             />
 
         <EditText
@@ -49,6 +51,8 @@
             android:lines="1"
             android:password="true"
             android:drawableLeft="@drawable/password"
+
+            android:text="lighthouse"
             />
 
         <Button
@@ -59,6 +63,7 @@
             android:layout_margin="4dp"
             android:text="Войти"
             android:background="@color/DarkCyan"
+
             />
     </LinearLayout>
 

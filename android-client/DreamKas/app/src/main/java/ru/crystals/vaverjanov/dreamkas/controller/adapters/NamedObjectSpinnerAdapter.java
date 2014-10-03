@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
 public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements SpinnerAdapter
 {
     private int dropdownLayoutResourceId;
-    private final ArrayList<NamedObject> items;
+
 
     public NamedObjectSpinnerAdapter(Context context, int layoutResourceId, int dropdownLayoutResourceId, ArrayList<NamedObject> data)
     {
@@ -21,10 +22,7 @@ public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements Sp
 
         this.dropdownLayoutResourceId = dropdownLayoutResourceId;
 
-        data.add(0, new NamedObject(null, "<Магазин не выбран>"));
-        items = data;
-
-        data = null;
+        this.add(new NamedObject(null, "<Магазин не выбран>"));
     }
 
     @Override
@@ -33,8 +31,26 @@ public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements Sp
         return getView(i, view, viewGroup, dropdownLayoutResourceId);
     }
 
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        View v = super.getView(position, convertView, parent);
+        if (position == getCount()) {
+            ((TextView)v.findViewById(android.R.id.text1)).setText("");
+            ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount()).getName()); //"Hint to be displayed"
+        }
+
+        return v;
+    }
+
+    @Override
     public List<NamedObject> getItems() {
 
-        return items.subList(1, this.getCount());
+        return this.data.subList(1, this.getCount());
+    }
+
+    @Override
+    public int getCount() {
+        return super.getCount()-1;
     }
 }

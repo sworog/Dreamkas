@@ -24,12 +24,17 @@ public class BaseFragment extends Fragment
         }
     }
 
-    protected void showProgressDialog(String msg)
+    protected void showProgressDialog(final String msg)
     {
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage(msg);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(true);
-        progressDialog.show();
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setMessage(msg);
+                progressDialog.setIndeterminate(true);
+                progressDialog.setCancelable(true);
+                progressDialog.show();
+            }
+        });
     }
 }

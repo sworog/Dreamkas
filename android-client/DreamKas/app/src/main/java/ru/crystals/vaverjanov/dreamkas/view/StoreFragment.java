@@ -2,11 +2,10 @@ package ru.crystals.vaverjanov.dreamkas.view;
 
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import org.androidannotations.annotations.Bean;
@@ -15,9 +14,6 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
-
-import java.util.List;
-
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.Command;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
@@ -31,7 +27,6 @@ import ru.crystals.vaverjanov.dreamkas.model.api.collections.NamedObjects;
 @EFragment(R.layout.fragment_store)
 public class StoreFragment extends BaseFragment
 {
-    private static final int NONE_STORE_SELECTED_INDEX = -1;
     private PreferencesManager preferences;
 
     @ViewById
@@ -40,6 +35,9 @@ public class StoreFragment extends BaseFragment
 
     @ViewById
     Button btnSaveStoreSettings;
+
+    @ViewById
+    TextView lblEmpty;
 
     @Bean
     public AuthorisedRequestWrapper storesRequestWrapped;
@@ -66,8 +64,8 @@ public class StoreFragment extends BaseFragment
         storesRequestWrapped.init(changeFragmentCallback.getRestClient(), new GetStoresRequest(), ((LighthouseDemoActivity) getActivity()).getToken());
         storesRequestWrapped.execute(new GetStoresRequestSuccessFinishCommand(), new GetStoresRequestFailureFinishCommand());
         showProgressDialog(getActivity().getResources().getString(R.string.load_stores));
-        View empty = getActivity().findViewById(R.id.empty1);
-        spStores.setEmptyView(empty);
+
+        spStores.setEmptyView(lblEmpty);
     }
 
     public class GetStoresRequestSuccessFinishCommand implements Command<NamedObjects>
@@ -85,7 +83,7 @@ public class StoreFragment extends BaseFragment
         {
             progressDialog.dismiss();
 
-            String msg = "";
+            String msg;
             if(spiceException.getCause() instanceof HttpClientErrorException)
             {
                 HttpClientErrorException exception = (HttpClientErrorException)spiceException.getCause();
@@ -124,7 +122,6 @@ public class StoreFragment extends BaseFragment
     private void setStoreSpinner(NamedObjects stores)
     {
         NamedObjectSpinnerAdapter adapter = new NamedObjectSpinnerAdapter(getActivity(), android.R.layout.simple_spinner_item, android.R.layout.simple_spinner_dropdown_item, stores);
-        stores = new NamedObjects(adapter.getItems());
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spStores.setAdapter(adapter);
@@ -133,11 +130,7 @@ public class StoreFragment extends BaseFragment
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
             {
-                if(position > 0){
-                    preferences.setCurrentStore(((NamedObject)spStores.getAdapter().getItem(position)).getId());
-                }else{
-                    preferences.removeCurrentStore();
-                }
+                preferences.setCurrentStore(((NamedObject)spStores.getAdapter().getItem(position)).getId());
             }
 
             @Override
@@ -147,17 +140,22 @@ public class StoreFragment extends BaseFragment
             }
         });
 
-        int currentStorePosition = NONE_STORE_SELECTED_INDEX;
-
-        for(int i = 0; i < stores.size(); i++)
-        {
-            if(stores.get(i).getId().equals(preferences.getCurrentStore()))
+        if (preferences.getCurrentStore() != null){
+            int currentStorePosition = 0;
+            for(int i = 0; i < stores.size(); i++)
             {
-                currentStorePosition = i;
-                break;
+                if(stores.get(i).getId().equals(preferences.getCurrentStore()))
+                {
+                    currentStorePosition = i;
+                    break;
+                }
             }
-        }
 
-        spStores.setSelection(++currentStorePosition);
+            //select current store
+            spStores.setSelection(currentStorePosition);
+        }else {
+            //select hint
+            spStores.setSelection(adapter.getCount());
+        }
     }
 }
