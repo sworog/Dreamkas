@@ -27,7 +27,7 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['allure', 'coverage'],
+        reporters: ['dots', 'allure', 'coverage'],
 
 		allureReport: {
 			reportDir: 'report'
