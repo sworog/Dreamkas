@@ -12,7 +12,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 /**
  * @property string         $id
- * @property StoreProduct   $product
+ * @property StoreProduct   $storeProduct
  * @property Money          $grossSales
  * @property Money          $grossMargin
  * @property Money          $costOfGoods
@@ -22,7 +22,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository"
  * )
- * @MongoDB\Index(keys={"day"="asc", "product"="asc"})
+ * @MongoDB\Index(keys={"day"="asc", "storeProduct"="asc"})
  */
 class GrossMarginSalesProductReport extends AbstractDocument
 {
@@ -71,5 +71,5 @@ class GrossMarginSalesProductReport extends AbstractDocument
      *
      * @var StoreProduct
      */
-    protected $product;
+    protected $storeProduct;
 }

@@ -4,8 +4,9 @@ define(function(require, exports, module) {
 
     return Table.extend({
         template: require('ejs!./template.ejs'),
+        sortBy: 'product.name',
         collection: function(){
-            return PAGE.collections.groupStockSell
+            return PAGE.collections.groupStockSell;
         }
     });
 });

@@ -226,7 +226,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     ) {
         $found = false;
         foreach ($response as $reportElement) {
-            if ($reportElement['storeProduct']['product']['id'] == $productId) {
+            if ($reportElement['product']['id'] == $productId) {
                 $found = true;
                 $this->assertEquals($expectedGrossSales, $reportElement['grossSales']);
                 $this->assertEquals($expectedCostOfGoods, $reportElement['costOfGoods']);
@@ -291,6 +291,103 @@ class GrossMarginSalesControllerTest extends WebTestCase
             7600,
             2280,
             76,
+            $response
+        );
+    }
+
+    public function testGrossMarginSalesByProductEmptyReportsForAllStores()
+    {
+        $store1 = $this->factory()->store()->getStore();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $subCategory = $this->factory()->catalog()->getSubCategory();
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            null,
+            array(
+                'startDate' => date('c', strtotime('-4 day 00:00:00')),
+                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['1'],
+            0,
+            0,
+            0,
+            0,
+            $response
+        );
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['2'],
+            0,
+            0,
+            0,
+            0,
+            $response
+        );
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['3'],
+            0,
+            0,
+            0,
+            0,
+            $response
+        );
+    }
+
+    public function testGrossMarginSalesByProductEmptyReportsForStore()
+    {
+        $store1 = $this->factory()->store()->getStore();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $subCategory = $this->factory()->catalog()->getSubCategory();
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            null,
+            array(
+                'startDate' => date('c', strtotime('-4 day 00:00:00')),
+                'endDate' => date('c', strtotime('-1 day 00:00:00')),
+                'store' => $store1->id,
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['1'],
+            0,
+            0,
+            0,
+            0,
+            $response
+        );
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['2'],
+            0,
+            0,
+            0,
+            0,
+            $response
+        );
+
+        $this->assertGrossMarginSalesReportByProduct(
+            $productIds['3'],
+            0,
+            0,
+            0,
+            0,
             $response
         );
     }

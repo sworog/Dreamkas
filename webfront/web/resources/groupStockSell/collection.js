@@ -4,6 +4,7 @@ define(function(require) {
 
         return Collection.extend({
             groupId: null,
+            model: require('kit/model/model'),
             url: function(){
                 return Collection.baseApiUrl + '/catalog/groups/' + this.groupId + '/reports/grossMarginSalesByProduct'
             }
