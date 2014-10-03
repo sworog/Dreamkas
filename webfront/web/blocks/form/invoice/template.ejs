@@ -17,7 +17,8 @@
 
                 <div class="input-icon right">
 
-                    <b block="select_store"></b>
+                    <b block="select_store"
+                       data-selected="<%- model.get('store.id') %>"></b>
 
                 </div>
             </div>
@@ -30,7 +31,8 @@
                 <div class="row">
                     <div class="col-md-10">
 
-                        <b block="select_supplier"></b>
+                        <b block="select_supplier"
+                           data-selected="<%- model.get('supplier.id') %>"></b>
 
                     </div>
                 </div>

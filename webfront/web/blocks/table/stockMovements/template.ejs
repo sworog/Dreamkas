@@ -20,8 +20,8 @@
 
     <tr data-invoice-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-invoice-number="<%- stockMovementModel.get('number') %>"
-        data-invoice_id="<%- stockMovementModel.id %>"
-        class="invoice__link">
+        data-invoice-id="<%- stockMovementModel.id %>"
+        data-modal="modal_invoice">
 
         <% if (dateRowSpan) { %>
         <td name="date" rowspan="<%- dateRowSpan %>">
@@ -43,9 +43,8 @@
 
     <% } %>
 
-
     <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
-    
+
     <tr data-writeoff-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-writeoff-number="<%- stockMovementModel.get('number') %>"
         data-writeoff_id="<%- stockMovementModel.id %>"
@@ -67,9 +66,8 @@
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
         </td>
     </tr>
-    
-    <% } %>
 
+    <% } %>
 
     <% if (stockMovementModel.get('type') === 'StockIn'){ %>
 
@@ -111,7 +109,8 @@
         <% } %>
 
         <td>
-            <span name="type">Возврат поставщику</span> <span name="status" style="font-size: 11px; margin-left: 10px;" class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'погашен' : 'не погашен' %></span>
+            <span name="type">Возврат поставщику</span> <span name="status" style="font-size: 11px; margin-left: 10px;"
+                                                              class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'погашен' : 'не погашен' %></span>
         </td>
         <td name="store">
             Из <%- stockMovementModel.get('store.name') %>
@@ -120,7 +119,7 @@
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
         </td>
     </tr>
-    
+
     <% } %>
 
     <% }) %>
