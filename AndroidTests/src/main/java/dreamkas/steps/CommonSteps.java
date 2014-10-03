@@ -1,19 +1,39 @@
 package dreamkas.steps;
 
-import dreamkas.screenObjects.ScreenObject;
+import dreamkas.pageObjects.CommonPageObject;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.steps.ScenarioSteps;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
-public class CommonSteps {
+public class CommonSteps extends ScenarioSteps{
 
-    ScreenObject screenObject;
+    CommonPageObject commonPageObject;
 
+    //Workaround for activity wait
     @Step
     public void assertCurrentActivity(String expectedActivity) {
-        assertThat(
-                screenObject.getCurrentActivity(),
-                is(expectedActivity));
+        String currentActivity = commonPageObject.getCurrentActivity();
+        int numberCount = 1;
+        while (!currentActivity.equals(expectedActivity) && numberCount <= 10) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new AssertionError(e);
+            }
+            currentActivity = commonPageObject.getCurrentActivity();
+            numberCount++;
+        }
+        if(numberCount <=10 && !currentActivity.equals(expectedActivity)) {
+            assertThat(
+                    commonPageObject.getCurrentActivity(),
+                    is(expectedActivity));
+        }
+    }
+
+    @Step
+    public void resetApp() {
+        commonPageObject.getAppiumDriver().resetApp();
     }
 }
