@@ -60,7 +60,7 @@ public class PosSteps extends ScenarioSteps {
         } catch (StaleElementReferenceException e) {
             abstractObjectCollection = posPage.getObjectCollection();
         } catch (TimeoutException e) {
-            posPage.containsText("Для поиска товара введите 3 или более символа.");
+            posPage.shouldContainsText("Для поиска товара введите 3 или более символа.");
         }
         return abstractObjectCollection;
     }
@@ -72,7 +72,7 @@ public class PosSteps extends ScenarioSteps {
         } catch (StaleElementReferenceException e) {
             receiptCollection = posPage.getReceiptCollection();
         } catch (TimeoutException e) {
-            posPage.containsText("Для продажи добавьте в чек хотя бы один продукт.");
+            posPage.shouldContainsText("Для продажи добавьте в чек хотя бы один продукт.");
         }
         return receiptCollection;
     }

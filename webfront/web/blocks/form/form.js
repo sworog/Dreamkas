@@ -141,12 +141,14 @@ define(function(require) {
                 errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div for="' + field + '" class="form__errorMessage"></div>').insertAfter(inputElement)[0];
 
             if (data.errors && data.errors.length) {
-                inputElement.classList.add('invalid');
+                inputElement && inputElement.classList.add('invalid');
 
                 errorMessage = data.errors.map(getText).join('. ');
 
-                errorElement.classList.add('form__errorMessage_visible');
-                errorElement.innerHTML = getText(errorMessage);
+                if (errorElement){
+                    errorElement.classList.add('form__errorMessage_visible');
+                    errorElement.innerHTML = getText(errorMessage);
+                }
             }
 
             if (data.children) {

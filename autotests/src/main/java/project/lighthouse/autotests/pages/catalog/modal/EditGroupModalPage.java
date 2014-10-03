@@ -13,17 +13,12 @@ public class EditGroupModalPage extends CreateGroupModalPage {
         super(driver);
     }
 
-    @Override
-    public String modalWindowXpath() {
-        return "//*[@id='modal-groupEdit']";
-    }
-
     public void deleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink group__removeLink']")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'removeLink')]")).click();
     }
 
     public void deleteButtonConfirmClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']/*[@class='removeLink group__removeLink']")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']/*[contains(@class, 'removeLink')]")).click();
     }
 
     @Override

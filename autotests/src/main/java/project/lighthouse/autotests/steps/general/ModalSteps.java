@@ -2,7 +2,7 @@ package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.objects.ModalWindowPageObject;
+import project.lighthouse.autotests.common.pageObjects.ModalWindowPageObject;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.pages.catalog.group.modal.ProductCreateModalWindow;
 import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.collection.receiptHistory.Receipt;
-import project.lighthouse.autotests.common.objects.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.NonType;
 import project.lighthouse.autotests.handler.field.FieldChecker;

@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.authorization;
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.common.objects.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.Input;
 

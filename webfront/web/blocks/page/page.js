@@ -60,6 +60,7 @@ define(function(require, exports, module) {
             window.PAGE = page;
 
             modal__wrapper && modal__wrapper.classList.remove('modal__wrapper_visible');
+            document.body.classList.remove('modal-open');
 
             Block.prototype.initialize.apply(page, arguments);
         },

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.common.objects;
+package project.lighthouse.autotests.common.pageObjects;
 
 import net.thucydides.core.pages.PageObject;
 import org.apache.commons.lang.NotImplementedException;
@@ -184,5 +184,13 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
     @Override
     public void clickOnCommonItemWihName(String commonItemName) {
         getItems().get(commonItemName).click();
+    }
+
+    public void shouldContainsText(String textValue) {
+        findVisibleElement(
+                By.xpath(
+                        String.format("//*[contains(normalize-space(text()), '%s')]", textValue)
+                )
+        );
     }
 }

@@ -140,7 +140,8 @@ a:hover .fa {
     color: #fff;
 }
 
-input.invalid {
+input.invalid,
+.form-control.invalid {
     border-color: #db4c4a;
 }
 
