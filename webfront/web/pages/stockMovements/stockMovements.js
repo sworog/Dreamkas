@@ -29,16 +29,6 @@ define(function(require, exports, module) {
             writeOff: null
         },
         events: {
-            'click .stockIn__link': function(e) {
-                var page = this,
-                    stockinId = e.currentTarget.dataset.stockinId;
-
-                page.el.querySelector('.modal_stockIn').block.show({
-                    models: {
-                        stockIn: page.collections.stockMovements.get(stockinId)
-                    }
-                });
-            },
             'click .supplierReturn__link': function(e) {
                 var page = this,
                     supplierReturnId = e.currentTarget.dataset.supplierReturnId,
@@ -74,8 +64,8 @@ define(function(require, exports, module) {
         },
         blocks: {
             dropdown: require('blocks/dropdown/dropdown'),
-            modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
-            modal_invoice: require('blocks/modal/invoice/invoice'),
+			modal_invoice: require('blocks/modal/invoice/invoice'),
+            modal_stockIn: require('blocks/modal/stockIn/stockIn'),
             modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
             table_stockMovements: require('blocks/table/stockMovements/stockMovements'),

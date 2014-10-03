@@ -74,7 +74,7 @@
     <tr data-stockin-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-stockin-number="<%- stockMovementModel.get('number') %>"
         data-stockin-id="<%- stockMovementModel.id %>"
-        class="stockIn__link">
+		data-modal="modal_stockIn">
 
         <% if (dateRowSpan) { %>
         <td name="date" rowspan="<%- dateRowSpan %>">

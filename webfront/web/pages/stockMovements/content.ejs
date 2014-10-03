@@ -1,12 +1,13 @@
 <% var partials = {
-    modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs'),
-    tr: {
-        invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
-        writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
-        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs'),
-        supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
-    }
+	modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs'),
+	tr: {
+		invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
+		writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
+		stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs'),
+		supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
+	}
 }; %>
+
 
 <!--BEGIN TITLE PAGE-->
 <div class="page__head">
@@ -30,7 +31,9 @@
                           data-toggle="modal">Списать</div>
                 </li>
                 <li>
-                    <div class="dropdown-menu-item page__addStockInLink">Оприходовать</div>
+                    <div data-modal="modal_stockIn"
+						 data-stockin-id="0"
+						 class="dropdown-menu-item">Оприходовать</div>
                 </li>
                 <li>
                     <div class="dropdown-menu-item supplierReturn__link">Вернуть поставщику</div>
