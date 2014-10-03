@@ -29,7 +29,10 @@ define(function(require, exports, module) {
                 var GroupStockSellCollection = require('resources/groupStockSell/collection');
 
                 return new GroupStockSellCollection([], {
-                    groupId: this.params.groupId
+                    groupId: this.params.groupId,
+                    filters: {
+                        store: this.params.storeId
+                    }
                 });
             }
         },
