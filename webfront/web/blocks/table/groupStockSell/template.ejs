@@ -2,17 +2,20 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>
+        <th data-sort-by="product.name">
             Товар
         </th>
-        <th>
+        <th data-sort-by="grossSales">
             Продажи <i class="fa fa-rub"></i>
         </th>
-        <th>
+        <th data-sort-by="costOfGoods">
             Себестоимость <i class="fa fa-rub"></i>
         </th>
-        <th>
+        <th data-sort-by="grossMargin">
             Прибыль <i class="fa fa-rub"></i>
+        </th>
+        <th data-sort-by="quantity">
+            Количество
         </th>
     </tr>
     </thead>
@@ -31,6 +34,9 @@
         </td>
         <td>
             <%- formatMoney(productStockSellModel.get('grossMargin')) %>
+        </td>
+        <td>
+            <%- formatAmount(productStockSellModel.get('quantity')) %> <%- productStockSellModel.get('product.units') %>
         </td>
     </tr>
     <% }) %>
