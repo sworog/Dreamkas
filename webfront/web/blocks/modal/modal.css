@@ -1,3 +1,7 @@
+[data-modal] {
+    cursor: pointer;
+}
+
 #modal__wrapper {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -59,7 +63,7 @@
 }
 
 .modal__body {
-    padding: 20px 65px;
+    padding: 20px 60px;
     position: relative;
 }
 

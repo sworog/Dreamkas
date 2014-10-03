@@ -118,7 +118,7 @@ public class SupplierSteps extends ScenarioSteps {
         try {
             supplierCollection = supplierListPage.getSupplierCollection();
         } catch (TimeoutException e) {
-            supplierListPage.containsText("У вас ещё нет ни одного поставщика");
+            supplierListPage.shouldContainsText("У вас ещё нет ни одного поставщика");
         } catch (StaleElementReferenceException e) {
             supplierCollection = supplierListPage.getSupplierCollection();
         }

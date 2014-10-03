@@ -222,7 +222,7 @@ public class StockMovementSteps extends ScenarioSteps {
         try {
             stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         } catch (TimeoutException e) {
-            stockMovementPage.containsText("Не найдено ни одной операции с товарами.");
+            stockMovementPage.shouldContainsText("Не найдено ни одной операции с товарами.");
         } catch (StaleElementReferenceException e) {
             stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         }

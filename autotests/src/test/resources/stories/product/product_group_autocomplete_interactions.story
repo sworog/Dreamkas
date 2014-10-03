@@ -145,8 +145,16 @@ And the user asserts group title is 's38u101autoGroup4'
 
 Scenario: Create new group with 100 symbols name from product group autocomplete control
 
+Meta:
+@skip
+@ignore
+
 !--not implemented()
 
 Scenario: Create new group with 101 symbols name from product group autocomplete control
+
+Meta:
+@skip
+@ignore
 
 !--not implemented()

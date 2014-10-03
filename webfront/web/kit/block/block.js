@@ -10,6 +10,7 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     require('sortable');
+    require('madmin/vendors/bootstrap/js/bootstrap');
 
     var View = Backbone.View;
 
@@ -66,6 +67,10 @@ define(function(require, exports, module) {
             block.initBlocks();
 
             block.el.block = this;
+
+            block.$('button[data-toggle="popover"]').popover({
+                trigger: 'focus'
+            });
         },
 
         get: function() {

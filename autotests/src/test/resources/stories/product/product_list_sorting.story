@@ -25,21 +25,21 @@ And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' pa
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
-| s38u101sortName5 | 5,00 | sorBar5|
-| s38u101sortName4 | 4,00 | sorBar4|
-| s38u101sortName3 | 3,00 | sorBar3|
-| s38u101sortName2 | 2,00 | sorBar2|
 | s38u101sortName1 | 1,00 | sorBar1|
+| s38u101sortName2 | 2,00 | sorBar2|
+| s38u101sortName3 | 3,00 | sorBar3|
+| s38u101sortName4 | 4,00 | sorBar4|
+| s38u101sortName5 | 5,00 | sorBar5|
 
 When the user sorts the product list by name
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
-| s38u101sortName1 | 1,00 | sorBar1|
-| s38u101sortName2 | 2,00 | sorBar2|
-| s38u101sortName3 | 3,00 | sorBar3|
-| s38u101sortName4 | 4,00 | sorBar4|
 | s38u101sortName5 | 5,00 | sorBar5|
+| s38u101sortName4 | 4,00 | sorBar4|
+| s38u101sortName3 | 3,00 | sorBar3|
+| s38u101sortName2 | 2,00 | sorBar2|
+| s38u101sortName1 | 1,00 | sorBar1|
 
 Scenario: Product list sorting by sellingPrice
 
@@ -59,21 +59,21 @@ And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' pa
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
-| s38u101sortName5 | 5,00 | sorBar5|
-| s38u101sortName4 | 4,00 | sorBar4|
-| s38u101sortName3 | 3,00 | sorBar3|
-| s38u101sortName2 | 2,00 | sorBar2|
 | s38u101sortName1 | 1,00 | sorBar1|
+| s38u101sortName2 | 2,00 | sorBar2|
+| s38u101sortName3 | 3,00 | sorBar3|
+| s38u101sortName4 | 4,00 | sorBar4|
+| s38u101sortName5 | 5,00 | sorBar5|
 
 When the user sorts the product list by sellingPrice
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
-| s38u101sortName1 | 1,00 | sorBar1|
-| s38u101sortName2 | 2,00 | sorBar2|
-| s38u101sortName3 | 3,00 | sorBar3|
-| s38u101sortName4 | 4,00 | sorBar4|
 | s38u101sortName5 | 5,00 | sorBar5|
+| s38u101sortName4 | 4,00 | sorBar4|
+| s38u101sortName3 | 3,00 | sorBar3|
+| s38u101sortName2 | 2,00 | sorBar2|
+| s38u101sortName1 | 1,00 | sorBar1|
 
 Scenario: Product list sorting by barCode
 
@@ -93,18 +93,18 @@ And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' pa
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
-| s38u101sortName5 | 5,00 | sorBar5|
-| s38u101sortName4 | 4,00 | sorBar4|
-| s38u101sortName3 | 3,00 | sorBar3|
-| s38u101sortName2 | 2,00 | sorBar2|
 | s38u101sortName1 | 1,00 | sorBar1|
+| s38u101sortName2 | 2,00 | sorBar2|
+| s38u101sortName3 | 3,00 | sorBar3|
+| s38u101sortName4 | 4,00 | sorBar4|
+| s38u101sortName5 | 5,00 | sorBar5|
 
 When the user sorts the product list by barcode
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
-| s38u101sortName1 | 1,00 | sorBar1|
-| s38u101sortName2 | 2,00 | sorBar2|
-| s38u101sortName3 | 3,00 | sorBar3|
-| s38u101sortName4 | 4,00 | sorBar4|
 | s38u101sortName5 | 5,00 | sorBar5|
+| s38u101sortName4 | 4,00 | sorBar4|
+| s38u101sortName3 | 3,00 | sorBar3|
+| s38u101sortName2 | 2,00 | sorBar2|
+| s38u101sortName1 | 1,00 | sorBar1|

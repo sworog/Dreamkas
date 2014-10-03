@@ -2,7 +2,7 @@ package project.lighthouse.autotests.elements.items.autocomplete;
 
 import net.thucydides.core.annotations.findby.By;
 import project.lighthouse.autotests.common.item.CommonItem;
-import project.lighthouse.autotests.common.objects.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class ProductAutoComplete extends CommonItem {

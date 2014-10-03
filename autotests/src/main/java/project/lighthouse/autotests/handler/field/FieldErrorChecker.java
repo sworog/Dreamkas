@@ -17,6 +17,10 @@ public class FieldErrorChecker {
         this.commonItem = commonItem;
     }
 
+    public CommonItem getCommonItem() {
+        return commonItem;
+    }
+
     public void assertFieldErrorMessage(String expectedFieldErrorMessage) {
         try {
             String actualFieldErrorMessage;

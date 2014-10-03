@@ -52,7 +52,7 @@ public class CatalogSteps extends ScenarioSteps {
         try {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } catch (TimeoutException e) {
-            catalogPage.containsText("У вас пока нет ни одной группы товаров.");
+            catalogPage.shouldContainsText("У вас пока нет ни одной группы товаров.");
         } catch (StaleElementReferenceException e) {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } finally {
@@ -60,6 +60,11 @@ public class CatalogSteps extends ScenarioSteps {
                 orderObjectCollection.contains(groupName);
             }
         }
+    }
+
+    @Step
+    public void assertStoredGroupTitle() {
+        assertGroupTitle(storedName);
     }
 
     @Step
@@ -73,7 +78,7 @@ public class CatalogSteps extends ScenarioSteps {
         try {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } catch (TimeoutException e) {
-            catalogPage.containsText("У вас пока нет ни одной группы товаров.");
+            catalogPage.shouldContainsText("У вас пока нет ни одной группы товаров.");
         } catch (StaleElementReferenceException e) {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } finally {

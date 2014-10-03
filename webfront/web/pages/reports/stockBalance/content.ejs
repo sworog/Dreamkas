@@ -32,7 +32,29 @@
                                data-selected="<%- params.storeId %>"></b>
                         </div>
                         <div class="col-md-3">
-                            <b block="select_groupsSimple" data-selected="<%- params.groupId %>" data-disabled="<%- params.storeId ? 0 : 1 %>"></b>
+                            <b block="select_groupsSimple"
+							   data-selected="<%- params.groupId %>"
+							   data-disabled="<%- params.storeId ? 0 : 1 %>"></b>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+
+                                <input placeholder="Фильтр по товару"
+									   <%- params.storeId ? '' : 'disabled' %>
+									   value="<%- params.productFilter %>"
+                                       type="text"
+                                       name="productFilter"
+                                       class="form-control">
+
+                                <span class="productFinder__resetLink input-group-addon" <%- params.storeId ? '' : 'disabled' %>>
+                                    <i class="fa fa-times"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
 

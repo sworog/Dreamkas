@@ -14,14 +14,10 @@ public class ProductEditModalWindow extends ProductCreateModalWindow {
         super(driver);
     }
 
-    @Override
-    public String modalWindowXpath() {
-        return "//*[@id='modal-productEdit']";
-    }
-
     protected WebElement findDeleteButton() {
         return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink product__removeLink']"));
     }
+
     public void deleteButtonClick() {
         findDeleteButton().click();
     }

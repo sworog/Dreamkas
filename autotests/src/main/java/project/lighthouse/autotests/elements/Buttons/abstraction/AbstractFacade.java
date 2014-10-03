@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.elements.Buttons.abstraction;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.objects.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Conditional;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
