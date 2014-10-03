@@ -150,7 +150,7 @@ And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' pa
 
 When the user clicks on the add new supplier create button
 
-Then the user asserts the create new supplier modal window title is 'Добавление поставщика'
+Then the user asserts the create new supplier modal window title is 'Добавить поставщика'
 
 Scenario: Supplier edit modal window title assert
 

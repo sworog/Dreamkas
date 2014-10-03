@@ -1,115 +1,63 @@
-<% var currentUserModel = require('models/currentUser/currentUser.inst') %>
+<div class="page">
 
-<div id="page" class="page">
+    <nav class="sideBar">
 
-    <nav id="sidebar" role="navigation" class="navbar-default navbar-static-side" style="min-height: 100%">
+        <a href="/" class="sideBar__logo">
+            DREAMKAS
+        </a>
 
-        <nav id="topbar" role="navigation" style="margin-bottom: 0;">
-            <div class="navbar-header">
-                <a id="logo" href="/" class="navbar-brand">
-                    <span style="font-size: 22px;" class="logo-text">LightHOUSE</span>
+        <div class="sideBar__scrollPanel">
+
+            <a href="/" class="sideBar__item <%- activeNavigationItem === 'main' ? 'sideBar__item_active' : '' %>">
+                <i class="fa fa-tachometer fa-fw"></i>
+                Обзор
+            </a>
+
+            <a href="/stockMovements"
+               class="sideBar__item <%- activeNavigationItem === 'stockMovement' ? 'sideBar__item_active' : '' %>">
+                <i class="fa fa-exchange fa-fw"></i>
+                Товародвижение
+            </a>
+
+            <a href="/reports"
+               class="sideBar__item <%- activeNavigationItem === 'reports' ? 'sideBar__item_active' : '' %>">
+                <i class="fa fa-bar-chart-o fa-fw"></i>
+                Отчеты
+            </a>
+
+            <a href="/catalog"
+               class="sideBar__item <%- activeNavigationItem === 'catalog' ? 'sideBar__item_active' : '' %>">
+                Ассортимент
+            </a>
+
+            <a href="/suppliers"
+               class="sideBar__item <%- activeNavigationItem === 'suppliers' ? 'sideBar__item_active' : '' %>">
+                Поставщики
+            </a>
+
+            <a href="/stores"
+               class="sideBar__item <%- activeNavigationItem === 'stores' ? 'sideBar__item_active' : '' %>">
+                Магазины
+            </a>
+        </div>
+
+        <div class="sideBar__bottom">
+            <div name="username" class="sideBar__userName">
+                <a href="/user">
+                    <i class="fa fa-user"
+                       style="margin-right: 10px;"></i><%- currentUserModel.get('username') || currentUserModel.get('email') %>
                 </a>
             </div>
-        </nav>
-
-        <div class="sidebar-collapse menu-scroll">
-            <ul id="side-menu" class="nav">
-                <li class="user-panel">
-
-                    <div class="info">
-                        <p style="padding-bottom: 10px;">
-                            <%- currentUserModel.get('username') || currentUserModel.get('email') %>
-                        </p>
-                        <ul class="list-inline list-unstyled">
-                            <li>
-                                <a href="extra-profile.html"
-                                   data-hover="tooltip"
-                                   title=""
-                                   data-original-title="Profile">
-                                    <i class="fa fa-user"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                   data-hover="tooltip"
-                                   title=""
-                                   data-toggle="modal"
-                                   data-target="#modal-config"
-                                   data-original-title="Setting">
-                                    <i class="fa fa-cog"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/logout"
-                                   data-hover="tooltip"
-                                   title=""
-                                   data-original-title="Logout">
-                                    <i class="fa fa-sign-out"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="clearfix"></div>
-                </li>
-
-                <li class="<%- activeNavigationItem === 'main' ? 'active' : '' %>">
-                    <a href="/">
-                        <i class="fa fa-tachometer fa-fw"></i>
-                        <span class="menu-title">Обзор</span>
-                    </a>
-                </li>
-
-                <li class="<%- activeNavigationItem === 'stockMovement' ? 'active' : '' %>">
-                    <a href="/stockMovements">
-                        <i class="fa fa-exchange fa-fw"></i>
-                        <span class="menu-title">Товародвижение</span>
-                    </a>
-                </li>
-
-                <li class="<%- activeNavigationItem === 'money' ? 'active' : '' %>">
-                    <a href="/">
-                        <i class="fa fa-rub fa-fw"></i>
-                        <span class="menu-title">Деньги</span>
-                    </a>
-                </li>
-
-                <li class="<%- activeNavigationItem === 'reports' ? 'active' : '' %>">
-                    <a href="/reports">
-                        <i class="fa fa-bar-chart-o fa-fw"></i>
-                        <span class="menu-title">Отчеты</span>
-                    </a>
-                </li>
-
-                <li class="<%- activeNavigationItem === 'catalog' ? 'active' : '' %>">
-                    <a href="/catalog">
-                        <span class="menu-title">Ассортимент</span>
-                    </a>
-                </li>
-
-                <li class="<%- activeNavigationItem === 'suppliers' ? 'active' : '' %>">
-                    <a href="/suppliers">
-                        <span class="menu-title">Поставщики</span>
-                    </a>
-                </li>
-
-                <li class="<%- activeNavigationItem === 'stores' ? 'active' : '' %>">
-                    <a href="/stores">
-                        <span class="menu-title">Магазины</span>
-                    </a>
-                </li>
-            </ul>
-
-            <div style="text-align: center; padding: 30px 0;">
-                <a data-navigate="0" href="<%- get('posUrl') %>" class="page__posLink btn btn-primary btn-lg">Запустить кассу</a>
+            <div class="sideBar__controls">
+                <a href="/logout">
+                    <i class="fa fa-sign-out"></i>
+                </a>
             </div>
         </div>
     </nav>
 
-    <div id="page-wrapper">
-
+    <div class="page__contentSide">
         <%= content(obj) %>
-
     </div>
 
 </div>

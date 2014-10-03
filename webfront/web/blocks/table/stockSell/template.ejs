@@ -1,0 +1,43 @@
+<% if (sortedCollection.length) { %>
+<table class="table table-striped table-hover table_stockSell">
+    <thead>
+    <tr>
+        <th>
+            Группа
+        </th>
+        <th>
+            Продажи
+        </th>
+        <th>
+            Себестоимость
+        </th>
+        <th>
+            Прибыль
+        </th>
+    </tr>
+    </thead>
+    <tbody name="stockSell">
+
+    <% sortedCollection.forEach(function(stockSellModel){ %>
+    <tr href="/reports/stockSell/groups/<%- stockSellModel.get('id') %>">
+        <td class="table_stockSell__groupName">
+            <%- stockSellModel.get('name') %>
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+<% } else { %>
+<div class="alert alert-info">
+    Ассортимент пуст. Добавьте хотя бы один товар.
+</div>
+<% } %>

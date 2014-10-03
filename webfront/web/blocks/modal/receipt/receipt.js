@@ -8,7 +8,7 @@ define(function(require, exports, module) {
         events: {
             'click .modal_receipt__reloadLink': function() {
                 var block = this,
-                    ReceiptModel = require('models/receipt/receipt');
+                    ReceiptModel = require('resources/receipt/model');
 
                 block.hide();
 

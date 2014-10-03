@@ -1,61 +1,27 @@
-<% var partials = {
-    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs')
-} %>
-
 <!--BEGIN TITLE PAGE-->
-<div class="page-title-breadcrumb">
+<div class="page__head">
 
     <div class="pull-right">
-        <span data-target="#modal-groupAdd"
-              data-toggle="modal"
-              role="button"
-              class="btn btn-primary btn-md">Добавить группу</span>
+        <span data-modal="modal_group" data-groupId="0" class="btn btn-primary btn-md">Добавить группу</span>
     </div>
 
-    <div class="page-header pull-left">
-        <div class="page-title">Ассортимент</div>
+    <div class="page__title">
+        Ассортимент
     </div>
 
-    <div class="clearfix"></div>
 </div>
 <!--END TITLE PAGE-->
 
 <!--BEGIN CONTENT-->
-<div class="page-content">
+<div class="page__content">
     <div class="row">
-        <% if (collections.groups.length) { %>
         <div class="col-md-12">
-            <div class="panel">
-                <div class="panel-body">
-                    <ul class="groupList">
-
-                        <% collections.groups.forEach(function(group) { %>
-
-                        <li>
-                            <a class="groupList__link"
-                               href="/catalog/groups/<%- group.id %>">
-                                <i class="fa fa-angle-right pull-right"></i>
-                                <%= group.get('name') %>
-                            </a>
-                        </li>
-
-                        <% }) %>
-
-                    </ul>
-                </div>
-            </div>
+            <b block="groupList"></b>
         </div>
-        <% } else { %>
-        <div class="col-md-12">
-            <div class="alert alert-info">
-                У вас пока нет ни одной группы товаров.
-            </div>
-        </div>
-        <% } %>
     </div>
 </div>
 <!--END CONTENT-->
 
 <!--MODALS-->
-<%= partials.modal_groupForm() %>
+<b block="modal_group"></b>
 <!--END MODALS-->

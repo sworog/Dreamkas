@@ -26,6 +26,8 @@
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
 @import "/blocks/inputNumber/inputNumber.css";
+@import "/blocks/table/table.css";
+@import "/blocks/breadcrumbs/breadcrumbs.css";
 
 body {
     overflow-x: hidden;
@@ -67,8 +69,12 @@ body[status="loaded"]:before {
     transition: transform 1s, opacity 1s;
 }
 
-a {
+a, [href] {
     cursor: pointer;
+}
+
+a {
+    color: #428bca;
 }
 
 a:hover .fa {
@@ -164,11 +170,6 @@ input.invalid {
     padding: 20px 65px;
 }
 
-.product__markup {
-    height: 34px;
-    line-height: 34px;
-}
-
 .product__link,
 .supplier__link,
 .store__link,
@@ -261,4 +262,8 @@ select.loading, input.loading {
 
 .tt-input {
     background-color: #fff !important;
+}
+
+.page-title .fa {
+    color: #999;
 }

@@ -15,7 +15,7 @@ define(function(require, exports, module) {
                 quantity: block.formatAmount(block.model.get('quantity'))
             });
         },
-        model: require('models/receiptProduct/receiptProduct'),
+        model: require('resources/receiptProduct/model'),
         events: {
             'click .form_receiptProduct__removeLink': function(e){
                 var block = this;

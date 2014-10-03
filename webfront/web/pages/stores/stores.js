@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'stores',
         collections: {
-            stores: require('collections/stores/stores')
+            stores: require('resources/store/collection')
         },
         blocks: {
             modal_store: require('blocks/modal/store/store'),

@@ -1,0 +1,49 @@
+<% if (sortedCollection.length) { %>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th data-sort-by="product.name">
+            Товар
+        </th>
+        <th data-sort-by="grossSales">
+            Продажи <i class="fa fa-rub"></i>
+        </th>
+        <th data-sort-by="costOfGoods">
+            Себестоимость <i class="fa fa-rub"></i>
+        </th>
+        <th data-sort-by="grossMargin">
+            Прибыль <i class="fa fa-rub"></i>
+        </th>
+        <th data-sort-by="quantity">
+            Количество
+        </th>
+    </tr>
+    </thead>
+    <tbody name="stockSell">
+
+    <% sortedCollection.forEach(function(productStockSellModel){ %>
+    <tr>
+        <td>
+            <%- productStockSellModel.get('product.name') %>
+        </td>
+        <td>
+            <%- formatMoney(productStockSellModel.get('grossSales')) %>
+        </td>
+        <td>
+            <%- formatMoney(productStockSellModel.get('costOfGoods')) %>
+        </td>
+        <td>
+            <%- formatMoney(productStockSellModel.get('grossMargin')) %>
+        </td>
+        <td>
+            <%- formatAmount(productStockSellModel.get('quantity')) %> <%- productStockSellModel.get('product.units') %>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+<% } else { %>
+<div class="alert alert-info">
+    Ассортимент пуст. Добавьте хотя бы один товар.
+</div>
+<% } %>

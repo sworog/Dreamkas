@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return From.extend({
         el: '.form_invoice',
-        model: require('models/invoice/invoice'),
+        model: require('resources/invoice/model'),
         blocks: {
             datepicker: function(){
                 var block = this;

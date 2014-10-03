@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return From.extend({
         el: '.form_writeOff',
-        model: require('models/writeOff/writeOff'),
+        model: require('resources/writeOff/model'),
         blocks: {
             datepicker: function(){
                 var block = this;

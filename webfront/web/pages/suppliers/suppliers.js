@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'suppliers',
         collections: {
-            suppliers: require('collections/suppliers/suppliers')
+            suppliers: require('resources/supplier/collection')
         },
         blocks: {
             modal_supplier: require('blocks/modal/supplier/supplier'),
