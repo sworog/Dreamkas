@@ -16,12 +16,14 @@
 		CE1B3DAE19DD40CA00A253D1 /* cert.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9B19DD40CA00A253D1 /* cert.txt */; };
 		CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DA319DD40CA00A253D1 /* Info.plist */; };
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
-		CE1B3DB619DD40E500A253D1 /* dreamkas-tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DB419DD40E500A253D1 /* dreamkas-tests.m */; };
-		CE1B3DB719DD40E500A253D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DB519DD40E500A253D1 /* Info.plist */; };
 		CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */; };
 		CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */; };
 		CE1B3DC519DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */; };
 		CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
+		CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD93E719DEA77700232734 /* dreamkas_tests.swift */; };
+		CECD93EA19DEA77700232734 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECD93E819DEA77700232734 /* Info.plist */; };
+		CECD93F119DEAE7100232734 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9819DD40CA00A253D1 /* ViewController.m */; };
+		CECD93F319DEBE6C00232734 /* new_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD93F219DEBE6C00232734 /* new_tests.m */; };
 		CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */; };
 		CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47B19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m */; };
 		CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47D19DD74C800ED88D3 /* AFHTTPSessionManager.m */; };
@@ -43,7 +45,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CE1B3D7D19DD3CF100A253D1 /* PBXContainerItemProxy */ = {
+		CECD93E019DEA6B200232734 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE1B3D5B19DD3CF000A253D1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE1B3D6219DD3CF000A253D1;
+			remoteInfo = dreamkas;
+		};
+		CECD93E519DEA6BC00232734 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE1B3D5B19DD3CF000A253D1 /* Project object */;
 			proxyType = 1;
@@ -54,7 +63,6 @@
 
 /* Begin PBXFileReference section */
 		CE1B3D6319DD3CF000A253D1 /* dreamkas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dreamkas.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE1B3D7C19DD3CF100A253D1 /* dreamkasTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dreamkasTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1B3D8E19DD40CA00A253D1 /* text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = text.txt; sourceTree = "<group>"; };
 		CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CE1B3D9119DD40CA00A253D1 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,8 +74,6 @@
 		CE1B3D9B19DD40CA00A253D1 /* cert.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cert.txt; sourceTree = "<group>"; };
 		CE1B3DA319DD40CA00A253D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1B3DA419DD40CA00A253D1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		CE1B3DB419DD40E500A253D1 /* dreamkas-tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "dreamkas-tests.m"; sourceTree = "<group>"; };
-		CE1B3DB519DD40E500A253D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1B3DB819DD445700A253D1 /* dreamkas-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dreamkas-prefix.pch"; sourceTree = "<group>"; };
 		CE1B3DBB19DD46DD00A253D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		CE1B3DBD19DD46DD00A253D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
@@ -77,6 +83,11 @@
 		CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDefines.h; sourceTree = "<group>"; };
 		CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockDefines.h; sourceTree = "<group>"; };
 		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
+		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CECD93E719DEA77700232734 /* dreamkas_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dreamkas_tests.swift; sourceTree = "<group>"; };
+		CECD93E819DEA77700232734 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CECD93F019DEAB5B00232734 /* SwiftBridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftBridging.h; sourceTree = "<group>"; };
+		CECD93F219DEBE6C00232734 /* new_tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = new_tests.m; sourceTree = "<group>"; };
 		CECFC47819DD74C800ED88D3 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		CECFC47A19DD74C800ED88D3 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -125,7 +136,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE1B3D7919DD3CF100A253D1 /* Frameworks */ = {
+		CECD93D719DEA6B200232734 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -150,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				CE1B3D6319DD3CF000A253D1 /* dreamkas.app */,
-				CE1B3D7C19DD3CF100A253D1 /* dreamkasTests.xctest */,
+				CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,10 +238,11 @@
 		CE1B3DA119DD40CA00A253D1 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				CE1B3DC919DD4A8800A253D1 /* StyleDefines.h */,
 				CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */,
 				CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */,
 				CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */,
+				CE1B3DC919DD4A8800A253D1 /* StyleDefines.h */,
+				CECD93F019DEAB5B00232734 /* SwiftBridging.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -247,8 +259,9 @@
 		CE1B3DB319DD40E500A253D1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				CE1B3DB419DD40E500A253D1 /* dreamkas-tests.m */,
-				CE1B3DB519DD40E500A253D1 /* Info.plist */,
+				CECD93E719DEA77700232734 /* dreamkas_tests.swift */,
+				CECD93E819DEA77700232734 /* Info.plist */,
+				CECD93F219DEBE6C00232734 /* new_tests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -359,22 +372,23 @@
 			productReference = CE1B3D6319DD3CF000A253D1 /* dreamkas.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CE1B3D7B19DD3CF100A253D1 /* dreamkasTests */ = {
+		CECD93D919DEA6B200232734 /* dreamkas-tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CE1B3D8919DD3CF100A253D1 /* Build configuration list for PBXNativeTarget "dreamkasTests" */;
+			buildConfigurationList = CECD93E219DEA6B200232734 /* Build configuration list for PBXNativeTarget "dreamkas-tests" */;
 			buildPhases = (
-				CE1B3D7819DD3CF100A253D1 /* Sources */,
-				CE1B3D7919DD3CF100A253D1 /* Frameworks */,
-				CE1B3D7A19DD3CF100A253D1 /* Resources */,
+				CECD93D619DEA6B200232734 /* Sources */,
+				CECD93D719DEA6B200232734 /* Frameworks */,
+				CECD93D819DEA6B200232734 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				CE1B3D7E19DD3CF100A253D1 /* PBXTargetDependency */,
+				CECD93E119DEA6B200232734 /* PBXTargetDependency */,
+				CECD93E619DEA6BC00232734 /* PBXTargetDependency */,
 			);
-			name = dreamkasTests;
-			productName = dreamkasTests;
-			productReference = CE1B3D7C19DD3CF100A253D1 /* dreamkasTests.xctest */;
+			name = "dreamkas-tests";
+			productName = "dreamkas-tests";
+			productReference = CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -389,7 +403,7 @@
 					CE1B3D6219DD3CF000A253D1 = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
-					CE1B3D7B19DD3CF100A253D1 = {
+					CECD93D919DEA6B200232734 = {
 						CreatedOnToolsVersion = 6.0.1;
 						TestTargetID = CE1B3D6219DD3CF000A253D1;
 					};
@@ -410,7 +424,7 @@
 			projectRoot = "";
 			targets = (
 				CE1B3D6219DD3CF000A253D1 /* dreamkas */,
-				CE1B3D7B19DD3CF100A253D1 /* dreamkasTests */,
+				CECD93D919DEA6B200232734 /* dreamkas-tests */,
 			);
 		};
 /* End PBXProject section */
@@ -433,11 +447,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE1B3D7A19DD3CF100A253D1 /* Resources */ = {
+		CECD93D819DEA6B200232734 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE1B3DB719DD40E500A253D1 /* Info.plist in Resources */,
+				CECD93EA19DEA77700232734 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,21 +486,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CE1B3D7819DD3CF100A253D1 /* Sources */ = {
+		CECD93D619DEA6B200232734 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE1B3DB619DD40E500A253D1 /* dreamkas-tests.m in Sources */,
+				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
+				CECD93F119DEAE7100232734 /* ViewController.m in Sources */,
+				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CE1B3D7E19DD3CF100A253D1 /* PBXTargetDependency */ = {
+		CECD93E119DEA6B200232734 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CE1B3D6219DD3CF000A253D1 /* dreamkas */;
-			targetProxy = CE1B3D7D19DD3CF100A253D1 /* PBXContainerItemProxy */;
+			targetProxy = CECD93E019DEA6B200232734 /* PBXContainerItemProxy */;
+		};
+		CECD93E619DEA6BC00232734 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE1B3D6219DD3CF000A253D1 /* dreamkas */;
+			targetProxy = CECD93E519DEA6BC00232734 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -636,36 +657,45 @@
 			};
 			name = Release;
 		};
-		CE1B3D8A19DD3CF100A253D1 /* Debug */ = {
+		CECD93E319DEA6B200232734 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = dreamkasTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/Supporting Files/Headers/SwiftBridging.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dreamkas.app/dreamkas";
 			};
 			name = Debug;
 		};
-		CE1B3D8B19DD3CF100A253D1 /* Release */ = {
+		CECD93E419DEA6B200232734 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = dreamkasTests/Info.plist;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/Supporting Files/Headers/SwiftBridging.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dreamkas.app/dreamkas";
 			};
 			name = Release;
@@ -691,14 +721,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CE1B3D8919DD3CF100A253D1 /* Build configuration list for PBXNativeTarget "dreamkasTests" */ = {
+		CECD93E219DEA6B200232734 /* Build configuration list for PBXNativeTarget "dreamkas-tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE1B3D8A19DD3CF100A253D1 /* Debug */,
-				CE1B3D8B19DD3CF100A253D1 /* Release */,
+				CECD93E319DEA6B200232734 /* Debug */,
+				CECD93E419DEA6B200232734 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

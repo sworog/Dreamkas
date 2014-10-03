@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>dreamkas-tests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>dreamkas.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>CE1B3D7B19DD3CF100A253D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CECD93D919DEA6B200232734</key>
 		<dict>
 			<key>primary</key>
 			<true/>
