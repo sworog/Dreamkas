@@ -1,7 +1,6 @@
 Meta:
 @us_113.1
 @sprint_42
-@test
 
 Narrative:
 Как владелец,
@@ -29,3 +28,28 @@ Meta:
 Given пользователь авторизируется в системе используя адрес электронной почты 'owner@lighthouse.pro' и пароль 'lighthouse'
 
 Then пользователь проверяет, что текущая активити это 'ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity_'
+
+Scenario: Отправление пустого поля емейл
+
+Meta:
+@skip
+@ignore
+
+Scenario: Отправление пустого поля пароль
+
+Meta:
+@skip
+@ignore
+
+Scenario: Отправление пустого поля пароль и емейл
+
+Meta:
+@skip
+@ignore
+
+Scenario: Авторизация с несуществующими кредами
+
+Meta:
+@skip
+@ignore
+
