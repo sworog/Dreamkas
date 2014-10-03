@@ -6,6 +6,23 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'reports',
+        events: {
+            'change select[name="store"]': function(e){
+                var storeId = e.target.value || undefined;
+
+                this.setParams({
+                    storeId: storeId
+                });
+
+                e.target.classList.add('loading');
+
+                this.collections.groupStockSell.filter({
+                    store: storeId
+                }).then(function(){
+                    e.target.classList.remove('loading');
+                });
+            }
+        },
         collections: {
             stores: require('resources/store/collection'),
             groupStockSell: function(){
