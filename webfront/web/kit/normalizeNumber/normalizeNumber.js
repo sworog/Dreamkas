@@ -9,8 +9,8 @@ define(function(require, exports, module) {
         }
 
         var normalizedString = string.toString()
-            .replace(' ', '', 'gi')
-            .replace(',', '.', 'gi');
+            .replace(new RegExp(' ', 'gi'), '')
+            .replace(new RegExp(',', 'gi'), '.', 'gi');
         
         return parseFloat(normalizedString);
     }

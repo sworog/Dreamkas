@@ -10,7 +10,7 @@ define(function(require, exports, module) {
             expect(typeof normalizedResult).toEqual('number');
         });
 
-        it('normalized number is correct', function() {
+        iit('normalized number is correct', function() {
 
             expect(normalizedResult).toEqual(3.555);
         });
