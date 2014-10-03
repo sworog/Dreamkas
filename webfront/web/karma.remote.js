@@ -45,8 +45,7 @@ module.exports = function(config) {
 			// source files, that you wanna generate coverage for
 			// do not include tests or libraries
 			// (these files will be instrumented by Istanbul),
-            'blocks/**/!(*.spec.js)*.js': 'coverage',
-            'kit/**/!(*.spec.js)*.js': 'coverage'
+            './**/!(*.spec.js)*.js': 'coverage'
 		},
 
         // enable / disable colors in the output (reporters and logs)
