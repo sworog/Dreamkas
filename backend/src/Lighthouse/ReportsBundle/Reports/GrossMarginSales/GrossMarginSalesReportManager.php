@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductReport;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
@@ -38,21 +39,34 @@ class GrossMarginSalesReportManager
     protected $productRepository;
 
     /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
+
+    /**
      * @DI\InjectParams({
      *      "grossMarginSalesProductRepository"
      *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.product.repository"),
      *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
+     *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
      * })
      *
      * @param GrossMarginSalesProductRepository $grossMarginSalesProductRepository
      * @param StoreProductRepository $storeProductRepository
+     * @param ProductRepository $productRepository
+     * @param NumericFactory $numericFactory
      */
     public function __construct(
         GrossMarginSalesProductRepository $grossMarginSalesProductRepository,
-        StoreProductRepository $storeProductRepository
+        StoreProductRepository $storeProductRepository,
+        ProductRepository $productRepository,
+        NumericFactory $numericFactory
     ) {
         $this->grossMarginSalesProductRepository = $grossMarginSalesProductRepository;
         $this->storeProductRepository = $storeProductRepository;
+        $this->productRepository = $productRepository;
+        $this->numericFactory = $numericFactory;
     }
 
     /**
@@ -76,9 +90,12 @@ class GrossMarginSalesReportManager
         DateTime $startDate,
         DateTime $endDate
     ) {
+        $products = $this->productRepository->findBySubCategory($subCategory);
         $storeProducts = $this->storeProductRepository->findOrCreateByStoreIdSubCategory($storeId, $subCategory);
 
-        return $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+        $reports = $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+
+        return $this->fillReportsByProducts($reports, $products);
     }
 
     /**
@@ -92,9 +109,12 @@ class GrossMarginSalesReportManager
         DateTime $startDate,
         DateTime $endDate
     ) {
+        $products = $this->productRepository->findBySubCategory($subCategory);
         $storeProducts = $this->storeProductRepository->findBySubCategory($subCategory);
 
-        return $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+        $reports = $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+
+        return $this->fillReportsByProducts($reports, $products);
     }
 
     /**
@@ -125,5 +145,27 @@ class GrossMarginSalesReportManager
         }
 
         return $collection;
+    }
+
+    /**
+     * @param GrossMarginSalesByProductsCollection $reports
+     * @param $products
+     * @return GrossMarginSalesByProductsCollection
+     */
+    protected function fillReportsByProducts(
+        GrossMarginSalesByProductsCollection $reports,
+        $products
+    ) {
+        foreach ($products as $product) {
+            if (!$reports->containsProduct($product)) {
+                $grossMarginSalesByProductReport = $reports->getByProduct($product);
+                $grossMarginSalesByProductReport->grossSales = $this->numericFactory->createMoney(0);
+                $grossMarginSalesByProductReport->costOfGoods = $this->numericFactory->createMoney(0);
+                $grossMarginSalesByProductReport->grossMargin = $this->numericFactory->createMoney(0);
+                $grossMarginSalesByProductReport->quantity = $this->numericFactory->createQuantity(0);
+            }
+        }
+
+        return $reports;
     }
 }
