@@ -53,4 +53,9 @@ public class ThenCatalogUserSteps {
     public void thenTheUserChecksTheEditGroupModalWindowNameFieldHasErrorMessageWithText(String errorMessage) {
         catalogSteps.editGroupModalPageCheckFieldError(errorMessage);
     }
+
+    @Then("the user asserts the group title equals stored name")
+    public void thenTheUserAssertStoredGroupTitle() {
+        catalogSteps.assertStoredGroupTitle();
+    }
 }
