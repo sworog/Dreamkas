@@ -10,6 +10,7 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     require('sortable');
+    require('madmin/vendors/bootstrap/js/bootstrap');
 
     var View = Backbone.View;
 
@@ -39,7 +40,6 @@ define(function(require, exports, module) {
         },
 
         formatMoney: require('kit/formatMoney/formatMoney'),
-        formatNumber: require('kit/formatNumber/formatNumber'),
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate/formatDate'),
         formatNumber: require('kit/formatNumber/formatNumber'),
