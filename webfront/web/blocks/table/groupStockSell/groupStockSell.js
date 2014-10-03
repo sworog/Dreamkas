@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Table.extend({
         template: require('ejs!./template.ejs'),
         collection: function(){
-            return PAGE.collections.groupStockSell
+            return PAGE.collections.groupStockSell;
         }
     });
 });

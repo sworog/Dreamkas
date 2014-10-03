@@ -1,36 +1,36 @@
 <% if (sortedCollection.length) { %>
-<table class="table table-striped table-hover">
+<table class="table table-striped">
     <thead>
     <tr>
         <th>
             Товар
         </th>
         <th>
-            Продажи
+            Продажи <i class="fa fa-rub"></i>
         </th>
         <th>
-            Себестоимость
+            Себестоимость <i class="fa fa-rub"></i>
         </th>
         <th>
-            Прибыль
+            Прибыль <i class="fa fa-rub"></i>
         </th>
     </tr>
     </thead>
     <tbody name="stockSell">
 
-    <% sortedCollection.forEach(function(groupStockSellModel){ %>
+    <% sortedCollection.forEach(function(productStockSellModel){ %>
     <tr>
         <td>
-            <%- groupStockSellModel.get('name') %>
+            <%- productStockSellModel.get('product.name') %>
         </td>
         <td>
-
+            <%- formatMoney(productStockSellModel.get('grossSales')) %>
         </td>
         <td>
-
+            <%- formatMoney(productStockSellModel.get('costOfGoods')) %>
         </td>
         <td>
-
+            <%- formatMoney(productStockSellModel.get('grossMargin')) %>
         </td>
     </tr>
     <% }) %>
