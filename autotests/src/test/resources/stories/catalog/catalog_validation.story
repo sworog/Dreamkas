@@ -89,7 +89,7 @@ And the user clicks on the edit group icon
 And the user generates symbols with count '100' in the edit group modal window name field
 And the user confirms OK in edit group modal window
 
-Then the user asserts the groups list contain group with stored name
+Then the user asserts the group title equals stored name
 
 Scenario: Edit group validation name negative - 101 symbols
 

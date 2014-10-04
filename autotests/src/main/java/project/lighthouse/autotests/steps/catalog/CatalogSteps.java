@@ -49,6 +49,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertStoredGroupTitle() {
+        assertGroupTitle(storedName);
+    }
+
+    @Step
     public void groupCollectionContainsGroupWithStoredName() {
         groupCollectionContainsGroupWithName(storedName);
     }
