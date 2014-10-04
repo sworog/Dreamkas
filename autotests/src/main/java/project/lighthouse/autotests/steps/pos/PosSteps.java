@@ -10,10 +10,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.api.http.HttpExecutor;
-import project.lighthouse.autotests.collection.posAutoComplete.PosAutoCompleteCollection;
 import project.lighthouse.autotests.collection.receipt.ReceiptCollection;
 import project.lighthouse.autotests.collection.receipt.ReceiptObject;
 import project.lighthouse.autotests.collection.refund.RefundProduct;
+import project.lighthouse.autotests.common.item.interfaces.Collectable;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.pages.pos.*;
 import project.lighthouse.autotests.storage.Storage;
@@ -53,18 +53,6 @@ public class PosSteps extends ScenarioSteps {
         posLaunchPage.getDriver().navigate().to(posUrl);
     }
 
-    public PosAutoCompleteCollection getPosAutoCompleteCollection() {
-        PosAutoCompleteCollection abstractObjectCollection = null;
-        try {
-            abstractObjectCollection = posPage.getObjectCollection();
-        } catch (StaleElementReferenceException e) {
-            abstractObjectCollection = posPage.getObjectCollection();
-        } catch (TimeoutException e) {
-            posPage.shouldContainsText("Для поиска товара введите 3 или более символа.");
-        }
-        return abstractObjectCollection;
-    }
-
     public ReceiptCollection getReceiptCollection() {
         ReceiptCollection receiptCollection = null;
         try {
@@ -79,7 +67,7 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void checkPostAutoCompleteCollectionContainsNoResults() {
-        assertThat(getPosAutoCompleteCollection(), nullValue());
+        posPage.shouldContainsText("Для поиска товара введите 3 или более символа.");
     }
 
     @Step
@@ -89,10 +77,7 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void exactComparePosAutocompleteResultsCollectionWithExamplesTable(ExamplesTable examplesTable) {
-        PosAutoCompleteCollection posAutoCompeteResults = getPosAutoCompleteCollection();
-        if (posAutoCompeteResults != null) {
-            posAutoCompeteResults.exactCompareExampleTable(examplesTable);
-        }
+        posPage.exactCompareExampleTable(examplesTable);
     }
 
     @Step
@@ -217,24 +202,24 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void setRefundProductQuantityByName(String name, String quantity) {
-        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).setQuantity(quantity);
+        ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).setQuantity(quantity);
     }
 
     @Step
     public void assertRefundPorductQuantity(String name, String quantity) {
         String actualQuantity =
-                ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).getQuantity();
+                ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).getQuantity();
         assertThat(actualQuantity, is(quantity));
     }
 
     @Step
     public void clickOnRefundProductPlusButtonByName(String name) {
-        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).clickOnPlusButton();
+        ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).clickOnPlusButton();
     }
 
     @Step
     public void clickOnRefundProductMinusButtonByName(String name) {
-        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).clickOnMinusButton();
+        ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).clickOnMinusButton();
     }
 
     @Step

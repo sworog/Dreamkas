@@ -1,12 +1,10 @@
 package project.lighthouse.autotests.common.pageObjects;
 
 import net.thucydides.core.pages.PageObject;
-import org.apache.commons.lang.NotImplementedException;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.common.CommonActions;
 import project.lighthouse.autotests.common.Waiter;
 import project.lighthouse.autotests.common.item.CommonItemMap;
@@ -149,23 +147,19 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         ((Conditionable) items.get(elementName)).shouldBeNotVisible();
     }
 
-    public AbstractObjectCollection getObjectCollection() {
-        throw new NotImplementedException();
-    }
-
     @Override
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
-        getObjectCollection().exactCompareExampleTable(examplesTable);
+        ((Collectable)items.get("defaultCollection")).exactCompareExampleTable(examplesTable);
     }
 
     @Override
     public void compareWithExampleTable(ExamplesTable examplesTable) {
-        getObjectCollection().compareWithExampleTable(examplesTable);
+        ((Collectable)items.get("defaultCollection")).compareWithExampleTable(examplesTable);
     }
 
     @Override
     public void clickOnCollectionObjectByLocator(String locator) {
-        getObjectCollection().clickByLocator(locator);
+        ((Collectable)items.get("defaultCollection")).clickByLocator(locator);
     }
 
     @Override
