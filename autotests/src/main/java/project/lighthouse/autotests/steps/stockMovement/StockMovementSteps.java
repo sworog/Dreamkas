@@ -5,8 +5,6 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import project.lighthouse.autotests.collection.stockMovement.StockMovementListObjectCollection;
 import project.lighthouse.autotests.collection.stockMovement.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.collection.stockMovement.invoiceProduct.InvoiceProductObject;
 import project.lighthouse.autotests.collection.stockMovement.stockIn.StockInProductCollection;
@@ -203,30 +201,12 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementPageContainStockOperation(ExamplesTable examplesTable) {
-        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.compareWithExampleTable(examplesTable);
-        }
+        stockMovementPage.compareWithExampleTable(examplesTable);
     }
 
     @Step
     public void stockMovementPageContainExactStockOperation(ExamplesTable examplesTable) {
-        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.exactCompareExampleTable(examplesTable);
-        }
-    }
-
-    private StockMovementListObjectCollection getStockMovementObjectCollection() {
-        StockMovementListObjectCollection stockMovementObjectCollection = null;
-        try {
-            stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
-        } catch (TimeoutException e) {
-            stockMovementPage.shouldContainsText("Не найдено ни одной операции с товарами.");
-        } catch (StaleElementReferenceException e) {
-            stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
-        }
-        return stockMovementObjectCollection;
+        stockMovementPage.exactCompareExampleTable(examplesTable);
     }
 
     private InvoiceProductCollection getInvoiceProductCollection() {
@@ -355,10 +335,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void openOperationByNumberInStockMovementPage(String number) {
-        StockMovementListObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.clickByLocator(number);
-        }
+        stockMovementPage.clickOnCollectionObjectByLocator(number);
     }
 
     @Step
@@ -386,10 +363,7 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     protected void stockMovementCollectionDoesNotContainNumber(String number) throws JSONException {
-        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(number);
-        }
+        stockMovementPage.collectionNotContainObjectWithLocator(number);
     }
 
     @Step
@@ -593,13 +567,13 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void acceptFiltersButtonClick() {
-        stockMovementPage.acceptFiltersButtonClick();
+        stockMovementPage.clickOnCommonItemWihName("acceptFiltersButton");
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void resetFiltersButtonClick() {
-        stockMovementPage.resetFiltersButtonClick();
+        stockMovementPage.clickOnCommonItemWihName("resetFiltersButton");
         new SimplePreloader(getDriver()).await();
     }
 }
