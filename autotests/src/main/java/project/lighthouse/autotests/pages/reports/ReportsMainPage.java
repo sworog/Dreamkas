@@ -3,6 +3,7 @@ package project.lighthouse.autotests.pages.reports;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
+import project.lighthouse.autotests.elements.items.NonType;
 
 public class ReportsMainPage extends BootstrapPageObject {
 
@@ -17,9 +18,6 @@ public class ReportsMainPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-    }
-
-    public void clickOnStockBalanceReport() {
-        click(By.xpath("//*[contains(text(), 'Остатки товаров')]/.."));
+        put("stockBalanceReport", new NonType(this, By.xpath("//*[contains(text(), 'Остатки товаров')]/..")));
     }
 }
