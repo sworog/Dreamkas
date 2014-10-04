@@ -92,14 +92,6 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         commonActions.elementClick(findBy);
     }
 
-    public void itemClick(String itemName) {
-        ((Clickable) items.get(itemName)).click();
-    }
-
-    public String getItemAttribute(String itemName, String attribute) {
-        return ((Findable) items.get(itemName)).getVisibleWebElement().getAttribute(attribute);
-    }
-
     public void checkFieldLength(String elementName, int fieldLength) {
         ((FieldCheckable) items.get(elementName)).getFieldChecker().assertFieldLength(elementName, fieldLength);
     }

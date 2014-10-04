@@ -13,7 +13,6 @@ import project.lighthouse.autotests.collection.stockMovement.stockIn.StockInProd
 import project.lighthouse.autotests.collection.stockMovement.stockIn.StockInProductObject;
 import project.lighthouse.autotests.collection.writeOffProduct.WriteOffProductCollection;
 import project.lighthouse.autotests.collection.writeOffProduct.WriteOffProductObject;
-import project.lighthouse.autotests.common.item.interfaces.FieldErrorCheckable;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
@@ -301,7 +300,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void assertWriteOffCreateModalWindowsCausePlaceholderText(String text) {
-        assertThat(writeOffCreateModalWindow.getItemAttribute("cause", "placeholder"), is(text));
+        assertThat(writeOffCreateModalWindow.getCommonItemAttributeValue("cause", "placeholder"), is(text));
     }
 
     @Step
@@ -550,27 +549,27 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void supplierCreateModalPageCheckErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) invoiceSupplierCreateModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        invoiceSupplierCreateModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void invoiceCreateModalCheckErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) invoiceCreateModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        invoiceCreateModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void invoiceEditModalCheckErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) invoiceEditModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        invoiceEditModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void writeOffCreateModalCheckErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) writeOffCreateModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        writeOffCreateModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void writeOffEditModalCheckErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) writeOffEditModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        writeOffEditModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
@@ -582,7 +581,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) invoiceProductCreateModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        invoiceProductCreateModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
