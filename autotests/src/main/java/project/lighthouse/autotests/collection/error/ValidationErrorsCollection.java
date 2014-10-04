@@ -22,15 +22,10 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     @Override
-    public void init(WebDriver webDriver, By findBy) {
+    public Waiter getWaiter() {
         Integer defaultValidationErrorTimeOut =
                 Storage.getConfigurationVariableStorage().getTimeOutProperty("default.validation.error.timeout");
-        List<WebElement> webElementList =
-                new Waiter(webDriver, defaultValidationErrorTimeOut).getVisibleWebElements(findBy);
-        for (WebElement element : webElementList) {
-            ValidationError abstractObject = createNode(element);
-            add(abstractObject);
-        }
+        return new Waiter(getWebDriver(), defaultValidationErrorTimeOut);
     }
 
     @Override

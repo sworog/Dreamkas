@@ -27,19 +27,27 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
         this.findBy = findBy;
     }
 
-    protected List<WebElement> getWebElements(WebDriver webDriver, By findBy) {
+    protected WebDriver getWebDriver() {
+        return webDriver;
+    }
+
+    protected Waiter getWaiter() {
+        return new Waiter(webDriver);
+    }
+
+    private List<WebElement> getWebElements(Waiter waiter, By findBy) {
         try {
-            return new Waiter(webDriver).getVisibleWebElements(findBy);
+            return waiter.getVisibleWebElements(findBy);
         } catch (StaleElementReferenceException e) {
-            return new Waiter(webDriver).getVisibleWebElements(findBy);
+            return waiter.getVisibleWebElements(findBy);
         } catch (TimeoutException e) {
             return new ArrayList<>();
         }
     }
 
-    public void init(WebDriver webDriver, By findBy) {
+    private void init(By findBy) {
         clear();
-        List<WebElement> webElementList = getWebElements(webDriver, findBy);
+        List<WebElement> webElementList = getWebElements(getWaiter(), findBy);
         for (WebElement element : webElementList) {
             E abstractObject = createNode(element);
             add(abstractObject);
@@ -49,7 +57,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     abstract public E createNode(WebElement element);
 
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
-        init(webDriver, findBy);
+        init(findBy);
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -74,7 +82,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public void compareWithExampleTable(ExamplesTable examplesTable) {
-        init(webDriver, findBy);
+        init(findBy);
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -149,7 +157,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public E getAbstractObjectByLocator(String locator) {
-        init(webDriver, findBy);
+        init(findBy);
         for (E abstractObject : this) {
             if (locateObject(abstractObject, locator)) {
                 return abstractObject;
