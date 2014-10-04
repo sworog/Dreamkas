@@ -58,6 +58,10 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         put("defaultCollection", collectable);
     }
 
+    public Collectable getDefaultCollection() {
+        return ((Collectable)items.get("defaultCollection"));
+    }
+
     abstract public void createElements();
 
     public WebElement findElement(By by) {
@@ -153,25 +157,25 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
 
     @Override
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
-        ((Collectable)items.get("defaultCollection")).exactCompareExampleTable(examplesTable);
+        getDefaultCollection().exactCompareExampleTable(examplesTable);
     }
 
     @Override
     public void compareWithExampleTable(ExamplesTable examplesTable) {
-        ((Collectable)items.get("defaultCollection")).compareWithExampleTable(examplesTable);
+        getDefaultCollection().compareWithExampleTable(examplesTable);
     }
 
     @Override
     public void clickOnCollectionObjectByLocator(String locator) {
-        ((Collectable)items.get("defaultCollection")).clickByLocator(locator);
+        getDefaultCollection().clickByLocator(locator);
     }
 
     public void collectionContainObjectWithLocator(String locator) {
-        ((Collectable)items.get("defaultCollection")).contains(locator);
+        getDefaultCollection().contains(locator);
     }
 
     public void collectionNotContainObjectWithLocator(String locator) {
-        ((Collectable)items.get("defaultCollection")).notContains(locator);
+        getDefaultCollection().notContains(locator);
     }
 
     @Override
