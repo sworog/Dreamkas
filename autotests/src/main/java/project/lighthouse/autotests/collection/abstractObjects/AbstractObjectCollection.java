@@ -22,8 +22,18 @@ import java.util.Map;
 
 abstract public class AbstractObjectCollection<E extends AbstractObject> extends ArrayList<E> implements Collectable {
 
+    private WebDriver webDriver;
+    private By findBy;
+
     public AbstractObjectCollection(WebDriver webDriver, By findBy) {
-        init(webDriver, findBy);
+        this.webDriver = webDriver;
+        this.findBy = findBy;
+    }
+
+    private void lazyInitialization() {
+        if (this.isEmpty()) {
+            init(webDriver, findBy);
+        }
     }
 
     protected List<WebElement> getWebElements(WebDriver webDriver, By findBy) {
@@ -45,6 +55,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     abstract public E createNode(WebElement element);
 
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
+        lazyInitialization();
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -69,6 +80,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public void compareWithExampleTable(ExamplesTable examplesTable) {
+        lazyInitialization();
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -143,6 +155,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public E getAbstractObjectByLocator(String locator) {
+        lazyInitialization();
         for (E abstractObject : this) {
             if (locateObject(abstractObject, locator)) {
                 return abstractObject;
