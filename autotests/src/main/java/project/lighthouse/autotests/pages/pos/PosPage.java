@@ -21,15 +21,12 @@ public class PosPage extends CommonPosPage {
     public void createElements() {
         put("autocomplete", new PosAutoComplete(this, By.xpath("//input[@name='product']")));
         put("totalPrice");
+        put("defaultCollection", new PosAutoCompleteCollection(getDriver()));
     }
 
     @Override
     public String getTitle() {
         return findVisibleElement(By.className("page__title")).getText();
-    }
-
-    public PosAutoCompleteCollection getObjectCollection() {
-        return new PosAutoCompleteCollection(getDriver());
     }
 
     public ReceiptCollection getReceiptCollection() {
