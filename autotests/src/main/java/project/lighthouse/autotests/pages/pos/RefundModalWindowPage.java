@@ -32,15 +32,12 @@ public class RefundModalWindowPage extends ModalWindowPage {
                 return new RefundProduct(element);
             }
         });
+        put("continueButton", new PrimaryBtnFacade(this, "Продолжить работу"));
     }
 
     @Override
     public void confirmationOkClick() {
         clickInTheModalWindowByXpath("//*[contains(@class, 'btn btn-primary') and contains(text(), 'Вернуть')]");
-    }
-
-    public void clickOnContinueButton() {
-        new PrimaryBtnFacade(this, "Продолжить работу").click();
     }
 
     @Override

@@ -19,19 +19,13 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
         put("itemPrice", new NonType(this, "//*[@name='itemPrice']"));
         put("name", new NonType(this, "//*[@name='name']"));
         put("barcode", new NonType(this, "//*[@name='barcode']"));
+        put("plusButton", new NonType(this, "//*[contains(@class, 'inputNumber__countUp')]"));
+        put("minusButton", new NonType(this, "//*[contains(@class, 'inputNumber__countDown')]"));
     }
 
     @Override
     public String modalWindowXpath() {
         return "//*[@id='modal_receiptProduct']";
-    }
-
-    public void clickOnPlusButton() {
-        clickInTheModalWindowByXpath("//*[contains(@class, 'inputNumber__countUp')]");
-    }
-
-    public void clickOnMinusButton() {
-        clickInTheModalWindowByXpath("//*[contains(@class, 'inputNumber__countDown')]");
     }
 
     @Override
