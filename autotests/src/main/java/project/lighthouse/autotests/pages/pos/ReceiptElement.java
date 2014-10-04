@@ -45,9 +45,6 @@ public class ReceiptElement extends CommonPageObject {
                 return new Receipt(element);
             }
         });
-    }
-
-    public void clickOnRefundButton() {
-        new PrimaryBtnFacade(this, "Возврат").click();
+        put("refundButton", new PrimaryBtnFacade(this, "Возврат"));
     }
 }
