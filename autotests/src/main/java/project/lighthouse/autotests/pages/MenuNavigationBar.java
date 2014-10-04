@@ -27,32 +27,12 @@ public class MenuNavigationBar extends CommonPageObject {
         return new NavigationBarLinkFacade(this, "Поставщики");
     }
 
-    public NavigationBarLinkFacade getOrdersMenuItem() {
-        return new NavigationBarLinkFacade(this, "Заказы");
-    }
-
-    public NavigationBarLinkFacade getUsersMenuItem() {
-        return new NavigationBarLinkFacade(this, "Пользователи");
-    }
-
     public NavigationBarLinkFacade getCatalogMenuItem() {
         return new NavigationBarLinkFacade(this, "Ассортимент");
     }
 
     public NavigationBarLinkFacade getStoresMenuItem() {
         return new NavigationBarLinkFacade(this, "Магазины");
-    }
-
-    public NavigationBarLinkFacade getInvoicesMenuItem() {
-        return new NavigationBarLinkFacade(this, "Накладные");
-    }
-
-    public NavigationBarLinkFacade getWriteOffsMenuItem() {
-        return new NavigationBarLinkFacade(this, "Списания");
-    }
-
-    public NavigationBarLinkFacade getSettingsMenuItem() {
-        return new NavigationBarLinkFacade(this, "Настройки");
     }
 
     public NavigationBarLinkFacade getStockMovementMenuItem() {

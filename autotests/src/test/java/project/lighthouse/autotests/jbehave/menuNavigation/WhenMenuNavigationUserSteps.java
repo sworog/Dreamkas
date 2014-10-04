@@ -25,16 +25,6 @@ public class WhenMenuNavigationUserSteps {
         menuNavigationSteps.supplierMenuItemClick();
     }
 
-    @When("the user clicks the menu orders item")
-    public void whenTheUserClicksTheMenuOrdersItem() {
-        menuNavigationSteps.ordersMenuItemClick();
-    }
-
-    @When("the user clicks the menu users item")
-    public void whenTheUserClicksTheMenuUsersItem() {
-        menuNavigationSteps.usersMenuItemClick();
-    }
-
     @When("the user clicks the menu catalog item")
     public void whenTheUserClicksTheMenuCatalogItem() {
         menuNavigationSteps.catalogMenuItemClick();
@@ -54,15 +44,5 @@ public class WhenMenuNavigationUserSteps {
     @When("пользователь нажимает на кнопку Запустить кассу в боковом меню навигации")
     public void whenTheUserClicksTheMenuPosLaunchItem() {
         menuNavigationSteps.launchPostButtonClick();
-    }
-
-    @When("the user clicks the menu invoices item")
-    public void whenTheUserClicksTheMenuInvoicesItem() {
-        menuNavigationSteps.invoicesMenuItemClick();
-    }
-
-    @When("the user clicks the menu writeOffs item")
-    public void whenTheUserClicksTheMenuWriteOffsItem() {
-        menuNavigationSteps.writeOffsMenuItemClick();
     }
 }
