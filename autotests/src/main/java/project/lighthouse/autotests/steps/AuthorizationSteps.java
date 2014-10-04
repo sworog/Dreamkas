@@ -16,7 +16,6 @@ import project.lighthouse.autotests.storage.Storage;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -64,7 +63,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void authorization(String email, String password, Boolean isFalse) {
         workAroundTypeForUserName(email);
         authorizationPage.input("password", password);
-        authorizationPage.loginButtonClick();
+        authorizationPage.clickOnCommonItemWihName("loginButton");
         if (!isFalse) {
             checkUser(email);
         }
@@ -73,7 +72,7 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void loginButtonClick() {
-        authorizationPage.loginButtonClick();
+        authorizationPage.clickOnCommonItemWihName("loginButton");
     }
 
     // TODO fix this in future
@@ -133,7 +132,7 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void signUpButtonClick() {
-        signUpPage.signUpButtonClick();
+        signUpPage.clickOnCommonItemWihName("signUpButton");
         new PreLoader(getDriver()).await();
     }
 
@@ -176,23 +175,23 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void forgotPasswordLinkClick() {
-        authorizationPage.forgotPasswordLinkClick();
+        authorizationPage.clickOnCommonItemWihName("forgotPasswordLink");
     }
 
     @Step
     public void recoverPasswordButtonClick() {
-        restorePasswordPage.recoverPasswordButtonClick();
+        restorePasswordPage.clickOnCommonItemWihName("recoverPasswordButton");
         new PreLoader(getDriver()).await();
     }
 
     @Step
     public void assertPageTitleText(String text) {
-        assertThat(restorePasswordPage.getPageTitleText(), is(text));
+        restorePasswordPage.checkValue("pageTitleText", text);
     }
 
     @Step
     public void assertPageText(String text) {
-        assertThat(restorePasswordPage.getPageText(), is(text));
+        restorePasswordPage.checkValue("pageText", text);
     }
 
     @Step
