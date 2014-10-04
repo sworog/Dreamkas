@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.collection.product.ProductCollection;
-import project.lighthouse.autotests.common.item.interfaces.FieldErrorCheckable;
 import project.lighthouse.autotests.common.item.interfaces.Findable;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
@@ -208,12 +207,12 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) createNewProductModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        createNewProductModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void assertEditProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) editProductModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        editProductModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step

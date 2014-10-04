@@ -6,7 +6,6 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.collection.store.StoreObjectCollection;
-import project.lighthouse.autotests.common.item.interfaces.FieldErrorCheckable;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.store.StoreListPage;
@@ -138,12 +137,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void assertStoreCreateModalWindowItemErrorMessage(String elementName, String message) {
-        ((FieldErrorCheckable) storeCreateModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(message);
+        storeCreateModalWindow.checkItemErrorMessage(elementName, message);
     }
 
     @Step
     public void assertStoreEditModalWindowItemErrorMessage(String elementName, String message) {
-        ((FieldErrorCheckable) storeEditModalWindow.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(message);
+        storeEditModalWindow.checkItemErrorMessage(elementName, message);
     }
 
     @Step

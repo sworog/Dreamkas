@@ -6,7 +6,6 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.collection.supplier.SupplierCollection;
-import project.lighthouse.autotests.common.item.interfaces.FieldErrorCheckable;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.supplier.SupplierListPage;
@@ -143,12 +142,12 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierCreateModalPageCheckErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) supplierCreateModalPage.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        supplierCreateModalPage.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void supplierEditModalPageCheckErrorMessage(String elementName, String errorMessage) {
-        ((FieldErrorCheckable) supplierEditModalPage.getItems().get(elementName)).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        supplierEditModalPage.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
