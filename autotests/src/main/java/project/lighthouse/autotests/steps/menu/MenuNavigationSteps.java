@@ -12,42 +12,42 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void reportMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.getReportMenuItem().click();
+        menuNavigationBar.clickOnCommonItemWihName("reportMenuItem");
         new BodyPreLoader(getDriver()).await();
     }
 
     @Step
     public void supplierMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.getSuppliersMenuItem().click();
+        menuNavigationBar.clickOnCommonItemWihName("supplierMenuItem");
         new BodyPreLoader(getDriver()).await();
     }
 
     @Step
     public void catalogMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.getCatalogMenuItem().click();
+        menuNavigationBar.clickOnCommonItemWihName("catalogMenuItem");
         new BodyPreLoader(getDriver()).await();
     }
 
     @Step
     public void storesMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.getStoresMenuItem().click();
+        menuNavigationBar.clickOnCommonItemWihName("storeMenuItem");
         new BodyPreLoader(getDriver()).await();
     }
 
     @Step
     public void stockMovementMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.getStockMovementMenuItem().click();
+        menuNavigationBar.clickOnCommonItemWihName("stockMovementMenuItem");
         new BodyPreLoader(getDriver()).await();
     }
 
     @Step
     public void launchPostButtonClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.launchPostButtonClick();
+        menuNavigationBar.clickOnCommonItemWihName("launchPosButton");
         new BodyPreLoader(getDriver()).await();
     }
 
@@ -59,6 +59,6 @@ public class MenuNavigationSteps extends ScenarioSteps {
 
     @Step
     public void logOutButtonClick() {
-        menuNavigationBar.logOutButtonClick();
+        menuNavigationBar.clickOnCommonItemWihName("logOutButton");
     }
 }
