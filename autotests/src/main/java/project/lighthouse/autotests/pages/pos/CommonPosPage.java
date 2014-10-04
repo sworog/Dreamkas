@@ -19,6 +19,6 @@ public abstract class CommonPosPage extends BootstrapPageObject {
         put("posSideMenuLink", new NonType(this, By.xpath("//*[contains(@class, 'sideBar__item') and i[contains(@class, 'fa-shopping-cart')]]")));
         put("saleHistorySideMenuLink", new NonType(this, By.xpath("//*[contains(@class, 'sideBar__item') and i[contains(@class, 'fa-exchange')]]")));
         put("changeStoreSideMenuLink", new NonType(this, By.xpath("//*[contains(@class, 'sideBar__item') and contains(text(), 'Сменить магазин')]")));
-        put("sideBar", new NonType(this, By.xpath("//*[contains(@class, 'sideBar__item') and contains(text(), 'Сменить магазин')]")));
+        put("sideBar", new NonType(this, By.xpath("//*[@class='page__head']//*[contains(@class, 'sideBarLink')]")));
     }
 }
