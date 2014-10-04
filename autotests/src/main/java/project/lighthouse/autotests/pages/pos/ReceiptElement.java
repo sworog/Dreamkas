@@ -38,7 +38,7 @@ public class ReceiptElement extends CommonPageObject {
                 };
             }
         });
-        put("defaultCollection", new AbstractObjectCollection(getDriver(), By.className("sale__product")) {
+        putDefaultCollection(new AbstractObjectCollection(getDriver(), By.className("sale__product")) {
 
             @Override
             public AbstractObject createNode(WebElement element) {

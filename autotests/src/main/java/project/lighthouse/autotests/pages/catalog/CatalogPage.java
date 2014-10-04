@@ -24,6 +24,6 @@ public class CatalogPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-        put("defaultCollection", new GroupObjectCollection(getDriver(), By.className("groupList__link")));
+        putDefaultCollection(new GroupObjectCollection(getDriver(), By.className("groupList__link")));
     }
 }

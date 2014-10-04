@@ -33,7 +33,7 @@ public class StockBalanceReport extends BootstrapPageObject {
         put("колонка 'Расход'", new NonType(this, By.xpath("//*[@data-sort-by='averageDailySales']")));
         put("колонка 'Остаток'", new NonType(this, By.xpath("//*[@data-sort-by='inventory']")));
         put("кнопка очистки данных автокомплита", new NonType(this, By.xpath("//*[@class='productFinder__resetLink input-group-addon']")));
-        put("defaultCollection", new AbstractObjectCollection(getDriver(), By.xpath("//*[@name='products']/tr")) {
+        putDefaultCollection(new AbstractObjectCollection(getDriver(), By.xpath("//*[@name='products']/tr")) {
 
             @Override
             public AbstractObject createNode(WebElement element) {

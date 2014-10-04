@@ -22,7 +22,7 @@ public class PosPage extends CommonPosPage {
     public void createElements() {
         put("autocomplete", new PosAutoComplete(this, By.xpath("//input[@name='product']")));
         put("totalPrice");
-        put("defaultCollection", new PosAutoCompleteCollection(getDriver()));
+        putDefaultCollection(new PosAutoCompleteCollection(getDriver()));
         put("receiptCollection", new ReceiptCollection(getDriver()));
         put("registerSaleButton", new NonType(this, By.xpath("//*[contains(@class, 'btn-primary') and contains(text(), 'Продать на сумму')]")));
         put("clearReceipt", new NonType(this, By.className("confirmLink__trigger")));

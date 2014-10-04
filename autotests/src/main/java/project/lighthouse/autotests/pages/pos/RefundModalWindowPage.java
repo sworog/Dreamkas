@@ -25,7 +25,7 @@ public class RefundModalWindowPage extends ModalWindowPage {
         put("сумма возврата на кнопке вернуть", new NonType(this, "//*[contains(@class, 'modal_refund__button')]"));
         put("заголовок успешного возврата", new NonType(this, "//*[@class='modal_receipt__successTitle']"));
         put("сумма сдачи, необходимую выдать", new NonType(this, "//*[@class='modal_receipt__changeSum']"));
-        put("defaultCollection", new AbstractObjectCollection(getDriver(), By.name("position")) {
+        putDefaultCollection(new AbstractObjectCollection(getDriver(), By.name("position")) {
 
             @Override
             public RefundProduct createNode(WebElement element) {

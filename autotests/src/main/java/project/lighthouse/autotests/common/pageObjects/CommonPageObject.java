@@ -54,6 +54,10 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         put(elementName, new NonType(this, elementName));
     }
 
+    public void putDefaultCollection(Collectable collectable) {
+        put("defaultCollection", collectable);
+    }
+
     abstract public void createElements();
 
     public WebElement findElement(By by) {

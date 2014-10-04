@@ -28,6 +28,6 @@ public class GroupPage extends BootstrapPageObject {
         put("sortByName", new NonType(this, By.xpath("//*[@data-sort-by='name'])")));
         put("sortBySellingPrice", new NonType(this, By.xpath("//*[@data-sort-by='name'])")));
         put("sortByBarcode", new NonType(this, By.xpath("//*[@data-sort-by='name'])")));
-        put("defaultCollection", new ProductCollection(getDriver(), By.xpath("//tr[@data-modal='modal_product']")));
+        putDefaultCollection(new ProductCollection(getDriver(), By.xpath("//tr[@data-modal='modal_product']")));
     }
 }
