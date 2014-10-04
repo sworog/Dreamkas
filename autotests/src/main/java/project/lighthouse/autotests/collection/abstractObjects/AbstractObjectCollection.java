@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ObjectClickable;
@@ -26,7 +27,11 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     protected List<WebElement> getWebElements(WebDriver webDriver, By findBy) {
-        return new Waiter(webDriver).getVisibleWebElements(findBy);
+        try {
+            return new Waiter(webDriver).getVisibleWebElements(findBy);
+        } catch (StaleElementReferenceException e) {
+            return new Waiter(webDriver).getVisibleWebElements(findBy);
+        }
     }
 
     public void init(WebDriver webDriver, By findBy) {
