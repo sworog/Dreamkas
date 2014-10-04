@@ -3,10 +3,7 @@ package project.lighthouse.autotests.collection.abstractObjects;
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
 import org.jbehave.core.model.ExamplesTable;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ResultComparable;
@@ -30,17 +27,13 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
         this.findBy = findBy;
     }
 
-    private void lazyInitialization() {
-        if (this.isEmpty()) {
-            init(webDriver, findBy);
-        }
-    }
-
     protected List<WebElement> getWebElements(WebDriver webDriver, By findBy) {
         try {
             return new Waiter(webDriver).getVisibleWebElements(findBy);
         } catch (StaleElementReferenceException e) {
             return new Waiter(webDriver).getVisibleWebElements(findBy);
+        } catch (TimeoutException e) {
+            return new ArrayList<>();
         }
     }
 
@@ -55,7 +48,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     abstract public E createNode(WebElement element);
 
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
-        lazyInitialization();
+        init(webDriver, findBy);
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -80,7 +73,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public void compareWithExampleTable(ExamplesTable examplesTable) {
-        lazyInitialization();
+        init(webDriver, findBy);
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -155,7 +148,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public E getAbstractObjectByLocator(String locator) {
-        lazyInitialization();
+        init(webDriver, findBy);
         for (E abstractObject : this) {
             if (locateObject(abstractObject, locator)) {
                 return abstractObject;
