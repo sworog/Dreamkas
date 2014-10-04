@@ -16,9 +16,6 @@ public class SignUpPage extends CommonPageObject {
     @Override
     public void createElements() {
         put("email", new Input(this, "email"));
-    }
-
-    public void signUpButtonClick() {
-        new ButtonFacade(this, "Зарегистрироваться").click();
+        put("signUpButton", new ButtonFacade(this, "Зарегистрироваться"));
     }
 }
