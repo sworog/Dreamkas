@@ -12,20 +12,25 @@ import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.
 import project.lighthouse.autotests.collection.compare.CompareResultHashMap;
 import project.lighthouse.autotests.collection.compare.CompareResults;
 import project.lighthouse.autotests.common.Waiter;
+import project.lighthouse.autotests.common.item.interfaces.Collectable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-abstract public class AbstractObjectCollection<E extends AbstractObject> extends ArrayList<E> {
+abstract public class AbstractObjectCollection<E extends AbstractObject> extends ArrayList<E> implements Collectable {
 
     public AbstractObjectCollection(WebDriver webDriver, By findBy) {
         init(webDriver, findBy);
     }
 
+    protected List<WebElement> getWebElements(WebDriver webDriver, By findBy) {
+        return new Waiter(webDriver).getVisibleWebElements(findBy);
+    }
+
     public void init(WebDriver webDriver, By findBy) {
-        List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
+        List<WebElement> webElementList = getWebElements(webDriver, findBy);
         for (WebElement element : webElementList) {
             E abstractObject = createNode(element);
             add(abstractObject);
