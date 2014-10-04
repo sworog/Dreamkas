@@ -140,12 +140,12 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void editGroupIconClick() {
-        groupPage.editGroupIconClick();
+        groupPage.clickOnCommonItemWihName("editGroupIcon");
     }
 
     @Step
     public void backArrowButtonClick() {
-        groupPage.longArrowBackLinkClick();
+        groupPage.clickOnCommonItemWihName("longArrowBackLink");
     }
 
     @Step
