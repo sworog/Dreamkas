@@ -12,4 +12,8 @@ public interface Collectable extends CommonItemType{
     public void clickByLocator(String locator);
 
     public AbstractObject getAbstractObjectByLocator(String locator);
+
+    public void contains(String locator);
+
+    public void notContains(String locator);
 }
