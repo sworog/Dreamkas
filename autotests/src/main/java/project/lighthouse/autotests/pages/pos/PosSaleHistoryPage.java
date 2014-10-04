@@ -22,6 +22,6 @@ public class PosSaleHistoryPage extends CommonPosPage {
         put("дата с", new JSInput(this, "dateFrom"));
         put("дата по", new JSInput(this, "dateTo"));
         put("автокомплитное поле поиска товара", new ProductAutoComplete(this, By.xpath("//*[@name='product.name' and contains(@class, 'input')]")));
-        put("defaultCollection", new HistoryReceiptCollection(getDriver()));
+        putDefaultCollection(new HistoryReceiptCollection(getDriver()));
     }
 }

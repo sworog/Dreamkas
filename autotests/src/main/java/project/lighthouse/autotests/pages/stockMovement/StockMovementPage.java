@@ -43,7 +43,7 @@ public class StockMovementPage extends BootstrapPageObject {
         put("types", new SelectByVisibleText(this, "types"));
         put("dateFrom", getCustomJsInput("dateFrom"));
         put("dateTo", getCustomJsInput("dateTo"));
-        put("defaultCollection", new StockMovementListObjectCollection(getDriver()));
+        putDefaultCollection(new StockMovementListObjectCollection(getDriver()));
         put("acceptFiltersButton", new PrimaryBtnFacade(this, "Применить фильтры"));
         put("resetFiltersButton", new DefaultBtnFacade(this, "Сбросить фильтры"));
     }
