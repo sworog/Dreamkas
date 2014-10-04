@@ -162,6 +162,14 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         ((Collectable)items.get("defaultCollection")).clickByLocator(locator);
     }
 
+    public void collectionContainObjectWithLocator(String locator) {
+        ((Collectable)items.get("defaultCollection")).contains(locator);
+    }
+
+    public void collectionNotContainObjectWithLocator(String locator) {
+        ((Collectable)items.get("defaultCollection")).notContains(locator);
+    }
+
     @Override
     public String getCommonItemAttributeValue(String commonItemName, String attribute) {
         return ((Findable) items.get(commonItemName)).getVisibleWebElement().getAttribute(attribute);
