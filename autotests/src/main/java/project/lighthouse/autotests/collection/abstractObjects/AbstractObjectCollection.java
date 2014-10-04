@@ -38,6 +38,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public void init(WebDriver webDriver, By findBy) {
+        clear();
         List<WebElement> webElementList = getWebElements(webDriver, findBy);
         for (WebElement element : webElementList) {
             E abstractObject = createNode(element);
