@@ -20,9 +20,6 @@ public class StoreListPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-    }
-
-    public StoreObjectCollection getStoreObjectCollection() {
-        return new StoreObjectCollection(getDriver());
+        putDefaultCollection(new StoreObjectCollection(getDriver()));
     }
 }
