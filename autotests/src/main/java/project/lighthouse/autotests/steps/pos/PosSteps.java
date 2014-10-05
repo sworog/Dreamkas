@@ -206,6 +206,6 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void clickOnRefundButton() {
-        posPage.clickOnCommonItemWihName("refundButton");
+        receiptElement.clickOnCommonItemWihName("refundButton");
     }
 }
