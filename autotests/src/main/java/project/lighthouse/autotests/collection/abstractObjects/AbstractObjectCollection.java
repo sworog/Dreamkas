@@ -54,6 +54,10 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
         }
     }
 
+    protected void init() {
+        init(findBy);
+    }
+
     abstract public E createNode(WebElement element);
 
     public void exactCompareExampleTable(ExamplesTable examplesTable) {

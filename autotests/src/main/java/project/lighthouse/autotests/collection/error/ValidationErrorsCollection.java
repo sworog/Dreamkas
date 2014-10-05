@@ -38,6 +38,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
      */
     @Deprecated
     public void matchesWithExampleTable(ExamplesTable examplesTable) {
+        init();
         List<String> notFoundMessages = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             Boolean found = false;
@@ -60,6 +61,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     public void matchesWithMessage(String message) {
+        init();
         Boolean matches = false;
         for (AbstractObject abstractObject : this) {
             ValidationError validationError = (ValidationError) abstractObject;
@@ -74,6 +76,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     public void notMatchesWithExampleTable(ExamplesTable examplesTable) {
+        init();
         List<String> messages = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             String message = row.get("error message");
@@ -91,6 +94,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     public List<String> getActualMessages() {
+        init();
         List<String> actualMessages = new ArrayList<>();
         for (AbstractObject abstractObject : this) {
             ValidationError validationError = (ValidationError) abstractObject;
