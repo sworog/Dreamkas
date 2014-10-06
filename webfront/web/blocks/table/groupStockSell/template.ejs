@@ -1,5 +1,5 @@
 <% if (sortedCollection.length) { %>
-<table class="table table-striped">
+<table name="report" class="table table_groupStockSell table-striped">
     <thead>
     <tr>
         <th data-sort-by="product.name">
@@ -22,18 +22,28 @@
     <tbody name="stockSell">
 
     <% sortedCollection.forEach(function(productStockSellModel){ %>
-    <tr>
-        <td>
+    <tr name="product">
+        <td name="name">
             <%- productStockSellModel.get('product.name') %>
         </td>
         <td>
-            <%- formatMoney(productStockSellModel.get('grossSales')) %>
+            <span name="grossSales">
+                <%- formatMoney(productStockSellModel.get('grossSales')) %>
+            </span>
+            <span name="grossSalesPercent" class="table_groupStockSell__percent">
+                (<%- calculateGrossSalesPercent(productStockSellModel.get('grossSales')) %>%)
+            </span>
         </td>
         <td>
             <%- formatMoney(productStockSellModel.get('costOfGoods')) %>
         </td>
         <td>
-            <%- formatMoney(productStockSellModel.get('grossMargin')) %>
+            <span name="grossMargin">
+                <%- formatMoney(productStockSellModel.get('grossMargin')) %>
+            </span>
+            <span name="grossMarginPercent" class="table_groupStockSell__percent">
+                (<%- calculateGrossMarginPercent(productStockSellModel.get('grossMargin')) %>%)
+            </span>
         </td>
         <td>
             <%- formatAmount(productStockSellModel.get('quantity')) %> <%- productStockSellModel.get('product.units') %>
