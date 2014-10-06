@@ -38,6 +38,7 @@
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BjF-UX-OTR">
                                 <rect key="frame" x="284" y="119" width="200" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Login Field"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="IfV-Cp-Vfk"/>
                                 </constraints>
@@ -46,12 +47,14 @@
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k6b-UL-jdM">
                                 <rect key="frame" x="284" y="176" width="200" height="30"/>
+                                <accessibility key="accessibilityConfiguration" label="Password Field"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Afz-6P-BmU">
                                 <rect key="frame" x="334" y="233" width="100" height="30"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <accessibility key="accessibilityConfiguration" label="Auth Button"/>
                                 <state key="normal" title="Auth">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -62,6 +65,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ire-Tf-Pk4">
                                 <rect key="frame" x="334" y="290" width="100" height="30"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <accessibility key="accessibilityConfiguration" label="Groups Label"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="f3x-7H-T8r"/>
                                 </constraints>

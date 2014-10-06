@@ -33,8 +33,8 @@
                      forHTTPHeaderField:@"Content-Type"];
     
     // test auth data
-    [self.loginField setText:@"owner@lighthouse.pro"];
-    [self.pwdField setText:@"lighthouse"];
+//    [self.loginField setText:@"owner@lighthouse.pro"];
+//    [self.pwdField setText:@"lighthouse"];
 }
 
 - (void)didReceiveMemoryWarning

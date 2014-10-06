@@ -20,6 +20,8 @@
 		CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */; };
 		CE1B3DC519DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */; };
 		CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
+		CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECCA4D519E2929500B165F3 /* libKIF.a */; };
+		CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCA4E419E2BD2F00B165F3 /* kif_tests.m */; };
 		CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD93E719DEA77700232734 /* dreamkas_tests.swift */; };
 		CECD93EA19DEA77700232734 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECD93E819DEA77700232734 /* Info.plist */; };
 		CECD93F119DEAE7100232734 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9819DD40CA00A253D1 /* ViewController.m */; };
@@ -45,6 +47,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CECCA4D419E2929500B165F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
+			remoteInfo = KIF;
+		};
+		CECCA4D619E2929500B165F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB72047C1680DDAD00278DA2;
+			remoteInfo = "KIF-OCUnit";
+		};
 		CECD93E019DEA6B200232734 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE1B3D5B19DD3CF000A253D1 /* Project object */;
@@ -83,6 +99,8 @@
 		CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDefines.h; sourceTree = "<group>"; };
 		CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockDefines.h; sourceTree = "<group>"; };
 		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
+		CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
+		CECCA4E419E2BD2F00B165F3 /* kif_tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kif_tests.m; sourceTree = "<group>"; };
 		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECD93E719DEA77700232734 /* dreamkas_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dreamkas_tests.swift; sourceTree = "<group>"; };
 		CECD93E819DEA77700232734 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,9 +278,11 @@
 		CE1B3DB319DD40E500A253D1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CECCA4CA19E2927400B165F3 /* Submodules */,
 				CECD93E719DEA77700232734 /* dreamkas_tests.swift */,
 				CECD93E819DEA77700232734 /* Info.plist */,
 				CECD93F219DEBE6C00232734 /* new_tests.m */,
+				CECCA4E419E2BD2F00B165F3 /* kif_tests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -282,6 +303,23 @@
 				CE1B3DC119DD46DD00A253D1 /* Localizable.strings */,
 			);
 			path = ru.lproj;
+			sourceTree = "<group>";
+		};
+		CECCA4CA19E2927400B165F3 /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */,
+			);
+			path = Submodules;
+			sourceTree = "<group>";
+		};
+		CECCA4CC19E2929400B165F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CECCA4D519E2929500B165F3 /* libKIF.a */,
+				CECCA4D719E2929500B165F3 /* libKIF-OCUnit.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		CECFC47719DD74C800ED88D3 /* AFNetworking */ = {
@@ -421,6 +459,12 @@
 			mainGroup = CE1B3D5A19DD3CF000A253D1;
 			productRefGroup = CE1B3D6419DD3CF000A253D1 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CECCA4CC19E2929400B165F3 /* Products */;
+					ProjectRef = CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				CE1B3D6219DD3CF000A253D1 /* dreamkas */,
@@ -428,6 +472,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CECCA4D519E2929500B165F3 /* libKIF.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKIF.a;
+			remoteRef = CECCA4D419E2929500B165F3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CECCA4D719E2929500B165F3 /* libKIF-OCUnit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKIF-OCUnit.a";
+			remoteRef = CECCA4D619E2929500B165F3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CE1B3D6119DD3CF000A253D1 /* Resources */ = {
@@ -490,6 +551,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */,
 				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
 				CECD93F119DEAE7100232734 /* ViewController.m in Sources */,
 				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
@@ -632,6 +694,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -669,11 +735,18 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"DEBUG=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Tests/Submodules";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/Supporting Files/Headers/SwiftBridging.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -692,8 +765,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Tests/Submodules";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/Supporting Files/Headers/SwiftBridging.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dreamkas.app/dreamkas";
@@ -728,6 +809,7 @@
 				CECD93E419DEA6B200232734 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
