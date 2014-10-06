@@ -827,6 +827,45 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertCostOfGood($sale1->products[0], '1150.00');
     }
 
+    public function testCostOfGoodsCalculateProductWithoutPurchasePrice()
+    {
+        $store = $this->factory()->store()->getStore('1');
+        $productId = $this->createProduct(array('purchasePrice' => ''));
+        $this->createProduct('Other');
+
+        $sale1 = $this->factory()
+            ->receipt()
+            ->createSale($store, '2014-01-09 12:23:12')
+            ->createReceiptProduct($productId, 7, 250)
+            ->flush();
+
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $trialBalanceSaleProduct1 = $this->getTrialBalanceRepository()
+            ->findOneByReasonTypeReasonId($sale1->products[0]->id, SaleProduct::TYPE);
+        $this->assertEquals(0, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+
+        $this->factory()
+            ->invoice()
+            ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
+            ->createInvoiceProduct($productId, 5, 150)
+            ->flush();
+
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $this->assertCostOfGood($sale1->products[0], '1050.00');
+
+        $this->factory()
+            ->invoice()
+            ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
+            ->createInvoiceProduct($productId, 1, 200)
+            ->flush();
+
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $this->assertCostOfGood($sale1->products[0], '1150.00');
+    }
+
     /**
      * @param string $storeProductId
      * @param string $reasonType

@@ -21,6 +21,14 @@
     font-weight: 300;
 }
 
+.page__title .fa {
+    color: #999;
+}
+
+.page__contentSide {
+    margin-left: 250px;
+}
+
 .page__content {
     padding: 20px 30px 50px;
     position: relative;
@@ -64,6 +72,7 @@
     padding: 18px 15px;
     margin-bottom: 8px;
     font-size: 14px;
+    color: #999;
 }
 
 .page_reports__link:hover{
@@ -82,13 +91,16 @@
     height: 100%;
 }
 
+.page_pos .page__contentSide {
+    margin-left: 0;
+}
+
 .page_pos .sideBar {
     transition: transform .2s;
     transform: translate3d(-250px, 0, 0);
 }
 
-.page_pos .page__content,
-.page_pos .page__head {
+.page_pos .page__contentSide {
     transition: opacity .2s;
 }
 
@@ -96,8 +108,7 @@
     transform: translate3d(0, 0, 0);
 }
 
-.page_pos.page_sideBarVisible .page__content,
-.page_pos.page_sideBarVisible .page__head {
+.page_pos.page_sideBarVisible .page__contentSide {
     opacity: .4;
 }
 

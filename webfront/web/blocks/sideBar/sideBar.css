@@ -9,7 +9,16 @@
     z-index: 30;
 }
 
-.sideBar .page__sideBarLink{
+.sideBar__scrollPanel {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 55px;
+    bottom: 70px;
+    overflow: auto;
+}
+
+.sideBar .page__sideBarLink {
     position: absolute;
     z-index: 10;
     left: 15px;
@@ -50,4 +59,29 @@
 
 .sideBar__item_active {
     background-color: #0a819c;
+}
+
+.sideBar__bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #475861;
+    padding: 20px 15px;
+}
+
+.sideBar__userName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+
+.sideBar__controls{
+    float: right;
+    margin-top: 4px;
+}
+
+.sideBar__logoutLink .fa{
+    font-size: 17px;
 }

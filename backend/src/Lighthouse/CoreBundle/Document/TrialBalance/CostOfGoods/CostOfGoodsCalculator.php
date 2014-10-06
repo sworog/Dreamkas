@@ -118,6 +118,7 @@ class CostOfGoodsCalculator
             /** @var StoreProduct $storeProduct */
             $storeProduct = $this->storeProductRepository->find($storeProductId);
             $purchasePrice = $storeProduct->lastPurchasePrice?:$storeProduct->product->purchasePrice;
+            $purchasePrice = $purchasePrice?:$this->numericFactory->createQuantity(0);
             $indexQuantity = $endIndex->sub($index);
             $costOfGoods = $purchasePrice->mul($indexQuantity);
             $totalCostOfGoods = $totalCostOfGoods->add($costOfGoods);

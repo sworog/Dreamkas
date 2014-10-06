@@ -43,6 +43,8 @@ define(function(require, exports, module) {
 
         activeNavigationItem: 'main',
 
+        currentUserModel: require('resources/currentUser/model.inst'),
+
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
         },

@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return CollectionBlock.extend({
         template: require('ejs!./submitButton.ejs'),
-        collection: require('collections/refundProducts/refundProducts'),
+        collection: require('resources/refundProduct/collection'),
         calculateTotalPrice: function() {
             var block = this,
                 totalPrice = 0;

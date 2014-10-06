@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form.deprecated'),
-        GroupModel = require('models/group/group');
+        GroupModel = require('resources/group/model');
 
     return Form.extend({
         el: '.form_group',

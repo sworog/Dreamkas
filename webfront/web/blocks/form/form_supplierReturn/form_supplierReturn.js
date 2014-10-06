@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./form_supplierReturn.ejs'),
-        model: require('models/supplierReturn/supplierReturn'),
+        model: require('resources/supplierReturn/model'),
         collection: function(){
             return PAGE.collections.stockMovements;
         },

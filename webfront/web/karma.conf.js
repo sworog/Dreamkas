@@ -10,14 +10,12 @@ module.exports = function(config) {
         // frameworks to use
         frameworks: ['jasmine', 'requirejs'],
 
-
         // list of files / patterns to load in the browser
         files: [
             'karma.main.js',
             {pattern: '**/*.js', included: false},
             {pattern: '**/*.ejs', included: false}
         ],
-
 
         // list of files to exclude
         exclude: [
@@ -29,17 +27,23 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots'],
+        reporters: ['dots', 'allure', 'coverage'],
 
 		allureReport: {
 			reportDir: 'report'
+		},
+
+		coverageReporter: {
+			type : 'html',
+			dir: 'coverage/'
 		},
 
         preprocessors: {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
-            //'requireDom.js': 'coverage'
+            'blocks/**/!(*.spec.js)*.js': 'coverage',
+            'kit/**/!(*.spec.js)*.js': 'coverage'
         },
 
         // web server port

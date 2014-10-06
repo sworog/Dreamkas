@@ -15,7 +15,7 @@ define(function(require, exports, module) {
         },
         models: {
             product: function() {
-                var Product = require('models/product/product'),
+                var Product = require('resources/product/model'),
                     product;
 
                 product = new Product({
@@ -28,7 +28,7 @@ define(function(require, exports, module) {
         collections: {
             receipts: function() {
                 var page = this,
-                    ReceiptsCollection = require('collections/receipts/receipts');
+                    ReceiptsCollection = require('resources/receipt/collection');
 
                 return new ReceiptsCollection([], {
                     storeId: this.params.storeId,

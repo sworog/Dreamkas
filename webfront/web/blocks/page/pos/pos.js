@@ -24,7 +24,7 @@ define(function(require, exports, module) {
 		models: {
 			store: function(){
 				var page = this,
-					StoreModel = require('models/store/store');
+					StoreModel = require('resources/store/model');
 
 				return new StoreModel({
 					id: page.params.storeId

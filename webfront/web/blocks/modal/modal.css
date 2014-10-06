@@ -47,6 +47,7 @@
     text-align: center;
     line-height: 55px;
     float: left;
+    color: #999;
 }
 
 .modal__closeLink[data-modal] {
@@ -68,9 +69,9 @@
 }
 
 .modal_receipt__successTitle {
-    margin: 0 -65px 30px;
+    margin: 0 -60px 30px;
     font-size: 25px;
-    padding: 20px 65px 20px;
+    padding: 20px 60px 20px;
     border-bottom: 1px solid #eee;
 }
 

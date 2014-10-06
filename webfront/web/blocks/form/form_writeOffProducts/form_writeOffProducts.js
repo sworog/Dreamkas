@@ -48,7 +48,7 @@ define(function(require, exports, module) {
 
         collection: function(){
             var block = this,
-                WriteOffProductCollection = require('collections/writeOffProducts/writeOffProducts');
+                WriteOffProductCollection = require('resources/writeOffProduct/collection');
 
             return new WriteOffProductCollection();
         },

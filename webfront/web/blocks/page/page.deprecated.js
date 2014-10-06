@@ -48,6 +48,8 @@ define(function(require, exports, module) {
         collections: {},
         models: {},
 
+        currentUserModel: require('resources/currentUser/model.inst'),
+
         activeNavigationItem: 'main',
         
         content: function() {

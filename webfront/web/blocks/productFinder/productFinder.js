@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     return Block.extend({
         template: require('ejs!./template.ejs'),
         collections: {
-            products: require('collections/products/products')
+            products: require('resources/product/collection')
         },
         models: {
             receipt: function(){
@@ -65,7 +65,7 @@ define(function(require, exports, module) {
         },
         addProductToReceipt: function(productId) {
             var block = this,
-                ReceiptProductModel = require('models/receiptProduct/receiptProduct'),
+                ReceiptProductModel = require('resources/receiptProduct/model'),
                 receiptProductModel = new ReceiptProductModel({
                     product: block.collections.products.get(productId).toJSON()
                 });

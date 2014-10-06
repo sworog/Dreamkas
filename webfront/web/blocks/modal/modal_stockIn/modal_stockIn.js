@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./modal_stockIn.ejs'),
         models: {
-            stockIn: require('models/stockIn/stockIn')
+            stockIn: require('resources/stockIn/model')
         },
         partials: {
             form_product: require('ejs!blocks/form/form_product/form_product.ejs')
@@ -64,7 +64,7 @@ define(function(require, exports, module) {
             },
             form_product: function(opt) {
                 var block = this,
-                    ProductModel = require('models/product/product'),
+                    ProductModel = require('resources/product/model'),
                     Form_product = require('blocks/form/form_product/form_product'),
                     form_product = new Form_product({
                         el: opt.el

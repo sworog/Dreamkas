@@ -15,7 +15,7 @@ define(function(require, exports, module) {
             Page_pos.prototype.initialize.apply(page, arguments);
         },
         models: {
-            receipt: require('models/receipt/receipt')
+            receipt: require('resources/receipt/model')
         },
         blocks: {
             productFinder: require('blocks/productFinder/productFinder'),

@@ -28,11 +28,26 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots'],
+        reporters: ['teamcity', 'allure', 'coverage'],
 
         allureReport: {
             reportDir: 'build/allure-report'
         },
+
+		coverageReporter: {
+            reporters:[
+                {type: 'html', dir:'build/coverage/'},
+                {type: 'teamcity'}
+            ]
+		},
+
+		preprocessors: {
+			// source files, that you wanna generate coverage for
+			// do not include tests or libraries
+			// (these files will be instrumented by Istanbul),
+            'blocks/**/!(*.spec.js)*.js': 'coverage',
+            'kit/**/!(*.spec.js)*.js': 'coverage'
+		},
 
         // enable / disable colors in the output (reporters and logs)
         colors: true,

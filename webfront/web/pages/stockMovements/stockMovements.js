@@ -12,12 +12,12 @@ define(function(require, exports, module) {
             types: null
         },
         collections: {
-            suppliers: require('collections/suppliers/suppliers'),
-            stores: require('collections/stores/stores'),
-            groups: require('collections/groups/groups'),
+            suppliers: require('resources/supplier/collection'),
+            stores: require('resources/store/collection'),
+            groups: require('resources/group/collection'),
             stockMovements: function() {
                 var page = this,
-                    StockMovementsCollection = require('collections/stockMovements/stockMovements'),
+                    StockMovementsCollection = require('resources/stockMovement/collection'),
                     stockMovementsCollection = new StockMovementsCollection([], {
                         filters: _.pick(page.params, 'dateFrom', 'dateTo', 'types')
                     });
@@ -70,7 +70,7 @@ define(function(require, exports, module) {
             'click .supplierReturn__link': function(e) {
                 var page = this,
                     supplierReturnId = e.currentTarget.dataset.supplierReturnId,
-                    SupplierReturnModel = require('models/supplierReturn/supplierReturn');
+                    SupplierReturnModel = require('resources/supplierReturn/model');
 
                 page.el.querySelector('.modal_supplierReturn').block.show({
                     models: {
@@ -91,7 +91,7 @@ define(function(require, exports, module) {
             },
             'click .page__addStockInLink': function(e) {
                 var page = this,
-                    StockInModel = require('models/stockIn/stockIn');
+                    StockInModel = require('resources/stockIn/model');
 
                 page.el.querySelector('.modal_stockIn').block.show({
                     models: {

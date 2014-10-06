@@ -67,18 +67,18 @@ define(function(require, exports, module) {
             }
         },
         collections: {
-            stores: require('collections/stores/stores'),
-            groups: require('collections/groups/groups'),
+            stores: require('resources/store/collection'),
+            groups: require('resources/group/collection'),
             storeProducts: null
         },
         blocks: {
-            select_stores: require('blocks/select/stores/stores'),
+            select_store: require('blocks/select/store/store'),
             select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple'),
             table_stockBalance: require('blocks/table/stockBalance/stockBalance')
         },
         fetch: function() {
             var page = this,
-                StoreProductsCollection = require('collections/storeProducts/storeProducts');
+                StoreProductsCollection = require('resources/storeProduct/collection');
 
             return Page.prototype.fetch.apply(page, arguments).then(function() {
 

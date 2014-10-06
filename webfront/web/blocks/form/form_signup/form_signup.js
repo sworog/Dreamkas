@@ -1,12 +1,12 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form.deprecated'),
-        LoginModel = require('models/login/login');
+        LoginModel = require('resources/login/model');
 
     return Form.extend({
         el: '.form_signup',
         model: function(){
-            var SignUpModel = require('models/signup/signup');
+            var SignUpModel = require('resources/signup/model');
 
             return new SignUpModel();
         },

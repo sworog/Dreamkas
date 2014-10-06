@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         },
         render: function() {
             var block = this,
-                ProductModel = require('models/product/product');
+                ProductModel = require('resources/product/model');
 
             this.models.product = PAGE.collections.groupProducts.get(block.productId) || new ProductModel;
 
