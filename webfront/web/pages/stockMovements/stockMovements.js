@@ -29,17 +29,6 @@ define(function(require, exports, module) {
             writeOff: null
         },
         events: {
-            'click .supplierReturn__link': function(e) {
-                var page = this,
-                    supplierReturnId = e.currentTarget.dataset.supplierReturnId,
-                    SupplierReturnModel = require('resources/supplierReturn/model');
-
-                page.el.querySelector('.modal_supplierReturn').block.show({
-                    models: {
-                        supplierReturn: page.collections.stockMovements.get(supplierReturnId) || new SupplierReturnModel()
-                    }
-                });
-            },
             'click .writeOff__link': function(e) {
                 var page = this,
                     writeOffId = e.currentTarget.dataset.writeoff_id;
@@ -66,7 +55,7 @@ define(function(require, exports, module) {
             dropdown: require('blocks/dropdown/dropdown'),
 			modal_invoice: require('blocks/modal/invoice/invoice'),
             modal_stockIn: require('blocks/modal/stockIn/stockIn'),
-            modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
+            modal_supplierReturn: require('blocks/modal/supplierReturn/supplierReturn'),
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
             table_stockMovements: require('blocks/table/stockMovements/stockMovements'),
             modal_writeOffAdd: function(opt) {

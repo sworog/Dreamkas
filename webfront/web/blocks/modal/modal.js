@@ -73,7 +73,6 @@ define(function(require, exports, module) {
             block.trigger('hidden');
         },
         reset: function(){
-
             this.$('form').each(function(){
                 this.block && this.block.reset();
             });

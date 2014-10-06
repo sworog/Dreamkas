@@ -91,6 +91,7 @@
     width: 80% !important;
 }
 
-.modal_stockIn {
+.modal_stockIn,
+.modal_supplierReturn {
     width: 70% !important;
 }

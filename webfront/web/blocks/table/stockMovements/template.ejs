@@ -19,9 +19,7 @@
     <% if (stockMovementModel.get('type') === 'Invoice'){ %>
 
     <tr data-invoice-date="<%- formatDate(stockMovementModel.get('date')) %>"
-        data-invoice-number="<%- stockMovementModel.get('number') %>"
-        data-invoice-id="<%- stockMovementModel.id %>"
-        data-modal="modal_invoice">
+        data-invoice-number="<%- stockMovementModel.get('number') %>">
 
         <% if (dateRowSpan) { %>
         <td name="date" rowspan="<%- dateRowSpan %>">
@@ -29,14 +27,19 @@
         </td>
         <% } %>
 
-        <td>
+        <td data-invoice-id="<%- stockMovementModel.id %>"
+			data-modal="modal_invoice">
             <span name="type">Приёмка</span> <span name="status" style="font-size: 11px; margin-left: 10px;"
                                                    class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
         </td>
-        <td name="store">
+        <td name="store"
+			data-invoice-id="<%- stockMovementModel.id %>"
+			data-modal="modal_invoice">
             В <%- stockMovementModel.get('store.name') %>
         </td>
-        <td name="sumTotal">
+        <td name="sumTotal"
+			data-invoice-id="<%- stockMovementModel.id %>"
+			data-modal="modal_invoice">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
         </td>
     </tr>
@@ -72,23 +75,27 @@
     <% if (stockMovementModel.get('type') === 'StockIn'){ %>
 
     <tr data-stockin-date="<%- formatDate(stockMovementModel.get('date')) %>"
-        data-stockin-number="<%- stockMovementModel.get('number') %>"
-        data-stockin-id="<%- stockMovementModel.id %>"
-		data-modal="modal_stockIn">
+        data-stockin-number="<%- stockMovementModel.get('number') %>">
 
         <% if (dateRowSpan) { %>
-        <td name="date" rowspan="<%- dateRowSpan %>">
+        <td name="date"
+			rowspan="<%- dateRowSpan %>">
             <%- formatDate(stockMovementModel.get('date')) %>
         </td>
         <% } %>
 
-        <td>
+        <td data-stockin-id="<%- stockMovementModel.id %>"
+			data-modal="modal_stockIn">
             <span name="type">Оприходование</span>
         </td>
-        <td name="store">
+        <td name="store"
+			data-stockin-id="<%- stockMovementModel.id %>"
+			data-modal="modal_stockIn">
             В <%- stockMovementModel.get('store.name') %>
         </td>
-        <td name="sumTotal">
+        <td name="sumTotal"
+			data-stockin-id="<%- stockMovementModel.id %>"
+			data-modal="modal_stockIn">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
         </td>
     </tr>
@@ -99,23 +106,28 @@
 
     <tr data-supplier-return-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-supplier-return-number="<%- stockMovementModel.get('number') %>"
-        data-supplier-return-id="<%- stockMovementModel.id %>"
         class="supplierReturn__link">
 
         <% if (dateRowSpan) { %>
-        <td name="date" rowspan="<%- dateRowSpan %>">
+        <td name="date"
+			rowspan="<%- dateRowSpan %>">
             <%- formatDate(stockMovementModel.get('date')) %>
         </td>
         <% } %>
 
-        <td>
+        <td data-supplier-return-id="<%- stockMovementModel.id %>"
+			data-modal="modal_supplierReturn">
             <span name="type">Возврат поставщику</span> <span name="status" style="font-size: 11px; margin-left: 10px;"
                                                               class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'погашен' : 'не погашен' %></span>
         </td>
-        <td name="store">
+        <td name="store"
+			data-supplier-return-id="<%- stockMovementModel.id %>"
+			data-modal="modal_supplierReturn">
             Из <%- stockMovementModel.get('store.name') %>
         </td>
-        <td name="sumTotal">
+        <td name="sumTotal"
+			data-supplier-return-id="<%- stockMovementModel.id %>"
+			data-modal="modal_supplierReturn">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
         </td>
     </tr>
