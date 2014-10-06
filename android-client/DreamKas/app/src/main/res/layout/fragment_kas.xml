@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.crystals.vaverjanov.dreamkas.view.KasFragment">
+    tools:context="ru.dreamkas.pos.view.KasFragment">
 
 <LinearLayout
     android:layout_width="fill_parent"
@@ -16,9 +16,7 @@
         android:background="@drawable/layout_border"
         >
 
-
-
-        <ru.crystals.vaverjanov.dreamkas.view.ProductSearchComponent_
+        <ru.dreamkas.pos.view.components.ProductSearchComponent_
             android:id="@+id/scProducts"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
