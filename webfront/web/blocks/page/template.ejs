@@ -42,15 +42,16 @@
         </div>
 
         <div class="sideBar__bottom">
-            <div name="username" class="sideBar__userName">
-                <a href="/user">
-                    <i class="fa fa-user"
-                       style="margin-right: 10px;"></i><%- currentUserModel.get('username') || currentUserModel.get('email') %>
+
+            <div class="sideBar__controls">
+                <a href="/logout" class="sideBar__logoutLink">
+                    <i class="fa fa-sign-out"></i>
                 </a>
             </div>
-            <div class="sideBar__controls">
-                <a href="/logout">
-                    <i class="fa fa-sign-out"></i>
+
+            <div name="username" class="sideBar__userName">
+                <a href="/user">
+                    <%- currentUserModel.get('username') || currentUserModel.get('email') %>
                 </a>
             </div>
         </div>
