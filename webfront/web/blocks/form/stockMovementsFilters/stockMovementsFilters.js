@@ -20,7 +20,9 @@ define(function(require, exports, module) {
 
                 $resetButton.addClass('loading');
 
-                PAGE.collections.stockMovements.filter(filters).then(function(){
+                PAGE.collections.stockMovements.fetch({
+                    filters: filters
+                }).then(function(){
                     PAGE.setParams(filters, { render: true });
                 });
             }
