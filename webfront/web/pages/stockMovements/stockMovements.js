@@ -34,7 +34,7 @@ define(function(require, exports, module) {
             modal_stockIn: require('blocks/modal/stockIn/stockIn'),
             modal_supplierReturn: require('blocks/modal/supplierReturn/supplierReturn'),
 			modal_writeOff: require('blocks/modal/writeOff/writeOff'),
-            form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
+            form_stockMovementsFilters: require('blocks/form/stockMovementsFilters/stockMovementsFilters'),
             table_stockMovements: require('blocks/table/stockMovements/stockMovements')
         }
     });

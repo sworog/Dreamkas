@@ -1,0 +1,35 @@
+<form class="form form_stockMovementsFilters">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+                <select class="form-control" name="types">
+                    <option value="">Все операции</option>
+                    <option value="Invoice" <%- data.types == 'Invoice' ? 'selected' : '' %>>
+                        Приёмка
+                    </option>
+                    <option value="WriteOff" <%- data.types == 'WriteOff' ? 'selected' : '' %>>
+                        Списание
+                    </option>
+                    <option value="StockIn" <%- data.types == 'StockIn' ? 'selected' : '' %>>
+                        Оприходование
+                    </option>
+                    <option value="SupplierReturn" <%- data.types == 'SupplierReturn' ? 'selected' : '' %>>
+                        Возврат поставщику
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <b block="inputDateRange"
+               data-date-from="<%- data.dateFrom %>"
+               data-date-to="<%- data.dateTo %>"></b>
+
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary">Применить фильтры</button>
+            <button type="reset" class="btn btn-default">Сбросить фильтры</button>
+        </div>
+    </div>
+    <div class="form__errorMessage form__errorMessage_global"></div>
+</form>
