@@ -87,10 +87,11 @@ class RecalculateReportsCommand extends Command
 
             $this->projectContext->authenticate($project);
 
+            $output->writeln("<info>Cost Of Goods</info>");
             $this->grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
 
             $output->writeln("<info>Gross Margin Sales</info>");
-            $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport();
+            $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport($output);
 
             $this->projectContext->logout();
         }
