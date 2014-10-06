@@ -9,6 +9,18 @@ define(function(require, exports, module) {
         models: {
             invoice: null
         },
+        events: {
+            'click .invoice__removeLink': function(e){
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.models.invoice.destroy().then(function() {
+                    e.target.classList.remove('loading');
+                    block.hide();
+                });
+            }
+        },
         blocks: {
             form_invoice: function(){
                 var Form_invoice = require('blocks/form/invoice/invoice');
