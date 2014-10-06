@@ -30,7 +30,6 @@ define(function(require, exports, module) {
 		blocks: {
 			product_autocomplete: function() {
 				var block = this,
-                    autocompleteInput = block.$('.autocomplete input.form-control'),
 					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
 					productAutocomplete;
 
@@ -40,12 +39,12 @@ define(function(require, exports, module) {
 
 				productAutocomplete.$el.on('typeahead:selected', function(e, product) {
 					block.models.product.set(product);
-                    block.findReceipts(autocompleteInput);
+                    block.findReceipts(block.$el.find('.autocomplete input.form-control'));
 				});
 
 				productAutocomplete.on('input:clear', function(e, product) {
                     block.models.product.clear();
-					block.findReceipts(autocompleteInput);
+					block.findReceipts(block.$el.find('.autocomplete input.form-control'));
 				});
 
 				return productAutocomplete;
