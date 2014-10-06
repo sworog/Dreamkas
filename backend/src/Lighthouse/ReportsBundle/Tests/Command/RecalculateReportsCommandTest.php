@@ -56,6 +56,10 @@ class RecalculateReportsCommandTest extends TestCase
             ->expects($this->exactly(2))
             ->method('authenticate');
 
+        $projectContextMock
+            ->expects($this->exactly(2))
+            ->method('logout');
+
         $project1Mock = new Project();
         $project1Mock->id = 'id1';
         $project2Mock = new Project();
