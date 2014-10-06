@@ -67,7 +67,7 @@
     bottom: 0;
     width: 100%;
     background-color: #475861;
-    padding: 10px 15px;
+    padding: 20px 15px;
 }
 
 .sideBar__userName {
@@ -75,5 +75,13 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 15px;
-    padding-bottom: 10px;
+}
+
+.sideBar__controls{
+    float: right;
+    margin-top: 4px;
+}
+
+.sideBar__logoutLink .fa{
+    font-size: 17px;
 }

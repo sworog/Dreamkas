@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.catalog.modal;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
@@ -27,5 +28,10 @@ public class CreateGroupModalPage extends ModalWindowPage {
     @Override
     public String modalWindowXpath() {
         return "//*[@id='modal_group']";
+    }
+
+    @Override
+    public String getTitle() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
 }

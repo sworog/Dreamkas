@@ -105,9 +105,11 @@ define(function(require, exports, module) {
 
             page.setParams(params);
 
-            return storeProductsCollection.filter({
-                subCategory: params.groupId,
-                query: params.productFilter
+            return storeProductsCollection.fetch({
+                filters: {
+                    subCategory: params.groupId,
+                    query: params.productFilter
+                }
             });
         }
     });

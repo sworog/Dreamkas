@@ -39,14 +39,14 @@ public class GroupPage extends BootstrapPageObject {
     }
 
     public void sortByNameClick() {
-        findVisibleElement(By.xpath("//*[@data-products-sort-by='name']")).click();
+        findVisibleElement(By.xpath("//*[@data-sort-by='name']")).click();
     }
 
     public void sortBySellingPriceClick() {
-        findVisibleElement(By.xpath("//*[@data-products-sort-by='name']")).click();
+        findVisibleElement(By.xpath("//*[@data-sort-by='name']")).click();
     }
 
     public void sortByBarcodeClick() {
-        findVisibleElement(By.xpath("//*[@data-products-sort-by='name']")).click();
+        findVisibleElement(By.xpath("//*[@data-sort-by='name']")).click();
     }
 }
