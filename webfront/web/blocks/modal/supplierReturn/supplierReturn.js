@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./template.ejs'),
 		id: 'modal_supplierReturn',
+		supplierReturnId: null,
         models: {
             supplierReturn: null
         },
@@ -37,10 +38,10 @@ define(function(require, exports, module) {
                 return new Form_stockInProducts(opt);
             }
         },
-		render: function() {
+		render: function(data) {
 			var SupplierReturnModel = require('resources/supplierReturn/model');
 
-			this.models.supplierReturn = PAGE.collections.stockMovements.get(this.supplierReturnId) || new SupplierReturnModel;
+			this.models.supplierReturn = PAGE.collections.stockMovements.get(data && data.supplierReturnId) || new SupplierReturnModel;
 
 			Modal.prototype.render.apply(this, arguments);
 		}

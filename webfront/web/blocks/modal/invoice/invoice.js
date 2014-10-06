@@ -25,10 +25,10 @@ define(function(require, exports, module) {
                 });
             }
         },
-        render: function(){
+        render: function(data) {
             var InvoiceModel = require('resources/invoice/model');
 
-            this.models.invoice = PAGE.collections.stockMovements.get(this.invoiceId) || new InvoiceModel;
+            this.models.invoice = PAGE.collections.stockMovements.get(data && data.invoiceId) || new InvoiceModel;
 
             Modal.prototype.render.apply(this, arguments);
         }

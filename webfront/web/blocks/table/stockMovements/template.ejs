@@ -105,8 +105,7 @@
     <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
 
     <tr data-supplier-return-date="<%- formatDate(stockMovementModel.get('date')) %>"
-        data-supplier-return-number="<%- stockMovementModel.get('number') %>"
-        class="supplierReturn__link">
+        data-supplier-return-number="<%- stockMovementModel.get('number') %>">
 
         <% if (dateRowSpan) { %>
         <td name="date"

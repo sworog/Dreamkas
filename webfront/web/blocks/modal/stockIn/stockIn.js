@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./template.ejs'),
 		id: 'modal_stockIn',
+		stockinId: null,
         models: {
             stockIn: null
         },
@@ -36,10 +37,10 @@ define(function(require, exports, module) {
 				});
             }
         },
-		render: function(){
+		render: function(data){
 			var StockInModel = require('resources/stockIn/model');
 
-			this.models.stockIn = PAGE.collections.stockMovements.get(this.stockinId) || new StockInModel;
+			this.models.stockIn = PAGE.collections.stockMovements.get(data && data.stockinId) || new StockInModel;
 
 			Modal.prototype.render.apply(this, arguments);
 		}
