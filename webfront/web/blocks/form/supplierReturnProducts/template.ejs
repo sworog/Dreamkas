@@ -42,7 +42,7 @@
             </td>
             <td>
                 <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;"
-                      class="totalPrice"></span>
+                      class="totalSum"></span>
             </td>
             <td>
                 <button type="submit"
@@ -54,8 +54,10 @@
             <td colspan="3">
                 Итого
             </td>
-            <td class="totalSum" colspan="2">
-                <%- formatMoney(models.supplierReturn.get('sumTotal'))  %>
+            <td colspan="2">
+
+				<b block="totalPrice"></b>
+
             </td>
         </tr>
         </tfoot>

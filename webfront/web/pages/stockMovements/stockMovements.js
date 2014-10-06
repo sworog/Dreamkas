@@ -56,35 +56,9 @@ define(function(require, exports, module) {
 			modal_invoice: require('blocks/modal/invoice/invoice'),
             modal_stockIn: require('blocks/modal/stockIn/stockIn'),
             modal_supplierReturn: require('blocks/modal/supplierReturn/supplierReturn'),
+			modal_writeOff: require('blocks/modal/writeOff/writeOff'),
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
-            table_stockMovements: require('blocks/table/stockMovements/stockMovements'),
-            modal_writeOffAdd: function(opt) {
-                var block = this,
-                    Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
-
-                return new Modal_writeOff({
-                    el: opt.el,
-                    collections: {
-                        stockMovements: block.collections.stockMovements
-                    }
-                });
-            },
-            modal_writeOffEdit: function(opt) {
-                var block = this,
-                    Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
-
-                if (block.models.writeOff) {
-                    return new Modal_writeOff({
-                        el: opt.el,
-                        collections: {
-                            writeOffs: block.collections.stockMovements
-                        },
-                        models: {
-                            writeOff: block.models.writeOff
-                        }
-                    });
-                }
-            }
+            table_stockMovements: require('blocks/table/stockMovements/stockMovements')
         }
     });
 });

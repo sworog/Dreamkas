@@ -1,14 +1,3 @@
-<% var partials = {
-	modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs'),
-	tr: {
-		invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
-		writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
-		stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs'),
-		supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
-	}
-}; %>
-
-
 <!--BEGIN TITLE PAGE-->
 <div class="page__head">
 
@@ -27,8 +16,8 @@
             <ul style="right: 0; left: auto;" class="dropdown-menu" role="menu">
                 <li>
                     <div class="dropdown-menu-item"
-                          data-target="#modal_writeOffAdd"
-                          data-toggle="modal">Списать</div>
+						 data-modal="modal_writeOff"
+						 data-write-off-id="0">Списать</div>
                 </li>
                 <li>
                     <div data-modal="modal_stockIn"
@@ -72,20 +61,6 @@
 <b block="modal_invoice"></b>
 <b block="modal_stockIn"></b>
 <b block="modal_supplierReturn"></b>
+<b block="modal_writeOff"></b>
 
-<% if (models.writeOff) { %>
-<%= partials.modal_writeOff({
-    collections: {
-        stores: collections.stores
-    },
-    models: {
-        writeOff: models.writeOff
-    }
-}) %>
-<% } %>
-<%= partials.modal_writeOff({
-    collections: {
-        stores: collections.stores
-    }
-}) %>
 <!--END MODALS-->

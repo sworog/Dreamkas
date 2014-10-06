@@ -50,7 +50,6 @@
 
     <tr data-writeoff-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-writeoff-number="<%- stockMovementModel.get('number') %>"
-        data-writeoff_id="<%- stockMovementModel.id %>"
         class="writeOff__link">
 
         <% if (dateRowSpan) { %>
@@ -59,13 +58,18 @@
         </td>
         <% } %>
 
-        <td>
+        <td data-write-off-id="<%- stockMovementModel.id %>"
+			data-modal="modal_writeOff">
             <span name="type">Списание</span>
         </td>
-        <td name="store">
+        <td name="store"
+			data-write-off-id="<%- stockMovementModel.id %>"
+			data-modal="modal_writeOff">
             Из <%- stockMovementModel.get('store.name') %>
         </td>
-        <td name="sumTotal">
+        <td name="sumTotal"
+			data-write-off-id="<%- stockMovementModel.id %>"
+			data-modal="modal_writeOff">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
         </td>
     </tr>

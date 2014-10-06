@@ -45,10 +45,10 @@ define(function(require, exports, module) {
                     collection: this.collection
                 });
             },
-            invoiceTotalPrice: function(){
-                var InvoiceTotalPrice = require('./invoiceTotalPrice');
+            totalPrice: function(){
+                var TotalPrice = require('./totalPrice');
 
-                return new InvoiceTotalPrice({
+                return new TotalPrice({
                     collection: this.collection
                 });
             },
@@ -73,7 +73,6 @@ define(function(require, exports, module) {
 
             return block.collection.validateProduct(block.data);
         },
-
         submitSuccess: function(invoice) {
             var block = this;
 
@@ -84,33 +83,31 @@ define(function(require, exports, module) {
             block.el.querySelector('.tt-input[name="product.name"]').focus();
 
         },
+		showErrors: function(error){
+			var block = this,
+				productErrors = error.errors.children.products.children[0].children;
 
-        showErrors: function(error){
-            var block = this,
-                productErrors = error.errors.children.products.children[0].children;
+			var fields = [],
+				errorMessages = [];
 
-            var fields = [],
-                errorMessages = [];
+			_.forEach(productErrors, function(error, field){
+				if (error.errors){
+					fields.push(field);
+					errorMessages = _.union(errorMessages, error.errors);
+				}
+			});
 
-            _.forEach(productErrors, function(error, field){
-                if (error.errors){
-                    fields.push(field);
-                    errorMessages = _.union(errorMessages, error.errors);
-                }
-            });
+			block.showGlobalError(errorMessages);
 
-            block.showGlobalError(errorMessages);
+			_.forEach(fields, function(fieldName){
 
-            _.forEach(fields, function(fieldName){
+				if (fieldName === 'product'){
+					fieldName = 'product.name';
+				}
 
-                if (fieldName === 'product'){
-                    fieldName = 'product.name';
-                }
-
-                block.el.querySelector('[name="' + fieldName + '"]').classList.add('invalid');
-            });
-        },
-
+				block.el.querySelector('input[name="' + fieldName + '"]').classList.add('invalid');
+			});
+		},
         clear: function(){
             var block = this;
 
@@ -118,7 +115,6 @@ define(function(require, exports, module) {
             block.$('[name="product.name"]').typeahead('val', '');
             block.renderTotalSum();
         },
-
         selectProduct: function(product){
             var block = this;
 
@@ -141,21 +137,19 @@ define(function(require, exports, module) {
 
             block.renderTotalSum();
         },
+		getTotalSum: function(){
+			var block = this,
+				quantity = block.normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
+				purchasePrice = block.normalizeNumber(block.el.querySelector('input[name="priceEntered"]').value),
+				totalPrice = quantity * purchasePrice;
+
+			return typeof totalPrice === 'number' ? totalPrice : null;
+		},
         renderTotalSum: function(){
             var block = this,
-                totalPrice = block.getTotalPrice();
+                totalPrice = block.getTotalSum();
 
-            if (typeof totalPrice === 'number'){
-                block.$('.form_invoiceProducts__controls .totalSum').html(totalPrice ? block.formatMoney(totalPrice) : '');
-            }
-        },
-        getTotalPrice: function(){
-            var block = this,
-                quantity = block.normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
-                purchasePrice = block.normalizeNumber(block.el.querySelector('input[name="priceEntered"]').value),
-                totalPrice = quantity * purchasePrice;
-
-            return typeof totalPrice === 'number' ? totalPrice : null;
+			block.$('.totalSum').html(totalPrice ? block.formatMoney(totalPrice) : '');
         }
     });
 });

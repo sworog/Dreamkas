@@ -1,0 +1,16 @@
+<tbody>
+<% collection.forEach(function(writeOffProductModel) { %>
+<tr name="writeOffProduct">
+	<td name="name"><%- writeOffProductModel.get('product.name') %></td>
+	<td name="price"><%- formatMoney(writeOffProductModel.get('price')) %></td>
+	<td name="quantity"><%- formatAmount(writeOffProductModel.get('quantity')) %> <%- writeOffProductModel.get('product.object.units') || 'шт.' %></td>
+	<td name="totalPrice"><%- formatMoney(writeOffProductModel.get('totalPrice')) %></td>
+	<td name="cause"><%- writeOffProductModel.get('cause') %></td>
+	<td>
+		<a style="font-size: 17px; position: relative; left: 4px; top: -2px;"
+		   data-model-cid="<%- writeOffProductModel.cid %>"
+		   class="delWriteOffProduct btn fa fa-times"></a>
+	</td>
+</tr>
+<% }); %>
+</tbody>
