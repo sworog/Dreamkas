@@ -35,11 +35,15 @@ Meta:
 @skip
 @ignore
 
+!-- Cant inspect text field hint
+
 Scenario: Отправление пустого поля пароль
 
 Meta:
 @skip
 @ignore
+
+!-- Cant inspect text field hint
 
 Scenario: Отправление пустого поля пароль и емейл
 
@@ -47,9 +51,12 @@ Meta:
 @skip
 @ignore
 
+!-- Cant inspect text field hint
+
 Scenario: Авторизация с несуществующими кредами
 
 Meta:
 @skip
 @ignore
 
+!-- Appium cant handle toast message
