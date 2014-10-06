@@ -21,7 +21,7 @@ define(function(require, exports, module) {
                 $resetButton.addClass('loading');
 
                 PAGE.collections.stockMovements.filter(filters).then(function(){
-                    PAGE.setParams(filters);
+                    PAGE.setParams(filters, { render: true });
                 });
             }
         },
