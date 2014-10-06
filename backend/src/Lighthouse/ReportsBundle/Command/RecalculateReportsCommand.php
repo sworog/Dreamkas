@@ -87,25 +87,7 @@ class RecalculateReportsCommand extends Command
 
             $this->projectContext->authenticate($project);
 
-            $output->writeln("<info>Store Gross Sales</info>");
-            $this->grossSalesManager->recalculateStoreGrossSalesReport();
-
-            $output->writeln("<info>Product Gross Sales</info>");
-            $this->grossSalesManager->recalculateGrossSalesProductReport(5000);
-
-            $output->writeln("<info>SubCategory Gross Sales</info>");
-            $this->grossSalesManager->recalculateGrossSalesBySubCategories($output);
-
-            $output->writeln("<info>Category Gross Sales</info>");
-            $this->grossSalesManager->recalculateGrossSalesByCategories($output);
-
-            $output->writeln("<info>Group Gross Sales</info>");
-            $this->grossSalesManager->recalculateGrossSalesByGroups($output);
-
-            $output->writeln("<info>Store Gross Margin</info>");
             $this->grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
-            $this->grossMarginManager->recalculateStoreGrossMargin();
-            $this->grossMarginManager->recalculateDayGrossMargin();
 
             $output->writeln("<info>Gross Margin Sales</info>");
             $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport();

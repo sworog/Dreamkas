@@ -21,10 +21,10 @@ class RecalculateReportsCommandTest extends TestCase
             ->getMock();
 
         $grossSalesManagerMock
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(0))
             ->method('recalculateStoreGrossSalesReport');
         $grossSalesManagerMock
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(0))
             ->method('recalculateGrossSalesProductReport');
 
         /* @var GrossMarginManager|\PHPUnit_Framework_MockObject_MockObject $grossMarginManagerMock */
@@ -34,7 +34,7 @@ class RecalculateReportsCommandTest extends TestCase
             ->getMock();
 
         $grossMarginManagerMock
-            ->expects($this->exactly(6))
+            ->expects($this->exactly(2))
             ->method($this->anything());
 
         /* @var GrossMarginSalesReportManager|\PHPUnit_Framework_MockObject_MockObject $grossMarginManagerMock */
