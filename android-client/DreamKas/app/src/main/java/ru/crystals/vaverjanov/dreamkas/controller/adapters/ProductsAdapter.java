@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
@@ -61,8 +62,8 @@ public class ProductsAdapter extends ArrayAdapter<Product>
             holder = (NamedObjectHolder)row.getTag();
         }
 
-        NamedObject namedObject = mItems.get(position);
-        holder.txtTitle.setText(namedObject.getName());
+        Product namedObject = mItems.get(position);
+        holder.txtTitle.setText(String.format("%s / %s" + (namedObject.getBarcode() == null?"":" / " + namedObject.getBarcode()), namedObject.getName(), namedObject.getSku()));
 
         return row;
     }

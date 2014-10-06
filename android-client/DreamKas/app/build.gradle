@@ -53,7 +53,7 @@ android
         applicationId 'ru.crystals.vaverjanov.dreamkas'
         minSdkVersion 17
         targetSdkVersion 19
-        buildConfigField 'String', 'ServerAddress', '"http://vip.staging.api.lighthouse.pro"'
+        buildConfigField 'String', 'ServerAddress', '"http://av.staging.api.lighthouse.pro"'
         versionCode 1
         versionName '0.113.1'
         testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'

@@ -8,10 +8,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 import java.util.Timer;
@@ -34,6 +37,9 @@ public class ProductSearchComponent extends LinearLayout {
 
     @ViewById
     EditText txtProductSearchQuery;
+
+    @ViewById
+    ImageButton btnSearchEditTextClear;
 
     Command<String> mSearchCommand;
     private final Activity mContext;
@@ -60,7 +66,21 @@ public class ProductSearchComponent extends LinearLayout {
         addEditTextChangeListeners();
     }
 
+    @Click(R.id.btnSearchEditTextClear)
+    void clear()
+    {
+        txtProductSearchQuery.setText("");
+        setSearchResultToListView(null);
+    }
+
     public void setSearchResultToListView(Products products) {
+        if(products == null){
+            products = new Products();
+            lblSearchResultEmpty.setText(getResources().getString(R.string.msgSearchReq));
+        }else if(products.size() == 0){
+            lblSearchResultEmpty.setText(getResources().getString(R.string.msgSearchEmptyResult));
+        }
+
         ProductsAdapter adapter = new ProductsAdapter(mContext, R.layout.arrow_listview_item, products);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -83,8 +103,8 @@ public class ProductSearchComponent extends LinearLayout {
     {
             txtProductSearchQuery.addTextChangedListener(new TextWatcher() {
 
-            private final int threshold = 2;
-            private final int delay = 1000;
+            private final int threshold = 3;
+            private final int delay = 500;
 
             private final Timer timer = new Timer();
 
@@ -122,6 +142,8 @@ public class ProductSearchComponent extends LinearLayout {
                         }
                     };
                     timer.schedule(lastTimer, delay);
+                }else if(s.length() == 0){
+                    setSearchResultToListView(null);
                 }
             }
         });

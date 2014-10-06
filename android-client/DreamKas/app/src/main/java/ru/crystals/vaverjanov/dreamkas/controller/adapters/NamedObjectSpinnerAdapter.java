@@ -53,4 +53,8 @@ public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements Sp
     public int getCount() {
         return super.getCount()-1;
     }
+
+    public int getHintElementIndex() {
+        return this.getCount();
+    }
 }

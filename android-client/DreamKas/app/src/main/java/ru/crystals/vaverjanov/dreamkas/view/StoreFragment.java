@@ -125,37 +125,28 @@ public class StoreFragment extends BaseFragment
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spStores.setAdapter(adapter);
-        spStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id)
-            {
-                preferences.setCurrentStore(((NamedObject)spStores.getAdapter().getItem(position)).getId());
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                preferences.setCurrentStore(((NamedObject) spStores.getAdapter().getItem(position)).getId());
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
 
-        if (preferences.getCurrentStore() != null){
-            int currentStorePosition = 0;
-            for(int i = 0; i < stores.size(); i++)
-            {
-                if(stores.get(i).getId().equals(preferences.getCurrentStore()))
-                {
+        int currentStorePosition = adapter.getHintElementIndex();
+
+        if (preferences.getCurrentStore() != null) {
+            for (int i = 0; i < adapter.getCount(); i++) {
+                if (stores.get(i).getId().equals(preferences.getCurrentStore())) {
                     currentStorePosition = i;
                     break;
                 }
             }
-
-            //select current store
-            spStores.setSelection(currentStorePosition);
-        }else {
-            //select hint
-            spStores.setSelection(adapter.getCount());
         }
+        spStores.setSelection(currentStorePosition);
     }
 }

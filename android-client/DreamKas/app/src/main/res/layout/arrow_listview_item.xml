@@ -12,11 +12,12 @@
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:id="@+id/txtListItemTitle"
-        android:singleLine="true"
-        android:ellipsize="end"
+        android:singleLine="false"
+        android:ellipsize="none"
         android:text="List Item Text" />
 
-    <ImageView android:src="@drawable/ic_action_next_item"
+    <ImageView
+        android:src="@drawable/ic_action_next_item"
         android:layout_weight="0" android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>
