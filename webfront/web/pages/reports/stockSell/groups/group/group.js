@@ -16,8 +16,10 @@ define(function(require, exports, module) {
 
                 e.target.classList.add('loading');
 
-                this.collections.groupStockSell.filter({
-                    store: storeId
+                this.collections.groupStockSell.fetch({
+                    filters: {
+                        store: storeId
+                    }
                 }).then(function() {
                     e.target.classList.remove('loading');
                 });
@@ -37,9 +39,11 @@ define(function(require, exports, module) {
                 dateFromInput.classList.add('loading');
                 dateToInput.classList.add('loading');
 
-                this.collections.groupStockSell.filter({
-                    dateFrom: dateFrom,
-                    dateTo: dateTo
+                this.collections.groupStockSell.fetch({
+                    filters: {
+                        dateFrom: dateFrom,
+                        dateTo: dateTo
+                    }
                 }).then(function() {
                     dateFromInput.classList.remove('loading');
                     dateToInput.classList.remove('loading');

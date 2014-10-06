@@ -23,7 +23,9 @@ define(function(require, exports, module) {
 
                 e.target.value.length >= 3 && e.target.classList.add('loading');
 
-                block.collections.products.filter({ query: e.target.value }).then(function() {
+                block.collections.products.fetch({
+                    filters: { query: e.target.value }
+                }).then(function() {
                     e.target.classList.remove('loading');
                 });
             },
