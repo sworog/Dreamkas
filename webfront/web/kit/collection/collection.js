@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 
     var Collection = makeClass(Backbone.Collection, {
         filters: {},
+        model: require('kit/model/model'),
         initialize: function(data, options){
 
             this.filters = get(this, 'filters');

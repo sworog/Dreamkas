@@ -54,8 +54,7 @@ define(function(require) {
             }
         },
         initialize: function() {
-            var block = this,
-                modal = block.$el.closest('.modal')[0];
+            var block = this;
 
             block.redirectUrl = block.get('redirectUrl');
 
@@ -64,12 +63,11 @@ define(function(require) {
         initData: function() {
             var block = this;
 
-            block.__data = block.data;
-            block.__model = block.model;
+            block.__data = block.__data || block.data;
 
             Block.prototype.initData.apply(block, arguments);
 
-            block.data = block.get('data');
+            block.data = block.get('__data');
         },
         render: function() {
             var block = this;

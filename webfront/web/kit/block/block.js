@@ -92,7 +92,7 @@ define(function(require, exports, module) {
             block.__models = block.__models || block.models;
 
             block.__collection = block.__collection || block.collection;
-            block.__model = block.__model || block.__model;
+            block.__model = block.__model || block.model;
 
 
             //get data from initial constructors
