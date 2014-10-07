@@ -33,7 +33,9 @@ define(function(require, exports, module) {
         submit: function(){
             var block = this;
 
-            return PAGE.collections.stockMovements.filter(block.data);
+            return PAGE.collections.stockMovements.fetch({
+                filters: block.data
+            });
         },
         submitSuccess: function(){
             var block = this;
