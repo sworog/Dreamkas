@@ -1,7 +1,6 @@
 define(function(require) {
         //requirements
         var Collection = require('kit/collection/collection'),
-			uri = require('uri'),
             deepExtend = require('kit/deepExtend/deepExtend'),
 			moment = require('moment'),
 			formatDate = require('kit/formatDate/formatDate');
@@ -14,8 +13,8 @@ define(function(require) {
                 var currentTime = Date.now();
 
                 return {
-                    dateFrom: formatDate(moment(currentTime).subtract(1, 'week')),
-                    dateTo: formatDate(currentTime)
+                    dateFrom: formatDate(moment(currentTime).subtract(1, 'weeks')),
+                    dateTo: formatDate(moment(currentTime).add(1, 'days'))
                 }
             },
 
