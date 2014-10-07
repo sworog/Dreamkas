@@ -17,8 +17,14 @@ public class LoginSteps extends ScenarioSteps {
     }
 
     @Step
+    public void hideKeyboard(){
+        loginPage.hideKeyboard();
+    }
+
+    @Step
     public void clickOnLoginButton() {
         loginPage.clickOnLoginButton();
+
     }
 
     @Step

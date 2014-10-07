@@ -13,4 +13,4 @@ And пользователь подтверждает выход и нажима
 
 Then пользователь проверяет, что описание 'Добро пожаловать в DreamKas.'
 
-Then пользователь проверяет, что текущая активити это 'ru.crystals.vaverjanov.dreamkas.view.LoginActivity_'
+Then пользователь проверяет, что текущая активити это 'ru.dreamkas.pos.view.LoginActivity_'

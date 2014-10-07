@@ -27,7 +27,7 @@ Meta:
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'owner@lighthouse.pro' и пароль 'lighthouse'
 
-Then пользователь проверяет, что текущая активити это 'ru.crystals.vaverjanov.dreamkas.view.LighthouseDemoActivity_'
+Then пользователь проверяет, что текущая активити это 'ru.dreamkas.pos.view.LighthouseDemoActivity_'
 
 Scenario: Отправление пустого поля емейл
 

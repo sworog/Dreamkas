@@ -2,6 +2,8 @@ package dreamkas.jbehave;
 
 import dreamkas.steps.PosSteps;
 import net.thucydides.core.annotations.Steps;
+
+import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
@@ -11,11 +13,13 @@ public class PosUserSteps {
     PosSteps posSteps;
 
     @When("пользователь выбирает магазин с именем '$storeName' из списка")
+    @Given("пользователь выбирает магазин с именем '$storeName' из списка")
     public void whenTheUserChooseStoreWithName(String storeName) {
         posSteps.chooseSpinnerItemWithValue(storeName);
     }
 
     @When("пользователь нажимает на кнопку 'Перейти к кассе'")
+    @Given("пользователь нажимает на кнопку 'Перейти к кассе'")
     public void whenTheUserClicksOnPosNavigateButton() {
         posSteps.clickOnSaveStoreSettings();
     }
@@ -25,10 +29,26 @@ public class PosUserSteps {
         posSteps.openDrawerAndClickOnDrawerOption(item);
     }
 
+    @When("набирает в поле поиска товаров '$productSearchQuery'")
+    public void whenTheUserTypeProductSearchQuery(String productSearchQuery) {
+        posSteps.inputProductSearchQuery(productSearchQuery);
+    }
+
     @Then("пользователь проверяет, что заголовок '$expectedTitle'")
     public void thenTheUserChecksTheTitle(String expectedTitle) {
         posSteps.assertActionBarTitle(expectedTitle);
     }
+
+    @Then("видит результат поиска, в котором присутствует '$count' товара")
+    public void thenUserChecksProductSearchResult(Integer count) {
+        posSteps.assertSearchProductsResult(count);
+    }
+
+    @Then("видит результат поиска, в котором присутствует товар с названием '$title'")
+    public void thenUserChecksProductSearchResult(String productTitle) {
+        posSteps.assertSearchProductsResult(productTitle);
+    }
+
 
     @Then("пользователь проверяет, что выбранный магазин это '$store'")
     public void thenTheUserChecksTheStore(String store) {

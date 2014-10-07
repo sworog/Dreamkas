@@ -18,7 +18,7 @@ public class AppiumDriverSourceImpl implements DriverSource {
 //        File appDir = new File(classpathRoot, "android");
 //        File app = new File(appDir, "app-debug.apk");
 //        Workaround for apk location
-        String appPath = "C:\\android\\app-debug.apk";
+        String appPath = "D:\\dev\\lighthouse\\lighthouse\\android-client\\DreamKas\\app\\build\\outputs\\apk\\app-debug.apk";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
@@ -28,10 +28,10 @@ public class AppiumDriverSourceImpl implements DriverSource {
 //        capabilities.setCapability("app", app.getAbsolutePath());
 //        Setting the workaround apk location
         capabilities.setCapability("app", appPath);
-        capabilities.setCapability("appPackage", "ru.crystals.vaverjanov.dreamkas.debug");
-        capabilities.setCapability("appActivity", "ru.crystals.vaverjanov.dreamkas.view.LoginActivity_");
+        capabilities.setCapability("appPackage", "ru.dreamkas.pos.debug");
+        capabilities.setCapability("appActivity", "ru.dreamkas.pos.view.activities.LoginActivity_");
         try {
-            return new AppiumDriver(new URL("http://appium.lighthouse.pro/wd/hub"), capabilities);
+            return new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
         } catch (MalformedURLException e) {
             throw new AssertionError(e);
         }
