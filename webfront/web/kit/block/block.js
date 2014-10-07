@@ -41,6 +41,19 @@ define(function(require, exports, module) {
         formatDateTime: require('kit/formatDateTime/formatDateTime'),
         normalizeNumber: require('kit/normalizeNumber/normalizeNumber'),
 
+        initialize: function(){
+
+            var block = this;
+
+            //save data constructors in hidden fields
+
+            block.__collections = block.__collections || block.collections;
+            block.__models = block.__models || block.models;
+
+            block.__collection = block.__collection || block.collection;
+            block.__model = block.__model || block.model;
+        },
+
         render: function(data) {
             var block = this;
 
@@ -85,16 +98,16 @@ define(function(require, exports, module) {
         initData: function(data) {
             var block = this;
 
-            data && block.set(data);
+            if (data){
 
-            //save initial data constructors in hidden fields
+                block.set(data);
 
-            block.__collections = block.__collections || block.collections;
-            block.__models = block.__models || block.models;
+                _.extend(block.__collections, data.collections);
+                _.extend(block.__models, data.models);
 
-            block.__collection = block.__collection || block.collection;
-            block.__model = block.__model || block.model;
-
+                block.__collection = data.collection || block.__collection;
+                block.__model = data.model || block.__model;
+            }
 
             //get data from initial constructors
 
