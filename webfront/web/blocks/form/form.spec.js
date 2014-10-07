@@ -31,7 +31,5 @@ define(function(require, exports, module) {
 
             expect(form.serialize()).toEqual(expectedData);
         });
-
-        it('submit event');
     });
 });
