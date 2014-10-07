@@ -45,6 +45,7 @@ public class PosSteps extends ScenarioSteps {
     @Step
     public void assertSearchProductsResult(Integer count) {
         assertThat(posPage.getSearchProductResultCount(), is(count));
+
     }
 
     @Step
