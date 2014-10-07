@@ -1,11 +1,12 @@
 define(function(require) {
     //requirements
-    var Form = require('blocks/form/form.deprecated'),
+    var Form = require('blocks/form/form'),
         login = require('kit/login/login'),
         getText = require('kit/getText/getText');
 
     return Form.extend({
-        el: '.form_login',
+        template: require('ejs!./template.ejs'),
+        LoginModel: require('resources/login/model'),
         model: function() {
             var LoginModel = require('resources/login/model');
 

@@ -27,6 +27,8 @@ define(function(require, exports, module) {
             this.delegateGlobalEvents();
 
             View.apply(block, arguments);
+
+            this.render();
         },
 
         bindings: null,

@@ -1,10 +1,10 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form.deprecated'),
+    var Form = require('blocks/form/form'),
         LoginModel = require('resources/login/model');
 
     return Form.extend({
-        el: '.form_signup',
+        template: require('ejs!./template.ejs'),
         model: function(){
             var SignUpModel = require('resources/signup/model');
 
