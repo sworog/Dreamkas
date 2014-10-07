@@ -24,20 +24,12 @@ define(function(require, exports, module) {
 
             deepExtend(block, params);
 
+            this.delegateGlobalEvents();
+
             View.apply(block, arguments);
         },
 
         bindings: null,
-
-        initialize: function() {
-            var block = this;
-
-            this.delegateGlobalEvents();
-
-            $.when(block.initData()).then(function() {
-                block.render();
-            });
-        },
 
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
@@ -50,27 +42,29 @@ define(function(require, exports, module) {
         render: function(data) {
             var block = this;
 
-            data && block.set(data);
+            //always get actual data before rendering
+            $.when(block.initData(data)).then(function(){
+                if (typeof block.template !== 'function') {
+                    return;
+                }
 
-            if (typeof block.template !== 'function') {
-                return;
-            }
+                block.removeBlocks();
 
-            block.removeBlocks();
+                block.bindings && block.bindings.unbind();
 
-            block.bindings && block.bindings.unbind();
+                block.setElement($(block.template(block)).replaceAll(block.el));
 
-            block.setElement($(block.template(block)).replaceAll(block.el));
+                block.bindings = rivets.bind(block.el, block);
 
-            block.bindings = rivets.bind(block.el, block);
+                block.initBlocks();
 
-            block.initBlocks();
+                block.el.block = this;
 
-            block.el.block = this;
-
-            block.$('button[data-toggle="popover"]').popover({
-                trigger: 'focus'
+                block.$('button[data-toggle="popover"]').popover({
+                    trigger: 'focus'
+                });
             });
+
         },
 
         get: function() {
@@ -90,16 +84,27 @@ define(function(require, exports, module) {
 
             data && block.set(data);
 
-            block.collections = _.transform(block.collections, function(result, collectionInitializer, key) {
-                result[key] = block.get('collections.' + key);
+            //save initial data constructors in hidden fields
+
+            block.__collections = block.__collections || block.collections;
+            block.__models = block.__models || block.models;
+
+            block.__collection = block.__collection || block.collection;
+            block.__model = block.__model || block.__model;
+
+
+            //get data from initial constructors
+
+            block.collections = _.transform(block.__collections, function(result, collectionInitializer, key) {
+                result[key] = block.get('__collections.' + key);
             });
 
-            block.models = _.transform(block.models, function(result, modelInitializer, key) {
-                result[key] = block.get('models.' + key);
+            block.models = _.transform(block.__models, function(result, modelInitializer, key) {
+                result[key] = block.get('__models.' + key);
             });
 
-            block.collection = block.get('collection');
-            block.model = block.get('model');
+            block.collection = block.get('__collection');
+            block.model = block.get('__model');
 
         },
 
