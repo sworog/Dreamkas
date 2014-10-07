@@ -76,12 +76,16 @@ define(function(require, exports, module) {
             block.collections.receipts.fetch({
                 filters: {
                     dateFrom: dateFrom,
-                    dateTo: dateTo,
+                    dateTo: block.formatDate(moment(dateTo, 'DD.MM.YYYY').add(1, 'days')),
                     product: block.models.product.get('id')
                 }
             }).then(function() {
 
-                PAGE.setParams(block.collections.receipts.filters);
+                PAGE.setParams({
+                    dateFrom: dateFrom,
+                    dateTo: dateTo,
+                    product: block.models.product.get('id')
+                });
 
                 $(input).removeClass('loading');
             });

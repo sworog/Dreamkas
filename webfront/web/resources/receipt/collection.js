@@ -21,18 +21,7 @@ define(function(require) {
 
 			url: function() {
 				return Collection.baseApiUrl + '/stores/' + this.storeId + '/sales';
-			},
-
-            fetch: function(options){
-
-                options = deepExtend({}, options, {
-                    data: {
-                        dateTo: formatDate(moment(this.filters.dateTo, 'DD.MM.YYYY').add(1, 'days'))
-                    }
-                });
-
-                return Collection.prototype.fetch.call(this, options);
-            }
+			}
         });
     }
 );
