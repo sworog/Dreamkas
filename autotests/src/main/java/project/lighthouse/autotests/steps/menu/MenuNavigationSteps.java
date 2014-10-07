@@ -143,7 +143,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void userNameLinkClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.userNameLinkClick();
+        menuNavigationBar.itemClick("userName");
     }
 
     @Step
@@ -156,5 +156,11 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void settingsMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
         menuNavigationBar.getSettingsMenuItem().shouldBeNotVisible();
+    }
+
+
+    @Step
+    public void logOutButtonClick() {
+        menuNavigationBar.logOutButtonClick();
     }
 }

@@ -1,23 +1,20 @@
 package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.item.CommonItem;
+import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class SelectByLabel extends CommonItem {
 
-    private By labelParentFindBy;
-
-    public SelectByLabel(CommonPageObject pageObject, By findBy, By labelParentFindBy) {
-        super(pageObject, findBy);
-        this.labelParentFindBy = labelParentFindBy;
+    public SelectByLabel(ModalWindowPage modalWindowPage, String name) {
+        super(modalWindowPage, name);
     }
 
     @Override
     public void setValue(String value) {
-        By labelBy = By.xpath("//label[text()=\"" + value + "\"]");
-        WebElement labelParent = getPageObject().findVisibleElement(labelParentFindBy);
-        labelParent.findElement(labelBy).click();
+        //FIX ME -> harcoded name in xpath pattern
+        String xpathPattern = String.format("//label[input[@name='payment.type'] and *[normalize-space(text())='%s']]", value);
+        By label = By.xpath(xpathPattern);
+        getPageObject().click(label);
     }
 }

@@ -69,12 +69,12 @@ class RetailPriceValidator extends ConstraintValidator
                     $retailPriceClassConstraints
                 );
                 if ($retailPriceValid && $retailPriceClassValid) {
-                    $this->context->validateValue(
+                    $this->validateValue(
                         $value->retailMarkup,
                         $retailMarkupConstraints,
                         'retailMarkup'
                     );
-                    $this->context->validateValue(
+                    $this->validateValue(
                         $value,
                         $retailMarkupClassConstraints
                     );
@@ -92,7 +92,7 @@ class RetailPriceValidator extends ConstraintValidator
                     $retailMarkupClassConstraints
                 );
                 if ($retailMarkupValid && $retailMarkupClassValid) {
-                    $this->context->validateValue(
+                    $this->validateValue(
                         $value->retailPrice,
                         $retailPriceConstraints,
                         'retailPrice'
@@ -121,20 +121,22 @@ class RetailPriceValidator extends ConstraintValidator
             switch ($storeProduct->retailPricePreference) {
                 case Product::RETAIL_PRICE_PREFERENCE_PRICE:
                     if (!$this->isNull($storeProduct->retailPrice)) {
-                        $this->context->addViolationAt(
-                            'retailPrice',
-                            $constraint->retailPriceForbiddenMessage
-                        );
+                        $this->context
+                            ->buildViolation($constraint->retailPriceForbiddenMessage)
+                            ->atPath('retailPrice')
+                            ->addViolation()
+                        ;
                         return false;
                     }
                     break;
                 case Product::RETAIL_PRICE_PREFERENCE_MARKUP:
                 default:
                     if (!$this->isNull($storeProduct->retailMarkup)) {
-                        $this->context->addViolationAt(
-                            'retailMarkup',
-                            $constraint->retailMarkupForbiddenMessage
-                        );
+                        $this->context
+                            ->buildViolation($constraint->retailMarkupForbiddenMessage)
+                            ->atPath('retailMarkup')
+                            ->addViolation()
+                        ;
                         return false;
                     }
             }
@@ -151,10 +153,11 @@ class RetailPriceValidator extends ConstraintValidator
     {
         if (!$this->isEmpty($storeProduct->roundedRetailPrice)) {
             if ($storeProduct->roundedRetailPrice->getCount() <= 0) {
-                $this->context->addViolationAt(
-                    'retailPrice',
-                    $constraint->invalidRoundedRetailPriceMessage
-                );
+                $this->context
+                    ->buildViolation($constraint->invalidRoundedRetailPriceMessage)
+                    ->atPath('retailPrice')
+                    ->addViolation()
+                ;
                 return false;
             }
         }

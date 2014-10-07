@@ -22,13 +22,11 @@ class NotEqualsFieldValidator extends ConstraintValidator
         }
 
         if ($value == $fieldValue) {
-            $this->context->addViolation(
-                $constraint->message,
-                array(
-                    '{{ field }}' => $constraint->field,
-                )
-            );
-
+            $this->context
+                ->buildViolation($constraint->message)
+                    ->setParameter('{{ field }}', $constraint->field)
+                ->addViolation()
+            ;
             return false;
         }
 

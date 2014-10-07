@@ -38,7 +38,7 @@ define(function(require, exports, module) {
                 form_store.on('submit:success', function() {
                     var modal = $('.modal:visible');
 
-                    modal.one('hidden.bs.modal', function(e) {
+                    modal.one('modal.hidden', function(e) {
                         page.render();
                     });
 
@@ -58,7 +58,7 @@ define(function(require, exports, module) {
                 form_store.on('submit:success', function() {
                     var modal = $('.modal:visible');
 
-                    modal.one('hidden.bs.modal', function(e) {
+                    modal.one('modal.hidden', function(e) {
                         page.collections.stores.fetch().then(function() {
                             page.render()
                         });

@@ -1,0 +1,41 @@
+<div class="page page_pos">
+
+    <nav class="sideBar">
+
+        <a class="page__sideBarLink fa fa-bars"></a>
+
+        <a href="/pos/stores/<%- params.storeId %>" class="sideBar__logo">
+            DREAMKAS
+        </a>
+
+        <a href="/pos/stores/<%- params.storeId %>"
+           class="sideBar__item <%- activeNavigationItem === 'store' ? 'sideBar__item_active' : '' %>">
+            <i class="fa fa-shopping-cart fa-fw"></i>
+            Касса
+        </a>
+
+        <a href="/pos/stores/<%- params.storeId %>/sales"
+           class="sideBar__item <%- activeNavigationItem === 'sales' ? 'sideBar__item_active' : '' %>">
+            <i class="fa fa-exchange fa-fw"></i>
+            История продаж
+        </a>
+
+        <a href="/pos"
+           class="sideBar__item">
+            Сменить магазин
+        </a>
+    </nav>
+
+    <div class="page__head">
+        <div class="page__title">
+            <a class="page__sideBarLink fa fa-bars"></a>
+            <%- models.store.get('name') + ': ' + title %>
+        </div>
+    </div>
+
+    <div class="page__content">
+        <div class="row">
+            <%= content(obj) %>
+        </div>
+    </div>
+</div>

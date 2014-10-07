@@ -6,11 +6,11 @@ use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 

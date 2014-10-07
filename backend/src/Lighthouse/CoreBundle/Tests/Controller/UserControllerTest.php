@@ -461,12 +461,9 @@ class UserControllerTest extends WebTestCase
                 201,
                 array('email' => 'TEST@TEST.COM'),
             ),
-            'not valid email for domain level 2' => array(
-                400,
+            'valid email for domain level 2' => array(
+                201,
                 array('email' => 'test@test'),
-                array(
-                    'errors.children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
-                ),
             ),
             'not valid email without at' => array(
                 400,
@@ -744,6 +741,7 @@ class UserControllerTest extends WebTestCase
                     ),
                     'organizations' => array(),
                     'organizations/{organization}/bankAccounts' => array(),
+                    'others' => array(),
                     'products' => array(
                         'GET',
                         'GET::search',
@@ -796,6 +794,8 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'stores/{store}/sales' => array(
+                        'GET',
+                        'GET::{sale}',
                         'POST'
                     ),
                     'stores/{store}/stockIns' => array(
@@ -833,7 +833,6 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
-                    'others' => array()
                 )
             ),
             User::ROLE_STORE_MANAGER => array(
@@ -894,13 +893,13 @@ class UserControllerTest extends WebTestCase
                     ),
                     'stores/{store}/returns' => array(),
                     'stores/{store}/sales' => array(),
+                    'stores/{store}/stockIns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
                         'GET::products',
                         'GET::reports/grossSalesByProducts',
                     ),
                     'stores/{store}/writeOffs' => array(),
-                    'stores/{store}/stockIns' => array(),
                     'subcategories' => array(
                         'GET::{subCategory}/products'
                     ),

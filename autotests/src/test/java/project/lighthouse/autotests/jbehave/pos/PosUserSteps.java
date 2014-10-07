@@ -1,11 +1,15 @@
 package project.lighthouse.autotests.jbehave.pos;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.pos.PosSteps;
+
+import java.io.IOException;
 
 public class PosUserSteps {
 
@@ -15,6 +19,16 @@ public class PosUserSteps {
     @Given("пользователь открывает страницу кассы магазина с названием '$storeName'")
     public void givenUserOpenStorePosPageWithName(String storeName) {
         posSteps.navigateToPosPage(storeName);
+    }
+
+    @Given("пользователь открывает страницу истории продаж кассы магазина с названием '$storeName'")
+    public void givenUserOpenStorePosSalesPageWithName(String storeName) {
+        posSteps.navigateToPosSalesPage(storeName);
+    }
+
+    @Given("пользователь открывает страницу запуска кассы")
+    public void givenUserOpenPosLaunchPage() {
+        posSteps.openPosLaunchPage();
     }
 
     @When("пользователь нажимает на кнопку Далее на странице выбора кассы")
@@ -47,6 +61,63 @@ public class PosUserSteps {
         posSteps.confirmClearReceipt();
     }
 
+    @When("пользователь совершает продажу")
+    public void whenUserRegistersSale() {
+        posSteps.clickOnRegisterSaleButton();
+    }
+
+    @When("пользователь нажимает на кнопку продолжить работу")
+    public void whenUserClicksOnContinueWorkButton() {
+        posSteps.clickOnContinueButton();
+    }
+
+    @When("пользователь нажимает на кнопку продолжить работу в окошке успешного возврата")
+    public void whenUserClicksOnRefundContinueWorkButton() {
+        posSteps.clickOnRefundContinueButton();
+    }
+
+    @When("пользователь нажимает на кнопку чтобы скрыть боковое меню навигации кассы")
+    @Alias("пользователь нажимает на кнопку чтобы показать боковое меню навигации кассы")
+    public void whenTheUserInteractsWithCashRegistrySideMenuButton() {
+        posSteps.clickOnSideMenuInteractionButton();
+    }
+
+    @When("пользователь нажимает на ссылку с названием История продаж в боковом меню кассы")
+    public void whenUserClickOnSaleHistorySideMenuLink() {
+        posSteps.clickOnSaleHistorySideMenuLink();
+    }
+
+    @When("пользователь нажимает на ссылку с названием 'Сменить магазин' в боковом меню кассы")
+    public void whenUserСlickOnChangeStoreSideMenuLink() {
+        posSteps.clickOnChangeStoreSideMenuLink();
+    }
+
+    @Then("пользователь проверяет, что ссылка с названием 'Касса' активна (выбрана) в боковом меню навигации кассы")
+    public void thenUserAssertCashRegistrySideMenuLinkIsActive() {
+        posSteps.assertCashRegistrySideMenuLinkIsActive();
+    }
+
+    @When("пользователь вводит количество '$quantityValue' продукту с именем '$productName' для совершения возврата")
+    @Alias("пользователь вводит количество c значением quantityValue продукту с именем '$productName' для совершения возврата")
+    public void whenUserSetRefundProductQuantity(String quantityValue, String productName) {
+        posSteps.setRefundProductQuantityByName(productName, quantityValue);
+    }
+
+    @When("пользователь увеличивает количество на единицу продукту с именем '$productName' путем нажатия на кнопку с плюсом для совершения возврата")
+    public void clickOnRefundProductPlusButtonByName(String productName) {
+        posSteps.clickOnRefundProductPlusButtonByName(productName);
+    }
+
+    @When("пользователь уменьшивает количество на единицу продукту с именем '$productName' путем нажатия на кнопку с минусом для совершения возврата")
+    public void clickOnRefundProductMinusButtonByName(String productName) {
+        posSteps.clickOnRefundProductMinusButtonByName(productName);
+    }
+
+    @When("пользователь нажимает на кнопку возврата")
+    public void whenTheUserClicksOnRefundButton() {
+        posSteps.clickOnRefundButton();
+    }
+
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")
     public void thenExactCompareWithExamplesTable(ExamplesTable examplesTable) {
         posSteps.exactComparePosAutocompleteResultsCollectionWithExamplesTable(examplesTable);
@@ -75,5 +146,30 @@ public class PosUserSteps {
     @Then("пользователь проверяет, что последний добавленный продукт в чек прикреплен к концу чека")
     public void thenTheUsercheckTheLastAddedProductIsPinned() {
         posSteps.checkTheLastAddedProductIsPinned();
+    }
+
+    @Then("пользователь c адресом электронной почты '$email' проверяет, что у товара с именем '$productName' в магазине с именем '$storeName' остатки равны '$inventory'")
+    public void thenUserChecksStoreProductHasInventory(String email, String productName, String storeName, String inventory) throws IOException, JSONException {
+        posSteps.assertStoreProductInventory(email, storeName, productName, inventory);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешной продажи гласит Выдайте сдачу '$value'")
+    public void thenTheUserChecksReceiptSuccessTitle(String value) {
+        posSteps.assertSuccessTitle(value);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешного возврата гласит 'Выдайте деньги $value'")
+    public void thenTheUserChecksRefundSuccessTitle(String value) {
+        posSteps.assertRefundSuccessTitle(value);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешного возврата гласит 'Сделайте возврат на банковскую карту $value'")
+    public void thenTheUserChecksRefundBakSuccessTitle(String value) {
+        posSteps.assertRefundSuccessBankTitle(value);
+    }
+
+    @Then("пользователь проверяет, что количество равно '$quantity' продукта с именем '$name'")
+    public void thenUserAssertsRefundProductQuantity(String quantity, String name) {
+        posSteps.assertRefundPorductQuantity(name, quantity);
     }
 }

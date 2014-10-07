@@ -2,30 +2,16 @@
 
 namespace Lighthouse\CoreBundle\Form\Product\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType as Unit;
 
-class UnitType extends AbstractType
+class UnitType extends DocumentType
 {
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => Unit::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
     /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return Unit::getClassName();
     }
 }

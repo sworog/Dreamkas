@@ -2,12 +2,12 @@ package project.lighthouse.autotests.pages.stockMovement.modal;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.DateInput;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
-import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.elements.items.autocomplete.ProductAutoComplete;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public abstract class StockMovementModalPage extends ModalWindowPage {
@@ -20,7 +20,7 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
     public void createElements() {
         put("date", new DateInput(this, "//*[@name='date']"));
         put("store", new SelectByVisibleText(this, "//*[@name='store']"));
-        put("product.name", new InvoiceProductAutoComplete(this, "//*[@name='product.name']"));
+        put("product.name", new ProductAutoComplete(this, "//*[@name='product.name' and contains(@class, 'input')]"));
         put("price", new Input(this, "//*[@name='price']"));
         put("quantity", new Input(this, "//*[@name='quantity']"));
     }

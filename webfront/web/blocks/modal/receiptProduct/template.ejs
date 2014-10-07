@@ -1,36 +1,23 @@
 <div id="modal_receiptProduct"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="modal-default-label"
-     aria-hidden="true"
-     class="modal modal_receiptProduct fade"
-     style="display: none;">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a type="button"
-                   data-dismiss="modal"
-                   aria-hidden="true"
-                   class="close pull-left fa fa-times"></a>
+     class="modal modal_receiptProduct">
 
-                <button form="form_receiptProduct"
-                        type="submit"
-                        class="btn btn-primary pull-right">
-                    Сохранить
-                </button>
+    <div class="modal__header">
+        <a class="modal__closeLink pull-left fa fa-times"></a>
 
-                <h4 class="modal-title">
-                    Редактирование товара в чеке
-                </h4>
+        <button form="form_receiptProduct"
+                type="submit"
+                class="btn btn-primary pull-right">
+            Сохранить
+        </button>
 
-                <span class="clearfix"></span>
-            </div>
-            <div class="modal-body">
+        <h4 class="modal__title">
+            <%- models.receiptProduct.collection ? 'Редактирование позиции в чеке' : 'Добавление позиции в чек'%>
+        </h4>
+    </div>
+    <div class="modal__body">
 
-                <b block="form_receiptProduct"></b>
+        <b block="form_receiptProduct"></b>
 
-            </div>
-        </div>
     </div>
 
 </div>

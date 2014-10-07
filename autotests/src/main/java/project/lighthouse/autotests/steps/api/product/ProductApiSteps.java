@@ -4,9 +4,9 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.api.factories.ApiFactory;
+import project.lighthouse.autotests.api.objects.Product;
+import project.lighthouse.autotests.api.objects.SubCategory;
 import project.lighthouse.autotests.helper.UUIDGenerator;
-import project.lighthouse.autotests.objects.api.Product;
-import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
 

@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Debug\ErrorHandler;
 use Lighthouse\IntegrationBundle\Util\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
-use Symfony\Component\Console\Helper\TableHelper;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -181,8 +181,8 @@ class ProductsXmlMerger extends Command
         $max = max($this->skus);
 
         $output->writeln('');
-        /* @var TableHelper $tableHelper */
-        $tableHelper = $this->getHelper('table');
+
+        $tableHelper = new Table($output);
         $tableHelper->setHeaders(array('Stats'));
         $tableHelper->addRow(array('Unique', $unique));
         $tableHelper->addRow(array('Total', $total));

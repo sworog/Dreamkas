@@ -5,9 +5,17 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 use Lighthouse\CoreBundle\Types\Nullable;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as BaseConstraintValidator;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 abstract class ConstraintValidator extends BaseConstraintValidator
 {
+    /**
+     * @var ExecutionContextInterface
+     */
+    protected $context;
+
     /**
      * @param mixed|Nullable $value
      * @return bool
@@ -35,15 +43,20 @@ abstract class ConstraintValidator extends BaseConstraintValidator
      */
     protected function validateValue($value, $constraints, $subPath = '', $groups = null)
     {
-        $violations = $this->context->getViolations();
-        $countViolations = count($violations);
+        $validator = $this->context->getValidator();
 
-        $this->context->validateValue($value, $constraints, $subPath, $groups);
+        $preViolationsCount = $this->context->getViolations()->count();
 
-        if (count($violations) == $countViolations) {
-            return true;
-        } else {
+        $violations = $validator
+            ->inContext($this->context)
+            ->atPath($subPath)
+            ->validate($value, $constraints, $groups)
+            ->getViolations();
+
+        if ($violations->count() > $preViolationsCount) {
             return false;
+        } else {
+            return true;
         }
     }
 

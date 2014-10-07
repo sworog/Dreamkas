@@ -968,7 +968,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
     this.$element.hide()
     this.backdrop(function () {
       that.removeBackdrop()
-      that.$element.trigger('hidden.bs.modal')
+      that.$element.trigger('modal.hidden')
     })
   }
 
@@ -1070,7 +1070,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
 
   $(document)
     .on('show.bs.modal',  '.modal', function () { $(document.body).addClass('modal-open') })
-    .on('hidden.bs.modal', '.modal', function () { $(document.body).removeClass('modal-open') })
+    .on('modal.hidden', '.modal', function () { $(document.body).removeClass('modal-open') })
 
 }(jQuery);
 

@@ -2,10 +2,6 @@ define(function(require, exports, module) {
     //requirements
     var rivets = require('bower_components/rivets/dist/rivets');
 
-    rivets.configure({
-        templateDelimiters: ['{{', '}}']
-    });
-
     var liveValue = Object.create(rivets.binders.value);
 
     liveValue.bind = function(el) {

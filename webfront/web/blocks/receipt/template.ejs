@@ -1,0 +1,50 @@
+<% if(models.receipt.collections.products.length) { %>
+<div class="receipt">
+
+    <div class="receipt__scrollContainer">
+        <table name="productList" class="table table-striped table-hover">
+
+            <% models.receipt.collections.products.forEach(function(receiptProductModel){ %>
+            <tr class="receipt__productLink" data-receipt-product-cid="<%- receiptProductModel.cid %>" name="product">
+                <td>
+                    <div class="receipt__itemName" name="name"><%- receiptProductModel.models.product.get('name') %></div>
+                </td>
+                <td name="quantity" class="receipt__itemCount">
+                    <%- formatAmount(receiptProductModel.get('quantity')) %>
+                    <%- receiptProductModel.models.product.get('units') %>
+                </td>
+                <td name="price" class="receipt__itemPrice">
+                    <%- calculateItemPrice(receiptProductModel) %> <i class="fa fa-rub"></i>
+                </td>
+            </tr>
+            <% }) %>
+
+            <tr class="confirmLink receipt__clearLink">
+                <td colspan="3">
+
+                    <div class="confirmLink__trigger">
+                        Очистить чек
+                    </div>
+
+                    <div class="confirmLink__confirmation">
+                        Подтвердить очистку чека
+                    </div>
+
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <a data-modal="modal_receipt" class="receipt__saleLink btn btn-primary btn-lg">
+        Продать на сумму <span name="totalPrice"><%- calculateTotalPrice() %></span> <i class="fa fa-rub"></i>
+    </a>
+
+    <b block="modal_receipt"></b>
+</div>
+<% } else { %>
+<div class="alert alert-info">
+    Для продажи добавьте в чек хотя бы один продукт.
+</div>
+<% } %>
+

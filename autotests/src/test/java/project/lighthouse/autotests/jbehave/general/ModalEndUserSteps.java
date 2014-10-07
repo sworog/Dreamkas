@@ -1,10 +1,7 @@
 package project.lighthouse.autotests.jbehave.general;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Alias;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.general.ModalSteps;
 
@@ -30,9 +27,10 @@ public class ModalEndUserSteps {
         modalSteps.input(elementName, value);
     }
 
-    @Then("пользователь* в модальном окне проверяет, что поле с именем '$elementName' имеет значение '$value'")
-    public void thenUserChecksValue(String elementName, String value) {
-        modalSteps.checkValue(elementName, value);
+    @Then("пользователь* в модальном окне проверяет, что поле с именем '$elementName' имеет значение '$expectedValue'")
+    @Alias("пользователь* в модальном окне проверяет, что поле с именем '$elementName' имеет значение expectedValue")
+    public void thenUserChecksValue(String elementName, String expectedValue) {
+        modalSteps.checkValue(elementName, expectedValue);
     }
 
     @Then("пользователь* в модальном окне проверяет поля $exampleTable")
@@ -52,7 +50,11 @@ public class ModalEndUserSteps {
     }
 
     @When("пользователь* в модальном окне нажимает на кнопку создания")
-    @Alias("пользователь* в модальном окне нажимает на кнопку сохранения")
+    @Aliases(values = {
+            "пользователь* в модальном окне нажимает на кнопку сохранения",
+            "пользователь* в модальном окне нажимает на кнопку расчета чтобы совершить продажу",
+            "пользователь* в модальном окне нажимает на кнопку вернуть, чтобы совершить возврат"
+    })
     public void whenUserClicksOnConfirmationButton() {
         modalSteps.confirmationClick();
     }

@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn;
 
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
-use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProduct;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Doctrine\Common\Collections\Collection;
@@ -25,6 +24,18 @@ use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
 class SupplierReturn extends StockMovement
 {
     const TYPE = 'SupplierReturn';
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnProduct",
+     *      simple=true,
+     *      cascade={"persist","remove"},
+     *      mappedBy="parent"
+     * )
+     * @Serializer\MaxDepth(4)
+     * @var SupplierReturnProduct[]|Collection
+     */
+    protected $products;
 
     /**
      * @Generated(startValue=10000)
@@ -49,33 +60,4 @@ class SupplierReturn extends StockMovement
      * @var bool
      */
     protected $paid;
-
-    /**
-     * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProduct",
-     *      simple=true,
-     *      cascade={"persist","remove"},
-     *      mappedBy="parent"
-     * )
-     * @Assert\Valid(traverse=true)
-     * @Assert\Count(
-     *      min=1,
-     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
-     * )
-     * @Serializer\MaxDepth(4)
-     * @var SupplierReturnProduct[]|Collection
-     */
-    protected $products;
-
-    /**
-     * @param SupplierReturnProduct[] $products
-     */
-    public function setProducts($products)
-    {
-        foreach ($products as $product) {
-            $product->setReasonParent($this);
-        }
-
-        $this->products = $products;
-    }
 }

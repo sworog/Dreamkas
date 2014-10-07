@@ -17,64 +17,46 @@ define(function(require, exports, module) {
         },
         model: require('models/receiptProduct/receiptProduct'),
         events: {
-            'click .form_receiptProduct__quantityPlusLink': function(e){
-                e.preventDefault();
-
-                var block = this;
-
-                block.changeQuantity(1);
-            },
-            'click .form_receiptProduct__quantityMinusLink': function(e){
-                e.preventDefault();
-
-                var block = this;
-
-                block.changeQuantity(-1);
-            },
             'click .form_receiptProduct__removeLink': function(e){
                 var block = this;
 
                 block.model.destroy();
 
                 document.getElementById('modal_receiptProduct').block.hide();
-            },
-            'keyup [name="quantity"]': function(e){
-                e.stopPropagation();
+            }
+        },
+        blocks: {
+            inputNumber: function(){
+                var block = this,
+                    InputNumber = require('blocks/inputNumber/inputNumber'),
+                    inputNumber = new InputNumber({
+                        value: this.data.quantity
+                    });
 
-                var block = this;
+                inputNumber.on('change', function(value){
+                    block.data.quantity = value;
+                });
 
-                if (checkKey(e.keyCode, ['UP'])){
-                    block.changeQuantity(1);
-                }
-
-                if (checkKey(e.keyCode, ['DOWN'])){
-                    block.changeQuantity(-1);
-                }
+                return inputNumber;
             }
         },
         collection: function(){
             return PAGE.models.receipt.collections.products;
         },
         submit: function(){
-            var block = this,
-                data = _.extend({}, block.data, {
-                    price: block.data.price.length ? normalizeNumber(block.data.price) : null,
-                    quantity: block.data.quantity.length ? normalizeNumber(block.data.quantity) : null
-                });
+            var block = this;
 
-            return block.model.validate(data).then(function(){
-                block.model.set(data);
+            return block.model.validate({
+                price: block.data.price.length ? normalizeNumber(block.data.price) : null,
+                quantity: block.data.quantity.length ? normalizeNumber(block.data.quantity) : null
+            }).then(function(){
+                block.model.set(block.data);
             });
         },
         calculateItemPrice: function(){
             var block = this;
 
             return block.formatMoney(normalizeNumber(block.data.quantity) * normalizeNumber(block.data.price));
-        },
-        changeQuantity: function(delta){
-            var block = this;
-
-            block.data.quantity = block.formatMoney(normalizeNumber(block.data.quantity) + delta);
         },
         showErrors: function(error) {
             var block = this,

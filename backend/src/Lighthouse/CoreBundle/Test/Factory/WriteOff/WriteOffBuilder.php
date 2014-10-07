@@ -2,14 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\WriteOff;
 
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WriteOffBuilder
 {

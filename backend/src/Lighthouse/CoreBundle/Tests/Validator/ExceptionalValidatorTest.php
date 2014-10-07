@@ -24,14 +24,14 @@ class ExceptionalValidatorTest extends ContainerAwareTestCase
     {
         $constraint = new NotBlank();
         $value = null;
-        $this->getValidator()->validateValue($value, $constraint);
+        $this->getValidator()->validate($value, $constraint);
     }
 
     public function testValidateValue()
     {
         $constraint = new NotBlank();
         $value = 1;
-        $this->assertCount(0, $this->getValidator()->validateValue($value, $constraint));
+        $this->assertCount(0, $this->getValidator()->validate($value, $constraint));
     }
 
     /**

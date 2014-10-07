@@ -2,11 +2,13 @@ package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.ModalWindowPageObject;
+import project.lighthouse.autotests.common.objects.ModalWindowPageObject;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.pages.catalog.group.modal.ProductCreateModalWindow;
 import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;
+import project.lighthouse.autotests.pages.pos.ReceiptModalPage;
 import project.lighthouse.autotests.pages.pos.ReceiptPositionEditModalWindow;
+import project.lighthouse.autotests.pages.pos.RefundModalWindowPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
@@ -38,6 +40,8 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("создания возврата поставщику", SupplierReturnCreateModalWindow.class);
             put("редактирования возврата поставщику", SupplierReturnEditModalWindow.class);
             put("редактирования товарной позиции", ReceiptPositionEditModalWindow.class);
+            put("расчета продажи", ReceiptModalPage.class);
+            put("возврата товарной позиции", RefundModalWindowPage.class);
         }};
     }
 

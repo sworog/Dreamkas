@@ -15,7 +15,8 @@ import project.lighthouse.autotests.storage.Storage;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -79,8 +80,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     /**
      * This is actually bad type workaround for failing logging in.
      * For some reasons the type method is disturbed and the userName is not typed fully.
-     *
-     * @param inputText
      */
     @Step
     public void workAroundTypeForUserName(String inputText) {
@@ -97,16 +96,18 @@ public class AuthorizationSteps extends ScenarioSteps {
             if (token != null) {
                 getDriver().manage().deleteCookie(token);
             }
+            Cookie posStoreId = getDriver().manage().getCookieNamed("posStoreId");
+            if (posStoreId != null) {
+                getDriver().manage().deleteCookie(posStoreId);
+            }
         }
     }
 
     @Step
     public void checkUser(String email) {
-        String actualUserEmail = menuNavigationBar.getUserEmailText();
-        assertThat(
-                String.format("The user name is '%s'. Should be '%s'.", actualUserEmail, email),
-                actualUserEmail,
-                equalTo(email));
+        menuNavigationBar.checkValue(
+                "The user name is '%s'. Should be '%s'.",
+                "userName", email);
     }
 
     @Step
@@ -117,7 +118,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void loginFormIsPresent() {
         try {
-            authorizationPage.getLoginFormWebElement();
+            authorizationPage.getItems().get("form_login").getVisibleWebElement();
         } catch (TimeoutException e) {
             fail("The log out is not successful!");
         }
@@ -147,14 +148,14 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void assertSignUpText() {
-        assertThat(
-                authorizationPage.getSignUpPageTitleText(),
-                is("Ваша учетная запись успешно создана.\nДля входа введите пароль присланный вам на email."));
+        authorizationPage.checkValue(
+                "signUpPageTitle",
+                "Ваша учетная запись успешно создана.\nДля входа введите пароль присланный вам на email.");
     }
 
     @Step
     public void assertRestorePasswordText(String text) {
-        assertThat(authorizationPage.getSignUpPageTitleText(), is(text));
+        authorizationPage.checkValue("signUpPageTitle", text);
     }
 
     @Step

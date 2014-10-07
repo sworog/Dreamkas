@@ -10,10 +10,13 @@ define(function(require) {
         model: null,
         collection: null,
         redirectUrl: null,
+        id: function(){
+            return this.cid;
+        },
         data: function(){
             var block = this;
 
-            return block.model && block.model.toJSON();
+            return block.model && _.cloneDeep(block.model.toJSON());
         },
         events: {
             'change :input': function() {
@@ -58,10 +61,18 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
         },
-        render: function(){
+        initData: function(){
             var block = this;
 
+            block.__data = block.data;
+            block.__model = block.model;
+
+            Block.prototype.initData.apply(block, arguments);
+
             block.data = block.get('data');
+        },
+        render: function(){
+            var block = this;
 
             Block.prototype.render.apply(block, arguments);
 
@@ -82,6 +93,8 @@ define(function(require) {
         submitStart: function() {
             var block = this;
 
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
+
             block.$submitButton.addClass('loading');
             block.disable();
             block.removeErrors();
@@ -89,6 +102,8 @@ define(function(require) {
         },
         submitComplete: function() {
             var block = this;
+
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
 
             block.$submitButton.removeClass('loading');
             block.enable();
@@ -134,8 +149,14 @@ define(function(require) {
                 errorElement.innerHTML = getText(errorMessage);
             }
 
+            if (data.children){
+                _.each(data.children, function(data, key){
+                    block.showFieldError(data, field + '.' + key);
+                });
+            }
+
         },
-        showErrors: function(error, response) {
+        showErrors: function(error) {
             var block = this;
 
             block.removeErrors();
@@ -196,7 +217,8 @@ define(function(require) {
 
             block.el.reset();
 
-            block.serialize();
+            block.model = block.get('__model');
+            block.data = block.get('__data');
         },
         clear: function(){
             var block = this;

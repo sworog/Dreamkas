@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProductRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\Request\StockInBuilder;
@@ -1131,7 +1131,7 @@ class StockInControllerTest extends WebTestCase
     }
 
     /**
-     * @return StockInProductRepository
+     * @return StockMovementProductRepository
      */
     protected function getStockInProductRepository()
     {

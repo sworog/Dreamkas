@@ -1,8 +1,8 @@
 package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.item.CommonItem;
+import project.lighthouse.autotests.common.objects.CommonPageObject;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 
 import java.text.DateFormatSymbols;
@@ -166,5 +166,10 @@ public class DateTime extends CommonItem {
         cal.setTime(date);
         int month = cal.get(Calendar.MONTH);
         return month + 1;
+    }
+
+    @Override
+    public String getText() {
+        return getVisibleWebElementFacade().getValue();
     }
 }

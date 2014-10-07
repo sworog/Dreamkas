@@ -307,4 +307,62 @@ class StockMovementControllerTest extends WebTestCase
             )
         );
     }
+
+    public function testReceiptsAreNotShown()
+    {
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+
+        $store = $this->factory()->store()->getStore();
+
+        $invoice1 = $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '2014-07-24 19:05:24'), $store->id)
+                ->createInvoiceProduct($productIds['1'], 10, 14.99)
+                ->createInvoiceProduct($productIds['2'], 23.7, 13.59)
+            ->flush();
+
+        $invoice2 = $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '2014-07-23 11:45:03'), $store->id)
+                ->createInvoiceProduct($productIds['1'], 1, 16)
+                ->createInvoiceProduct($productIds['3'], 23.7, 13.59)
+                ->createInvoiceProduct($productIds['2'], 10.001, 12.54)
+            ->flush();
+
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-07-25 12:00:01')
+                ->createReceiptProduct($productIds['1'], 1, 20.98)
+            ->flush();
+
+        $this->factory()
+            ->receipt()
+                ->createReturn($store, '2014-07-25 12:00:02', $sale1)
+                ->createReceiptProduct($productIds['2'], 5)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stockMovements'
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedIds = array(
+            $invoice1->id,
+            $invoice2->id,
+        );
+
+        $responseIds = array_map(
+            function ($item) {
+                return $item['id'];
+            },
+            $response
+        );
+
+        $this->assertEquals($expectedIds, $responseIds);
+    }
 }

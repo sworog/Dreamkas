@@ -43,12 +43,11 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            productFinder__results: function(opt) {
+            productFinder__results: function() {
                 var block = this,
                     ProductFinder__results = require('./productFinder__results');
 
                 return new ProductFinder__results({
-                    el: opt.el,
                     collection: block.collections.products
                 });
             }
@@ -62,23 +61,8 @@ define(function(require, exports, module) {
                 if (checkKey(e.keyCode, ['ESC']) && $('.modal:visible').length == 0) {
                     block.reset();
                 }
-
-                if (checkKey(e.keyCode, ['UP'])) {
-                    block.focusProduct(block.get('focusedProductIndex') - 1);
-                }
-
-                if (checkKey(e.keyCode, ['DOWN'])) {
-                    block.focusProduct(block.get('focusedProductIndex') + 1);
-                }
             });
         },
-
-        focusedProductIndex: function(){
-            var block = this;
-
-            return block.$('.productFinder__resultLink').index(document.activeElement);
-        },
-
         addProductToReceipt: function(productId) {
             var block = this,
                 ReceiptProductModel = require('models/receiptProduct/receiptProduct'),
@@ -103,23 +87,6 @@ define(function(require, exports, module) {
 
             block.collections.products.searchQuery = null;
             block.collections.products.reset([]);
-        },
-        focusProduct: function(productIndex) {
-            var block = this;
-
-            var links = block.el.querySelectorAll('.productFinder__resultLink');
-
-            if (!links.length) {
-                return;
-            }
-
-            if (links[productIndex]) {
-                links[productIndex].focus();
-            } else if (productIndex < 0) {
-                block.focusProduct(0);
-            } else {
-                block.focusProduct(links.length - 1);
-            }
         }
     });
 });

@@ -6,16 +6,16 @@ import project.lighthouse.autotests.storage.Configurable;
 import project.lighthouse.autotests.storage.CurrentPageObjectStorage;
 import project.lighthouse.autotests.storage.DemoModeConfigurable;
 import project.lighthouse.autotests.storage.StorageClearable;
-import project.lighthouse.autotests.storage.variable.*;
+import project.lighthouse.autotests.storage.variable.ConfigurationVariableStorage;
+import project.lighthouse.autotests.storage.variable.CustomVariableStorage;
+import project.lighthouse.autotests.storage.variable.StockMovementVariableStorage;
+import project.lighthouse.autotests.storage.variable.UserVariableStorage;
 
 public class LighthouseModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(OrderVariableStorage.class).in(Singleton.class);
         bind(UserVariableStorage.class).in(Singleton.class);
-        bind(StoreVariableStorage.class).in(Singleton.class);
-        bind(InvoiceVariableStorage.class).in(Singleton.class);
         bind(CustomVariableStorage.class).in(Singleton.class);
         bind(StockMovementVariableStorage.class).in(Singleton.class);
         bind(CurrentPageObjectStorage.class).in(Singleton.class);
