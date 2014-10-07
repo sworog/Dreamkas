@@ -28,6 +28,8 @@
 		CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */; };
 		CE1B3DC519DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */; };
 		CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
+		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
+		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECCA4D519E2929500B165F3 /* libKIF.a */; };
 		CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCA4E419E2BD2F00B165F3 /* kif_tests.m */; };
 		CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD93E719DEA77700232734 /* dreamkas_tests.swift */; };
@@ -114,6 +116,8 @@
 		CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDefines.h; sourceTree = "<group>"; };
 		CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockDefines.h; sourceTree = "<group>"; };
 		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
+		CE3B95ED19E40DA900E1D24F /* DatesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatesHelper.h; sourceTree = "<group>"; };
+		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
 		CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
 		CECCA4E419E2BD2F00B165F3 /* kif_tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kif_tests.m; sourceTree = "<group>"; };
 		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,6 +271,7 @@
 			children = (
 				CE1B3D9119DD40CA00A253D1 /* AppDelegate.h */,
 				CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */,
+				CE3B95EA19E40D7800E1D24F /* Helpers */,
 				CE162A1A19E3CF3D009BCC3C /* Core Data */,
 				CE162A1F19E3CF3D009BCC3C /* Network */,
 				CE1B3D9319DD40CA00A253D1 /* Pages */,
@@ -365,6 +370,15 @@
 				CE1B3DC119DD46DD00A253D1 /* Localizable.strings */,
 			);
 			path = ru.lproj;
+			sourceTree = "<group>";
+		};
+		CE3B95EA19E40D7800E1D24F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CE3B95ED19E40DA900E1D24F /* DatesHelper.h */,
+				CE3B95EE19E40DA900E1D24F /* DatesHelper.m */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		CECCA4CA19E2927400B165F3 /* Submodules */ = {
@@ -588,6 +602,7 @@
 				CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */,
 				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
+				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CE1B3DAD19DD40CA00A253D1 /* ViewController.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
 				CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -624,6 +639,7 @@
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CECD93F119DEAE7100232734 /* ViewController.m in Sources */,
 				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
+				CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

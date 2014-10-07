@@ -62,25 +62,29 @@
 
 - (IBAction)groupsButtonClicked:(id)sender
 {
-    DPLogFast(@"accessToken = %@", accessToken);
-    DPLogFast(@"accessTokenType = %@", [accessTokenType capitalizedString]);
+    [NetworkManager reAuth:^(NSDictionary *data, NSError *error) {
+        // ..
+    }];
     
-    [manager.requestSerializer setValue:nil
-                     forHTTPHeaderField:@"Content-Type"];
-    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", [accessTokenType capitalizedString], accessToken]
-                     forHTTPHeaderField:@"Authorization"];
-    
-    [manager GET:@"http://ios.staging.api.lighthouse.pro/api/1/catalog/groups.json"
-      parameters:nil
-         success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         DPLogFast(@"JSON: %@", responseObject);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         DPLogFast(@"Error: %@", error);
-         DPLogFast(@"Data = %@", [[NSString alloc] initWithData:operation.responseData
-                                                       encoding:NSASCIIStringEncoding]);
-     }];
+//    DPLogFast(@"accessToken = %@", accessToken);
+//    DPLogFast(@"accessTokenType = %@", [accessTokenType capitalizedString]);
+//    
+//    [manager.requestSerializer setValue:nil
+//                     forHTTPHeaderField:@"Content-Type"];
+//    [manager.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", [accessTokenType capitalizedString], accessToken]
+//                     forHTTPHeaderField:@"Authorization"];
+//    
+//    [manager GET:@"http://ios.staging.api.lighthouse.pro/api/1/catalog/groups.json"
+//      parameters:nil
+//         success:^(AFHTTPRequestOperation *operation, id responseObject)
+//     {
+//         DPLogFast(@"JSON: %@", responseObject);
+//         
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         DPLogFast(@"Error: %@", error);
+//         DPLogFast(@"Data = %@", [[NSString alloc] initWithData:operation.responseData
+//                                                       encoding:NSASCIIStringEncoding]);
+//     }];
 }
 
 @end

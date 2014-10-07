@@ -11,6 +11,9 @@
 @interface RESTClient : AFHTTPSessionManager
 {
     NSDictionary *defaultParameters;
+    
+    NSString *refreshOAuthToken;
+    NSDate *oauthTokenExpirationDate;
 }
 
 /**

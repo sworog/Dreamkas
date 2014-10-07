@@ -9,11 +9,13 @@
 #import "RESTClient+User.h"
 
 #define LOG_ON 1
+#define OAUTH_CLIENT_ID     @"webfront_webfront"
+#define OAUTH_CLIENT_SECRET @"secret"
 
 @implementation RESTClient (User)
 
 /**
- * Аутентификация на сервере по OAuth 2.0
+ * Аутентификация на сервере по OAuth
  */
 - (void)authWithLogin:(NSString *)login
              password:(NSString *)password
@@ -22,25 +24,48 @@
     NSDictionary *dict = @{@"grant_type" : @"password",
                            @"username" : login,
                            @"password" : password,
-                           @"client_id" : @"webfront_webfront",
-                           @"client_secret" : @"secret"};
+                           @"client_id" : OAUTH_CLIENT_ID,
+                           @"client_secret" : OAUTH_CLIENT_SECRET};
     
+    [self obtainOAuthToken:dict
+              onCompletion:completionBlock];
+}
+
+/**
+ * Обновление OAuth токена на клиенте
+ */
+- (void)reAuth:(DictionaryResponseBlock)completionBlock
+{
+    NSDictionary *dict = @{@"grant_type" : @"refresh_token",
+                           @"client_id" : OAUTH_CLIENT_ID,
+                           @"client_secret" : OAUTH_CLIENT_SECRET,
+                           @"refresh_token" : refreshOAuthToken};
+    [self.requestSerializer setValue:nil
+                  forHTTPHeaderField:@"Authorization"];
+    
+    [self obtainOAuthToken:dict
+              onCompletion:completionBlock];
+}
+
+- (void)obtainOAuthToken:(NSDictionary *)dict
+            onCompletion:(DictionaryResponseBlock)completionBlock
+{
     [self POST:@"oauth/v2/token"
     parameters:dict
        success:^(NSURLSessionDataTask * __unused task, id JSON) {
            // проверяем ответ сервера на корректность
            NSError *error = [self detectError:JSON];
            
-           // TODO: работаем с токеном
-           /*
-            JSON: {
-            "access_token" = MDM5MTE3MjhjNTZjNzRiOWU4NGUwOWRkZjBjZGMyMTU5NDdiYjI0NTZlMThiODYwNDJkNjliODM1NmNjY2Q5Zg;
-            "expires_in" = 86400;
-            "refresh_token" = MmFiZTk3YmM1MTIwY2Q2Nzk4OTllN2Q2MzRkYmEwOWFhNzU3ZWYxNzVlMGMxZTc4OWM0ZjM3NGE4NDNlMjMzNg;
-            scope = "<null>";
-            "token_type" = bearer;
-            }
-            */
+           if (error == nil) {
+               NSString *type = [JSON valueForKeyPath:@"token_type"];
+               NSString *token = [JSON valueForKeyPath:@"access_token"];
+               [self.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", type, token]
+                             forHTTPHeaderField:@"Authorization"];
+               
+               // запоминаем дату для обновления токена и refresh-токен
+               oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:[JSON[@"expires_in"] doubleValue]];
+               refreshOAuthToken = JSON[@"refresh_token"];
+           }
            
            // передаем данные в блок обработки
            if (completionBlock)

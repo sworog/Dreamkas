@@ -77,6 +77,78 @@
 }
 
 /**
+ * Обобщенный PUT запрос к серверу
+ */
+- (void)PUTRequest:(NSString *)path
+            params:(NSDictionary *)params
+      onCompletion:(ResponseBlock)completionBlock
+{
+    [self PUT:[self prepareRequestURL:path]
+   parameters:[self prepareRequestParams:params]
+      success:^(NSURLSessionDataTask * __unused task, id JSON) {
+          // проверяем ответ сервера на корректность
+          NSError *error = [self detectError:JSON];
+          
+          // передаем данные в блок обработки
+          if (completionBlock)
+              completionBlock(JSON, error);
+          
+      } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+          // передаем данные в блок обработки
+          if (completionBlock)
+              completionBlock(nil, error);
+      }];
+}
+
+/**
+ * Обобщенный DELETE запрос к серверу
+ */
+- (void)DELETERequest:(NSString *)path
+               params:(NSDictionary *)params
+         onCompletion:(ResponseBlock)completionBlock
+{
+    [self DELETE:[self prepareRequestURL:path]
+      parameters:[self prepareRequestParams:params]
+         success:^(NSURLSessionDataTask * __unused task, id JSON) {
+             // проверяем ответ сервера на корректность
+             NSError *error = [self detectError:JSON];
+             
+             // передаем данные в блок обработки
+             if (completionBlock)
+                 completionBlock(JSON, error);
+             
+         } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+             // передаем данные в блок обработки
+             if (completionBlock)
+                 completionBlock(nil, error);
+         }];
+}
+
+/**
+ * Обобщенный PATCH запрос к серверу
+ */
+- (void)PATCHRequest:(NSString *)path
+              params:(NSDictionary *)params
+        onCompletion:(ResponseBlock)completionBlock
+{
+    [self PATCH:[self prepareRequestURL:path]
+     parameters:[self prepareRequestParams:params]
+        success:^(NSURLSessionDataTask * __unused task, id JSON) {
+            // проверяем ответ сервера на корректность
+            NSError *error = [self detectError:JSON];
+            
+            // передаем данные в блок обработки
+            if (completionBlock)
+                completionBlock(JSON, error);
+            
+        } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+            // передаем данные в блок обработки
+            if (completionBlock)
+                completionBlock(nil, error);
+        }];
+}
+
+/**
  * Обобщенный запрос к серверу на скачивание файла
  */
 - (void)downloadRequest:(NSString *)path
@@ -119,9 +191,6 @@
     // добавляем параметры текущего запроса
     if (params)
         [m_params addEntriesFromDictionary:params];
-    
-    // TODO: добавляем токен пользователя
-    // ..
     
     return [m_params copy];
 }

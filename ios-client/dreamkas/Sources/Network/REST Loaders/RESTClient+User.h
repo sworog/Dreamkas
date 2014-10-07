@@ -17,4 +17,9 @@
              password:(NSString *)password
          onCompletion:(DictionaryResponseBlock)completionBlock;
 
+/**
+ * Обновление OAuth токена на клиенте
+ */
+- (void)reAuth:(DictionaryResponseBlock)completionBlock;
+
 @end
