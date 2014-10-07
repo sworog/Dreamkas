@@ -9,6 +9,11 @@ define(function(require, exports, module) {
 		Form: null,
 		Form_products: null,
 		Model: null,
+        model: function(){
+            var Model = this.Model;
+
+            return PAGE.collections.stockMovements.get(this.itemId) || new Model;
+        },
         events: {
             'click .modal_stockMovement__removeLink': function(e){
                 var block = this;
@@ -36,13 +41,6 @@ define(function(require, exports, module) {
                     collection: this.model.collections.products
                 });
             }
-        },
-        render: function(data) {
-            var Model = this.Model;
-
-            this.model = PAGE.collections.stockMovements.get(data && data.itemId) || new Model;
-
-            Modal.prototype.render.apply(this, arguments);
         }
     });
 });

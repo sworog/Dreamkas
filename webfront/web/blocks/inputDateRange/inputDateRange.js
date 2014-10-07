@@ -30,8 +30,7 @@ define(function(require, exports, module) {
 
             Block.prototype.render.apply(block, arguments);
 
-            block.$el
-				.datepicker({
+            block.$el.datepicker({
 					language: 'ru',
 					format: 'dd.mm.yyyy',
 					autoclose: true,
