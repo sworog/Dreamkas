@@ -12,6 +12,7 @@ public class ReceiptCollection<E extends ReceiptObject> extends AbstractObjectCo
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public E createNode(WebElement element) {
         return (E) (new ReceiptObject(element));
     }
