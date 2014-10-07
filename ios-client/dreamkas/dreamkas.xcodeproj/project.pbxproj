@@ -13,8 +13,6 @@
 		CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */; };
 		CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2A19E3CFE4009BCC3C /* RESTClient.m */; };
 		CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2A19E3CFE4009BCC3C /* RESTClient.m */; };
-		CE162A2F19E3D05C009BCC3C /* RESTClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */; };
-		CE162A3019E3D05C009BCC3C /* RESTClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */; };
 		CE1B3DA819DD40CA00A253D1 /* text.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D8E19DD40CA00A253D1 /* text.txt */; };
 		CE1B3DA919DD40CA00A253D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */; };
 		CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */; };
@@ -30,6 +28,12 @@
 		CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
 		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
+		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
+		CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
+		CE3B95FA19E424A000E1D24F /* RESTClient+Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */; };
+		CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */; };
+		CE3B95FF19E432BD00E1D24F /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */; };
+		CE3B960019E432BD00E1D24F /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */; };
 		CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECCA4D519E2929500B165F3 /* libKIF.a */; };
 		CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCA4E419E2BD2F00B165F3 /* kif_tests.m */; };
 		CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD93E719DEA77700232734 /* dreamkas_tests.swift */; };
@@ -93,8 +97,6 @@
 		CE162A2619E3CF89009BCC3C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CE162A2919E3CFE4009BCC3C /* RESTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTClient.h; sourceTree = "<group>"; };
 		CE162A2A19E3CFE4009BCC3C /* RESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTClient.m; sourceTree = "<group>"; };
-		CE162A2D19E3D05C009BCC3C /* RESTClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+User.h"; sourceTree = "<group>"; };
-		CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+User.m"; sourceTree = "<group>"; };
 		CE1B3D6319DD3CF000A253D1 /* dreamkas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dreamkas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1B3D8E19DD40CA00A253D1 /* text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = text.txt; sourceTree = "<group>"; };
 		CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -118,6 +120,12 @@
 		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
 		CE3B95ED19E40DA900E1D24F /* DatesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatesHelper.h; sourceTree = "<group>"; };
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
+		CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Auth.h"; sourceTree = "<group>"; };
+		CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Auth.m"; sourceTree = "<group>"; };
+		CE3B95F819E424A000E1D24F /* RESTClient+Groups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Groups.h"; sourceTree = "<group>"; };
+		CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Groups.m"; sourceTree = "<group>"; };
+		CE3B95FD19E432BC00E1D24F /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
+		CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
 		CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
 		CECCA4E419E2BD2F00B165F3 /* kif_tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kif_tests.m; sourceTree = "<group>"; };
 		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,8 +231,10 @@
 		CE162A2019E3CF3D009BCC3C /* REST Loaders */ = {
 			isa = PBXGroup;
 			children = (
-				CE162A2D19E3D05C009BCC3C /* RESTClient+User.h */,
-				CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */,
+				CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */,
+				CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */,
+				CE3B95F819E424A000E1D24F /* RESTClient+Groups.h */,
+				CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */,
 			);
 			path = "REST Loaders";
 			sourceTree = "<group>";
@@ -381,6 +391,15 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		CE3B95FC19E432BC00E1D24F /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				CE3B95FD19E432BC00E1D24F /* NSDate+Utilities.h */,
+				CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		CECCA4CA19E2927400B165F3 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +471,7 @@
 		CECFC4AE19DD806C00ED88D3 /* DPLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				CE3B95FC19E432BC00E1D24F /* Categories */,
 				CECFC4AF19DD806C00ED88D3 /* DPLog */,
 			);
 			path = DPLibrary;
@@ -617,14 +637,16 @@
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */,
+				CE3B95FA19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
 				CECFC4A819DD74C800ED88D3 /* UIAlertView+AFNetworking.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
 				CECFC4A619DD74C800ED88D3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
+				CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CECFC4A519DD74C800ED88D3 /* AFURLSessionManager.m in Sources */,
-				CE162A2F19E3D05C009BCC3C /* RESTClient+User.m in Sources */,
 				CE1B3DB219DD40CA00A253D1 /* main.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
+				CE3B95FF19E432BD00E1D24F /* NSDate+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,11 +657,13 @@
 				CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */,
 				CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
-				CE162A3019E3D05C009BCC3C /* RESTClient+User.m in Sources */,
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
+				CE3B960019E432BD00E1D24F /* NSDate+Utilities.m in Sources */,
 				CECD93F119DEAE7100232734 /* ViewController.m in Sources */,
 				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
+				CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
 				CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */,
+				CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

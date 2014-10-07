@@ -20,132 +20,37 @@
     if (!self) {
         return nil;
     }
-    
-    // формируем стандартный набор параметров запроса
-    defaultParameters = @{@"client_type" : @"iOS",
-                          @"client_version" : APP_VERSION};
+    // nothing to do here..
     
     return self;
 }
 
-/**
- * Обобщенный GET запрос к серверу
- */
-- (void)GETRequest:(NSString *)path
-            params:(NSDictionary *)params
-      onCompletion:(ResponseBlock)completionBlock
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
+                            completionHandler:(void (^)(NSURLResponse *, id, NSError *))completionHandler
 {
-    [self GET:[self prepareRequestURL:path]
-   parameters:[self prepareRequestParams:params]
-      success:^(NSURLSessionDataTask * __unused task, id JSON) {
-          // проверяем ответ сервера на корректность
-          NSError *error = [self detectError:JSON];
-          
-          // передаем данные в блок обработки
-          if (completionBlock)
-              completionBlock(JSON, error);
-          
-      } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
-          // передаем данные в блок обработки
-          if (completionBlock)
-              completionBlock(nil, error);
-      }];
-}
-
-/**
- * Обобщенный POST запрос к серверу
- */
-- (void)POSTRequest:(NSString *)path
-             params:(NSDictionary *)params
-       onCompletion:(ResponseBlock)completionBlock
-{
-    [self POST:[self prepareRequestURL:path]
-    parameters:[self prepareRequestParams:params]
-       success:^(NSURLSessionDataTask * __unused task, id JSON) {
-           // проверяем ответ сервера на корректность
-           NSError *error = [self detectError:JSON];
-           
-           // передаем данные в блок обработки
-           if (completionBlock)
-               completionBlock(JSON, error);
-           
-       } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
-           // передаем данные в блок обработки
-           if (completionBlock)
-               completionBlock(nil, error);
-       }];
-}
-
-/**
- * Обобщенный PUT запрос к серверу
- */
-- (void)PUTRequest:(NSString *)path
-            params:(NSDictionary *)params
-      onCompletion:(ResponseBlock)completionBlock
-{
-    [self PUT:[self prepareRequestURL:path]
-   parameters:[self prepareRequestParams:params]
-      success:^(NSURLSessionDataTask * __unused task, id JSON) {
-          // проверяем ответ сервера на корректность
-          NSError *error = [self detectError:JSON];
-          
-          // передаем данные в блок обработки
-          if (completionBlock)
-              completionBlock(JSON, error);
-          
-      } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
-          // передаем данные в блок обработки
-          if (completionBlock)
-              completionBlock(nil, error);
-      }];
-}
-
-/**
- * Обобщенный DELETE запрос к серверу
- */
-- (void)DELETERequest:(NSString *)path
-               params:(NSDictionary *)params
-         onCompletion:(ResponseBlock)completionBlock
-{
-    [self DELETE:[self prepareRequestURL:path]
-      parameters:[self prepareRequestParams:params]
-         success:^(NSURLSessionDataTask * __unused task, id JSON) {
-             // проверяем ответ сервера на корректность
-             NSError *error = [self detectError:JSON];
-             
-             // передаем данные в блок обработки
-             if (completionBlock)
-                 completionBlock(JSON, error);
-             
-         } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
-             // передаем данные в блок обработки
-             if (completionBlock)
-                 completionBlock(nil, error);
-         }];
-}
-
-/**
- * Обобщенный PATCH запрос к серверу
- */
-- (void)PATCHRequest:(NSString *)path
-              params:(NSDictionary *)params
-        onCompletion:(ResponseBlock)completionBlock
-{
-    [self PATCH:[self prepareRequestURL:path]
-     parameters:[self prepareRequestParams:params]
-        success:^(NSURLSessionDataTask * __unused task, id JSON) {
-            // проверяем ответ сервера на корректность
-            NSError *error = [self detectError:JSON];
-            
-            // передаем данные в блок обработки
-            if (completionBlock)
-                completionBlock(JSON, error);
-            
-        } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
-            // передаем данные в блок обработки
-            if (completionBlock)
-                completionBlock(nil, error);
+    if (oauthTokenExpirationDate && [[NSDate date] isLaterThanDate:oauthTokenExpirationDate]) {
+        // если необходимо обновить OAuth-токен, то сперва обновляем его
+        [self reAuth:^(NSDictionary *data, NSError *error) {
+            // TODO: рекурсия не пропустит вызов!!!!
+            // ..
         }];
+    }
+    
+    return [super dataTaskWithRequest:request
+                    completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                        if (error) {
+                            DPLog(LOG_ON, @"=== REQUEST FAILURE ===");
+                            DPLog(LOG_ON, @"error : %@", error);
+                        }
+                        else {
+                            DPLog(LOG_ON, @"=== REQUEST SUCCESS ===");
+                            DPLog(LOG_ON, @"response : %@", responseObject);
+                        }
+                        
+                        // передаем данные в блок обработки
+                        if (completionHandler)
+                            completionHandler(response, responseObject, error);
+                    }];
 }
 
 /**
@@ -169,63 +74,6 @@
      }];
     
     [task resume];
-}
-
-#pragma mark - Вспомогательные методы
-
-/**
- * Метод для конфигурирования URL'a запроса
- */
-- (NSString*)prepareRequestURL:(NSString*)localPath
-{
-    return [NSString stringWithFormat:@"%@%@", API_SERVER_PATH, localPath];
-}
-
-/**
- * Метод для конфигурирования параметров запроса
- */
-- (NSDictionary *)prepareRequestParams:(NSDictionary *)params
-{
-    NSMutableDictionary *m_params = [defaultParameters mutableCopy];
-    
-    // добавляем параметры текущего запроса
-    if (params)
-        [m_params addEntriesFromDictionary:params];
-    
-    return [m_params copy];
-}
-
-/**
- * Метод обобщенной детекции ошибок в ответах сервера и их "обёртке" в привычный вид
- */
-- (NSError *)detectError:(id)JSON
-{
-    if ([JSON isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dict = JSON;
-        id error_in_response = [dict valueForKeyPath:@"error"];
-        
-        if (error_in_response || (dict == nil)) {
-            NSString *err_descr = [dict valueForKeyPath:@"error_description"];
-            DPLog(LOG_ON, @"=== REQUEST FAILURE ===");
-            DPLog(LOG_ON, @"error_status : %@", error_in_response);
-            DPLog(LOG_ON, @"error_description : %@", err_descr);
-            return [NSError errorWithDomain:err_descr
-                                       code:400
-                                   userInfo:nil];
-        }
-        else {
-            DPLog(LOG_ON, @"=== REQUEST SUCCESS ===");
-            DPLog(LOG_ON, @"response : %@", dict);
-        }
-    }
-    else {
-        DPLog(LOG_ON, @"=== REQUEST FAILURE ===");
-        DPLog(LOG_ON, @"response class is not equal to NSDictionary");
-        return [NSError errorWithDomain:@"Response Failure"
-                                   code:999
-                               userInfo:nil];
-    }
-    return nil;
 }
 
 @end

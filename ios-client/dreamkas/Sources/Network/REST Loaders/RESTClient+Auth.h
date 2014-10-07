@@ -1,5 +1,5 @@
 //
-//  RESTClient+User.h
+//  RESTClient+Auth.h
 //  dreamkas
 //
 //  Created by sig on 07.10.14.
@@ -8,10 +8,10 @@
 
 #import "RESTClient.h"
 
-@interface RESTClient (User)
+@interface RESTClient (Auth)
 
 /**
- * Аутентификация на сервере по OAuth 2.0
+ * Аутентификация на сервере по OAuth
  */
 - (void)authWithLogin:(NSString *)login
              password:(NSString *)password

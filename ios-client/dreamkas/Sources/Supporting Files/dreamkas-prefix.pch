@@ -24,6 +24,7 @@
 
 #import "AFNetworking.h"
 #import "DPLog.h"
+#import "NSDate+Utilities.h"
 
 //
 // Базовые
@@ -58,6 +59,7 @@
 //
 
 #import "RESTClient.h"
-#import "RESTClient+User.h"
+#import "RESTClient+Auth.h"
+#import "RESTClient+Groups.h"
 
 #endif

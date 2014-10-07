@@ -1,18 +1,18 @@
 //
-//  RESTClient+User.m
+//  RESTClient+Auth.m
 //  dreamkas
 //
 //  Created by sig on 07.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "RESTClient+User.h"
+#import "RESTClient+Auth.h"
 
 #define LOG_ON 1
 #define OAUTH_CLIENT_ID     @"webfront_webfront"
 #define OAUTH_CLIENT_SECRET @"secret"
 
-@implementation RESTClient (User)
+@implementation RESTClient (Auth)
 
 /**
  * Аутентификация на сервере по OAuth
@@ -47,29 +47,28 @@
               onCompletion:completionBlock];
 }
 
+/**
+ * Запрос токена по протоколу OAuth 2.0
+ */
 - (void)obtainOAuthToken:(NSDictionary *)dict
             onCompletion:(DictionaryResponseBlock)completionBlock
 {
     [self POST:@"oauth/v2/token"
     parameters:dict
        success:^(NSURLSessionDataTask * __unused task, id JSON) {
-           // проверяем ответ сервера на корректность
-           NSError *error = [self detectError:JSON];
+           // устанавливаем токен и тип токена в качестве параметра для аутентификации
+           NSString *type = [JSON valueForKeyPath:@"token_type"];
+           NSString *token = [JSON valueForKeyPath:@"access_token"];
+           [self.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", type, token]
+                         forHTTPHeaderField:@"Authorization"];
            
-           if (error == nil) {
-               NSString *type = [JSON valueForKeyPath:@"token_type"];
-               NSString *token = [JSON valueForKeyPath:@"access_token"];
-               [self.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", type, token]
-                             forHTTPHeaderField:@"Authorization"];
-               
-               // запоминаем дату для обновления токена и refresh-токен
-               oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:[JSON[@"expires_in"] doubleValue]];
-               refreshOAuthToken = JSON[@"refresh_token"];
-           }
+           // запоминаем дату для обновления токена и refresh-токен
+           oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:[JSON[@"expires_in"] doubleValue]];
+           refreshOAuthToken = JSON[@"refresh_token"];
            
            // передаем данные в блок обработки
            if (completionBlock)
-               completionBlock(JSON, error);
+               completionBlock(JSON, nil);
            
        } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
            // передаем данные в блок обработки
