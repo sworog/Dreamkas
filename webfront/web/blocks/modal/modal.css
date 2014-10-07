@@ -87,12 +87,6 @@
     font-weight: bold;
 }
 
-.modal_invoice {
-    width: 80% !important;
-}
-
-.modal_stockIn,
-.modal_supplierReturn,
-.modal_writeOff {
+.modal_stockMovement {
     width: 70% !important;
 }

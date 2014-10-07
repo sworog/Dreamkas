@@ -1,42 +1,42 @@
 <div id="<%- id %>"
-     class="modal modal_invoice">
+     class="modal modal_stockMovement">
 
     <div class="modal__header">
         <a class="modal__closeLink pull-left fa fa-times"></a>
 
-        <button form="form_invoice"
+        <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
-            <%- models.invoice.id ? 'Сохранить' : 'Принять' %>
+            <%- model.id ? 'Сохранить' : 'Принять' %>
         </button>
 
         <h4 class="modal__title">
-            <%- models.invoice.id ? 'Редактирование приёмки товаров от поставщика' : 'Приёмка товаров от поставщика' %>
+            <%- model.id ? editTitle : addTitle %>
         </h4>
 
     </div>
     <div class="modal__body">
 
-        <b block="form_invoice"></b>
+        <b block="form"></b>
 
         <hr style="margin: 0 -60px;"/>
 
         <h3>Товары</h3>
 
-        <b block="form_invoiceProducts"></b>
+        <b block="form_products"></b>
 
-        <% if (models.invoice.id) { %>
+        <% if (model.id) { %>
         <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
 
             <div class="confirmLink__trigger">
                 <span class="removeLink">
                     <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
-                    Удалить приемку
+                    <%- removeCaption %>
                 </span>
             </div>
 
             <div class="confirmLink__confirmation">
-                <span class="removeLink invoice__removeLink">
+                <span class="removeLink modal_stockMovement__removeLink">
                     <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                     Подтвердить удаление
                 </span>

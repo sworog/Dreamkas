@@ -30,10 +30,10 @@ define(function(require, exports, module) {
         },
         blocks: {
             dropdown: require('blocks/dropdown/dropdown'),
-			modal_invoice: require('blocks/modal/invoice/invoice'),
-            modal_stockIn: require('blocks/modal/stockIn/stockIn'),
-            modal_supplierReturn: require('blocks/modal/supplierReturn/supplierReturn'),
-			modal_writeOff: require('blocks/modal/writeOff/writeOff'),
+			modal_invoice: require('blocks/modal/stockMovement/invoice/invoice'),
+            modal_stockIn: require('blocks/modal/stockMovement/stockIn/stockIn'),
+            modal_supplierReturn: require('blocks/modal/stockMovement/supplierReturn/supplierReturn'),
+			modal_writeOff: require('blocks/modal/stockMovement/writeOff/writeOff'),
             form_stockMovementsFilters: require('blocks/form/stockMovementsFilters/stockMovementsFilters'),
             table_stockMovements: require('blocks/table/stockMovements/stockMovements')
         }

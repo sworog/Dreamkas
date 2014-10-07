@@ -27,20 +27,20 @@
         </td>
         <% } %>
 
-        <td data-invoice-id="<%- stockMovementModel.id %>"
+        <td data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_invoice"
 			class="invoice__link">
             <span name="type">Приёмка</span> <span name="status" style="font-size: 11px; margin-left: 10px;"
                                                    class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
         </td>
         <td name="store"
-			data-invoice-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_invoice"
 			class="invoice__link">
             В <%- stockMovementModel.get('store.name') %>
         </td>
         <td name="sumTotal"
-			data-invoice-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_invoice"
 			class="invoice__link">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
@@ -60,19 +60,19 @@
         </td>
         <% } %>
 
-        <td data-write-off-id="<%- stockMovementModel.id %>"
+        <td data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_writeOff"
 			class="writeOff__link">
             <span name="type">Списание</span>
         </td>
         <td name="store"
-			data-write-off-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_writeOff"
 			class="writeOff__link">
             Из <%- stockMovementModel.get('store.name') %>
         </td>
         <td name="sumTotal"
-			data-write-off-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_writeOff"
 			class="writeOff__link">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
@@ -93,19 +93,19 @@
         </td>
         <% } %>
 
-        <td data-stockin-id="<%- stockMovementModel.id %>"
+        <td data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_stockIn"
 			class="stockIn__link">
             <span name="type">Оприходование</span>
         </td>
         <td name="store"
-			data-stockin-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_stockIn"
 			class="stockIn__link">
             В <%- stockMovementModel.get('store.name') %>
         </td>
         <td name="sumTotal"
-			data-stockin-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_stockIn"
 			class="stockIn__link">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
@@ -126,20 +126,20 @@
         </td>
         <% } %>
 
-        <td data-supplier-return-id="<%- stockMovementModel.id %>"
+        <td data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_supplierReturn"
 			class="supplierReturn__link">
             <span name="type">Возврат поставщику</span> <span name="status" style="font-size: 11px; margin-left: 10px;"
                                                               class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'погашен' : 'не погашен' %></span>
         </td>
         <td name="store"
-			data-supplier-return-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_supplierReturn"
 			class="supplierReturn__link">
             Из <%- stockMovementModel.get('store.name') %>
         </td>
         <td name="sumTotal"
-			data-supplier-return-id="<%- stockMovementModel.id %>"
+			data-item-id="<%- stockMovementModel.id %>"
 			data-modal="modal_supplierReturn"
 			class="supplierReturn__link">
             <%- formatMoney(stockMovementModel.get('sumTotal')) %>
