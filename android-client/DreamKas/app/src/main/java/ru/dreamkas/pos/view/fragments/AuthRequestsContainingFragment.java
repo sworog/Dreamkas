@@ -14,7 +14,6 @@ public class AuthRequestsContainingFragment extends BaseFragment{
 
     private SpiceManager mSpiceManager;
 
-
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -30,8 +29,10 @@ public class AuthRequestsContainingFragment extends BaseFragment{
     }
 
     @Override
-    public void onStop(){
-        mSpiceManager.shouldStop();
+    public void onDestroy(){
+        if(mSpiceManager.isStarted()){
+            mSpiceManager.shouldStop();
+        }
         super.onStop();
     }
 
