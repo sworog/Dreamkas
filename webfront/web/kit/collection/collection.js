@@ -20,23 +20,19 @@ define(function(require, exports, module) {
 
             options = _.extend({
                 reset: true,
-                filters: {}
+                filters: {},
+                data: {}
             }, options);
 
             set(this, 'filters', options.filters);
 
-            options.data = _.extend({}, options.data, this.filters);
+            options.data = deepExtend({}, this.filters, options.data);
 
             this.request && this.request.abort();
 
             this.request = Backbone.Collection.prototype.fetch.call(this, options);
 
             return this.request;
-        },
-        filter: function(filters){
-            set(this, 'filters', filters);
-
-            return this.fetch();
         }
     });
 
