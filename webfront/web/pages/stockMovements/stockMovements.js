@@ -24,10 +24,6 @@ define(function(require, exports, module) {
                 });
             }
         },
-        models: {
-            invoice: null,
-            writeOff: null
-        },
         blocks: {
             dropdown: require('blocks/dropdown/dropdown'),
 			modal_invoice: require('blocks/modal/stockMovement/invoice/invoice'),

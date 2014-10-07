@@ -15,14 +15,11 @@ define(function(require, exports, module) {
         },
         models: {
             product: function() {
-                var Product = require('resources/product/model'),
-                    product;
+                var Product = require('resources/product/model');
 
-                product = new Product({
+                return new Product({
                     id: this.params.product
                 });
-
-                return product;
             }
         },
         collections: {
