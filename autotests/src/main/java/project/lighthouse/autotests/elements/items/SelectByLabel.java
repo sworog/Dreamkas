@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.common.item.CommonItem;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class SelectByLabel extends CommonItem {

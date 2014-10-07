@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.supplier;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.collection.supplier.SupplierCollection;
-import project.lighthouse.autotests.common.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 @DefaultUrl("/suppliers")
@@ -20,9 +20,6 @@ public class SupplierListPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-    }
-
-    public SupplierCollection getSupplierCollection() {
-        return new SupplierCollection(getDriver());
+        putDefaultCollection(new SupplierCollection(getDriver()));
     }
 }

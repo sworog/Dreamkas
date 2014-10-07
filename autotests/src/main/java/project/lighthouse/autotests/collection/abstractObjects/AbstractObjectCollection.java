@@ -3,38 +3,65 @@ package project.lighthouse.autotests.collection.abstractObjects;
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
 import org.jbehave.core.model.ExamplesTable;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
+import org.openqa.selenium.*;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.collection.compare.CompareResultHashMap;
 import project.lighthouse.autotests.collection.compare.CompareResults;
+import project.lighthouse.autotests.common.Waiter;
+import project.lighthouse.autotests.common.item.interfaces.Collectable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-abstract public class AbstractObjectCollection<E extends AbstractObject> extends ArrayList<E> {
+abstract public class AbstractObjectCollection<E extends AbstractObject> extends ArrayList<E> implements Collectable {
+
+    private WebDriver webDriver;
+    private By findBy;
 
     public AbstractObjectCollection(WebDriver webDriver, By findBy) {
-        init(webDriver, findBy);
+        this.webDriver = webDriver;
+        this.findBy = findBy;
     }
 
-    public void init(WebDriver webDriver, By findBy) {
-        List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
+    protected WebDriver getWebDriver() {
+        return webDriver;
+    }
+
+    protected Waiter getWaiter() {
+        return new Waiter(webDriver);
+    }
+
+    private List<WebElement> getWebElements(Waiter waiter, By findBy) {
+        try {
+            return waiter.getVisibleWebElements(findBy);
+        } catch (StaleElementReferenceException e) {
+            return waiter.getVisibleWebElements(findBy);
+        } catch (TimeoutException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private void init(By findBy) {
+        clear();
+        List<WebElement> webElementList = getWebElements(getWaiter(), findBy);
         for (WebElement element : webElementList) {
             E abstractObject = createNode(element);
             add(abstractObject);
         }
     }
 
+    protected void init() {
+        init(findBy);
+    }
+
     abstract public E createNode(WebElement element);
 
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
+        init(findBy);
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -59,6 +86,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public void compareWithExampleTable(ExamplesTable examplesTable) {
+        init(findBy);
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
@@ -133,6 +161,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     public E getAbstractObjectByLocator(String locator) {
+        init(findBy);
         for (E abstractObject : this) {
             if (locateObject(abstractObject, locator)) {
                 return abstractObject;

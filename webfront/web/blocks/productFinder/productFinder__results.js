@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 
             var block = this;
 
-            return _.escape(string).replace(new RegExp(block.collection.searchQuery, 'gi'), '<b>' + block.collection.searchQuery + '</b>');
+            return _.escape(string).replace(new RegExp(block.collection.filters.query, 'gi'), '<b>' + block.collection.filters.query + '</b>');
         }
     });
 });

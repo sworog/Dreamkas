@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.elements.Buttons;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Disableable;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Firefoxable;

@@ -48,13 +48,17 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
-            var page = this;
+            var page = this,
+                modal__wrapper = document.getElementById('modal__wrapper');
 
             page.setStatus('starting');
             page.setStatus('loading');
 
             previousPage = window.PAGE;
             window.PAGE = page;
+
+            modal__wrapper && modal__wrapper.classList.remove('modal__wrapper_visible');
+            document.body.classList.remove('modal-open');
 
             Block.prototype.initialize.apply(page, arguments);
         },
@@ -111,8 +115,12 @@ define(function(require, exports, module) {
             }, 0);
         },
 
-        setParams: function(params, silent) {
+        setParams: function(params, opt) {
             var page = this;
+
+            opt = deepExtend({
+                render: false
+            }, opt);
 
             deepExtend(page.params, params);
 
@@ -120,7 +128,7 @@ define(function(require, exports, module) {
                 result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
             }));
 
-			if (!silent) {
+			if (opt.render) {
 				page.render();
 			}
         }

@@ -3,9 +3,6 @@ package project.lighthouse.autotests.steps.supplier;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import project.lighthouse.autotests.collection.supplier.SupplierCollection;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.supplier.SupplierListPage;
@@ -75,54 +72,27 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierCollectionCompareWithExampleTable(ExamplesTable examplesTable) {
-        SupplierCollection supplierCollection = getSupplierCollection();
-        if (supplierCollection != null) {
-            getSupplierCollection().compareWithExampleTable(examplesTable);
-        }
+        supplierListPage.compareWithExampleTable(examplesTable);
     }
 
     @Step
     public void clickOnTheSupplierWithName(String name) {
-        SupplierCollection supplierCollection = getSupplierCollection();
-        if (supplierCollection != null) {
-            getSupplierCollection().clickByLocator(name);
-        }
+        supplierListPage.clickOnCollectionObjectByLocator(name);
     }
 
     @Step
     public void supplierCollectionNoContainSupplierWithName(String name) {
-        SupplierCollection supplierCollection = getSupplierCollection();
-        if (supplierCollection != null) {
-            getSupplierCollection().notContains(name);
-        }
+        supplierListPage.collectionNotContainObjectWithLocator(name);
     }
 
     @Step
     public void supplierCollectionContainSupplierWithName() {
-        SupplierCollection supplierCollection = getSupplierCollection();
-        if (supplierCollection != null) {
-            getSupplierCollection().contains(name);
-        }
+        supplierListPage.collectionContainObjectWithLocator(name);
     }
 
     @Step
     public void supplierCollectionContainSupplierWithName(String name) {
-        SupplierCollection supplierCollection = getSupplierCollection();
-        if (supplierCollection != null) {
-            getSupplierCollection().contains(name);
-        }
-    }
-
-    private SupplierCollection getSupplierCollection() {
-        SupplierCollection supplierCollection = null;
-        try {
-            supplierCollection = supplierListPage.getSupplierCollection();
-        } catch (TimeoutException e) {
-            supplierListPage.containsText("У вас ещё нет ни одного поставщика");
-        } catch (StaleElementReferenceException e) {
-            supplierCollection = supplierListPage.getSupplierCollection();
-        }
-        return supplierCollection;
+        supplierListPage.collectionContainObjectWithLocator(name);
     }
 
     @Step
@@ -142,12 +112,12 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierCreateModalPageCheckErrorMessage(String elementName, String errorMessage) {
-        supplierCreateModalPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        supplierCreateModalPage.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void supplierEditModalPageCheckErrorMessage(String elementName, String errorMessage) {
-        supplierEditModalPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        supplierEditModalPage.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step

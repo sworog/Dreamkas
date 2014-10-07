@@ -21,6 +21,11 @@ public class PosUserSteps {
         posSteps.navigateToPosPage(storeName);
     }
 
+    @Given("пользователь открывает страницу истории продаж кассы магазина с названием '$storeName'")
+    public void givenUserOpenStorePosSalesPageWithName(String storeName) {
+        posSteps.navigateToPosSalesPage(storeName);
+    }
+
     @Given("пользователь открывает страницу запуска кассы")
     public void givenUserOpenPosLaunchPage() {
         posSteps.openPosLaunchPage();
@@ -66,6 +71,11 @@ public class PosUserSteps {
         posSteps.clickOnContinueButton();
     }
 
+    @When("пользователь нажимает на кнопку продолжить работу в окошке успешного возврата")
+    public void whenUserClicksOnRefundContinueWorkButton() {
+        posSteps.clickOnRefundContinueButton();
+    }
+
     @When("пользователь нажимает на кнопку чтобы скрыть боковое меню навигации кассы")
     @Alias("пользователь нажимает на кнопку чтобы показать боковое меню навигации кассы")
     public void whenTheUserInteractsWithCashRegistrySideMenuButton() {
@@ -85,6 +95,27 @@ public class PosUserSteps {
     @Then("пользователь проверяет, что ссылка с названием 'Касса' активна (выбрана) в боковом меню навигации кассы")
     public void thenUserAssertCashRegistrySideMenuLinkIsActive() {
         posSteps.assertCashRegistrySideMenuLinkIsActive();
+    }
+
+    @When("пользователь вводит количество '$quantityValue' продукту с именем '$productName' для совершения возврата")
+    @Alias("пользователь вводит количество c значением quantityValue продукту с именем '$productName' для совершения возврата")
+    public void whenUserSetRefundProductQuantity(String quantityValue, String productName) {
+        posSteps.setRefundProductQuantityByName(productName, quantityValue);
+    }
+
+    @When("пользователь увеличивает количество на единицу продукту с именем '$productName' путем нажатия на кнопку с плюсом для совершения возврата")
+    public void clickOnRefundProductPlusButtonByName(String productName) {
+        posSteps.clickOnRefundProductPlusButtonByName(productName);
+    }
+
+    @When("пользователь уменьшивает количество на единицу продукту с именем '$productName' путем нажатия на кнопку с минусом для совершения возврата")
+    public void clickOnRefundProductMinusButtonByName(String productName) {
+        posSteps.clickOnRefundProductMinusButtonByName(productName);
+    }
+
+    @When("пользователь нажимает на кнопку возврата")
+    public void whenTheUserClicksOnRefundButton() {
+        posSteps.clickOnRefundButton();
     }
 
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")
@@ -125,5 +156,20 @@ public class PosUserSteps {
     @Then("пользователь проверяет, что заголовок успешной продажи гласит Выдайте сдачу '$value'")
     public void thenTheUserChecksReceiptSuccessTitle(String value) {
         posSteps.assertSuccessTitle(value);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешного возврата гласит 'Выдайте деньги $value'")
+    public void thenTheUserChecksRefundSuccessTitle(String value) {
+        posSteps.assertRefundSuccessTitle(value);
+    }
+
+    @Then("пользователь проверяет, что заголовок успешного возврата гласит 'Сделайте возврат на банковскую карту $value'")
+    public void thenTheUserChecksRefundBakSuccessTitle(String value) {
+        posSteps.assertRefundSuccessBankTitle(value);
+    }
+
+    @Then("пользователь проверяет, что количество равно '$quantity' продукта с именем '$name'")
+    public void thenUserAssertsRefundProductQuantity(String quantity, String name) {
+        posSteps.assertRefundPorductQuantity(name, quantity);
     }
 }

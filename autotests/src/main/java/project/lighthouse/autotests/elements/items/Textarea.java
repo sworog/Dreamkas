@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 
 public class Textarea extends Input {
 

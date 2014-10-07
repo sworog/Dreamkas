@@ -7,7 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.common.item.interfaces.Settable;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -47,7 +48,7 @@ public class CommonActions {
     }
 
     private void defaultInput(String elementName, String inputText) {
-        pageObject.getItems().get(elementName).setValue(inputText);
+        ((Settable) pageObject.getItems().get(elementName)).setValue(inputText);
     }
 
     public Capabilities getCapabilities() {

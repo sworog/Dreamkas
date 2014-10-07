@@ -1,7 +1,8 @@
 package project.lighthouse.autotests.elements.Buttons.abstraction;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.item.interfaces.Clickable;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Conditional;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
@@ -10,7 +11,7 @@ import static org.junit.Assert.fail;
 /**
  * Abstract facade to handle facade objects
  */
-public abstract class AbstractFacade implements Conditional {
+public abstract class AbstractFacade implements Conditional, Clickable {
 
     private CommonPageObject pageObject;
     private By findBy;

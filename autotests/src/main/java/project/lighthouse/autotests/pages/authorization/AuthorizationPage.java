@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.authorization;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.SuccessBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
@@ -23,13 +23,7 @@ public class AuthorizationPage extends CommonPageObject {
         put("email", new Input(this, "username"));
         put("signUpPageTitle", new NonType(this, By.xpath("//*[@class='content']/p")));
         put("form_login", new NonType(this, By.id("form_login")));
-    }
-
-    public void loginButtonClick() {
-        new SuccessBtnFacade(this, By.xpath("//*[contains(@class, 'btn btn-success') and contains(text(), 'Войти')]")).click();
-    }
-
-    public void forgotPasswordLinkClick() {
-        new LinkFacade(this, "Забыли пароль?").click();
+        put("loginButton", new SuccessBtnFacade(this, By.xpath("//*[contains(@class, 'btn btn-success') and contains(text(), 'Войти')]")));
+        put("forgotPasswordLink", new LinkFacade(this, "Забыли пароль?"));
     }
 }

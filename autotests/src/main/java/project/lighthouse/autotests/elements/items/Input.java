@@ -1,8 +1,8 @@
 package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.item.CommonItem;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class Input extends CommonItem {

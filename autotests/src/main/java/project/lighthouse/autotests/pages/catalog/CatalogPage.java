@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.collection.catalog.GroupObjectCollection;
-import project.lighthouse.autotests.common.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 /**
@@ -24,9 +24,6 @@ public class CatalogPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-    }
-
-    public GroupObjectCollection getGroupObjectCollection() {
-        return new GroupObjectCollection(getDriver(), By.className("groupList__link"));
+        putDefaultCollection(new GroupObjectCollection(getDriver(), By.className("groupList__link")));
     }
 }

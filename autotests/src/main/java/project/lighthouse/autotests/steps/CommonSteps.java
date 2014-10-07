@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.collection.error.ValidationErrorsCollection;
-import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
@@ -78,11 +78,7 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void pageContainsText(String text) {
-        getCommonPageObject().getWaiter().getVisibleWebElement(
-                By.xpath(
-                        String.format("//*[contains(normalize-space(text()), '%s')]", text)
-                )
-        );
+        getCommonPageObject().shouldContainsText(text);
     }
 
     @Step

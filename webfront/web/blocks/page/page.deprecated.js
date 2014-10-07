@@ -55,7 +55,8 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
-            var page = this;
+            var page = this,
+                modal__wrapper = document.getElementById('modal__wrapper');
 
             page.setStatus('starting');
             page.setStatus('loading');
@@ -67,6 +68,9 @@ define(function(require, exports, module) {
             page.models = _.transform(page.models, function(result, modelInitializer, key) {
                 result[key] = page.get('models.' + key);
             });
+
+            modal__wrapper && modal__wrapper.classList.remove('modal__wrapper_visible');
+            document.body.classList.remove('modal-open');
 
             $.when(page.fetch()).then(function() {
                 page.render();

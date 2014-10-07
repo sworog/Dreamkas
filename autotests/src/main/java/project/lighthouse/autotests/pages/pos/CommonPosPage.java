@@ -2,8 +2,7 @@ package project.lighthouse.autotests.pages.pos;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.common.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.items.NonType;
 
 public abstract class CommonPosPage extends BootstrapPageObject {
@@ -17,21 +16,9 @@ public abstract class CommonPosPage extends BootstrapPageObject {
         put("боковое меню", new NonType(this, By.className("sideBar")));
         put("боковое меню раскрыто", new NonType(this, By.xpath("//*[contains(@class, 'page page_pos page_sideBarVisible')]")));
         put("боковое меню спрятано", new NonType(this, By.xpath("//*[contains(@class, 'page page_pos')]")));
-    }
-
-    public WebElement getCashRegistrySideMenuLink() {
-        return findVisibleElement(By.xpath("//*[contains(@class, 'sideBar__item') and i[contains(@class, 'fa-shopping-cart')]]"));
-    }
-
-    public void clickOnSaleHistorySideMenuLink() {
-        click(By.xpath("//*[contains(@class, 'sideBar__item') and i[contains(@class, 'fa-exchange')]]"));
-    }
-
-    public void clickOnChangeStoreSideMenuLink() {
-        click(By.xpath("//*[contains(@class, 'sideBar__item') and contains(text(), 'Сменить магазин')]"));
-    }
-
-    public void clickOnSideBarInteraction() {
-        click(By.xpath("//*[contains(@class, 'sideBarLink')]"));
+        put("posSideMenuLink", new NonType(this, By.xpath("//*[contains(@class, 'sideBar__item') and i[contains(@class, 'fa-shopping-cart')]]")));
+        put("saleHistorySideMenuLink", new NonType(this, By.xpath("//*[contains(@class, 'sideBar__item') and i[contains(@class, 'fa-exchange')]]")));
+        put("changeStoreSideMenuLink", new NonType(this, By.xpath("//*[contains(@class, 'sideBar__item') and contains(text(), 'Сменить магазин')]")));
+        put("sideBar", new NonType(this, By.xpath("//*[@class='page__head']//*[contains(@class, 'sideBarLink')]")));
     }
 }

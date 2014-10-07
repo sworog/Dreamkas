@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.storage;
 
-import project.lighthouse.autotests.common.GeneralPageObject;
+import project.lighthouse.autotests.common.pageObjects.GeneralPageObject;
 
 public class CurrentPageObjectStorage {
 

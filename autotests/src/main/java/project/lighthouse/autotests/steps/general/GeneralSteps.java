@@ -2,11 +2,13 @@ package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.GeneralPageObject;
+import project.lighthouse.autotests.common.pageObjects.GeneralPageObject;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
 import project.lighthouse.autotests.pages.pos.PosSaleHistoryPage;
 import project.lighthouse.autotests.pages.pos.ReceiptElement;
+import project.lighthouse.autotests.pages.reports.ReportsMainPage;
+import project.lighthouse.autotests.pages.reports.stockBalance.StockBalanceReport;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 
 import java.util.HashMap;
@@ -25,6 +27,8 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("выбранной кассы", PosPage.class);
             put("истории продаж кассы", PosSaleHistoryPage.class);
             put("чека", ReceiptElement.class);
+            put("странице отчетов", ReportsMainPage.class);
+            put("странице отчета остатка товаров", StockBalanceReport.class);
         }};
     }
 
@@ -81,5 +85,17 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     @Step
     public void clickOnCollectionObjectByLocator(String locator) {
         getCurrentPageObject().clickOnCollectionObjectByLocator(locator);
+    }
+
+    @Step
+    public void assertCommonItemAttributeValue(String commonItemName, String attribute, String value) {
+        assertThat(
+                getCurrentPageObject().getCommonItemAttributeValue(commonItemName, attribute),
+                is(value));
+    }
+
+    @Step
+    public void clickOnCommonItemWihName(String commonItemName) {
+        getCurrentPageObject().clickOnCommonItemWihName(commonItemName);
     }
 }

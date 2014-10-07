@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.stockMovement;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.collection.stockMovement.StockMovementListObjectCollection;
-import project.lighthouse.autotests.common.BootstrapPageObject;
+import project.lighthouse.autotests.common.pageObjects.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DropdownBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
@@ -41,23 +41,14 @@ public class StockMovementPage extends BootstrapPageObject {
     @Override
     public void createElements() {
         put("types", new SelectByVisibleText(this, "types"));
-        put("dateFrom", getJsInput("dateFrom"));
-        put("dateTo", getJsInput("dateTo"));
+        put("dateFrom", getCustomJsInput("dateFrom"));
+        put("dateTo", getCustomJsInput("dateTo"));
+        putDefaultCollection(new StockMovementListObjectCollection(getDriver()));
+        put("acceptFiltersButton", new PrimaryBtnFacade(this, "Применить фильтры"));
+        put("resetFiltersButton", new DefaultBtnFacade(this, "Сбросить фильтры"));
     }
 
-    public StockMovementListObjectCollection getStockMovementObjectCollection() {
-        return new StockMovementListObjectCollection(getDriver());
-    }
-
-    public void acceptFiltersButtonClick() {
-        new PrimaryBtnFacade(this, "Применить фильтры").click();
-    }
-
-    public void resetFiltersButtonClick() {
-        new DefaultBtnFacade(this, "Сбросить фильтры").click();
-    }
-
-    private JSInput getJsInput(final String name) {
+    private JSInput getCustomJsInput(final String name) {
         return new JSInput(this, name) {
             @Override
             public void evaluateUpdatingQueryScript() {

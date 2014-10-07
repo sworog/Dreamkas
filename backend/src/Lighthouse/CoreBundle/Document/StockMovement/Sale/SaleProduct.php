@@ -2,7 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\Sale;
 
+use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\PersistentCollection;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,6 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @MongoDB\HasLifecycleCallbacks
  *
  * @property Sale $parent
+ * @property ReturnProduct[]|Collection|PersistentCollection $returnProducts
  */
 class SaleProduct extends StockMovementProduct
 {
@@ -40,6 +44,19 @@ class SaleProduct extends StockMovementProduct
      * @var Sale
      */
     protected $parent;
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct",
+     *      simple=true,
+     *      cascade={"persist","remove"},
+     *      mappedBy="saleProduct"
+     * )
+     *
+     * @Serializer\Exclude
+     * @var ReturnProduct[]|Collection
+     */
+    protected $returnProducts;
 
     /**
      * @return boolean

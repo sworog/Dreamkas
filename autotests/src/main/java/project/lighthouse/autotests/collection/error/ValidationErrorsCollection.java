@@ -5,9 +5,9 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.common.Waiter;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.ArrayList;
@@ -22,15 +22,10 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     @Override
-    public void init(WebDriver webDriver, By findBy) {
+    public Waiter getWaiter() {
         Integer defaultValidationErrorTimeOut =
                 Storage.getConfigurationVariableStorage().getTimeOutProperty("default.validation.error.timeout");
-        List<WebElement> webElementList =
-                new Waiter(webDriver, defaultValidationErrorTimeOut).getVisibleWebElements(findBy);
-        for (WebElement element : webElementList) {
-            ValidationError abstractObject = createNode(element);
-            add(abstractObject);
-        }
+        return new Waiter(getWebDriver(), defaultValidationErrorTimeOut);
     }
 
     @Override
@@ -43,6 +38,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
      */
     @Deprecated
     public void matchesWithExampleTable(ExamplesTable examplesTable) {
+        init();
         List<String> notFoundMessages = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             Boolean found = false;
@@ -65,6 +61,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     public void matchesWithMessage(String message) {
+        init();
         Boolean matches = false;
         for (AbstractObject abstractObject : this) {
             ValidationError validationError = (ValidationError) abstractObject;
@@ -79,6 +76,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     public void notMatchesWithExampleTable(ExamplesTable examplesTable) {
+        init();
         List<String> messages = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             String message = row.get("error message");
@@ -96,6 +94,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     }
 
     public List<String> getActualMessages() {
+        init();
         List<String> actualMessages = new ArrayList<>();
         for (AbstractObject abstractObject : this) {
             ValidationError validationError = (ValidationError) abstractObject;
