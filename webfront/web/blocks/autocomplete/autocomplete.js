@@ -34,18 +34,18 @@ define(function(require) {
 			}
 		},
         remoteUrl: null,
-        initialize: function() {
+        render: function(){
             var block = this;
 
-            Block.prototype.initialize.apply(block, arguments);
+            Block.prototype.render.apply(block, arguments);
 
             block.initEngine();
             block.initTypeahead();
 
-			block.$el.on('typeahead:selected', function(e, item) {
-				block.$el.find('input.form-control').blur();
-			});
-		},
+            block.$el.on('typeahead:selected', function(e, item) {
+                block.$el.find('input.form-control').blur();
+            });
+        },
         initEngine: function() {
             var block = this;
 

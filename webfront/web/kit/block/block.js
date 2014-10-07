@@ -45,7 +45,8 @@ define(function(require, exports, module) {
             var block = this;
 
             //always get actual data before rendering
-            $.when(block.initData(data)).then(function(){
+
+            return $.when(block.initData(data)).then(function(){
                 if (typeof block.template !== 'function') {
                     return;
                 }
@@ -60,7 +61,7 @@ define(function(require, exports, module) {
 
                 block.initBlocks();
 
-                block.el.block = this;
+                block.el.block = block;
 
                 block.$('button[data-toggle="popover"]').popover({
                     trigger: 'focus'
