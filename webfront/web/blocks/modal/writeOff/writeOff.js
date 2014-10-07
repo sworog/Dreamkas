@@ -31,7 +31,7 @@ define(function(require, exports, module) {
 			},
 			form_writeOffProducts: function(opt) {
 				var block = this,
-					Form_writeOffProducts = require('blocks/form/writeOffProducts/writeOffProducts');
+					Form_writeOffProducts = require('blocks/form/stockMovementProducts/writeOff/writeOff');
 
 				opt.collection = block.models.writeOff.collections.products;
 

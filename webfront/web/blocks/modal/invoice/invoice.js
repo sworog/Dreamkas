@@ -30,7 +30,7 @@ define(function(require, exports, module) {
                 });
             },
             form_invoiceProducts: function(){
-                var Form_invoiceProducts = require('blocks/form/invoiceProducts/invoiceProducts');
+                var Form_invoiceProducts = require('blocks/form/stockMovementProducts/invoice/invoice');
 
                 return new Form_invoiceProducts({
                     collection: this.models.invoice.collections.products

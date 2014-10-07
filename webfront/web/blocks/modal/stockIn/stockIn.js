@@ -30,7 +30,7 @@ define(function(require, exports, module) {
                 return new Form_stockIn(opt);
             },
             form_stockInProducts: function(opt){
-                var Form_stockInProducts = require('blocks/form/stockInProducts/stockInProducts');
+                var Form_stockInProducts = require('blocks/form/stockMovementProducts/stockIn/stockIn');
 
 				return new Form_stockInProducts({
 					collection: this.models.stockIn.collections.products

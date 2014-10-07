@@ -31,7 +31,7 @@ define(function(require, exports, module) {
             },
             form_supplierReturnProducts: function(opt) {
                 var block = this,
-                    Form_stockInProducts = require('blocks/form/supplierReturnProducts/supplierReturnProducts');
+                    Form_stockInProducts = require('blocks/form/stockMovementProducts/supplierReturn/supplierReturn');
 
 				opt.collection = block.models.supplierReturn.collections.products;
 

@@ -4,15 +4,9 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        model: require('resources/invoiceProduct/model'),
-        collection: require('resources/invoiceProduct/collection'),
+		ProductList: require('./stockMovementProducts__productList'),
         events: {
-            'keyup [name="quantity"]': function(e){
-                var block = this;
-
-                block.renderTotalSum();
-            },
-            'keyup [name="priceEntered"]': function(e){
+            'keyup [name="quantity"], [name="price"], [name="priceEntered"]': function(e){
                 var block = this;
 
                 block.renderTotalSum();
@@ -30,7 +24,7 @@ define(function(require, exports, module) {
                     });
                 }
             },
-            'click .table_invoiceProducts__removeProductLink': function(e){
+            'click .table_stockMovementProducts__removeProductLink': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid;
 
@@ -39,14 +33,15 @@ define(function(require, exports, module) {
         },
         blocks: {
             productList: function(){
-                var ProductList = require('./productList');
+                var ProductList = this.ProductList;
 
                 return new ProductList({
-                    collection: this.collection
+                    collection: this.collection,
+					priceField: this.priceField
                 });
             },
             totalPrice: function(){
-                var TotalPrice = require('./totalPrice');
+                var TotalPrice = require('./stockMovementProducts__totalPrice');
 
                 return new TotalPrice({
                     collection: this.collection
@@ -80,8 +75,7 @@ define(function(require, exports, module) {
 
             block.clear();
 
-            block.el.querySelector('.tt-input[name="product.name"]').focus();
-
+            block.$('.tt-input[name="product.name"]').focus();
         },
 		showErrors: function(error){
 			var block = this,
@@ -105,7 +99,7 @@ define(function(require, exports, module) {
 					fieldName = 'product.name';
 				}
 
-				block.el.querySelector('input[name="' + fieldName + '"]').classList.add('invalid');
+				block.$('input[name="' + fieldName + '"]').addClass('invalid');
 			});
 		},
         clear: function(){
@@ -119,28 +113,28 @@ define(function(require, exports, module) {
             var block = this;
 
             setTimeout(function(){
-                block.el.querySelector('input[name="priceEntered"]').focus();
+                block.$('input[name="' + block.priceField + '"]').focus();
             }, 0);
 
             block.set('data.product', {
                 id: product.id
             });
 
-            block.el.querySelector('input[name="product.name"]').value = product.name;
+            block.$('input[name="product.name"]').val(product.name);
 
             if (product.purchasePrice){
-                block.el.querySelector('input[name="priceEntered"]').value = block.formatMoney(product.purchasePrice);
+                block.$('input[name="' + block.priceField + '"]').val(block.formatMoney(product.purchasePrice));
             }
 
-            block.el.querySelector('input[name="quantity"]').value = '1';
-            block.$('.form_invoiceProducts__controls .product__units').html(product.units || 'шт.');
+            block.$('input[name="quantity"]').val(1);
+            block.$('.product__units').html(product.units || 'шт.');
 
             block.renderTotalSum();
         },
 		getTotalSum: function(){
 			var block = this,
-				quantity = block.normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
-				purchasePrice = block.normalizeNumber(block.el.querySelector('input[name="priceEntered"]').value),
+				quantity = block.normalizeNumber(block.$('input[name="quantity"]').val()),
+				purchasePrice = block.normalizeNumber(block.$('input[name="' + this.priceField + '"]').val()),
 				totalPrice = quantity * purchasePrice;
 
 			return typeof totalPrice === 'number' ? totalPrice : null;

@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var CollectionBlock = require('kit/collectionBlock/collectionBlock');
 
     return CollectionBlock.extend({
-        template: require('ejs!./totalPrice.ejs'),
+        template: require('ejs!./stockMovementProducts__totalPrice.ejs'),
         calculateTotalPrice: function(){
             var block = this,
                 totalSum = 0;
