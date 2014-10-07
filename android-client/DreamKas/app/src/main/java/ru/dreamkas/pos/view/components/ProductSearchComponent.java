@@ -41,21 +41,17 @@ public class ProductSearchComponent extends LinearLayout {
     EditText txtProductSearchQuery;
 
     Command<String> mSearchCommand;
-    private final Activity mContext;
 
     public ProductSearchComponent(Context context) {
         super(context);
-        this.mContext = (Activity)context;
     }
 
     public ProductSearchComponent(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mContext = (Activity)context;
     }
 
     public ProductSearchComponent(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        this.mContext = (Activity)context;
     }
 
     public void init(Command<String> searchCommand){
@@ -78,7 +74,7 @@ public class ProductSearchComponent extends LinearLayout {
             lblSearchResultEmpty.setText(getResources().getString(R.string.msgSearchEmptyResult));
         }
 
-        ProductsAdapter adapter = new ProductsAdapter(mContext, R.layout.arrow_listview_item, products);
+        ProductsAdapter adapter = new ProductsAdapter(getContext(), R.layout.arrow_listview_item, products);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lvProductsSearchResult.setAdapter(adapter);
@@ -98,9 +94,7 @@ public class ProductSearchComponent extends LinearLayout {
 
     private void addEditTextChangeListeners(){
             txtProductSearchQuery.addTextChangedListener(new TextWatcher() {
-
             private final Timer timer = new Timer();
-
             private TimerTask lastTimer;
 
             @Override
@@ -122,13 +116,12 @@ public class ProductSearchComponent extends LinearLayout {
                             String query = txtProductSearchQuery.getText().toString();
 
                             if(query.length() >= THRESHOLD) {
-
-                                mContext.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        pbSearchProduct.setVisibility(View.VISIBLE);
-                                    }
-                                });
+                                pbSearchProduct.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            pbSearchProduct.setVisibility(View.VISIBLE);
+                                        }
+                                    });
 
                                 mSearchCommand.execute(query);
                             }

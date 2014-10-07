@@ -44,7 +44,7 @@ public class ProductsAdapter extends ArrayAdapter<Product>{
 
         if(row == null)
         {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            LayoutInflater inflater = LayoutInflater.from(context);
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new NamedObjectHolder();
