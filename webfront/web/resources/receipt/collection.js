@@ -2,6 +2,7 @@ define(function(require) {
         //requirements
         var Collection = require('kit/collection/collection'),
 			uri = require('uri'),
+            deepExtend = require('kit/deepExtend/deepExtend'),
 			moment = require('moment'),
 			formatDate = require('kit/formatDate/formatDate');
 
@@ -22,13 +23,15 @@ define(function(require) {
 				return Collection.baseApiUrl + '/stores/' + this.storeId + '/sales';
 			},
 
-            fetch: function(){
+            fetch: function(options){
 
-                return Collection.prototype.fetch.call(this, {
+                options = deepExtend({}, options, {
                     data: {
                         dateTo: formatDate(moment(this.filters.dateTo, 'DD.MM.YYYY').add(1, 'days'))
                     }
                 });
+
+                return Collection.prototype.fetch.call(this, options);
             }
         });
     }

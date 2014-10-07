@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Product;
 
 use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
@@ -12,6 +13,8 @@ use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use DateTime;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class GrossMarginSalesProductRepository extends DocumentRepository
 {
@@ -85,15 +88,23 @@ class GrossMarginSalesProductRepository extends DocumentRepository
     }
 
     /**
+     * @param OutputInterface $output
      * @param int $batch
      * @return int
      */
-    public function recalculate($batch = 5000)
+    public function recalculate(OutputInterface $output = null, $batch = 5000)
     {
+        if (null == $output) {
+            $output = new NullOutput();
+        }
+        $dotHelper = new DotHelper($output);
+
         $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
 
         $results = $this->aggregateProductByDay($requireDatePeriod->getStartDate(), $requireDatePeriod->getEndDate());
         $count = 0;
+
+        $dotHelper->setTotalPositions(count($results));
 
         foreach ($results as $result) {
             $report = new GrossMarginSalesProductReport();
@@ -112,6 +123,7 @@ class GrossMarginSalesProductRepository extends DocumentRepository
 
             $this->dm->persist($report);
             $count++;
+            $dotHelper->write();
 
             if ($count % $batch == 0) {
                 $this->dm->flush();
@@ -119,6 +131,8 @@ class GrossMarginSalesProductRepository extends DocumentRepository
         }
 
         $this->dm->flush();
+
+        $dotHelper->end();
 
         return $count;
     }

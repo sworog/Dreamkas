@@ -30,7 +30,6 @@ define(function(require, exports, module) {
         blocks: {
             product_autocomplete: function() {
                 var block = this,
-                    autocompleteInput = block.$('.autocomplete input.form-control'),
                     ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
                     productAutocomplete;
 
@@ -40,12 +39,12 @@ define(function(require, exports, module) {
 
                 productAutocomplete.$el.on('typeahead:selected', function(e, product) {
                     block.models.product.set(product);
-                    block.findReceipts(autocompleteInput);
+                    block.findReceipts(block.$('.tt-input.form-control'));
                 });
 
                 productAutocomplete.on('input:clear', function(e, product) {
                     block.models.product.clear();
-                    block.findReceipts(autocompleteInput);
+                    block.findReceipts(block.$('.tt-input.form-control'));
                 });
 
                 return productAutocomplete;
@@ -74,7 +73,7 @@ define(function(require, exports, module) {
 
             $(input).addClass('loading');
 
-            this.collections.receipts.fetch({
+            block.collections.receipts.fetch({
                 filters: {
                     dateFrom: dateFrom,
                     dateTo: dateTo,
@@ -82,9 +81,7 @@ define(function(require, exports, module) {
                 }
             }).then(function() {
 
-                PAGE.setParams(block.collections.receipts.filters, {
-                    render: false
-                });
+                PAGE.setParams(block.collections.receipts.filters);
 
                 $(input).removeClass('loading');
             });

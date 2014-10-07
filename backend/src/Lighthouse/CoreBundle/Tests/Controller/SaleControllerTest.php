@@ -727,7 +727,15 @@ class SaleControllerTest extends WebTestCase
             'product 3 not in dates' => array(
                 array('dateFrom' => '2014-08-01', 'dateTo' => '2014-08-02', 'product' => '{product-3}'),
                 0
-            )
+            ),
+            '2014-09-01 - 2014-09-06' => array(
+                array('dateFrom' => '2014-09-05', 'dateTo' => '2014-09-06 23:59:59'),
+                2,
+                array(
+                    '0.date' => '2014-09-06T05:31:50+0400',
+                    '1.date' => '2014-09-05T09:31:50+0400',
+                )
+            ),
         );
     }
 
