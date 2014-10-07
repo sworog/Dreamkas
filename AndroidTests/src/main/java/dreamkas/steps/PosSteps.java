@@ -15,4 +15,24 @@ public class PosSteps extends ScenarioSteps {
     public void assertActionBarTitle(String expectedTitle) {
         assertThat(posPage.getActionBarTitle(), is(expectedTitle));
     }
+
+    @Step
+    public void chooseSpinnerItemWithValue(String value) {
+        posPage.chooseSpinnerItemWithValue(value);
+    }
+
+    @Step
+    public void clickOnSaveStoreSettings() {
+        posPage.clickOnSaveStoreSettings();
+    }
+
+    @Step
+    public void assertStore(String store) {
+        assertThat(posPage.getStore(), is(store));
+    }
+
+    @Step
+    public void openDrawerAndClickOnDrawerOption(String menuOption) {
+        posPage.openDrawerAndClickOnDrawerOption(menuOption);
+    }
 }

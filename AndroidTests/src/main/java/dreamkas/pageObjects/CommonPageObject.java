@@ -14,4 +14,12 @@ public class CommonPageObject extends PageObject {
     public String getCurrentActivity() {
         return getAppiumDriver().currentActivity();
     }
+
+    public void closeApp() {
+        getAppiumDriver().closeApp();
+    }
+
+    public void launchApp() {
+        getAppiumDriver().launchApp();
+    }
 }

@@ -1,6 +1,7 @@
 package dreamkas.steps;
 
 import dreamkas.pageObjects.CommonPageObject;
+import dreamkas.pageObjects.elements.ConfirmationElement;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -10,6 +11,7 @@ import static org.junit.Assert.assertThat;
 public class CommonSteps extends ScenarioSteps{
 
     CommonPageObject commonPageObject;
+    ConfirmationElement confirmationElement;
 
     //Workaround for activity wait
     @Step
@@ -35,5 +37,20 @@ public class CommonSteps extends ScenarioSteps{
     @Step
     public void resetApp() {
         commonPageObject.getAppiumDriver().resetApp();
+    }
+
+    @Step
+    public void closeApp() {
+        commonPageObject.closeApp();
+    }
+
+    @Step
+    public void launchApp() {
+        commonPageObject.launchApp();
+    }
+
+    @Step
+    public void clickOnConfirmButton() {
+        confirmationElement.clickOnConfirmButton();
     }
 }
