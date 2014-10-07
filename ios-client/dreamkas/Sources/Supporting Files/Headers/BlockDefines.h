@@ -11,15 +11,15 @@
 
 typedef void (^VoidResponseBlock)();
 
-typedef void (^ResponseBlock)(id data);
-//typedef void (^ModelResponseBlock)(AbstractModel *object);
+typedef void (^ResponseBlock)(id data, NSError *error);
+//typedef void (^ModelResponseBlock)(AbstractModel *object, NSError *error);
 
-typedef void (^ArrayResponseBlock)(NSArray *data);
-typedef void (^DictionaryResponseBlock)(NSDictionary *data);
+typedef void (^ArrayResponseBlock)(NSArray *data, NSError *error);
+typedef void (^DictionaryResponseBlock)(NSDictionary *data, NSError *error);
 
-typedef void (^StringResponseBlock)(NSString *data);
-typedef void (^NumberResponseBlock)(NSNumber *number);
-typedef void (^LogicalResponseBlock)(BOOL flag);
+typedef void (^StringResponseBlock)(NSString *data, NSError *error);
+typedef void (^NumberResponseBlock)(NSNumber *number, NSError *error);
+typedef void (^LogicalResponseBlock)(BOOL flag, NSError *error);
 
 typedef void (^ErrorResponseBlock)(NSError *error);
 

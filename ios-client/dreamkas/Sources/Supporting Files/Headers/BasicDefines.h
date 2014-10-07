@@ -52,5 +52,16 @@
 //
 
 #define APP_STORYBOARD_NAME                 @"Pages"
+#define APP_VERSION                         [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+
+#define ControllerById(cid)                 [[UIStoryboard storyboardWithName:APP_STORYBOARD_NAME bundle:nil] instantiateViewControllerWithIdentifier:cid]
+#define NetworkManager                      [ApplicationDelegate networkManager]
+
+//
+// Клиент-серверное взаимодействие
+//
+
+#define API_SERVER_URL                      @"http://ios.staging.api.lighthouse.pro/"
+#define API_SERVER_PATH                     @"api/1/"
 
 #endif

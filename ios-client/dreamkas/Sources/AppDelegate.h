@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class RESTClient;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+/** Шлюз клиент-серверного взаимодействия */
+@property (nonatomic, strong) RESTClient *networkManager;
 
 @end
 

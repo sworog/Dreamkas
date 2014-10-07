@@ -19,7 +19,7 @@
     function = [NSString stringWithCString: functionName encoding:NSASCIIStringEncoding];
     print = [[NSString alloc] initWithFormat: format arguments: ap];
     va_end(ap);
-    NSLog(@"⚑ %@ %@", function, print);
+    NSLog(@"❌ %@ %@", function, print);
 }
 
 + (void)shouldLog:(int)shouldLog function:(char*)functionName format:(NSString*)format, ...
@@ -32,7 +32,7 @@
         function = [NSString stringWithCString: functionName encoding:NSASCIIStringEncoding];
         print = [[NSString alloc] initWithFormat: format arguments: ap];
         va_end(ap);
-        NSLog(@"⚑ %@ %@", function, print);
+        NSLog(@"❌ %@ %@", function, print);
     }
 }
 
@@ -46,7 +46,7 @@
         
         print = [[NSString alloc] initWithFormat: format arguments: ap];
         va_end(ap);
-        NSLog(@"⚑ -[ %@:%d ] %@", [file lastPathComponent], lineNumber, print);
+        NSLog(@"❌ -[ %@:%d ] %@", [file lastPathComponent], lineNumber, print);
     }
 }
 
@@ -61,7 +61,7 @@
         function = [NSString stringWithCString: functionName encoding:NSASCIIStringEncoding];
         print = [[NSString alloc] initWithFormat: format arguments: ap];
         va_end(ap);
-        NSLog(@"⚑ -[ %@:%d %@ ] %@", [file lastPathComponent], lineNumber, function, print);
+        NSLog(@"❌ -[ %@:%d %@ ] %@", [file lastPathComponent], lineNumber, function, print);
     }
 }
 

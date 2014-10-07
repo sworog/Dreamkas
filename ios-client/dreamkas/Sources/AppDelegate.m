@@ -14,6 +14,16 @@
 
 @implementation AppDelegate
 
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        // инициализация модуля для работы с веб-сервисом
+        self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_SERVER_URL]];
+    }
+    
+    return self;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

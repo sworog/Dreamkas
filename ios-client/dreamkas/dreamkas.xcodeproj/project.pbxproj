@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */; };
+		CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */; };
+		CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */; };
+		CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */; };
+		CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2A19E3CFE4009BCC3C /* RESTClient.m */; };
+		CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2A19E3CFE4009BCC3C /* RESTClient.m */; };
+		CE162A2F19E3D05C009BCC3C /* RESTClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */; };
+		CE162A3019E3D05C009BCC3C /* RESTClient+User.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */; };
 		CE1B3DA819DD40CA00A253D1 /* text.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D8E19DD40CA00A253D1 /* text.txt */; };
 		CE1B3DA919DD40CA00A253D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */; };
 		CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */; };
@@ -78,6 +86,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE162A1D19E3CF3D009BCC3C /* ImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageToDataTransformer.h; sourceTree = "<group>"; };
+		CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageToDataTransformer.m; sourceTree = "<group>"; };
+		CE162A2619E3CF89009BCC3C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		CE162A2919E3CFE4009BCC3C /* RESTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTClient.h; sourceTree = "<group>"; };
+		CE162A2A19E3CFE4009BCC3C /* RESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTClient.m; sourceTree = "<group>"; };
+		CE162A2D19E3D05C009BCC3C /* RESTClient+User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+User.h"; sourceTree = "<group>"; };
+		CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+User.m"; sourceTree = "<group>"; };
 		CE1B3D6319DD3CF000A253D1 /* dreamkas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dreamkas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1B3D8E19DD40CA00A253D1 /* text.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = text.txt; sourceTree = "<group>"; };
 		CE1B3D8F19DD40CA00A253D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -165,6 +180,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE162A1A19E3CF3D009BCC3C /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				CE162A1B19E3CF3D009BCC3C /* Model Classes */,
+				CE162A1C19E3CF3D009BCC3C /* Value Transformers */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		CE162A1B19E3CF3D009BCC3C /* Model Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */,
+			);
+			path = "Model Classes";
+			sourceTree = "<group>";
+		};
+		CE162A1C19E3CF3D009BCC3C /* Value Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				CE162A1D19E3CF3D009BCC3C /* ImageToDataTransformer.h */,
+				CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */,
+			);
+			path = "Value Transformers";
+			sourceTree = "<group>";
+		};
+		CE162A1F19E3CF3D009BCC3C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CE162A2019E3CF3D009BCC3C /* REST Loaders */,
+				CE162A2919E3CFE4009BCC3C /* RESTClient.h */,
+				CE162A2A19E3CFE4009BCC3C /* RESTClient.m */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CE162A2019E3CF3D009BCC3C /* REST Loaders */ = {
+			isa = PBXGroup;
+			children = (
+				CE162A2D19E3D05C009BCC3C /* RESTClient+User.h */,
+				CE162A2E19E3D05C009BCC3C /* RESTClient+User.m */,
+			);
+			path = "REST Loaders";
+			sourceTree = "<group>";
+		};
 		CE1B3D5A19DD3CF000A253D1 = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +267,8 @@
 			children = (
 				CE1B3D9119DD40CA00A253D1 /* AppDelegate.h */,
 				CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */,
+				CE162A1A19E3CF3D009BCC3C /* Core Data */,
+				CE162A1F19E3CF3D009BCC3C /* Network */,
 				CE1B3D9319DD40CA00A253D1 /* Pages */,
 				CE1B3D9919DD40CA00A253D1 /* Supporting Files */,
 			);
@@ -524,6 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */,
+				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE1B3DAD19DD40CA00A253D1 /* ViewController.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
@@ -537,11 +600,14 @@
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
+				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */,
 				CECFC4A819DD74C800ED88D3 /* UIAlertView+AFNetworking.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
 				CECFC4A619DD74C800ED88D3 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CECFC4A519DD74C800ED88D3 /* AFURLSessionManager.m in Sources */,
+				CE162A2F19E3D05C009BCC3C /* RESTClient+User.m in Sources */,
 				CE1B3DB219DD40CA00A253D1 /* main.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
 			);
@@ -552,9 +618,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */,
+				CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
+				CE162A3019E3D05C009BCC3C /* RESTClient+User.m in Sources */,
+				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CECD93F119DEAE7100232734 /* ViewController.m in Sources */,
 				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
+				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +882,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CE162A2619E3CF89009BCC3C /* Model.xcdatamodel */,
+			);
+			currentVersion = CE162A2619E3CF89009BCC3C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CE1B3D5B19DD3CF000A253D1 /* Project object */;
 }

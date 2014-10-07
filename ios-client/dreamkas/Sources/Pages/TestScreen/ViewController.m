@@ -33,8 +33,8 @@
                      forHTTPHeaderField:@"Content-Type"];
     
     // test auth data
-//    [self.loginField setText:@"owner@lighthouse.pro"];
-//    [self.pwdField setText:@"lighthouse"];
+    [self.loginField setText:@"owner@lighthouse.pro"];
+    [self.pwdField setText:@"lighthouse"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -53,26 +53,11 @@
 {
     DPLogFast(@"");
     
-    [manager POST:@"http://ios.staging.api.lighthouse.pro/oauth/v2/token"
-       parameters:@{@"grant_type" : @"password",
-                    @"username" : self.loginField.text,
-                    @"password" : self.pwdField.text,
-                    @"client_id" : @"webfront_webfront",
-                    @"client_secret" : @"secret"}
-          success:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         DPLogFast(@"JSON: %@", responseObject);
-         
-         if (responseObject[@"access_token"] != nil) {
-             accessToken = responseObject[@"access_token"];
-             accessTokenType = responseObject[@"token_type"];
-         }
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         DPLogFast(@"Error: %@", error);
-         DPLogFast(@"Data = %@", [[NSString alloc] initWithData:operation.responseData
-                                                       encoding:NSASCIIStringEncoding]);
-     }];
+    [NetworkManager authWithLogin:@"owner@lighthouse.pro"
+                         password:@"lighthouse"
+                     onCompletion:^(NSDictionary *data, NSError *error) {
+                         // ..
+                     }];
 }
 
 - (IBAction)groupsButtonClicked:(id)sender

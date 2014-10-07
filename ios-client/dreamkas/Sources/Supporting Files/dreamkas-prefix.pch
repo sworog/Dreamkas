@@ -35,4 +35,29 @@
 #import "BlockDefines.h"
 #import "NotificationDefines.h"
 
+//
+// Модели и их обработчики
+//
+
+// ..
+
+//
+// Менеджеры и хэлперы
+//
+
+// ..
+
+//
+// Вспомогательные протоколы
+//
+
+// ..
+
+//
+// Сетевой обмен
+//
+
+#import "RESTClient.h"
+#import "RESTClient+User.h"
+
 #endif
