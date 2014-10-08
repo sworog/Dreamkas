@@ -16,7 +16,7 @@ public class MenuNavigationBar extends CommonPageObject {
 
     @Override
     public void createElements() {
-        put("userName", new NonType(this, By.xpath("//*[@id='side-menu']/*[@class='user-panel']/*[@class='info']/p")));
+        put("userName", new NonType(this, By.xpath("//*[@class='sideBar__userName']")));
         put("reportMenuItem", new NavigationBarLinkFacade(this, "Отчеты"));
         put("supplierMenuItem", new NavigationBarLinkFacade(this, "Поставщики"));
         put("catalogMenuItem", new NavigationBarLinkFacade(this, "Ассортимент"));
