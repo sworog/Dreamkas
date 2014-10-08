@@ -12,6 +12,6 @@ public abstract class BootstrapPageObject extends CommonPageObject {
     public abstract void addObjectButtonClick();
 
     public String getTitle() {
-        return findVisibleElement(By.className("page-title")).getText();
+        return findVisibleElement(By.className("page__title")).getText();
     }
 }
