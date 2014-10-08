@@ -64,4 +64,6 @@
 #define API_SERVER_URL                      @"http://ios.staging.api.lighthouse.pro/"
 #define API_SERVER_PATH                     @"api/1/"
 
+#define CompleteURL(lpath) [NSString stringWithFormat:@"%@%@", API_SERVER_PATH, lpath]
+
 #endif

@@ -21,59 +21,55 @@
         return nil;
     }
     // nothing to do here..
-    
     return self;
 }
 
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
-                            completionHandler:(void (^)(NSURLResponse *, id, NSError *))completionHandler
+                            completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
-    if (oauthTokenExpirationDate && [[NSDate date] isLaterThanDate:oauthTokenExpirationDate]) {
-        // если необходимо обновить OAuth-токен, то сперва обновляем его
-        [self reAuth:^(NSDictionary *data, NSError *error) {
-            // TODO: рекурсия не пропустит вызов!!!!
-            // ..
-        }];
+    __weak typeof(self)weak_self = self;
+    
+    if ([self tokenNotExpired]) {
+        return [super dataTaskWithRequest:request
+                        completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                            __strong typeof(self)strong_self = weak_self;
+                            [strong_self onRequestCompletion:responseObject responseObject:responseObject
+                                                       error:error handler:completionHandler];
+                        }];
     }
     
-    return [super dataTaskWithRequest:request
-                    completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-                        if (error) {
-                            DPLog(LOG_ON, @"=== REQUEST FAILURE ===");
-                            DPLog(LOG_ON, @"error : %@", error);
-                        }
-                        else {
-                            DPLog(LOG_ON, @"=== REQUEST SUCCESS ===");
-                            DPLog(LOG_ON, @"response : %@", responseObject);
-                        }
-                        
-                        // передаем данные в блок обработки
-                        if (completionHandler)
-                            completionHandler(response, responseObject, error);
-                    }];
+    // если OAuth-токен устарел - обновляем его и выполняем текущий запрос
+    refreshingOAuthTokenInProgress = YES;
+    __block NSURLSessionDataTask *task = nil;
+    [self reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        strong_self->refreshingOAuthTokenInProgress = NO;
+        
+        task = [super dataTaskWithRequest:request
+                        completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                            [strong_self onRequestCompletion:responseObject responseObject:responseObject
+                                                       error:error handler:completionHandler];
+                        }];
+    }];
+    
+    return task;
 }
 
-/**
- * Обобщенный запрос к серверу на скачивание файла
- */
-- (void)downloadRequest:(NSString *)path
-           onCompletion:(ResponseBlock)completionBlock
+- (BOOL)tokenNotExpired
 {
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:path]];
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil
-                                                     delegateQueue:[NSOperationQueue currentQueue]];
+    return (refreshingOAuthTokenInProgress || (oauthTokenExpirationDate == nil) || ([[NSDate date] isLaterThanDate:oauthTokenExpirationDate] == NO));
+}
+
+- (void)onRequestCompletion:(NSURLResponse *)response  responseObject:(id)responseObject error:(NSError *)error
+                    handler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
+{
+    DPLog(LOG_ON, @"=== REQUEST %@ ===", (error)?@"FAILURE":@"SUCCESS");
+    DPLog(LOG_ON, @"error : %@", error);
+    DPLog(LOG_ON, @"response : %@", responseObject);
     
-    NSURLSessionDataTask *task =
-    [session dataTaskWithRequest:request
-               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-     {
-         // передаем данные в блок обработки
-         if (completionBlock)
-             completionBlock(data, error);
-     }];
-    
-    [task resume];
+    // передаем данные в блок обработки
+    if (completionHandler)
+        completionHandler(response, responseObject, error);
 }
 
 @end

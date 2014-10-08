@@ -8,12 +8,11 @@
 
 #import "AFHTTPSessionManager.h"
 
-#define CompleteURL(lpath) [NSString stringWithFormat:@"%@%@", API_SERVER_PATH, lpath]
-
 @interface RESTClient : AFHTTPSessionManager
 {
     NSString *refreshOAuthToken;
     NSDate *oauthTokenExpirationDate;
+    BOOL refreshingOAuthTokenInProgress;
 }
 
 @end

@@ -40,6 +40,7 @@
                            @"client_id" : OAUTH_CLIENT_ID,
                            @"client_secret" : OAUTH_CLIENT_SECRET,
                            @"refresh_token" : refreshOAuthToken};
+    
     [self.requestSerializer setValue:nil
                   forHTTPHeaderField:@"Authorization"];
     
@@ -57,7 +58,7 @@
     parameters:dict
        success:^(NSURLSessionDataTask * __unused task, id JSON) {
            // устанавливаем токен и тип токена в качестве параметра для аутентификации
-           NSString *type = [JSON valueForKeyPath:@"token_type"];
+           NSString *type = [[JSON valueForKeyPath:@"token_type"] capitalizedString];
            NSString *token = [JSON valueForKeyPath:@"access_token"];
            [self.requestSerializer setValue:[NSString stringWithFormat:@"%@ %@", type, token]
                          forHTTPHeaderField:@"Authorization"];
