@@ -27,9 +27,11 @@
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                             completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
+    DPLog(LOG_ON, @"");
     __weak typeof(self)weak_self = self;
     
     if ([self tokenNotExpired]) {
+        DPLog(LOG_ON, @"tokenNotExpired");
         return [super dataTaskWithRequest:request
                         completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
                             __strong typeof(self)strong_self = weak_self;
@@ -57,7 +59,8 @@
 
 - (BOOL)tokenNotExpired
 {
-    return (refreshingOAuthTokenInProgress || (oauthTokenExpirationDate == nil) || ([[NSDate date] isLaterThanDate:oauthTokenExpirationDate] == NO));
+    return (refreshingOAuthTokenInProgress || (oauthTokenExpirationDate == nil) ||
+            ([[NSDate date] isLaterThanDate:oauthTokenExpirationDate] == NO));
 }
 
 - (void)onRequestCompletion:(NSURLResponse *)response  responseObject:(id)responseObject error:(NSError *)error

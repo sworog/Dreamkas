@@ -21,6 +21,8 @@
              password:(NSString *)password
          onCompletion:(DictionaryResponseBlock)completionBlock
 {
+    DPLog(LOG_ON, @"");
+    
     NSDictionary *dict = @{@"grant_type" : @"password",
                            @"username" : login,
                            @"password" : password,
@@ -36,6 +38,8 @@
  */
 - (void)reAuth:(DictionaryResponseBlock)completionBlock
 {
+    DPLog(LOG_ON, @"");
+    
     NSDictionary *dict = @{@"grant_type" : @"refresh_token",
                            @"client_id" : OAUTH_CLIENT_ID,
                            @"client_secret" : OAUTH_CLIENT_SECRET,
@@ -65,6 +69,7 @@
            
            // запоминаем дату для обновления токена и refresh-токен
            oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:[JSON[@"expires_in"] doubleValue]];
+           //oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:5];
            refreshOAuthToken = JSON[@"refresh_token"];
            
            // передаем данные в блок обработки
