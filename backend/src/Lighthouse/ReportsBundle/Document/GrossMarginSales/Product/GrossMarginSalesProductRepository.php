@@ -56,21 +56,21 @@ class GrossMarginSalesProductRepository extends DocumentRepository
 
     /**
      * @param array $storeProductIds
-     * @param DateTime $startDate
-     * @param DateTime $endDate
+     * @param DateTime $dateFrom
+     * @param DateTime $dateTo
      * @return GrossMarginSalesProductReport[]|Cursor
      */
-    public function findByStoreProductsAndPeriod(array $storeProductIds, DateTime $startDate, DateTime $endDate)
+    public function findByStoreProductsAndPeriod(array $storeProductIds, DateTime $dateFrom, DateTime $dateTo)
     {
-        $startDate = new DateTimestamp($startDate);
-        $endDate = new DateTimestamp($endDate);
+        $dateFrom = new DateTimestamp($dateFrom);
+        $dateTo = new DateTimestamp($dateTo);
 
         return $this->findBy(
             array(
                 'storeProduct' => array('$in' => $storeProductIds),
                 'day' => array(
-                    '$gte' => $startDate->getMongoDate(),
-                    '$lte' => $endDate->getMongoDate(),
+                    '$gte' => $dateFrom->getMongoDate(),
+                    '$lte' => $dateTo->getMongoDate(),
                 ),
             )
         );

@@ -36,17 +36,17 @@ class GrossMarginSalesController extends FOSRestController
     public function getCatalogGroupReportsGrossMarginSalesByProductAction(SubCategory $group, Request $request)
     {
         $storeId = $request->get('store');
-        $startDate = new DateTime($request->get('startDate', '-1 week 00:00:00'));
-        $endDate = new DateTime($request->get('endDate', 'now'));
+        $dateFrom = new DateTime($request->get('dateFrom', '-1 week 00:00:00'));
+        $dateTo = new DateTime($request->get('dateTo', 'now'));
 
         if (null !== $storeId) {
             return $this
                 ->grossMarginSalesReportManager
-                ->getGrossSalesByProductForStoreReports($group, $storeId, $startDate, $endDate);
+                ->getGrossSalesByProductForStoreReports($group, $storeId, $dateFrom, $dateTo);
         } else {
             return $this
                 ->grossMarginSalesReportManager
-                ->getGrossSalesByProductForSubCategoryReports($group, $startDate, $endDate);
+                ->getGrossSalesByProductForSubCategoryReports($group, $dateFrom, $dateTo);
         }
 
     }
