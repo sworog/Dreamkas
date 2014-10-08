@@ -69,7 +69,6 @@
            
            // запоминаем дату для обновления токена и refresh-токен
            oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:[JSON[@"expires_in"] doubleValue]];
-           //oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:5];
            refreshOAuthToken = JSON[@"refresh_token"];
            
            // передаем данные в блок обработки

@@ -12,49 +12,19 @@
 
 @implementation RESTClient
 
-#pragma mark - Основные методы
-
-- (instancetype)initWithBaseURL:(NSURL *)url
-{
-    self = [super initWithBaseURL:url];
-    if (!self) {
-        return nil;
-    }
-    // nothing to do here..
-    return self;
-}
-
 - (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request
                             completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
 {
-    DPLog(LOG_ON, @"");
-    __weak typeof(self)weak_self = self;
-    
-    if ([self tokenNotExpired]) {
-        DPLog(LOG_ON, @"tokenNotExpired");
-        return [super dataTaskWithRequest:request
-                        completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-                            __strong typeof(self)strong_self = weak_self;
-                            [strong_self onRequestCompletion:responseObject responseObject:responseObject
-                                                       error:error handler:completionHandler];
-                        }];
-    }
-    
-    // если OAuth-токен устарел - обновляем его и выполняем текущий запрос
-    refreshingOAuthTokenInProgress = YES;
-    __block NSURLSessionDataTask *task = nil;
-    [self reAuth:^(NSDictionary *data, NSError *error) {
-        __strong typeof(self)strong_self = weak_self;
-        strong_self->refreshingOAuthTokenInProgress = NO;
-        
-        task = [super dataTaskWithRequest:request
-                        completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-                            [strong_self onRequestCompletion:responseObject responseObject:responseObject
-                                                       error:error handler:completionHandler];
-                        }];
-    }];
-    
-    return task;
+    return [super dataTaskWithRequest:request
+                    completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+                        DPLog(LOG_ON, @"=== REQUEST %@ ===", (error)?@"FAILURE":@"SUCCESS");
+                        DPLog(LOG_ON, @"error : %@", error);
+                        DPLog(LOG_ON, @"response : %@", responseObject);
+                        
+                        // передаем данные в блок обработки
+                        if (completionHandler)
+                            completionHandler(response, responseObject, error);
+                    }];
 }
 
 - (BOOL)tokenNotExpired
@@ -63,16 +33,112 @@
             ([[NSDate date] isLaterThanDate:oauthTokenExpirationDate] == NO));
 }
 
-- (void)onRequestCompletion:(NSURLResponse *)response  responseObject:(id)responseObject error:(NSError *)error
-                    handler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler
+- (NSURLSessionDataTask *)GET:(NSString *)URLString
+                   parameters:(id)parameters
+                      success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                      failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
-    DPLog(LOG_ON, @"=== REQUEST %@ ===", (error)?@"FAILURE":@"SUCCESS");
-    DPLog(LOG_ON, @"error : %@", error);
-    DPLog(LOG_ON, @"response : %@", responseObject);
+    if ([self tokenNotExpired])
+        return [super GET:URLString parameters:parameters success:success failure:failure];
     
-    // передаем данные в блок обработки
-    if (completionHandler)
-        completionHandler(response, responseObject, error);
+    __weak typeof(self)weak_self = self;
+    refreshingOAuthTokenInProgress = YES;
+    [self reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        strong_self->refreshingOAuthTokenInProgress = NO;
+        [super GET:URLString parameters:parameters success:success failure:failure];
+    }];
+    return nil;
+}
+
+- (NSURLSessionDataTask *)HEAD:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask *task))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    if ([self tokenNotExpired])
+        return [super HEAD:URLString parameters:parameters success:success failure:failure];
+    
+    __weak typeof(self)weak_self = self;
+    refreshingOAuthTokenInProgress = YES;
+    [self reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        strong_self->refreshingOAuthTokenInProgress = NO;
+        [super HEAD:URLString parameters:parameters success:success failure:failure];
+    }];
+    return nil;
+}
+
+- (NSURLSessionDataTask *)POST:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    if ([self tokenNotExpired])
+        return [super POST:URLString parameters:parameters success:success failure:failure];
+    
+    __weak typeof(self)weak_self = self;
+    refreshingOAuthTokenInProgress = YES;
+    [self reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        strong_self->refreshingOAuthTokenInProgress = NO;
+        [super POST:URLString parameters:parameters success:success failure:failure];
+    }];
+    return nil;
+}
+
+- (NSURLSessionDataTask *)PUT:(NSString *)URLString
+                   parameters:(id)parameters
+                      success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                      failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    if ([self tokenNotExpired])
+        return [super PUT:URLString parameters:parameters success:success failure:failure];
+    
+    __weak typeof(self)weak_self = self;
+    refreshingOAuthTokenInProgress = YES;
+    [self reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        strong_self->refreshingOAuthTokenInProgress = NO;
+        [super PUT:URLString parameters:parameters success:success failure:failure];
+    }];
+    return nil;
+}
+
+- (NSURLSessionDataTask *)PATCH:(NSString *)URLString
+                     parameters:(id)parameters
+                        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    if ([self tokenNotExpired])
+        return [super PATCH:URLString parameters:parameters success:success failure:failure];
+    
+    __weak typeof(self)weak_self = self;
+    refreshingOAuthTokenInProgress = YES;
+    [self reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        strong_self->refreshingOAuthTokenInProgress = NO;
+        [super PATCH:URLString parameters:parameters success:success failure:failure];
+    }];
+    return nil;
+}
+
+- (NSURLSessionDataTask *)DELETE:(NSString *)URLString
+                      parameters:(id)parameters
+                         success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+                         failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+{
+    if ([self tokenNotExpired])
+        return [super DELETE:URLString parameters:parameters success:success failure:failure];
+    
+    __weak typeof(self)weak_self = self;
+    refreshingOAuthTokenInProgress = YES;
+    [self reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        strong_self->refreshingOAuthTokenInProgress = NO;
+        [super DELETE:URLString parameters:parameters success:success failure:failure];
+    }];
+    return nil;
 }
 
 @end
