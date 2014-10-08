@@ -17,11 +17,11 @@ public class MenuNavigationBar extends CommonPageObject {
     @Override
     public void createElements() {
         put("userName", new NonType(this, By.xpath("//*[@class='sideBar__userName']")));
-        put("reportMenuItem", new NavigationBarLinkFacade(this, "Отчеты"));
+        put("reportMenuItem", new NonType(this, By.xpath("//*[@class='sideBar__item ' and i[contains(@class, 'chart')]]")));
         put("supplierMenuItem", new NavigationBarLinkFacade(this, "Поставщики"));
         put("catalogMenuItem", new NavigationBarLinkFacade(this, "Ассортимент"));
         put("storeMenuItem", new NavigationBarLinkFacade(this, "Магазины"));
-        put("stockMovementMenuItem", new NavigationBarLinkFacade(this, "Товародвижение"));
+        put("stockMovementMenuItem", new NonType(this, By.xpath("//*[@class='sideBar__item ' and i[contains(@class, 'exchange')]]")));
         put("launchPosButton", new PrimaryBtnFacade(this, "Запустить кассу"));
         put("logOutButton", new NavigationLinkFacade(this, "Выйти"));
     }
