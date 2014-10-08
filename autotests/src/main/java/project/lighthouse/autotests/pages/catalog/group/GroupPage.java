@@ -29,35 +29,5 @@ public class GroupPage extends BootstrapPageObject {
         put("sortBySellingPrice", new NonType(this, By.xpath("//*[@data-sort-by='name']")));
         put("sortByBarcode", new NonType(this, By.xpath("//*[@data-sort-by='name']")));
         putDefaultCollection(new ProductCollection(getDriver(), By.xpath("//tr[@data-modal='modal_product']")));
-        put("sortByName", new NonType(this, By.xpath("//*[@data-products-sort-by='name'])")));
-        put("sortBySellingPrice", new NonType(this, By.xpath("//*[@data-products-sort-by='name'])")));
-        put("sortByBarcode", new NonType(this, By.xpath("//*[@data-products-sort-by='name'])")));
-        put("defaultCollection", new ProductCollection(getDriver(), By.xpath("//tr[@data-modal='modal_product']")));
-    }
-
-    public void editGroupIconClick() {
-        // TODO Wrap to bootstrap element
-        findVisibleElement(By.xpath("//*[@class='fa fa-edit']")).click();
-    }
-
-    public void longArrowBackLinkClick() {
-        // TODO Wrap to bootstrap element
-        findVisibleElement(By.xpath("//*[@class='fa fa-long-arrow-left']")).click();
-    }
-
-    public ProductCollection getProductCollection() {
-        return new ProductCollection(getDriver(), By.xpath("//tr[@data-modal='modal_product']"));
-    }
-
-    public void sortByNameClick() {
-        findVisibleElement(By.xpath("//*[@data-sort-by='name']")).click();
-    }
-
-    public void sortBySellingPriceClick() {
-        findVisibleElement(By.xpath("//*[@data-sort-by='name']")).click();
-    }
-
-    public void sortByBarcodeClick() {
-        findVisibleElement(By.xpath("//*[@data-sort-by='name']")).click();
     }
 }
