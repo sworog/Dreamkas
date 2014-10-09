@@ -8,6 +8,12 @@
 
 #import "AFHTTPSessionManager.h"
 
+#if API_USE_TEST_SERVER
+    #define CompleteURL(lpath)  [NSString stringWithFormat:@"%@%@", API_TEST_SERVER_PATH, lpath]
+#else
+    #define CompleteURL(lpath)  [NSString stringWithFormat:@"%@%@", API_SERVER_PATH, lpath]
+#endif
+
 @interface RESTClient : AFHTTPSessionManager
 {
     NSString *refreshOAuthToken;

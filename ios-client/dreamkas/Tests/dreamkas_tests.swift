@@ -33,9 +33,9 @@ class dreamkas_tests: XCTestCase {
         }
     }
     
-    func testViewController() {
-        var vc = ViewController()
-        XCTAssertNotNil(vc, "Pass")
-    }
+//    func testViewController() {
+//        var vc = ViewController()
+//        XCTAssertNotNil(vc, "Pass")
+//    }
     
 }

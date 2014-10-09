@@ -18,7 +18,6 @@
 		CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */; };
 		CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */; };
 		CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */; };
-		CE1B3DAD19DD40CA00A253D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9819DD40CA00A253D1 /* ViewController.m */; };
 		CE1B3DAE19DD40CA00A253D1 /* cert.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9B19DD40CA00A253D1 /* cert.txt */; };
 		CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DA319DD40CA00A253D1 /* Info.plist */; };
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
@@ -34,11 +33,28 @@
 		CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */; };
 		CE3B95FF19E432BD00E1D24F /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */; };
 		CE3B960019E432BD00E1D24F /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */; };
+		CEC003F719E6944E00AE256F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003F619E6944E00AE256F /* RootViewController.m */; };
+		CEC003F819E6944E00AE256F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003F619E6944E00AE256F /* RootViewController.m */; };
+		CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */; };
+		CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */; };
+		CEC0040119E695E900AE256F /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040019E695E900AE256F /* CustomButton.m */; };
+		CEC0040219E695E900AE256F /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040019E695E900AE256F /* CustomButton.m */; };
+		CEC0040519E6960400AE256F /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040419E6960400AE256F /* CustomTextField.m */; };
+		CEC0040619E6960400AE256F /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040419E6960400AE256F /* CustomTextField.m */; };
+		CEC0040919E6974200AE256F /* CustomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040819E6974200AE256F /* CustomSheetView.m */; };
+		CEC0040A19E6974200AE256F /* CustomSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040819E6974200AE256F /* CustomSheetView.m */; };
+		CEC0040D19E69A6B00AE256F /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040C19E69A6B00AE256F /* CustomNavigationController.m */; };
+		CEC0040E19E69A6B00AE256F /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040C19E69A6B00AE256F /* CustomNavigationController.m */; };
+		CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041019E69B1700AE256F /* IntroViewController.m */; };
+		CEC0041219E69B1700AE256F /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041019E69B1700AE256F /* IntroViewController.m */; };
+		CEC0041519E69B2500AE256F /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041419E69B2500AE256F /* AuthViewController.m */; };
+		CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041419E69B2500AE256F /* AuthViewController.m */; };
+		CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
+		CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
 		CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECCA4D519E2929500B165F3 /* libKIF.a */; };
 		CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCA4E419E2BD2F00B165F3 /* kif_tests.m */; };
 		CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD93E719DEA77700232734 /* dreamkas_tests.swift */; };
 		CECD93EA19DEA77700232734 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECD93E819DEA77700232734 /* Info.plist */; };
-		CECD93F119DEAE7100232734 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9819DD40CA00A253D1 /* ViewController.m */; };
 		CECD93F319DEBE6C00232734 /* new_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD93F219DEBE6C00232734 /* new_tests.m */; };
 		CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */; };
 		CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47B19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m */; };
@@ -104,8 +120,6 @@
 		CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pages.storyboard; sourceTree = "<group>"; };
-		CE1B3D9719DD40CA00A253D1 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CE1B3D9819DD40CA00A253D1 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CE1B3D9B19DD40CA00A253D1 /* cert.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cert.txt; sourceTree = "<group>"; };
 		CE1B3DA319DD40CA00A253D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1B3DA419DD40CA00A253D1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -126,6 +140,25 @@
 		CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Groups.m"; sourceTree = "<group>"; };
 		CE3B95FD19E432BC00E1D24F /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
+		CEC003F519E6944E00AE256F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		CEC003F619E6944E00AE256F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		CEC003F919E694BE00AE256F /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
+		CEC003FE19E694F900AE256F /* CustomDataCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDataCellDelegate.h; sourceTree = "<group>"; };
+		CEC003FF19E695E900AE256F /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
+		CEC0040019E695E900AE256F /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
+		CEC0040319E6960400AE256F /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
+		CEC0040419E6960400AE256F /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
+		CEC0040719E6974200AE256F /* CustomSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSheetView.h; sourceTree = "<group>"; };
+		CEC0040819E6974200AE256F /* CustomSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSheetView.m; sourceTree = "<group>"; };
+		CEC0040B19E69A6B00AE256F /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
+		CEC0040C19E69A6B00AE256F /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
+		CEC0040F19E69B1700AE256F /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		CEC0041019E69B1700AE256F /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		CEC0041319E69B2500AE256F /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
+		CEC0041419E69B2500AE256F /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
+		CEC0041719E69B3400AE256F /* TicketWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketWindowViewController.h; sourceTree = "<group>"; };
+		CEC0041819E69B3400AE256F /* TicketWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketWindowViewController.m; sourceTree = "<group>"; };
 		CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
 		CECCA4E419E2BD2F00B165F3 /* kif_tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kif_tests.m; sourceTree = "<group>"; };
 		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,6 +314,8 @@
 			children = (
 				CE1B3D9119DD40CA00A253D1 /* AppDelegate.h */,
 				CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */,
+				CEC003FD19E694E800AE256F /* Protocols */,
+				CEC003EE19E6942E00AE256F /* Customs */,
 				CE3B95EA19E40D7800E1D24F /* Helpers */,
 				CE162A1A19E3CF3D009BCC3C /* Core Data */,
 				CE162A1F19E3CF3D009BCC3C /* Network */,
@@ -295,18 +330,11 @@
 			children = (
 				CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */,
 				CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */,
-				CE1B3D9619DD40CA00A253D1 /* TestScreen */,
+				CEC003EB19E6909B00AE256F /* Auth Screen */,
+				CEC003EC19E6909B00AE256F /* Intro Screen */,
+				CEC003ED19E6909B00AE256F /* TicketWindow Screen */,
 			);
 			path = Pages;
-			sourceTree = "<group>";
-		};
-		CE1B3D9619DD40CA00A253D1 /* TestScreen */ = {
-			isa = PBXGroup;
-			children = (
-				CE1B3D9719DD40CA00A253D1 /* ViewController.h */,
-				CE1B3D9819DD40CA00A253D1 /* ViewController.m */,
-			);
-			path = TestScreen;
 			sourceTree = "<group>";
 		};
 		CE1B3D9919DD40CA00A253D1 /* Supporting Files */ = {
@@ -398,6 +426,108 @@
 				CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		CEC003EB19E6909B00AE256F /* Auth Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CEC0041319E69B2500AE256F /* AuthViewController.h */,
+				CEC0041419E69B2500AE256F /* AuthViewController.m */,
+			);
+			path = "Auth Screen";
+			sourceTree = "<group>";
+		};
+		CEC003EC19E6909B00AE256F /* Intro Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CEC0040F19E69B1700AE256F /* IntroViewController.h */,
+				CEC0041019E69B1700AE256F /* IntroViewController.m */,
+			);
+			path = "Intro Screen";
+			sourceTree = "<group>";
+		};
+		CEC003ED19E6909B00AE256F /* TicketWindow Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CEC0041719E69B3400AE256F /* TicketWindowViewController.h */,
+				CEC0041819E69B3400AE256F /* TicketWindowViewController.m */,
+			);
+			path = "TicketWindow Screen";
+			sourceTree = "<group>";
+		};
+		CEC003EE19E6942E00AE256F /* Customs */ = {
+			isa = PBXGroup;
+			children = (
+				CEC003EF19E6942E00AE256F /* Controllers */,
+				CEC003F019E6942E00AE256F /* Interface Elements */,
+			);
+			path = Customs;
+			sourceTree = "<group>";
+		};
+		CEC003EF19E6942E00AE256F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CEC003F519E6944E00AE256F /* RootViewController.h */,
+				CEC003F619E6944E00AE256F /* RootViewController.m */,
+				CEC0040B19E69A6B00AE256F /* CustomNavigationController.h */,
+				CEC0040C19E69A6B00AE256F /* CustomNavigationController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CEC003F019E6942E00AE256F /* Interface Elements */ = {
+			isa = PBXGroup;
+			children = (
+				CEC003F119E6942E00AE256F /* Buttons */,
+				CEC003F219E6942E00AE256F /* Cells */,
+				CEC003F319E6942E00AE256F /* Inputs */,
+				CEC003F419E6942E00AE256F /* Views */,
+			);
+			path = "Interface Elements";
+			sourceTree = "<group>";
+		};
+		CEC003F119E6942E00AE256F /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				CEC003FF19E695E900AE256F /* CustomButton.h */,
+				CEC0040019E695E900AE256F /* CustomButton.m */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		CEC003F219E6942E00AE256F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				CEC003F919E694BE00AE256F /* CustomTableViewCell.h */,
+				CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		CEC003F319E6942E00AE256F /* Inputs */ = {
+			isa = PBXGroup;
+			children = (
+				CEC0040319E6960400AE256F /* CustomTextField.h */,
+				CEC0040419E6960400AE256F /* CustomTextField.m */,
+			);
+			path = Inputs;
+			sourceTree = "<group>";
+		};
+		CEC003F419E6942E00AE256F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEC0040719E6974200AE256F /* CustomSheetView.h */,
+				CEC0040819E6974200AE256F /* CustomSheetView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEC003FD19E694E800AE256F /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				CEC003FE19E694F900AE256F /* CustomDataCellDelegate.h */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		CECCA4CA19E2927400B165F3 /* Submodules */ = {
@@ -620,32 +750,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */,
+				CEC0041519E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
-				CE1B3DAD19DD40CA00A253D1 /* ViewController.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
 				CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */,
+				CEC0040119E695E900AE256F /* CustomButton.m in Sources */,
 				CECFC4AB19DD74C800ED88D3 /* UIProgressView+AFNetworking.m in Sources */,
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
+				CEC0040519E6960400AE256F /* CustomTextField.m in Sources */,
 				CECFC4A419DD74C800ED88D3 /* AFURLResponseSerialization.m in Sources */,
+				CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CECFC4A219DD74C800ED88D3 /* AFURLConnectionOperation.m in Sources */,
 				CECFC4A919DD74C800ED88D3 /* UIButton+AFNetworking.m in Sources */,
 				CECFC4A719DD74C800ED88D3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
+				CEC0040D19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */,
 				CE3B95FA19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
 				CECFC4A819DD74C800ED88D3 /* UIAlertView+AFNetworking.m in Sources */,
+				CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
 				CECFC4A619DD74C800ED88D3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
+				CEC003F719E6944E00AE256F /* RootViewController.m in Sources */,
 				CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */,
+				CEC0040919E6974200AE256F /* CustomSheetView.m in Sources */,
 				CECFC4A519DD74C800ED88D3 /* AFURLSessionManager.m in Sources */,
 				CE1B3DB219DD40CA00A253D1 /* main.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
+				CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE3B95FF19E432BD00E1D24F /* NSDate+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -656,15 +794,23 @@
 			files = (
 				CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */,
 				CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
+				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
+				CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */,
+				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
+				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
+				CEC0041219E69B1700AE256F /* IntroViewController.m in Sources */,
+				CEC0040E19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
 				CE3B960019E432BD00E1D24F /* NSDate+Utilities.m in Sources */,
-				CECD93F119DEAE7100232734 /* ViewController.m in Sources */,
 				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
 				CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
+				CEC003F819E6944E00AE256F /* RootViewController.m in Sources */,
 				CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */,
+				CEC0040219E695E900AE256F /* CustomButton.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
+				CEC0040A19E6974200AE256F /* CustomSheetView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +899,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -789,7 +935,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -809,7 +955,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -825,7 +971,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

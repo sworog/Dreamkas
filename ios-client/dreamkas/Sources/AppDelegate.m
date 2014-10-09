@@ -18,7 +18,11 @@
 {
     if ((self = [super init])) {
         // инициализация модуля для работы с веб-сервисом
-        self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_SERVER_URL]];
+        #if API_USE_TEST_SERVER
+            self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_TEST_SERVER_URL]];
+        #else
+            self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_SERVER_URL]];
+        #endif
     }
     
     return self;
@@ -26,6 +30,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[UIApplication sharedApplication]setStatusBarHidden:YES];
+    
     return YES;
 }
 
