@@ -2,7 +2,6 @@ define(function(require) {
     //requirements
     var Collection = require('kit/collection/collection'),
         InvoiceModel = require('resources/invoice/model'),
-        uri = require('uri'),
         WriteOffModel = require('resources/writeOff/model'),
         StockInModel = require('resources/stockIn/model'),
         SupplierReturnModel = require('resources/supplierReturn/model');

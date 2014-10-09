@@ -15,6 +15,7 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
+			breadcrumbs: require('./group__breadcrumbs'),
             table_groupStockSell: require('blocks/table/groupStockSell/groupStockSell')
         }
     });

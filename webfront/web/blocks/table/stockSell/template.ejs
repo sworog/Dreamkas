@@ -19,7 +19,7 @@
     <tbody name="stockSell">
 
     <% sortedCollection.forEach(function(stockSellModel){ %>
-    <tr href="/reports/stockSell/groups/<%- stockSellModel.get('id') %>">
+    <tr href="<%- groupUrl(stockSellModel) %>">
         <td class="table_stockSell__groupName">
             <%- stockSellModel.get('name') %>
         </td>

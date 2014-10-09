@@ -21,17 +21,17 @@ define(function(require, exports, module) {
 		},
 		events: {
 			'change select[name="store"]': function(e) {
-				var storeId = e.target.value || undefined;
+				var store = e.target.value || undefined;
 
 				this.setParams({
-					storeId: storeId
+					store: store
 				});
 
 				e.target.classList.add('loading');
 
 				this.collections.stockSell.fetch({
 					filters: {
-						store: storeId
+						store: store
 					}
 				}).then(function() {
 					e.target.classList.remove('loading');
@@ -73,7 +73,8 @@ define(function(require, exports, module) {
 					groupId: this.params.groupId,
 					filters: {
 						dateFrom: page.params.dateFrom,
-						dateTo: page.formatDate(moment(page.params.dateTo, 'DD.MM.YYYY').add(1, 'days'))
+						dateTo: page.formatDate(moment(page.params.dateTo, 'DD.MM.YYYY').add(1, 'days')),
+						store: page.params.store
 					}
 				});
 			}
