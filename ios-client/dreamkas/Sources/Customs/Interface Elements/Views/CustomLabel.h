@@ -1,5 +1,5 @@
 //
-//  CustomSheetView.h
+//  CustomLabel.h
 //  dreamkas
 //
 //  Created by sig on 09.10.14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomSheetView : UIView
+@interface CustomLabel : UILabel
 
 @end
