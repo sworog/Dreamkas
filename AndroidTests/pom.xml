@@ -16,6 +16,9 @@
         <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <appium.server.url>http://appium.lighthouse.pro/wd/hub</appium.server.url>
         <appium.path.to.file>C:\android\app-debug.apk</appium.path.to.file>
+        <webdriver.driver>provided</webdriver.driver>
+        <webdriver.provided.type>appium</webdriver.provided.type>
+        <webdriver.provided.appium>dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
     </properties>
 
     <dependencies>
@@ -90,6 +93,9 @@
                     <systemPropertyVariables>
                         <appium.server.url>${appium.server.url}</appium.server.url>
                         <appium.path.to.file>${appium.path.to.file}</appium.path.to.file>
+                        <webdriver.driver>${webdriver.driver}</webdriver.driver>
+                        <webdriver.provided.type>${webdriver.provided.type}</webdriver.provided.type>
+                        <webdriver.provided.appium>${webdriver.provided.appium}</webdriver.provided.appium>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
