@@ -5,4 +5,4 @@
  *  ============================================================================
  */
 
-CFBundleDisplayName = "Dreamkas"; // не забываем включить "Application has localized display name"
+CFBundleDisplayName = "Дримкас"; // не забываем включить "Application has localized display name"

@@ -7,31 +7,39 @@
 //
 
 #import "IntroViewController.h"
+#import "CustomLabel.h"
 
-@interface IntroViewController ()
+static const CGFloat TimeoutBeforeStart = 2.0f;
+
+@interface IntroViewController()
+
+@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
 
 @end
 
 @implementation IntroViewController
 
-- (void)viewDidLoad {
+#pragma mark - View Lifecicle
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.titleLabel setText:NSLocalizedString(@"intro_screen_title", nil)];
+    
+    // запускаем логику по таймауту
+    [NSTimer scheduledTimerWithTimeInterval:TimeoutBeforeStart target:self
+                                   selector:@selector(startLogic) userInfo:nil repeats:NO];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Основная логика работы
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+/**
+ *  Переход к основному экрану приложения
+ */
+- (void)startLogic
+{
+    [self performSegueWithIdentifier:IntroToAuthScreenSegueName sender:self];
 }
-*/
 
 @end

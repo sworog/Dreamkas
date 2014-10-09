@@ -17,6 +17,7 @@
 //
 
 #import <MapKit/MapKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 //
 // Сторонние библиотеки
@@ -25,6 +26,7 @@
 #import "AFNetworking.h"
 #import "DPLog.h"
 #import "NSDate+Utilities.h"
+#import "UIView+Positioning.h"
 
 //
 // Базовые
@@ -35,6 +37,7 @@
 #import "StyleDefines.h"
 #import "BlockDefines.h"
 #import "NotificationDefines.h"
+#import "StoryboardSegues.h"
 
 #import "CustomNavigationController.h"
 #import "RootViewController.h"

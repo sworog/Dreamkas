@@ -1,5 +1,5 @@
 //
-//  CustomButton.h
+//  CustomFilledButton.h
 //  dreamkas
 //
 //  Created by sig on 09.10.14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomButton : UIButton
+@interface CustomFilledButton : UIButton
 
 @end

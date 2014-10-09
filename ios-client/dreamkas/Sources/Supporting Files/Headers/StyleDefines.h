@@ -25,12 +25,18 @@
 // Цвета приложения
 //
 
-#define CyanColor                           RGB(64, 169, 244)
+#define DefaultCyanColor                    RGB(64, 169, 244)
+#define DefaultLightCyanColor               RGB(89, 189, 246)
+#define DefaultWhiteColor                   [UIColor whiteColor]
 
 //
 // Размеры приложения
 //
 
-#define CoverSize                           CGSizeMake(224.f, 284.f)
+#define DefaultButtonHeight                 52.0f
+#define DefaultCornerRadius                 3.f
+
+#define DefaultBtnShadowRadius              2.f
+#define DefaultBtnShadowOpacity             0.6f
 
 #endif
