@@ -19,6 +19,7 @@
         <webdriver.driver>provided</webdriver.driver>
         <webdriver.provided.type>appium</webdriver.provided.type>
         <webdriver.provided.appium>dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
+        <story.timeout.in.secs>1000000</story.timeout.in.secs>
     </properties>
 
     <dependencies>
@@ -96,6 +97,7 @@
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
                         <webdriver.provided.type>${webdriver.provided.type}</webdriver.provided.type>
                         <webdriver.provided.appium>${webdriver.provided.appium}</webdriver.provided.appium>
+                        <story.timeout.in.secs>${story.timeout.in.secs}</story.timeout.in.secs>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
