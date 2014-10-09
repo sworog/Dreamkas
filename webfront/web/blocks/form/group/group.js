@@ -17,6 +17,9 @@ define(function(require, exports, module) {
                 });
             }
         },
+        blocks: {
+            popover: require('blocks/popover/popover')
+        },
         model: function(){
             var GroupModel = require('resources/group/model');
 

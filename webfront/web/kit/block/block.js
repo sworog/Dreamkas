@@ -9,9 +9,6 @@ define(function(require, exports, module) {
         globalEvents = require('kit/globalEvents/globalEvents'),
         _ = require('lodash');
 
-    require('sortable');
-    require('madmin/vendors/bootstrap/js/bootstrap');
-
     var View = Backbone.View;
 
     // Cached regex to split keys for `delegate`.
@@ -20,15 +17,15 @@ define(function(require, exports, module) {
     return makeClass(View, {
 
         constructor: function(params) {
-            var block = this;
 
-            deepExtend(block, params);
+            deepExtend(this, params);
 
             this.delegateGlobalEvents();
 
-            View.apply(block, arguments);
+            View.apply(this, arguments);
 
             this.render();
+
         },
 
         bindings: null,
@@ -52,6 +49,7 @@ define(function(require, exports, module) {
 
             block.__collection = block.__collection || block.collection;
             block.__model = block.__model || block.model;
+
         },
 
         render: function(data) {
@@ -60,6 +58,7 @@ define(function(require, exports, module) {
             //always get actual data before rendering
 
             return $.when(block.initData(data)).then(function(){
+
                 if (typeof block.template !== 'function') {
                     return;
                 }
@@ -76,9 +75,6 @@ define(function(require, exports, module) {
 
                 block.el.block = block;
 
-                block.$('button[data-toggle="popover"]').popover({
-                    trigger: 'focus'
-                });
             });
 
         },
