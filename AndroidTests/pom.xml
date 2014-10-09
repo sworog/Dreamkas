@@ -20,6 +20,7 @@
         <webdriver.provided.type>appium</webdriver.provided.type>
         <webdriver.provided.appium>dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
         <story.timeout.in.secs>1000000</story.timeout.in.secs>
+        <thucydides.only.save.failing.screenshots>true</thucydides.only.save.failing.screenshots>
     </properties>
 
     <dependencies>
@@ -98,6 +99,7 @@
                         <webdriver.provided.type>${webdriver.provided.type}</webdriver.provided.type>
                         <webdriver.provided.appium>${webdriver.provided.appium}</webdriver.provided.appium>
                         <story.timeout.in.secs>${story.timeout.in.secs}</story.timeout.in.secs>
+                        <thucydides.only.save.failing.screenshots>${thucydides.only.save.failing.screenshots}</thucydides.only.save.failing.screenshots>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
