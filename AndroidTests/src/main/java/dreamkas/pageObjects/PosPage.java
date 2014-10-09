@@ -35,13 +35,7 @@ public class PosPage extends CommonPageObject {
 
     public void chooseSpinnerItemWithValue(String value) {
         spStores.click();
-        for (WebElement webElement : spinnerElements) {
-            if (webElement.getText().equals(value)) {
-                webElement.click();
-                break;
-            }
-        }
-        // TODO throw exception if not clicked
+        clickOnElementWithText(spinnerElements, value);
     }
 
     public void clickOnSaveStoreSettings() {
@@ -54,14 +48,6 @@ public class PosPage extends CommonPageObject {
 
     public void openDrawerAndClickOnDrawerOption(String menuOption) {
         drawerIcon.click();
-//        String menuOptionXpath = String.format("//android.widget.TextView[text()='%s']", menuOption);
-//        getAppiumDriver().findElement(By.xpath(menuOptionXpath)).click();
-        for (WebElement webElement : getAppiumDriver().findElements(By.xpath("//android.widget.TextView"))) {
-            if (webElement.getText().equals(menuOption)) {
-                webElement.click();
-                break;
-            }
-        }
-        // TODO throw exception if not clicked
+        clickOnElementWithText(getAppiumDriver().findElements(By.xpath("//android.widget.TextView")), menuOption);
     }
 }
