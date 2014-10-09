@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 
 				e.target.classList.add('loading');
 
-				this.collections.stockCell.fetch({
+				this.collections.stockSell.fetch({
 					filters: {
 						store: storeId
 					}
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
 				dateFromInput.classList.add('loading');
 				dateToInput.classList.add('loading');
 
-				this.collections.groupStockSell.fetch({
+				this.collections.stockSell.fetch({
 					filters: {
 						dateFrom: dateFrom,
 						dateTo: dateTo

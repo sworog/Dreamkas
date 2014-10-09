@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Page_stockSell.extend({
         content: require('ejs!./content.ejs'),
         collections: {
-			stockCell: function() {
+			stockSell: function() {
                 var GroupStockSellCollection = require('resources/groupStockSell/collection');
 
                 return new GroupStockSellCollection([], {
