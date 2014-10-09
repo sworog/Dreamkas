@@ -3,9 +3,11 @@
 namespace Lighthouse\CoreBundle\Document\Store;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\LockMode;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 /**
+ * @method Store find($id, $lockMode = LockMode::NONE, $lockVersion = null)
  * @method Store[]|Cursor findAll
  * @method Store findOneBy(array $criteria, array $sort = array(), array $hints = array())
  */

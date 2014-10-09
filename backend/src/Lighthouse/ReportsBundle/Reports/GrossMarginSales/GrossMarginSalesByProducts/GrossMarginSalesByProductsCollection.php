@@ -4,7 +4,6 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByPr
 
 use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 
 class GrossMarginSalesByProductsCollection extends DocumentCollection
 {

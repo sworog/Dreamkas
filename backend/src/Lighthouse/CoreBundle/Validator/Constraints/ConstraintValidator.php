@@ -5,8 +5,8 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 use Lighthouse\CoreBundle\Types\Nullable;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as BaseConstraintValidator;
-use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
+
+
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 abstract class ConstraintValidator extends BaseConstraintValidator

@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller;
+namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;

@@ -1197,13 +1197,15 @@ class StoreProductControllerTest extends WebTestCase
     public function testGetStoreProductsWithSubCategoryFilter()
     {
         $store = $this->factory()->store()->getStore();
-        $subCategory1 = $this->factory()->catalog()->getSubCategory("1");
-        $subCategory2 = $this->factory()->catalog()->getSubCategory("2");
-        $product1 = $this->createProduct('11', $subCategory1->id);
-        $product2 = $this->createProduct('12', $subCategory1->id);
-        $product3 = $this->createProduct('21', $subCategory2->id);
-        $product4 = $this->createProduct('22', $subCategory2->id);
-        $product5 = $this->createProduct('23', $subCategory2->id);
+
+        $subCategory1 = $this->factory()->catalog()->getSubCategory('1');
+        $subCategory2 = $this->factory()->catalog()->getSubCategory('2');
+
+        $this->createProduct('11', $subCategory1->id);
+        $this->createProduct('12', $subCategory1->id);
+        $this->createProduct('21', $subCategory2->id);
+        $this->createProduct('22', $subCategory2->id);
+        $this->createProduct('23', $subCategory2->id);
 
         $accessToken = $this->factory()->oauth()->authAsStoreManager();
         $getResponse = $this->clientJsonRequest(

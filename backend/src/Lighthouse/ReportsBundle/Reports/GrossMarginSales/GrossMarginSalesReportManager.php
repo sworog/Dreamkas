@@ -4,20 +4,12 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Lighthouse\CoreBundle\Types\Numeric\Quantity;
-use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductReport;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
-use Doctrine\ODM\MongoDB\Cursor;
 use DateTime;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProduct;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProductsCollection;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service("lighthouse.reports.gross_margin_sales.manager")
@@ -71,32 +63,30 @@ class GrossMarginSalesReportManager
     }
 
     /**
-     * @param OutputInterface $output
-     * @param int $batch
      * @return int
      */
-    public function recalculateGrossMarginSalesProductReport(OutputInterface $output = null, $batch = 5000)
+    public function recalculateGrossMarginSalesProductReport()
     {
-        return $this->grossMarginSalesProductRepository->recalculate($output, $batch);
+        return $this->grossMarginSalesProductRepository->recalculate();
     }
 
     /**
      * @param SubCategory $subCategory
      * @param $storeId
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
+     * @param DateTime $startDate
+     * @param DateTime $endDate
      * @return GrossMarginSalesByProductsCollection
      */
     public function getGrossSalesByProductForStoreReports(
         SubCategory $subCategory,
         $storeId,
-        DateTime $dateFrom,
-        DateTime $dateTo
+        DateTime $startDate,
+        DateTime $endDate
     ) {
         $products = $this->productRepository->findBySubCategory($subCategory);
         $storeProducts = $this->storeProductRepository->findOrCreateByStoreIdSubCategory($storeId, $subCategory);
 
-        $reports = $this->getReportsByStoreProducts($storeProducts->getIds(), $dateFrom, $dateTo);
+        $reports = $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
 
         return $this->fillReportsByProducts($reports, $products);
     }
@@ -122,15 +112,15 @@ class GrossMarginSalesReportManager
 
     /**
      * @param array|string[] $storeProductIds
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
+     * @param DateTime $startDate
+     * @param DateTime $endDate
      * @return GrossMarginSalesByProductsCollection
      */
-    protected function getReportsByStoreProducts($storeProductIds, DateTime $dateFrom, DateTime $dateTo)
+    protected function getReportsByStoreProducts($storeProductIds, DateTime $startDate, DateTime $endDate)
     {
         $reports = $this
             ->grossMarginSalesProductRepository
-            ->findByStoreProductsAndPeriod($storeProductIds, $dateFrom, $dateTo);
+            ->findByStoreProductsAndPeriod($storeProductIds, $startDate, $endDate);
 
         $collection = new GrossMarginSalesByProductsCollection();
 
