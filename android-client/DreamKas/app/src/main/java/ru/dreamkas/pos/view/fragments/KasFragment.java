@@ -1,9 +1,11 @@
 package ru.dreamkas.pos.view.fragments;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.HeaderViewListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import org.androidannotations.annotations.Bean;
@@ -11,13 +13,19 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
+
+import java.util.ArrayList;
+
 import ru.dreamkas.pos.R;
+import ru.dreamkas.pos.adapters.ProductsAdapter;
+import ru.dreamkas.pos.adapters.ReceiptAdapter;
 import ru.dreamkas.pos.controller.Command;
 import ru.dreamkas.pos.controller.PreferencesManager;
 import ru.dreamkas.pos.controller.requests.AuthorisedRequestWrapper;
 import ru.dreamkas.pos.controller.requests.GetStoreRequest;
 import ru.dreamkas.pos.controller.requests.SearchProductsRequest;
 import ru.dreamkas.pos.model.api.NamedObject;
+import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.model.api.collections.Products;
 import ru.dreamkas.pos.view.components.ProductSearchComponent;
 
@@ -34,18 +42,38 @@ public class KasFragment extends AuthRequestsContainingFragment{
     @ViewById
     ProductSearchComponent scProducts;
 
+    @ViewById
+    ListView lvReceipt;
+
+    @ViewById
+    Button btnReceiptClear;
+
+    private ArrayList<Product> mReceipt;
+
+
 
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         preferences = PreferencesManager.getInstance();
+        receiptInit();
     }
 
     @Override
     public void onStart(){
         super.onStart();
         loadStoreInfo();
-        scProducts.init(new SearchProductsCommand());
+        scProducts.init(new SearchProductsCommand(), new AddProductToReceiptCommand());
+    }
+
+    private void receiptInit() {
+        mReceipt = new ArrayList<Product>();
+        ProductsAdapter adapter = new ReceiptAdapter(getActivity(), R.layout.receipt_listview_item, mReceipt);
+        lvReceipt.setAdapter(adapter);
+
+        //Button btnLoadMore = new Button(getActivity());
+        //btnLoadMore.setText("Очистить чек");
+        lvReceipt.addFooterView(btnReceiptClear);
     }
 
     private void loadStoreInfo() {
@@ -53,6 +81,23 @@ public class KasFragment extends AuthRequestsContainingFragment{
         request.setStoreId(preferences.getCurrentStore());
         getStoreRequestWrapped.init(getSpiceManager(), request, getToken());
         getStoreRequestWrapped.execute(new GetStoreRequestSuccessFinishCommand(), new GetStoreRequestFailureFinishCommand());
+    }
+
+    private void scrollMyListViewToBottom() {
+        lvReceipt.post(new Runnable() {
+            @Override
+            public void run() {
+                lvReceipt.setSelection(mReceipt.size() - 1);
+            }
+        });
+    }
+
+    public class AddProductToReceiptCommand implements Command<Product>{
+        public void execute(Product product){
+            mReceipt.add(product);
+            ((ReceiptAdapter)((HeaderViewListAdapter)lvReceipt.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
+            scrollMyListViewToBottom();
+        }
     }
 
     public class SearchProductsCommand implements Command<String>{

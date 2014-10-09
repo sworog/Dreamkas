@@ -15,7 +15,7 @@ public class LoginUserSteps {
     @When("пользователь авторизируется в системе используя адрес электронной почты '$email' и пароль '$password'")
     public void givenUserAuthorizeInTheSystem(String email, String password) {
         loginSteps.inputLoginCredentials(email, password);
-        loginSteps.hideKeyboard();
+        //loginSteps.hideKeyboard();
         loginSteps.clickOnLoginButton();
     }
 

@@ -35,5 +35,6 @@
     <string name="title_change_current_store">Смена магазина</string>
     <string name="msgSearchReq">Для поиска товара введите 3 или более символа.</string>
     <string name="msgSearchEmptyResult">Продуктов не найдено.</string>
+    <string name="ClearReceipt">Очистить чек</string>
 
 </resources>

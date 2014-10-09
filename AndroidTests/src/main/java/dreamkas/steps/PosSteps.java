@@ -49,7 +49,7 @@ public class PosSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertSearchProductsResult(String productTitle) {
-        assertThat(posPage.getSearchProductResult(), hasItem(productTitle));
+    public void assertSearchProductsResult(String containsProductTitle) {
+        assertThat(posPage.getSearchProductResult(), hasItem(containsProductTitle));
     }
 }

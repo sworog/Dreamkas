@@ -39,7 +39,7 @@ public class PosUserSteps {
         posSteps.assertActionBarTitle(expectedTitle);
     }
 
-    @Then("видит результат поиска, в котором присутствует '$count' товара")
+    @Then("видит результат поиска, в котором присутствует товары в количестве '$count'")
     public void thenUserChecksProductSearchResult(Integer count) {
         posSteps.assertSearchProductsResult(count);
     }

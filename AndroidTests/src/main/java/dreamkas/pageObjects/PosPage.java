@@ -64,6 +64,8 @@ public class PosPage extends CommonPageObject {
         drawerIcon.click();
 //        String menuOptionXpath = String.format("//android.widget.TextView[text()='%s']", menuOption);
 //        getAppiumDriver().findElement(By.xpath(menuOptionXpath)).click();
+
+
         for (WebElement webElement : getAppiumDriver().findElements(By.xpath("//android.widget.TextView"))) {
             if (webElement.getText().equals(menuOption)) {
                 webElement.click();
@@ -85,8 +87,8 @@ public class PosPage extends CommonPageObject {
     public List<String> getSearchProductResult() {
         List<WebElement> items = lvProductsSearchResult.findElements(By.className("android.widget.TextView"));
         List<String> strs = new ArrayList<String>();
-        for(Iterator<WebElement> i = items.iterator(); i.hasNext(); ) {
-            strs.add(i.next().getText());
+        for (WebElement webElement : items) {
+            strs.add(webElement.getText());
         }
         return strs;
     }
