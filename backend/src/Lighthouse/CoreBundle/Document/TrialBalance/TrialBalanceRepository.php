@@ -103,7 +103,7 @@ class TrialBalanceRepository extends DocumentRepository
      * @param TrialBalance $trialBalance
      * @return TrialBalance
      */
-    public function findOnePreviousDate(TrialBalance $trialBalance)
+    public function findOnePreviousDateByReasonsTypes(TrialBalance $trialBalance)
     {
         $criteria = array(
             'reason.$ref' => $trialBalance->reason->getType(),
@@ -662,15 +662,15 @@ class TrialBalanceRepository extends DocumentRepository
 
     /**
      * @param string $storeProductId
-     * @param string $reasonType
+     * @param array $reasonTypes
      * @return null|TrialBalance
      */
-    public function findOneFirstUnprocessedByStoreProductIdReasonType($storeProductId, $reasonType)
+    public function findOneFirstUnprocessedByStoreProductIdReasonType($storeProductId, array $reasonTypes)
     {
         return $this->findOneBy(
             array(
                 'storeProduct' => $storeProductId,
-                'reason.$ref' => $reasonType,
+                'reason.$ref' => array('$in'=> $reasonTypes),
                 'processingStatus' => TrialBalance::PROCESSING_STATUS_UNPROCESSED,
             ),
             array(
@@ -682,14 +682,15 @@ class TrialBalanceRepository extends DocumentRepository
 
     /**
      * @param TrialBalance $trialBalance
+     * @param array $reasonTypes
      * @return Cursor
      */
-    public function findByStartTrialBalanceDateStoreProductReasonType(TrialBalance $trialBalance)
+    public function findByStartTrialBalanceDateStoreProductReasonTypes(TrialBalance $trialBalance, array $reasonTypes)
     {
         return $this->findBy(
             array(
                 'createdDate.date' => array('$gte' => $trialBalance->createdDate),
-                'reason.$ref' => $trialBalance->reason->getType(),
+                'reason.$ref' => array('$in' => $reasonTypes),
                 'storeProduct' => $trialBalance->storeProduct->id
             ),
             array(

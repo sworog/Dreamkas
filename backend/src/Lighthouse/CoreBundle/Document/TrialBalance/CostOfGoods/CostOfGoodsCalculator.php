@@ -7,8 +7,12 @@ use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -40,16 +44,19 @@ class CostOfGoodsCalculator
     /**
      * @var array
      */
-    protected $supportRangeIndex = array(
+    protected $incrementStockTypes = array(
         InvoiceProduct::TYPE,
-        SaleProduct::TYPE,
+        StockInProduct::TYPE,
+        ReturnProduct::TYPE,
     );
 
     /**
      * @var array
      */
-    protected $supportCostOfGoods = array(
+    protected $decrementStockTypes = array(
         SaleProduct::TYPE,
+        SupplierReturnProduct::TYPE,
+        WriteOffProduct::TYPE,
     );
 
     /**
@@ -94,7 +101,7 @@ class CostOfGoodsCalculator
     public function calculateByIndexRange($storeProductId, Quantity $startIndex, Quantity $endIndex)
     {
         $invoiceProductTrials = $this->trialBalanceRepository->findByIndexRange(
-            InvoiceProduct::TYPE,
+            $this->getIncrementStockTypes(),
             $storeProductId,
             $startIndex,
             $endIndex
@@ -158,26 +165,41 @@ class CostOfGoodsCalculator
      */
     public function calculateByStoreProductId($storeProductId)
     {
-        foreach ($this->getSupportRangeIndex() as $reasonType) {
-            $this->calculateByStoreProductReasonType($storeProductId, $reasonType);
-        }
+        $this->calculateByStoreProductReasonTypes($storeProductId, $this->incrementStockTypes);
+        $this->calculateByStoreProductReasonTypes($storeProductId, $this->decrementStockTypes);
     }
 
     /**
      *
      * @param string $storeProductId
-     * @param string $reasonType
+     * @param array $reasonTypes
      */
-    public function calculateByStoreProductReasonType($storeProductId, $reasonType)
+    public function calculateByStoreProductReasonTypes($storeProductId, array $reasonTypes)
     {
         $trialBalance = $this->trialBalanceRepository->findOneFirstUnprocessedByStoreProductIdReasonType(
             $storeProductId,
-            $reasonType
+            $reasonTypes
         );
 
         if (null != $trialBalance) {
-            $this->calculateAndFixRangeIndexesByTrialBalance($trialBalance);
+            $this->calculateAndFixRangeIndexesByTrialBalance($trialBalance, $reasonTypes);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getIncrementStockTypes()
+    {
+        return $this->incrementStockTypes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDecrementStockTypes()
+    {
+        return $this->decrementStockTypes;
     }
 
     /**
@@ -185,15 +207,49 @@ class CostOfGoodsCalculator
      */
     public function getSupportRangeIndex()
     {
-        return $this->supportRangeIndex;
+        return array_merge($this->getIncrementStockTypes(), $this->getDecrementStockTypes());
     }
 
     /**
-     * @return array
+     * @param TrialBalance $trialBalance
+     * @return bool
      */
-    public function getSupportCostOfGoods()
+    public function isIncrementStockTypeByTrialBalance(TrialBalance $trialBalance)
     {
-        return $this->supportCostOfGoods;
+        return $this->isIncrementStockType($trialBalance->reason);
+    }
+
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return bool
+     */
+    public function isIncrementStockType(StockMovementProduct $stockMovementProduct)
+    {
+        return in_array(
+            $stockMovementProduct->getType(),
+            $this->getIncrementStockTypes()
+        );
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return bool
+     */
+    public function isDecrementStockTypeByTrialBalance(TrialBalance $trialBalance)
+    {
+        return $this->isDecrementStockType($trialBalance->reason);
+    }
+
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return bool
+     */
+    public function isDecrementStockType(StockMovementProduct $stockMovementProduct)
+    {
+        return in_array(
+            $stockMovementProduct->getType(),
+            $this->getDecrementStockTypes()
+        );
     }
 
     /**
@@ -219,39 +275,25 @@ class CostOfGoodsCalculator
 
     /**
      * @param TrialBalance $trialBalance
-     * @return bool
-     */
-    public function supportsCostOfGoodsByTrialBalance(TrialBalance $trialBalance)
-    {
-        return $this->supportsCostOfGoods($trialBalance->reason);
-    }
-
-    /**
-     * @param StockMovementProduct $stockMovementProduct
-     * @return bool
-     */
-    public function supportsCostOfGoods(StockMovementProduct $stockMovementProduct)
-    {
-        return in_array(
-            $stockMovementProduct->getType(),
-            $this->getSupportCostOfGoods()
-        );
-    }
-
-    /**
-     * @param TrialBalance $trialBalance
+     * @param array $reasonTypes
      * @param int $batch
      */
-    protected function calculateAndFixRangeIndexesByTrialBalance(TrialBalance $trialBalance, $batch = 1000)
-    {
+    protected function calculateAndFixRangeIndexesByTrialBalance(
+        TrialBalance $trialBalance,
+        array $reasonTypes,
+        $batch = 1000
+    ) {
         if ($this->supportsRangeIndexByTrialBalance($trialBalance)) {
             $allNeedRecalculateTrialBalance = $this
                 ->trialBalanceRepository
-                ->findByStartTrialBalanceDateStoreProductReasonType($trialBalance);
+                ->findByStartTrialBalanceDateStoreProductReasonTypes($trialBalance, $reasonTypes);
             $count = 0;
             $dm = $this->trialBalanceRepository->getDocumentManager();
 
-            $previousTrialBalance = $this->trialBalanceRepository->findOnePreviousDate($trialBalance);
+            $previousTrialBalance = $this->trialBalanceRepository->findOnePreviousDateByReasonsTypes(
+                $trialBalance,
+                $reasonTypes
+            );
             if (null != $previousTrialBalance) {
                 $previousQuantity = $previousTrialBalance->endIndex;
             } else {
@@ -260,7 +302,7 @@ class CostOfGoodsCalculator
 
             if ($trialBalance->reason->increaseAmount()) {
                 $referenceTrialBalance = $this->trialBalanceRepository->findOneByPreviousEndIndex(
-                    $this->getSupportCostOfGoods(),
+                    $this->getDecrementStockTypes(),
                     $trialBalance->storeProduct->id,
                     $previousQuantity
                 );
@@ -298,7 +340,7 @@ class CostOfGoodsCalculator
      */
     protected function calculateCostOfGoodsIfNeeded(TrialBalance $trialBalance)
     {
-        if ($this->supportsCostOfGoodsByTrialBalance($trialBalance)) {
+        if ($this->isDecrementStockTypeByTrialBalance($trialBalance)) {
             $trialBalance->costOfGoods = $this->calculateByTrialBalance($trialBalance);
         }
     }

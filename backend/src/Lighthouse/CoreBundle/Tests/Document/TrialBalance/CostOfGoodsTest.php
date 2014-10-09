@@ -388,13 +388,23 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array(), $store->id)
+                ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
                 ->createInvoiceProduct($productId, 1.345, 23.77)
-                ->createInvoiceProduct($productId, 2.332, 0.1)
+            ->flush();
+        $this->factory()
+            ->stockIn()
+                ->createStockIn($store, date('c', strtotime('now')))
+                ->createStockInProduct($productId, 2.332, 0.1)
+            ->flush();
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
                 ->createInvoiceProduct($productId, 3, 13.3)
                 ->createInvoiceProduct($productId, 4.23, 14)
-            ->persist()
-                ->createInvoice(array(), $store->id)
+            ->flush();
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
                 ->createInvoiceProduct($productId, 5.7, 17.99)
             ->flush();
         // Total quantity = 16.607
