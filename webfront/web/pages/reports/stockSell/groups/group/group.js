@@ -4,20 +4,7 @@ define(function(require, exports, module) {
 
     return Page_stockSell.extend({
         content: require('ejs!./content.ejs'),
-        collections: {
-			stockSell: function() {
-                var GroupStockSellCollection = require('resources/groupStockSell/collection');
-
-                return new GroupStockSellCollection([], {
-                    groupId: this.params.groupId,
-                    filters: {
-                        store: this.params.storeId,
-                        dateFrom: this.params.dateFrom,
-                        dateTo: this.params.dateTo
-                    }
-                });
-            }
-        },
+		StockSellCollection: require('resources/groupStockSell/collection'),
         models: {
             group: function() {
                 var GroupModel = require('resources/group/model');

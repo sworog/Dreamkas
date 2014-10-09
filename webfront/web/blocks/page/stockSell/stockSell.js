@@ -1,9 +1,24 @@
 define(function(require, exports, module) {
 	//requirements
-	var Page = require('blocks/page/page');
+	var Page = require('blocks/page/page'),
+		moment = require('moment');
 
 	return Page.extend({
 		activeNavigationItem: 'reports',
+		params: {
+			dateTo: function(){
+				var page = this,
+					currentTime = Date.now();
+
+				return page.formatDate(moment(currentTime));
+			},
+			dateFrom: function(){
+				var page = this,
+					currentTime = Date.now();
+
+				return page.formatDate(moment(currentTime).subtract(1, 'week'));
+			}
+		},
 		events: {
 			'change select[name="store"]': function(e) {
 				var storeId = e.target.value || undefined;
@@ -49,8 +64,29 @@ define(function(require, exports, module) {
 			}
 		},
 		collections: {
-			stores: require('resources/store/collection')
+			stores: require('resources/store/collection'),
+			stockSell: function() {
+				var page = this,
+					StockSellCollection = this.StockSellCollection;
+
+				return new StockSellCollection([], {
+					groupId: this.params.groupId,
+					filters: {
+						dateFrom: page.params.dateFrom,
+						dateTo: page.formatDate(moment(page.params.dateTo, 'DD.MM.YYYY').add(1, 'days'))
+					}
+				});
+			}
 		},
+
+		initData: function(){
+
+			this.params.dateTo = this.get('params.dateTo');
+			this.params.dateFrom = this.get('params.dateFrom');
+
+			return Page.prototype.initData.apply(this, arguments);
+		},
+
 		blocks: {
 			select_store: require('blocks/select/store/store'),
 			inputDateRange: require('blocks/inputDateRange/inputDateRange')

@@ -4,9 +4,7 @@ define(function(require, exports, module) {
 
     return Page_stockSell.extend({
         content: require('ejs!./content.ejs'),
-        collections: {
-            stockSell: require('resources/stockSell/collection')
-        },
+		StockSellCollection: require('resources/stockSell/collection'),
         blocks: {
             table_stockSell: require('blocks/table/stockSell/stockSell')
         }
