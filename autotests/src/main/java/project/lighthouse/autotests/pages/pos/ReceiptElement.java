@@ -38,20 +38,13 @@ public class ReceiptElement extends CommonPageObject {
                 };
             }
         });
-    }
-
-    @Override
-    public AbstractObjectCollection getObjectCollection() {
-        return new AbstractObjectCollection(getDriver(), By.className("sale__product")) {
+        putDefaultCollection(new AbstractObjectCollection(getDriver(), By.className("sale__product")) {
 
             @Override
             public AbstractObject createNode(WebElement element) {
                 return new Receipt(element);
             }
-        };
-    }
-
-    public void clickOnRefundButton() {
-        new PrimaryBtnFacade(this, "Возврат").click();
+        });
+        put("refundButton", new PrimaryBtnFacade(this, "Возврат"));
     }
 }

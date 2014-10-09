@@ -20,9 +20,6 @@ public class SupplierListPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-    }
-
-    public SupplierCollection getSupplierCollection() {
-        return new SupplierCollection(getDriver());
+        putDefaultCollection(new SupplierCollection(getDriver()));
     }
 }

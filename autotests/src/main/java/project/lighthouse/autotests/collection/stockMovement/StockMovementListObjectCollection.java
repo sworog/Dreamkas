@@ -4,9 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.common.Waiter;
-
-import java.util.List;
 
 public class StockMovementListObjectCollection<E extends StockMovementListObject> extends AbstractObjectCollection<E> {
 
@@ -15,17 +12,8 @@ public class StockMovementListObjectCollection<E extends StockMovementListObject
     }
 
     @Override
-    public E createNode(WebElement element) {
-        return null;
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
-    public void init(WebDriver webDriver, By findBy) {
-        List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
-        for (WebElement element : webElementList) {
-            E stockMovementListObject = (E) new StockMovementListObject(element, webDriver);
-            add(stockMovementListObject);
-        }
+    public E createNode(WebElement element) {
+        return (E) new StockMovementListObject(element, getWebDriver());
     }
 }

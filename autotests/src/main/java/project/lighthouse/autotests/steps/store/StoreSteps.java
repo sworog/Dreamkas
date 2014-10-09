@@ -3,9 +3,6 @@ package project.lighthouse.autotests.steps.store;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import project.lighthouse.autotests.collection.store.StoreObjectCollection;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.store.StoreListPage;
@@ -69,55 +66,22 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void storeObjectCollectionCompareWithExampleTable(ExamplesTable examplesTable) {
-        StoreObjectCollection storeObjectCollection = null;
-        try {
-            storeObjectCollection = storeListPage.getStoreObjectCollection();
-        } catch (TimeoutException e) {
-            storeListPage.shouldContainsText("У вас ещё нет ни одного магазина");
-        } catch (StaleElementReferenceException e) {
-            storeObjectCollection = storeListPage.getStoreObjectCollection();
-        } finally {
-            if (storeObjectCollection != null) {
-                storeObjectCollection.compareWithExampleTable(examplesTable);
-            }
-        }
+        storeListPage.compareWithExampleTable(examplesTable);
     }
 
     @Step
     public void storeObjectCollectionDoNotContainStoreWithName(String name) {
-        StoreObjectCollection storeObjectCollection = null;
-        try {
-            storeObjectCollection = storeListPage.getStoreObjectCollection();
-        } catch (TimeoutException e) {
-            storeListPage.shouldContainsText("У вас ещё нет ни одного магазина");
-        } catch (StaleElementReferenceException e) {
-            storeObjectCollection = storeListPage.getStoreObjectCollection();
-        } finally {
-            if (storeObjectCollection != null) {
-                storeObjectCollection.notContains(name);
-            }
-        }
+        storeListPage.collectionNotContainObjectWithLocator(name);
     }
 
     @Step
     public void storeObjectCollectionContainStoreWithName(String name) {
-        StoreObjectCollection storeObjectCollection = null;
-        try {
-            storeObjectCollection = storeListPage.getStoreObjectCollection();
-        } catch (TimeoutException e) {
-            storeListPage.shouldContainsText("У вас ещё нет ни одного магазина");
-        } catch (StaleElementReferenceException e) {
-            storeObjectCollection = storeListPage.getStoreObjectCollection();
-        } finally {
-            if (storeObjectCollection != null) {
-                storeObjectCollection.contains(name);
-            }
-        }
+        storeListPage.collectionContainObjectWithLocator(name);
     }
 
     @Step
     public void storeObjectClickByName(String name) {
-        storeListPage.getStoreObjectCollection().clickByLocator(name);
+        storeListPage.clickOnCollectionObjectByLocator(name);
     }
 
     @Step
@@ -137,12 +101,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void assertStoreCreateModalWindowItemErrorMessage(String elementName, String message) {
-        storeCreateModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(message);
+        storeCreateModalWindow.checkItemErrorMessage(elementName, message);
     }
 
     @Step
     public void assertStoreEditModalWindowItemErrorMessage(String elementName, String message) {
-        storeEditModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(message);
+        storeEditModalWindow.checkItemErrorMessage(elementName, message);
     }
 
     @Step

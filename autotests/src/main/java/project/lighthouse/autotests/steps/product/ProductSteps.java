@@ -4,9 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import project.lighthouse.autotests.collection.product.ProductCollection;
+import project.lighthouse.autotests.common.item.interfaces.Findable;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.catalog.group.GroupPage;
@@ -70,7 +68,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowMarkUpIsNotVisible() {
-        By markUpValueFindBy = createNewProductModalWindow.getItems().get("markUpValue").getFindBy();
+        By markUpValueFindBy = ((Findable) createNewProductModalWindow.getItems().get("markUpValue")).getFindBy();
         if (!createNewProductModalWindow.invisibilityOfElementLocated(markUpValueFindBy)) {
             fail("The markUp value is visible in create new product modal window");
         }
@@ -78,7 +76,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertEditProductModalWindowMarkUpIsNotVisible() {
-        By markUpValueFindBy = editProductModalWindow.getItems().get("markUpValue").getFindBy();
+        By markUpValueFindBy = ((Findable) editProductModalWindow.getItems().get("markUpValue")).getFindBy();
         if (!editProductModalWindow.invisibilityOfElementLocated(markUpValueFindBy)) {
             fail("The markUp value is visible in create new product modal window");
         }
@@ -86,44 +84,22 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void productCollectionCompareWithExampleTable(ExamplesTable examplesTable) {
-        ProductCollection productCollection = null;
-        try {
-            productCollection = groupPage.getProductCollection();
-        } catch (TimeoutException e) {
-            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
-        } catch (StaleElementReferenceException e) {
-            productCollection = groupPage.getProductCollection();
-        } finally {
-            if (productCollection != null) {
-                productCollection.compareWithExampleTable(examplesTable);
-            }
-        }
+        groupPage.compareWithExampleTable(examplesTable);
     }
 
     @Step
     public void productCollectionExactCompareWithExampleTable(ExamplesTable examplesTable) {
-        ProductCollection productCollection = null;
-        try {
-            productCollection = groupPage.getProductCollection();
-        } catch (TimeoutException e) {
-            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
-        } catch (StaleElementReferenceException e) {
-            productCollection = groupPage.getProductCollection();
-        } finally {
-            if (productCollection != null) {
-                productCollection.exactCompareExampleTable(examplesTable);
-            }
-        }
+        groupPage.exactCompareExampleTable(examplesTable);
     }
 
     @Step
     public void productCollectionProductWithNameClick(String name) {
-        groupPage.getProductCollection().clickByLocator(name);
+        groupPage.clickOnCollectionObjectByLocator(name);
     }
 
     @Step
     public void productCollectionProductWithNameClickOnProductWithStoredName() {
-        groupPage.getProductCollection().clickByLocator(Storage.getCustomVariableStorage().getName());
+        groupPage.clickOnCollectionObjectByLocator(Storage.getCustomVariableStorage().getName());
     }
 
     @Step
@@ -153,34 +129,12 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void productCollectionNotContainProductWithName(String name) {
-        ProductCollection productCollection = null;
-        try {
-            productCollection = groupPage.getProductCollection();
-        } catch (TimeoutException e) {
-            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
-        } catch (StaleElementReferenceException e) {
-            productCollection = groupPage.getProductCollection();
-        } finally {
-            if (productCollection != null) {
-                productCollection.notContains(name);
-            }
-        }
+        groupPage.collectionNotContainObjectWithLocator(name);
     }
 
     @Step
     public void productCollectionContainProductWithName(String name) {
-        ProductCollection productCollection = null;
-        try {
-            productCollection = groupPage.getProductCollection();
-        } catch (TimeoutException e) {
-            groupPage.shouldContainsText(NO_PRODUCTS_MESSAGE);
-        } catch (StaleElementReferenceException e) {
-            productCollection = groupPage.getProductCollection();
-        } finally {
-            if (productCollection != null) {
-                productCollection.contains(name);
-            }
-        }
+        groupPage.collectionContainObjectWithLocator(name);
     }
 
     @Step
@@ -206,12 +160,12 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
-        createNewProductModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        createNewProductModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
     public void assertEditProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
-        editProductModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        editProductModalWindow.checkItemErrorMessage(elementName, errorMessage);
     }
 
     @Step
@@ -250,16 +204,16 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void sortByNameClick() {
-        groupPage.sortByNameClick();
+        groupPage.clickOnCommonItemWihName("sortByName");
     }
 
     @Step
     public void sortBySellingPriceClick() {
-        groupPage.sortBySellingPriceClick();
+        groupPage.clickOnCommonItemWihName("sortBySellingPrice");
     }
 
     @Step
     public void sortByBarcodeClick() {
-        groupPage.sortByBarcodeClick();
+        groupPage.clickOnCommonItemWihName("sortByBarcode");
     }
 }

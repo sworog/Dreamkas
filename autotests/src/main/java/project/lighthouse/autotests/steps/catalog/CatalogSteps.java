@@ -2,9 +2,6 @@ package project.lighthouse.autotests.steps.catalog;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import project.lighthouse.autotests.collection.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
@@ -48,18 +45,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void groupCollectionContainsGroupWithName(String groupName) {
-        GroupObjectCollection orderObjectCollection = null;
-        try {
-            orderObjectCollection = catalogPage.getGroupObjectCollection();
-        } catch (TimeoutException e) {
-            catalogPage.shouldContainsText("У вас пока нет ни одной группы товаров.");
-        } catch (StaleElementReferenceException e) {
-            orderObjectCollection = catalogPage.getGroupObjectCollection();
-        } finally {
-            if (orderObjectCollection != null) {
-                orderObjectCollection.contains(groupName);
-            }
-        }
+        catalogPage.collectionContainObjectWithLocator(groupName);
     }
 
     @Step
@@ -74,23 +60,12 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void groupCollectionNotContainGroupWithName(String groupName) {
-        GroupObjectCollection orderObjectCollection = null;
-        try {
-            orderObjectCollection = catalogPage.getGroupObjectCollection();
-        } catch (TimeoutException e) {
-            catalogPage.shouldContainsText("У вас пока нет ни одной группы товаров.");
-        } catch (StaleElementReferenceException e) {
-            orderObjectCollection = catalogPage.getGroupObjectCollection();
-        } finally {
-            if (orderObjectCollection != null) {
-                orderObjectCollection.notContains(groupName);
-            }
-        }
+        catalogPage.collectionNotContainObjectWithLocator(groupName);
     }
 
     @Step
     public void groupWithNameClick(String groupName) {
-        catalogPage.getGroupObjectCollection().clickByLocator(groupName);
+        catalogPage.clickOnCollectionObjectByLocator(groupName);
         new BodyPreLoader(getDriver()).await();
     }
 
@@ -165,21 +140,21 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void editGroupIconClick() {
-        groupPage.editGroupIconClick();
+        groupPage.clickOnCommonItemWihName("editGroupIcon");
     }
 
     @Step
     public void backArrowButtonClick() {
-        groupPage.longArrowBackLinkClick();
+        groupPage.clickOnCommonItemWihName("longArrowBackLink");
     }
 
     @Step
     public void createGroupModalPageCheckFieldError(String errorMessage) {
-        createGroupModalPage.getItems().get("name").getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        createGroupModalPage.checkItemErrorMessage("name", errorMessage);
     }
 
     @Step
     public void editGroupModalPageCheckFieldError(String errorMessage) {
-        editGroupModalPage.getItems().get("name").getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+        editGroupModalPage.checkItemErrorMessage("name", errorMessage);
     }
 }

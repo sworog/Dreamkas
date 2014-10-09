@@ -16,54 +16,13 @@ public class MenuNavigationBar extends CommonPageObject {
 
     @Override
     public void createElements() {
-        put("userName", new NonType(this, By.xpath("//*[@id='side-menu']/*[@class='user-panel']/*[@class='info']/p")));
-    }
-
-    public NavigationBarLinkFacade getReportMenuItem() {
-        return new NavigationBarLinkFacade(this, "Отчеты");
-    }
-
-    public NavigationBarLinkFacade getSuppliersMenuItem() {
-        return new NavigationBarLinkFacade(this, "Поставщики");
-    }
-
-    public NavigationBarLinkFacade getOrdersMenuItem() {
-        return new NavigationBarLinkFacade(this, "Заказы");
-    }
-
-    public NavigationBarLinkFacade getUsersMenuItem() {
-        return new NavigationBarLinkFacade(this, "Пользователи");
-    }
-
-    public NavigationBarLinkFacade getCatalogMenuItem() {
-        return new NavigationBarLinkFacade(this, "Ассортимент");
-    }
-
-    public NavigationBarLinkFacade getStoresMenuItem() {
-        return new NavigationBarLinkFacade(this, "Магазины");
-    }
-
-    public NavigationBarLinkFacade getInvoicesMenuItem() {
-        return new NavigationBarLinkFacade(this, "Накладные");
-    }
-
-    public NavigationBarLinkFacade getWriteOffsMenuItem() {
-        return new NavigationBarLinkFacade(this, "Списания");
-    }
-
-    public NavigationBarLinkFacade getSettingsMenuItem() {
-        return new NavigationBarLinkFacade(this, "Настройки");
-    }
-
-    public NavigationBarLinkFacade getStockMovementMenuItem() {
-        return new NavigationBarLinkFacade(this, "Товародвижение");
-    }
-
-    public void launchPostButtonClick() {
-        new PrimaryBtnFacade(this, "Запустить кассу").click();
-    }
-
-    public void logOutButtonClick() {
-        new NavigationLinkFacade(this, "Выйти").click();
+        put("userName", new NonType(this, By.xpath("//*[@class='sideBar__userName']")));
+        put("reportMenuItem", new NonType(this, By.xpath("//*[@class='sideBar__item ' and i[contains(@class, 'chart')]]")));
+        put("supplierMenuItem", new NavigationBarLinkFacade(this, "Поставщики"));
+        put("catalogMenuItem", new NavigationBarLinkFacade(this, "Ассортимент"));
+        put("storeMenuItem", new NavigationBarLinkFacade(this, "Магазины"));
+        put("stockMovementMenuItem", new NonType(this, By.xpath("//*[@class='sideBar__item ' and i[contains(@class, 'exchange')]]")));
+        put("launchPosButton", new PrimaryBtnFacade(this, "Запустить кассу"));
+        put("logOutButton", new NavigationLinkFacade(this, "Выйти"));
     }
 }

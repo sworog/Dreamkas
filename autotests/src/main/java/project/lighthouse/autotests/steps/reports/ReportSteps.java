@@ -12,7 +12,7 @@ public class ReportSteps extends ScenarioSteps {
 
     @Step
     public void clickOnStockBalanceReport() {
-        reportsMainPage.clickOnStockBalanceReport();
+        reportsMainPage.clickOnCommonItemWihName("stockBalanceReport");
     }
 
     @Step

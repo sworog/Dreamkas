@@ -27,11 +27,11 @@ define(function(require, exports, module) {
                 return PAGE.collections.receipts;
             }
         },
-        blocks: {
-            product_autocomplete: function() {
-                var block = this,
-                    ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
-                    productAutocomplete;
+		blocks: {
+			product_autocomplete: function() {
+				var block = this,
+					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
+					productAutocomplete;
 
                 productAutocomplete = new ProductAutocomplete({
                     value: block.models.product.get('name')

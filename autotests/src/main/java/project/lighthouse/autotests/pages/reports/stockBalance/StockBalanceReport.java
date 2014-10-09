@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.reports.stockBalance;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
@@ -34,24 +33,12 @@ public class StockBalanceReport extends BootstrapPageObject {
         put("колонка 'Расход'", new NonType(this, By.xpath("//*[@data-sort-by='averageDailySales']")));
         put("колонка 'Остаток'", new NonType(this, By.xpath("//*[@data-sort-by='inventory']")));
         put("кнопка очистки данных автокомплита", new NonType(this, By.xpath("//*[@class='productFinder__resetLink input-group-addon']")));
-    }
-
-    @Override
-    public AbstractObjectCollection getObjectCollection() {
-        try {
-            return getAbstractObjectCollection();
-        } catch (StaleElementReferenceException e) {
-            return getAbstractObjectCollection();
-        }
-    }
-
-    private AbstractObjectCollection getAbstractObjectCollection() {
-        return new AbstractObjectCollection(getDriver(), By.xpath("//*[@name='products']/tr")) {
+        putDefaultCollection(new AbstractObjectCollection(getDriver(), By.xpath("//*[@name='products']/tr")) {
 
             @Override
             public AbstractObject createNode(WebElement element) {
                 return new StockBalanceObject(element, getDriver());
             }
-        };
+        });
     }
 }

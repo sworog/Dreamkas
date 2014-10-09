@@ -7,13 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.api.http.HttpExecutor;
-import project.lighthouse.autotests.collection.posAutoComplete.PosAutoCompleteCollection;
 import project.lighthouse.autotests.collection.receipt.ReceiptCollection;
 import project.lighthouse.autotests.collection.receipt.ReceiptObject;
 import project.lighthouse.autotests.collection.refund.RefundProduct;
+import project.lighthouse.autotests.common.item.interfaces.Collectable;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.pages.pos.*;
 import project.lighthouse.autotests.storage.Storage;
@@ -22,7 +20,6 @@ import project.lighthouse.autotests.storage.containers.user.UserContainer;
 import java.io.IOException;
 
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 public class PosSteps extends ScenarioSteps {
@@ -53,59 +50,29 @@ public class PosSteps extends ScenarioSteps {
         posLaunchPage.getDriver().navigate().to(posUrl);
     }
 
-    public PosAutoCompleteCollection getPosAutoCompleteCollection() {
-        PosAutoCompleteCollection abstractObjectCollection = null;
-        try {
-            abstractObjectCollection = posPage.getObjectCollection();
-        } catch (StaleElementReferenceException e) {
-            abstractObjectCollection = posPage.getObjectCollection();
-        } catch (TimeoutException e) {
-            posPage.shouldContainsText("Для поиска товара введите 3 или более символа.");
-        }
-        return abstractObjectCollection;
-    }
-
-    public ReceiptCollection getReceiptCollection() {
-        ReceiptCollection receiptCollection = null;
-        try {
-            receiptCollection = posPage.getReceiptCollection();
-        } catch (StaleElementReferenceException e) {
-            receiptCollection = posPage.getReceiptCollection();
-        } catch (TimeoutException e) {
-            posPage.shouldContainsText("Для продажи добавьте в чек хотя бы один продукт.");
-        }
-        return receiptCollection;
-    }
-
     @Step
     public void checkPostAutoCompleteCollectionContainsNoResults() {
-        assertThat(getPosAutoCompleteCollection(), nullValue());
+        posPage.shouldContainsText("Для поиска товара введите 3 или более символа.");
     }
 
     @Step
     public void checkReceiptCollectionContainsNoResults() {
-        assertThat(getReceiptCollection(), nullValue());
+        posPage.shouldContainsText("Для продажи добавьте в чек хотя бы один продукт.");
     }
 
     @Step
     public void exactComparePosAutocompleteResultsCollectionWithExamplesTable(ExamplesTable examplesTable) {
-        PosAutoCompleteCollection posAutoCompeteResults = getPosAutoCompleteCollection();
-        if (posAutoCompeteResults != null) {
-            posAutoCompeteResults.exactCompareExampleTable(examplesTable);
-        }
+        posPage.exactCompareExampleTable(examplesTable);
     }
 
     @Step
     public void exactCompareReceiptCollectionWithExamplesTable(ExamplesTable examplesTable) {
-        ReceiptCollection receiptCollection = getReceiptCollection();
-        if (receiptCollection != null) {
-            receiptCollection.exactCompareExampleTable(examplesTable);
-        }
+        ((Collectable)posPage.getItems().get("receiptCollection")).exactCompareExampleTable(examplesTable);
     }
 
     @Step
     public void receiptObjectClickByLocator(String name) {
-        getReceiptCollection().clickByLocator(name);
+        ((Collectable)posPage.getItems().get("receiptCollection")).clickByLocator(name);
     }
 
     @Step
@@ -119,44 +86,44 @@ public class PosSteps extends ScenarioSteps {
         // get the total price text y location
         Integer totalPriceY = posPage.findVisibleElement(By.name("totalPrice")).getLocation().getY();
         // get the last added product y location in receipt
-        Integer receiptLastPinnedProductY = ((ReceiptObject) getReceiptCollection().get(19)).getElement().getLocation().getY();
+        Integer receiptLastPinnedProductY = ((ReceiptObject) ((ReceiptCollection)posPage.getItems().get("receiptCollection")).get(19)).getElement().getLocation().getY();
         // assert
         assertThat(true, is(receiptLastPinnedProductY >= 802 && receiptLastPinnedProductY < totalPriceY));
     }
 
     @Step
     public void clickOnPlusButton() {
-        receiptPositionEditModalWindow.clickOnPlusButton();
+        receiptPositionEditModalWindow.clickOnCommonItemWihName("plusButton");
     }
 
     @Step
     public void clickOnMinusButton() {
-        receiptPositionEditModalWindow.clickOnMinusButton();
+        receiptPositionEditModalWindow.clickOnCommonItemWihName("minusButton");
     }
 
     @Step
     public void clearReceipt() {
-        posPage.clearReceipt();
+        posPage.clickOnCommonItemWihName("clearReceipt");
     }
 
     @Step
     public void confirmClearReceipt() {
-        posPage.confirmClearReceipt();
+        posPage.clickOnCommonItemWihName("confirmClearReceipt");
     }
 
     @Step
     public void clickOnRegisterSaleButton() {
-        posPage.clickOnRegisterSaleButton();
+        posPage.clickOnCommonItemWihName("registerSaleButton");
     }
 
     @Step
     public void clickOnContinueButton() {
-        receiptModalPage.clickOnContinueButton();
+        receiptModalPage.clickOnCommonItemWihName("continueButton");
     }
 
     @Step
     public void clickOnRefundContinueButton() {
-        refundModalWindowPage.clickOnContinueButton();
+        refundModalWindowPage.clickOnCommonItemWihName("continueButton");
     }
 
     @Step
@@ -195,50 +162,50 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void assertCashRegistrySideMenuLinkIsActive() {
-        if (!posPage.getCashRegistrySideMenuLink().getAttribute("class").contains("active")) {
+        if (!posPage.getCommonItemAttributeValue("posSideMenuLink", "class").contains("active")) {
             Assert.fail("Ссылка 'Касса' не активна в боковом меню навигации кассы");
         }
     }
 
     @Step
     public void clickOnSaleHistorySideMenuLink() {
-        posPage.clickOnSaleHistorySideMenuLink();
+        posPage.clickOnCommonItemWihName("saleHistorySideMenuLink");
     }
 
     @Step
     public void clickOnChangeStoreSideMenuLink() {
-        posPage.clickOnChangeStoreSideMenuLink();
+        posPage.clickOnCommonItemWihName("changeStoreSideMenuLink");
     }
 
     @Step
     public void clickOnSideMenuInteractionButton() {
-        posPage.clickOnSideBarInteraction();
+        posPage.clickOnCommonItemWihName("sideBar");
     }
 
     @Step
     public void setRefundProductQuantityByName(String name, String quantity) {
-        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).setQuantity(quantity);
+        ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).setQuantity(quantity);
     }
 
     @Step
     public void assertRefundPorductQuantity(String name, String quantity) {
         String actualQuantity =
-                ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).getQuantity();
+                ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).getQuantity();
         assertThat(actualQuantity, is(quantity));
     }
 
     @Step
     public void clickOnRefundProductPlusButtonByName(String name) {
-        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).clickOnPlusButton();
+        ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).clickOnPlusButton();
     }
 
     @Step
     public void clickOnRefundProductMinusButtonByName(String name) {
-        ((RefundProduct) refundModalWindowPage.getObjectCollection().getAbstractObjectByLocator(name)).clickOnMinusButton();
+        ((RefundProduct) ((Collectable)refundModalWindowPage.getItems().get("defaultCollection")).getAbstractObjectByLocator(name)).clickOnMinusButton();
     }
 
     @Step
     public void clickOnRefundButton() {
-        receiptElement.clickOnRefundButton();
+        receiptElement.clickOnCommonItemWihName("refundButton");
     }
 }
