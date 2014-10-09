@@ -14,6 +14,8 @@
         <thucydides.version>0.9.260</thucydides.version>
         <thucydides.jbehave.version>0.9.260</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.224</thucydides.maven.version>
+        <appium.server.url>http://appium.lighthouse.pro:4725/wd/hub</appium.server.url>
+        <appium.path.to.file>C:\android\app-debug.apk</appium.path.to.file>
     </properties>
 
     <dependencies>
@@ -85,6 +87,10 @@
                         <include>**/When*.java</include>
                         <include>**/*TestSuite.java</include>
                     </includes>
+                    <systemPropertyVariables>
+                        <appium.server.url>${appium.server.url}</appium.server.url>
+                        <appium.path.to.file>${appium.path.to.file}</appium.path.to.file>
+                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>

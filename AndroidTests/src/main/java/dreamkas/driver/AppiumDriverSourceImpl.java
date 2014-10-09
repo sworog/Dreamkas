@@ -11,30 +11,22 @@ import java.net.URL;
 
 public class AppiumDriverSourceImpl implements DriverSource {
 
+    private static final String APPIUM_URL = System.getProperty("appium.server.url");
+    private static final String PATH_TO_FILE = System.getProperty("appium.path.to.file");
+
     @Override
     public WebDriver newDriver() {
-//        TODO Need to provide the path for apk file
-//        File classpathRoot = new File("C:\\");
-//        File appDir = new File(classpathRoot, "android");
-//        File app = new File(appDir, "app-debug.apk");
-//        Workaround for apk location
-        //String appPath = "D:\\dev\\lighthouse\\lighthouse\\android-client\\DreamKas\\app\\build\\outputs\\apk\\app-debug.apk";
-        String appPath = "D:\\dev\\lighthouse\\lighthouse\\android-client\\DreamKas\\app\\build\\outputs\\apk\\app-debug.apk";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName","Android Emulator");
         capabilities.setCapability("platformVersion", "4.4");
-//        Setting the app file path
-//        capabilities.setCapability("app", app.getAbsolutePath());
-//        Setting the workaround apk location
-        capabilities.setCapability("app", appPath);
+        capabilities.setCapability("app", PATH_TO_FILE);
         capabilities.setCapability("appPackage", "ru.dreamkas.pos.debug");
         capabilities.setCapability("appActivity", "ru.dreamkas.pos.view.activities.LoginActivity_");
         capabilities.setCapability("unicodeKeyboard", true);
         try {
-            /*return new AppiumDriver(new URL("http://appium.lighthouse.pro:4725/wd/hub"), capabilities);*/
-            return new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+            return new AppiumDriver(new URL(APPIUM_URL), capabilities);
         } catch (MalformedURLException e) {
             throw new AssertionError(e);
         }
