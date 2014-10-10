@@ -1,10 +1,10 @@
 define(function(require, exports, module) {
     //requirements
-	var Page_stockSell = require('blocks/page/stockSell/stockSell');
+	var Page_productsProfit = require('blocks/page/productsProfit/productsProfit');
 
-    return Page_stockSell.extend({
+    return Page_productsProfit.extend({
         content: require('ejs!./content.ejs'),
-		StockSellCollection: require('resources/groupStockSell/collection'),
+        ProfitCollection: require('resources/productsProfit/collection'),
         models: {
             group: function() {
                 var GroupModel = require('resources/group/model');
@@ -16,7 +16,7 @@ define(function(require, exports, module) {
         },
         blocks: {
 			breadcrumbs: require('./group__breadcrumbs'),
-            table_groupStockSell: require('blocks/table/groupStockSell/groupStockSell')
+            table_productsProfit: require('blocks/table/productsProfit/productsProfit')
         }
     });
 });

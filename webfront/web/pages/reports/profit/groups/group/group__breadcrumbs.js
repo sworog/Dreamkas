@@ -6,8 +6,8 @@ define(function(require, exports, module) {
     return Block.extend({
         template: require('ejs!./group__breadcrumbs.ejs'),
 		collections: {
-			stockSell:	function() {
-				return PAGE.collections.stockSell;
+			profit:	function() {
+				return PAGE.collections.profit;
 			}
 		},
 		models: {
@@ -20,7 +20,7 @@ define(function(require, exports, module) {
 
 			Block.prototype.initialize.apply(block, arguments);
 
-			block.listenTo(block.collections.stockSell, {
+			block.listenTo(block.collections.profit, {
 				'change reset': function() {
 					block.render();
 				}
@@ -29,8 +29,8 @@ define(function(require, exports, module) {
 
 		allGroupsUrl: function() {
 
-			return URI('/reports/stockSell')
-				.search(this.collections.stockSell.filters).toString();
+			return URI('/reports/profit/groups')
+				.search(this.collections.profit.filters).toString();
 		}
     });
 });

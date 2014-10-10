@@ -7,11 +7,11 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         sortBy: 'name',
         collection: function(){
-            return PAGE.collections.stockSell
+            return PAGE.collections.profit
         },
 		groupUrl: function(groupModel) {
 
-			return URI('/reports/stockSell/groups/' + groupModel.get('id'))
+			return URI('/reports/profit/groups/' + groupModel.get('id'))
 				.search(this.collection.filters).toString();
 		}
     });

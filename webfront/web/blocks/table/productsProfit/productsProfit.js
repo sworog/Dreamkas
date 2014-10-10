@@ -6,15 +6,15 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         sortBy: 'product.name',
         collection: function() {
-            return PAGE.collections.stockSell;
+            return PAGE.collections.profit;
         },
         render: function() {
             var totalGrossSales = 0,
                 totalGrossMargin = 0;
 
-            this.collection.forEach(function(productStockSellModel) {
-                totalGrossSales += productStockSellModel.get('grossSales');
-                totalGrossMargin += productStockSellModel.get('grossMargin');
+            this.collection.forEach(function(profitModel) {
+                totalGrossSales += profitModel.get('grossSales');
+                totalGrossMargin += profitModel.get('grossMargin');
             });
 
             this.totalGrossSales = totalGrossSales;

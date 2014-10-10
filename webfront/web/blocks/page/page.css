@@ -87,12 +87,12 @@
     margin-right: -10px;
 }
 
-.page_stockSellGroup__breadcrumbs {
+.page_productsProfit__breadcrumbs {
      font-size: 14px;
      padding-bottom: 20px;
  }
 
-.page_stockSellGroup__breadcrumbsLink:after {
+.page_productsProfit__breadcrumbsLink:after {
     content: "\f054";
     font-family: FontAwesome;
     font-weight: normal;
