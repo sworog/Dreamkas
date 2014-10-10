@@ -114,8 +114,12 @@ define(function(require) {
                 block.collection.add(block.model);
             }
 
-            if (modal) {
+            if (modal && !modal.block.referrer) {
                 modal.block.hide();
+            }
+
+            if (modal && modal.block.referrer) {
+                document.getElementById(modal.block.referrer).block.toggle();
             }
 
             if (block.redirectUrl) {

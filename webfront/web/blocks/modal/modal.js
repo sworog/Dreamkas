@@ -13,6 +13,13 @@ define(function(require, exports, module) {
 
             document.getElementById(dataset.modal).block.show(_.extend({}, dataset));
         })
+        .on('click', '[data-modal-toggle]', function(e) {
+            var dataset = e.currentTarget.dataset;
+
+            e.preventDefault();
+
+            document.getElementById(dataset.modalToggle).block.toggle();
+        })
         .on('click', function(e) {
             if (e.target.classList.contains('modal__wrapper_visible')) {
                 $(e.target).find('.modal:visible')[0].block.hide();
@@ -24,6 +31,7 @@ define(function(require, exports, module) {
         });
 
     return Block.extend({
+        referrer: null,
         events: {
             'click .modal__closeLink': function(e) {
                 var block = this;
@@ -48,6 +56,13 @@ define(function(require, exports, module) {
 
             document.body.classList.add('modal-open');
 
+            block.toggle();
+
+            block.trigger('shown');
+        },
+        toggle: function(){
+            var block = this;
+
             block.$el
                 .addClass('modal_visible')
                 .siblings('.modal')
@@ -56,8 +71,6 @@ define(function(require, exports, module) {
             document.getElementById('modal__wrapper').classList.add('modal__wrapper_visible');
 
             block.$('[autofocus]').focus();
-
-            block.trigger('shown');
         },
         hide: function() {
             var block = this;

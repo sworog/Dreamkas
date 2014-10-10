@@ -93,9 +93,7 @@ define(function(require, exports, module) {
 
         initData: function(data) {
             var block = this;
-
-            block.stopListening();
-
+            
             if (data){
 
                 block.set(data);

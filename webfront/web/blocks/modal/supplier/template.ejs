@@ -1,10 +1,17 @@
-<div id="modal_supplier"
+<div id="<%- id %>"
      class="modal modal_supplier">
 
     <div class="modal__header">
 
-        <a type="button"
-           class="modal__closeLink fa fa-times"></a>
+        <% if (referrer) { %>
+
+            <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+
+        <% } else { %>
+
+            <a class="modal__closeLink fa fa-times"></a>
+
+        <% } %>
 
         <button form="form_supplier"
                 type="submit"
