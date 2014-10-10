@@ -77,22 +77,24 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
-            if (previousPage) {
-                previousPage.remove();
-                previousPage = null;
-            }
+            Block.prototype.render.apply(page, arguments).then(function(){
 
-            Block.prototype.render.apply(page, arguments);
+                if (previousPage) {
+                    previousPage.remove();
+                    previousPage = null;
+                }
 
-            autofocus = page.el.querySelector('[autofocus]');
+                autofocus = page.el.querySelector('[autofocus]');
 
-            if (autofocus) {
-                setTimeout(function() {
-                    autofocus.focus();
-                }, 0);
-            }
+                if (autofocus) {
+                    setTimeout(function() {
+                        autofocus.focus();
+                    }, 0);
+                }
 
-            page.setStatus('loaded');
+                page.setStatus('loaded');
+
+            });
 
         },
 

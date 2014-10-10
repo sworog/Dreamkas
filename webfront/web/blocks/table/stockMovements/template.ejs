@@ -1,0 +1,160 @@
+<% if (collection.length) { %>
+<table class="table table-striped table-hover table_stockMovements">
+    <thead>
+    <tr>
+        <th>Дата</th>
+        <th>Операция</th>
+        <th>Магазин</th>
+        <th>На сумму, <i class="fa fa-rub"></i></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <% _.forEach(collection.groupBy('date'), function(stockMovements, date){ %>
+
+    <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
+
+    <% var dateRowSpan = (index === 0) ? stockMovements.length : null; %>
+
+    <% if (stockMovementModel.get('type') === 'Invoice'){ %>
+
+    <tr data-invoice-date="<%- formatDate(stockMovementModel.get('date')) %>"
+        data-invoice-number="<%- stockMovementModel.get('number') %>">
+
+        <% if (dateRowSpan) { %>
+        <td name="date" rowspan="<%- dateRowSpan %>">
+            <%- formatDate(stockMovementModel.get('date')) %>
+        </td>
+        <% } %>
+
+        <td data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_invoice"
+			class="invoice__link">
+            <span name="type">Приёмка</span> <span name="status" style="font-size: 11px; margin-left: 10px;"
+                                                   class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
+        </td>
+        <td name="store"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_invoice"
+			class="invoice__link">
+            В <%- stockMovementModel.get('store.name') %>
+        </td>
+        <td name="sumTotal"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_invoice"
+			class="invoice__link">
+            <%- formatMoney(stockMovementModel.get('sumTotal')) %>
+        </td>
+    </tr>
+
+    <% } %>
+
+    <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
+
+    <tr data-writeoff-date="<%- formatDate(stockMovementModel.get('date')) %>"
+        data-writeoff-number="<%- stockMovementModel.get('number') %>">
+
+        <% if (dateRowSpan) { %>
+        <td name="date" rowspan="<%- dateRowSpan %>">
+            <%- formatDate(stockMovementModel.get('date')) %>
+        </td>
+        <% } %>
+
+        <td data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_writeOff"
+			class="writeOff__link">
+            <span name="type">Списание</span>
+        </td>
+        <td name="store"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_writeOff"
+			class="writeOff__link">
+            Из <%- stockMovementModel.get('store.name') %>
+        </td>
+        <td name="sumTotal"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_writeOff"
+			class="writeOff__link">
+            <%- formatMoney(stockMovementModel.get('sumTotal')) %>
+        </td>
+    </tr>
+
+    <% } %>
+
+    <% if (stockMovementModel.get('type') === 'StockIn'){ %>
+
+    <tr data-stockin-date="<%- formatDate(stockMovementModel.get('date')) %>"
+        data-stockin-number="<%- stockMovementModel.get('number') %>">
+
+        <% if (dateRowSpan) { %>
+        <td name="date"
+			rowspan="<%- dateRowSpan %>">
+            <%- formatDate(stockMovementModel.get('date')) %>
+        </td>
+        <% } %>
+
+        <td data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_stockIn"
+			class="stockIn__link">
+            <span name="type">Оприходование</span>
+        </td>
+        <td name="store"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_stockIn"
+			class="stockIn__link">
+            В <%- stockMovementModel.get('store.name') %>
+        </td>
+        <td name="sumTotal"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_stockIn"
+			class="stockIn__link">
+            <%- formatMoney(stockMovementModel.get('sumTotal')) %>
+        </td>
+    </tr>
+
+    <% } %>
+
+    <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
+
+    <tr data-supplier-return-date="<%- formatDate(stockMovementModel.get('date')) %>"
+        data-supplier-return-number="<%- stockMovementModel.get('number') %>">
+
+        <% if (dateRowSpan) { %>
+        <td name="date"
+			rowspan="<%- dateRowSpan %>">
+            <%- formatDate(stockMovementModel.get('date')) %>
+        </td>
+        <% } %>
+
+        <td data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_supplierReturn"
+			class="supplierReturn__link">
+            <span name="type">Возврат поставщику</span> <span name="status" style="font-size: 11px; margin-left: 10px;"
+                                                              class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'погашен' : 'не погашен' %></span>
+        </td>
+        <td name="store"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_supplierReturn"
+			class="supplierReturn__link">
+            Из <%- stockMovementModel.get('store.name') %>
+        </td>
+        <td name="sumTotal"
+			data-item-id="<%- stockMovementModel.id %>"
+			data-modal="modal_supplierReturn"
+			class="supplierReturn__link">
+            <%- formatMoney(stockMovementModel.get('sumTotal')) %>
+        </td>
+    </tr>
+
+    <% } %>
+
+    <% }) %>
+    <% }) %>
+
+    </tbody>
+</table>
+<% } else { %>
+<div style="margin-bottom: 0" class="alert alert-info">
+    Не найдено ни одной операции с товарами.
+</div>
+<% } %>

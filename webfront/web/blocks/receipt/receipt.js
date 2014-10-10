@@ -30,10 +30,10 @@ define(function(require, exports, module) {
         blocks: {
             modal_receipt: require('blocks/modal/receipt/receipt')
         },
-        initialize: function() {
+        initData: function() {
             var block = this;
 
-            Block.prototype.initialize.apply(block, arguments);
+            Block.prototype.initData.apply(block, arguments);
 
             block.listenTo(block.models.receipt.collections.products, {
                 'add remove change reset': function() {

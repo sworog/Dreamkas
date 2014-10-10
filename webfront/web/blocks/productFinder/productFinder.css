@@ -27,7 +27,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 15px 15px;
     bottom: 0;
     top: 60px;
     overflow: auto;

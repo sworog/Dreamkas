@@ -5,7 +5,12 @@ define(function(require, exports, module) {
     return Model.extend({
         urlRoot: Model.baseApiUrl + '/stockIns',
         collections: {
-            products: require('resources/stockInProduct/collection')
+			products: function() {
+				var model = this,
+					StockInProductsCollection = require('resources/stockInProduct/collection');
+
+				return new StockInProductsCollection();
+			}
         },
         saveData: function() {
             return {

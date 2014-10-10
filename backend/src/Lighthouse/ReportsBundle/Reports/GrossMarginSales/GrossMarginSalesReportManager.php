@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use DateTime;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProductsCollection;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service("lighthouse.reports.gross_margin_sales.manager")
@@ -63,11 +64,13 @@ class GrossMarginSalesReportManager
     }
 
     /**
+     * @param OutputInterface $output
+     * @param int $batch
      * @return int
      */
-    public function recalculateGrossMarginSalesProductReport()
+    public function recalculateGrossMarginSalesProductReport(OutputInterface $output = null, $batch = 5000)
     {
-        return $this->grossMarginSalesProductRepository->recalculate();
+        return $this->grossMarginSalesProductRepository->recalculate($output, $batch);
     }
 
     /**

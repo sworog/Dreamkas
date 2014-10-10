@@ -9,9 +9,6 @@ define(function(require, exports, module) {
         globalEvents = require('kit/globalEvents/globalEvents'),
         _ = require('lodash');
 
-    require('sortable');
-    require('madmin/vendors/bootstrap/js/bootstrap');
-
     var View = Backbone.View;
 
     // Cached regex to split keys for `delegate`.
@@ -20,24 +17,16 @@ define(function(require, exports, module) {
     return makeClass(View, {
 
         constructor: function(params) {
-            var block = this;
 
-            deepExtend(block, params);
-
-            View.apply(block, arguments);
-        },
-
-        bindings: null,
-
-        initialize: function() {
-            var block = this;
+            deepExtend(this, params);
 
             this.delegateGlobalEvents();
 
-            $.when(block.initData()).then(function() {
-                block.render();
-            });
+            View.apply(this, arguments);
+
         },
+
+        bindings: null,
 
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
@@ -47,30 +36,47 @@ define(function(require, exports, module) {
         formatDateTime: require('kit/formatDateTime/formatDateTime'),
         normalizeNumber: require('kit/normalizeNumber/normalizeNumber'),
 
+        initialize: function(){
+
+            var block = this;
+
+            //save data constructors in hidden fields
+
+            block.__collections = block.__collections || block.collections;
+            block.__models = block.__models || block.models;
+
+            block.__collection = block.__collection || block.collection;
+            block.__model = block.__model || block.model;
+
+            this.render();
+
+        },
+
         render: function(data) {
             var block = this;
 
-            data && block.set(data);
+            //always get actual data before rendering
 
-            if (typeof block.template !== 'function') {
-                return;
-            }
+            return $.when(block.initData(data)).then(function(){
 
-            block.removeBlocks();
+                if (typeof block.template !== 'function') {
+                    return;
+                }
 
-            block.bindings && block.bindings.unbind();
+                block.removeBlocks();
 
-            block.setElement($(block.template(block)).replaceAll(block.el));
+                block.bindings && block.bindings.unbind();
 
-            block.bindings = rivets.bind(block.el, block);
+                block.setElement($(block.template(block)).replaceAll(block.el));
 
-            block.initBlocks();
+                block.bindings = rivets.bind(block.el, block);
 
-            block.el.block = this;
+                block.initBlocks();
 
-            block.$('button[data-toggle="popover"]').popover({
-                trigger: 'focus'
+                block.el.block = block;
+
             });
+
         },
 
         get: function() {
@@ -88,18 +94,31 @@ define(function(require, exports, module) {
         initData: function(data) {
             var block = this;
 
-            data && block.set(data);
+            block.stopListening();
 
-            block.collections = _.transform(block.collections, function(result, collectionInitializer, key) {
-                result[key] = block.get('collections.' + key);
+            if (data){
+
+                block.set(data);
+
+                _.extend(block.__collections, data.collections);
+                _.extend(block.__models, data.models);
+
+                block.__collection = data.collection || block.__collection;
+                block.__model = data.model || block.__model;
+            }
+
+            //get data from initial constructors
+
+            block.collections = _.transform(block.__collections, function(result, collectionInitializer, key) {
+                result[key] = block.get('__collections.' + key);
             });
 
-            block.models = _.transform(block.models, function(result, modelInitializer, key) {
-                result[key] = block.get('models.' + key);
+            block.models = _.transform(block.__models, function(result, modelInitializer, key) {
+                result[key] = block.get('__models.' + key);
             });
 
-            block.collection = block.get('collection');
-            block.model = block.get('model');
+            block.collection = block.get('__collection');
+            block.model = block.get('__model');
 
         },
 

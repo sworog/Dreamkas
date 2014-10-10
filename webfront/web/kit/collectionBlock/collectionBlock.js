@@ -31,27 +31,12 @@ define(function(require, exports, module) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            if (block.collection) {
-                block.listenTo(block.collection, {
-                    'change add remove reset': function() {
-                        block.render();
-                    }
-                });
-            }
-
             if (block.itemSelector) {
                 block.bindSwitchHandlers();
             }
         },
         render: function() {
-            var block = this,
-                sortedList = block.collection.sortBy(block.get('sortBy'));
-
-            if (block.get('sortDirection') === 'descending') {
-                sortedList.reverse();
-            }
-
-            block.sortedCollection = new Collection(sortedList);
+            var block = this;
 
             Block.prototype.render.apply(block, arguments);
 
@@ -61,6 +46,30 @@ define(function(require, exports, module) {
             $sortTriggers.removeAttr('data-sorted-direction');
 
             $sortTrigger.attr('data-sorted-direction', block.sortDirection);
+        },
+        initData: function(){
+
+            var block = this,
+                sortedList;
+
+            Block.prototype.initData.apply(this, arguments);
+
+            if (block.collection) {
+
+                sortedList = block.collection.sortBy(block.get('sortBy'));
+
+                if (block.get('sortDirection') === 'descending') {
+                    sortedList.reverse();
+                }
+
+                block.sortedCollection = new Collection(sortedList);
+
+                block.listenTo(block.collection, {
+                    'change add remove reset': function() {
+                        block.render();
+                    }
+                });
+            }
         },
         sort: function(opt) {
 

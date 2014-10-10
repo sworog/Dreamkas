@@ -8,7 +8,10 @@ define(function(require, exports, module) {
         collection: function() {
             return PAGE.collections.stockSell;
         },
-        render: function() {
+        initData: function(){
+
+            Table.prototype.initData.apply(this, arguments);
+
             var totalGrossSales = 0,
                 totalGrossMargin = 0;
 
@@ -19,8 +22,6 @@ define(function(require, exports, module) {
 
             this.totalGrossSales = totalGrossSales;
             this.totalGrossMargin = totalGrossMargin;
-
-            Table.prototype.render.apply(this, arguments);
         },
         calculateGrossSalesPercent: function(grossSales) {
             var percent = 100 * grossSales / this.totalGrossSales;

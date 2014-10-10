@@ -25,7 +25,7 @@ define(function(require, exports, module) {
                         id: page.params.groupId
                     });
 
-                groupModel.on({
+                page.listenTo(groupModel, {
                     destroy: function() {
                         router.navigate('/catalog');
                     }

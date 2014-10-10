@@ -17,10 +17,17 @@
     <% if (model.id) { %>
 
     <% if (collections.groupProducts.length) { %>
-    <button type="button" class="removeLink group__removeLink" data-placement="top" data-toggle="popover" data-content="Чтобы удалить группу, нужно сначала удалить все товары в ней.">
+
+    <button type="button"
+            block="popover"
+            class="removeLink group__removeLink"
+            data-placement="top"
+            data-content="Чтобы удалить группу, нужно сначала удалить все товары в ней.">
+
         <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
         Удалить группу
     </button>
+
     <% } else { %>
     <div class="confirmLink">
 
