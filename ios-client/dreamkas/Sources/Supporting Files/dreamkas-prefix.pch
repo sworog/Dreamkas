@@ -54,6 +54,7 @@
 
 #import "DatesHelper.h"
 #import "ValidationHelper.h"
+#import "CurrentUserHelper.h"
 
 //
 // Вспомогательные протоколы

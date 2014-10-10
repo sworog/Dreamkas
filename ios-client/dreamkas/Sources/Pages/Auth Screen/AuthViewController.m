@@ -37,6 +37,19 @@
 - (IBAction)logInButtonClicked:(id)sender
 {
     DPLogFast(@"");
+    
+    [NetworkManager authWithLogin:API_TEST_LOGIN
+                         password:API_TEST_PWD
+                     onCompletion:^(NSDictionary *data, NSError *error)
+     {
+         if (error == nil) {
+             // если авторизация прошла успешно - запоминаем данные пользователя
+             [CurrentUser updateLastUsedLogin:API_TEST_LOGIN
+                             lastUsedPassword:API_TEST_PWD];
+             
+             [self performSegueWithIdentifier:AuthToTicketWindowScreenSegueName sender:self];
+         }
+     }];
 }
 
 @end

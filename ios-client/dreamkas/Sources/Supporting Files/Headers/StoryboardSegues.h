@@ -16,6 +16,8 @@
 #define IntroToAuthScreenSegueName                  @"IntroToAuthScreenSegue"
 #define IntroToCashierPwdScreenSegueName            @"IntroToCashierPwdScreenSegue"
 
+#define AuthToTicketWindowScreenSegueName           @"AuthToTicketWindowScreenSegue"
+
 //
 // Идентификаторы экранов
 //
