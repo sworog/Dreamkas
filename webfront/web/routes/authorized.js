@@ -14,7 +14,7 @@ define(function(require) {
 		'reports/stockBalance(/)': require('pages/reports/stockBalance/stockBalance'),
 		'reports/profit/groups(/)': require('pages/reports/profit/groups/groups'),
 		'reports/profit/groups/:groupId(/)': require('pages/reports/profit/groups/group/group'),
-        'reports/storesProfit(/)': require('pages/reports/profit/stores/stores'),
+        'reports/profit/stores(/)': require('pages/reports/profit/stores/stores'),
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
