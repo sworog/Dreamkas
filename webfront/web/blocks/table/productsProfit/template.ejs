@@ -19,7 +19,7 @@
         </th>
     </tr>
     </thead>
-    <tbody name="stockSell">
+    <tbody name="profit">
 
     <% sortedCollection.forEach(function(profitModel){ %>
     <tr name="product">
@@ -30,7 +30,7 @@
             <span name="grossSales">
                 <%- formatMoney(profitModel.get('grossSales')) %>
             </span>
-            <span name="grossSalesPercent" class="table_groupStockSell__percent">
+            <span name="grossSalesPercent" class="table_productsProfit__percent">
                 (<%- calculateGrossSalesPercent(profitModel.get('grossSales')) %>%)
             </span>
         </td>
@@ -41,7 +41,7 @@
             <span name="grossMargin">
                 <%- formatMoney(profitModel.get('grossMargin')) %>
             </span>
-            <span name="grossMarginPercent" class="table_groupStockSell__percent">
+            <span name="grossMarginPercent" class="table_productsProfit__percent">
                 (<%- calculateGrossMarginPercent(profitModel.get('grossMargin')) %>%)
             </span>
         </td>

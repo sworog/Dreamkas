@@ -54,7 +54,8 @@
     color: #999;
 }
 
-.table_groupStockSell__percent{
+.table_productsProfit__percent,
+.table_groupsProfit__percent {
     font-size: 12px;
     color: #c6c6c6;
 }
