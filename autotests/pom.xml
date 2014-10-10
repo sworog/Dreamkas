@@ -137,6 +137,13 @@
             <artifactId>artifactId</artifactId>
             <version>1.0</version>
             <scope>system</scope>
+            <systemPath>${basedir}/lib/dreamkas-api-client-1.0-SNAPSHOT-tests.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>groupId1</groupId>
+            <artifactId>artifactId1</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
             <systemPath>${basedir}/lib/dreamkas-api-client-1.0-SNAPSHOT.jar</systemPath>
         </dependency>
     </dependencies>
