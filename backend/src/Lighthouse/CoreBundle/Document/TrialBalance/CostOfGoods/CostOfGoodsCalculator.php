@@ -275,6 +275,28 @@ class CostOfGoodsCalculator
 
     /**
      * @param TrialBalance $trialBalance
+     * @return array
+     */
+    public function getStockMovementTypesByTrialBalance(TrialBalance $trialBalance)
+    {
+        return $this->getStockMovementTypes($trialBalance->reason);
+    }
+
+    /**
+     * @param StockMovementProduct $stockMovementProduct
+     * @return array
+     */
+    public function getStockMovementTypes(StockMovementProduct $stockMovementProduct)
+    {
+        if ($this->isDecrementStockType($stockMovementProduct)) {
+            return $this->getDecrementStockTypes();
+        } else {
+            return $this->getIncrementStockTypes();
+        }
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
      * @param array $reasonTypes
      * @param int $batch
      */

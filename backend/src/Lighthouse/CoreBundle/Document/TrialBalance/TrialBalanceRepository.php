@@ -63,12 +63,13 @@ class TrialBalanceRepository extends DocumentRepository
 
     /**
      * @param TrialBalance $trialBalance
+     * @param array $reasonTypes
      * @return null|TrialBalance
      */
-    public function findOneNext(TrialBalance $trialBalance)
+    public function findOneNext(TrialBalance $trialBalance, array $reasonTypes)
     {
         $criteria = array(
-            'reason.$ref' => $trialBalance->reason->getType(),
+            'reason.$ref' => array('$in' => $reasonTypes),
             'storeProduct' => $trialBalance->storeProduct->id,
             'createdDate.date' => array('$gte' => $trialBalance->createdDate),
             '_id' => array('$ne' => $trialBalance->id),
@@ -82,12 +83,13 @@ class TrialBalanceRepository extends DocumentRepository
 
     /**
      * @param TrialBalance $trialBalance
+     * @param array $reasonTypes
      * @return TrialBalance
      */
-    public function findOnePrevious(TrialBalance $trialBalance)
+    public function findOnePrevious(TrialBalance $trialBalance, array $reasonTypes)
     {
         $criteria = array(
-            'reason.$ref' => $trialBalance->reason->getType(),
+            'reason.$ref' => array('$in' => $reasonTypes),
             'storeProduct' => $trialBalance->storeProduct->id,
             'createdDate.date' => array('$lte' => $trialBalance->createdDate),
             '_id' => array('$ne' => $trialBalance->id),
@@ -101,12 +103,13 @@ class TrialBalanceRepository extends DocumentRepository
 
     /**
      * @param TrialBalance $trialBalance
+     * @param array $reasonTypes
      * @return TrialBalance
      */
-    public function findOnePreviousDateByReasonsTypes(TrialBalance $trialBalance)
+    public function findOnePreviousDateByReasonsTypes(TrialBalance $trialBalance, array $reasonTypes)
     {
         $criteria = array(
-            'reason.$ref' => $trialBalance->reason->getType(),
+            'reason.$ref' => array('$in' => $reasonTypes),
             'storeProduct' => $trialBalance->storeProduct->id,
             'createdDate.date' => array('$lt' => $trialBalance->createdDate),
         );
@@ -613,26 +616,6 @@ class TrialBalanceRepository extends DocumentRepository
             '_id' => self::SORT_ASC,
         );
         return $this->findOneBy($criteria, $sort);
-    }
-
-    /**
-     * @param string $status
-     * @param string $reasonType
-     * @param int $limit
-     * @return Cursor|TrialBalance[]
-     */
-    public function findByProcessingStatus($status, $reasonType, $limit = null)
-    {
-        $criteria = array(
-            'processingStatus' => $status,
-            'reason.$ref' => $reasonType,
-        );
-        $sort = array(
-            'storeProduct' => self::SORT_ASC,
-            'createdDate.date' => self::SORT_ASC,
-            'id' => self::SORT_ASC
-        );
-        return $this->findBy($criteria, $sort, $limit);
     }
 
     /**
