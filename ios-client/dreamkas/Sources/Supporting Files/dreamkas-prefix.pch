@@ -53,6 +53,7 @@
 //
 
 #import "DatesHelper.h"
+#import "ValidationHelper.h"
 
 //
 // Вспомогательные протоколы

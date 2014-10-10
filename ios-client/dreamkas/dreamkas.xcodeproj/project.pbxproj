@@ -33,6 +33,18 @@
 		CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */; };
 		CE3B95FF19E432BD00E1D24F /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */; };
 		CE3B960019E432BD00E1D24F /* NSDate+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */; };
+		CE8AB37A19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
+		CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
+		CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37519E7C8D000B105E0 /* NSData+Base64.m */; };
+		CE8AB37D19E7C8D000B105E0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37519E7C8D000B105E0 /* NSData+Base64.m */; };
+		CE8AB37E19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37719E7C8D000B105E0 /* NSData+CommonCrypto.m */; };
+		CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37719E7C8D000B105E0 /* NSData+CommonCrypto.m */; };
+		CE8AB38019E7C8D000B105E0 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37919E7C8D000B105E0 /* NSString+Base64.m */; };
+		CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37919E7C8D000B105E0 /* NSString+Base64.m */; };
+		CE8AB38619E7C92700B105E0 /* ValidationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB38519E7C92700B105E0 /* ValidationHelper.m */; };
+		CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB38519E7C92700B105E0 /* ValidationHelper.m */; };
+		CE8AB38A19E7C99600B105E0 /* CurrentUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */; };
+		CE8AB38B19E7C99600B105E0 /* CurrentUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */; };
 		CE946BB919E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBA19E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */; };
@@ -180,6 +192,18 @@
 		CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Groups.m"; sourceTree = "<group>"; };
 		CE3B95FD19E432BC00E1D24F /* NSDate+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Utilities.h"; sourceTree = "<group>"; };
 		CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Utilities.m"; sourceTree = "<group>"; };
+		CE8AB37219E7C8D000B105E0 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
+		CE8AB37319E7C8D000B105E0 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
+		CE8AB37419E7C8D000B105E0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		CE8AB37519E7C8D000B105E0 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		CE8AB37619E7C8D000B105E0 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		CE8AB37719E7C8D000B105E0 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		CE8AB37819E7C8D000B105E0 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		CE8AB37919E7C8D000B105E0 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		CE8AB38419E7C92700B105E0 /* ValidationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidationHelper.h; sourceTree = "<group>"; };
+		CE8AB38519E7C92700B105E0 /* ValidationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationHelper.m; sourceTree = "<group>"; };
+		CE8AB38819E7C99600B105E0 /* CurrentUserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentUserHelper.h; sourceTree = "<group>"; };
+		CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentUserHelper.m; sourceTree = "<group>"; };
 		CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		CE946BA919E6A91400D270E4 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -439,8 +463,9 @@
 		CE1B3DA719DD40CA00A253D1 /* Submodules */ = {
 			isa = PBXGroup;
 			children = (
-				CECFC4AE19DD806C00ED88D3 /* DPLibrary */,
 				CECFC47719DD74C800ED88D3 /* AFNetworking */,
+				CECFC4AE19DD806C00ED88D3 /* DPLibrary */,
+				CE8AB37119E7C8D000B105E0 /* Encryption */,
 			);
 			path = Submodules;
 			sourceTree = "<group>";
@@ -480,6 +505,10 @@
 			children = (
 				CE3B95ED19E40DA900E1D24F /* DatesHelper.h */,
 				CE3B95EE19E40DA900E1D24F /* DatesHelper.m */,
+				CE8AB38419E7C92700B105E0 /* ValidationHelper.h */,
+				CE8AB38519E7C92700B105E0 /* ValidationHelper.m */,
+				CE8AB38819E7C99600B105E0 /* CurrentUserHelper.h */,
+				CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -493,6 +522,21 @@
 				CE3B95FE19E432BD00E1D24F /* NSDate+Utilities.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		CE8AB37119E7C8D000B105E0 /* Encryption */ = {
+			isa = PBXGroup;
+			children = (
+				CE8AB37219E7C8D000B105E0 /* AESCrypt.h */,
+				CE8AB37319E7C8D000B105E0 /* AESCrypt.m */,
+				CE8AB37419E7C8D000B105E0 /* NSData+Base64.h */,
+				CE8AB37519E7C8D000B105E0 /* NSData+Base64.m */,
+				CE8AB37619E7C8D000B105E0 /* NSData+CommonCrypto.h */,
+				CE8AB37719E7C8D000B105E0 /* NSData+CommonCrypto.m */,
+				CE8AB37819E7C8D000B105E0 /* NSString+Base64.h */,
+				CE8AB37919E7C8D000B105E0 /* NSString+Base64.m */,
+			);
+			path = Encryption;
 			sourceTree = "<group>";
 		};
 		CE946BA619E6A91400D270E4 /* Fonts */ = {
@@ -880,10 +924,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */,
+				CE8AB37A19E7C8D000B105E0 /* AESCrypt.m in Sources */,
 				CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */,
 				CEC0041519E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE946BED19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
+				CE8AB38019E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
@@ -905,16 +951,20 @@
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */,
 				CE3B95FA19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
+				CE8AB38A19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
 				CECFC4A819DD74C800ED88D3 /* UIAlertView+AFNetworking.m in Sources */,
+				CE8AB38619E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
 				CECFC4A619DD74C800ED88D3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CEC003F719E6944E00AE256F /* RootViewController.m in Sources */,
+				CE8AB37E19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CECFC4A519DD74C800ED88D3 /* AFURLSessionManager.m in Sources */,
 				CE1B3DB219DD40CA00A253D1 /* main.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
+				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE3B95FF19E432BD00E1D24F /* NSDate+Utilities.m in Sources */,
 			);
@@ -927,20 +977,26 @@
 				CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */,
 				CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */,
 				CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
+				CE8AB38B19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
 				CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */,
 				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
+				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
+				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CEC0041219E69B1700AE256F /* IntroViewController.m in Sources */,
 				CEC0040E19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
 				CE3B960019E432BD00E1D24F /* NSDate+Utilities.m in Sources */,
 				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
 				CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
+				CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */,
 				CEC003F819E6944E00AE256F /* RootViewController.m in Sources */,
+				CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CE946BEA19E6B9AF00D270E4 /* UIView+Positioning.m in Sources */,
 				CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */,
+				CE8AB37D19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
