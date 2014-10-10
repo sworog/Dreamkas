@@ -1,22 +1,22 @@
 //
-//  RootViewController.m
+//  AbstractViewController.m
 //  dreamkas
 //
-//  Created by sig on 09.10.14.
+//  Created by sig on 10.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "AbstractViewController.h"
 
 #define LOG_ON 1
 
-@interface RootViewController () <MBProgressHUDDelegate>
+@interface AbstractViewController () <MBProgressHUDDelegate>
 {
     MBProgressHUD *indicator;
 }
 @end
 
-@implementation RootViewController
+@implementation AbstractViewController
 
 #pragma mark - Инициализация
 

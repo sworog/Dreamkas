@@ -35,7 +35,7 @@
 #import "StoryboardSegues.h"
 
 #import "CustomNavigationController.h"
-#import "RootViewController.h"
+#import "AbstractViewController.h"
 
 //
 // Модели и их обработчики

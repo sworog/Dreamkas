@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "AbstractViewController.h"
 
-@interface IntroViewController : RootViewController
+@interface IntroViewController : AbstractViewController
 
 @end

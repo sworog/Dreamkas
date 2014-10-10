@@ -98,8 +98,6 @@
 		CEBC43A319E8060C00C0E575 /* DeviceInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A119E8060C00C0E575 /* DeviceInfoHelper.m */; };
 		CEBC43A719E806F700C0E575 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A619E806F700C0E575 /* Reachability.m */; };
 		CEBC43A819E806F700C0E575 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A619E806F700C0E575 /* Reachability.m */; };
-		CEC003F719E6944E00AE256F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003F619E6944E00AE256F /* RootViewController.m */; };
-		CEC003F819E6944E00AE256F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003F619E6944E00AE256F /* RootViewController.m */; };
 		CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */; };
 		CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */; };
 		CEC0040519E6960400AE256F /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040419E6960400AE256F /* CustomTextField.m */; };
@@ -134,6 +132,8 @@
 		CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49A19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m */; };
 		CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */; };
 		CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC4B119DD808300ED88D3 /* DPLog.m */; };
+		CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
+		CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -248,8 +248,6 @@
 		CEBC43A119E8060C00C0E575 /* DeviceInfoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoHelper.m; sourceTree = "<group>"; };
 		CEBC43A519E806F700C0E575 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CEBC43A619E806F700C0E575 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		CEC003F519E6944E00AE256F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		CEC003F619E6944E00AE256F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		CEC003F919E694BE00AE256F /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
 		CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		CEC003FE19E694F900AE256F /* CustomDataCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDataCellDelegate.h; sourceTree = "<group>"; };
@@ -308,6 +306,8 @@
 		CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		CECFC4B019DD808300ED88D3 /* DPLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLog.h; sourceTree = "<group>"; };
 		CECFC4B119DD808300ED88D3 /* DPLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLog.m; sourceTree = "<group>"; };
+		CEF2645319E80E88008BE93A /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractViewController.h; sourceTree = "<group>"; };
+		CEF2645419E80E88008BE93A /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -645,8 +645,7 @@
 		CEC003EF19E6942E00AE256F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CEC003F519E6944E00AE256F /* RootViewController.h */,
-				CEC003F619E6944E00AE256F /* RootViewController.m */,
+				CEF2645019E80DAD008BE93A /* AbstractVC */,
 				CEC0040B19E69A6B00AE256F /* CustomNavigationController.h */,
 				CEC0040C19E69A6B00AE256F /* CustomNavigationController.m */,
 			);
@@ -794,6 +793,15 @@
 				CECFC4B119DD808300ED88D3 /* DPLog.m */,
 			);
 			path = DPLog;
+			sourceTree = "<group>";
+		};
+		CEF2645019E80DAD008BE93A /* AbstractVC */ = {
+			isa = PBXGroup;
+			children = (
+				CEF2645319E80E88008BE93A /* AbstractViewController.h */,
+				CEF2645419E80E88008BE93A /* AbstractViewController.m */,
+			);
+			path = AbstractVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -971,6 +979,7 @@
 				CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */,
 				CEC0041519E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE946BED19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
+				CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */,
 				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CE8AB38019E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
@@ -1004,7 +1013,6 @@
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
 				CECFC4A619DD74C800ED88D3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
-				CEC003F719E6944E00AE256F /* RootViewController.m in Sources */,
 				CE8AB37E19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CECFC4A519DD74C800ED88D3 /* AFURLSessionManager.m in Sources */,
@@ -1027,6 +1035,7 @@
 				CE8AB38B19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
+				CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */,
 				CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */,
 				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
@@ -1041,7 +1050,6 @@
 				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
 				CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
 				CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */,
-				CEC003F819E6944E00AE256F /* RootViewController.m in Sources */,
 				CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CE946BEA19E6B9AF00D270E4 /* UIView+Positioning.m in Sources */,
 				CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */,

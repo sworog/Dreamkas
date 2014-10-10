@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "AbstractViewController.h"
 
-@interface AuthViewController : RootViewController
+@interface AuthViewController : AbstractViewController
 
 @end

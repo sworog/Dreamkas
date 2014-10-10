@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "AbstractViewController.h"
 
-@interface TicketWindowViewController : RootViewController
+@interface TicketWindowViewController : AbstractViewController
 
 @end
