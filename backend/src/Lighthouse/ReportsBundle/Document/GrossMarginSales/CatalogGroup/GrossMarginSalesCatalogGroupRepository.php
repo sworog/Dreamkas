@@ -56,4 +56,9 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
             )
         );
     }
+
+    public function recalculate()
+    {
+
+    }
 }

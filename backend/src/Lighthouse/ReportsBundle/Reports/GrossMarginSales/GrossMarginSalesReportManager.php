@@ -93,6 +93,14 @@ class GrossMarginSalesReportManager
     }
 
     /**
+     * @return int
+     */
+    public function recalculateGrossMarginSalesCatalogGroupReport()
+    {
+        return $this->grossMarginSalesCatalogGroupRepository->recalculate();
+    }
+
+    /**
      * @param SubCategory $subCategory
      * @param $storeId
      * @param DateTime $startDate

@@ -39,9 +39,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('-10 days'))), $store->id)
-                ->createInvoiceProduct($productIds[1], 100, 90)
-                ->createInvoiceProduct($productIds[2], 100, 50)
-                ->createInvoiceProduct($productIds[3], 100, 100)
+                ->createInvoiceProduct($productIds['1'], 100, 90)
+                ->createInvoiceProduct($productIds['2'], 100, 50)
+                ->createInvoiceProduct($productIds['3'], 100, 100)
                 ->createInvoiceProduct($productOtherSubCategoryId, 99, 77)
             ->flush();
 
@@ -237,35 +237,6 @@ class GrossMarginSalesControllerTest extends WebTestCase
         }
 
         $this->assertTrue($found, sprintf('Report for product %s, not found', $productId));
-    }
-
-    /**
-     * @param array $response
-     * @param string $catalogGroupId
-     * @param float|int $expectedGrossSales
-     * @param float|int $expectedCostOfGoods
-     * @param float|int $expectedGrossMargin
-     * @param float|int $expectedQuantity
-     */
-    public function assertGrossMarginSalesReportByCatalogGroup(
-        array $response,
-        $catalogGroupId,
-        $expectedGrossSales = 0,
-        $expectedCostOfGoods = 0,
-        $expectedGrossMargin = 0,
-        $expectedQuantity = 0
-    ) {
-        foreach ($response as $reportElement) {
-            if ($reportElement['subCategory']['id'] == $catalogGroupId) {
-                $this->assertSame($expectedGrossSales, $reportElement['grossSales']);
-                $this->assertSame($expectedCostOfGoods, $reportElement['costOfGoods']);
-                $this->assertSame($expectedGrossMargin, $reportElement['grossMargin']);
-                $this->assertSame($expectedQuantity, $reportElement['quantity']);
-                return;
-            }
-        }
-
-        $this->fail(sprintf('Report for catalogGroup %s, not found', $catalogGroupId));
     }
 
     public function testGrossMarginSalesByProductForAllStores()
@@ -486,5 +457,120 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup1->id);
         $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup2->id);
         $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup3->id);
+    }
+
+    /**
+     * @dataProvider grossMarginSalesByCatalogGroupReportsProvider
+     *
+     * @param string $storeName
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param array $assertions
+     */
+    public function testGrossMarginSalesByCatalogGroupReports($storeName, $dateFrom, $dateTo, array $assertions)
+    {
+        $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
+
+        $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
+
+        $productIds = array();
+        $productIds['1'] = $this->createProductByName('1.1', $catalogGroups['1']->id);
+        $productIds['2'] = $this->createProductByName('1.2', $catalogGroups['1']->id);
+        $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
+        $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
+
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
+        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesCatalogGroupReport();
+
+        $query = array();
+        if (null !== $storeName) {
+            $query['store'] = $stores[$storeName]->id;
+        }
+        if (null !== $dateFrom) {
+            $query['dateFrom'] = date('c', strtotime($dateFrom));
+        }
+        if (null !== $dateTo) {
+            $query['dateTo'] = date('c', strtotime($dateTo));
+        }
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/catalog/groups/reports/grossMarginSalesByCatalogGroup',
+            null,
+            $query
+        );
+
+        $this->assertResponseCode(200);
+
+        foreach ($assertions as $groupCatalogName => $assertion) {
+            list(
+                $expectedGrossSales,
+                $expectedCostOfGoods,
+                $expectedGrossMargin,
+                $expectedQuantity
+            ) = $assertion;
+            $groupCatalogId = $catalogGroups[$groupCatalogName]->id;
+            $this->assertGrossMarginSalesReportByCatalogGroup(
+                $response,
+                $groupCatalogId,
+                $expectedGrossSales,
+                $expectedCostOfGoods,
+                $expectedGrossMargin,
+                $expectedQuantity
+            );
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function grossMarginSalesByCatalogGroupReportsProvider()
+    {
+        return array(
+            'no store' => array(
+                null,
+                null,
+                null,
+                array(
+                    '1' => array(0, 0, 0, 0),
+                    '2' => array(0, 0, 0, 0),
+                    '3' => array(0, 0, 0, 0),
+                )
+            )
+        );
+    }
+
+    /**
+     * @param array $response
+     * @param string $catalogGroupId
+     * @param float|int $expectedGrossSales
+     * @param float|int $expectedCostOfGoods
+     * @param float|int $expectedGrossMargin
+     * @param float|int $expectedQuantity
+     */
+    public function assertGrossMarginSalesReportByCatalogGroup(
+        array $response,
+        $catalogGroupId,
+        $expectedGrossSales = 0,
+        $expectedCostOfGoods = 0,
+        $expectedGrossMargin = 0,
+        $expectedQuantity = 0
+    ) {
+        foreach ($response as $reportElement) {
+            if ($reportElement['subCategory']['id'] == $catalogGroupId) {
+                $this->assertSame($expectedGrossSales, $reportElement['grossSales']);
+                $this->assertSame($expectedCostOfGoods, $reportElement['costOfGoods']);
+                $this->assertSame($expectedGrossMargin, $reportElement['grossMargin']);
+                $this->assertSame($expectedQuantity, $reportElement['quantity']);
+                return;
+            }
+        }
+
+        $this->fail(sprintf('Report for catalogGroup %s, not found', $catalogGroupId));
     }
 }
