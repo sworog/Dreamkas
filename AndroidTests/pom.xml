@@ -11,9 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.260</thucydides.version>
-        <thucydides.jbehave.version>0.9.260</thucydides.jbehave.version>
-        <thucydides.maven.version>0.9.224</thucydides.maven.version>
+        <thucydides.version>0.9.273</thucydides.version>
+        <thucydides.jbehave.version>0.9.273</thucydides.jbehave.version>
+        <thucydides.maven.version>0.9.273</thucydides.maven.version>
         <appium.server.url>http://appium.lighthouse.pro/wd/hub</appium.server.url>
         <appium.path.to.file>C:\android\app-debug.apk</appium.path.to.file>
         <webdriver.driver>provided</webdriver.driver>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.github.crystalservice</groupId>
             <artifactId>thucydides-teamcity-steplistener</artifactId>
-            <version>0.3.5</version>
+            <version>0.3.6</version>
         </dependency>
         <dependency>
             <groupId>net.thucydides</groupId>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.6.1</version>
+            <version>1.7.7</version>
         </dependency>
         <dependency>
             <groupId>org.easytesting</groupId>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>1.7.0</version>
+            <version>2.0.0</version>
         </dependency>
     </dependencies>
 
@@ -134,6 +134,11 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.1</version>
             </plugin>
         </plugins>
     </build>
