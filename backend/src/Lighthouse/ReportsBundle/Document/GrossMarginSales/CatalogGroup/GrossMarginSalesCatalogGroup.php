@@ -3,17 +3,19 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup;
 
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesReport;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository"
+ *      repositoryClass
+ *          = "Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupRepository"
  * )
  * @MongoDB\Index(keys={"day"="asc", "subCategory"="asc"})
  *
  * @property SubCategory $subCategory
  */
-class GrossMarginSalesCatalogGroupReport extends GrossMarginSalesReport
+class GrossMarginSalesCatalogGroup extends GrossMarginSales
 {
     /**
      * @MongoDB\ReferenceOne(

@@ -2,13 +2,9 @@
 
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Product;
 
-use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
-use DateTime;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use JMS\Serializer\Annotation\Exclude;
-use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 /**
  * @property StoreProduct   $storeProduct
@@ -18,7 +14,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * )
  * @MongoDB\Index(keys={"day"="asc", "storeProduct"="asc"})
  */
-class GrossMarginSalesProductReport extends GrossMarginSalesReport
+class GrossMarginSalesProduct extends GrossMarginSales
 {
     /**
      * @MongoDB\ReferenceOne(

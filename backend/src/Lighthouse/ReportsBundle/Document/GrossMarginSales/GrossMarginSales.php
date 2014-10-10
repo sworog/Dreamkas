@@ -1,14 +1,13 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Product;
+namespace Lighthouse\ReportsBundle\Document\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use DateTime;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation\Exclude;
-use Lighthouse\CoreBundle\Types\Numeric\Quantity;
+use DateTime;
 
 /**
  * @property string         $id
@@ -18,12 +17,10 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * @property Quantity       $quantity
  * @property DateTime       $day
  *
- * @MongoDB\Document(
- *      repositoryClass="Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository"
- * )
- * @MongoDB\Index(keys={"day"="asc", "storeProduct"="asc"})
+ * @MongoDB\MappedSuperclass
+ * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
  */
-abstract class GrossMarginSalesReport extends AbstractDocument
+abstract class GrossMarginSales extends AbstractDocument
 {
     /**
      * @MongoDB\Id(strategy="NONE")

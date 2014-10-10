@@ -40,7 +40,7 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
     /**
      * @param DateTime $dateFrom
      * @param DateTime $dateTo
-     * @return Cursor|GrossMarginSalesCatalogGroupReport[]
+     * @return Cursor|GrossMarginSalesCatalogGroup[]
      */
     public function findByPeriod(DateTime $dateFrom, DateTime $dateTo)
     {

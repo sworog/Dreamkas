@@ -1,14 +1,14 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByCatalogGroups;
+namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups;
 
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSales;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReport;
 
 /**
  * @property SubCategory    $subCategory
  */
-class GrossMarginSalesByCatalogGroups extends GrossMarginSales
+class GrossMarginSalesByCatalogGroups extends GrossMarginSalesReport
 {
     /**
      * @var SubCategory

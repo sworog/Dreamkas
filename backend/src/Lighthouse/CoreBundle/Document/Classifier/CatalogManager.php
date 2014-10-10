@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ODM\MongoDB\PersistentCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -102,5 +104,13 @@ class CatalogManager
         $catalogGroup->category = $this->getDefaultCategory();
 
         return $catalogGroup;
+    }
+
+    /**
+     * @return Collection|PersistentCollection|SubCategory[]
+     */
+    public function getCatalogGroups()
+    {
+        return $this->getDefaultCategory()->subCategories;
     }
 }

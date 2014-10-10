@@ -46,7 +46,7 @@ services:
     lighthouse.reports.document.gross_margin_sales.product.repository:
         parent: doctrine_mongodb.odm.repository
         arguments:
-            - LighthouseReportsBundle:GrossMarginSales\Product\GrossMarginSalesProductReport
+            - LighthouseReportsBundle:GrossMarginSales\Product\GrossMarginSalesProduct
         calls:
             - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
@@ -54,7 +54,7 @@ services:
     lighthouse.reports.document.gross_margin_sales.catalog_group.repository:
         parent: doctrine_mongodb.odm.repository
         arguments:
-            - LighthouseReportsBundle:GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupReport
+            - LighthouseReportsBundle:GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroup
         calls:
             - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]

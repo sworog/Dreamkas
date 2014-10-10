@@ -5,6 +5,7 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
@@ -238,6 +239,35 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->assertTrue($found, sprintf('Report for product %s, not found', $productId));
     }
 
+    /**
+     * @param array $response
+     * @param string $catalogGroupId
+     * @param float|int $expectedGrossSales
+     * @param float|int $expectedCostOfGoods
+     * @param float|int $expectedGrossMargin
+     * @param float|int $expectedQuantity
+     */
+    public function assertGrossMarginSalesReportByCatalogGroup(
+        array $response,
+        $catalogGroupId,
+        $expectedGrossSales = 0,
+        $expectedCostOfGoods = 0,
+        $expectedGrossMargin = 0,
+        $expectedQuantity = 0
+    ) {
+        foreach ($response as $reportElement) {
+            if ($reportElement['subCategory']['id'] == $catalogGroupId) {
+                $this->assertSame($expectedGrossSales, $reportElement['grossSales']);
+                $this->assertSame($expectedCostOfGoods, $reportElement['costOfGoods']);
+                $this->assertSame($expectedGrossMargin, $reportElement['grossMargin']);
+                $this->assertSame($expectedQuantity, $reportElement['quantity']);
+                return;
+            }
+        }
+
+        $this->fail(sprintf('Report for catalogGroup %s, not found', $catalogGroupId));
+    }
+
     public function testGrossMarginSalesByProductForAllStores()
     {
         $store1 = $this->factory()->store()->getStore();
@@ -390,5 +420,71 @@ class GrossMarginSalesControllerTest extends WebTestCase
             0,
             $response
         );
+    }
+
+    public function testGrossMarginSalesByCatalogGroupEmptyReportsForAllStores()
+    {
+        $this->factory()->store()->getStore();
+        $catalogGroup1 = $this->factory()->catalog()->getSubCategory('1');
+        $catalogGroup2 = $this->factory()->catalog()->getSubCategory('2');
+        $catalogGroup3 = $this->factory()->catalog()->getSubCategory('3');
+
+        $this->createProductByName('1.1', $catalogGroup1->id);
+        $this->createProductByName('1.2', $catalogGroup1->id);
+        $this->createProductByName('2.0', $catalogGroup2->id);
+        // catalog group 3 does not have products
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/catalog/groups/reports/grossMarginSalesByCatalogGroup',
+            null,
+            array(
+                'startDate' => date('c', strtotime('-4 day 00:00:00')),
+                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.subCategory.id', $response);
+        $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup1->id);
+        $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup2->id);
+        $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup3->id);
+    }
+
+    public function testGrossMarginSalesByCatalogGroupEmptyReportsForAllOneStore()
+    {
+        $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
+
+        $catalogGroup1 = $this->factory()->catalog()->getSubCategory('1');
+        $catalogGroup2 = $this->factory()->catalog()->getSubCategory('2');
+        $catalogGroup3 = $this->factory()->catalog()->getSubCategory('3');
+
+        $this->createProductByName('1.1', $catalogGroup1->id);
+        $this->createProductByName('1.2', $catalogGroup1->id);
+        $this->createProductByName('2.0', $catalogGroup2->id);
+        // catalog group 3 does not have products
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/catalog/groups/reports/grossMarginSalesByCatalogGroup',
+            null,
+            array(
+                'store' => $stores['1']->id,
+                'startDate' => date('c', strtotime('-4 day 00:00:00')),
+                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.subCategory.id', $response);
+        $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup1->id);
+        $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup2->id);
+        $this->assertGrossMarginSalesReportByCatalogGroup($response, $catalogGroup3->id);
     }
 }
