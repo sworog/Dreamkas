@@ -38,27 +38,30 @@
 {
     DPLogFast(@"");
     
-    [self showLoading];
-    __weak typeof(self)weak_self = self;
+    [self showViewControllerModally:ControllerById(LogInViewControllerID)
+                            segueId:AuthToLogInScreenSegueName];
     
-    [NetworkManager authWithLogin:API_TEST_LOGIN
-                         password:API_TEST_PWD
-                     onCompletion:^(NSDictionary *data, NSError *error)
-     {
-         __strong typeof(self)strong_self = weak_self;
-         [strong_self hideLoading];
-         
-         if (error == nil) {
-             // если авторизация прошла успешно - запоминаем данные пользователя
-             [CurrentUser updateLastUsedLogin:API_TEST_LOGIN
-                             lastUsedPassword:API_TEST_PWD];
-             
-             [self performSegueWithIdentifier:AuthToTicketWindowScreenSegueName sender:self];
-         }
-         else {
-             [DialogHelper showRequestError];
-         }
-     }];
+//    [self showLoading];
+//    __weak typeof(self)weak_self = self;
+//    
+//    [NetworkManager authWithLogin:API_TEST_LOGIN
+//                         password:API_TEST_PWD
+//                     onCompletion:^(NSDictionary *data, NSError *error)
+//     {
+//         __strong typeof(self)strong_self = weak_self;
+//         [strong_self hideLoading];
+//         
+//         if (error == nil) {
+//             // если авторизация прошла успешно - запоминаем данные пользователя
+//             [CurrentUser updateLastUsedLogin:API_TEST_LOGIN
+//                             lastUsedPassword:API_TEST_PWD];
+//             
+//             [self performSegueWithIdentifier:AuthToTicketWindowScreenSegueName sender:self];
+//         }
+//         else {
+//             [DialogHelper showRequestError];
+//         }
+//     }];
 }
 
 @end

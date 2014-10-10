@@ -36,6 +36,7 @@
 
 #import "CustomNavigationController.h"
 #import "AbstractViewController.h"
+#import "AbstractViewController+Modal.h"
 
 //
 // Модели и их обработчики

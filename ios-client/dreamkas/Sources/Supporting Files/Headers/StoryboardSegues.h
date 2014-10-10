@@ -17,11 +17,13 @@
 #define IntroToCashierPwdScreenSegueName            @"IntroToCashierPwdScreenSegue"
 
 #define AuthToTicketWindowScreenSegueName           @"AuthToTicketWindowScreenSegue"
+#define AuthToLogInScreenSegueName                  @"AuthToLogInScreenSegue"
 
 //
 // Идентификаторы экранов
 //
 
 #define MainNavigationControllerID                  @"MainNavigationControllerID"
+#define LogInViewControllerID                       @"LogInViewControllerID"
 
 #endif
