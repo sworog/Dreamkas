@@ -18,12 +18,9 @@
 		CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */; };
 		CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */; };
 		CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */; };
-		CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DA319DD40CA00A253D1 /* Info.plist */; };
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
 		CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */; };
 		CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */; };
-		CE1B3DC519DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */; };
-		CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
 		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
@@ -92,6 +89,15 @@
 		CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */; };
 		CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
 		CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
+		CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
+		CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
+		CEBC439B19E8042800C0E575 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
+		CEBC439E19E8048700C0E575 /* DialogHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439D19E8048700C0E575 /* DialogHelper.m */; };
+		CEBC439F19E8048700C0E575 /* DialogHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439D19E8048700C0E575 /* DialogHelper.m */; };
+		CEBC43A219E8060C00C0E575 /* DeviceInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A119E8060C00C0E575 /* DeviceInfoHelper.m */; };
+		CEBC43A319E8060C00C0E575 /* DeviceInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A119E8060C00C0E575 /* DeviceInfoHelper.m */; };
+		CEBC43A719E806F700C0E575 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A619E806F700C0E575 /* Reachability.m */; };
+		CEBC43A819E806F700C0E575 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A619E806F700C0E575 /* Reachability.m */; };
 		CEC003F719E6944E00AE256F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003F619E6944E00AE256F /* RootViewController.m */; };
 		CEC003F819E6944E00AE256F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003F619E6944E00AE256F /* RootViewController.m */; };
 		CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */; };
@@ -109,7 +115,6 @@
 		CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECCA4D519E2929500B165F3 /* libKIF.a */; };
 		CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCA4E419E2BD2F00B165F3 /* kif_tests.m */; };
 		CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD93E719DEA77700232734 /* dreamkas_tests.swift */; };
-		CECD93EA19DEA77700232734 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CECD93E819DEA77700232734 /* Info.plist */; };
 		CECD93F319DEBE6C00232734 /* new_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD93F219DEBE6C00232734 /* new_tests.m */; };
 		CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */; };
 		CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47B19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m */; };
@@ -235,6 +240,14 @@
 		CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmptyButton.h; sourceTree = "<group>"; };
 		CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmptyButton.m; sourceTree = "<group>"; };
 		CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardSegues.h; sourceTree = "<group>"; };
+		CEBC439519E7FB9D00C0E575 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		CEBC439C19E8048700C0E575 /* DialogHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogHelper.h; sourceTree = "<group>"; };
+		CEBC439D19E8048700C0E575 /* DialogHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogHelper.m; sourceTree = "<group>"; };
+		CEBC43A019E8060C00C0E575 /* DeviceInfoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfoHelper.h; sourceTree = "<group>"; };
+		CEBC43A119E8060C00C0E575 /* DeviceInfoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoHelper.m; sourceTree = "<group>"; };
+		CEBC43A519E806F700C0E575 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		CEBC43A619E806F700C0E575 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CEC003F519E6944E00AE256F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		CEC003F619E6944E00AE256F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		CEC003F919E694BE00AE256F /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
@@ -471,6 +484,8 @@
 				CECFC47719DD74C800ED88D3 /* AFNetworking */,
 				CECFC4AE19DD806C00ED88D3 /* DPLibrary */,
 				CE8AB37119E7C8D000B105E0 /* Encryption */,
+				CEBC439419E7FB9D00C0E575 /* MBProgressHUD */,
+				CEBC43A419E806F700C0E575 /* Reachability */,
 			);
 			path = Submodules;
 			sourceTree = "<group>";
@@ -508,12 +523,16 @@
 		CE3B95EA19E40D7800E1D24F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				CE3B95ED19E40DA900E1D24F /* DatesHelper.h */,
-				CE3B95EE19E40DA900E1D24F /* DatesHelper.m */,
-				CE8AB38419E7C92700B105E0 /* ValidationHelper.h */,
-				CE8AB38519E7C92700B105E0 /* ValidationHelper.m */,
 				CE8AB38819E7C99600B105E0 /* CurrentUserHelper.h */,
 				CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */,
+				CE3B95ED19E40DA900E1D24F /* DatesHelper.h */,
+				CE3B95EE19E40DA900E1D24F /* DatesHelper.m */,
+				CEBC43A019E8060C00C0E575 /* DeviceInfoHelper.h */,
+				CEBC43A119E8060C00C0E575 /* DeviceInfoHelper.m */,
+				CEBC439C19E8048700C0E575 /* DialogHelper.h */,
+				CEBC439D19E8048700C0E575 /* DialogHelper.m */,
+				CE8AB38419E7C92700B105E0 /* ValidationHelper.h */,
+				CE8AB38519E7C92700B105E0 /* ValidationHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -567,6 +586,24 @@
 				CE946BB819E6A91400D270E4 /* RobotoCondensed-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CEBC439419E7FB9D00C0E575 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				CEBC439519E7FB9D00C0E575 /* MBProgressHUD.h */,
+				CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		CEBC43A419E806F700C0E575 /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				CEBC43A519E806F700C0E575 /* Reachability.h */,
+				CEBC43A619E806F700C0E575 /* Reachability.m */,
+			);
+			path = Reachability;
 			sourceTree = "<group>";
 		};
 		CEC003EB19E6909B00AE256F /* Auth Screen */ = {
@@ -865,9 +902,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEBC439B19E8042800C0E575 /* Localizable.strings in Resources */,
 				CE8AB39419E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */,
 				CE946BD919E6A91400D270E4 /* RobotoCondensed-LightItalic.ttf in Resources */,
-				CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */,
 				CE946BDB19E6A91400D270E4 /* RobotoCondensed-Regular.ttf in Resources */,
 				CE946BBD19E6A91400D270E4 /* Roboto-Bold.ttf in Resources */,
 				CE946BCB19E6A91400D270E4 /* Roboto-Regular.ttf in Resources */,
@@ -880,7 +917,6 @@
 				CE946BD519E6A91400D270E4 /* RobotoCondensed-Italic.ttf in Resources */,
 				CE946BC719E6A91400D270E4 /* Roboto-Medium.ttf in Resources */,
 				CE946BC119E6A91400D270E4 /* Roboto-Italic.ttf in Resources */,
-				CE1B3DC619DD46DD00A253D1 /* Localizable.strings in Resources */,
 				CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */,
 				CE946BC519E6A91400D270E4 /* Roboto-LightItalic.ttf in Resources */,
 				CE946BD319E6A91400D270E4 /* RobotoCondensed-BoldItalic.ttf in Resources */,
@@ -889,7 +925,6 @@
 				CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */,
 				CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */,
 				CE946BD719E6A91400D270E4 /* RobotoCondensed-Light.ttf in Resources */,
-				CE1B3DC519DD46DD00A253D1 /* InfoPlist.strings in Resources */,
 				CE946BD119E6A91400D270E4 /* RobotoCondensed-Bold.ttf in Resources */,
 				CE946BBF19E6A91400D270E4 /* Roboto-BoldItalic.ttf in Resources */,
 				CE946BC919E6A91400D270E4 /* Roboto-MediumItalic.ttf in Resources */,
@@ -903,7 +938,6 @@
 			files = (
 				CE946BDA19E6A91400D270E4 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				CE946BD819E6A91400D270E4 /* RobotoCondensed-Light.ttf in Resources */,
-				CECD93EA19DEA77700232734 /* Info.plist in Resources */,
 				CE8AB39319E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */,
 				CE946BD619E6A91400D270E4 /* RobotoCondensed-Italic.ttf in Resources */,
 				CE946BCC19E6A91400D270E4 /* Roboto-Regular.ttf in Resources */,
@@ -942,6 +976,7 @@
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
+				CEBC43A719E806F700C0E575 /* Reachability.m in Sources */,
 				CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */,
 				CECFC4AB19DD74C800ED88D3 /* UIProgressView+AFNetworking.m in Sources */,
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
@@ -954,6 +989,7 @@
 				CE946BE119E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CE946BE919E6B9AF00D270E4 /* UIView+Positioning.m in Sources */,
+				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
 				CEC0040D19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
@@ -962,6 +998,7 @@
 				CE3B95FA19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
 				CE8AB38A19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
 				CECFC4A819DD74C800ED88D3 /* UIAlertView+AFNetworking.m in Sources */,
+				CEBC439E19E8048700C0E575 /* DialogHelper.m in Sources */,
 				CE8AB38619E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
@@ -975,6 +1012,7 @@
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
 				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */,
+				CEBC43A219E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
 				CE3B95FF19E432BD00E1D24F /* NSDate+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -994,6 +1032,8 @@
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
+				CEBC43A819E806F700C0E575 /* Reachability.m in Sources */,
+				CEBC43A319E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CEC0041219E69B1700AE256F /* IntroViewController.m in Sources */,
 				CEC0040E19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
@@ -1010,6 +1050,8 @@
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
+				CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
+				CEBC439F19E8048700C0E575 /* DialogHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

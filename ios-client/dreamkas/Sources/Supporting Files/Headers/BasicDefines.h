@@ -57,6 +57,7 @@
 #define ControllerById(cid)                 [[UIStoryboard storyboardWithName:APP_STORYBOARD_NAME bundle:nil] instantiateViewControllerWithIdentifier:cid]
 #define NetworkManager                      [ApplicationDelegate networkManager]
 #define CurrentUser                         [CurrentUserHelper instance]
+#define CurrentIOSVersion                   [DeviceInfoHelper iOSVersion]
 
 //
 // Клиент-серверное взаимодействие

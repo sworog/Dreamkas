@@ -39,23 +39,29 @@ static const CGFloat TimeoutBeforeStart = 2.0f;
  */
 - (void)startLogic
 {
-    if ([CurrentUser hasActualAuthData]) {
-        [NetworkManager authWithLogin:[CurrentUser lastUsedLogin]
-                             password:[CurrentUser lastUsedPassword]
-                         onCompletion:^(NSDictionary *data, NSError *error)
-         {
-             if (error == nil) {
-                 // если авторизация прошла успешно - переходим к кассе
-                 [self performSegueWithIdentifier:IntroToCashierPwdScreenSegueName sender:self];
-             }
-             else {
-                 // TODO: show error message
-             }
-         }];
-    }
-    else {
+    if ([CurrentUser hasActualAuthData] == NO) {
         [self performSegueWithIdentifier:IntroToAuthScreenSegueName sender:self];
+        return;
     }
+    
+    [self showLoading];
+    __weak typeof(self)weak_self = self;
+    
+    [NetworkManager authWithLogin:[CurrentUser lastUsedLogin]
+                         password:[CurrentUser lastUsedPassword]
+                     onCompletion:^(NSDictionary *data, NSError *error)
+     {
+         __strong typeof(self)strong_self = weak_self;
+         [strong_self hideLoading];
+         
+         if (error == nil) {
+             // если авторизация прошла успешно - переходим к кассе
+             [self performSegueWithIdentifier:IntroToCashierPwdScreenSegueName sender:self];
+         }
+         else {
+             [DialogHelper showRequestError];
+         }
+     }];
 }
 
 @end

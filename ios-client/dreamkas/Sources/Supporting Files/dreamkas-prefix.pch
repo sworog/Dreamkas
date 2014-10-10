@@ -13,20 +13,15 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
 //
-// Встроенные библиотеки
-//
-
-#import <MapKit/MapKit.h>
-#import <QuartzCore/QuartzCore.h>
-
-//
 // Сторонние библиотеки
 //
 
 #import "AFNetworking.h"
 #import "DPLog.h"
+#import "MBProgressHUD.h"
 #import "NSDate+Utilities.h"
 #import "UIView+Positioning.h"
+#import "Reachability.h"
 
 //
 // Базовые
@@ -55,6 +50,8 @@
 #import "DatesHelper.h"
 #import "ValidationHelper.h"
 #import "CurrentUserHelper.h"
+#import "DeviceInfoHelper.h"
+#import "DialogHelper.h"
 
 //
 // Вспомогательные протоколы
