@@ -1,8 +1,8 @@
 define(function(require, exports, module) {
     //requirements
-	var Page_productsProfit = require('blocks/page/productsProfit/productsProfit');
+	var Page_profit = require('blocks/page/profit/profit');
 
-    return Page_productsProfit.extend({
+    return Page_profit.extend({
         content: require('ejs!./content.ejs'),
 		ProfitCollection: require('resources/storesProfit/collection'),
 		params: {
