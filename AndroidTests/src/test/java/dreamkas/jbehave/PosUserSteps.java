@@ -29,7 +29,7 @@ public class PosUserSteps {
         posSteps.openDrawerAndClickOnDrawerOption(item);
     }
 
-    @When("набирает в поле поиска товаров '$productSearchQuery'")
+    @When("пользователь набирает в поле поиска товаров '$productSearchQuery'")
     public void whenTheUserTypeProductSearchQuery(String productSearchQuery) {
         posSteps.inputProductSearchQuery(productSearchQuery);
     }
@@ -39,16 +39,15 @@ public class PosUserSteps {
         posSteps.assertActionBarTitle(expectedTitle);
     }
 
-    @Then("видит результат поиска, в котором присутствует товары в количестве '$count'")
+    @Then("пользователь видит результат поиска, в котором присутствует товары в количестве '$count'")
     public void thenUserChecksProductSearchResult(Integer count) {
         posSteps.assertSearchProductsResult(count);
     }
 
-    @Then("видит результат поиска, в котором присутствует товар с названием '$title'")
+    @Then("пользователь видит результат поиска, в котором присутствует товар с названием '$title'")
     public void thenUserChecksProductSearchResult(String productTitle) {
         posSteps.assertSearchProductsResult(productTitle);
     }
-
 
     @Then("пользователь проверяет, что выбранный магазин это '$store'")
     public void thenTheUserChecksTheStore(String store) {
