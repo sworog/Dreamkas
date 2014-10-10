@@ -18,7 +18,6 @@
 		CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */; };
 		CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */; };
 		CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */; };
-		CE1B3DAE19DD40CA00A253D1 /* cert.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9B19DD40CA00A253D1 /* cert.txt */; };
 		CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DA319DD40CA00A253D1 /* Info.plist */; };
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
 		CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */; };
@@ -45,6 +44,10 @@
 		CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB38519E7C92700B105E0 /* ValidationHelper.m */; };
 		CE8AB38A19E7C99600B105E0 /* CurrentUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */; };
 		CE8AB38B19E7C99600B105E0 /* CurrentUserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */; };
+		CE8AB39219E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */ = {isa = PBXBuildFile; fileRef = CE8AB39019E7D1AA00B105E0 /* DreamkasDev.p12 */; };
+		CE8AB39319E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */ = {isa = PBXBuildFile; fileRef = CE8AB39019E7D1AA00B105E0 /* DreamkasDev.p12 */; };
+		CE8AB39419E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = CE8AB39119E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision */; };
+		CE8AB39519E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = CE8AB39119E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision */; };
 		CE946BB919E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBA19E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */; };
@@ -172,7 +175,6 @@
 		CE1B3D9219DD40CA00A253D1 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Pages.storyboard; sourceTree = "<group>"; };
-		CE1B3D9B19DD40CA00A253D1 /* cert.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cert.txt; sourceTree = "<group>"; };
 		CE1B3DA319DD40CA00A253D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1B3DA419DD40CA00A253D1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE1B3DB819DD445700A253D1 /* dreamkas-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dreamkas-prefix.pch"; sourceTree = "<group>"; };
@@ -204,6 +206,8 @@
 		CE8AB38519E7C92700B105E0 /* ValidationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidationHelper.m; sourceTree = "<group>"; };
 		CE8AB38819E7C99600B105E0 /* CurrentUserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentUserHelper.h; sourceTree = "<group>"; };
 		CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentUserHelper.m; sourceTree = "<group>"; };
+		CE8AB39019E7D1AA00B105E0 /* DreamkasDev.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DreamkasDev.p12; sourceTree = "<group>"; };
+		CE8AB39119E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; path = DreamkasDevelopmentProfile.mobileprovision; sourceTree = "<group>"; };
 		CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		CE946BA919E6A91400D270E4 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -442,7 +446,8 @@
 		CE1B3D9A19DD40CA00A253D1 /* Certificates */ = {
 			isa = PBXGroup;
 			children = (
-				CE1B3D9B19DD40CA00A253D1 /* cert.txt */,
+				CE8AB39019E7D1AA00B105E0 /* DreamkasDev.p12 */,
+				CE8AB39119E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision */,
 			);
 			path = Certificates;
 			sourceTree = "<group>";
@@ -804,6 +809,7 @@
 				TargetAttributes = {
 					CE1B3D6219DD3CF000A253D1 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = BVYH8HSD4A;
 					};
 					CECD93D919DEA6B200232734 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -859,6 +865,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE8AB39419E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */,
 				CE946BD919E6A91400D270E4 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				CE1B3DB119DD40CA00A253D1 /* Info.plist in Resources */,
 				CE946BDB19E6A91400D270E4 /* RobotoCondensed-Regular.ttf in Resources */,
@@ -886,7 +893,7 @@
 				CE946BD119E6A91400D270E4 /* RobotoCondensed-Bold.ttf in Resources */,
 				CE946BBF19E6A91400D270E4 /* Roboto-BoldItalic.ttf in Resources */,
 				CE946BC919E6A91400D270E4 /* Roboto-MediumItalic.ttf in Resources */,
-				CE1B3DAE19DD40CA00A253D1 /* cert.txt in Resources */,
+				CE8AB39219E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,6 +904,7 @@
 				CE946BDA19E6A91400D270E4 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				CE946BD819E6A91400D270E4 /* RobotoCondensed-Light.ttf in Resources */,
 				CECD93EA19DEA77700232734 /* Info.plist in Resources */,
+				CE8AB39319E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */,
 				CE946BD619E6A91400D270E4 /* RobotoCondensed-Italic.ttf in Resources */,
 				CE946BCC19E6A91400D270E4 /* Roboto-Regular.ttf in Resources */,
 				CE946BC219E6A91400D270E4 /* Roboto-Italic.ttf in Resources */,
@@ -910,6 +918,7 @@
 				CE946BCA19E6A91400D270E4 /* Roboto-MediumItalic.ttf in Resources */,
 				CE946BCE19E6A91400D270E4 /* Roboto-Thin.ttf in Resources */,
 				CE946BC019E6A91400D270E4 /* Roboto-BoldItalic.ttf in Resources */,
+				CE8AB39519E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */,
 				CE946BBA19E6A91400D270E4 /* Roboto-Black.ttf in Resources */,
 				CE946BC819E6A91400D270E4 /* Roboto-Medium.ttf in Resources */,
 				CE946BD019E6A91400D270E4 /* Roboto-ThinItalic.ttf in Resources */,
@@ -1072,7 +1081,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1092,6 +1101,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1114,7 +1124,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1127,6 +1137,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1137,7 +1148,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1148,7 +1160,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -1157,14 +1169,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

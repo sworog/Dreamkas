@@ -27,4 +27,16 @@
     [self.signUpButton setTitle:NSLocalizedString(@"sign_up_button_title", nil) forState:UIControlStateNormal];
 }
 
+#pragma mark - Обработка пользовательского взаимодействия
+
+- (IBAction)signUpButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+}
+
+- (IBAction)logInButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+}
+
 @end
