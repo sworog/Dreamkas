@@ -14,6 +14,7 @@ define(function(require, exports, module) {
 			}
 		},
 		blocks: {
+			total: require('./stores__total'),
 			table_storesProfit: require('blocks/table/storesProfit/storesProfit')
 		}
     });
