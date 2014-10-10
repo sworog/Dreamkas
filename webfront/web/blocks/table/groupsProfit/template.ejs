@@ -1,5 +1,5 @@
 <% if (sortedCollection.length) { %>
-<table class="table table-striped table-hover table_stockSell">
+<table class="table table-striped table-hover table_groupsProfit">
     <thead>
     <tr>
         <th data-sort-by="name">
@@ -18,10 +18,10 @@
     </thead>
     <tbody name="stockSell">
 
-    <% sortedCollection.forEach(function(stockSellModel){ %>
-    <tr href="<%- groupUrl(stockSellModel) %>">
-        <td class="table_stockSell__groupName">
-            <%- stockSellModel.get('name') %>
+    <% sortedCollection.forEach(function(profitModel){ %>
+    <tr href="<%- groupUrl(profitModel) %>">
+        <td class="table_groupsProfit__groupName">
+            <%- profitModel.get('name') %>
         </td>
         <td>
 

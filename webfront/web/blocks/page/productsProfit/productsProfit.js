@@ -29,7 +29,7 @@ define(function(require, exports, module) {
 
 				e.target.classList.add('loading');
 
-				this.collections.stockSell.fetch({
+				this.collections.profit.fetch({
 					filters: {
 						store: store
 					}
@@ -52,7 +52,7 @@ define(function(require, exports, module) {
 				dateFromInput.classList.add('loading');
 				dateToInput.classList.add('loading');
 
-				this.collections.stockSell.fetch({
+				this.collections.profit.fetch({
 					filters: {
 						dateFrom: dateFrom,
 						dateTo: dateTo
@@ -65,11 +65,11 @@ define(function(require, exports, module) {
 		},
 		collections: {
 			stores: require('resources/store/collection'),
-			stockSell: function() {
+			profit: function() {
 				var page = this,
-					StockSellCollection = this.StockSellCollection;
+                    ProfitCollection = this.ProfitCollection;
 
-				return new StockSellCollection([], {
+				return new ProfitCollection([], {
 					groupId: this.params.groupId,
 					filters: {
 						dateFrom: page.params.dateFrom,

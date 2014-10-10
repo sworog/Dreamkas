@@ -12,9 +12,9 @@ define(function(require) {
 		//reports
 		'reports(/)': require('pages/reports/reports'),
 		'reports/stockBalance(/)': require('pages/reports/stockBalance/stockBalance'),
-		'reports/stockSell(/)': require('pages/reports/stockSell/stockSell'),
-		'reports/stockSell/groups/:groupId(/)': require('pages/reports/stockSell/groups/group/group'),
-		'reports/storesProfit(/)': require('pages/reports/storesProfit/storesProfit'),
+		'reports/profit/groups(/)': require('pages/reports/profit/groups/groups'),
+		'reports/profit/groups/:groupId(/)': require('pages/reports/profit/groups/group/group'),
+        'reports/storesProfit(/)': require('pages/reports/profit/stores/stores'),
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
