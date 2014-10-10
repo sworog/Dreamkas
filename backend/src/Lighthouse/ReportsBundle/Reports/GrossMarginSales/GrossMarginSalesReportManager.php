@@ -13,6 +13,7 @@ use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesP
 use DateTime;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service("lighthouse.reports.gross_margin_sales.manager")
@@ -85,19 +86,21 @@ class GrossMarginSalesReportManager
     }
 
     /**
+     * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossMarginSalesProductReport()
+    public function recalculateGrossMarginSalesProductReport(OutputInterface $output = null)
     {
-        return $this->grossMarginSalesProductRepository->recalculate();
+        return $this->grossMarginSalesProductRepository->recalculate($output);
     }
 
     /**
+     * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossMarginSalesCatalogGroupReport()
+    public function recalculateGrossMarginSalesCatalogGroupReport(OutputInterface $output = null)
     {
-        return $this->grossMarginSalesCatalogGroupRepository->recalculate();
+        return $this->grossMarginSalesCatalogGroupRepository->recalculate($output);
     }
 
     /**
