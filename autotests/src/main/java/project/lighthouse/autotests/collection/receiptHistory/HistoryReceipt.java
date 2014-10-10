@@ -8,7 +8,7 @@ import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.
 import project.lighthouse.autotests.collection.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.collection.compare.CompareResults;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.storage.Storage;
+import ru.dreamkas.storage.Storage;
 
 import java.util.Map;
 

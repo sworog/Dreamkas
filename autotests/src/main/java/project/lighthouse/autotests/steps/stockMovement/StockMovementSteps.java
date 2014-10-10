@@ -23,7 +23,7 @@ import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCre
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
-import project.lighthouse.autotests.storage.Storage;
+import ru.dreamkas.storage.Storage;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;

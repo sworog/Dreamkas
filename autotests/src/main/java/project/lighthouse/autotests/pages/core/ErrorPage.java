@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.pageObjects.CommonPageObject;
 import project.lighthouse.autotests.elements.items.NonType;
-import project.lighthouse.autotests.helper.UrlHelper;
+import ru.dreamkas.helper.UrlHelper;
 
 public class ErrorPage extends CommonPageObject {
 

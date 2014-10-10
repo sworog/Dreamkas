@@ -5,10 +5,8 @@ import com.google.inject.Singleton;
 import project.lighthouse.autotests.storage.Configurable;
 import project.lighthouse.autotests.storage.CurrentPageObjectStorage;
 import project.lighthouse.autotests.storage.DemoModeConfigurable;
-import project.lighthouse.autotests.storage.StorageClearable;
 import project.lighthouse.autotests.storage.variable.ConfigurationVariableStorage;
 import project.lighthouse.autotests.storage.variable.CustomVariableStorage;
-import project.lighthouse.autotests.storage.variable.StockMovementVariableStorage;
 import project.lighthouse.autotests.storage.variable.UserVariableStorage;
 
 public class LighthouseModule extends AbstractModule {
@@ -17,10 +15,8 @@ public class LighthouseModule extends AbstractModule {
     protected void configure() {
         bind(UserVariableStorage.class).in(Singleton.class);
         bind(CustomVariableStorage.class).in(Singleton.class);
-        bind(StockMovementVariableStorage.class).in(Singleton.class);
         bind(CurrentPageObjectStorage.class).in(Singleton.class);
         bind(Configurable.class).to(ConfigurationVariableStorage.class).in(Singleton.class);
         bind(DemoModeConfigurable.class).to(ConfigurationVariableStorage.class).in(Singleton.class);
-        bind(StorageClearable.class).to(CustomVariableStorage.class).in(Singleton.class);
     }
 }

@@ -7,15 +7,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.collection.receipt.ReceiptCollection;
 import project.lighthouse.autotests.collection.receipt.ReceiptObject;
 import project.lighthouse.autotests.collection.refund.RefundProduct;
 import project.lighthouse.autotests.common.item.interfaces.Collectable;
-import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.pages.pos.*;
-import project.lighthouse.autotests.storage.Storage;
-import project.lighthouse.autotests.storage.containers.user.UserContainer;
+import ru.dreamkas.api.http.HttpExecutor;
+import ru.dreamkas.helper.UrlHelper;
+import ru.dreamkas.storage.Storage;
+import ru.dreamkas.storage.containers.user.UserContainer;
 
 import java.io.IOException;
 

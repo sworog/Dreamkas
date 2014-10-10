@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.collection.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.storage.Storage;
+import ru.dreamkas.storage.Storage;
 
 public class HistoryReceiptCollection extends AbstractObjectCollection {
 

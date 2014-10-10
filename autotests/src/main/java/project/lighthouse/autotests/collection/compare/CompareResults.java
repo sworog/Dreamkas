@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.collection.compare;
 
-import project.lighthouse.autotests.storage.Storage;
+import ru.dreamkas.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
