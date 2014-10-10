@@ -24,8 +24,6 @@ define(function(require, exports, module) {
 
             View.apply(this, arguments);
 
-            this.render();
-
         },
 
         bindings: null,
@@ -49,6 +47,8 @@ define(function(require, exports, module) {
 
             block.__collection = block.__collection || block.collection;
             block.__model = block.__model || block.model;
+
+            this.render();
 
         },
 
@@ -93,6 +93,8 @@ define(function(require, exports, module) {
 
         initData: function(data) {
             var block = this;
+
+            block.stopListening();
 
             if (data){
 
