@@ -8,10 +8,11 @@
     android:paddingBottom="2dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip">
-    <TextView android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_width="fill_parent"
+    <TextView
         android:id="@+id/txtListItemTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_weight="1"
         android:singleLine="false"
         android:ellipsize="none"
         android:text="List Item Text" />

@@ -55,9 +55,23 @@ android
                 targetSdkVersion 19
                 buildConfigField 'String', 'ServerAddress', '"http://av.staging.api.lighthouse.pro"'
                 versionCode 1
-                versionName '0.113.1'
+                versionName '0.113.4'
 
             }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                '/src/main/res',
+                '/src/main/res/layouts',
+                '/src/main/res/layouts/activities',
+                '/src/main/res/layouts/components',
+                '/src/main/res/layouts/fragments',
+                '/src/main/res/layouts/item_templates',
+                '/src/main/res/layouts/misc'
+            ]
+        }
+    }
 
     testOptions
     {

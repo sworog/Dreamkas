@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical|left"
+    android:paddingBottom="5dip"
+    android:paddingTop="5dip"
+    android:paddingLeft="4dip"
+    android:paddingRight="4dip">
+    <TextView
+        android:id="@+id/txtReceiptItemTitle"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="end"
+        android:layout_weight="0.1"
+        />
+
+    <TextView android:id="@+id/txtReceiptItemQuantity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:text="end"
+        />
+
+    <TextView android:id="@+id/txtReceiptItemCost"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:text="end"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        />
+</LinearLayout>

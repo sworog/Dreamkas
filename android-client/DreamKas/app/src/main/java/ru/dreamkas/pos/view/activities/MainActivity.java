@@ -5,10 +5,12 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -49,6 +51,11 @@ public class MainActivity extends Activity implements RestFragmentContainer{
 
         Intent intent = getIntent();
         mToken = intent.getStringExtra("access_token");
+
+
+
+
+
     }
 
     @AfterViews

@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.model.api.Product;
+import ru.dreamkas.pos.view.misc.StringDecorator;
 
 public class ReceiptAdapter extends ProductsAdapter{
 
@@ -56,8 +56,8 @@ public class ReceiptAdapter extends ProductsAdapter{
 
         Product namedObject = mItems.get(position);
         holder.txtTitle.setText(String.format("%s / %s" + (namedObject.getBarcode() == null ? "" : " / " + namedObject.getBarcode()), namedObject.getName(), namedObject.getSku()));
-        holder.txtQuantity.setText("1.0 кг");
-        holder.txtCost.setText("0.00 Р");
+        holder.txtQuantity.setText(String.format("1.0 %s", namedObject.getUnits() == null ? "шт" : namedObject.getUnits()));
+        holder.txtCost.setText(StringDecorator.addRubleSymbol(String.format("%d %c",  namedObject.getSellingPrice() == null ? 0 : namedObject.getSellingPrice(), StringDecorator.RUBLE_CODE)));
 
         return row;
     }

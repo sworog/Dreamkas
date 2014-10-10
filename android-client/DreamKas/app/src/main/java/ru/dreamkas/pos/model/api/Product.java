@@ -11,8 +11,16 @@ public class Product extends NamedObject{
     @Nullable
     private String barcode;
 
+    private Integer sellingPrice;
+    private String units;
+
+
     public String getSku() {
         return sku;
+    }
+
+    public String getUnits() {
+        return units;
     }
 
     public void setSku(String sku) {
@@ -22,5 +30,9 @@ public class Product extends NamedObject{
     @Nullable
     public String getBarcode() {
         return barcode;
+    }
+
+    public Integer getSellingPrice() {
+        return sellingPrice;
     }
 }

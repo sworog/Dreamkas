@@ -13,8 +13,7 @@
         android:orientation="vertical"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:background="@drawable/layout_border"
-        >
+        android:background="@drawable/layout_border">
 
         <ru.dreamkas.pos.view.components.ProductSearchComponent_
             android:id="@+id/scProducts"
@@ -23,16 +22,17 @@
 
     </LinearLayout>
 
-    <LinearLayout android:layout_weight="3"
+    <LinearLayout
+        android:layout_weight="3"
         android:orientation="vertical"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent">
-        <ListView   android:id="@+id/lvReceipt"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent">
-        </ListView>
-
+        <ru.dreamkas.pos.view.components.ReceiptComponent_
+            android:id="@+id/ccReceipt"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
     </LinearLayout>
+
 
 </LinearLayout>
 
