@@ -26,6 +26,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -170,7 +171,10 @@ class Set10ProductImporter
         $batchSize = ($batchSize) ?: $this->batchSize;
         $currentBatch = $count;
 
-        /* @var GoodElement $goodElement */
+        $batchPersistEvent = null;
+        $flushEvent = null;
+        $persistEvent = null;
+
         while ($goodElement = $parser->readNextElement()) {
 
             $persistEvent = $stopwatch->start('allPersist');
@@ -213,9 +217,9 @@ class Set10ProductImporter
                 $output->writeln(
                     sprintf(
                         ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
-                        $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
-                        $currentFlushEvent->getDuration(),
-                        $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
+                        $this->countEventSpeed($batchPersistEvent),
+                        $this->countEventDuration($currentFlushEvent, 1),
+                        $this->countEventSpeed($batchPersistEvent, $currentFlushEvent)
                     )
                 );
             }
@@ -236,9 +240,9 @@ class Set10ProductImporter
             $output->writeln(
                 sprintf(
                     ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
-                    $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
-                    $currentFlushEvent->getDuration(),
-                    $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
+                    $this->countEventSpeed($batchPersistEvent),
+                    $this->countEventDuration($currentFlushEvent, 1),
+                    $this->countEventSpeed($batchPersistEvent, $currentFlushEvent)
                 )
             );
         }
@@ -249,27 +253,27 @@ class Set10ProductImporter
         $output->writeln(
             sprintf(
                 '<info>Total persist</info> - %d products in %d seconds, %.01f prod/s',
-                count($persistEvent->getPeriods()),
-                $persistEvent->getDuration() / 1000,
-                $this->countSpeed(count($persistEvent->getPeriods()), $persistEvent->getDuration() / 1000)
+                $this->countEventPeriods($persistEvent),
+                $this->countEventDuration($persistEvent),
+                $this->countEventSpeed($persistEvent)
             )
         );
         $output->writeln(
             sprintf(
                 '<info>Total flush</info> - %d flushes in %d seconds, average %d ms, %.01f prod/s',
-                count($flushEvent->getPeriods()),
-                $flushEvent->getDuration() / 1000,
-                $flushEvent->getDuration() / count($flushEvent->getPeriods()),
-                $this->countSpeed($persistEvent->getPeriods(), $flushEvent->getDuration() / 1000)
+                $this->countEventPeriods($flushEvent),
+                $this->countEventDuration($flushEvent),
+                $this->countEventDuration($flushEvent, 1) / $this->countEventPeriods($flushEvent),
+                $this->countEventSpeed($persistEvent, $flushEvent)
             )
         );
 
         $output->writeln(
             sprintf(
                 '<info>Total</info> - took %d sec, speed - %.01f prod/s, memory - %d mb',
-                $allEvent->getDuration() / 1000,
-                $this->countSpeed($persistEvent->getPeriods(), $allEvent->getDuration() / 1000),
-                $allEvent->getMemory() / 1048576
+                $this->countEventDuration($allEvent),
+                $this->countEventSpeed($persistEvent, $allEvent),
+                $this->countEventMemory($allEvent)
             )
         );
 
@@ -277,20 +281,49 @@ class Set10ProductImporter
     }
 
     /**
-     * @param array|int|float $count
-     * @param int|float $duration
-     * @return float
+     * @param StopwatchEvent $event
+     * @return int
      */
-    protected function countSpeed($count, $duration)
+    protected function countEventPeriods(StopwatchEvent $event = null)
     {
-        if (is_array($count) || $count instanceof \Countable) {
-            $count = count($count);
+        return $event ? count($event->getPeriods()) : 0;
+    }
+
+    /**
+     * @param StopwatchEvent $event
+     * @param int $divider
+     * @return float|int
+     */
+    protected function countEventDuration(StopwatchEvent $event = null, $divider = 1000)
+    {
+        return $event ? $event->getDuration() / $divider : 0;
+    }
+
+    /**
+     * @param StopwatchEvent $periodEvent
+     * @param StopwatchEvent $durationEvent
+     * @return float|int
+     */
+    protected function countEventSpeed(StopwatchEvent $periodEvent = null, StopwatchEvent $durationEvent = null)
+    {
+        if ($periodEvent) {
+            $count = $this->countEventPeriods($periodEvent);
+            $duration = $durationEvent ? $durationEvent->getDuration() : $periodEvent->getDuration();
+            if ($duration > 0) {
+                return $count / $duration * 1000;
+            }
         }
-        if ($duration > 0) {
-            return $count / $duration;
-        } else {
-            return 0;
-        }
+        return 0;
+    }
+
+    /**
+     * @param StopwatchEvent $event
+     * @param int $divider
+     * @return float|int
+     */
+    protected function countEventMemory(StopwatchEvent $event = null, $divider = 1048576)
+    {
+        return $event ? $event->getMemory() / $divider : 0;
     }
 
     /**

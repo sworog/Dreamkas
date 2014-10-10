@@ -10,7 +10,8 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @property StockIn   $parent
+ * @property StockIn    $parent
+ * @property Money      $price
  *
  * @MongoDB\Document
  * @MongoDB\HasLifecycleCallbacks

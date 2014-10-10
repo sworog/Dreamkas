@@ -78,7 +78,6 @@ class StockInBuilder
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @internal param string $cause
      * @return StockInBuilder
      */
     public function createStockInProduct($productId, $quantity = null, $price = null)

@@ -26,11 +26,15 @@
 
                     <div class="row" style="padding-bottom: 20px;">
                         <div class="col-md-3">
-                            <b block="select_store" data-all="1"></b>
+                            <b block="select_store"
+							   data-selected="<%- params.store %>"
+							   data-all="1"></b>
                         </div>
 
                         <div class="col-md-4">
-                            <b block="inputDateRange"></b>
+                            <b block="inputDateRange"
+							   data-date-from="<%- params.dateFrom %>"
+							   data-date-to="<%- params.dateTo %>"></b>
                         </div>
                     </div>
 

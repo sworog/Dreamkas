@@ -126,7 +126,7 @@ define(function(require, exports, module) {
                 render: false
             }, opt);
 
-            deepExtend(page.params, params);
+			deepExtend(page.params, params);
 
             router.save(_.transform(page.params, function(result, value, key) {
                 result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;

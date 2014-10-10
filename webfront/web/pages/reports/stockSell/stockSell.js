@@ -1,17 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page');
+    var Page_stockSell = require('blocks/page/stockSell/stockSell');
 
-    return Page.extend({
+    return Page_stockSell.extend({
         content: require('ejs!./content.ejs'),
-        activeNavigationItem: 'reports',
-        collections: {
-            stores: require('resources/store/collection'),
-            stockSell: require('resources/stockSell/collection')
-        },
+		StockSellCollection: require('resources/stockSell/collection'),
         blocks: {
-            select_store: require('blocks/select/store/store'),
-            inputDateRange: require('blocks/inputDateRange/inputDateRange'),
             table_stockSell: require('blocks/table/stockSell/stockSell')
         }
     });

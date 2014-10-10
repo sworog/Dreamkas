@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         sortBy: 'product.name',
         collection: function() {
-            return PAGE.collections.groupStockSell;
+            return PAGE.collections.stockSell;
         },
         initData: function(){
 

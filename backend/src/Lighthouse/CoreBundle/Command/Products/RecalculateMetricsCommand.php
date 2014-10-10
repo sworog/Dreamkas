@@ -2,10 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Command\Products;
 
-use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
-use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Security\Project\ProjectContext;
+use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

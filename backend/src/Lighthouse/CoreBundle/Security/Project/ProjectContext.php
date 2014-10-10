@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Security\Project;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\ClassNameable;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -15,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 /**
  * @DI\Service("project.context")
  */
-class ProjectContext
+class ProjectContext implements ClassNameable
 {
     /**
      * @var SecurityContextInterface
@@ -128,5 +129,13 @@ class ProjectContext
     public function getAllProjects()
     {
         return $this->projectRepository->findAll();
+    }
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Document\GrossMarginSales;
+namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;

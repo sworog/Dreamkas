@@ -74,7 +74,6 @@ class SupplierReturnBuilder
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @internal param string $cause
      * @return SupplierReturnBuilder
      */
     public function addProduct($productId, $quantity = 1.0, $price = 5.99)
@@ -92,7 +91,6 @@ class SupplierReturnBuilder
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @internal param string $cause
      * @return $this
      */
     public function setProduct($index, $productId, $quantity = 1.0, $price = 5.99)

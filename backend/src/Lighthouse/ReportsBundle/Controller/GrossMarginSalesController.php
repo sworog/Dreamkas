@@ -4,9 +4,7 @@ namespace Lighthouse\ReportsBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProductsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -36,17 +34,17 @@ class GrossMarginSalesController extends FOSRestController
     public function getCatalogGroupReportsGrossMarginSalesByProductAction(SubCategory $group, Request $request)
     {
         $storeId = $request->get('store');
-        $dateFrom = new DateTime($request->get('dateFrom', '-1 week 00:00:00'));
-        $dateTo = new DateTime($request->get('dateTo', 'now'));
+        $startDate = new DateTime($request->get('startDate', '-1 week 00:00:00'));
+        $endDate = new DateTime($request->get('endDate', 'now'));
 
         if (null !== $storeId) {
             return $this
                 ->grossMarginSalesReportManager
-                ->getGrossSalesByProductForStoreReports($group, $storeId, $dateFrom, $dateTo);
+                ->getGrossSalesByProductForStoreReports($group, $storeId, $startDate, $endDate);
         } else {
             return $this
                 ->grossMarginSalesReportManager
-                ->getGrossSalesByProductForSubCategoryReports($group, $dateFrom, $dateTo);
+                ->getGrossSalesByProductForSubCategoryReports($group, $startDate, $endDate);
         }
 
     }
