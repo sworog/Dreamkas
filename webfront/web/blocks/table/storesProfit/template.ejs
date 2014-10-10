@@ -1,0 +1,37 @@
+<table class="table table-striped table-hover table_groupsProfit">
+    <thead>
+    <tr>
+        <th data-sort-by="name">
+            Магазин
+        </th>
+        <th data-sort-by="grossSales">
+            Продажи
+        </th>
+        <th data-sort-by="costOfGoods">
+            Себестоимость
+        </th>
+        <th data-sort-by="grossMargin">
+            Прибыль
+        </th>
+    </tr>
+    </thead>
+    <tbody name="stockSell">
+
+    <% sortedCollection.forEach(function(profitModel){ %>
+    <tr>
+        <td>
+            <%- profitModel.get('name') %>
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>

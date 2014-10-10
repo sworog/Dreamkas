@@ -12,6 +12,9 @@ define(function(require, exports, module) {
 
 				return page.formatDate(moment(currentTime).subtract(1, 'month'));
 			}
+		},
+		blocks: {
+			table_storesProfit: require('blocks/table/storesProfit/storesProfit')
 		}
     });
 });
