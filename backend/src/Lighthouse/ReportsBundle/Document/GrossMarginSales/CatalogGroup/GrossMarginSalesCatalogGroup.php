@@ -3,6 +3,7 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup;
 
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -14,6 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  * @MongoDB\Index(keys={"day"="asc", "subCategory"="asc"})
  *
  * @property SubCategory $subCategory
+ * @property Store      $store
  */
 class GrossMarginSalesCatalogGroup extends GrossMarginSales
 {
@@ -25,4 +27,13 @@ class GrossMarginSalesCatalogGroup extends GrossMarginSales
      * @var SubCategory
      */
     protected $subCategory;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true
+     * )
+     * @var Store
+     */
+    protected $store;
 }

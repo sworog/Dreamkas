@@ -43,7 +43,7 @@ abstract class GrossMarginSalesReport extends AbstractDocument
         $this->grossSales = $this->grossSales->add($report->grossSales);
         $this->costOfGoods = $this->costOfGoods->add($report->costOfGoods);
         $this->grossMargin = $this->grossMargin->add($report->grossMargin);
-        $this->quantity = $this->quantity->add($report->grossMargin);
+        $this->quantity = $this->quantity->add($report->quantity);
     }
 
     /**

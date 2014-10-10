@@ -195,13 +195,14 @@ class GrossMarginSalesReportManager
     /**
      * @param DateTime $startDate
      * @param DateTime $endDate
+     * @param string $storeId
      * @return GrossMarginSalesByCatalogGroupsCollection
      */
-    public function getCatalogGroupsReports(DateTime $startDate, DateTime $endDate)
+    public function getCatalogGroupsReports(DateTime $startDate, DateTime $endDate, $storeId = null)
     {
         $catalogGroups = $this->catalogManager->getCatalogGroups();
 
-        $reports = $this->getCatalogGroupReports($startDate, $endDate);
+        $reports = $this->getCatalogGroupReports($startDate, $endDate, $storeId);
 
         return $reports->fillByCatalogGroups($catalogGroups);
     }
@@ -209,11 +210,12 @@ class GrossMarginSalesReportManager
     /**
      * @param DateTime $dateFrom
      * @param DateTime $dateTo
+     * @param string $storeId
      * @return GrossMarginSalesByCatalogGroupsCollection
      */
-    protected function getCatalogGroupReports(DateTime $dateFrom, DateTime $dateTo)
+    protected function getCatalogGroupReports(DateTime $dateFrom, DateTime $dateTo, $storeId = null)
     {
-        $reports = $this->grossMarginSalesCatalogGroupRepository->findByPeriod($dateFrom, $dateTo);
+        $reports = $this->grossMarginSalesCatalogGroupRepository->findByPeriod($dateFrom, $dateTo, $storeId);
 
         $collection = new GrossMarginSalesByCatalogGroupsCollection($this->numericFactory);
 

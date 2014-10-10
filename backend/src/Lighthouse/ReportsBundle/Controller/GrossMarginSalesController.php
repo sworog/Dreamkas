@@ -60,9 +60,10 @@ class GrossMarginSalesController extends FOSRestController
      */
     public function getCatalogGroupReportsGrossMarginSalesByCatalogGroupAction(Request $request)
     {
+        $storeId = $request->get('store');
         $dateFrom = new DateTime($request->get('dateFrom', '-1 week 00:00:00'));
         $dateTo = new DateTime($request->get('dateTo', 'now'));
 
-        return $this->grossMarginSalesReportManager->getCatalogGroupsReports($dateFrom, $dateTo);
+        return $this->grossMarginSalesReportManager->getCatalogGroupsReports($dateFrom, $dateTo, $storeId);
     }
 }

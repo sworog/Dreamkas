@@ -482,7 +482,6 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
         $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesCatalogGroupReport();
 
         $query = array();
@@ -532,16 +531,46 @@ class GrossMarginSalesControllerTest extends WebTestCase
     public function grossMarginSalesByCatalogGroupReportsProvider()
     {
         return array(
-            'no store' => array(
+            'all stores, no dates' => array(
                 null,
                 null,
                 null,
+                array(
+                    '1' => array(15640, 10300, 5340, 124),
+                    '2' => array(13800, 10626, 3174, 138),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            '-1 to -4 days' => array(
+                null,
+                '-4 day 00:00:00',
+                '-1 day 00:00:00',
+                array(
+                    '1' => array(10540, 6900, 3640, 84),
+                    '2' => array(9200, 7084, 2116, 92),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            '-1 to -4 days store 1' => array(
+                '1',
+                '-4 day 00:00:00',
+                '-1 day 00:00:00',
+                array(
+                    '1' => array(10540, 6900, 3640, 84),
+                    '2' => array(9200, 7084, 2116, 92),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            '-1 to -4 days store 2' => array(
+                '2',
+                '-4 day 00:00:00',
+                '-1 day 00:00:00',
                 array(
                     '1' => array(0, 0, 0, 0),
                     '2' => array(0, 0, 0, 0),
                     '3' => array(0, 0, 0, 0),
                 )
-            )
+            ),
         );
     }
 
