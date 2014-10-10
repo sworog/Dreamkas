@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ODM\MongoDB\PersistentCollection;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
@@ -12,6 +14,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
  * @property Group $group
+ * @property SubCategory[]|Collection|PersistentCollection $subCategories
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository"
@@ -39,7 +42,7 @@ class Category extends AbstractNode
      *      cascade="persist",
      *      mappedBy="category"
      * )
-     * @var SubCategory[]
+     * @var SubCategory[]|Collection|PersistentCollection
      */
     protected $subCategories;
 

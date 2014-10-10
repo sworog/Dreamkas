@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts;
+namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products;
 
 use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Product\Product;

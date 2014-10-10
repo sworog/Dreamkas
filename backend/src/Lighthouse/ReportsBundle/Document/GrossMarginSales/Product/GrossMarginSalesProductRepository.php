@@ -58,7 +58,7 @@ class GrossMarginSalesProductRepository extends DocumentRepository
      * @param array $storeProductIds
      * @param DateTime $dateFrom
      * @param DateTime $dateTo
-     * @return GrossMarginSalesProductReport[]|Cursor
+     * @return GrossMarginSalesProduct[]|Cursor
      */
     public function findByStoreProductsAndPeriod(array $storeProductIds, DateTime $dateFrom, DateTime $dateTo)
     {
@@ -79,7 +79,7 @@ class GrossMarginSalesProductRepository extends DocumentRepository
     /**
      * @param $storeProductId
      * @param DateTime $day
-     * @return GrossMarginSalesProductReport|object
+     * @return GrossMarginSalesProduct|object
      */
     public function findByStoreProductAndDay($storeProductId, DateTime $day)
     {
@@ -107,7 +107,7 @@ class GrossMarginSalesProductRepository extends DocumentRepository
         $dotHelper->setTotalPositions(count($results));
 
         foreach ($results as $result) {
-            $report = new GrossMarginSalesProductReport();
+            $report = new GrossMarginSalesProduct();
             $report->day = DateTimestamp::createFromParts(
                 $result['_id']['year'],
                 $result['_id']['month'],

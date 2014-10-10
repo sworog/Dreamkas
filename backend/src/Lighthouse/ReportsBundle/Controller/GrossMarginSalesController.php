@@ -5,7 +5,8 @@ namespace Lighthouse\ReportsBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProductsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +47,22 @@ class GrossMarginSalesController extends FOSRestController
                 ->grossMarginSalesReportManager
                 ->getGrossSalesByProductForSubCategoryReports($group, $startDate, $endDate);
         }
+    }
 
+    /**
+     * @param Request $request
+     * @return GrossMarginSalesByCatalogGroupsCollection
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("catalog/groups/reports/grossMarginSalesByCatalogGroup")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc()
+     */
+    public function getCatalogGroupReportsGrossMarginSalesByCatalogGroupAction(Request $request)
+    {
+        $dateFrom = new DateTime($request->get('dateFrom', '-1 week 00:00:00'));
+        $dateTo = new DateTime($request->get('dateTo', 'now'));
+
+        return $this->grossMarginSalesReportManager->getCatalogGroupsReports($dateFrom, $dateTo);
     }
 }

@@ -71,7 +71,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string|array $extra
      * @param null|string $subCategoryId
      * @param bool|string $putProductId string id of product to be updated
-     * @return mixed
+     * @return string product id
      */
     protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
     {
@@ -135,7 +135,7 @@ class WebTestCase extends ContainerAwareTestCase
         $failedNames = array();
         foreach ($names as $name) {
             try {
-                $products[$name] = $this->createProduct(array('name' => $name, 'barcode' => $name));
+                $products[$name] = $this->createProductByName($name);
             } catch (\PHPUnit_Framework_AssertionFailedError $e) {
                 $failedNames[] = $name;
             }
@@ -146,6 +146,16 @@ class WebTestCase extends ContainerAwareTestCase
             );
         }
         return $products;
+    }
+
+    /**
+     * @param string $name
+     * @param string $subCategoryId
+     * @return string
+     */
+    protected function createProductByName($name, $subCategoryId = null)
+    {
+        return $this->createProduct(array('name' => $name, 'barcode' => $name), $subCategoryId);
     }
 
     /**
