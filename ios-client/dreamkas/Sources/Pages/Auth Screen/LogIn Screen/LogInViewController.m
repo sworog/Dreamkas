@@ -52,6 +52,8 @@
 {
     DPLogFast(@"");
     
+    [self.view endEditing:YES];
+    
     // выполняем авторизацию на сервере
     
     [self showLoading];
