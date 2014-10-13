@@ -5,6 +5,7 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroup;
 
 class GrossMarginSalesByCatalogGroupsCollection extends DocumentCollection
 {
@@ -24,24 +25,24 @@ class GrossMarginSalesByCatalogGroupsCollection extends DocumentCollection
     }
 
     /**
-     * @param SubCategory $subCategory
+     * @param SubCategory $catalogGroup
      * @return bool
      */
-    public function containsCatalogGroup(SubCategory $subCategory)
+    public function containsCatalogGroup(SubCategory $catalogGroup)
     {
-        return $this->containsKey($subCategory->id);
+        return $this->containsKey($catalogGroup->id);
     }
 
     /**
-     * @param SubCategory $subCategory
+     * @param SubCategory $catalogGroup
      * @return GrossMarginSalesByCatalogGroups
      */
-    public function getByCatalogGroup(SubCategory $subCategory)
+    public function getByCatalogGroup(SubCategory $catalogGroup)
     {
-        if ($this->containsCatalogGroup($subCategory)) {
-            return $this->get($subCategory->id);
+        if ($this->containsCatalogGroup($catalogGroup)) {
+            return $this->get($catalogGroup->id);
         } else {
-            return $this->createByCatalogGroup($subCategory);
+            return $this->createByCatalogGroup($catalogGroup);
         }
     }
 
@@ -74,5 +75,13 @@ class GrossMarginSalesByCatalogGroupsCollection extends DocumentCollection
             }
         }
         return $this;
+    }
+
+    /**
+     * @param GrossMarginSalesCatalogGroup $report
+     */
+    public function addReportValues(GrossMarginSalesCatalogGroup $report)
+    {
+        $this->getByCatalogGroup($report->subCategory)->addReportValues($report);
     }
 }

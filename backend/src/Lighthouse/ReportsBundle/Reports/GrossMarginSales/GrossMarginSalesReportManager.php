@@ -121,7 +121,7 @@ class GrossMarginSalesReportManager
 
         $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
 
-        return $this->fillReportsByProducts($reports, $products);
+        return $reports->fillByProducts($products);
     }
 
     /**
@@ -140,74 +140,32 @@ class GrossMarginSalesReportManager
 
         $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
 
-        return $this->fillReportsByProducts($reports, $products);
+        return $reports->fillByProducts($products);
     }
 
     /**
      * @param array|string[] $storeProductIds
-     * @param DateTime $startDate
-     * @param DateTime $endDate
+     * @param DateTime $dateFrom
+     * @param DateTime $dateTo
      * @return GrossMarginSalesByProductsCollection
      */
-    protected function getProductReportsByStoreProducts($storeProductIds, DateTime $startDate, DateTime $endDate)
+    protected function getProductReportsByStoreProducts($storeProductIds, DateTime $dateFrom, DateTime $dateTo)
     {
-        $reports = $this
-            ->grossMarginSalesProductRepository
-            ->findByStoreProductsAndPeriod($storeProductIds, $startDate, $endDate);
+        $reports = $this->grossMarginSalesProductRepository->findByStoreProductsAndPeriod(
+            $storeProductIds,
+            $dateFrom,
+            $dateTo
+        );
 
-        $collection = new GrossMarginSalesByProductsCollection();
+        $collection = new GrossMarginSalesByProductsCollection($this->numericFactory);
 
         foreach ($reports as $report) {
-            $grossMarginSalesByProductReport = $collection->getByProduct($report->storeProduct->product);
-            $grossMarginSalesByProductReport->storeProduct = $report->storeProduct;
-            $grossMarginSalesByProductReport->grossSales
-                = $report->grossSales->add($grossMarginSalesByProductReport->grossSales);
-            $grossMarginSalesByProductReport->costOfGoods
-                = $report->costOfGoods->add($grossMarginSalesByProductReport->costOfGoods);
-            $grossMarginSalesByProductReport->grossMargin
-                = $report->grossMargin->add($grossMarginSalesByProductReport->grossMargin);
-            $grossMarginSalesByProductReport->quantity
-                = $report->quantity->add($grossMarginSalesByProductReport->quantity);
+            $grossMarginSalesByProducts = $collection->getByProduct($report->storeProduct->product);
+            $grossMarginSalesByProducts->storeProduct = $report->storeProduct;
+            $grossMarginSalesByProducts->addReportValues($report);
         }
 
         return $collection;
-    }
-
-    /**
-     * @param GrossMarginSalesByProductsCollection $reports
-     * @param $products
-     * @return GrossMarginSalesByProductsCollection
-     */
-    protected function fillReportsByProducts(
-        GrossMarginSalesByProductsCollection $reports,
-        $products
-    ) {
-        foreach ($products as $product) {
-            if (!$reports->containsProduct($product)) {
-                $grossMarginSalesByProductReport = $reports->getByProduct($product);
-                $grossMarginSalesByProductReport->grossSales = $this->numericFactory->createMoney(0);
-                $grossMarginSalesByProductReport->costOfGoods = $this->numericFactory->createMoney(0);
-                $grossMarginSalesByProductReport->grossMargin = $this->numericFactory->createMoney(0);
-                $grossMarginSalesByProductReport->quantity = $this->numericFactory->createQuantity(0);
-            }
-        }
-
-        return $reports;
-    }
-
-    /**
-     * @param DateTime $startDate
-     * @param DateTime $endDate
-     * @param string $storeId
-     * @return GrossMarginSalesByCatalogGroupsCollection
-     */
-    public function getCatalogGroupsReports(DateTime $startDate, DateTime $endDate, $storeId = null)
-    {
-        $catalogGroups = $this->catalogManager->getCatalogGroups();
-
-        $reports = $this->getCatalogGroupReports($startDate, $endDate, $storeId);
-
-        return $reports->fillByCatalogGroups($catalogGroups);
     }
 
     /**
@@ -216,17 +174,17 @@ class GrossMarginSalesReportManager
      * @param string $storeId
      * @return GrossMarginSalesByCatalogGroupsCollection
      */
-    protected function getCatalogGroupReports(DateTime $dateFrom, DateTime $dateTo, $storeId = null)
+    public function getCatalogGroupsReports(DateTime $dateFrom, DateTime $dateTo, $storeId = null)
     {
         $reports = $this->grossMarginSalesCatalogGroupRepository->findByPeriod($dateFrom, $dateTo, $storeId);
 
-        $collection = new GrossMarginSalesByCatalogGroupsCollection($this->numericFactory);
+        $reportsCollection = new GrossMarginSalesByCatalogGroupsCollection($this->numericFactory);
 
         foreach ($reports as $report) {
-            $grossMarginSalesByProductReport = $collection->getByCatalogGroup($report->subCategory);
-            $grossMarginSalesByProductReport->addReportValues($report);
+            $reportsCollection->addReportValues($report);
         }
 
-        return $collection;
+        $catalogGroups = $this->catalogManager->getCatalogGroups();
+        return $reportsCollection->fillByCatalogGroups($catalogGroups);
     }
 }
