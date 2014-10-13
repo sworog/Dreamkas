@@ -106,39 +106,39 @@ class GrossMarginSalesReportManager
     /**
      * @param SubCategory $subCategory
      * @param $storeId
-     * @param DateTime $startDate
-     * @param DateTime $endDate
+     * @param DateTime $dateFrom
+     * @param DateTime $dateTo
      * @return GrossMarginSalesByProductsCollection
      */
     public function getGrossSalesByProductForStoreReports(
         SubCategory $subCategory,
         $storeId,
-        DateTime $startDate,
-        DateTime $endDate
+        DateTime $dateFrom,
+        DateTime $dateTo
     ) {
         $products = $this->productRepository->findBySubCategory($subCategory);
         $storeProducts = $this->storeProductRepository->findOrCreateByStoreIdSubCategory($storeId, $subCategory);
 
-        $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+        $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $dateFrom, $dateTo);
 
         return $reports->fillByProducts($products);
     }
 
     /**
      * @param SubCategory $subCategory
-     * @param DateTime $startDate
-     * @param DateTime $endDate
+     * @param DateTime $dateFrom
+     * @param DateTime $dateTo
      * @return GrossMarginSalesByProductsCollection
      */
     public function getGrossSalesByProductForSubCategoryReports(
         SubCategory $subCategory,
-        DateTime $startDate,
-        DateTime $endDate
+        DateTime $dateFrom,
+        DateTime $dateTo
     ) {
         $products = $this->productRepository->findBySubCategory($subCategory);
         $storeProducts = $this->storeProductRepository->findBySubCategory($subCategory);
 
-        $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
+        $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $dateFrom, $dateTo);
 
         return $reports->fillByProducts($products);
     }

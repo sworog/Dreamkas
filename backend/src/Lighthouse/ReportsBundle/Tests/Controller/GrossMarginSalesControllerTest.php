@@ -181,8 +181,8 @@ class GrossMarginSalesControllerTest extends WebTestCase
             "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
             null,
             array(
-                'startDate' => date('c', strtotime('-4 day 00:00:00')),
-                'endDate' => date('c', strtotime('-1 day 00:00:00')),
+                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
+                'dateTo' => date('c', strtotime('-1 day 00:00:00')),
                 'store' => $store->id,
             )
         );
@@ -261,8 +261,8 @@ class GrossMarginSalesControllerTest extends WebTestCase
             "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
             null,
             array(
-                'startDate' => date('c', strtotime('-4 day 00:00:00')),
-                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
+                'dateTo' => date('c', strtotime('-1 day 00:00:00'))
             )
         );
 
@@ -309,8 +309,8 @@ class GrossMarginSalesControllerTest extends WebTestCase
             "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
             null,
             array(
-                'startDate' => date('c', strtotime('-4 day 00:00:00')),
-                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
+                'dateTo' => date('c', strtotime('-1 day 00:00:00'))
             )
         );
 
@@ -357,8 +357,8 @@ class GrossMarginSalesControllerTest extends WebTestCase
             "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
             null,
             array(
-                'startDate' => date('c', strtotime('-4 day 00:00:00')),
-                'endDate' => date('c', strtotime('-1 day 00:00:00')),
+                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
+                'dateTo' => date('c', strtotime('-1 day 00:00:00')),
                 'store' => $store1->id,
             )
         );
@@ -393,6 +393,56 @@ class GrossMarginSalesControllerTest extends WebTestCase
         );
     }
 
+    public function testGrossMarginSalesByProductEmptyPeriod()
+    {
+        $store = $this->factory()->store()->getStore();
+        $subCategory = $this->factory()->catalog()->getSubCategory();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $otherSubCategory = $this->factory()->catalog()->getSubCategory("other sub category");
+        $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
+
+        $this->initInvoiceAndSales($store, $productIds, $productOtherSubCategoryId);
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            null,
+            array(
+                'dateFrom' => date('c', strtotime('-9 day 00:00:00')),
+                'dateTo' => date('c', strtotime('-7 day 00:00:00')),
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertGrossMarginSalesReportByProduct($productIds['1'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['2'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['3'], 0, 0, 0, 0, $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            null,
+            array(
+                'dateFrom' => date('c', strtotime('+1 day 00:00:00')),
+                'dateTo' => date('c', strtotime('+5 day 00:00:00')),
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertGrossMarginSalesReportByProduct($productIds['1'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['2'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['3'], 0, 0, 0, 0, $response);
+    }
+
     public function testGrossMarginSalesByCatalogGroupEmptyReportsForAllStores()
     {
         $this->factory()->store()->getStore();
@@ -412,8 +462,8 @@ class GrossMarginSalesControllerTest extends WebTestCase
             '/api/1/catalog/groups/reports/grossMarginSalesByCatalogGroup',
             null,
             array(
-                'startDate' => date('c', strtotime('-4 day 00:00:00')),
-                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
+                'dateTo' => date('c', strtotime('-1 day 00:00:00'))
             )
         );
 
@@ -446,8 +496,8 @@ class GrossMarginSalesControllerTest extends WebTestCase
             null,
             array(
                 'store' => $stores['1']->id,
-                'startDate' => date('c', strtotime('-4 day 00:00:00')),
-                'endDate' => date('c', strtotime('-1 day 00:00:00'))
+                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
+                'dateTo' => date('c', strtotime('-1 day 00:00:00'))
             )
         );
 
