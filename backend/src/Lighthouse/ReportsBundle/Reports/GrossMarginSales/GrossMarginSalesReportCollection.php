@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 
 abstract class GrossMarginSalesReportCollection extends DocumentCollection
 {
@@ -41,7 +42,7 @@ abstract class GrossMarginSalesReportCollection extends DocumentCollection
             return $this->get($item->id);
         } else {
             $report = $this->createByItem($item);
-            $this->addEmptyReport($report);
+            return $this->addEmptyReport($report);
         }
     }
 
@@ -79,5 +80,13 @@ abstract class GrossMarginSalesReportCollection extends DocumentCollection
             }
         }
         return $this;
+    }
+
+    /**
+     * @param GrossMarginSales $report
+     */
+    public function addReportValues(GrossMarginSales $report)
+    {
+        $this->getByItem($report->getItem())->addReportValues($report);
     }
 }

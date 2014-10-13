@@ -36,4 +36,12 @@ class GrossMarginSalesProduct extends GrossMarginSales
      * @var Product
      */
     protected $product;
+
+    /**
+     * @return Product
+     */
+    public function getItem()
+    {
+        return $this->product;
+    }
 }

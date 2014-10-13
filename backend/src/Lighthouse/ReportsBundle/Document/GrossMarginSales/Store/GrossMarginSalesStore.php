@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Store;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -13,4 +14,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class GrossMarginSalesStore extends GrossMarginSales
 {
+    /**
+     * @return Store
+     */
+    public function getItem()
+    {
+        return $this->store;
+    }
 }

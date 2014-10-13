@@ -69,4 +69,9 @@ abstract class GrossMarginSales extends AbstractDocument
      * @var Store
      */
     protected $store;
+
+    /**
+     * @return object
+     */
+    abstract public function getItem();
 }

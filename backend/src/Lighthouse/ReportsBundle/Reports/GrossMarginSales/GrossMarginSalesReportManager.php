@@ -119,7 +119,7 @@ class GrossMarginSalesReportManager
         }
 
         $products = $this->productRepository->findBySubCategory($catalogGroup);
-        return $reportsCollection->fillByProducts($products);
+        return $reportsCollection->fillByItems($products);
     }
 
     /**
@@ -137,6 +137,6 @@ class GrossMarginSalesReportManager
         }
 
         $catalogGroups = $this->catalogManager->getCatalogGroups();
-        return $reportsCollection->fillByCatalogGroups($catalogGroups);
+        return $reportsCollection->fillByItems($catalogGroups);
     }
 }
