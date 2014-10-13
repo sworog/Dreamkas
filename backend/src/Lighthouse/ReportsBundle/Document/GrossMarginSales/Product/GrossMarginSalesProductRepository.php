@@ -8,17 +8,16 @@ use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use DateTime;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use DateTime;
 
 class GrossMarginSalesProductRepository extends DocumentRepository
 {
@@ -55,14 +54,11 @@ class GrossMarginSalesProductRepository extends DocumentRepository
      */
     public function findByFilterCatalogGroup(GrossMarginSalesFilter $filter, SubCategory $catalogGroup)
     {
-        $dateFrom = new DateTimestamp($filter->dateFrom);
-        $dateTo = new DateTimestamp($filter->dateTo);
-
         $criteria = array(
             'subCategory' => $catalogGroup->id,
             'day' => array(
-                '$gte' => $dateFrom->getMongoDate(),
-                '$lte' => $dateTo->getMongoDate(),
+                '$gte' => $filter->dateFrom,
+                '$lte' => $filter->dateTo,
             ),
         );
 
@@ -97,9 +93,7 @@ class GrossMarginSalesProductRepository extends DocumentRepository
      */
     public function recalculate(OutputInterface $output = null, $batch = 5000)
     {
-        if (null == $output) {
-            $output = new NullOutput();
-        }
+        $output = $output ?: new NullOutput();
         $dotHelper = new DotHelper($output);
 
         $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");

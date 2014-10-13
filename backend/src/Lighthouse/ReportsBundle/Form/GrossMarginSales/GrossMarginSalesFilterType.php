@@ -6,7 +6,6 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\DocumentType;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Symfony\Component\Form\FormBuilderInterface;
-use DateTime;
 
 class GrossMarginSalesFilterType extends DocumentType
 {

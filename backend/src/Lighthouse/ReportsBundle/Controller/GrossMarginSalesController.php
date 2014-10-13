@@ -2,7 +2,6 @@
 
 namespace Lighthouse\ReportsBundle\Controller;
 
-use FOS\RestBundle\Controller\FOSRestController;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Lighthouse\CoreBundle\Controller\AbstractRestController;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
@@ -17,7 +16,6 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
-use DateTime;
 
 class GrossMarginSalesController extends AbstractRestController
 {

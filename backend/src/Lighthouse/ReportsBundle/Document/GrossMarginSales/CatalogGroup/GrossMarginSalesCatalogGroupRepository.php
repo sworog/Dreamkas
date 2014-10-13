@@ -12,10 +12,8 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use DateTime;
 use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
-use Lighthouse\ReportsBundle\Form\GrossMarginSales\GrossMarginSalesFilterType;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -53,18 +51,15 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
      */
     public function findByFilter(GrossMarginSalesFilter $filter)
     {
-        $dateFrom = new DateTimestamp($filter->dateFrom);
-        $dateTo = new DateTimestamp($filter->dateTo);
-
         $criteria = array(
             'day' => array(
-                '$gte' => $dateFrom->getMongoDate(),
-                '$lte' => $dateTo->getMongoDate(),
+                '$gte' => $filter->dateFrom,
+                '$lte' => $filter->dateTo,
             )
         );
 
         if ($filter->store) {
-            $criteria['store'] = new \MongoId($filter->store->id);
+            $criteria['store'] = $filter->store->id;
         }
 
         return $this->findBy($criteria);
@@ -77,9 +72,7 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
      */
     public function recalculate(OutputInterface $output = null, $batch = 5000)
     {
-        if (null == $output) {
-            $output = new NullOutput();
-        }
+        $output = $output ?: new NullOutput();
         $dotHelper = new DotHelper($output);
 
         $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");

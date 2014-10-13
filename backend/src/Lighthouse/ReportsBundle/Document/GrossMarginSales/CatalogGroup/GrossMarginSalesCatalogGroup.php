@@ -3,7 +3,6 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup;
 
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
