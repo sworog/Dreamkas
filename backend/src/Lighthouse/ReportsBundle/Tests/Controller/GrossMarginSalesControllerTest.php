@@ -119,14 +119,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
             'grossMargin' => 1800,
             'quantity' => 30
         */
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['1'],
-            4500,
-            2700,
-            1800,
-            30,
-            $response
-        );
+        $this->assertGrossMarginSalesReportByProduct($productIds['1'], 4500, 2700, 1800, 30, $response);
 
         /*
          *  product['2']
@@ -135,14 +128,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
             'grossMargin' => 1800,
             'quantity' => 36
         */
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['2'],
-            3600,
-            1800,
-            1800,
-            36,
-            $response
-        );
+        $this->assertGrossMarginSalesReportByProduct($productIds['2'], 3600, 1800, 1800, 36, $response);
 
         /*
          *  product['3']
@@ -151,14 +137,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
             'grossMargin' => 1740,
             'quantity' => 58
         */
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['3'],
-            7540,
-            5800,
-            1740,
-            58,
-            $response
-        );
+        $this->assertGrossMarginSalesReportByProduct($productIds['3'], 7540, 5800, 1740, 58, $response);
     }
 
     public function testGrossMarginSalesByProductWithPeriod()
@@ -189,32 +168,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['1'],
-            3000,
-            1800,
-            1200,
-            20,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['2'],
-            2600,
-            1300,
-            1300,
-            26,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['3'],
-            4940,
-            3800,
-            1140,
-            38,
-            $response
-        );
+        $this->assertGrossMarginSalesReportByProduct($productIds['1'], 3000, 1800, 1200, 20, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['2'], 2600, 1300, 1300, 26, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['3'], 4940, 3800, 1140, 38, $response);
     }
 
     public function assertGrossMarginSalesReportByProduct(
@@ -268,32 +224,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['1'],
-            6000,
-            3600,
-            2400,
-            40,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['2'],
-            5200,
-            2600,
-            2600,
-            52,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['3'],
-            9880,
-            7600,
-            2280,
-            76,
-            $response
-        );
+        $this->assertGrossMarginSalesReportByProduct($productIds['1'], 6000, 3600, 2400, 40, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['2'], 5200, 2600, 2600, 52, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['3'], 9880, 7600, 2280, 76, $response);
     }
 
     public function testGrossMarginSalesByProductEmptyReportsForAllStores()
@@ -316,32 +249,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['1'],
-            0,
-            0,
-            0,
-            0,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['2'],
-            0,
-            0,
-            0,
-            0,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['3'],
-            0,
-            0,
-            0,
-            0,
-            $response
-        );
+        $this->assertGrossMarginSalesReportByProduct($productIds['1'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['2'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['3'], 0, 0, 0, 0, $response);
     }
 
     public function testGrossMarginSalesByProductEmptyReportsForStore()
@@ -365,32 +275,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['1'],
-            0,
-            0,
-            0,
-            0,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['2'],
-            0,
-            0,
-            0,
-            0,
-            $response
-        );
-
-        $this->assertGrossMarginSalesReportByProduct(
-            $productIds['3'],
-            0,
-            0,
-            0,
-            0,
-            $response
-        );
+        $this->assertGrossMarginSalesReportByProduct($productIds['1'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['2'], 0, 0, 0, 0, $response);
+        $this->assertGrossMarginSalesReportByProduct($productIds['3'], 0, 0, 0, 0, $response);
     }
 
     public function testGrossMarginSalesByProductEmptyPeriod()
