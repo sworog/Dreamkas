@@ -1,3 +1,5 @@
+<% var productModalId = _.uniqueId('modal_product') %>
+
 <form class="form_stockMovementProducts">
 
 	<table class="table_stockMovementProducts table table-vcenter" style="margin: 0 -10px;">
@@ -18,10 +20,15 @@
 		<tr class="form_stockMovementProducts__controls">
 			<td>
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-11">
 
 						<b block="autocomplete_products"></b>
 
+					</div>
+					<div class="col-md-1">
+						<a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
+						   data-modal="<%- productModalId %>"
+						   class="fa fa-plus"></a>
 					</div>
 				</div>
 			</td>
@@ -45,13 +52,6 @@
 					  class="totalSum"></span>
 			</td>
 			<td>
-				<input name="cause"
-					   type="text"
-					   style="width: 100px;"
-					   class="form-control"
-					   placeholder="Причина">
-			</td>
-			<td>
 				<button type="submit"
 						style="margin-top: 0;"
 						class="btn btn-default fa fa-check btn-lg"></button>
@@ -70,4 +70,9 @@
 		</tfoot>
 	</table>
 	<div class="form__errorMessage form__errorMessage_global"></div>
+
+	<b block="modal_product"
+	   data-referrer="modal_invoice"
+	   data-id="<%- productModalId %>"></b>
+
 </form>

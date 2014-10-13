@@ -9,9 +9,9 @@ define(function(require, exports, module) {
         blocks: {
             form_supplier: function(){
                 var block = this,
-                    form_supplier = require('blocks/form/supplier/supplier');
+                    Form_supplier = require('blocks/form/supplier/supplier');
 
-                return new form_supplier({
+                return new Form_supplier({
                     supplierId: block.supplierId
                 });
             }

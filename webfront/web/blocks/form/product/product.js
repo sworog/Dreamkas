@@ -5,10 +5,7 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         selectedGroupId: function(){
-            return PAGE.models.group.id;
-        },
-        model: function(){
-            return PAGE.models.product;
+            return PAGE.models.group && PAGE.models.group.id;
         },
         collection: function(){
             return PAGE.collections.groupProducts;
@@ -55,17 +52,6 @@ define(function(require, exports, module) {
             }
 
             return Form.prototype.submit.apply(block, arguments);
-        },
-        submitSuccess: function(){
-
-            var groupId = this.model.get('subCategory.id');
-
-            if (groupId !== PAGE.params.groupId){
-                this.redirectUrl = '/catalog/groups/' + groupId;
-            }
-
-            Form.prototype.submitSuccess.apply(this, arguments);
-
         },
         showFieldError: function(data, field) {
             var block = this;

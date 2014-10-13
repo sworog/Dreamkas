@@ -122,9 +122,7 @@ define(function(require, exports, module) {
 
             block.$('input[name="product.name"]').val(product.name);
 
-            if (product.purchasePrice){
-                block.$('input[name="' + block.priceField + '"]').val(block.formatMoney(product.purchasePrice));
-            }
+			block.$('input[name="' + block.priceField + '"]').val(product.purchasePrice ? block.formatMoney(product.purchasePrice) : '');
 
             block.$('input[name="quantity"]').val(1);
             block.$('.product__units').html(product.units || 'шт.');

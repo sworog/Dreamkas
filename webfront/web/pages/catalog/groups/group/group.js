@@ -6,6 +6,20 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'catalog',
+		globalEvents: {
+			'submit:success': function(data, block){
+				var groupId;
+
+				if (block.el.id === 'form_product'){
+
+					groupId = block.model.get('subCategory.id');
+
+					if (groupId !== PAGE.params.groupId){
+						router.navigate('/catalog/groups/' + groupId);
+					}
+				}
+			}
+		},
         collections: {
             groups: require('resources/group/collection'),
             groupProducts: function(){

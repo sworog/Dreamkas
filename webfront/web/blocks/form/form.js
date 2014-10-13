@@ -68,6 +68,17 @@ define(function(require) {
             Block.prototype.initData.apply(block, arguments);
 
             block.data = block.get('__data');
+
+			//закрытие modal при удалении сущности
+			block.listenTo(block.model, {
+				destroy: function() {
+					var modal = block.$el.closest('.modal')[0];
+
+					if (modal) {
+						modal.block.hide();
+					}
+				}
+			});
         },
         render: function() {
             var block = this;

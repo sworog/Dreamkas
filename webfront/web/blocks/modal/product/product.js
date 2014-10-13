@@ -3,32 +3,26 @@ define(function(require, exports, module) {
     var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
-        template: require('ejs!./template.ejs'),
-        productId: null,
-        models: {
-            product: null
-        },
-        render: function() {
-            var block = this,
-                ProductModel = require('resources/product/model');
+		productId: 0,
+		id: 'modal_product',
+		template: require('ejs!./template.ejs'),
+		model: function() {
+			var block = this,
+				ProductModel = require('resources/product/model'),
+				groupProducts = PAGE.get('collections.groupProducts'),
+				productModel;
 
-            this.models.product = PAGE.collections.groupProducts.get(block.productId) || new ProductModel;
+			productModel = groupProducts && groupProducts.get(this.productId);
 
-            block.listenTo(this.models.product, {
-                destroy: function(){
-                    block.hide();
-                }
-            });
-
-            Modal.prototype.render.apply(this, arguments);
-        },
+			return productModel || new ProductModel;
+		},
         blocks: {
             form_product: function(){
                 var block = this,
                     Form_product = require('blocks/form/product/product');
 
                 return new Form_product({
-                    model: block.models.product
+                    model: block.model
                 });
             }
         }
