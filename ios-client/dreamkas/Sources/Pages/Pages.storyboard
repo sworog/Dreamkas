@@ -230,6 +230,33 @@
                                             <action selector="logInButtonClicked:" destination="6wI-lg-GTY" eventType="touchUpInside" id="Xma-ER-1VP"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Электронная почта" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZ4-bp-6N4" userLabel="Email Text Field" customClass="CustomTextField">
+                                        <rect key="frame" x="70" y="110" width="628" height="52"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="6wI-lg-GTY" id="SfD-Bz-3HH"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lkj-bD-L63">
+                                        <rect key="frame" x="570" y="266" width="170" height="57"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="Я забыл пароль">
+                                            <color key="titleColor" red="0.25098039220000001" green="0.66274509800000003" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="forgetButtonClicked:" destination="6wI-lg-GTY" eventType="touchUpInside" id="ALh-Ll-f2X"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pa9-FG-xrh" userLabel="Password Text Field" customClass="CustomTextField">
+                                        <rect key="frame" x="70" y="190" width="628" height="52"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="6wI-lg-GTY" id="IB2-DP-JQM"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -244,6 +271,8 @@
                     <connections>
                         <outlet property="containerView" destination="0xl-GR-uQC" id="5bv-Ea-MQv"/>
                         <outlet property="logInButton" destination="CXa-Q0-UrX" id="b6n-9z-qRK"/>
+                        <outlet property="loginField" destination="zZ4-bp-6N4" id="ave-Ke-VUz"/>
+                        <outlet property="passwordField" destination="pa9-FG-xrh" id="zNY-Ip-VCr"/>
                         <outlet property="titleLabel" destination="M3O-jK-XCv" id="mw3-Kt-jtK"/>
                         <segue destination="5OE-V6-ayr" kind="show" identifier="LogInToTicketWindowSegue" id="0y2-Ck-unP"/>
                     </connections>

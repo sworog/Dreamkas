@@ -80,6 +80,8 @@
 {
     DPLog(LOG_ON, @"");
     
+    [self.view endEditing:YES];
+    
     CATransition *transition = [CATransition animation];
     transition.duration = 0.15;
     transition.type = kCATransitionFade;

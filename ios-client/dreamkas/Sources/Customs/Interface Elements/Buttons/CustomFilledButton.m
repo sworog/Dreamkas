@@ -44,14 +44,15 @@
     [[self layer] setCornerRadius:DefaultCornerRadius];
     [[self layer] setMasksToBounds:NO];
     
-    [[self layer] setShadowColor:[[UIColor grayColor] CGColor]];
-    [[self layer] setShadowRadius:DefaultBtnShadowRadius];
-    [[self layer] setShadowOpacity:DefaultBtnShadowOpacity];
-    [[self layer] setShadowOffset:CGSizeMake(0.f, 0.f)];
+//    [[self layer] setShadowColor:[[UIColor grayColor] CGColor]];
+//    [[self layer] setShadowRadius:DefaultBtnShadowRadius];
+//    [[self layer] setShadowOpacity:DefaultBtnShadowOpacity];
+//    [[self layer] setShadowOffset:CGSizeMake(0.f, 0.f)];
     
     self.titleLabel.font = DefaultFont(16);
     [self setTitleColor:DefaultWhiteColor forState:UIControlStateNormal];
     [self setTitleColor:DefaultWhiteColor forState:UIControlStateHighlighted];
+    [self setTitleColor:DefaultGrayColor forState:UIControlStateDisabled];
 }
 
 - (void)setTitle:(NSString *)title forState:(UIControlState)state
@@ -62,6 +63,13 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
     [[self layer] setBackgroundColor:(highlighted)?DefaultLightCyanColor.CGColor:DefaultCyanColor.CGColor];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+    [super setEnabled:enabled];
+    
+    [[self layer] setBackgroundColor:(enabled)?DefaultCyanColor.CGColor:DefaultLightGrayColor.CGColor];
 }
 
 @end

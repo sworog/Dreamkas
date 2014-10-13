@@ -27,7 +27,12 @@
 
 #define DefaultCyanColor                    RGB(64, 169, 244)
 #define DefaultLightCyanColor               RGB(89, 189, 246)
+
+#define DefaultGrayColor                    RGB(158, 158, 158)
+#define DefaultLightGrayColor               RGB(226, 226, 226)
+
 #define DefaultWhiteColor                   [UIColor whiteColor]
+#define DefaultBlackColor                   [UIColor blackColor]
 
 //
 // Размеры приложения
@@ -38,5 +43,7 @@
 
 #define DefaultBtnShadowRadius              2.f
 #define DefaultBtnShadowOpacity             0.6f
+
+#define DefaultTextFieldHeight              52.f
 
 #endif

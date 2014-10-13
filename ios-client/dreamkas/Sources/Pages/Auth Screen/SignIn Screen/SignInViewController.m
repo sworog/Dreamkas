@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    // ..
+    [self.signInButton setEnabled:NO];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

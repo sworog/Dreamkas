@@ -20,6 +20,9 @@
 #define AuthToLogInScreenSegueName                  @"AuthToLogInScreenSegue"
 #define AuthToSignInScreenSegueName                 @"AuthToSignInScreenSegue"
 
+#define LogInToTicketWindowSegueName                @"LogInToTicketWindowSegue"
+#define SignInToTicketWindowSegueName               @"SignInToTicketWindowSegue"
+
 //
 // Идентификаторы экранов
 //
