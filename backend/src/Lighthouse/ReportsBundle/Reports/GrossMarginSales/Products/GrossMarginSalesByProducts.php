@@ -10,7 +10,7 @@ use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReport;
  * @property StoreProduct   $storeProduct
  * @property Product        $product
  */
-class GrossMarginSalesByProduct extends GrossMarginSalesReport
+class GrossMarginSalesByProducts extends GrossMarginSalesReport
 {
     /**
      * @var StoreProduct

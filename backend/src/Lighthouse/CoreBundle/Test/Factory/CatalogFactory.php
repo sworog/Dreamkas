@@ -206,6 +206,19 @@ class CatalogFactory extends AbstractFactory
     }
 
     /**
+     * @param array $names
+     * @return SubCategory[]
+     */
+    public function getSubCategories(array $names)
+    {
+        $subCategories = array();
+        foreach ($names as $name) {
+            $subCategories[$name] = $this->getSubCategory($name);
+        }
+        return $subCategories;
+    }
+
+    /**
      * @param string $name
      * @return AbstractRounding
      */

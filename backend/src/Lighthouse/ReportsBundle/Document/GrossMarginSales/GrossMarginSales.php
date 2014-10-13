@@ -3,6 +3,7 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -16,6 +17,7 @@ use DateTime;
  * @property Money          $costOfGoods
  * @property Quantity       $quantity
  * @property DateTime       $day
+ * @property Store          $store
  *
  * @MongoDB\MappedSuperclass
  * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
@@ -58,4 +60,13 @@ abstract class GrossMarginSales extends AbstractDocument
      * @var Quantity
      */
     protected $quantity;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
+     *     simple=true
+     * )
+     * @var Store
+     */
+    protected $store;
 }

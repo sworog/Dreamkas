@@ -474,7 +474,17 @@ EOF;
                 'nutritionFacts' => '"Углеводы - 12гр"'
             )
         );
-        $productId = $this->createProduct($productData);
+        $catalog = $this->createCatalog(
+            array(
+                'Продовольственные товары' => array(
+                    'Винно-водочные изделия' => array(
+                        'Водка' => '',
+                    )
+                )
+            )
+        );
+
+        $productId = $this->createProduct($productData, $catalog['Водка']);
 
         $barcodesData = array(
             array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),

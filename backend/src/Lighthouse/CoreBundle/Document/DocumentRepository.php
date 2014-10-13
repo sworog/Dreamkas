@@ -12,7 +12,6 @@ use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\MongoDB\DocumentManager;
 use MongoCollection;
-use MongoCursor;
 use MongoId;
 
 /**

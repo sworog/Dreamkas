@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
+use Lighthouse\CoreBundle\Test\Factory\CatalogFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
@@ -285,7 +286,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createGroup($name = 'Продовольственные товары')
+    protected function createGroup($name = CatalogFactory::DEFAULT_GROUP_NAME)
     {
         return $this->factory()->catalog()->createGroup($name)->id;
     }
@@ -295,7 +296,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
+    protected function createCategory($groupId = null, $name = CatalogFactory::DEFAULT_CATEGORY_NAME)
     {
         return $this->factory()->catalog()->createCategory($groupId, $name)->id;
     }
@@ -305,7 +306,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createSubCategory($categoryId = null, $name = 'Водка')
+    protected function createSubCategory($categoryId = null, $name = CatalogFactory::DEFAULT_SUBCATEGORY_NAME)
     {
         return $this->factory()->catalog()->createSubCategory($categoryId, $name)->id;
     }
