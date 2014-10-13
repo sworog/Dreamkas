@@ -29,4 +29,12 @@ class GrossMarginSalesByProducts extends GrossMarginSalesReport
     {
         $this->product = $product;
     }
+
+    /**
+     * @return Product
+     */
+    public function getItem()
+    {
+        return $this->product;
+    }
 }

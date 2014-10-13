@@ -2,86 +2,18 @@
 
 namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products;
 
-use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProduct;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReport;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportCollection;
 
-class GrossMarginSalesByProductsCollection extends DocumentCollection
+class GrossMarginSalesByProductsCollection extends GrossMarginSalesReportCollection
 {
     /**
-     * @var NumericFactory
-     */
-    protected $numericFactory;
-
-    /**
-     * @param NumericFactory $numericFactory
-     */
-    public function __construct(NumericFactory $numericFactory)
-    {
-        parent::__construct();
-
-        $this->numericFactory = $numericFactory;
-    }
-
-    /**
      * @param Product $product
-     * @return bool
+     * @return GrossMarginSalesReport
      */
-    public function containsProduct(Product $product)
+    public function createByItem($product)
     {
-        return $this->containsKey($product->id);
-    }
-
-    /**
-     * @param Product $product
-     * @return GrossMarginSalesByProducts
-     */
-    public function getByProduct(Product $product)
-    {
-        if ($this->containsProduct($product)) {
-            return $this->get($product->id);
-        } else {
-            return $this->createByProduct($product);
-        }
-    }
-
-    /**
-     * @param Product $product
-     * @return GrossMarginSalesByProducts
-     */
-    public function createByProduct(Product $product)
-    {
-        $report = new GrossMarginSalesByProducts($product);
-        $report->setReportValues(
-            $this->numericFactory->createMoney(0),
-            $this->numericFactory->createMoney(0),
-            $this->numericFactory->createMoney(0),
-            $this->numericFactory->createQuantity(0)
-        );
-        $this->set($product->id, $report);
-        return $report;
-    }
-
-    /**
-     * @param Product[] $products
-     * @return GrossMarginSalesByProductsCollection
-     */
-    public function fillByProducts($products)
-    {
-        foreach ($products as $product) {
-            if (!$this->containsProduct($product)) {
-                $this->createByProduct($product);
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * @param GrossMarginSalesProduct $report
-     */
-    public function addReportValues(GrossMarginSalesProduct $report)
-    {
-        $this->getByProduct($report->product)->addReportValues($report);
+        return new GrossMarginSalesByProducts($product);
     }
 }

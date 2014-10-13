@@ -52,11 +52,16 @@ abstract class GrossMarginSalesReport extends AbstractDocument
      * @param Money $grossMargin
      * @param Quantity $quantity
      */
-    public function setReportValues(Money $grossSales, Money $costOfGoods, Money $grossMargin, Quantity $quantity)
+    public function setValues(Money $grossSales, Money $costOfGoods, Money $grossMargin, Quantity $quantity)
     {
         $this->grossSales = $grossSales;
         $this->costOfGoods = $costOfGoods;
         $this->grossMargin = $grossMargin;
         $this->quantity = $quantity;
     }
+
+    /**
+     * @return object
+     */
+    abstract public function getItem();
 }
