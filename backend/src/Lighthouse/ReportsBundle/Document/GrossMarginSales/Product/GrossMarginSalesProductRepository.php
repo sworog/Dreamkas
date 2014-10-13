@@ -4,49 +4,17 @@ namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Product;
 
 use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
-use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Output\OutputInterface;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesRepository;
 use DateTime;
 
-class GrossMarginSalesProductRepository extends DocumentRepository
+class GrossMarginSalesProductRepository extends GrossMarginSalesRepository
 {
-    /**
-     * @var TrialBalanceRepository
-     */
-    protected $trialBalanceRepository;
-
-    /**
-     * @var NumericFactory
-     */
-    protected $numericFactory;
-
-    /**
-     * @param TrialBalanceRepository $trialBalanceRepository
-     */
-    public function setTrialBalanceRepository(TrialBalanceRepository $trialBalanceRepository)
-    {
-        $this->trialBalanceRepository = $trialBalanceRepository;
-    }
-
-    /**
-     * @param NumericFactory $numericFactory
-     */
-    public function setNumericFactory(NumericFactory $numericFactory)
-    {
-        $this->numericFactory = $numericFactory;
-    }
-
     /**
      * @param GrossMarginSalesFilter $filter
      * @param SubCategory $catalogGroup
@@ -87,66 +55,34 @@ class GrossMarginSalesProductRepository extends DocumentRepository
     }
 
     /**
-     * @param OutputInterface $output
-     * @param int $batch
-     * @return int
+     * @param array $result
+     * @return GrossMarginSalesProduct
      */
-    public function recalculate(OutputInterface $output = null, $batch = 5000)
+    protected function createReport(array $result)
     {
-        $output = $output ?: new NullOutput();
-        $dotHelper = new DotHelper($output);
+        $report = new GrossMarginSalesProduct();
+        $report->product = $this->dm->getReference(Product::getClassName(), $result['_id']['product']);
+        $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
+        $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
 
-        $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
+        $this->setReportValues($report, $result);
 
-        $results = $this->aggregateProductByDay($requireDatePeriod->getStartDate(), $requireDatePeriod->getEndDate());
-        $count = 0;
-
-        $dotHelper->setTotalPositions(count($results));
-
-        foreach ($results as $result) {
-            $report = new GrossMarginSalesProduct();
-            $report->day = DateTimestamp::createFromParts(
-                $result['_id']['year'],
-                $result['_id']['month'],
-                $result['_id']['day']
-            );
-            $report->costOfGoods = $this->numericFactory->createMoneyFromCount($result['costOfGoodsSum']);
-            $report->quantity = $this->numericFactory->createQuantityFromCount($result['quantitySum']);
-            $report->grossSales = $this->numericFactory->createMoneyFromCount($result['grossSales']);
-            $report->grossMargin = $this->numericFactory->createMoneyFromCount($result['grossMargin']);
-            $report->product = $this->dm->getReference(Product::getClassName(), $result['_id']['product']);
-            $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
-            $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
-
-            $this->dm->persist($report);
-            $count++;
-            $dotHelper->write();
-
-            if ($count % $batch == 0) {
-                $this->dm->flush();
-            }
-        }
-
-        $this->dm->flush();
-
-        $dotHelper->end();
-
-        return $count;
+        return $report;
     }
 
     /**
-     * @param DateTimestamp $startDate
-     * @param DateTimestamp $endDate
+     * @param DateTimestamp $dateFrom
+     * @param DateTimestamp $dateTo
      * @return ArrayIterator
      */
-    protected function aggregateProductByDay(DateTimestamp $startDate, DateTimestamp $endDate)
+    protected function aggregateByDays(DateTimestamp $dateFrom, DateTimestamp $dateTo)
     {
         $ops = array(
             array(
                 '$match' => array(
                     'createdDate.date' => array(
-                        '$gte' => $startDate->getMongoDate(),
-                        '$lt' => $endDate->getMongoDate(),
+                        '$gte' => $dateFrom->getMongoDate(),
+                        '$lt' => $dateTo->getMongoDate(),
                     ),
                     'reason.$ref' => SaleProduct::TYPE,
                 ),
