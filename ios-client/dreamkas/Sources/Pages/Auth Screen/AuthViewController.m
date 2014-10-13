@@ -19,12 +19,19 @@
 
 @implementation AuthViewController
 
+#pragma mark - View Lifecycle
+
+- (void)configureLocalization
+{
+    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
+    [self.signUpButton setTitle:NSLocalizedString(@"sign_up_button_title", nil) forState:UIControlStateNormal];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
-    [self.signUpButton setTitle:NSLocalizedString(@"sign_up_button_title", nil) forState:UIControlStateNormal];
+    // ..
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
@@ -32,6 +39,9 @@
 - (IBAction)signUpButtonClicked:(id)sender
 {
     DPLogFast(@"");
+    
+    [self showViewControllerModally:ControllerById(SignInViewControllerID)
+                            segueId:AuthToSignInScreenSegueName];
 }
 
 - (IBAction)logInButtonClicked:(id)sender
@@ -40,28 +50,6 @@
     
     [self showViewControllerModally:ControllerById(LogInViewControllerID)
                             segueId:AuthToLogInScreenSegueName];
-    
-//    [self showLoading];
-//    __weak typeof(self)weak_self = self;
-//    
-//    [NetworkManager authWithLogin:API_TEST_LOGIN
-//                         password:API_TEST_PWD
-//                     onCompletion:^(NSDictionary *data, NSError *error)
-//     {
-//         __strong typeof(self)strong_self = weak_self;
-//         [strong_self hideLoading];
-//         
-//         if (error == nil) {
-//             // если авторизация прошла успешно - запоминаем данные пользователя
-//             [CurrentUser updateLastUsedLogin:API_TEST_LOGIN
-//                             lastUsedPassword:API_TEST_PWD];
-//             
-//             [self performSegueWithIdentifier:AuthToTicketWindowScreenSegueName sender:self];
-//         }
-//         else {
-//             [DialogHelper showRequestError];
-//         }
-//     }];
 }
 
 @end

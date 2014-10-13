@@ -18,6 +18,7 @@
 
 #define AuthToTicketWindowScreenSegueName           @"AuthToTicketWindowScreenSegue"
 #define AuthToLogInScreenSegueName                  @"AuthToLogInScreenSegue"
+#define AuthToSignInScreenSegueName                 @"AuthToSignInScreenSegue"
 
 //
 // Идентификаторы экранов
@@ -25,5 +26,6 @@
 
 #define MainNavigationControllerID                  @"MainNavigationControllerID"
 #define LogInViewControllerID                       @"LogInViewControllerID"
+#define SignInViewControllerID                      @"SignInViewControllerID"
 
 #endif

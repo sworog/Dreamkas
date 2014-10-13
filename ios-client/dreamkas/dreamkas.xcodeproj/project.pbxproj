@@ -651,10 +651,10 @@
 		CEC003EE19E6942E00AE256F /* Customs */ = {
 			isa = PBXGroup;
 			children = (
-				CEF2647D19E81F6C008BE93A /* Other */,
 				CEF2646819E81D16008BE93A /* Categories */,
 				CEC003EF19E6942E00AE256F /* Controllers */,
 				CEC003F019E6942E00AE256F /* Interface Elements */,
+				CEF2647D19E81F6C008BE93A /* Other */,
 			);
 			path = Customs;
 			sourceTree = "<group>";

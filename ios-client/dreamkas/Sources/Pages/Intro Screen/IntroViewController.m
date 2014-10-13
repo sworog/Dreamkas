@@ -21,11 +21,14 @@ static const CGFloat TimeoutBeforeStart = 2.0f;
 
 #pragma mark - View Lifecicle
 
+- (void)configureLocalization
+{
+    [self.titleLabel setText:NSLocalizedString(@"intro_screen_title", nil)];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.titleLabel setText:NSLocalizedString(@"intro_screen_title", nil)];
     
     // запускаем логику по таймауту
     [NSTimer scheduledTimerWithTimeInterval:TimeoutBeforeStart target:self

@@ -19,4 +19,7 @@
 /** Отображение модального контроллера */
 - (void)showViewControllerModally:(AbstractViewController *)abstractVC segueId:(NSString *)segueId;
 
+/** Скрытие модального контроллера */
+- (void)hideModalViewController;
+
 @end

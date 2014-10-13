@@ -68,4 +68,12 @@
 #import "RESTClient+Auth.h"
 #import "RESTClient+Groups.h"
 
+//
+// Кастомные компоненты
+//
+
+#import "CustomLabel.h"
+#import "CustomFilledButton.h"
+#import "CustomEmptyButton.h"
+
 #endif

@@ -12,9 +12,13 @@
 #import "CustomModalSegue.h"
 #import <objc/runtime.h>
 
+#define LOG_ON 1
+
 @implementation AbstractViewController (Modal)
 
 @dynamic blurredView;
+
+#pragma mark - Работа с задним слоем модального контроллера
 
 /*
  * Кастомный сеттер для свойства в категории
@@ -52,17 +56,47 @@
     return blurred_view;
 }
 
+#pragma mark - Показ и скрытие модального контроллера
+
 /**
  * Отображение модального контроллера
  */
 - (void)showViewControllerModally:(AbstractViewController *)destVC segueId:(NSString *)segueId
 {
+    DPLog(LOG_ON, @"");
+    
     if (destVC == nil)
         return;
     
     CustomModalSegue *segue = [CustomModalSegue segueWithIdentifier:segueId source:self
                                                         destination:destVC performHandler:^(void) {}];
     [segue perform];
+}
+
+/**
+ * Скрытие модального контроллера
+ */
+- (void)hideModalViewController
+{
+    DPLog(LOG_ON, @"");
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.15;
+    transition.type = kCATransitionFade;
+    transition.subtype = kCATransitionFromBottom;
+    transition.removedOnCompletion = YES;
+    
+    [[UIApplication sharedApplication].keyWindow.layer addAnimation:transition forKey:@"transition"];
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [CATransaction setCompletionBlock: ^ {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(transition.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^ {
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+        });
+    }];
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
+    [CATransaction commit];
 }
 
 @end
