@@ -928,6 +928,7 @@ class UserControllerTest extends WebTestCase
                         'DELETE::{catalogGroup}',
                         'GET',
                         'GET::{catalogGroup}',
+                        'GET::{group}/reports/grossMarginSalesByProduct',
                         'POST',
                         'PUT::{catalogGroup}',
                     ),

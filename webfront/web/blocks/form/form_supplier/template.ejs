@@ -1,4 +1,4 @@
-<% var SupplierModel = require('models/supplier/supplier') %>
+<% var SupplierModel = require('resources/supplier/model') %>
 <% var supplierModel = supplierModel || new SupplierModel() %>
 
 <form block="form_supplier" id="<%- supplierModel.id ? 'form_supplierEdit' : 'form_supplierAdd' %>" class="form form_supplier">

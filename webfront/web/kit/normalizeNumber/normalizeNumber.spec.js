@@ -2,22 +2,17 @@ define(function(require, exports, module) {
     //requirements
     var normalizeNumber = require('./normalizeNumber');
 
-    describe(module.id, function(){
+    describe(module.id, function() {
+        var normalizedResult = normalizeNumber(' 3 , 555 ');
 
-        it('normalize number', function(){
-            expect(normalizeNumber(20)).toEqual(20);
+        it('normalized result is number', function() {
+
+            expect(typeof normalizedResult).toEqual('number');
         });
 
-        it('normalize 0', function(){
-            expect(normalizeNumber(0)).toEqual(0);
-        });
+        it('normalized number is correct', function() {
 
-        it('normalize undefined', function(){
-            expect(normalizeNumber()).toBeNaN();
-        });
-
-        it('normalize null', function(){
-            expect(normalizeNumber(null)).toBeNaN();
+            expect(normalizedResult).toEqual(3.555);
         });
 
     });

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Security\Project;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -119,5 +120,13 @@ class ProjectContext
             }
         }
         return null;
+    }
+
+    /**
+     * @return Project[]|Cursor
+     */
+    public function getAllProjects()
+    {
+        return $this->projectRepository->findAll();
     }
 }

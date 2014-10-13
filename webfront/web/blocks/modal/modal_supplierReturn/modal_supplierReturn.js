@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./modal_supplierReturn.ejs'),
         models: {
-            supplierReturn: require('models/supplierReturn/supplierReturn')
+            supplierReturn: require('resources/supplierReturn/model')
         },
         partials: {
             form_product: require('ejs!blocks/form/form_product/form_product.ejs'),

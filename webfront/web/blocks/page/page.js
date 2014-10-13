@@ -43,18 +43,24 @@ define(function(require, exports, module) {
 
         activeNavigationItem: 'main',
 
+        currentUserModel: require('resources/currentUser/model.inst'),
+
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
         },
 
         initialize: function() {
-            var page = this;
+            var page = this,
+                modal__wrapper = document.getElementById('modal__wrapper');
 
             page.setStatus('starting');
             page.setStatus('loading');
 
             previousPage = window.PAGE;
             window.PAGE = page;
+
+            modal__wrapper && modal__wrapper.classList.remove('modal__wrapper_visible');
+            document.body.classList.remove('modal-open');
 
             Block.prototype.initialize.apply(page, arguments);
         },

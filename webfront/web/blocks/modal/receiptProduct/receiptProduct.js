@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./template.ejs'),
         models: {
-            receiptProduct: require('models/receiptProduct/receiptProduct')
+            receiptProduct: require('resources/receiptProduct/model')
         },
         blocks: {
             form_receiptProduct: function(){

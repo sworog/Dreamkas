@@ -10,10 +10,10 @@ define(function(require) {
         model: null,
         collection: null,
         redirectUrl: null,
-        id: function(){
+        id: function() {
             return this.cid;
         },
-        data: function(){
+        data: function() {
             var block = this;
 
             return block.model && _.cloneDeep(block.model.toJSON());
@@ -61,7 +61,7 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
         },
-        initData: function(){
+        initData: function() {
             var block = this;
 
             block.__data = block.data;
@@ -71,12 +71,12 @@ define(function(require) {
 
             block.data = block.get('data');
         },
-        render: function(){
+        render: function() {
             var block = this;
 
             Block.prototype.render.apply(block, arguments);
 
-            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + (block.el && block.el.id) + '"]');
         },
         serialize: function() {
             var block = this;
@@ -93,7 +93,7 @@ define(function(require) {
         submitStart: function() {
             var block = this;
 
-            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + (block.el && block.el.id) + '"]');
 
             block.$submitButton.addClass('loading');
             block.disable();
@@ -103,7 +103,7 @@ define(function(require) {
         submitComplete: function() {
             var block = this;
 
-            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + (block.el && block.el.id) + '"]');
 
             block.$submitButton.removeClass('loading');
             block.enable();
@@ -116,6 +116,10 @@ define(function(require) {
                 block.collection.add(block.model);
             }
 
+            if (modal) {
+                modal.block.hide();
+            }
+
             if (block.redirectUrl) {
                 router.navigate(block.redirectUrl);
                 return;
@@ -123,10 +127,6 @@ define(function(require) {
 
             if (block.get('successMessage')) {
                 block.showSuccessMessage();
-            }
-
-            if (modal){
-                modal.block.hide();
             }
         },
         submitError: function(response) {
@@ -141,16 +141,18 @@ define(function(require) {
                 errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div for="' + field + '" class="form__errorMessage"></div>').insertAfter(inputElement)[0];
 
             if (data.errors && data.errors.length) {
-                inputElement.classList.add('invalid');
+                inputElement && inputElement.classList.add('invalid');
 
                 errorMessage = data.errors.map(getText).join('. ');
 
-                errorElement.classList.add('form__errorMessage_visible');
-                errorElement.innerHTML = getText(errorMessage);
+                if (errorElement){
+                    errorElement.classList.add('form__errorMessage_visible');
+                    errorElement.innerHTML = getText(errorMessage);
+                }
             }
 
-            if (data.children){
-                _.each(data.children, function(data, key){
+            if (data.children) {
+                _.each(data.children, function(data, key) {
                     block.showFieldError(data, field + '.' + key);
                 });
             }
@@ -171,12 +173,12 @@ define(function(require) {
                 block.showGlobalError(error.errors.errors);
             }
         },
-        showGlobalError: function(errorMessages){
+        showGlobalError: function(errorMessages) {
             var block = this,
                 errorMessage,
                 $errorElement = block.$('.form__errorMessage_global');
 
-            if ($errorElement.length === 0){
+            if ($errorElement.length === 0) {
                 $errorElement = $('<div class="form__errorMessage form__errorMessage_global"></div>').prependTo(block.el);
             }
 
@@ -212,7 +214,7 @@ define(function(require) {
 
             block.$submitButton.removeAttr('disabled');
         },
-        reset: function(){
+        reset: function() {
             var block = this;
 
             block.el.reset();
@@ -220,7 +222,7 @@ define(function(require) {
             block.model = block.get('__model');
             block.data = block.get('__data');
         },
-        clear: function(){
+        clear: function() {
             var block = this;
 
             block.$(':input').val('');

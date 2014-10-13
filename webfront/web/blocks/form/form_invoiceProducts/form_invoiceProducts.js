@@ -46,7 +46,7 @@ define(function(require, exports, module) {
             });
         },
 
-        collection: require('collections/invoiceProducts/invoiceProducts'),
+        collection: require('resources/invoiceProduct/collection'),
 
         submit: function() {
             var block = this;

@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         id: 'form_refund',
-        model: require('models/refund/refund'),
+        model: require('resources/refund/model'),
         blocks: {
             inputNumber: function(){
                 var block = this,

@@ -26,16 +26,18 @@
         </a>
     </nav>
 
-    <div class="page__head">
-        <div class="page__title">
-            <a class="page__sideBarLink fa fa-bars"></a>
-            <%- models.store.get('name') + ': ' + title %>
+    <div class="page__contentSide">
+        <div class="page__head">
+            <div class="page__title">
+                <a class="page__sideBarLink fa fa-bars"></a>
+                <%- models.store.get('name') + ': ' + title %>
+            </div>
         </div>
-    </div>
 
-    <div class="page__content">
-        <div class="row">
-            <%= content(obj) %>
+        <div class="page__content">
+            <div class="row">
+                <%= content(obj) %>
+            </div>
         </div>
     </div>
 </div>
