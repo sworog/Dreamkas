@@ -44,7 +44,7 @@ class CostOfGoodsCalculator
     /**
      * @var array
      */
-    protected $incrementStockTypes = array(
+    protected $increaseAmountTypes = array(
         InvoiceProduct::TYPE,
         StockInProduct::TYPE,
         ReturnProduct::TYPE,
@@ -53,7 +53,7 @@ class CostOfGoodsCalculator
     /**
      * @var array
      */
-    protected $decrementStockTypes = array(
+    protected $decreaseAmountTypes = array(
         SaleProduct::TYPE,
         SupplierReturnProduct::TYPE,
         WriteOffProduct::TYPE,
@@ -100,8 +100,8 @@ class CostOfGoodsCalculator
      */
     public function calculateByIndexRange($storeProductId, Quantity $startIndex, Quantity $endIndex)
     {
-        $invoiceProductTrials = $this->trialBalanceRepository->findByIndexRange(
-            $this->getIncrementStockTypes(),
+        $increaseAmountProductTrialBalances = $this->trialBalanceRepository->findByIndexRange(
+            $this->getIncreaseAmountTypes(),
             $storeProductId,
             $startIndex,
             $endIndex
@@ -109,14 +109,15 @@ class CostOfGoodsCalculator
         $index = $startIndex;
         $currentEndIndex = null;
         $totalCostOfGoods = $this->numericFactory->createMoney(0);
-        foreach ($invoiceProductTrials as $invoiceProductTrial) {
-            if ($endIndex->toNumber() > $invoiceProductTrial->endIndex->toNumber()) {
-                $currentEndIndex = $invoiceProductTrial->endIndex;
+        foreach ($increaseAmountProductTrialBalances as $increaseAmountProductTrialBalance) {
+            if ($endIndex->toNumber() > $increaseAmountProductTrialBalance->endIndex->toNumber()) {
+                $currentEndIndex = $increaseAmountProductTrialBalance->endIndex;
             } else {
                 $currentEndIndex = $endIndex;
             }
             $indexQuantity = $currentEndIndex->sub($index);
-            $costOfGoods = $invoiceProductTrial->price->mul($indexQuantity);
+            $costOfGoodsDonorPrice = $this->getCostOfGoodsDonorPriceByTrialBalance($increaseAmountProductTrialBalance);
+            $costOfGoods = $costOfGoodsDonorPrice->mul($indexQuantity);
             $totalCostOfGoods = $totalCostOfGoods->add($costOfGoods);
             $index = $index->add($indexQuantity);
         }
@@ -132,6 +133,27 @@ class CostOfGoodsCalculator
         }
 
         return $totalCostOfGoods;
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return Money
+     */
+    protected function getCostOfGoodsDonorPriceByTrialBalance(TrialBalance $trialBalance)
+    {
+        if ($trialBalance->reason instanceof ReturnProduct) {
+            $saleProductTrialBalance = $this->trialBalanceRepository->findOneByStockMovementProduct(
+                $trialBalance->reason->saleProduct
+            );
+            if (null !== $saleProductTrialBalance->costOfGoods) {
+                $price = $saleProductTrialBalance->costOfGoods->div($saleProductTrialBalance->quantity);
+                return $price;
+            } else {
+                return $this->numericFactory->createMoney(0);
+            }
+        } else {
+            return $trialBalance->price;
+        }
     }
 
     /**
@@ -165,8 +187,8 @@ class CostOfGoodsCalculator
      */
     public function calculateByStoreProductId($storeProductId)
     {
-        $this->calculateByStoreProductReasonTypes($storeProductId, $this->incrementStockTypes);
-        $this->calculateByStoreProductReasonTypes($storeProductId, $this->decrementStockTypes);
+        $this->calculateByStoreProductReasonTypes($storeProductId, $this->getIncreaseAmountTypes());
+        $this->calculateByStoreProductReasonTypes($storeProductId, $this->getDecreaseAmountTypes());
     }
 
     /**
@@ -189,17 +211,17 @@ class CostOfGoodsCalculator
     /**
      * @return array
      */
-    public function getIncrementStockTypes()
+    public function getIncreaseAmountTypes()
     {
-        return $this->incrementStockTypes;
+        return $this->increaseAmountTypes;
     }
 
     /**
      * @return array
      */
-    public function getDecrementStockTypes()
+    public function getDecreaseAmountTypes()
     {
-        return $this->decrementStockTypes;
+        return $this->decreaseAmountTypes;
     }
 
     /**
@@ -207,27 +229,27 @@ class CostOfGoodsCalculator
      */
     public function getSupportRangeIndex()
     {
-        return array_merge($this->getIncrementStockTypes(), $this->getDecrementStockTypes());
+        return array_merge($this->getIncreaseAmountTypes(), $this->getDecreaseAmountTypes());
     }
 
     /**
      * @param TrialBalance $trialBalance
      * @return bool
      */
-    public function isIncrementStockTypeByTrialBalance(TrialBalance $trialBalance)
+    public function isIncreaseAmountTypeByTrialBalance(TrialBalance $trialBalance)
     {
-        return $this->isIncrementStockType($trialBalance->reason);
+        return $this->isIncreaseAmountType($trialBalance->reason);
     }
 
     /**
      * @param StockMovementProduct $stockMovementProduct
      * @return bool
      */
-    public function isIncrementStockType(StockMovementProduct $stockMovementProduct)
+    public function isIncreaseAmountType(StockMovementProduct $stockMovementProduct)
     {
         return in_array(
             $stockMovementProduct->getType(),
-            $this->getIncrementStockTypes()
+            $this->getIncreaseAmountTypes()
         );
     }
 
@@ -235,20 +257,20 @@ class CostOfGoodsCalculator
      * @param TrialBalance $trialBalance
      * @return bool
      */
-    public function isDecrementStockTypeByTrialBalance(TrialBalance $trialBalance)
+    public function isDecreaseAmountTypeByTrialBalance(TrialBalance $trialBalance)
     {
-        return $this->isDecrementStockType($trialBalance->reason);
+        return $this->isDecreaseAmountType($trialBalance->reason);
     }
 
     /**
      * @param StockMovementProduct $stockMovementProduct
      * @return bool
      */
-    public function isDecrementStockType(StockMovementProduct $stockMovementProduct)
+    public function isDecreaseAmountType(StockMovementProduct $stockMovementProduct)
     {
         return in_array(
             $stockMovementProduct->getType(),
-            $this->getDecrementStockTypes()
+            $this->getDecreaseAmountTypes()
         );
     }
 
@@ -288,10 +310,10 @@ class CostOfGoodsCalculator
      */
     public function getStockMovementTypes(StockMovementProduct $stockMovementProduct)
     {
-        if ($this->isDecrementStockType($stockMovementProduct)) {
-            return $this->getDecrementStockTypes();
+        if ($this->isDecreaseAmountType($stockMovementProduct)) {
+            return $this->getDecreaseAmountTypes();
         } else {
-            return $this->getIncrementStockTypes();
+            return $this->getIncreaseAmountTypes();
         }
     }
 
@@ -324,7 +346,7 @@ class CostOfGoodsCalculator
 
             if ($trialBalance->reason->increaseAmount()) {
                 $referenceTrialBalance = $this->trialBalanceRepository->findOneByPreviousEndIndex(
-                    $this->getDecrementStockTypes(),
+                    $this->getDecreaseAmountTypes(),
                     $trialBalance->storeProduct->id,
                     $previousQuantity
                 );
@@ -362,7 +384,7 @@ class CostOfGoodsCalculator
      */
     protected function calculateCostOfGoodsIfNeeded(TrialBalance $trialBalance)
     {
-        if ($this->isDecrementStockTypeByTrialBalance($trialBalance)) {
+        if ($this->isDecreaseAmountTypeByTrialBalance($trialBalance)) {
             $trialBalance->costOfGoods = $this->calculateByTrialBalance($trialBalance);
         }
     }
