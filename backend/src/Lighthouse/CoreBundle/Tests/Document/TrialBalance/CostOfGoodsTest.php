@@ -909,14 +909,14 @@ class CostOfGoodsTest extends WebTestCase
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store, date('c', strtotime('-160 hour')))
-                ->createSupplierReturnProduct($productId, 1, 15)
+                ->createSupplierReturnProduct($productId, 2, 15)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $this->assertCostOfGood($sale->products[0], '48.00');
         $this->assertCostOfGood($writeOff->products[0], '30.00');
-        $this->assertCostOfGood($supplierReturn->products[0], '15.00');
+        $this->assertCostOfGood($supplierReturn->products[0], '30.00');
 
 
         $return = $this->factory()
@@ -935,8 +935,8 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->assertCostOfGood($sale->products[0], '48.00');
         $this->assertCostOfGood($writeOff->products[0], '30.00');
-        $this->assertCostOfGood($supplierReturn->products[0], '15.00');
-        $this->assertCostOfGood($sale2->products[0], '11.00');
+        $this->assertCostOfGood($supplierReturn->products[0], '30.00');
+        $this->assertCostOfGood($sale2->products[0], '12.00');
     }
 
     /**

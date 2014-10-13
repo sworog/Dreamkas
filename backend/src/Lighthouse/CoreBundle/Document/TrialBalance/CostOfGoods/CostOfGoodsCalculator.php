@@ -116,7 +116,8 @@ class CostOfGoodsCalculator
                 $currentEndIndex = $endIndex;
             }
             $indexQuantity = $currentEndIndex->sub($index);
-            $costOfGoods = $increaseAmountProductTrialBalance->price->mul($indexQuantity);
+            $costOfGoodsDonorPrice = $this->getCostOfGoodsDonorPriceByTrialBalance($increaseAmountProductTrialBalance);
+            $costOfGoods = $costOfGoodsDonorPrice->mul($indexQuantity);
             $totalCostOfGoods = $totalCostOfGoods->add($costOfGoods);
             $index = $index->add($indexQuantity);
         }
@@ -132,6 +133,27 @@ class CostOfGoodsCalculator
         }
 
         return $totalCostOfGoods;
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return Money
+     */
+    protected function getCostOfGoodsDonorPriceByTrialBalance(TrialBalance $trialBalance)
+    {
+        if ($trialBalance->reason instanceof ReturnProduct) {
+            $saleProductTrialBalance = $this->trialBalanceRepository->findOneByStockMovementProduct(
+                $trialBalance->reason->saleProduct
+            );
+            if (null !== $saleProductTrialBalance->costOfGoods) {
+                $price = $saleProductTrialBalance->costOfGoods->div($saleProductTrialBalance->quantity);
+                return $price;
+            } else {
+                return $this->numericFactory->createMoney(0);
+            }
+        } else {
+            return $trialBalance->price;
+        }
     }
 
     /**
