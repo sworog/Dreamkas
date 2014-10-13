@@ -14,7 +14,6 @@ public class Product extends NamedObject{
     private Integer sellingPrice;
     private String units;
 
-
     public String getSku() {
         return sku;
     }
@@ -34,5 +33,8 @@ public class Product extends NamedObject{
 
     public Integer getSellingPrice() {
         return sellingPrice;
+    }
+    public void setSellingPrice(Integer value) {
+        sellingPrice = value;
     }
 }

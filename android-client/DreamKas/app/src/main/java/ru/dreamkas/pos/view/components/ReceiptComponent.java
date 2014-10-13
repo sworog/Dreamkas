@@ -1,6 +1,7 @@
 package ru.dreamkas.pos.view.components;
 
 import android.content.Context;
+import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +15,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
+import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
-import ru.dreamkas.pos.adapters.ProductsAdapter;
 import ru.dreamkas.pos.adapters.ReceiptAdapter;
 import ru.dreamkas.pos.model.Receipt;
 import ru.dreamkas.pos.model.api.Product;
@@ -38,6 +39,7 @@ public class ReceiptComponent extends LinearLayout {
 
     private Receipt mReceipt;
     private ConfirmButtonComponent btnClearReceipt;
+    private ReceiptAdapter mAdapter;
 
     public ReceiptComponent(Context context) {
         super(context);
@@ -57,11 +59,10 @@ public class ReceiptComponent extends LinearLayout {
     @AfterViews
     void receiptInit() {
         mReceipt = new Receipt();
-        ProductsAdapter adapter = new ReceiptAdapter(mContext, R.layout.receipt_listview_item, mReceipt);
-        lvReceipt.setAdapter(adapter);
-        btnClearReceipt = (ConfirmButtonComponent)View.inflate(mContext,R.layout.clear_button, null);
-        btnClearReceipt.setConfirmationText("Подтвердить очистку чека");
-        lvReceipt.addFooterView(btnClearReceipt);
+        mAdapter = new ReceiptAdapter(mContext, R.layout.receipt_listview_item, mReceipt);
+        lvReceipt.setAdapter(mAdapter);
+
+        addFooterClearButton();
 
         btnClearReceipt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -70,9 +71,15 @@ public class ReceiptComponent extends LinearLayout {
         });
     }
 
-    void clearReceipt(){
+    private void addFooterClearButton() {
+        btnClearReceipt = (ConfirmButtonComponent)View.inflate(mContext,R.layout.clear_button, null);
+        btnClearReceipt.setConfirmationText(DreamkasApp.getResourceString(R.string.msgClearReceiptConfitmationText));
+        lvReceipt.addFooterView(btnClearReceipt);
+    }
+
+    public void clearReceipt(){
         mReceipt.clear();
-        ((ReceiptAdapter)((HeaderViewListAdapter)lvReceipt.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();
         changeReceiptTotal();
         setReceiptView(true);
     }
@@ -82,7 +89,7 @@ public class ReceiptComponent extends LinearLayout {
         //todo register
     }
 
-    private void scrollMyListViewToBottom() {
+    private void scrollToBottom() {
         lvReceipt.post(new Runnable() {
             @Override
             public void run() {
@@ -92,16 +99,21 @@ public class ReceiptComponent extends LinearLayout {
     }
 
     private void changeReceiptTotal() {
-        btnRegisterReceipt.setText(String.format("Продать на сумму %d %c", mReceipt.getTotal(), StringDecorator.RUBLE_CODE));
+        SpannableStringBuilder msgSellInTheAmountOff = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msgSellInTheAmountOff),
+                                                                                                                    mReceipt.getTotal(), StringDecorator.RUBLE_CODE);
+        btnRegisterReceipt.setText(msgSellInTheAmountOff);
     }
 
     public void add(Product product) {
         setReceiptView(false);
         mReceipt.add(product);
-        ((ReceiptAdapter)((HeaderViewListAdapter)lvReceipt.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
-        scrollMyListViewToBottom();
+        mAdapter.notifyDataSetChanged();
+
         changeReceiptTotal();
         btnClearReceipt.changeState(ConfirmButtonComponent.State.REGULAR);
+
+
+        scrollToBottom();
     }
 
     private void setReceiptView(boolean isEmpty) {

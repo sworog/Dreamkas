@@ -9,6 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.model.api.NamedObject;
 
 public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements SpinnerAdapter{
@@ -20,7 +21,7 @@ public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements Sp
 
         this.dropdownLayoutResourceId = dropdownLayoutResourceId;
 
-        this.add(new NamedObject(null, "<Магазин не выбран>"));
+        this.add(new NamedObject(null, context.getResources().getString(R.string.msgSelectedNullStore)));
     }
 
     @Override
@@ -30,20 +31,17 @@ public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements Sp
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View v = super.getView(position, convertView, parent);
         if (position == getCount()) {
             ((TextView)v.findViewById(android.R.id.text1)).setText("");
-            ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount()).getName()); //"Hint to be displayed"
+            ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount()).getName());
         }
-
         return v;
     }
 
     @Override
     public List<NamedObject> getItems() {
-
-        return this.data.subList(1, this.getCount());
+        return this.data.subList(0, this.getCount());
     }
 
     @Override

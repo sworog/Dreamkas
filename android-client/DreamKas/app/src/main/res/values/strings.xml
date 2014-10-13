@@ -11,7 +11,6 @@
 
     <string name="drawer_close">Close navigation drawer</string>
 
-
     <string name="hello_kas_fragment">Касса</string>
     <string name="hello_store_fragment">Магазин</string>
     <string name="drawer_title">Меню</string>
@@ -37,5 +36,9 @@
     <string name="msgEmptyReceipt">Для продажи добавьте в чек хотя бы один продукт.</string>
     <string name="msgSearchEmptyResult">Продуктов не найдено.</string>
     <string name="ClearReceipt">Очистить чек</string>
+    <string name="msgClearReceiptConfitmationText">Подтвердить очистку чека</string>
+    <string name="msgSellInTheAmountOff">Продать на сумму %1$d %2$c</string>
+    <string name="msgSelectedNullStore">\u003CМагазин не выбран\u003E</string>
+
 
 </resources>

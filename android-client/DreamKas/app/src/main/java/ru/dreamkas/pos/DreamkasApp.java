@@ -16,4 +16,8 @@ public class DreamkasApp extends Application {
     public static Context getContext(){
         return mContext;
     }
+
+    public static String getResourceString(Integer id){
+        return mContext.getResources().getString(id);
+    }
 }
