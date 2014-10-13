@@ -15,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import ru.dreamkas.api.AccessToken;
 import ru.dreamkas.api.objects.abstraction.AbstractObject;
-import ru.dreamkas.helper.UrlHelper;
+import ru.dreamkas.apihelper.UrlHelper;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

@@ -1,6 +1,6 @@
 package ru.dreamkas.console.backend;
 
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 /**
  * symfony:products:recalculate_metrics cap command implementation
@@ -11,7 +11,7 @@ public class SymfonyProductsRecalculateMetricsCommand extends BackendCommand {
 
     public SymfonyProductsRecalculateMetricsCommand() {
         this(
-                Storage.getUserVariableStorage().getUserProjectName());
+                ApiStorage.getUserVariableStorage().getUserProjectName());
     }
 
     public SymfonyProductsRecalculateMetricsCommand(String projectName) {

@@ -5,8 +5,8 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import ru.dreamkas.api.factories.ApiFactory;
 import ru.dreamkas.api.objects.Supplier;
-import ru.dreamkas.storage.Storage;
-import ru.dreamkas.storage.variable.CustomVariableStorage;
+import ru.dreamkas.apiStorage.ApiStorage;
+import ru.dreamkas.apiStorage.variable.CustomVariableStorage;
 
 import java.io.IOException;
 
@@ -20,8 +20,8 @@ public class SupplierApiSteps extends ScenarioSteps {
                                                   String email,
                                                   String contactPerson) throws IOException, JSONException {
         Supplier supplier = new Supplier(name, address, phone, email, contactPerson);
-        String password = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(userEmail).getPassword();
-        CustomVariableStorage customVariableStorage = Storage.getCustomVariableStorage();
+        String password = ApiStorage.getUserVariableStorage().getUserContainers().getContainerWithEmail(userEmail).getPassword();
+        CustomVariableStorage customVariableStorage = ApiStorage.getCustomVariableStorage();
 
         if (!customVariableStorage.getSuppliers().containsKey(supplier.getName())) {
             new ApiFactory(userEmail, password).createObject(supplier);

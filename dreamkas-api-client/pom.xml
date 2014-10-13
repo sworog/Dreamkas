@@ -7,12 +7,16 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Sample Thucydides project</name>
+    <name>Dreamkas api client</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thucydides.version>0.9.266</thucydides.version>
         <thucydides.jbehave.version>0.9.264</thucydides.jbehave.version>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>${sourceDirectory}}</testSourceDirectory>
+        <outputDirectory>target/classes</outputDirectory>
+        <testOutputDirectory>${outputDirectory}}</testOutputDirectory>
     </properties>
 
     <dependencies>
@@ -55,14 +59,21 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.5</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.8</version>
                 <executions>
                     <execution>
+                        <id>add-test-source</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>test-jar</goal>
+                            <goal>add-test-source</goal>
                         </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/java</source>
+                            </sources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -78,12 +89,20 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.11</version>
                 <configuration>
+                    <testSourceDirectory>${basedir}/src/main/java/</testSourceDirectory>
+                    <testClassesDirectory>${project.build.directory}/classes/</testClassesDirectory>
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/Test*.java</include>
                         <include>**/When*.java</include>
                         <include>**/*TestSuite.java</include>
                     </includes>
+                    <systemPropertyVariables>
+                        <sourceDirectory>${sourceDirectory}}</sourceDirectory>
+                        <testSourceDirectory>${testSourceDirectory}}</testSourceDirectory>
+                        <outputDirectory>${outputDirectory}}</outputDirectory>
+                        <testOutputDirectory>${testSourceDirectory}}</testOutputDirectory>
+                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
@@ -98,11 +117,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>net.thucydides.maven.plugins</groupId>
@@ -146,6 +164,18 @@
                         <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -1,6 +1,6 @@
 package ru.dreamkas.console.backend;
 
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 /**
  * symfony:reports:recalculate cap command implementation
@@ -11,7 +11,7 @@ public class SymfonyReportsRecalculateCommand extends BackendCommand {
 
     public SymfonyReportsRecalculateCommand() {
         this(
-                Storage.getUserVariableStorage().getUserProjectName());
+                ApiStorage.getUserVariableStorage().getUserProjectName());
     }
 
     public SymfonyReportsRecalculateCommand(String projectName) {

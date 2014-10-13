@@ -5,8 +5,8 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import ru.dreamkas.console.ConsoleCommandResult;
 import ru.dreamkas.console.backend.*;
-import ru.dreamkas.helper.UUIDGenerator;
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apihelper.UUIDGenerator;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class ConsoleCommandSteps extends ScenarioSteps {
     @Step
     public void runCapAutoTestsSymfonyCreateUserCommandWithEmailGeneratedAndCommonPassword() throws IOException, InterruptedException {
         String generatedEmail = String.format("%s@lighthouse.pro", new UUIDGenerator().generate());
-        Storage.getCustomVariableStorage().setEmail(generatedEmail);
+        ApiStorage.getCustomVariableStorage().setEmail(generatedEmail);
         new SymfonyUserCreateCommand(generatedEmail, "lighthouse").run();
     }
 }

@@ -5,7 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import ru.dreamkas.api.factories.ApiFactory;
 import ru.dreamkas.api.objects.stockmovement.writeoff.WriteOff;
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 import java.io.IOException;
 
@@ -33,11 +33,11 @@ public class WriteOffBuilderSteps extends ScenarioSteps {
 
     @Step
     public void send(String email) {
-        String password = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
+        String password = ApiStorage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
         ApiFactory factory = new ApiFactory(email, password);
         try {
             factory.createObject(writeOff);
-            Storage.getStockMovementVariableStorage().addStockMovement(writeOff);
+            ApiStorage.getStockMovementVariableStorage().addStockMovement(writeOff);
         } catch (IOException | JSONException e) {
             throw new AssertionError(e);
         }

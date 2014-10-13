@@ -1,3 +1,0 @@
-
-Scenario: test
-!--empty scenario

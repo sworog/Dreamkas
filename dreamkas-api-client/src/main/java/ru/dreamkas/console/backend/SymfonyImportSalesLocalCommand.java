@@ -1,7 +1,7 @@
 package ru.dreamkas.console.backend;
 
 
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 public class SymfonyImportSalesLocalCommand extends BackendCommand {
 
@@ -9,7 +9,7 @@ public class SymfonyImportSalesLocalCommand extends BackendCommand {
 
     public SymfonyImportSalesLocalCommand(String filePath) {
         super(
-                format(filePath, Storage.getUserVariableStorage().getUserProjectName()));
+                format(filePath, ApiStorage.getUserVariableStorage().getUserProjectName()));
     }
 
     public SymfonyImportSalesLocalCommand(String filePath, String projectName) {

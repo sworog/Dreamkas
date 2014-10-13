@@ -5,7 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import ru.dreamkas.api.factories.ApiFactory;
 import ru.dreamkas.api.objects.stockmovement.stockin.StockIn;
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 import java.io.IOException;
 
@@ -33,11 +33,11 @@ public class StockInBuilderSteps extends ScenarioSteps {
 
     @Step
     public void send(String email) {
-        String password = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
+        String password = ApiStorage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
         ApiFactory factory = new ApiFactory(email, password);
         try {
             factory.createObject(stockIn);
-            Storage.getStockMovementVariableStorage().addStockMovement(stockIn);
+            ApiStorage.getStockMovementVariableStorage().addStockMovement(stockIn);
         } catch (IOException | JSONException e) {
             throw new AssertionError(e);
         }

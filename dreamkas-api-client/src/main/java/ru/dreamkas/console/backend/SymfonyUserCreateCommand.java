@@ -1,7 +1,7 @@
 package ru.dreamkas.console.backend;
 
 import org.eclipse.jetty.util.security.UnixCrypt;
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 /**
  * symfony:user:create cap command implementation
@@ -18,7 +18,7 @@ public class SymfonyUserCreateCommand extends BackendCommand {
 
     private static String userProjectId(String email) {
         String projectId = UnixCrypt.crypt(email, "user").replace(".", "").replace("/", "");
-        Storage.getUserVariableStorage().setUserProjectName(projectId);
+        ApiStorage.getUserVariableStorage().setUserProjectName(projectId);
         return projectId;
     }
 }

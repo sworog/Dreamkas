@@ -5,7 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import ru.dreamkas.api.factories.ApiFactory;
 import ru.dreamkas.api.objects.stockmovement.supplierReturn.SupplierReturn;
-import ru.dreamkas.storage.Storage;
+import ru.dreamkas.apiStorage.ApiStorage;
 
 import java.io.IOException;
 
@@ -36,11 +36,11 @@ public class SupplierReturnBuilderSteps extends ScenarioSteps {
 
     @Step
     public void send(String email) {
-        String password = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
+        String password = ApiStorage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
         ApiFactory factory = new ApiFactory(email, password);
         try {
             factory.createObject(supplier);
-            Storage.getStockMovementVariableStorage().addSupplierReturn(supplier);
+            ApiStorage.getStockMovementVariableStorage().addSupplierReturn(supplier);
         } catch (IOException | JSONException e) {
             throw new AssertionError(e);
         }

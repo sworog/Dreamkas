@@ -4,10 +4,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import ru.dreamkas.api.http.HttpExecutor;
 import ru.dreamkas.api.objects.token.OauthAuthorizeData;
-import ru.dreamkas.helper.UrlHelper;
-import ru.dreamkas.storage.Configurable;
-import ru.dreamkas.storage.Storage;
-import ru.dreamkas.storage.variable.UserVariableStorage;
+import ru.dreamkas.apihelper.UrlHelper;
+import ru.dreamkas.apiStorage.ApiStorage;
+import ru.dreamkas.apiStorage.Configurable;
+import ru.dreamkas.apiStorage.variable.UserVariableStorage;
 
 import java.io.IOException;
 
@@ -22,8 +22,8 @@ public class AccessToken {
     }
 
     public String get() {
-        Configurable configuration = Storage.getConfigurationVariableStorage();
-        UserVariableStorage userVariableStorage = Storage.getUserVariableStorage();
+        Configurable configuration = ApiStorage.getConfigurationVariableStorage();
+        UserVariableStorage userVariableStorage = ApiStorage.getUserVariableStorage();
 
         if (!userVariableStorage.getUserTokens().containsKey(userName)) {
             String accessToken;
