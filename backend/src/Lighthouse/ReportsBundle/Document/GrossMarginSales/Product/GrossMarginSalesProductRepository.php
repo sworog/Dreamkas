@@ -5,14 +5,18 @@ namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Product;
 use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Console\DotHelper;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use DateTime;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -45,46 +49,45 @@ class GrossMarginSalesProductRepository extends DocumentRepository
     }
 
     /**
-     * @param string $storeProductId
-     * @param DateTime $day
-     * @return string
-     */
-    public function getIdByStoreProductIdAndDay($storeProductId, $day)
-    {
-        return md5($storeProductId . ":" . $day->getTimestamp());
-    }
-
-    /**
-     * @param array $storeProductIds
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
+     * @param GrossMarginSalesFilter $filter
+     * @param SubCategory $catalogGroup
      * @return GrossMarginSalesProduct[]|Cursor
      */
-    public function findByStoreProductsAndPeriod(array $storeProductIds, DateTime $dateFrom, DateTime $dateTo)
+    public function findByFilterCatalogGroup(GrossMarginSalesFilter $filter, SubCategory $catalogGroup)
     {
-        $dateFrom = new DateTimestamp($dateFrom);
-        $dateTo = new DateTimestamp($dateTo);
+        $dateFrom = new DateTimestamp($filter->dateFrom);
+        $dateTo = new DateTimestamp($filter->dateTo);
 
-        return $this->findBy(
-            array(
-                'storeProduct' => array('$in' => $storeProductIds),
-                'day' => array(
-                    '$gte' => $dateFrom->getMongoDate(),
-                    '$lte' => $dateTo->getMongoDate(),
-                ),
-            )
+        $criteria = array(
+            'subCategory' => $catalogGroup->id,
+            'day' => array(
+                '$gte' => $dateFrom->getMongoDate(),
+                '$lte' => $dateTo->getMongoDate(),
+            ),
         );
+
+        if ($filter->store) {
+            $criteria['store'] = $filter->store->id;
+        }
+
+        return $this->findBy($criteria);
     }
 
     /**
-     * @param $storeProductId
+     * @param string $storeId
+     * @param string $productId
      * @param DateTime $day
-     * @return GrossMarginSalesProduct|object
+     * @return GrossMarginSalesProduct
      */
-    public function findByStoreProductAndDay($storeProductId, DateTime $day)
+    public function findByStoreIdProductIdAndDay($storeId, $productId, DateTime $day)
     {
-        $reportId = $this->getIdByStoreProductIdAndDay($storeProductId, $day);
-        return $this->find($reportId);
+        return $this->findOneBy(
+            array(
+                'store' => $storeId,
+                'product' => $productId,
+                'day' => $day,
+            )
+        );
     }
 
     /**
@@ -113,13 +116,13 @@ class GrossMarginSalesProductRepository extends DocumentRepository
                 $result['_id']['month'],
                 $result['_id']['day']
             );
-            $report->id = $this->getIdByStoreProductIdAndDay($result['_id']['storeProduct'], $report->day);
             $report->costOfGoods = $this->numericFactory->createMoneyFromCount($result['costOfGoodsSum']);
             $report->quantity = $this->numericFactory->createQuantityFromCount($result['quantitySum']);
             $report->grossSales = $this->numericFactory->createMoneyFromCount($result['grossSales']);
             $report->grossMargin = $this->numericFactory->createMoneyFromCount($result['grossMargin']);
-            $report->storeProduct
-                = $this->dm->getReference(StoreProduct::getClassName(), $result['_id']['storeProduct']);
+            $report->product = $this->dm->getReference(Product::getClassName(), $result['_id']['product']);
+            $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
+            $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
 
             $this->dm->persist($report);
             $count++;
@@ -161,10 +164,12 @@ class GrossMarginSalesProductRepository extends DocumentRepository
             ),
             array(
                 '$project' => array(
-                    'totalPrice' => 1,
-                    'costOfGoods' => 1,
-                    'quantity' => 1,
-                    'storeProduct' => 1,
+                    'totalPrice' => true,
+                    'costOfGoods' => true,
+                    'quantity' => true,
+                    'store' => true,
+                    'subCategory' => true,
+                    'product' => true,
                     'year' => '$createdDate.year',
                     'month' => '$createdDate.month',
                     'day' => '$createdDate.day'
@@ -173,7 +178,9 @@ class GrossMarginSalesProductRepository extends DocumentRepository
             array(
                 '$group' => array(
                     '_id' => array(
-                        'storeProduct' => '$storeProduct',
+                        'store' => '$store',
+                        'product' => '$product',
+                        'subCategory' => '$subCategory',
                         'year' => '$year',
                         'month' => '$month',
                         'day' => '$day',
@@ -186,40 +193,16 @@ class GrossMarginSalesProductRepository extends DocumentRepository
                     ),
                     'quantitySum' => array(
                         '$sum' => '$quantity.count'
+                    ),
+                    'grossMargin' => array(
+                        '$sum' => array(
+                            '$subtract' => array('$totalPrice', '$costOfGoods')
+                        ),
                     )
                 ),
             ),
-            array(
-                '$project' => array(
-                    '_id' => 1,
-                    'grossSales' => 1,
-                    'costOfGoodsSum' => 1,
-                    'quantitySum' => 1,
-                    'grossMargin' => array(
-                        '$subtract' => array('$grossSales', '$costOfGoodsSum')
-                    )
-                )
-            )
         );
 
         return $this->trialBalanceRepository->aggregate($ops);
-    }
-
-    /**
-     * @param DateTime $startDate
-     * @param DateTime $endDate
-     * @return Cursor
-     */
-    public function findByStartEndDate(DateTime $startDate, DateTime $endDate)
-    {
-        $startDate = new DateTimestamp($startDate);
-        $endDate = new DateTimestamp($endDate);
-
-        return $this->findBy(array(
-            'day' => array(
-                '$gte' => $startDate->getMongoDate(),
-                '$lt' => $endDate->getMongoDate(),
-            ),
-        ));
     }
 }

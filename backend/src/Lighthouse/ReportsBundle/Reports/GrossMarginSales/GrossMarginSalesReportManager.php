@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupRepository;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use DateTime;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
@@ -104,79 +105,31 @@ class GrossMarginSalesReportManager
     }
 
     /**
-     * @param SubCategory $subCategory
-     * @param $storeId
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
+     * @param GrossMarginSalesFilter $filter
+     * @param SubCategory $catalogGroup
      * @return GrossMarginSalesByProductsCollection
      */
-    public function getGrossSalesByProductForStoreReports(
-        SubCategory $subCategory,
-        $storeId,
-        DateTime $dateFrom,
-        DateTime $dateTo
-    ) {
-        $products = $this->productRepository->findBySubCategory($subCategory);
-        $storeProducts = $this->storeProductRepository->findOrCreateByStoreIdSubCategory($storeId, $subCategory);
-
-        $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $dateFrom, $dateTo);
-
-        return $reports->fillByProducts($products);
-    }
-
-    /**
-     * @param SubCategory $subCategory
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
-     * @return GrossMarginSalesByProductsCollection
-     */
-    public function getGrossSalesByProductForSubCategoryReports(
-        SubCategory $subCategory,
-        DateTime $dateFrom,
-        DateTime $dateTo
-    ) {
-        $products = $this->productRepository->findBySubCategory($subCategory);
-        $storeProducts = $this->storeProductRepository->findBySubCategory($subCategory);
-
-        $reports = $this->getProductReportsByStoreProducts($storeProducts->getIds(), $dateFrom, $dateTo);
-
-        return $reports->fillByProducts($products);
-    }
-
-    /**
-     * @param array|string[] $storeProductIds
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
-     * @return GrossMarginSalesByProductsCollection
-     */
-    protected function getProductReportsByStoreProducts($storeProductIds, DateTime $dateFrom, DateTime $dateTo)
+    public function getProductsReports(GrossMarginSalesFilter $filter, SubCategory $catalogGroup)
     {
-        $reports = $this->grossMarginSalesProductRepository->findByStoreProductsAndPeriod(
-            $storeProductIds,
-            $dateFrom,
-            $dateTo
-        );
+        $reports = $this->grossMarginSalesProductRepository->findByFilterCatalogGroup($filter, $catalogGroup);
 
-        $collection = new GrossMarginSalesByProductsCollection($this->numericFactory);
+        $reportsCollection = new GrossMarginSalesByProductsCollection($this->numericFactory);
 
         foreach ($reports as $report) {
-            $grossMarginSalesByProducts = $collection->getByProduct($report->storeProduct->product);
-            $grossMarginSalesByProducts->storeProduct = $report->storeProduct;
-            $grossMarginSalesByProducts->addReportValues($report);
+            $reportsCollection->addReportValues($report);
         }
 
-        return $collection;
+        $products = $this->productRepository->findBySubCategory($catalogGroup);
+        return $reportsCollection->fillByProducts($products);
     }
 
     /**
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
-     * @param string $storeId
+     * @param GrossMarginSalesFilter $filter
      * @return GrossMarginSalesByCatalogGroupsCollection
      */
-    public function getCatalogGroupsReports(DateTime $dateFrom, DateTime $dateTo, $storeId = null)
+    public function getCatalogGroupsReports(GrossMarginSalesFilter $filter)
     {
-        $reports = $this->grossMarginSalesCatalogGroupRepository->findByPeriod($dateFrom, $dateTo, $storeId);
+        $reports = $this->grossMarginSalesCatalogGroupRepository->findByFilter($filter);
 
         $reportsCollection = new GrossMarginSalesByCatalogGroupsCollection($this->numericFactory);
 

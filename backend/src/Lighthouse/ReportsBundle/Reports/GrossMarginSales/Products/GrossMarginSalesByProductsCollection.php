@@ -5,6 +5,7 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products;
 use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProduct;
 
 class GrossMarginSalesByProductsCollection extends DocumentCollection
 {
@@ -74,5 +75,13 @@ class GrossMarginSalesByProductsCollection extends DocumentCollection
             }
         }
         return $this;
+    }
+
+    /**
+     * @param GrossMarginSalesProduct $report
+     */
+    public function addReportValues(GrossMarginSalesProduct $report)
+    {
+        $this->getByProduct($report->product)->addReportValues($report);
     }
 }

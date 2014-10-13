@@ -74,16 +74,15 @@ class GrossMarginSalesProductTest extends WebTestCase
         $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
         $this->assertEquals(4, $recalculateCount);
 
-        $this->assertGrossMarginSalesProductReport($storeProductId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
-        $this->assertGrossMarginSalesProductReport($storeProductId3, '-1 day 00:00:00', 65.71, 43.35, 22.36, 2.55);
-
-        $this->assertGrossMarginSalesProductReport($storeProductId2, '-2 day 00:00:00', 202.59, 111.65, 90.94, 2.03);
-
-        $this->assertGrossMarginSalesProductReport($storeProductId3, '-4 day 00:00:00', 208, 136, 72, 8);
+        $this->assertGrossMarginSalesProductReport($store->id, $productId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
+        $this->assertGrossMarginSalesProductReport($store->id, $productId3, '-1 day 00:00:00', 65.71, 43.35, 22.36, 2.55);
+        $this->assertGrossMarginSalesProductReport($store->id, $productId2, '-2 day 00:00:00', 202.59, 111.65, 90.94, 2.03);
+        $this->assertGrossMarginSalesProductReport($store->id, $productId3, '-4 day 00:00:00', 208, 136, 72, 8);
     }
 
     public function assertGrossMarginSalesProductReport(
-        $storeProductId,
+        $storeId,
+        $productId,
         $day,
         $grossSales,
         $costOfGoods,
@@ -91,7 +90,11 @@ class GrossMarginSalesProductTest extends WebTestCase
         $quantity
     ) {
         $day = new DateTimestamp($day);
-        $report = $this->getGrossMarginSalesProductRepository()->findByStoreProductAndDay($storeProductId, $day);
+        $report = $this->getGrossMarginSalesProductRepository()->findByStoreIdProductIdAndDay(
+            $storeId,
+            $productId,
+            $day
+        );
 
         $this->assertEquals($grossSales, $report->grossSales->toString());
         $this->assertEquals($costOfGoods, $report->costOfGoods->toString());

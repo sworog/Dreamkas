@@ -14,6 +14,8 @@ use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use DateTime;
 use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
+use Lighthouse\ReportsBundle\Form\GrossMarginSales\GrossMarginSalesFilterType;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -46,25 +48,13 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
     }
 
     /**
-     * @param string $subCategoryId
-     * @param DateTime $day
-     * @return string
-     */
-    public function getIdByStoreProductIdAndDay($subCategoryId, $day)
-    {
-        return md5($subCategoryId . ":" . $day->getTimestamp());
-    }
-
-    /**
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
-     * @param string $storeId
+     * @param GrossMarginSalesFilter $filter
      * @return Cursor|GrossMarginSalesCatalogGroup[]
      */
-    public function findByPeriod(DateTime $dateFrom, DateTime $dateTo, $storeId = null)
+    public function findByFilter(GrossMarginSalesFilter $filter)
     {
-        $dateFrom = new DateTimestamp($dateFrom);
-        $dateTo = new DateTimestamp($dateTo);
+        $dateFrom = new DateTimestamp($filter->dateFrom);
+        $dateTo = new DateTimestamp($filter->dateTo);
 
         $criteria = array(
             'day' => array(
@@ -73,8 +63,8 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
             )
         );
 
-        if ($storeId) {
-            $criteria['store'] = new \MongoId($storeId);
+        if ($filter->store) {
+            $criteria['store'] = new \MongoId($filter->store->id);
         }
 
         return $this->findBy($criteria);
@@ -106,19 +96,12 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
                 $result['_id']['month'],
                 $result['_id']['day']
             );
-            $report->id = $this->getIdByStoreProductIdAndDay($result['_id']['subCategory'], $report->day);
             $report->costOfGoods = $this->numericFactory->createMoneyFromCount($result['costOfGoodsSum']);
             $report->quantity = $this->numericFactory->createQuantityFromCount($result['quantitySum']);
             $report->grossSales = $this->numericFactory->createMoneyFromCount($result['grossSales']);
             $report->grossMargin = $this->numericFactory->createMoneyFromCount($result['grossMargin']);
-            $report->store = $this->dm->getReference(
-                Store::getClassName(),
-                $result['_id']['store']
-            );
-            $report->subCategory = $this->dm->getReference(
-                SubCategory::getClassName(),
-                $result['_id']['subCategory']
-            );
+            $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
+            $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
 
             $this->dm->persist($report);
             $count++;
@@ -187,19 +170,13 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
                     ),
                     'quantitySum' => array(
                         '$sum' => '$quantity.count'
+                    ),
+                    'grossMargin' => array(
+                        '$sum' => array(
+                            '$subtract' => array('$totalPrice', '$costOfGoods')
+                        )
                     )
                 ),
-            ),
-            array(
-                '$project' => array(
-                    '_id' => 1,
-                    'grossSales' => 1,
-                    'costOfGoodsSum' => 1,
-                    'quantitySum' => 1,
-                    'grossMargin' => array(
-                        '$subtract' => array('$grossSales', '$costOfGoodsSum')
-                    )
-                )
             )
         );
 

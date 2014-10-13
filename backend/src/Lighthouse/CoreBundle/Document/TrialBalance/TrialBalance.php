@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -145,6 +146,16 @@ class TrialBalance extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     simple=true,
+     *     cascade={"persist"}
+     * )
+     * @var Product
+     */
+    protected $product;
+
+    /**
+     * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
      *     simple=true,
      *     cascade={"persist"}
@@ -191,6 +202,7 @@ class TrialBalance extends AbstractDocument
     {
         $this->totalPrice = $this->price->mul($this->quantity);
         $this->store = $this->storeProduct->store;
+        $this->product = $this->storeProduct->product;
         $this->subCategory = $this->reason->product->subCategory;
     }
 }
