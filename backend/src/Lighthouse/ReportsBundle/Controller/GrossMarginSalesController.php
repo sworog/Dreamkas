@@ -10,6 +10,7 @@ use Lighthouse\ReportsBundle\Form\GrossMarginSales\GrossMarginSalesFilterType;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Stores\GrossMarginSalesByStoresCollection;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -69,6 +70,25 @@ class GrossMarginSalesController extends AbstractRestController
             $request,
             function (GrossMarginSalesFilter $filter) use ($grossMarginSalesReportManager) {
                 return $grossMarginSalesReportManager->getCatalogGroupsReports($filter);
+            }
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return GrossMarginSalesByStoresCollection|FormInterface
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("reports/gross/stores")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     */
+    public function getStoresGrossReportAction(Request $request)
+    {
+        $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
+        return $this->processFormCallback(
+            $request,
+            function (GrossMarginSalesFilter $filter) use ($grossMarginSalesReportManager) {
+                return $grossMarginSalesReportManager->getStoreReports($filter);
             }
         );
     }
