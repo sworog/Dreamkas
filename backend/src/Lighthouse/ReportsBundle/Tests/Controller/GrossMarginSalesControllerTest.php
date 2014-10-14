@@ -92,7 +92,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $subCategory = $this->factory()->catalog()->getSubCategory();
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
-        $otherSubCategory = $this->factory()->catalog()->getSubCategory("other sub category");
+        $otherSubCategory = $this->factory()->catalog()->getSubCategory('other sub category');
         $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
 
         $this->initInvoiceAndSales($store, $productIds, $productOtherSubCategoryId);
@@ -105,7 +105,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            "/api/1/reports/gross/catalog/groups/{$subCategory->id}/products",
             null,
             array('store' => $store->id)
         );
@@ -157,7 +157,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            "/api/1/reports/gross/catalog/groups/{$subCategory->id}/products",
             null,
             array(
                 'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
@@ -214,7 +214,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            "/api/1/reports/gross/catalog/groups/{$subCategory->id}/products",
             null,
             array(
                 'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
@@ -239,7 +239,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            "/api/1/reports/gross/catalog/groups/{$subCategory->id}/products",
             null,
             array(
                 'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
@@ -264,7 +264,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            "/api/1/reports/gross/catalog/groups/{$subCategory->id}/products",
             null,
             array(
                 'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
@@ -285,7 +285,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $subCategory = $this->factory()->catalog()->getSubCategory();
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
-        $otherSubCategory = $this->factory()->catalog()->getSubCategory("other sub category");
+        $otherSubCategory = $this->factory()->catalog()->getSubCategory('other sub category');
         $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
 
         $this->initInvoiceAndSales($store, $productIds, $productOtherSubCategoryId);
@@ -297,7 +297,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            "/api/1/reports/gross/catalog/groups/{$subCategory->id}/products",
             null,
             array(
                 'dateFrom' => date('c', strtotime('-9 day 00:00:00')),
@@ -315,7 +315,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/catalog/groups/{$subCategory->id}/reports/grossMarginSalesByProduct",
+            "/api/1/reports/gross/catalog/groups/{$subCategory->id}/products",
             null,
             array(
                 'dateFrom' => date('c', strtotime('+1 day 00:00:00')),
@@ -346,7 +346,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/catalog/groups/reports/grossMarginSalesByCatalogGroup',
+            '/api/1/reports/gross/catalog/groups',
             null,
             array(
                 'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
@@ -379,7 +379,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/catalog/groups/reports/grossMarginSalesByCatalogGroup',
+            '/api/1/reports/gross/catalog/groups',
             null,
             array(
                 'store' => $stores['1']->id,
@@ -436,7 +436,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/catalog/groups/reports/grossMarginSalesByCatalogGroup',
+            '/api/1/reports/gross/catalog/groups',
             null,
             $query
         );

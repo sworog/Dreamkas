@@ -927,9 +927,7 @@ class UserControllerTest extends WebTestCase
                     'catalog/groups' => array(
                         'DELETE::{catalogGroup}',
                         'GET',
-                        'GET::reports/grossMarginSalesByCatalogGroup',
                         'GET::{catalogGroup}',
-                        'GET::{group}/reports/grossMarginSalesByProduct',
                         'POST',
                         'PUT::{catalogGroup}',
                     ),
@@ -988,6 +986,8 @@ class UserControllerTest extends WebTestCase
                         'PUT::{bankAccount}',
                     ),
                     'others' => array(
+                        'GET::api/1/reports/gross/catalog/groups',
+                        'GET::api/1/reports/gross/catalog/groups/{group}/products',
                         'GET::api/1/reports/grossMargin',
                         'GET::api/1/reports/grossSales',
                         'GET::api/1/reports/grossSalesByStores'

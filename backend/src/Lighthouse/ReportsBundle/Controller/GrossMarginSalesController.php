@@ -39,11 +39,11 @@ class GrossMarginSalesController extends AbstractRestController
      * @return GrossMarginSalesByProductsCollection
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @Rest\Route("catalog/groups/{group}/reports/grossMarginSalesByProduct")
+     * @Rest\Route("reports/gross/catalog/groups/{group}/products")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
-     * @ApiDoc()
+     * @ApiDoc
      */
-    public function getCatalogGroupReportsGrossMarginSalesByProductAction(SubCategory $group, Request $request)
+    public function getCatalogGroupProductsGrossReportAction(SubCategory $group, Request $request)
     {
         $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
         return $this->processFormCallback(
@@ -59,11 +59,10 @@ class GrossMarginSalesController extends AbstractRestController
      * @return GrossMarginSalesByCatalogGroupsCollection|FormInterface
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @Rest\Route("catalog/groups/reports/grossMarginSalesByCatalogGroup")
+     * @Rest\Route("reports/gross/catalog/groups")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
-     * @ApiDoc
      */
-    public function getCatalogGroupReportsGrossMarginSalesByCatalogGroupAction(Request $request)
+    public function getCatalogGroupsGrossReportAction(Request $request)
     {
         $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
         return $this->processFormCallback(
