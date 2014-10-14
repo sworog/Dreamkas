@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Security\Project\ProjectContext;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\ReportsBundle\Command\RecalculateReportsCommand;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
@@ -12,10 +13,12 @@ use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class RecalculateReportsCommandTest extends TestCase
+class RecalculateReportsCommandTest extends ContainerAwareTestCase
 {
     public function testExecute()
     {
+        $this->clearMongoDb();
+
         /* @var GrossSalesReportManager|MockObject $grossSalesManagerMock */
         $grossSalesManagerMock = $this
             ->getMockBuilder('Lighthouse\\ReportsBundle\\Reports\\GrossSales\\GrossSalesReportManager')
@@ -49,34 +52,16 @@ class RecalculateReportsCommandTest extends TestCase
             ->expects($this->exactly(6))
             ->method($this->anything());
 
-        /* @var ProjectContext|MockObject $projectContextMock */
-        $projectContextMock = $this
-            ->getMockBuilder(ProjectContext::getClassName())
-            ->disableOriginalConstructor()
-            ->getMock();
+        // project1 was created when called factory for the first time
+        $this->factory()->user()->getProject('project2');
 
-        $projectContextMock
-            ->expects($this->exactly(2))
-            ->method('authenticate');
-
-        $projectContextMock
-            ->expects($this->exactly(2))
-            ->method('logout');
-
-        $project1Mock = new Project();
-        $project1Mock->id = 'id1';
-        $project2Mock = new Project();
-        $project2Mock->id = 'id2';
-        $projectContextMock
-            ->expects($this->once())
-            ->method('getAllProjects')
-            ->will($this->returnValue(array($project1Mock, $project2Mock)));
+        $projectContext = $this->getContainer()->get('project.context');
 
         $command = new RecalculateReportsCommand(
             $grossSalesManagerMock,
             $grossMarginManagerMock,
             $grossMarginSalesReportManagerMock,
-            $projectContextMock
+            $projectContext
         );
 
         $commandTester = new CommandTester($command);
@@ -88,8 +73,8 @@ class RecalculateReportsCommandTest extends TestCase
         $this->assertEquals(0, $exitCode);
 
         $this->assertContains('Recalculate reports started', $commandTester->getDisplay());
-        $this->assertContains('Recalculate reports for project id1', $commandTester->getDisplay());
-        $this->assertContains('Recalculate reports for project id', $commandTester->getDisplay());
+        $this->assertContains('Recalculate reports for project project1', $commandTester->getDisplay());
+        $this->assertContains('Recalculate reports for project project2', $commandTester->getDisplay());
         $this->assertContains('Recalculate reports finished', $commandTester->getDisplay());
     }
 }
