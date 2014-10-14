@@ -10,6 +10,7 @@
     <name>Android ui tests</name>
 
     <properties>
+        <webdriver.base.url>http://android.autotests.webfront.lighthouse.pro</webdriver.base.url>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thucydides.version>0.9.273</thucydides.version>
         <thucydides.jbehave.version>0.9.273</thucydides.jbehave.version>
@@ -99,6 +100,7 @@
                         <include>**/*TestSuite.java</include>
                     </includes>
                     <systemPropertyVariables>
+                        <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                         <appium.server.url>${appium.server.url}</appium.server.url>
                         <appium.path.to.file>${appium.path.to.file}</appium.path.to.file>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
