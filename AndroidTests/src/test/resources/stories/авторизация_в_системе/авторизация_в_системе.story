@@ -11,7 +11,9 @@ Scenario: Пользователь успешно авторизуется в с
 
 Meta:
 
-Given пользователь авторизируется в системе используя адрес электронной почты 'owner@lighthouse.pro' и пароль 'lighthouse'
+GivenStories: precondition/создание_пользователя.story
+
+Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
 
 Then пользователь проверяет, что заголовок 'Смена магазина'
 
@@ -19,13 +21,17 @@ Scenario: Пользователь проверяет описание на эк
 
 Meta:
 
+GivenStories: precondition/создание_пользователя.story
+
 Then пользователь проверяет, что описание 'Добро пожаловать в DreamKas.'
 
 Scenario: Пользователь проверяет, что после авторизации находится в нужной активити
 
 Meta:
 
-Given пользователь авторизируется в системе используя адрес электронной почты 'owner@lighthouse.pro' и пароль 'lighthouse'
+GivenStories: precondition/создание_пользователя.story
+
+Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
 
 Then пользователь проверяет, что текущая активити это 'ru.dreamkas.pos.view.activities.MainActivity_'
 
