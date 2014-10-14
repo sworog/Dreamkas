@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form.deprecated'),
-        StoreModel = require('models/store/store');
+        StoreModel = require('resources/store/model');
 
     return Form.extend({
         el: '.form_store',

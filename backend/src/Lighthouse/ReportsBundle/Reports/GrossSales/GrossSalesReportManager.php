@@ -17,6 +17,7 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\ReportsBundle\Document\GrossSales\Classifier\Category\GrossSalesCategoryRepository;
 use Lighthouse\ReportsBundle\Document\GrossSales\Classifier\GrossSalesNodeReport;
 use Lighthouse\ReportsBundle\Document\GrossSales\Classifier\GrossSalesNodeRepository;
@@ -113,6 +114,11 @@ class GrossSalesReportManager
     protected $groupRepository;
 
     /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
+
+    /**
      * @var GrossSalesProductReport[]
      */
     protected $scheduledGrossSalesProductReportsToSave = array();
@@ -132,6 +138,7 @@ class GrossSalesReportManager
      *      "subCategoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.subcategory"),
      *      "categoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.category"),
      *      "groupRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.group"),
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
      * })
      * @param GrossSalesStoreRepository $grossSalesStoreRepository
      * @param GrossSalesProductRepository $grossSalesProductRepository
@@ -145,6 +152,7 @@ class GrossSalesReportManager
      * @param SubCategoryRepository $subCategoryRepository
      * @param CategoryRepository $categoryRepository
      * @param GroupRepository $groupRepository
+     * @param NumericFactory $numericFactory
      */
     public function __construct(
         GrossSalesStoreRepository $grossSalesStoreRepository,
@@ -158,7 +166,8 @@ class GrossSalesReportManager
         StoreProductRepository $storeProductRepository,
         SubCategoryRepository $subCategoryRepository,
         CategoryRepository $categoryRepository,
-        GroupRepository $groupRepository
+        GroupRepository $groupRepository,
+        NumericFactory $numericFactory
     ) {
         $this->grossSalesStoreRepository = $grossSalesStoreRepository;
         $this->grossSalesProductRepository = $grossSalesProductRepository;
@@ -172,6 +181,7 @@ class GrossSalesReportManager
         $this->subCategoryRepository = $subCategoryRepository;
         $this->categoryRepository = $categoryRepository;
         $this->groupRepository = $groupRepository;
+        $this->numericFactory = $numericFactory;
     }
 
     /**
@@ -595,7 +605,8 @@ class GrossSalesReportManager
                     $dayHour,
                     $storeProductId,
                     null,
-                    new Money($reportRAW['hourSum'])
+                    new Money($reportRAW['hourSum']),
+                    $this->numericFactory->createQuantityFromCount($reportRAW['hourQuantity'])
                 );
 
                 $this->scheduleGrossSalesProductReportToSave($report);
@@ -638,6 +649,7 @@ class GrossSalesReportManager
     protected function saveScheduledReports()
     {
         if (count($this->scheduledGrossSalesProductReportsToSave)) {
+            // TODO: подумать об отказе от raw upsert (проверсти тесты скорости) 26.09.14
             $this->grossSalesProductRepository->rawUpsertReports($this->scheduledGrossSalesProductReportsToSave);
             $this->scheduledGrossSalesProductReportsToSave = array();
         }
@@ -682,7 +694,7 @@ class GrossSalesReportManager
         $endDayHours = $this->extractEndDayHours($dayHours);
         $queryDates = $this->getQueryDates($dayHours);
 
-        $storeProducts = $this->storeProductRepository->findByStoreSubCategory($store, $subCategory);
+        $storeProducts = $this->storeProductRepository->findOrCreateByStoreSubCategory($store, $subCategory);
 
         $reports = $this->grossSalesProductRepository->findByDayHoursStoreProducts(
             $queryDates,

@@ -1,14 +1,15 @@
 define(function(require) {
     //requirements
     var cookie = require('cookies');
+    var location = require('kit/location/location');
 
     return function(token){
         cookie.set('token', token, {path: '/'});
 
-        if (document.location.pathname.indexOf('login')>=0){
-            document.location.href = '/';
+        if (location.isContain('login')){
+            location.redirect('/');
         } else {
-            document.location.reload();
+            location.reload();
         }
     }
 });

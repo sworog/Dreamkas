@@ -14,9 +14,10 @@ class ReceiptFactory extends AbstractFactory
     /**
      * @param Store $store
      * @param string $date
+     * @param Sale $sale
      * @return ReceiptBuilder
      */
-    public function createReturn(Store $store = null, $date = null)
+    public function createReturn(Store $store = null, $date = null, Sale $sale = null)
     {
         $builder = new ReceiptBuilder(
             $this->factory,
@@ -24,7 +25,7 @@ class ReceiptFactory extends AbstractFactory
             $this->factory->getValidator(),
             $this->factory->getNumericFactory()
         );
-        return $builder->createReturn($store, $date);
+        return $builder->createReturn($store, $date, $sale);
     }
 
     /**

@@ -20,10 +20,12 @@ define(function(require, exports, module) {
 
                 $resetButton.addClass('loading');
 
-                PAGE.collections.stockMovements.filters = filters;
-
-                PAGE.collections.stockMovements.fetch().then(function(){
-                    PAGE.setParams(filters);
+                PAGE.collections.stockMovements.fetch({
+                    filters: filters
+                }).then(function(){
+                    PAGE.setParams(filters, {
+                        render: true
+                    });
                 });
             }
         },
@@ -33,14 +35,16 @@ define(function(require, exports, module) {
         submit: function(){
             var block = this;
 
-            PAGE.collections.stockMovements.filters = block.data;
-
-            return PAGE.collections.stockMovements.fetch();
+            return PAGE.collections.stockMovements.fetch({
+                filters: block.data
+            });
         },
         submitSuccess: function(){
             var block = this;
 
-            PAGE.setParams(block.data);
+            PAGE.setParams(block.data, {
+                render: true
+            });
         },
         showErrors: function(error){
             var block = this,

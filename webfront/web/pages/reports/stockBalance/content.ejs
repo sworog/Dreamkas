@@ -1,0 +1,71 @@
+<!--BEGIN TITLE PAGE-->
+<div class="page__head">
+
+    <div class="page__title">
+
+        <a href="/reports"
+           class="fa fa-long-arrow-left"
+           style="font-size: 25px; margin-right: 10px;"></a>
+
+        Остатки товаров
+
+    </div>
+
+</div>
+<!--END TITLE PAGE-->
+
+<!--BEGIN CONTENT-->
+<div class="page__content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <% if (collections.stores.length) { %>
+            <div class="panel">
+                <div class="panel-body">
+
+                    <div class="row" style="padding-bottom: 20px;">
+                        <div class="col-md-3">
+                            <b block="select_store"
+                               data-selected="<%- params.storeId %>"></b>
+                        </div>
+                        <div class="col-md-3">
+                            <b block="select_groupsSimple"
+							   data-selected="<%- params.groupId %>"
+							   data-disabled="<%- params.storeId ? 0 : 1 %>"></b>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="input-group">
+
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search"></i>
+                                </span>
+
+                                <input placeholder="Фильтр по товару"
+									   <%- params.storeId ? '' : 'disabled' %>
+									   value="<%- params.productFilter %>"
+                                       type="text"
+                                       name="productFilter"
+                                       class="form-control">
+
+                                <span class="productFinder__resetLink input-group-addon" <%- params.storeId ? '' : 'disabled' %>>
+                                    <i class="fa fa-times"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <b block="table_stockBalance"></b>
+
+                </div>
+            </div>
+            <% } else { %>
+            <div class="alert alert-info">
+                У вас ещё нет ни одного магазина. Для просмотра остатков добавьте хотя бы один магазин.
+            </div>
+            <% } %>
+        </div>
+    </div>
+
+</div>
+<!--END CONTENT-->

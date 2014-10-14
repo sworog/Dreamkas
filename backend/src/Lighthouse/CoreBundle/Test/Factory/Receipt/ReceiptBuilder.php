@@ -74,11 +74,12 @@ class ReceiptBuilder
     /**
      * @param Store $store
      * @param string $date
+     * @param Sale $sale
      * @return ReceiptBuilder
      */
-    public function createReturn(Store $store = null, $date = null)
+    public function createReturn(Store $store = null, $date = null, $sale = null)
     {
-        return $this->populateReceipt(Returne::TYPE, $store, $date);
+        return $this->populateReceipt(Returne::TYPE, $store, $date, $sale);
     }
 
     /**
@@ -86,9 +87,10 @@ class ReceiptBuilder
      * @param Store $store
      * @param string $date
      * @param string $hash
+     * @param Sale $sale
      * @return ReceiptBuilder
      */
-    protected function populateReceipt($type, Store $store = null, $date = null, $hash = null)
+    protected function populateReceipt($type, Store $store = null, $date = null, $sale = null, $hash = null)
     {
         $receipt = $this->repository->createNewByType($type);
 
@@ -99,6 +101,10 @@ class ReceiptBuilder
         $this->receipt = $receipt;
         $this->receipt->store = $store;
         $this->receipt->date = new DateTimestamp($date);
+
+        if (null != $sale) {
+            $this->receipt->sale = $sale;
+        }
 
         $this->receipt->hash = ($hash) ?: md5($store->id . ':' . $this->receipt->date->format(DateTimestamp::RFC3339));
 

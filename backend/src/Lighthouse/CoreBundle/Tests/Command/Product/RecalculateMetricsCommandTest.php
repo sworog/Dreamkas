@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Command\Product;
 
 use Lighthouse\CoreBundle\Command\Products\RecalculateMetricsCommand;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -18,13 +19,34 @@ class RecalculateMetricsCommandTest extends TestCase
             ->getMock();
 
         $mock
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('recalculateAveragePrice');
         $mock
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('recalculateDailyAverageSales');
 
-        $command = new RecalculateMetricsCommand($mock);
+        $projectContextMock = $this
+            ->getMockBuilder('Lighthouse\CoreBundle\Security\Project\ProjectContext')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $projectContextMock
+            ->expects($this->exactly(2))
+            ->method('authenticate');
+
+        $projectContextMock
+            ->expects($this->exactly(2))
+            ->method('logout');
+
+        $project1Mock = new Project();
+        $project1Mock->id = 'id1';
+        $project2Mock = new Project();
+        $project2Mock->id = 'id2';
+        $projectContextMock
+            ->method('getAllProjects')
+            ->will($this->returnValue(array($project1Mock, $project2Mock)));
+
+        $command = new RecalculateMetricsCommand($mock, $projectContextMock);
 
         $commandTester = new CommandTester($command);
 
@@ -35,6 +57,8 @@ class RecalculateMetricsCommandTest extends TestCase
         $this->assertEquals(0, $exitCode);
 
         $this->assertContains('Recalculate started', $commandTester->getDisplay());
+        $this->assertContains('Recalculate metrics for project id1', $commandTester->getDisplay());
+        $this->assertContains('Recalculate metrics for project id2', $commandTester->getDisplay());
         $this->assertContains('Recalculate finished', $commandTester->getDisplay());
     }
 }

@@ -1,48 +1,31 @@
 package ru.crystals.vaverjanov.dreamkas.view;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Bundle;
-import android.app.Fragment;
-//import android.support.v4.app.Fragment;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
-
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import ru.crystals.vaverjanov.dreamkas.R;
-import ru.crystals.vaverjanov.dreamkas.controller.GetGroupsRequest;
-import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
 import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
 import ru.crystals.vaverjanov.dreamkas.controller.adapters.NamedObjectSpinnerAdapter;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.AuthRequestListener;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetGroupsRequestListener;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetStoresRequestListener;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.IStoresRequestHandler;
-import ru.crystals.vaverjanov.dreamkas.controller.GetStoresRequest;
-import ru.crystals.vaverjanov.dreamkas.model.DreamkasFragments;
-import ru.crystals.vaverjanov.dreamkas.model.NamedObject;
-import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
+import ru.crystals.vaverjanov.dreamkas.controller.listeners.request.GetStoresRequestListener;
+import ru.crystals.vaverjanov.dreamkas.controller.listeners.request.IStoresRequestHandler;
+import ru.crystals.vaverjanov.dreamkas.controller.requests.GetStoresRequest;
+import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
+import ru.crystals.vaverjanov.dreamkas.model.api.NamedObject;
+import ru.crystals.vaverjanov.dreamkas.model.api.NamedObjects;
 
 @EFragment(R.layout.fragment_store)
 public class StoreFragment extends BaseFragment implements IStoresRequestHandler
@@ -50,6 +33,7 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     private PreferencesManager preferences;
 
     @ViewById
+    public
     Spinner spStores;
 
     @ViewById
@@ -59,16 +43,17 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     public GetStoresRequest storesRequest;
 
 
-    private final GetStoresRequestListener storesRequestListener = new GetStoresRequestListener(this);
+    public final GetStoresRequestListener storesRequestListener = new GetStoresRequestListener(this);
 
     @Override
     public void onStart()
     {
-
         super.onStart();
 
         preferences = PreferencesManager.getInstance();
 
+        initStores();
+        //initStores();
     }
 
     @Override
@@ -77,12 +62,14 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
         super.onStop();
     }
 
-    @AfterViews
+    //@AfterViews
     void initStores()
     {
-        storesRequest.setToken(((LighthouseDemoActivity)getActivity()).getToken());
+        storesRequest.setToken(((LighthouseDemoActivity) getActivity()).getToken());
         changeFragmentCallback.getRestClient().execute(storesRequest, null, DurationInMillis.NEVER, storesRequestListener);
-        showProgressDialog("Загрузка магазинов");
+        //todo make requestStarted call by storesRequest or something
+        storesRequestListener.requestStarted();
+        showProgressDialog(getActivity().getResources().getString(R.string.load_stores));
 
         View empty = getActivity().findViewById(R.id.empty1);
         spStores.setEmptyView(empty);
@@ -91,7 +78,7 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     @Click(R.id.btnSaveStoreSettings)
     void openKas()
     {
-        changeFragmentCallback.onFragmentChange(DreamkasFragments.Kas);
+        changeFragmentCallback.onFragmentChange(DrawerMenu.AppStates.Kas);
     }
 
     @Override
@@ -139,6 +126,33 @@ public class StoreFragment extends BaseFragment implements IStoresRequestHandler
     public void onGetStoresFailureRequest(SpiceException spiceException)
     {
         progressDialog.dismiss();
-        Toast.makeText(getActivity(), spiceException.getMessage(), Toast.LENGTH_LONG).show();
+
+        String msg = "";
+        if(spiceException.getCause() instanceof HttpClientErrorException)
+        {
+            HttpClientErrorException exception = (HttpClientErrorException)spiceException.getCause();
+            if(exception.getStatusCode().equals(HttpStatus.UNAUTHORIZED))
+            {
+                //wrong credentials
+                msg = getResources().getString(R.string.error_unauthorized);
+            }
+            else
+            {
+                //other Network exception
+                msg = spiceException.getMessage();
+            }
+        }
+        else if(spiceException instanceof RequestCancelledException)
+        {
+            //cancelled
+            msg = spiceException.getMessage();
+        }
+        else
+        {
+            //other exception
+            msg = spiceException.getMessage();
+        }
+
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 }

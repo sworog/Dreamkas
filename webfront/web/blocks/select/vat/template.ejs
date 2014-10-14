@@ -1,0 +1,9 @@
+<select class="form-control" name="vat">
+
+    <% _.forEach(vats, function(text, value){ %>
+    <option <%- value === selected && 'selected' %> value="<%- value %>">
+        <%- text %>
+    </option>
+    <% }) %>
+
+</select>

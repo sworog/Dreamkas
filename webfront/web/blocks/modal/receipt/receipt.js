@@ -1,25 +1,20 @@
 define(function(require, exports, module) {
     //requirements
-    var Modal = require('blocks/modal/modal.deprecated');
+    var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
-        dialog: 'receipt',
+        success: false,
         events: {
             'click .modal_receipt__reloadLink': function() {
                 var block = this,
-                    ReceiptModel = require('models/receipt/receipt');
+                    ReceiptModel = require('resources/receipt/model');
 
                 block.hide();
 
                 PAGE.models.receipt = new ReceiptModel();
 
                 PAGE.render();
-            }
-        },
-        models: {
-            receipt: function() {
-                return PAGE.models.receipt
             }
         },
         blocks: {

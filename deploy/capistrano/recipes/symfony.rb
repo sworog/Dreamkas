@@ -298,18 +298,16 @@ namespace :symfony do
     end
 
     namespace :products do
-        desc "Recalculate products metrics, required: -S projectId=<..>"
+        desc "Recalculate products metrics"
         task :recalculate_metrics, :roles => :app, :except => { :no_release => true } do
-            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
-            stream console_command("lighthouse:products:recalculate_metrics --project=#{projectId}"), :once => true
+            stream console_command("lighthouse:products:recalculate_metrics"), :once => true
         end
     end
 
     namespace :reports do
         desc "Recalculate reports data, required: -S projectId=<..>"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
-            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
-            stream console_command("lighthouse:reports:recalculate --project=#{projectId}"), :once => true
+            stream console_command("lighthouse:reports:recalculate"), :once => true
         end
     end
 

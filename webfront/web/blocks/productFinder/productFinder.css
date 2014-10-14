@@ -1,8 +1,8 @@
-.productFinder__resetLink {
+.productFinder__resetLink:not([disabled]) {
     cursor: pointer;
 }
 
-.productFinder__resetLink:hover {
+.productFinder__resetLink:not([disabled]):hover {
     color: #0a819c;
 }
 
