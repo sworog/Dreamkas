@@ -10,6 +10,11 @@ define(function(require, exports, module) {
         collection: function(){
             return PAGE.collections.groupProducts;
         },
+        collections: {
+            groups: function(){
+                return PAGE.collections.groups;
+            }
+        },
         events: {
             'keyup input[name="purchasePrice"]': function(e){
                 var block = this;
@@ -52,6 +57,18 @@ define(function(require, exports, module) {
             }
 
             return Form.prototype.submit.apply(block, arguments);
+        },
+        submitSuccess: function(){
+
+            if (this.data.newGroupName.length){
+
+                this.collections.groups.add({
+                    name: this.data.newGroupName
+                });
+            }
+
+            Form.prototype.submit.apply(this, arguments);
+
         },
         showFieldError: function(data, field) {
             var block = this;
