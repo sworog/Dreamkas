@@ -61,7 +61,7 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void authorization(String email, String password, Boolean isFalse) {
-        workAroundTypeForUserName(email);
+        authorizationPage.input("userName", email);
         authorizationPage.input("password", password);
         authorizationPage.clickOnCommonItemWihName("loginButton");
         if (!isFalse) {
@@ -73,20 +73,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void loginButtonClick() {
         authorizationPage.clickOnCommonItemWihName("loginButton");
-    }
-
-    // TODO fix this in future
-
-    /**
-     * This is actually bad type workaround for failing logging in.
-     * For some reasons the type method is disturbed and the userName is not typed fully.
-     */
-    @Step
-    public void workAroundTypeForUserName(String inputText) {
-        authorizationPage.input("userName", inputText);
-        if (!((Findable) authorizationPage.getItems().get("userName")).getVisibleWebElementFacade().getValue().equals(inputText)) {
-            workAroundTypeForUserName(inputText);
-        }
     }
 
     @Step
