@@ -1,5 +1,6 @@
 package ru.dreamkas.jbehave;
 
+import org.jbehave.core.annotations.Alias;
 import ru.dreamkas.steps.PosSteps;
 import net.thucydides.core.annotations.Steps;
 
@@ -30,6 +31,7 @@ public class PosUserSteps {
     }
 
     @When("пользователь набирает в поле поиска товаров '$productSearchQuery'")
+    @Alias("пользователь набирает в поле поиска товаров productSearchQuery")
     public void whenTheUserTypeProductSearchQuery(String productSearchQuery) {
         posSteps.inputProductSearchQuery(productSearchQuery);
     }
@@ -52,5 +54,10 @@ public class PosUserSteps {
     @Then("пользователь проверяет, что выбранный магазин это '$store'")
     public void thenTheUserChecksTheStore(String store) {
         posSteps.assertStore(store);
+    }
+
+    @Then("пользователь проверяет, что у автокоплитного поля есть сообщение '$expected'")
+    public void thenTheUserChecksTheAutocompleteSearchEmptyTitleLabel(String expected) {
+        posSteps.assertSearchResultEmptyLabelText(expected);
     }
 }

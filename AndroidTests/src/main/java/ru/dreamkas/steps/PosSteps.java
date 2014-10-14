@@ -52,4 +52,9 @@ public class PosSteps extends ScenarioSteps {
     public void assertSearchProductsResult(String containsProductTitle) {
         assertThat(posPage.getSearchProductResult(), hasItem(containsProductTitle));
     }
+
+    @Step
+    public void assertSearchResultEmptyLabelText(String expected) {
+        assertThat(posPage.getSearchResultEmptyLabel(), is(expected));
+    }
 }

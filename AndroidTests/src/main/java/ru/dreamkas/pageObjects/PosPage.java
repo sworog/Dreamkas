@@ -36,6 +36,9 @@ public class PosPage extends CommonPageObject {
     @FindBy(id = "ru.dreamkas.pos.debug:id/lvProductsSearchResult")
     private WebElement lvProductsSearchResult;
 
+    @FindBy(id = "ru.dreamkas.pos.debug:id/lblSearchResultEmpty")
+    private WebElement searchResultEmptyLabel;
+
     public String getActionBarTitle() {
         return actionBarTitle.getText();
     }
@@ -74,5 +77,9 @@ public class PosPage extends CommonPageObject {
             strs.add(webElement.getText());
         }
         return strs;
+    }
+
+    public String getSearchResultEmptyLabel() {
+        return searchResultEmptyLabel.getText();
     }
 }
