@@ -10,9 +10,25 @@ use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesRepository;
+use DateTime;
 
 class GrossMarginSalesStoreRepository extends GrossMarginSalesRepository
 {
+    /**
+     * @param $storeId
+     * @param $day
+     * @return GrossMarginSalesStore
+     */
+    public function findByStoreIdAndDay($storeId, DateTime $day)
+    {
+        return $this->findOneBy(
+            array(
+                'day' => $day,
+                'store' => $storeId
+            )
+        );
+    }
+
     /**
      * @param GrossMarginSalesFilter $filter
      * @return Cursor|GrossMarginSalesStore[]

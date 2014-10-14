@@ -158,7 +158,7 @@ class CostOfGoodsCalculator
 
     /**
      * @param OutputInterface|null $output
-     * @return void
+     * @return integer
      */
     public function calculateUnprocessed(OutputInterface $output = null)
     {
@@ -171,7 +171,8 @@ class CostOfGoodsCalculator
             $this->getSupportRangeIndex()
         );
 
-        $dotHelper->setTotalPositions(count($results));
+        $resultCount = count($results);
+        $dotHelper->setTotalPositions($resultCount);
 
         foreach ($results as $result) {
             $this->calculateByStoreProductId($result['_id']['storeProduct']);
@@ -180,6 +181,8 @@ class CostOfGoodsCalculator
         }
 
         $dotHelper->end();
+
+        return $resultCount;
     }
 
     /**
