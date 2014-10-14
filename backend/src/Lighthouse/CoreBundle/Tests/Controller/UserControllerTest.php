@@ -988,6 +988,7 @@ class UserControllerTest extends WebTestCase
                     'others' => array(
                         'GET::api/1/reports/gross/catalog/groups',
                         'GET::api/1/reports/gross/catalog/groups/{group}/products',
+                        'GET::api/1/reports/gross/stores',
                         'GET::api/1/reports/grossMargin',
                         'GET::api/1/reports/grossSales',
                         'GET::api/1/reports/grossSalesByStores'

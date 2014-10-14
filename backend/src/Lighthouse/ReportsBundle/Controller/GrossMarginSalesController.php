@@ -62,6 +62,7 @@ class GrossMarginSalesController extends AbstractRestController
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("reports/gross/catalog/groups")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc
      */
     public function getCatalogGroupsGrossReportAction(Request $request)
     {
@@ -81,6 +82,7 @@ class GrossMarginSalesController extends AbstractRestController
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("reports/gross/stores")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc
      */
     public function getStoresGrossReportAction(Request $request)
     {
