@@ -58,16 +58,13 @@ define(function(require, exports, module) {
 
             return Form.prototype.submit.apply(block, arguments);
         },
-        submitSuccess: function(){
+        submitSuccess: function(res){
 
             if (this.data.newGroupName.length){
-
-                this.collections.groups.add({
-                    name: this.data.newGroupName
-                });
+                this.collections.groups.add(res.subCategory);
             }
 
-            Form.prototype.submit.apply(this, arguments);
+            Form.prototype.submitSuccess.apply(this, arguments);
 
         },
         showFieldError: function(data, field) {
