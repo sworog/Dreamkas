@@ -1,18 +1,16 @@
 package ru.dreamkas.jbehave;
 
+import org.jbehave.core.annotations.*;
 import ru.dreamkas.steps.CommonSteps;
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.BeforeScenario;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
 
 public class CommonUserSteps {
 
     @Steps
     CommonSteps commonSteps;
 
-    @BeforeScenario
-    public void resetApp() {
+    @Given("пользователь ресетит все данные и перезапускает приложение")
+    public void givenTheUserResetsDataAndRelaunchTheApp() {
         commonSteps.resetApp();
     }
 

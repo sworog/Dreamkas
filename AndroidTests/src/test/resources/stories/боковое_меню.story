@@ -11,7 +11,8 @@ Scenario: Выход из кассы
 
 Meta:
 
-GivenStories: precondition/создание_пользователя.story
+GivenStories: precondition/ресет_и_перезапуск_приложения.story,
+              precondition/создание_пользователя.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
 

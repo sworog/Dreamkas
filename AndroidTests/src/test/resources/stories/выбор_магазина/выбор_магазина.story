@@ -11,7 +11,8 @@ Scenario: Выбор магазина при первом старте
 
 Meta:
 
-GivenStories: precondition/создание_пользователя.story,
+GivenStories: precondition/ресет_и_перезапуск_приложения.story,
+              precondition/создание_пользователя.story,
               precondition/создание_магазинов.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
@@ -25,7 +26,8 @@ Scenario: Магазин выбирается автоматически при 
 
 Meta:
 
-GivenStories: precondition/создание_пользователя.story,
+GivenStories: precondition/ресет_и_перезапуск_приложения.story,
+              precondition/создание_пользователя.story,
               precondition/создание_магазинов.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
@@ -46,7 +48,8 @@ Scenario: Смена магазина
 
 Meta:
 
-GivenStories: precondition/создание_пользователя.story,
+GivenStories: precondition/ресет_и_перезапуск_приложения.story,
+              precondition/создание_пользователя.story,
               precondition/создание_магазинов.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'

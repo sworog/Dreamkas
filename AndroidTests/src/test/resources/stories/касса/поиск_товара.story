@@ -11,7 +11,8 @@ Scenario: Поиск товара по части артикулу
 
 Meta:
 
-GivenStories: precondition/создание_пользователя.story,
+GivenStories: precondition/ресет_и_перезапуск_приложения.story,
+              precondition/создание_пользователя.story,
               precondition/создание_магазинов.story
               precondition/создание_товаров.story
 
@@ -30,7 +31,8 @@ Scenario: Поиск товара по названию
 
 Meta:
 
-GivenStories: precondition/создание_пользователя.story,
+GivenStories: precondition/ресет_и_перезапуск_приложения.story,
+              precondition/создание_пользователя.story,
               precondition/создание_магазинов.story
               precondition/создание_товаров.story
 
@@ -48,7 +50,8 @@ Scenario: Поиск товара по штрих-коду
 
 Meta:
 
-GivenStories: precondition/создание_пользователя.story,
+GivenStories: precondition/ресет_и_перезапуск_приложения.story,
+              precondition/создание_пользователя.story,
               precondition/создание_магазинов.story
               precondition/создание_товаров.story
 
