@@ -6,13 +6,13 @@
             Группа
         </th>
         <th data-sort-by="grossSales">
-            Продажи, <i class="fa fa-rub">
+            Продажи, <i class="fa fa-rub"></i>
         </th>
         <th data-sort-by="costOfGoods">
-            Себестоимость, <i class="fa fa-rub">
+            Себестоимость, <i class="fa fa-rub"></i>
         </th>
         <th data-sort-by="grossMargin">
-            Прибыль, <i class="fa fa-rub">
+            Прибыль, <i class="fa fa-rub"></i>
         </th>
     </tr>
     </thead>
@@ -21,7 +21,7 @@
 
     <% sortedCollection.forEach(function(profitModel){ %>
     <tr href="<%- groupUrl(profitModel) %>">
-        <td class="table_groupsProfit__groupName">
+        <td name="name" class="table_groupsProfit__groupName">
             <%- profitModel.get('subCategory.name') %>
         </td>
         <td>
@@ -32,7 +32,7 @@
                 (<%- calculateGrossSalesPercent(profitModel.get('grossSales')) %>%)
             </span>
         </td>
-        <td>
+        <td name="costOfGoods">
             <%- formatMoney(profitModel.get('costOfGoods')) %>
         </td>
         <td>

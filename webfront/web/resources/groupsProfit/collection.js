@@ -3,7 +3,7 @@ define(function(require) {
         var Collection = require('kit/collection/collection');
 
         return Collection.extend({
-            url: Collection.baseApiUrl + '/catalog/groups/reports/grossMarginSalesByCatalogGroup'
+            url: Collection.baseApiUrl + '/reports/gross/catalog/groups'
         });
     }
 );

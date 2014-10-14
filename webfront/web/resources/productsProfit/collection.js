@@ -6,7 +6,7 @@ define(function(require) {
             groupId: null,
             model: require('kit/model/model'),
             url: function(){
-                return Collection.baseApiUrl + '/catalog/groups/' + this.groupId + '/reports/grossMarginSalesByProduct'
+                return Collection.baseApiUrl + '/reports/gross/catalog/groups/' + this.groupId + '/products';
             }
         });
     }
