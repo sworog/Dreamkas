@@ -8,6 +8,7 @@ import ru.dreamkas.pages.pos.PosPage;
 import ru.dreamkas.pages.pos.PosSaleHistoryPage;
 import ru.dreamkas.pages.pos.ReceiptElement;
 import ru.dreamkas.pages.reports.ReportsMainPage;
+import ru.dreamkas.pages.reports.grossMarginSales.GrossMarginSalesByProductsReportPage;
 import ru.dreamkas.pages.reports.stockBalance.StockBalanceReport;
 import ru.dreamkas.pages.stockMovement.StockMovementPage;
 
@@ -29,6 +30,7 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("чека", ReceiptElement.class);
             put("странице отчетов", ReportsMainPage.class);
             put("странице отчета остатка товаров", StockBalanceReport.class);
+            put("странице отчета по продажам и прибыли по товарам внутри группы", GrossMarginSalesByProductsReportPage.class);
         }};
     }
 
