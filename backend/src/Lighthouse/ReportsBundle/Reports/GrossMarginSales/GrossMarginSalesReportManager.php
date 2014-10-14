@@ -6,13 +6,15 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupRepository;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\Store\GrossMarginSalesStoreRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Stores\GrossMarginSalesByStoresCollection;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -31,9 +33,9 @@ class GrossMarginSalesReportManager
     protected $grossMarginSalesCatalogGroupRepository;
 
     /**
-     * @var StoreProductRepository
+     * @var GrossMarginSalesStoreRepository
      */
-    protected $storeProductRepository;
+    protected $grossMarginSalesStoreRepository;
 
     /**
      * @var ProductRepository
@@ -46,6 +48,11 @@ class GrossMarginSalesReportManager
     protected $catalogManager;
 
     /**
+     * @var StoreRepository
+     */
+    protected $storeRepository;
+
+    /**
      * @var NumericFactory
      */
     protected $numericFactory;
@@ -56,32 +63,37 @@ class GrossMarginSalesReportManager
      *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.product.repository"),
      *      "grossMarginSalesCatalogGroupRepository"
      *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.catalog_group.repository"),
-     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
+     *      "grossMarginSalesStoreRepository"
+     *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.store.repository"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "catalogManager" = @DI\Inject("lighthouse.core.document.catalog.manager"),
+     *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
      * })
      *
      * @param GrossMarginSalesProductRepository $grossMarginSalesProductRepository
      * @param GrossMarginSalesCatalogGroupRepository $grossMarginSalesCatalogGroupRepository
-     * @param StoreProductRepository $storeProductRepository
+     * @param GrossMarginSalesStoreRepository $grossMarginSalesStoreRepository
      * @param ProductRepository $productRepository
      * @param CatalogManager $catalogManager
+     * @param StoreRepository $storeRepository
      * @param NumericFactory $numericFactory
      */
     public function __construct(
         GrossMarginSalesProductRepository $grossMarginSalesProductRepository,
         GrossMarginSalesCatalogGroupRepository $grossMarginSalesCatalogGroupRepository,
-        StoreProductRepository $storeProductRepository,
+        GrossMarginSalesStoreRepository $grossMarginSalesStoreRepository,
         ProductRepository $productRepository,
         CatalogManager $catalogManager,
+        StoreRepository $storeRepository,
         NumericFactory $numericFactory
     ) {
         $this->grossMarginSalesProductRepository = $grossMarginSalesProductRepository;
         $this->grossMarginSalesCatalogGroupRepository = $grossMarginSalesCatalogGroupRepository;
-        $this->storeProductRepository = $storeProductRepository;
+        $this->grossMarginSalesStoreRepository = $grossMarginSalesStoreRepository;
         $this->productRepository = $productRepository;
         $this->catalogManager = $catalogManager;
+        $this->storeRepository = $storeRepository;
         $this->numericFactory = $numericFactory;
     }
 
@@ -104,6 +116,15 @@ class GrossMarginSalesReportManager
     }
 
     /**
+     * @param OutputInterface $output
+     * @return int
+     */
+    public function recalculateGrossMarginSalesStoreReport(OutputInterface $output = null)
+    {
+        return $this->grossMarginSalesStoreRepository->recalculate($output);
+    }
+
+    /**
      * @param GrossMarginSalesFilter $filter
      * @param SubCategory $catalogGroup
      * @return GrossMarginSalesByProductsCollection
@@ -111,15 +132,12 @@ class GrossMarginSalesReportManager
     public function getProductsReports(GrossMarginSalesFilter $filter, SubCategory $catalogGroup)
     {
         $reports = $this->grossMarginSalesProductRepository->findByFilterCatalogGroup($filter, $catalogGroup);
-
-        $reportsCollection = new GrossMarginSalesByProductsCollection($this->numericFactory);
-
-        foreach ($reports as $report) {
-            $reportsCollection->addReportValues($report);
-        }
-
         $products = $this->productRepository->findBySubCategory($catalogGroup);
-        return $reportsCollection->fillByItems($products);
+        return new GrossMarginSalesByProductsCollection(
+            $this->numericFactory,
+            $reports,
+            $products
+        );
     }
 
     /**
@@ -129,14 +147,26 @@ class GrossMarginSalesReportManager
     public function getCatalogGroupsReports(GrossMarginSalesFilter $filter)
     {
         $reports = $this->grossMarginSalesCatalogGroupRepository->findByFilter($filter);
-
-        $reportsCollection = new GrossMarginSalesByCatalogGroupsCollection($this->numericFactory);
-
-        foreach ($reports as $report) {
-            $reportsCollection->addReportValues($report);
-        }
-
         $catalogGroups = $this->catalogManager->getCatalogGroups();
-        return $reportsCollection->fillByItems($catalogGroups);
+        return new GrossMarginSalesByCatalogGroupsCollection(
+            $this->numericFactory,
+            $reports,
+            $catalogGroups
+        );
+    }
+
+    /**
+     * @param GrossMarginSalesFilter $filter
+     * @return GrossMarginSalesByStoresCollection
+     */
+    public function getStoreReports(GrossMarginSalesFilter $filter)
+    {
+        $reports = $this->grossMarginSalesStoreRepository->findByFilter($filter);
+        $stores = $this->storeRepository->findAll();
+        return new GrossMarginSalesByStoresCollection(
+            $this->numericFactory,
+            $reports,
+            $stores
+        );
     }
 }
