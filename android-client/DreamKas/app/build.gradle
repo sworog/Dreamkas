@@ -22,10 +22,6 @@ repositories {
     jcenter()
 }
 
-
-
-
-
 android
 {
     compileSdkVersion 19
@@ -49,15 +45,20 @@ android
     }
 
     defaultConfig
-            {
-                applicationId 'ru.dreamkas.pos'
-                minSdkVersion 17
-                targetSdkVersion 19
-                buildConfigField 'String', 'ServerAddress', '"http://av.staging.api.lighthouse.pro"'
-                versionCode 1
-                versionName '0.113.4'
+    {
+        applicationId 'ru.dreamkas.pos'
+        minSdkVersion 17
+        targetSdkVersion 19
 
-            }
+        def host = "http://av.staging.api.lighthouse.pro"
+        if(project.hasProperty("server_address")){
+            host = project.getProperty("server_address");
+        }
+        buildConfigField 'String', 'ServerAddress', '"' + host  + '"'
+        versionCode 1
+        versionName '0.113.4'
+
+    }
 
     sourceSets {
         main {
@@ -90,10 +91,6 @@ android
             applicationIdSuffix ".debug"
         }
     }
-    productFlavors
-            {
-
-            }
 }
 
 apt
