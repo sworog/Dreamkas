@@ -21,6 +21,10 @@
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
 		CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */; };
 		CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */; };
+		CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
+		CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
+		CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
+		CE22CE3619ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
 		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
@@ -203,6 +207,10 @@
 		CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDefines.h; sourceTree = "<group>"; };
 		CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockDefines.h; sourceTree = "<group>"; };
 		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
+		CE22CE2F19ED568B00A939E6 /* SelectStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectStoreViewController.h; sourceTree = "<group>"; };
+		CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectStoreViewController.m; sourceTree = "<group>"; };
+		CE22CE3319ED569F00A939E6 /* CreateStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateStoreViewController.h; sourceTree = "<group>"; };
+		CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateStoreViewController.m; sourceTree = "<group>"; };
 		CE3B95ED19E40DA900E1D24F /* DatesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatesHelper.h; sourceTree = "<group>"; };
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
 		CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Auth.h"; sourceTree = "<group>"; };
@@ -544,6 +552,33 @@
 			path = ru.lproj;
 			sourceTree = "<group>";
 		};
+		CE22CE2A19ED566F00A939E6 /* Store Screens */ = {
+			isa = PBXGroup;
+			children = (
+				CE22CE2B19ED566F00A939E6 /* Create Store */,
+				CE22CE2C19ED566F00A939E6 /* Select Store */,
+			);
+			path = "Store Screens";
+			sourceTree = "<group>";
+		};
+		CE22CE2B19ED566F00A939E6 /* Create Store */ = {
+			isa = PBXGroup;
+			children = (
+				CE22CE3319ED569F00A939E6 /* CreateStoreViewController.h */,
+				CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */,
+			);
+			path = "Create Store";
+			sourceTree = "<group>";
+		};
+		CE22CE2C19ED566F00A939E6 /* Select Store */ = {
+			isa = PBXGroup;
+			children = (
+				CE22CE2F19ED568B00A939E6 /* SelectStoreViewController.h */,
+				CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */,
+			);
+			path = "Select Store";
+			sourceTree = "<group>";
+		};
 		CE3B95EA19E40D7800E1D24F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -642,6 +677,7 @@
 		CEC003ED19E6909B00AE256F /* TicketWindow Screen */ = {
 			isa = PBXGroup;
 			children = (
+				CE22CE2A19ED566F00A939E6 /* Store Screens */,
 				CEC0041719E69B3400AE256F /* TicketWindowViewController.h */,
 				CEC0041819E69B3400AE256F /* TicketWindowViewController.m */,
 			);
@@ -1064,6 +1100,7 @@
 				CEC0041519E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE946BED19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */,
+				CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */,
 				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CE8AB38019E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CEF2647B19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
@@ -1086,6 +1123,7 @@
 				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
 				CEC0040D19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
+				CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CEF2647119E81D16008BE93A /* NSDate+Utilities.m in Sources */,
@@ -1147,8 +1185,10 @@
 				CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CE8AB37D19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
+				CE22CE3619ED569F00A939E6 /* CreateStoreViewController.m in Sources */,
 				CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CEF2647619E81D16008BE93A /* UIView+Screenshot.m in Sources */,
+				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,

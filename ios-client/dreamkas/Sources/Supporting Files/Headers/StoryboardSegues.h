@@ -23,6 +23,8 @@
 #define LogInToTicketWindowSegueName                @"LogInToTicketWindowSegue"
 #define SignInToTicketWindowSegueName               @"SignInToTicketWindowSegue"
 
+#define TicketWindowToSelectStoreSegueName          @"TicketWindowToSelectStoreSegue"
+
 //
 // Идентификаторы экранов
 //
@@ -30,5 +32,6 @@
 #define MainNavigationControllerID                  @"MainNavigationControllerID"
 #define LogInViewControllerID                       @"LogInViewControllerID"
 #define SignInViewControllerID                      @"SignInViewControllerID"
+#define SelectStoreViewControllerID                 @"SelectStoreViewControllerID"
 
 #endif
