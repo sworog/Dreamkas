@@ -128,7 +128,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
+        $this->getGrossMarginSalesReportManager()->recalculateProductReport();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo, $storeName, $stores);
 
@@ -322,7 +322,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesCatalogGroupReport();
+        $this->getGrossMarginSalesReportManager()->recalculateCatalogGroupReport();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo, $storeName, $stores);
 
@@ -446,7 +446,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesStoreReport();
+        $this->getGrossMarginSalesReportManager()->recalculateStoreReport();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo);
 

@@ -90,7 +90,14 @@ class RecalculateReportsCommand extends Command
             $this->grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
 
             $output->writeln("<info>Gross Margin Sales</info>");
-            $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport($output);
+            $output->writeln("<info>Products</info>");
+            $this->grossMarginSalesReportManager->recalculateProductReport($output);
+
+            $output->writeln("<info>Catalog Groups</info>");
+            $this->grossMarginSalesReportManager->recalculateCatalogGroupReport($output);
+
+            $output->writeln("<info>Stores</info>");
+            $this->grossMarginSalesReportManager->recalculateStoreReport($output);
 
             $this->projectContext->logout();
         }

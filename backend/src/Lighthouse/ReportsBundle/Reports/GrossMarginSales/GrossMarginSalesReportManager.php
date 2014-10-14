@@ -101,7 +101,7 @@ class GrossMarginSalesReportManager
      * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossMarginSalesProductReport(OutputInterface $output = null)
+    public function recalculateProductReport(OutputInterface $output = null)
     {
         return $this->grossMarginSalesProductRepository->recalculate($output);
     }
@@ -110,7 +110,7 @@ class GrossMarginSalesReportManager
      * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossMarginSalesCatalogGroupReport(OutputInterface $output = null)
+    public function recalculateCatalogGroupReport(OutputInterface $output = null)
     {
         return $this->grossMarginSalesCatalogGroupRepository->recalculate($output);
     }
@@ -119,7 +119,7 @@ class GrossMarginSalesReportManager
      * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossMarginSalesStoreReport(OutputInterface $output = null)
+    public function recalculateStoreReport(OutputInterface $output = null)
     {
         return $this->grossMarginSalesStoreRepository->recalculate($output);
     }

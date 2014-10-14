@@ -46,7 +46,7 @@ class RecalculateReportsCommandTest extends TestCase
             ->getMock();
 
         $grossMarginSalesReportManagerMock
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(6))
             ->method($this->anything());
 
         /* @var ProjectContext|MockObject $projectContextMock */

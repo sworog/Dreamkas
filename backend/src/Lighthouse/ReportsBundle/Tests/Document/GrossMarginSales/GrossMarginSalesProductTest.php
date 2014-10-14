@@ -71,7 +71,7 @@ class GrossMarginSalesProductTest extends WebTestCase
             ->flush();
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
+        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateProductReport();
         $this->assertEquals(4, $recalculateCount);
 
         $this->assertProductReport($store->id, $productId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
