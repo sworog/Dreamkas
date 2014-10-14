@@ -26,26 +26,26 @@
         <td name="name">
             <%- productStockSellModel.get('product.name') %>
         </td>
-        <td>
-            <span name="grossSales">
+        <td name="grossSales">
+            <span name="grossSalesValue">
                 <%- formatMoney(productStockSellModel.get('grossSales')) %>
             </span>
             <span name="grossSalesPercent" class="table_groupStockSell__percent">
                 (<%- calculateGrossSalesPercent(productStockSellModel.get('grossSales')) %>%)
             </span>
         </td>
-        <td>
+        <td name="costOfGoods">
             <%- formatMoney(productStockSellModel.get('costOfGoods')) %>
         </td>
-        <td>
-            <span name="grossMargin">
+        <td name="grossMargin">
+            <span name="grossMarginValue">
                 <%- formatMoney(productStockSellModel.get('grossMargin')) %>
             </span>
             <span name="grossMarginPercent" class="table_groupStockSell__percent">
                 (<%- calculateGrossMarginPercent(productStockSellModel.get('grossMargin')) %>%)
             </span>
         </td>
-        <td>
+        <td name="quantity">
             <%- formatAmount(productStockSellModel.get('quantity')) %> <%- productStockSellModel.get('product.units') %>
         </td>
     </tr>

@@ -19,17 +19,17 @@
     <tbody name="stockSell">
 
     <% sortedCollection.forEach(function(stockSellModel){ %>
-    <tr href="/reports/stockSell/groups/<%- stockSellModel.get('id') %>">
-        <td class="table_stockSell__groupName">
+    <tr name="group" href="/reports/stockSell/groups/<%- stockSellModel.get('id') %>">
+        <td name="groupName" class="table_stockSell__groupName">
             <%- stockSellModel.get('name') %>
         </td>
-        <td>
+        <td name="grossSales">
 
         </td>
-        <td>
+        <td name="grossMargin">
 
         </td>
-        <td>
+        <td name="costOfGoods">
 
         </td>
     </tr>
