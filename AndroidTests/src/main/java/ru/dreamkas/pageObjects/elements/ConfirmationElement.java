@@ -1,6 +1,6 @@
-package dreamkas.pageObjects.elements;
+package ru.dreamkas.pageObjects.elements;
 
-import dreamkas.pageObjects.CommonPageObject;
+import ru.dreamkas.pageObjects.CommonPageObject;
 import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebElement;
 

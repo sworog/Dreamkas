@@ -1,4 +1,4 @@
-package dreamkas.jbehave;
+package ru.dreamkas.jbehave;
 
 import net.thucydides.jbehave.ThucydidesJUnitStories;
 

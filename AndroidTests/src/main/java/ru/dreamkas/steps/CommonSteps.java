@@ -1,7 +1,7 @@
-package dreamkas.steps;
+package ru.dreamkas.steps;
 
-import dreamkas.pageObjects.CommonPageObject;
-import dreamkas.pageObjects.elements.ConfirmationElement;
+import ru.dreamkas.pageObjects.CommonPageObject;
+import ru.dreamkas.pageObjects.elements.ConfirmationElement;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 

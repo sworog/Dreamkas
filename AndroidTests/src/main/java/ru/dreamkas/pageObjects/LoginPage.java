@@ -1,10 +1,8 @@
-package dreamkas.pageObjects;
+package ru.dreamkas.pageObjects;
 
 import net.thucydides.core.annotations.findby.FindBy;
-import org.openqa.selenium.WebElement;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.remote.HideKeyboardStrategy;
+import org.openqa.selenium.WebElement;
 
 public class LoginPage extends CommonPageObject {
 
@@ -23,10 +21,6 @@ public class LoginPage extends CommonPageObject {
     public void inputLoginCredentials(String email, String password) {
         txtUsernameField.sendKeys(email);
         txtPasswordField.sendKeys(password);
-    }
-
-    public void hideKeyboard(){
-        getAppiumDriver().hideKeyboard(HideKeyboardStrategy.PRESS_KEY, "Done");
     }
 
     public void clickOnLoginButton() {

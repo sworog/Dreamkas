@@ -1,6 +1,6 @@
-package dreamkas.jbehave;
+package ru.dreamkas.jbehave;
 
-import dreamkas.steps.PosSteps;
+import ru.dreamkas.steps.PosSteps;
 import net.thucydides.core.annotations.Steps;
 
 import org.jbehave.core.annotations.Given;

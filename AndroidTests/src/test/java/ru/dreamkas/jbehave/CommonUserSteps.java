@@ -1,6 +1,6 @@
-package dreamkas.jbehave;
+package ru.dreamkas.jbehave;
 
-import dreamkas.steps.CommonSteps;
+import ru.dreamkas.steps.CommonSteps;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.BeforeScenario;
 import org.jbehave.core.annotations.Then;

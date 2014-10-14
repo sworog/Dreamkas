@@ -18,7 +18,7 @@
         <appium.path.to.file>C:\android\app-debug.apk</appium.path.to.file>
         <webdriver.driver>provided</webdriver.driver>
         <webdriver.provided.type>appium</webdriver.provided.type>
-        <webdriver.provided.appium>dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
+        <webdriver.provided.appium>ru.dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
         <story.timeout.in.secs>1000000</story.timeout.in.secs>
         <thucydides.only.save.failing.screenshots>true</thucydides.only.save.failing.screenshots>
     </properties>
@@ -68,6 +68,12 @@
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
             <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.dreamkas</groupId>
+            <artifactId>dreamkas-api-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 

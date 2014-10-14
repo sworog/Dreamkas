@@ -1,6 +1,6 @@
-package dreamkas.steps;
+package ru.dreamkas.steps;
 
-import dreamkas.pageObjects.PosPage;
+import ru.dreamkas.pageObjects.PosPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 

@@ -1,4 +1,4 @@
-package dreamkas.pageObjects;
+package ru.dreamkas.pageObjects;
 
 import net.thucydides.core.annotations.findby.By;
 import net.thucydides.core.annotations.findby.FindBy;

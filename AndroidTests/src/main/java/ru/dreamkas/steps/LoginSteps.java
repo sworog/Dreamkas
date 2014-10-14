@@ -1,6 +1,6 @@
-package dreamkas.steps;
+package ru.dreamkas.steps;
 
-import dreamkas.pageObjects.LoginPage;
+import ru.dreamkas.pageObjects.LoginPage;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -14,11 +14,6 @@ public class LoginSteps extends ScenarioSteps {
     @Step
     public void inputLoginCredentials(String email, String password) {
         loginPage.inputLoginCredentials(email, password);
-    }
-
-    @Step
-    public void hideKeyboard(){
-        loginPage.hideKeyboard();
     }
 
     @Step
