@@ -2,14 +2,11 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Command;
 
-use Lighthouse\CoreBundle\Document\Project\Project;
-use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\ReportsBundle\Command\RecalculateReportsCommand;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
-use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
