@@ -41,9 +41,19 @@ abstract class GrossMarginSalesReportCollection extends DocumentCollection
         if ($this->containsItem($item)) {
             return $this->get($item->id);
         } else {
-            $report = $this->createByItem($item);
-            return $this->addEmptyReport($report);
+            return $this->addEmptyReportByItem($item);
         }
+    }
+
+    /**
+     * @param object $item
+     * @return GrossMarginSalesReport
+     */
+    protected function addEmptyReportByItem($item)
+    {
+        $report = $this->createByItem($item);
+        $this->addEmptyReport($report);
+        return $report;
     }
 
     /**
@@ -76,7 +86,7 @@ abstract class GrossMarginSalesReportCollection extends DocumentCollection
     {
         foreach ($items as $item) {
             if (!$this->containsItem($item)) {
-                $this->createByItem($item);
+                $this->addEmptyReportByItem($item);
             }
         }
         return $this;
