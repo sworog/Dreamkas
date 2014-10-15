@@ -63,13 +63,13 @@ android
     sourceSets {
         main {
             res.srcDirs = [
-                '/src/main/res',
-                '/src/main/res/layouts',
-                '/src/main/res/layouts/activities',
-                '/src/main/res/layouts/components',
-                '/src/main/res/layouts/fragments',
-                '/src/main/res/layouts/item_templates',
-                '/src/main/res/layouts/misc'
+                'src/main/res',
+                'src/main/res/layouts',
+                'src/main/res/layouts/activities',
+                'src/main/res/layouts/components',
+                'src/main/res/layouts/fragments',
+                'src/main/res/layouts/item_templates',
+                'src/main/res/layouts/misc'
             ]
         }
     }
