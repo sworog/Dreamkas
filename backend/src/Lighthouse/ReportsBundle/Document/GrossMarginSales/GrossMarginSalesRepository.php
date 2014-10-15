@@ -3,7 +3,6 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales;
 
 use Doctrine\MongoDB\ArrayIterator;
-use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;

@@ -3,7 +3,6 @@
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;

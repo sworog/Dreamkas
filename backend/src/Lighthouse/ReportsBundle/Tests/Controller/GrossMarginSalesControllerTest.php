@@ -4,7 +4,6 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
-
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
@@ -216,7 +215,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider grossReportEmptyProvider
+     * @dataProvider grossReportWithStoreEmptyProvider
      *
      * @param string $storeName
      * @param string $dateFrom
@@ -249,7 +248,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     /**
      * @return array
      */
-    public function grossReportEmptyProvider()
+    public function grossReportWithStoreEmptyProvider()
     {
         return array(
             '-4 days to -1 day' => array(
@@ -271,7 +270,32 @@ class GrossMarginSalesControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider grossReportEmptyProvider
+     * @return array
+     */
+    public function grossReportEmptyProvider()
+    {
+        return array(
+            '-4 days to -1 day' => array(
+                '-4 day 00:00:00',
+                '-1 day 00:00:00',
+            ),
+            'from -4 days' => array(
+                '-4 day 00:00:00',
+                null,
+            ),
+            'to -1 day' => array(
+                null,
+                '-1 day 00:00:00',
+            ),
+            'no dates' => array(
+                null,
+                null
+            )
+        );
+    }
+
+    /**
+     * @dataProvider grossReportWithStoreEmptyProvider
      * @param $storeName
      * @param $dateFrom
      * @param $dateTo
@@ -350,7 +374,6 @@ class GrossMarginSalesControllerTest extends WebTestCase
         }
     }
 
-
     /**
      * @return array
      */
@@ -400,7 +423,12 @@ class GrossMarginSalesControllerTest extends WebTestCase
         );
     }
 
-    public function testStoreGrossReportEmpty()
+    /**
+     * @dataProvider grossReportEmptyProvider
+     * @param string $dateFrom
+     * @param string $dateTo
+     */
+    public function testStoreGrossReportEmpty($dateFrom, $dateTo)
     {
         $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
 
@@ -411,24 +439,23 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->createProductByName('2.0', $catalogGroups['2']->id);
         // catalog group 3 does not have products
 
+        $query = $this->getFilterQuery($dateFrom, $dateTo);
+
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/reports/gross/stores',
             null,
-            array(
-                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
-                'dateTo' => date('c', strtotime('-1 day 00:00:00'))
-            )
+            $query
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, '*.store.id', $response);
-        $this->assertStoreGrossReport($response, $stores['1']->id, array(0, 0, 0, 0));
-        $this->assertStoreGrossReport($response, $stores['2']->id, array(0, 0, 0, 0));
-        $this->assertStoreGrossReport($response, $stores['3']->id, array(0, 0, 0, 0));
+        foreach ($stores as $store) {
+            $this->assertStoreGrossReport($response, $store->id, array(0, 0, 0, 0));
+        }
     }
 
     /**
@@ -628,6 +655,34 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 array(5630, 3851, 1779, 49)
             )
         );
+    }
+
+    /**
+     * @dataProvider grossReportEmptyProvider
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     */
+    public function testNetworkGrossReportEmpty($dateFrom, $dateTo)
+    {
+        $this->factory()->store()->getStores(array('1', '2', '3'));
+        $this->createProductsByNames(array('1', '2', '3'));
+        $this->factory()->catalog()->getSubCategory();
+
+        $query = $this->getFilterQuery($dateFrom, $dateTo);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/reports/gross",
+            null,
+            $query
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertReportValues(array(0, 0, 0, 0), $response);
     }
 
     /**
