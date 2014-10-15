@@ -20,6 +20,11 @@ public class ReportSteps extends ScenarioSteps {
     }
 
     @Step
+    public void clickOnGrossMarginSalesReport() {
+        reportsMainPage.clickOnCommonItemWihName("grossMarginSalesReport");
+    }
+
+    @Step
     public void openStockBalanceReportsPage(String storeName) {
         String storeId = ApiStorage.getCustomVariableStorage().getStores().get(storeName).getId();
         String posUrl = String.format("%s/reports/stockBalance?storeId=%s", UrlHelper.getWebFrontUrl(), storeId);
