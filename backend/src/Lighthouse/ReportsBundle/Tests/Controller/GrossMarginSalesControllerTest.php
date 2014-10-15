@@ -32,7 +32,8 @@ class GrossMarginSalesControllerTest extends WebTestCase
      * @param Store $store
      * @param array $productIds
      * @param $productOtherSubCategoryId
-     * @return array|\string[]
+     * @param Store $otherStore
+     * @return array
      */
     protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId, Store $otherStore)
     {
@@ -361,7 +362,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 null,
                 null,
                 array(
-                    '1' => array(15640, 10300, 5340, 124),
+                    '1' => array(16480, 10780, 5700, 130),
                     '2' => array(13800, 10626, 3174, 138),
                     '3' => array(0, 0, 0, 0),
                 )
@@ -371,7 +372,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 '-4 day 00:00:00',
                 '-1 day 00:00:00',
                 array(
-                    '1' => array(10540, 6900, 3640, 84),
+                    '1' => array(11380, 7380, 4000, 90),
                     '2' => array(9200, 7084, 2116, 92),
                     '3' => array(0, 0, 0, 0),
                 )
@@ -391,7 +392,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 '-4 day 00:00:00',
                 '-1 day 00:00:00',
                 array(
-                    '1' => array(0, 0, 0, 0),
+                    '1' => array(840, 480, 360, 6),
                     '2' => array(0, 0, 0, 0),
                     '3' => array(0, 0, 0, 0),
                 )
@@ -517,13 +518,22 @@ class GrossMarginSalesControllerTest extends WebTestCase
             ),
             'yesterday' => array(
                 '-1 day 00:00:00',
-                '00:00:00',
+                '-1 day 23:59:59',
                 array(
-                    '1' => array(10200, 7222, 2978, 90),
+                    '1' => array(5150, 3651, 1499, 45),
                     '2' => array(0, 0, 0, 0),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
+            '-3 days' => array(
+                '-3 day 00:00:00',
+                '-3 day 23:59:59',
+                array(
+                    '1' => array(4790, 3371, 1419, 43),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0)
+                )
+            )
         );
     }
 
