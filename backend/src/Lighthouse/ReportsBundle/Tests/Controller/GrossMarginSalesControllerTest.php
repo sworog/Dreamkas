@@ -172,27 +172,27 @@ class GrossMarginSalesControllerTest extends WebTestCase
                     '3' => array(7540, 5800, 1740, 58),
                 )
             ),
-            '1 store, -4 days to -1 day' => array(
+            '1 store, -4 days to yesterday' => array(
                 '1',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(3000, 1800, 1200, 20),
                     '2' => array(2600, 1300, 1300, 26),
                     '3' => array(4940, 3800, 1140, 38),
                 )
             ),
-            'all stores, -4 days to -1 day' => array(
+            'all stores, -4 days to yesterday' => array(
                 '1',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(3000, 1800, 1200, 20),
                     '2' => array(2600, 1300, 1300, 26),
                     '3' => array(4940, 3800, 1140, 38),
                 )
             ),
-            'empty report: all stores, -9 days to -7 days' => array(
+            'empty report: all stores, -9 days to -8 days' => array(
                 null,
                 '-9 day 00:00:00',
                 '-7 day 00:00:00',
@@ -205,7 +205,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
             'empty report: all stores, +1 day to +5 days' => array(
                 null,
                 '+1 day 00:00:00',
-                '+5 day 00:00:00',
+                '+6 day 00:00:00',
                 array(
                     '1' => array(0, 0, 0, 0),
                     '2' => array(0, 0, 0, 0),
@@ -367,30 +367,30 @@ class GrossMarginSalesControllerTest extends WebTestCase
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-1 to -4 days' => array(
+            'yesterday to -4 days' => array(
                 null,
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(11380, 7380, 4000, 90),
                     '2' => array(9200, 7084, 2116, 92),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-1 to -4 days store 1' => array(
+            'yesterday to -4 days store 1' => array(
                 '1',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(10540, 6900, 3640, 84),
                     '2' => array(9200, 7084, 2116, 92),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-1 to -4 days store 2' => array(
+            'yesterday to -4 days store 2' => array(
                 '2',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(840, 480, 360, 6),
                     '2' => array(0, 0, 0, 0),
@@ -489,6 +489,78 @@ class GrossMarginSalesControllerTest extends WebTestCase
                     '3' => array(0, 0, 0, 0),
                 )
             ),
+            'yesterday to -4 days' => array(
+                '-4 day 00:00:00',
+                '00:00:00',
+                array(
+                    '1' => array(19740, 13984, 5756, 176),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            'from -4 days' => array(
+                '-4 day 00:00:00',
+                null,
+                array(
+                    '1' => array(24790, 17555, 7235, 221),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            'without today' => array(
+                null,
+                '00:00:00',
+                array(
+                    '1' => array(24390, 17355, 7035, 217),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            'yesterday' => array(
+                '-1 day 00:00:00',
+                '-1 day 23:59:59',
+                array(
+                    '1' => array(5150, 3651, 1499, 45),
+                    '2' => array(0, 0, 0, 0),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            '-3 days 23:59:59' => array(
+                '-3 day 00:00:00',
+                '-3 day 23:59:59',
+                array(
+                    '1' => array(4790, 3371, 1419, 43),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0)
+                )
+            ),
+            '-3 days 00:00:00' => array(
+                '-3 day 00:00:00',
+                '-2 day 00:00:00',
+                array(
+                    '1' => array(4790, 3371, 1419, 43),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0)
+                )
+            )
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function allGrossReportProvider()
+    {
+        return array(
+            'no dates' => array(
+                null,
+                null,
+                array(
+                    '1' => array(29440, 20926, 8514, 262),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
             '-1 to -4 days' => array(
                 '-4 day 00:00:00',
                 '-1 day 00:00:00',
@@ -525,9 +597,18 @@ class GrossMarginSalesControllerTest extends WebTestCase
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-3 days' => array(
+            '-3 days 23:59' => array(
                 '-3 day 00:00:00',
                 '-3 day 23:59:59',
+                array(
+                    '1' => array(4790, 3371, 1419, 43),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0)
+                )
+            ),
+            '-3 days 00:00' => array(
+                '-3 day 00:00:00',
+                '-2 day 00:00:00',
                 array(
                     '1' => array(4790, 3371, 1419, 43),
                     '2' => array(840, 480, 360, 6),

@@ -22,7 +22,7 @@ class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
         $criteria = array(
             'day' => array(
                 '$gte' => $filter->dateFrom,
-                '$lte' => $filter->dateTo,
+                '$lt' => $filter->dateTo,
             )
         );
 

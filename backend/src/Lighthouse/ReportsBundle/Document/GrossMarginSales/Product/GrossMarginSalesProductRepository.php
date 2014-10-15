@@ -26,7 +26,7 @@ class GrossMarginSalesProductRepository extends GrossMarginSalesRepository
             'subCategory' => $catalogGroup->id,
             'day' => array(
                 '$gte' => $filter->dateFrom,
-                '$lte' => $filter->dateTo,
+                '$lt' => $filter->dateTo,
             ),
         );
 
