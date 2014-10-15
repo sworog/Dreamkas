@@ -547,73 +547,85 @@ class GrossMarginSalesControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider networkGrossReportProvider
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param array $expectedValues
+     */
+    public function testNetworkGrossReport($dateFrom, $dateTo, array $expectedValues)
+    {
+        $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
+
+        $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
+
+        $productIds = array();
+        $productIds['1'] = $this->createProductByName('1.1', $catalogGroups['1']->id);
+        $productIds['2'] = $this->createProductByName('1.2', $catalogGroups['1']->id);
+        $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
+        $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
+
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginSalesReportManager()->recalculateNetworkReport();
+
+        $query = $this->getFilterQuery($dateFrom, $dateTo);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/reports/gross',
+            null,
+            $query
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertReportValues($expectedValues, $response);
+    }
+
+    /**
      * @return array
      */
-    public function allGrossReportProvider()
+    public function networkGrossReportProvider()
     {
         return array(
             'no dates' => array(
                 null,
                 null,
-                array(
-                    '1' => array(29440, 20926, 8514, 262),
-                    '2' => array(840, 480, 360, 6),
-                    '3' => array(0, 0, 0, 0),
-                )
+                array(30280, 21406, 8874, 268)
             ),
             '-1 to -4 days' => array(
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
-                array(
-                    '1' => array(19740, 13984, 5756, 176),
-                    '2' => array(840, 480, 360, 6),
-                    '3' => array(0, 0, 0, 0),
-                )
+                '00:00:00',
+                array(20580, 14464, 6116, 182)
             ),
             'from -4 days' => array(
                 '-4 day 00:00:00',
                 null,
-                array(
-                    '1' => array(24790, 17555, 7235, 221),
-                    '2' => array(840, 480, 360, 6),
-                    '3' => array(0, 0, 0, 0),
-                )
+                array(25630, 18035, 7595, 227)
             ),
             'to -1 days' => array(
                 null,
-                '-1 day 00:00:00',
-                array(
-                    '1' => array(24390, 17355, 7035, 217),
-                    '2' => array(840, 480, 360, 6),
-                    '3' => array(0, 0, 0, 0),
-                )
+                '00:00:00',
+                array(25230, 17835, 7395,223)
             ),
             'yesterday' => array(
                 '-1 day 00:00:00',
                 '-1 day 23:59:59',
-                array(
-                    '1' => array(5150, 3651, 1499, 45),
-                    '2' => array(0, 0, 0, 0),
-                    '3' => array(0, 0, 0, 0),
-                )
+                array(5150, 3651, 1499, 45)
             ),
             '-3 days 23:59' => array(
                 '-3 day 00:00:00',
                 '-3 day 23:59:59',
-                array(
-                    '1' => array(4790, 3371, 1419, 43),
-                    '2' => array(840, 480, 360, 6),
-                    '3' => array(0, 0, 0, 0)
-                )
+                array(5630, 3851, 1779, 49)
             ),
             '-3 days 00:00' => array(
                 '-3 day 00:00:00',
                 '-2 day 00:00:00',
-                array(
-                    '1' => array(4790, 3371, 1419, 43),
-                    '2' => array(840, 480, 360, 6),
-                    '3' => array(0, 0, 0, 0)
-                )
+                array(5630, 3851, 1779, 49)
             )
         );
     }

@@ -3,13 +3,30 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Network;
 
 use Doctrine\MongoDB\ArrayIterator;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesRepository;
 
 class GrossMarginSalesNetworkRepository extends GrossMarginSalesRepository
 {
+    /**
+     * @param GrossMarginSalesFilter $filter
+     * @return Cursor|GrossMarginSalesNetwork[]
+     */
+    public function findByFilter(GrossMarginSalesFilter $filter)
+    {
+        $criteria = array(
+            'day' => array(
+                '$gte' => $filter->dateFrom,
+                '$lt' => $filter->dateTo,
+            )
+        );
+        return $this->findBy($criteria);
+    }
+
     /**
      * @param array $result
      * @return GrossMarginSales

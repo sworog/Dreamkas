@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 
@@ -47,17 +48,14 @@ abstract class GrossMarginSalesReport extends AbstractDocument
     }
 
     /**
-     * @param Money $grossSales
-     * @param Money $costOfGoods
-     * @param Money $grossMargin
-     * @param Quantity $quantity
+     * @param NumericFactory $numericFactory
      */
-    public function setValues(Money $grossSales, Money $costOfGoods, Money $grossMargin, Quantity $quantity)
+    public function setEmptyValues(NumericFactory $numericFactory)
     {
-        $this->grossSales = $grossSales;
-        $this->costOfGoods = $costOfGoods;
-        $this->grossMargin = $grossMargin;
-        $this->quantity = $quantity;
+        $this->grossSales = $numericFactory->createMoney(0);
+        $this->costOfGoods = $numericFactory->createMoney(0);
+        $this->grossMargin = $numericFactory->createMoney(0);
+        $this->quantity = $numericFactory->createQuantity(0);
     }
 
     /**

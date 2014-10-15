@@ -10,9 +10,11 @@ use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupRepository;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\Network\GrossMarginSalesNetworkRepository;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Store\GrossMarginSalesStoreRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Network\GrossMarginSalesByNetwork;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Stores\GrossMarginSalesByStoresCollection;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -36,6 +38,11 @@ class GrossMarginSalesReportManager
      * @var GrossMarginSalesStoreRepository
      */
     protected $grossMarginSalesStoreRepository;
+
+    /**
+     * @var GrossMarginSalesNetworkRepository
+     */
+    protected $grossMarginSalesNetworkRepository;
 
     /**
      * @var ProductRepository
@@ -65,6 +72,8 @@ class GrossMarginSalesReportManager
      *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.catalog_group.repository"),
      *      "grossMarginSalesStoreRepository"
      *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.store.repository"),
+     *      "grossMarginSalesNetworkRepository"
+     *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.network.repository"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "catalogManager" = @DI\Inject("lighthouse.core.document.catalog.manager"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
@@ -74,6 +83,7 @@ class GrossMarginSalesReportManager
      * @param GrossMarginSalesProductRepository $grossMarginSalesProductRepository
      * @param GrossMarginSalesCatalogGroupRepository $grossMarginSalesCatalogGroupRepository
      * @param GrossMarginSalesStoreRepository $grossMarginSalesStoreRepository
+     * @param GrossMarginSalesNetworkRepository $grossMarginSalesNetworkRepository
      * @param ProductRepository $productRepository
      * @param CatalogManager $catalogManager
      * @param StoreRepository $storeRepository
@@ -83,6 +93,7 @@ class GrossMarginSalesReportManager
         GrossMarginSalesProductRepository $grossMarginSalesProductRepository,
         GrossMarginSalesCatalogGroupRepository $grossMarginSalesCatalogGroupRepository,
         GrossMarginSalesStoreRepository $grossMarginSalesStoreRepository,
+        GrossMarginSalesNetworkRepository $grossMarginSalesNetworkRepository,
         ProductRepository $productRepository,
         CatalogManager $catalogManager,
         StoreRepository $storeRepository,
@@ -91,9 +102,12 @@ class GrossMarginSalesReportManager
         $this->grossMarginSalesProductRepository = $grossMarginSalesProductRepository;
         $this->grossMarginSalesCatalogGroupRepository = $grossMarginSalesCatalogGroupRepository;
         $this->grossMarginSalesStoreRepository = $grossMarginSalesStoreRepository;
+        $this->grossMarginSalesNetworkRepository = $grossMarginSalesNetworkRepository;
+
         $this->productRepository = $productRepository;
         $this->catalogManager = $catalogManager;
         $this->storeRepository = $storeRepository;
+
         $this->numericFactory = $numericFactory;
     }
 
@@ -122,6 +136,15 @@ class GrossMarginSalesReportManager
     public function recalculateStoreReport(OutputInterface $output = null)
     {
         return $this->grossMarginSalesStoreRepository->recalculate($output);
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @return int
+     */
+    public function recalculateNetworkReport(OutputInterface $output = null)
+    {
+        return $this->grossMarginSalesNetworkRepository->recalculate($output);
     }
 
     /**
@@ -168,5 +191,15 @@ class GrossMarginSalesReportManager
             $reports,
             $stores
         );
+    }
+
+    /**
+     * @param GrossMarginSalesFilter $filter
+     * @return GrossMarginSalesByNetwork
+     */
+    public function getNetworkReport(GrossMarginSalesFilter $filter)
+    {
+        $dayReports = $this->grossMarginSalesNetworkRepository->findByFilter($filter);
+        return new GrossMarginSalesByNetwork($this->numericFactory, $dayReports);
     }
 }

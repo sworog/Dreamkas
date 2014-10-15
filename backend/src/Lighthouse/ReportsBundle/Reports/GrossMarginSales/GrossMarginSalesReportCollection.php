@@ -72,12 +72,7 @@ abstract class GrossMarginSalesReportCollection extends DocumentCollection
      */
     protected function addEmptyReport(GrossMarginSalesReport $report)
     {
-        $report->setValues(
-            $this->numericFactory->createMoney(0),
-            $this->numericFactory->createMoney(0),
-            $this->numericFactory->createMoney(0),
-            $this->numericFactory->createQuantity(0)
-        );
+        $report->setEmptyValues($this->numericFactory);
         $this->set($report->getItem()->id, $report);
         return $report;
     }
