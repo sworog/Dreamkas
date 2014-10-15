@@ -19,9 +19,8 @@
 #import "AFNetworking.h"
 #import "DPLog.h"
 #import "MBProgressHUD.h"
-#import "NSDate+Utilities.h"
-#import "UIView+Positioning.h"
 #import "Reachability.h"
+#import "CoreData+MagicalRecord.h"
 
 //
 // Базовые
@@ -34,6 +33,9 @@
 #import "NotificationDefines.h"
 #import "StoryboardSegues.h"
 
+#import "NSDate+Utilities.h"
+#import "UIView+Positioning.h"
+
 #import "CustomNavigationController.h"
 #import "AbstractViewController.h"
 #import "AbstractViewController+Modal.h"
@@ -42,7 +44,8 @@
 // Модели и их обработчики
 //
 
-// ..
+#import "AbstractModel.h"
+#import "AbstractModel+Additions.h"
 
 //
 // Менеджеры и хэлперы
@@ -67,6 +70,7 @@
 #import "RESTClient.h"
 #import "RESTClient+Auth.h"
 #import "RESTClient+Groups.h"
+#import "RESTClient+Stores.h"
 
 //
 // Кастомные компоненты

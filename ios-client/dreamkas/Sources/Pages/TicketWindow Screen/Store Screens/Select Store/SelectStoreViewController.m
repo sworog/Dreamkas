@@ -27,7 +27,9 @@
 {
     [super viewDidLoad];
     
-    // ..
+    [NetworkManager requestStores:^(NSArray *data, NSError *error) {
+        // ..
+    }];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
