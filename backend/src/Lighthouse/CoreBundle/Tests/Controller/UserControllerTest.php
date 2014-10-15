@@ -986,6 +986,7 @@ class UserControllerTest extends WebTestCase
                         'PUT::{bankAccount}',
                     ),
                     'others' => array(
+                        'GET::api/1/reports/gross',
                         'GET::api/1/reports/gross/catalog/groups',
                         'GET::api/1/reports/gross/catalog/groups/{group}/products',
                         'GET::api/1/reports/gross/stores',
