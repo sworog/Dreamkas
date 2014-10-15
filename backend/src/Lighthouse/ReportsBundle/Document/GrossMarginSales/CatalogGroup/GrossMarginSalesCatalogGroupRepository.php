@@ -43,8 +43,6 @@ class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
         $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
         $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
 
-        $this->setReportValues($report, $result);
-
         return $report;
     }
 

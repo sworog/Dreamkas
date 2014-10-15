@@ -54,8 +54,6 @@ class GrossMarginSalesStoreRepository extends GrossMarginSalesRepository
         $report = new GrossMarginSalesStore();
         $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
 
-        $this->setReportValues($report, $result);
-
         return $report;
     }
 
