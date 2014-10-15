@@ -1,8 +1,8 @@
 ({
-    baseUrl: '../web/',
-    mainConfigFile: '../web/require.config.js',
+    baseUrl: '../dev/',
+    mainConfigFile: '../dev/require.config.js',
 
-    stubModules: ['ejs', 'require.config'],
+    stubModules: ['ejs'],
     skipDirOptimize: true,
     optimizeCss: 'none',
     optimize: 'none',
@@ -10,7 +10,7 @@
     removeCombined: true,
 
     dir: "../production",
-
+    
     modules: [
         {
             name: "routes/unauthorized",
