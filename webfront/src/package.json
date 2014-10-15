@@ -13,6 +13,6 @@
   "scripts": {
     "test": "node ./node_modules/karma/bin/karma start --single-run",
     "test-remote": "node ./node_modules/karma/bin/karma start karma.remote.js --single-run",
-    "build": "node ../build/r.js -o ../build/build.js"
+    "build": "node ../tools/r.js -o ../tools/build.js"
   }
 }

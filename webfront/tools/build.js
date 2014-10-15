@@ -1,6 +1,6 @@
 ({
-    baseUrl: '../dev/',
-    mainConfigFile: '../dev/require.config.js',
+    baseUrl: '../src/',
+    mainConfigFile: '../src/require.config.js',
 
     stubModules: ['ejs'],
     skipDirOptimize: true,
@@ -9,7 +9,7 @@
     optimizeAllPluginResources: true,
     removeCombined: true,
 
-    dir: "../production",
+    dir: "../build",
     
     modules: [
         {

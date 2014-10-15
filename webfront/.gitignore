@@ -1,4 +1,4 @@
 /.bundle/
 /vendor/
-production/
+build/
 npm-debug.log
