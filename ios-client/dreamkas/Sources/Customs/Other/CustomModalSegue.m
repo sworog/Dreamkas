@@ -25,7 +25,8 @@
     transition.subtype = kCATransitionFromBottom;
     [source_vc.view.window.layer addAnimation:transition forKey:kCATransition];
     
-    [source_vc presentViewController:destination_vc animated:NO completion:nil];
+    [source_vc.navigationController pushViewController:destination_vc animated:NO];
+    //[source_vc presentViewController:destination_vc animated:NO completion:nil];
 }
 
 @end

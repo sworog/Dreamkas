@@ -269,6 +269,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="closeButton" destination="N50-Hc-Ruh" id="zgM-MU-rzL"/>
                         <outlet property="containerView" destination="0xl-GR-uQC" id="5bv-Ea-MQv"/>
                         <outlet property="logInButton" destination="CXa-Q0-UrX" id="b6n-9z-qRK"/>
                         <outlet property="loginField" destination="zZ4-bp-6N4" id="ave-Ke-VUz"/>
@@ -300,6 +301,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="4A8-kn-6yP" id="jP5-Oy-Kh2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xc-Da-7Y7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -380,7 +384,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IntroImg" width="400" height="266"/>
+        <image name="IntroImg" width="600" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="0y2-Ck-unP"/>

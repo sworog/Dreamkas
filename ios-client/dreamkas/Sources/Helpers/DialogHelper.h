@@ -21,4 +21,6 @@
 + (UIAlertView*)showConfirmMessage:(NSString*)text delegate:(id<UIAlertViewDelegate>)delegate;
 + (UIAlertView*)showConfirmMessage:(NSString *)text withTitle:(NSString *)title delegate:(id<UIAlertViewDelegate>)delegate;
 
++ (UIAlertView *)getAlertView:(NSString *)accessibilityLabel;
+
 @end

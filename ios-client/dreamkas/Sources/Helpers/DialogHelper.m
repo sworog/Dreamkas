@@ -37,7 +37,7 @@
                                                         delegate:delegate
                                                cancelButtonTitle:NSLocalizedString(@"dialog_helper_alert_ok_button", nil)
                                                otherButtonTitles:nil];
-    [alert_view setAccessibilityLabel:@"ErrorAlertView"];
+    [alert_view setAccessibilityLabel:AI_Common_ErrorAlert];
 	[alert_view show];
     
     return alert_view;
@@ -65,6 +65,7 @@
                                                         delegate:delegate
                                                cancelButtonTitle:NSLocalizedString(@"dialog_helper_alert_ok_button", nil)
                                                otherButtonTitles:nil];
+    [alert_view setAccessibilityLabel:AI_Common_MessageAlert];
 	[alert_view show];
     
     return alert_view;
@@ -82,9 +83,27 @@
                                                         delegate:delegate
                                                cancelButtonTitle:NSLocalizedString(@"dialog_helper_alert_no_button", nil)
                                                otherButtonTitles:NSLocalizedString(@"dialog_helper_alert_yes_button", nil), nil];
+    [alert_view setAccessibilityLabel:AI_Common_ConfirmAlert];
 	[alert_view show];
     
     return alert_view;
+}
+
++ (UIAlertView *)getAlertView:(NSString *)accessibilityLabel
+{
+    if ([[UIApplication sharedApplication].keyWindow isMemberOfClass:[UIWindow class]]) {
+        DPLogFast(@"There is no alerts showing right know");
+        return nil;
+    }
+    
+    for (UIView *view in [[UIApplication sharedApplication].keyWindow subviews]) {
+        DPLogFast(@">>>>>>>");
+        if (([view isKindOfClass:[UIAlertView class]]) &&
+            ([[view accessibilityLabel] isEqualToString:accessibilityLabel])) {
+            return (UIAlertView*) view;
+        }
+    }
+    return nil;
 }
 
 @end

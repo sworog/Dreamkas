@@ -55,6 +55,7 @@
     
     [self configureBackground];
     [self configureLocalization];
+    [self configureAccessibilityLabels];
 }
 
 - (void)didReceiveMemoryWarning
@@ -70,6 +71,14 @@
  * Установка локализованных строк
  */
 - (void)configureLocalization
+{
+    // override me
+}
+
+/**
+ * Установка идентификаторов доступа к визуальным элементам
+ */
+- (void)configureAccessibilityLabels
 {
     // override me
 }

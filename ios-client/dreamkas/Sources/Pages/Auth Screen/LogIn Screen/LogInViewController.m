@@ -8,12 +8,14 @@
 
 #import "LogInViewController.h"
 
-#define PasswordMinLength 3
+#define PasswordMinLength 6
 
 @interface LogInViewController () <UITextFieldDelegate>
 
 @property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
 @property (nonatomic, weak) IBOutlet CustomFilledButton *logInButton;
+
+@property (nonatomic, weak) IBOutlet UIButton *closeButton;
 
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 
@@ -26,17 +28,28 @@
 
 #pragma mark - View Lifecycle
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.logInButton setEnabled:NO];
+}
+
+#pragma mark - Configuration Methods
+
 - (void)configureLocalization
 {
     [self.titleLabel setText:NSLocalizedString(@"log_in_title_name", nil)];
     [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
 }
 
-- (void)viewDidLoad
+- (void)configureAccessibilityLabels
 {
-    [super viewDidLoad];
+    [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
+    [self.closeButton setAccessibilityLabel:AI_LogInPage_CloseButton];
     
-    [self.logInButton setEnabled:NO];
+    [self.loginField setAccessibilityLabel:AI_LogInPage_LoginField];
+    [self.passwordField setAccessibilityLabel:AI_LogInPage_PwdField];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
@@ -68,8 +81,8 @@
          
          if (error == nil) {
              // если авторизация прошла успешно - запоминаем данные пользователя
-             [CurrentUser updateLastUsedLogin:API_TEST_LOGIN
-                             lastUsedPassword:API_TEST_PWD];
+             [CurrentUser updateLastUsedLogin:self.loginField.text
+                             lastUsedPassword:self.passwordField.text];
              
              [strong_self performSegueWithIdentifier:LogInToTicketWindowSegueName sender:self];
          }

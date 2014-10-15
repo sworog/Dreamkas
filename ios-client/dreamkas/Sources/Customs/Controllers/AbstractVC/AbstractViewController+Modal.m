@@ -96,7 +96,8 @@
         });
     }];
     
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:NO];
+    //[self dismissViewControllerAnimated:NO completion:nil];
     
     [CATransaction commit];
 }
