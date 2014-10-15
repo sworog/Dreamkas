@@ -5,6 +5,8 @@ define(function(require) {
 
     return amdLoader('ejs', function(name, source, req, callback, errback, config) {
 
-        callback(templateCompiler(source));
+        var content = 'define(function(require){return ' + templateCompiler(source) + '})';
+
+        callback(content);
     });
 });

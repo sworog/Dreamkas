@@ -2,7 +2,7 @@
     baseUrl: '../src/',
     mainConfigFile: '../src/require.config.js',
 
-    stubModules: ['ejs'],
+    stubModules: ['ejs', 'amd-loader'],
     skipDirOptimize: true,
     optimizeCss: 'none',
     optimize: 'none',

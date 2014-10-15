@@ -2362,7 +2362,7 @@ var requirejs, require, define, xpcUtil;
 /*global require: false, java: false, load: false */
 
 (function () {
-    'use strict';
+    
     require.load = function (context, moduleName, url) {
 
         load(url);
@@ -2393,7 +2393,7 @@ var requirejs, require, define, xpcUtil;
  */
 
 (function () {
-    'use strict';
+    
 
     var nodeReq = requirejsVars.nodeRequire,
         req = requirejsVars.require,
@@ -2565,7 +2565,7 @@ var requirejs, require, define, xpcUtil;
 /*global require, load */
 
 (function () {
-    'use strict';
+     
     require.load = function (context, moduleName, url) {
 
         load(url);
@@ -2654,7 +2654,7 @@ var requirejs, require, define, xpcUtil;
 /*global define, java */
 
 define('lang', function () {
-    'use strict';
+    
 
     var lang, isJavaObj,
         hasOwn = Object.prototype.hasOwnProperty;
@@ -2877,7 +2877,7 @@ define('lang', function () {
 
 var prim;
 (function () {
-    'use strict';
+    
     var op = Object.prototype,
         hasOwn = op.hasOwnProperty;
 
@@ -4334,7 +4334,7 @@ define('xpconnect/file', ['prim'], function (prim) {
 if(env === 'browser') {
 /*global process */
 define('browser/quit', function () {
-    'use strict';
+    
     return function (code) {
     };
 });
@@ -4343,7 +4343,7 @@ define('browser/quit', function () {
 if(env === 'node') {
 /*global process */
 define('node/quit', function () {
-    'use strict';
+    
     return function (code) {
         var draining = 0;
         var exit = function () {
@@ -4370,7 +4370,7 @@ define('node/quit', function () {
 if(env === 'rhino') {
 /*global quit */
 define('rhino/quit', function () {
-    'use strict';
+    
     return function (code) {
         return quit(code);
     };
@@ -4381,7 +4381,7 @@ define('rhino/quit', function () {
 if(env === 'xpconnect') {
 /*global quit */
 define('xpconnect/quit', function () {
-    'use strict';
+    
     return function (code) {
         return quit(code);
     };
@@ -4567,7 +4567,7 @@ parseUnaryExpression: true,
 parseStatement: true, parseSourceElement: true */
 
 (function (root, factory) {
-    'use strict';
+    
 
     // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js,
     // Rhino, and plain browser loading.
@@ -4581,7 +4581,7 @@ parseStatement: true, parseSourceElement: true */
         factory((root.esprima = {}));
     }
 }(this, function (exports) {
-    'use strict';
+    
 
     var Token,
         TokenName,
@@ -8391,7 +8391,7 @@ define('uglifyjs/consolidator', ["require", "exports", "module", "./parse-js", "
 // TODO(user) Consolidation of ECMA-262 6th Edition programs.
 // TODO(user) Rewrite in ECMA-262 6th Edition.
 exports['ast_consolidate'] = function(oAbstractSyntaxTree) {
-  'use strict';
+  
   /*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, immed:true,
         latedef:true, newcap:true, noarge:true, noempty:true, nonew:true,
         onevar:true, plusplus:true, regexp:true, undef:true, strict:true,
@@ -22747,7 +22747,7 @@ exports.describe_ast = function() {
 /*global define: false */
 
 define('parse', ['./esprimaAdapter', 'lang'], function (esprima, lang) {
-    'use strict';
+    
 
     function arrayToString(ary) {
         var output = '[';
@@ -23731,7 +23731,7 @@ define('parse', ['./esprimaAdapter', 'lang'], function (esprima, lang) {
 
 define('transform', [ './esprimaAdapter', './parse', 'logger', 'lang'],
 function (esprima, parse, logger, lang) {
-    'use strict';
+    
     var transform,
         baseIndentRegExp = /^([ \t]+)/,
         indentRegExp = /\{[\r\n]+([ \t]+)/,
@@ -24175,7 +24175,7 @@ function (esprima, parse, logger, lang) {
 /*global define: false */
 
 define('pragma', ['parse', 'logger'], function (parse, logger) {
-    'use strict';
+    
     function Temp() {}
 
     function create(obj, mixin) {
@@ -24657,7 +24657,7 @@ define('optimize', [ 'lang', 'logger', 'env!env/optimize', 'env!env/file', 'pars
 function (lang,   logger,   envOptimize,        file,           parse,
           pragma, uglify,             uglify2,
           sourceMap) {
-    'use strict';
+    
 
     var optimize,
         cssImportRegExp = /\@import\s+(url\()?\s*([^);]+)\s*(\))?([\w, ]*)(;)?/ig,
@@ -25674,7 +25674,7 @@ define('requirePatch', [ 'env!env/file', 'pragma', 'parse', 'lang', 'logger', 'c
 /*global define: false, console: false */
 
 define('commonJs', ['env!env/file', 'parse'], function (file, parse) {
-    'use strict';
+    
     var commonJs = {
         //Set to false if you do not want this file to log. Useful in environments
         //like node where you want the work to happen without noise.
@@ -25779,7 +25779,7 @@ define('commonJs', ['env!env/file', 'parse'], function (file, parse) {
 
 
 define('build', function (require) {
-    'use strict';
+    
 
     var build,
         lang = require('lang'),

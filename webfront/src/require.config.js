@@ -3,7 +3,11 @@ require.config({
         'moment': 'bower_components/momentjs/moment',
         'jquery': 'bower_components/jquery/dist/jquery',
         'select2': 'bower_components/select2/select2',
-        'select2_locale_ru': 'bower_components/select2/select2_locale_ru'
+        'select2_locale_ru': 'bower_components/select2/select2_locale_ru',
+
+        //plugins
+        'i18n': 'bower_components/requirejs-i18n/i18n',
+        'ejs': 'kit/templateLoader/templateLoader'
     },
 
     map: {
@@ -21,11 +25,7 @@ require.config({
             'amd-loader': 'bower_components/amd-loader/amd-loader',
             'sortable': 'bower_components/sortable/js/sortable',
             'datepicker': 'madmin/vendors/bootstrap-datepicker/js/bootstrap-datepicker',
-            'typeahead': 'bower_components/typeahead.js/dist/typeahead.bundle',
-
-            //plugins
-            'i18n': 'bower_components/requirejs-i18n/i18n',
-            'ejs': 'kit/templateLoader/templateLoader'
+            'typeahead': 'bower_components/typeahead.js/dist/typeahead.bundle'
         }
     },
 
