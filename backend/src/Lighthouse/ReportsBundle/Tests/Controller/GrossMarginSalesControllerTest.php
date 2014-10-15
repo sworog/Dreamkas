@@ -34,20 +34,23 @@ class GrossMarginSalesControllerTest extends WebTestCase
      * @param $productOtherSubCategoryId
      * @return array|\string[]
      */
-    protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId)
+    protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId, Store $otherStore)
     {
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('-10 days'))), $store->id)
-                ->createInvoiceProduct($productIds['1'], 100, 90)
+                ->createInvoiceProduct($productIds['1'], 80, 90)
                 ->createInvoiceProduct($productIds['2'], 100, 50)
                 ->createInvoiceProduct($productIds['3'], 100, 100)
                 ->createInvoiceProduct($productOtherSubCategoryId, 99, 77)
+            ->persist()
+                ->createInvoice(array('date' => date('c', strtotime('-4 days'))), $otherStore->id)
+                ->createInvoiceProduct($productIds['1'], 20, 80)
             ->flush();
 
         $this->factory()
             ->receipt()
-                ->createSale($store, '8:01')
+                ->createSale($store, '0:00:01')
                 ->createReceiptProduct($productIds['1'], 5, 150)
                 ->createReceiptProduct($productIds['2'], 7, 100)
                 ->createReceiptProduct($productIds['3'], 10, 130)
@@ -70,6 +73,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 ->createReceiptProduct($productIds['2'], 7, 100)
                 ->createReceiptProduct($productIds['3'], 8, 130)
                 ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+            ->persist()
+                ->createSale($otherStore, '-3 days 12:56')
+                ->createReceiptProduct($productIds['1'], 6, 140)
             ->persist()
                 ->createSale($store, '-4 days 9:01')
                 ->createReceiptProduct($productIds['1'], 5, 150)
@@ -125,7 +131,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $otherSubCategory = $this->factory()->catalog()->getSubCategory('other sub category');
         $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId);
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId, $stores['2']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateProductReport();
@@ -319,7 +325,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
         $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateCatalogGroupReport();
@@ -443,7 +449,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
         $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateStoreReport();
@@ -478,7 +484,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 null,
                 array(
                     '1' => array(29440, 20926, 8514, 262),
-                    '2' => array(0, 0, 0, 0),
+                    '2' => array(840, 480, 360, 6),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
@@ -487,7 +493,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 '-1 day 00:00:00',
                 array(
                     '1' => array(19740, 13984, 5756, 176),
-                    '2' => array(0, 0, 0, 0),
+                    '2' => array(840, 480, 360, 6),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
@@ -496,7 +502,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 null,
                 array(
                     '1' => array(24790, 17555, 7235, 221),
-                    '2' => array(0, 0, 0, 0),
+                    '2' => array(840, 480, 360, 6),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
@@ -505,6 +511,15 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 '-1 day 00:00:00',
                 array(
                     '1' => array(24390, 17355, 7035, 217),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            'yesterday' => array(
+                '-1 day 00:00:00',
+                '00:00:00',
+                array(
+                    '1' => array(10200, 7222, 2978, 90),
                     '2' => array(0, 0, 0, 0),
                     '3' => array(0, 0, 0, 0),
                 )

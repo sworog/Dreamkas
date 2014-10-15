@@ -3,6 +3,7 @@
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
@@ -69,7 +70,7 @@ class GrossMarginSalesProductTest extends WebTestCase
         $trialBalanceCount = $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->assertEquals(3, $trialBalanceCount);
 
-        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateStoreReport();
+        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateProductReport();
         $this->assertEquals(4, $recalculateCount);
 
         $this->assertProductReport($store->id, $productId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
@@ -93,6 +94,8 @@ class GrossMarginSalesProductTest extends WebTestCase
             $productId,
             $day
         );
+
+        $this->assertNotNull($report, 'Product report not found');
 
         $this->assertEquals($grossSales, $report->grossSales->toString());
         $this->assertEquals($costOfGoods, $report->costOfGoods->toString());

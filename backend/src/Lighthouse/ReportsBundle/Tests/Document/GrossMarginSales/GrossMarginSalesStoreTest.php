@@ -63,6 +63,10 @@ class GrossMarginSalesStoreTest extends WebTestCase
                 ->createReceiptProduct($productId1, 1, 30)
                 ->createReceiptProduct($productId2, 2.5, 31.09)
             ->persist()
+                ->createSale($stores['1'], '-1 days 19:30')
+                ->createReceiptProduct($productId1, 2, 30)
+                ->createReceiptProduct($productId3, 5, 15)
+            ->persist()
                 ->createSale($stores['2'], '-1 days 09:56')
                 ->createReceiptProduct($productId1, 6, 36)
                 ->createReceiptProduct($productId2, 3.5, 33.39)
@@ -89,7 +93,7 @@ class GrossMarginSalesStoreTest extends WebTestCase
         $this->assertStoreReportNotFound($stores['1'], '00:00:00');
         $this->assertStoreReportNotFound($stores['2'], '00:00:00');
 
-        $this->assertStoreReport($stores['1'], '-1 days 00:00:00', 107.73, 82.5, 25.23, 3.5);
+        $this->assertStoreReport($stores['1'], '-1 days 00:00:00', 242.73, 192.50, 50.23, 10.5);
         $this->assertStoreReport($stores['2'], '-1 days 00:00:00', 332.87, 217.00, 115.87, 9.5);
 
         $this->assertStoreReport($stores['1'], '-2 days 00:00:00', 139.73, 102.5, 37.23, 4.5);
@@ -115,6 +119,8 @@ class GrossMarginSalesStoreTest extends WebTestCase
     ) {
         $day = new DateTimestamp($day);
         $report = $this->getGrossMarginSalesStoreRepository()->findByStoreIdAndDay($store->id, $day);
+
+        $this->assertNotNull($report, 'Store report not found');
 
         $this->assertEquals($grossSales, $report->grossSales->toString());
         $this->assertEquals($costOfGoods, $report->costOfGoods->toString());
