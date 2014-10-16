@@ -68,7 +68,7 @@ class Set10ProductConverter
             return $xmlProducts;
         }
 
-        $storeProducts = $this->storeProductRepository->findByProduct($product);
+        $storeProducts = $this->storeProductRepository->findOrCreateByProduct($product);
 
         $versionProducts = array();
 

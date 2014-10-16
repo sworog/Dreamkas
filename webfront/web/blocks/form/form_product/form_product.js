@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Form = require('blocks/form/form.deprecated'),
-            ProductModel = require('models/product/product'),
+            ProductModel = require('resources/product/model'),
             normalizeNumber = require('kit/normalizeNumber/normalizeNumber'),
             formatNumber = require('kit/formatNumber/formatNumber');
 

@@ -61,6 +61,8 @@ define(function(require, exports, module) {
 				dateFrom: block.dateFrom,
 				dateTo: block.dateTo
 			});
+
+            block.$el.trigger('update');
 		}
     });
 });

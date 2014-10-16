@@ -4,14 +4,11 @@ define(function(require, exports, module) {
         checkKey = require('kit/checkKey/checkKey');
 
     $(document)
-        .on('click', '.page__sideBarLink', function(e) {
-            e.preventDefault();
-
-            document.querySelector('.page').classList.toggle('page_sideBarVisible');
-        })
         .on('click', function(e) {
 
-            if (!e.target.classList.contains('page__sideBarLink')){
+            if (e.target.classList.contains('page__sideBarLink')){
+                document.querySelector('.page').classList.toggle('page_sideBarVisible');
+            } else if (!e.target.classList.contains('sideBar')) {
                 document.querySelector('.page').classList.remove('page_sideBarVisible');
             }
         })
@@ -27,7 +24,7 @@ define(function(require, exports, module) {
 		models: {
 			store: function(){
 				var page = this,
-					StoreModel = require('models/store/store');
+					StoreModel = require('resources/store/model');
 
 				return new StoreModel({
 					id: page.params.storeId

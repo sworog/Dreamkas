@@ -3,48 +3,31 @@ package ru.crystals.vaverjanov.dreamkas.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.octo.android.robospice.SpiceManager;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
-
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 import org.springframework.util.StringUtils;
-
 import ru.crystals.vaverjanov.dreamkas.R;
-import ru.crystals.vaverjanov.dreamkas.controller.GetGroupsRequest;
+import ru.crystals.vaverjanov.dreamkas.controller.IChangeFragmentContainer;
 import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.GetGroupsRequestListener;
-import ru.crystals.vaverjanov.dreamkas.model.DreamkasFragments;
-import ru.crystals.vaverjanov.dreamkas.model.NamedObjects;
+import ru.crystals.vaverjanov.dreamkas.controller.PreferencesManager;
+import ru.crystals.vaverjanov.dreamkas.model.DrawerMenu;
+
 
 @EActivity(R.layout.activity_lighhouse_demo)
-public class LighthouseDemoActivity extends Activity implements IChangeFragmentHandler
+public class LighthouseDemoActivity extends Activity implements IChangeFragmentContainer
 {
     @ViewById
     DrawerLayout drawer_layout;
@@ -57,6 +40,7 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
     private SpiceManager spiceManager = new SpiceManager(LighthouseSpiceService.class);
 
     private String token;
+    private Fragment mCurrentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,7 +57,7 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
     {
         drawer_layout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-        lstDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, getResources().getStringArray(R.array.views_array)));
+        lstDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, DrawerMenu.getMenuItems().values().toArray(new String[DrawerMenu.getMenuItems().size()])));
         lstDrawer.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         lstDrawer.setSelection(0);
 
@@ -98,7 +82,13 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
 
         drawerToggle.syncState();
 
-        displayView(0);
+        if(!StringUtils.hasText(PreferencesManager.getInstance().getCurrentStore()))
+        {
+            changeState(DrawerMenu.AppStates.Store);
+        }else
+        {
+            changeState(DrawerMenu.AppStates.Kas);
+        }
     }
 
     @Override
@@ -120,10 +110,8 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
     void lstDrawerItemClicked(int position)
     {
         lstDrawer.setSelection(position);
-        //todo change activity
-        //Toast.makeText(this, position, Toast.LENGTH_LONG).show();
-        displayView(position);
-        //clipboardManager.setText(selectedBookmark.getUrl());
+        changeState(DrawerMenu.AppStates.fromValue(position));
+        drawer_layout.closeDrawer(lstDrawer);
     }
 
     @Override
@@ -140,40 +128,43 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
         super.onStop();
     }
 
-    public void displayView(int position)
-    {
-        // update the main content by replacing fragments
-        Fragment fragment = null;
-        switch (position)
-        {
-            case 0:
-                fragment = new KasFragment_();
-                break;
-            case 1:
-                fragment = new StoreFragment_();
-                break;
-            case 2:
-                exitConfirmation();
 
+
+    public void changeState(final DrawerMenu.AppStates state)
+    {
+        //Fragment currentFragment = null;
+        switch (state)
+        {
+            case Kas:
+                mCurrentFragment = new KasFragment_();
+                displayCurrentFragment(mCurrentFragment, String.valueOf(state.getValue()));
+                break;
+            case Store:
+                mCurrentFragment = new StoreFragment_();
+                displayCurrentFragment(mCurrentFragment,String.valueOf(state.getValue()));
+                break;
+            case Exit:
+                exitConfirmation();
                 break;
             default:
                 break;
         }
 
-        if (fragment != null)
-        {
-            android.app.FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                lstDrawer.setItemChecked(state.getValue(), true);
+                lstDrawer.setSelection(state.getValue());
+            }
+        });
+    }
 
-            lstDrawer.setItemChecked(position, true);
-            lstDrawer.setSelection(position);
-            //setTitle(viewsNames[position]);
-            drawer_layout.closeDrawer(lstDrawer);
-        } else
-        {
-            // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
-        }
+    private void displayCurrentFragment(Fragment fragment, String tag)
+    {
+        final android.app.FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.executePendingTransactions();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment, tag).commit();
+        //todo wait for transaction ends?
     }
 
     private void exitConfirmation()
@@ -213,14 +204,18 @@ public class LighthouseDemoActivity extends Activity implements IChangeFragmentH
     }
 
     @Override
-    public void onFragmentChange(DreamkasFragments target)
+    public void onFragmentChange(DrawerMenu.AppStates target)
     {
-        displayView(target.getValue());
+        changeState(target);
     }
 
     @Override
     public SpiceManager getRestClient()
     {
         return spiceManager;
+    }
+
+    public Fragment getCurrentFragment() {
+        return mCurrentFragment;
     }
 }

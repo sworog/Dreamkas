@@ -233,7 +233,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Электронная почта" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZ4-bp-6N4" userLabel="Email Text Field" customClass="CustomTextField">
                                         <rect key="frame" x="70" y="110" width="628" height="52"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
                                             <outlet property="delegate" destination="6wI-lg-GTY" id="SfD-Bz-3HH"/>
                                         </connections>
@@ -252,7 +252,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pa9-FG-xrh" userLabel="Password Text Field" customClass="CustomTextField">
                                         <rect key="frame" x="70" y="190" width="628" height="52"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="6wI-lg-GTY" id="IB2-DP-JQM"/>
                                         </connections>
@@ -269,6 +269,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="closeButton" destination="N50-Hc-Ruh" id="zgM-MU-rzL"/>
                         <outlet property="containerView" destination="0xl-GR-uQC" id="5bv-Ea-MQv"/>
                         <outlet property="logInButton" destination="CXa-Q0-UrX" id="b6n-9z-qRK"/>
                         <outlet property="loginField" destination="zZ4-bp-6N4" id="ave-Ke-VUz"/>
@@ -484,7 +485,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IntroImg" width="400" height="266"/>
+        <image name="IntroImg" width="600" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="g2A-tg-gSL"/>

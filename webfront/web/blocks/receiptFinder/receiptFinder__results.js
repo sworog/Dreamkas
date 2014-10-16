@@ -1,15 +1,15 @@
 define(function(require, exports, module) {
     //requirements
-	var moment = require('moment');
     var CollectionBlock = require('kit/collectionBlock/collectionBlock');
 
     return CollectionBlock.extend({
+        itemSelector: '.receiptFinder__resultLink',
+        collection: function(){
+            return PAGE.collections.receipts;
+        },
         template: require('ejs!./receiptFinder__results.ejs'),
-		itemSelector: '.receiptFinder__resultLink',
-		isDifferentDates: function(date1, date2) {
-			var formatDate = this.formatDate;
-
-			return formatDate(date1) != formatDate(date2);
-		}
+        isDifferentDates: function(date1, date2) {
+            return this.formatDate(date1) != this.formatDate(date2);
+        }
     });
 });

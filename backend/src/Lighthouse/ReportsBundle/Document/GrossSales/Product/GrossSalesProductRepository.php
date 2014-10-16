@@ -7,6 +7,10 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\MongoDB\Types\MoneyType;
+use Lighthouse\CoreBundle\MongoDB\Types\QuantityType;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesCalculatable;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -15,6 +19,19 @@ use MongoId;
 
 class GrossSalesProductRepository extends DocumentRepository implements GrossSalesCalculatable
 {
+    /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
+
+    /**
+     * @param NumericFactory $numericFactory
+     */
+    public function setNumericFactory(NumericFactory $numericFactory)
+    {
+        $this->numericFactory = $numericFactory;
+    }
+
     /**
      * @param string $storeProductId
      * @param DateTime $dayHour
@@ -52,13 +69,15 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
      * @param StoreProduct $storeProduct
      * @param Money $runningSum
      * @param Money $hourSum
+     * @param Quantity $hourQuantity
      * @return GrossSalesProductReport
      */
     public function createByDayHourAndStoreProduct(
         DateTime $dayHour,
         StoreProduct $storeProduct,
         Money $runningSum = null,
-        Money $hourSum = null
+        Money $hourSum = null,
+        Quantity $hourQuantity = null
     ) {
         $storeProductId = $this->getDocumentIdentifierValue($storeProduct);
         $report = new GrossSalesProductReport();
@@ -67,6 +86,7 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
         $report->product = $storeProduct;
         $report->runningSum = $runningSum ?: new Money(0);
         $report->hourSum = $hourSum ?: new Money(0);
+        $report->hourQuantity = $hourQuantity ?: $this->numericFactory->createQuantity(0);
 
         return $report;
     }
@@ -76,16 +96,18 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
      * @param string $storeProductId
      * @param Money $runningSum
      * @param Money $hourSum
+     * @param Quantity $hourQuantity
      * @return GrossSalesProductReport
      */
     public function createByDayHourAndStoreProductId(
         DateTime $dayHour,
         $storeProductId,
         Money $runningSum = null,
-        Money $hourSum = null
+        Money $hourSum = null,
+        Quantity $hourQuantity = null
     ) {
         $storeProduct = $this->dm->getReference(StoreProduct::getClassName(), $storeProductId);
-        return $this->createByDayHourAndStoreProduct($dayHour, $storeProduct, $runningSum, $hourSum);
+        return $this->createByDayHourAndStoreProduct($dayHour, $storeProduct, $runningSum, $hourSum, $hourQuantity);
     }
 
     /**
@@ -115,7 +137,8 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
             $arrayObj = array(
                 '_id' => $report->id,
                 'product' => $productId,
-                'hourSum' => $report->hourSum->getCount(),
+                'hourSum' => MoneyType::convertToMongo($report->hourSum),
+                'hourQuantity' => QuantityType::convertToMongo($report->hourQuantity),
                 'dayHour' => $date->getMongoDate(),
             );
             $collection->upsert(

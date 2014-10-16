@@ -1,6 +1,5 @@
 package ru.dreamkas.driver;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import net.thucydides.core.webdriver.DriverSource;
 import org.openqa.selenium.WebDriver;

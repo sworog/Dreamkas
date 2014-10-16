@@ -171,9 +171,6 @@
 		CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
 		CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
 		CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECCA4D519E2929500B165F3 /* libKIF.a */; };
-		CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECCA4E419E2BD2F00B165F3 /* kif_tests.m */; };
-		CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECD93E719DEA77700232734 /* dreamkas_tests.swift */; };
-		CECD93F319DEBE6C00232734 /* new_tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CECD93F219DEBE6C00232734 /* new_tests.m */; };
 		CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */; };
 		CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47B19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m */; };
 		CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47D19DD74C800ED88D3 /* AFHTTPSessionManager.m */; };
@@ -402,12 +399,9 @@
 		CEC0041719E69B3400AE256F /* TicketWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketWindowViewController.h; sourceTree = "<group>"; };
 		CEC0041819E69B3400AE256F /* TicketWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketWindowViewController.m; sourceTree = "<group>"; };
 		CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
-		CECCA4E419E2BD2F00B165F3 /* kif_tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = kif_tests.m; sourceTree = "<group>"; };
 		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CECD93E719DEA77700232734 /* dreamkas_tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dreamkas_tests.swift; sourceTree = "<group>"; };
 		CECD93E819DEA77700232734 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CECD93F019DEAB5B00232734 /* SwiftBridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftBridging.h; sourceTree = "<group>"; };
-		CECD93F219DEBE6C00232734 /* new_tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = new_tests.m; sourceTree = "<group>"; };
 		CECFC47819DD74C800ED88D3 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		CECFC47A19DD74C800ED88D3 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -637,6 +631,7 @@
 				CE1B3DC919DD4A8800A253D1 /* StyleDefines.h */,
 				CECD93F019DEAB5B00232734 /* SwiftBridging.h */,
 				CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */,
+				CE2D1C4C19EEBCA10094F884 /* AccessibilityLabels.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -657,11 +652,10 @@
 		CE1B3DB319DD40E500A253D1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				CECCA4CA19E2927400B165F3 /* Submodules */,
-				CECD93E719DEA77700232734 /* dreamkas_tests.swift */,
 				CECD93E819DEA77700232734 /* Info.plist */,
-				CECD93F219DEBE6C00232734 /* new_tests.m */,
-				CECCA4E419E2BD2F00B165F3 /* kif_tests.m */,
+				CE2D1C4619EEA8530094F884 /* Unit Tests */,
+				CE2D1C4019EEA67A0094F884 /* Integration Tests */,
+				CECCA4CA19E2927400B165F3 /* Submodules */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1449,8 +1443,8 @@
 				CEF2646319E8127B008BE93A /* SignInViewController.m in Sources */,
 				CEF2647419E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
-				CECD93F319DEBE6C00232734 /* new_tests.m in Sources */,
 				CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */,
+				CE2D1C4819EEA8630094F884 /* AuthTesting.m in Sources */,
 				CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE29100319EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEF2645F19E8126A008BE93A /* LogInViewController.m in Sources */,
@@ -1571,7 +1565,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1591,7 +1586,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -1614,7 +1609,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1627,7 +1623,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
@@ -1638,8 +1634,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1650,7 +1646,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -1659,15 +1655,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fa531dd7-c297-4bd6-8766-41ef5e95a6d2";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

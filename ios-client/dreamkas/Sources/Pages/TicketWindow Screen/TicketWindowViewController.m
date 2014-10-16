@@ -10,6 +10,8 @@
 
 @interface TicketWindowViewController ()
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+
 @end
 
 @implementation TicketWindowViewController

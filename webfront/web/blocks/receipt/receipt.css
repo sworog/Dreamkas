@@ -54,6 +54,7 @@
 
 .receipt__clearLink {
     cursor: pointer;
+    display: table-row;
 }
 
 .receipt__clearLink td {

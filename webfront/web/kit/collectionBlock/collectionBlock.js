@@ -1,59 +1,108 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-		checkKey = require('kit/checkKey/checkKey');
+        Collection = require('kit/collection/collection'),
+        checkKey = require('kit/checkKey/checkKey');
 
     return Block.extend({
-        initialize: function(){
+        sortedCollection: null,
+        sortBy: '',
+        sortDirection: 'ascending',
+        events: {
+            'click [data-sort-by]': function(e){
+                var block = this,
+                    sortBy = e.currentTarget.dataset.sortBy,
+                    sortDirection = e.currentTarget.dataset.sortedDirection || 'descending';
+
+                if (sortDirection === 'descending'){
+                    sortDirection = 'ascending';
+                } else {
+                    sortDirection = 'descending';
+                }
+
+                block.sort({
+                    sortBy: sortBy,
+                    sortDirection: sortDirection
+                });
+            }
+        },
+        initialize: function() {
             var block = this;
 
             Block.prototype.initialize.apply(block, arguments);
 
-            if (block.collection){
-                block.collection.on({
-                    'update add remove reset': function(){
+            if (block.collection) {
+                block.listenTo(block.collection, {
+                    'change add remove reset': function() {
                         block.render();
                     }
                 });
             }
 
-			if (block.itemSelector) {
-				block.bindSwitchHandlers();
-			}
+            if (block.itemSelector) {
+                block.bindSwitchHandlers();
+            }
         },
-		bindSwitchHandlers: function() {
-			var block = this;
+        render: function() {
+            var block = this,
+                sortedList = block.collection.sortBy(block.get('sortBy'));
 
-			$(document).on('keyup', function(e) {
-				if (checkKey(e.keyCode, ['UP'])) {
-					block.focusItem(block.get('focusedItemIndex') - 1);
-				}
+            if (block.get('sortDirection') === 'descending') {
+                sortedList.reverse();
+            }
 
-				if (checkKey(e.keyCode, ['DOWN'])) {
-					block.focusItem(block.get('focusedItemIndex') + 1);
-				}
-			});
-		},
-		focusItem: function(index) {
-			var block = this,
-				items = block.el.querySelectorAll(block.itemSelector);
+            block.sortedCollection = new Collection(sortedList);
 
-			if (!items.length) {
-				return;
-			}
+            Block.prototype.render.apply(block, arguments);
 
-			if (items[index]) {
-				items[index].focus();
-			} else if (index < 0) {
-				block.focusItem(0);
-			} else {
-				block.focusItem(items.length - 1);
-			}
-		},
-		focusedItemIndex: function() {
-			var block = this;
+            var $sortTriggers = block.$('[data-sort-by]'),
+                $sortTrigger = block.$('[data-sort-by="' + block.sortBy + '"]');
 
-			return block.$(block.itemSelector).index(document.activeElement);
-		}
+            $sortTriggers.removeAttr('data-sorted-direction');
+
+            $sortTrigger.attr('data-sorted-direction', block.sortDirection);
+        },
+        sort: function(opt) {
+
+            var block = this;
+
+            block.set(opt);
+
+            block.render();
+        },
+        bindSwitchHandlers: function() {
+            var block = this;
+
+            $(document).on('keyup', function(e) {
+                if (checkKey(e.keyCode, ['UP'])) {
+                    block.focusItem(block.get('focusedItemIndex') - 1);
+                }
+
+                if (checkKey(e.keyCode, ['DOWN'])) {
+                    block.focusItem(block.get('focusedItemIndex') + 1);
+                }
+            });
+        },
+        focusItem: function(index) {
+            var block = this,
+                items = block.el.querySelectorAll(block.itemSelector);
+
+            if (!items.length) {
+                return;
+            }
+
+            if (items[index]) {
+                items[index].focus();
+            } else if (index < 0) {
+                block.focusItem(0);
+            } else {
+                block.focusItem(items.length - 1);
+            }
+        },
+        focusedItemIndex: function() {
+            var block = this;
+
+            return block.$(block.itemSelector).index(document.activeElement);
+        }
     });
 });

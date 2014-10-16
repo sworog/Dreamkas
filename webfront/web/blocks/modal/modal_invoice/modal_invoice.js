@@ -1,8 +1,8 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block.deprecated'),
-        SupplierModel = require('models/supplier/supplier'),
-        ProductModel = require('models/product/product');
+        SupplierModel = require('resources/supplier/model'),
+        ProductModel = require('resources/product/model');
 
     return Block.extend({
         el: '.modal_invoice',
@@ -42,7 +42,7 @@ define(function(require, exports, module) {
         blocks: {
             form_invoice: function() {
                 var block = this,
-                    InvoiceModel = require('models/invoice/invoice'),
+                    InvoiceModel = require('resources/invoice/model'),
                     Form_invoice = require('blocks/form/form_invoice/form_invoice'),
                     form_invoice = new Form_invoice({
                         el: block.$('.form_invoice'),

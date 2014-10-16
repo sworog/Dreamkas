@@ -3,11 +3,6 @@ define(function(require, exports, module) {
     var Page = require('blocks/page/page');
 
     return Page.extend({
-		initialize: function() {
-			Page.prototype.initialize.call(this);
-
-			document.isPosSidebarVisible = false;
-		},
         template: require('ejs!./template.ejs'),
         events: {
             'change select[name="store"]': function(e){
@@ -17,10 +12,10 @@ define(function(require, exports, module) {
             }
         },
         collections: {
-            stores: require('collections/stores/stores')
+            stores: require('resources/store/collection')
         },
         blocks: {
-            select_stores: require('blocks/select/stores/stores')
+            select_stores: require('blocks/select/store/store')
         }
     });
 });

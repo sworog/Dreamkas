@@ -1,6 +1,19 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.stanfy.spoon:spoon-gradle-plugin:0.10.0'
+    }
+}
+
+
+apply plugin: 'spoon'
+
 repositories {
     maven {
         url "${System.getenv("ANDROID_HOME")}/extras/android/m2repository"
@@ -8,6 +21,10 @@ repositories {
     mavenCentral()
     jcenter()
 }
+
+
+
+
 
 android
 {
@@ -34,7 +51,7 @@ android
     defaultConfig
     {
         applicationId 'ru.crystals.vaverjanov.dreamkas'
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 19
         buildConfigField 'String', 'ServerAddress', '"http://av.staging.api.lighthouse.pro"'
         versionCode 1
@@ -74,17 +91,24 @@ apt
     }
 }
 
+spoon
+{
+    debug = true;
+}
+
 dependencies
 {
+    //provided 'com.jakewharton.espresso:espresso:1.1-r2|'
     provided 'com.jakewharton.espresso:espresso-support-v4:1.1-r3'
     androidTestCompile ('com.jakewharton.espresso:espresso-support-v4:1.1-r3')
-            {
-                exclude group:'com.android.support', module:'support-v4'
-            }
+    {
+        exclude group:'com.android.support', module:'support-v4'
+    }
+    androidTestCompile 'com.google.guava:guava:11.0.2'
+    androidTestCompile 'com.squareup.spoon:spoon-client:1.1.0'
 
     apt "org.androidannotations:androidannotations:3.0"
 
-    androidTestCompile 'com.google.guava:guava:11.0.2'
     compile 'com.android.support:support-v4:19.0.0'
     compile 'com.octo.android.robospice:robospice:1.4.12'
     compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'

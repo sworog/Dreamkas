@@ -7,8 +7,6 @@
 //
 
 #import "AuthViewController.h"
-#import "CustomFilledButton.h"
-#import "CustomEmptyButton.h"
 
 @interface AuthViewController ()
 
@@ -21,17 +19,25 @@
 
 #pragma mark - View Lifecycle
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // ..
+}
+
+#pragma mark - Configuration Methods
+
 - (void)configureLocalization
 {
     [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
     [self.signUpButton setTitle:NSLocalizedString(@"sign_up_button_title", nil) forState:UIControlStateNormal];
 }
 
-- (void)viewDidLoad
+- (void)configureAccessibilityLabels
 {
-    [super viewDidLoad];
-    
-    // ..
+    [self.logInButton setAccessibilityLabel:AI_AuthPage_LogInButton];
+    [self.signUpButton setAccessibilityLabel:AI_AuthPage_SignInButton];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

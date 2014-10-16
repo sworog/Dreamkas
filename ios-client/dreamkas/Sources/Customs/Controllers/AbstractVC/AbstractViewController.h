@@ -25,6 +25,8 @@
 - (void)initialize;
 /** Установка локализованных строк */
 - (void)configureLocalization;
+/** Установка идентификаторов доступа к визуальным элементам */
+- (void)configureAccessibilityLabels;
 /** Настройка фона экрана */
 - (void)configureBackground;
 /** Обработка нажатия по кнопке возврата к предыдущему экрану */

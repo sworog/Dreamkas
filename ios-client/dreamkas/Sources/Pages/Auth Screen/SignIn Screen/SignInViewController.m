@@ -21,17 +21,24 @@
 
 #pragma mark - View Lifecycle
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.signInButton setEnabled:NO];
+}
+
+#pragma mark - Configuration Methods
+
 - (void)configureLocalization
 {
     [self.titleLabel setText:NSLocalizedString(@"sign_in_title_name", nil)];
     [self.signInButton setTitle:NSLocalizedString(@"sign_in_button_title", nil) forState:UIControlStateNormal];
 }
 
-- (void)viewDidLoad
+- (void)configureAccessibilityLabels
 {
-    [super viewDidLoad];
-    
-    [self.signInButton setEnabled:NO];
+    // ..
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

@@ -1,11 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var Modal = require('blocks/modal/modal.deprecated');
+    var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
         models: {
-            receiptProduct: require('models/receiptProduct/receiptProduct')
+            receiptProduct: require('resources/receiptProduct/model')
         },
         blocks: {
             form_receiptProduct: function(){
