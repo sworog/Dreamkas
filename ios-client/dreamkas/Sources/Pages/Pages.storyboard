@@ -307,6 +307,7 @@
                     </view>
                     <connections>
                         <segue destination="Cyi-Ge-36d" kind="custom" identifier="TicketWindowToCreateStoreSegue" customClass="CustomModalSegue" id="wc5-D0-Lxe"/>
+                        <outlet property="tableView" destination="4A8-kn-6yP" id="jP5-Oy-Kh2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xc-Da-7Y7" userLabel="First Responder" sceneMemberID="firstResponder"/>

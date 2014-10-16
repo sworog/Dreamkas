@@ -85,6 +85,8 @@
 		CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE519EE668B005483A1 /* MagicalRecord+ShorthandSupport.m */; };
 		CE29101E19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
 		CE29101F19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
+		CE2D1C4819EEA8630094F884 /* AuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D1C4719EEA8630094F884 /* AuthTesting.m */; };
+		CE2D1C4A19EEAC090094F884 /* LogInTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D1C4919EEAC090094F884 /* LogInTesting.m */; };
 		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
@@ -332,6 +334,9 @@
 		CE290FE919EE668B005483A1 /* MagicalRecordLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordLogging.h; sourceTree = "<group>"; };
 		CE290FEA19EE668B005483A1 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		CE290FEB19EE668B005483A1 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
+		CE2D1C4719EEA8630094F884 /* AuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthTesting.m; sourceTree = "<group>"; };
+		CE2D1C4919EEAC090094F884 /* LogInTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInTesting.m; sourceTree = "<group>"; };
+		CE2D1C4C19EEBCA10094F884 /* AccessibilityLabels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessibilityLabels.h; sourceTree = "<group>"; };
 		CE3B95ED19E40DA900E1D24F /* DatesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatesHelper.h; sourceTree = "<group>"; };
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
 		CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Auth.h"; sourceTree = "<group>"; };
@@ -696,6 +701,22 @@
 			path = "Create Store";
 			sourceTree = "<group>";
 		};
+CE2D1C4019EEA67A0094F884 /* Integration Tests */ = {
+isa = PBXGroup;
+children = (
+CE2D1C4919EEAC090094F884 /* LogInTesting.m */,
+);
+path = "Integration Tests";
+sourceTree = "<group>";
+};
+CE2D1C4619EEA8530094F884 /* Unit Tests */ = {
+isa = PBXGroup;
+children = (
+CE2D1C4719EEA8630094F884 /* AuthTesting.m */,
+);
+path = "Unit Tests";
+sourceTree = "<group>";
+};
 		CE22CE2C19ED566F00A939E6 /* Select Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -1481,6 +1502,7 @@
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
+				CE2D1C4A19EEAC090094F884 /* LogInTesting.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
