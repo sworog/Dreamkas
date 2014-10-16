@@ -11,8 +11,10 @@ define(function(require, exports, module) {
         },
         groupUrl: function(groupProfitModel) {
 
+            var filters = _.pick(PAGE.params, 'dateFrom', 'dateTo', 'store');
+
             return URI('/reports/profit/groups/' + groupProfitModel.get('subCategory.id'))
-                .search(this.collection.filters).toString();
+                .search(filters).toString();
         },
         initData: function() {
             var totalGrossSales = 0,

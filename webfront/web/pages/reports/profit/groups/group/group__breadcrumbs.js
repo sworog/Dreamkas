@@ -29,8 +29,10 @@ define(function(require, exports, module) {
 
 		allGroupsUrl: function() {
 
+			var filters = _.pick(PAGE.params, 'dateFrom', 'dateTo', 'store');
+
 			return URI('/reports/profit/groups')
-				.search(this.collections.profit.filters).toString();
+				.search(filters).toString();
 		}
     });
 });

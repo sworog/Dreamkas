@@ -28,25 +28,25 @@
         </td>
         <td name="grossSales">
             <span name="grossSalesValue">
-                <%- formatMoney(productStockSellModel.get('grossSales')) %>
+                <%- formatMoney(profitModel.get('grossSales')) %>
             </span>
             <span name="grossSalesPercent" class="table_productsProfit__percent">
                 (<%- calculateGrossSalesPercent(profitModel.get('grossSales')) %>%)
             </span>
         </td>
         <td name="costOfGoods">
-            <%- formatMoney(productStockSellModel.get('costOfGoods')) %>
+            <%- formatMoney(profitModel.get('costOfGoods')) %>
         </td>
         <td name="grossMargin">
             <span name="grossMarginValue">
-                <%- formatMoney(productStockSellModel.get('grossMargin')) %>
+                <%- formatMoney(profitModel.get('grossMargin')) %>
             </span>
             <span name="grossMarginPercent" class="table_productsProfit__percent">
                 (<%- calculateGrossMarginPercent(profitModel.get('grossMargin')) %>%)
             </span>
         </td>
         <td name="quantity">
-            <%- formatAmount(productStockSellModel.get('quantity')) %> <%- productStockSellModel.get('product.units') %>
+            <%- formatAmount(profitModel.get('quantity')) %> <%- profitModel.get('product.units') %>
         </td>
     </tr>
     <% }) %>
