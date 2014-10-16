@@ -1,21 +1,20 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup;
+namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Network;
 
+use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesRepository;
 
-class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
+class GrossMarginSalesNetworkRepository extends GrossMarginSalesRepository
 {
     /**
      * @param GrossMarginSalesFilter $filter
-     * @return Cursor|GrossMarginSalesCatalogGroup[]
+     * @return Cursor|GrossMarginSalesNetwork[]
      */
     public function findByFilter(GrossMarginSalesFilter $filter)
     {
@@ -25,25 +24,16 @@ class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
                 '$lt' => $filter->dateTo,
             )
         );
-
-        if ($filter->store) {
-            $criteria['store'] = $filter->store->id;
-        }
-
         return $this->findBy($criteria);
     }
 
     /**
      * @param array $result
-     * @return GrossMarginSalesCatalogGroup
+     * @return GrossMarginSales
      */
     protected function createReport(array $result)
     {
-        $report = new GrossMarginSalesCatalogGroup();
-        $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
-        $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
-
-        return $report;
+        return new GrossMarginSalesNetwork();
     }
 
     /**
@@ -73,8 +63,6 @@ class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
                     'totalPrice' => true,
                     'costOfGoods' => true,
                     'quantity' => true,
-                    'subCategory' => true,
-                    'store' => true,
                     'year' => '$createdDate.year',
                     'month' => '$createdDate.month',
                     'day' => '$createdDate.day'
@@ -83,8 +71,6 @@ class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
             array(
                 '$group' => array(
                     '_id' => array(
-                        'subCategory' => '$subCategory',
-                        'store' => '$store',
                         'year' => '$year',
                         'month' => '$month',
                         'day' => '$day',
@@ -101,10 +87,10 @@ class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
                     'grossMargin' => array(
                         '$sum' => array(
                             '$subtract' => array('$totalPrice', '$costOfGoods')
-                        )
+                        ),
                     )
                 ),
-            )
+            ),
         );
 
         return $this->trialBalanceRepository->aggregate($ops);

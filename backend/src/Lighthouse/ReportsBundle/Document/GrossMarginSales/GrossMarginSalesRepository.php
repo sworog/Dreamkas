@@ -79,6 +79,7 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
 
         foreach ($results as $result) {
             $report = $this->createReport($result);
+            $this->setReportValues($report, $result);
 
             $this->dm->persist($report);
             $count++;

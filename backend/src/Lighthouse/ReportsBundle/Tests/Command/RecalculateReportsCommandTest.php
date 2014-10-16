@@ -46,8 +46,8 @@ class RecalculateReportsCommandTest extends ContainerAwareTestCase
             ->getMock();
 
         $grossMarginSalesReportManagerMock
-            ->expects($this->exactly(6))
-            ->method($this->anything());
+            ->expects($this->exactly(8))
+            ->method($this->stringStartsWith('recalculate'));
 
         // project1 was created when called factory for the first time
         $this->factory()->user()->getProject('project2');

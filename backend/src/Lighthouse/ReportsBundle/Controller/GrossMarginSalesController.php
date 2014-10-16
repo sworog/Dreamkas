@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Form\GrossMarginSales\GrossMarginSalesFilterType;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Network\GrossMarginSalesByNetwork;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Stores\GrossMarginSalesByStoresCollection;
@@ -91,6 +92,26 @@ class GrossMarginSalesController extends AbstractRestController
             $request,
             function (GrossMarginSalesFilter $filter) use ($grossMarginSalesReportManager) {
                 return $grossMarginSalesReportManager->getStoreReports($filter);
+            }
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return GrossMarginSalesByNetwork|FormInterface
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("reports/gross")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc
+     */
+    public function getGrossReportAction(Request $request)
+    {
+        $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
+        return $this->processFormCallback(
+            $request,
+            function (GrossMarginSalesFilter $filter) use ($grossMarginSalesReportManager) {
+                return $grossMarginSalesReportManager->getNetworkReport($filter);
             }
         );
     }

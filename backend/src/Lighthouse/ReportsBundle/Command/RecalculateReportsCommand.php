@@ -100,6 +100,9 @@ class RecalculateReportsCommand extends Command
 
                 $output->writeln("<info>Stores</info>");
                 $grossMarginSalesReportManager->recalculateStoreReport($output);
+
+                $output->writeln("<info>Network</info>");
+                $grossMarginSalesReportManager->recalculateNetworkReport($output);
             }
         );
 

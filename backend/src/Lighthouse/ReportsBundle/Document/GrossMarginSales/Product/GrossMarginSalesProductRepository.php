@@ -26,7 +26,7 @@ class GrossMarginSalesProductRepository extends GrossMarginSalesRepository
             'subCategory' => $catalogGroup->id,
             'day' => array(
                 '$gte' => $filter->dateFrom,
-                '$lte' => $filter->dateTo,
+                '$lt' => $filter->dateTo,
             ),
         );
 
@@ -64,8 +64,6 @@ class GrossMarginSalesProductRepository extends GrossMarginSalesRepository
         $report->product = $this->dm->getReference(Product::getClassName(), $result['_id']['product']);
         $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
         $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
-
-        $this->setReportValues($report, $result);
 
         return $report;
     }

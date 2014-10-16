@@ -4,7 +4,6 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
-
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
@@ -32,22 +31,26 @@ class GrossMarginSalesControllerTest extends WebTestCase
      * @param Store $store
      * @param array $productIds
      * @param $productOtherSubCategoryId
-     * @return array|\string[]
+     * @param Store $otherStore
+     * @return array
      */
-    protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId)
+    protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId, Store $otherStore)
     {
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('-10 days'))), $store->id)
-                ->createInvoiceProduct($productIds['1'], 100, 90)
+                ->createInvoiceProduct($productIds['1'], 80, 90)
                 ->createInvoiceProduct($productIds['2'], 100, 50)
                 ->createInvoiceProduct($productIds['3'], 100, 100)
                 ->createInvoiceProduct($productOtherSubCategoryId, 99, 77)
+            ->persist()
+                ->createInvoice(array('date' => date('c', strtotime('-4 days'))), $otherStore->id)
+                ->createInvoiceProduct($productIds['1'], 20, 80)
             ->flush();
 
         $this->factory()
             ->receipt()
-                ->createSale($store, '8:01')
+                ->createSale($store, '0:00:01')
                 ->createReceiptProduct($productIds['1'], 5, 150)
                 ->createReceiptProduct($productIds['2'], 7, 100)
                 ->createReceiptProduct($productIds['3'], 10, 130)
@@ -70,6 +73,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 ->createReceiptProduct($productIds['2'], 7, 100)
                 ->createReceiptProduct($productIds['3'], 8, 130)
                 ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+            ->persist()
+                ->createSale($otherStore, '-3 days 12:56')
+                ->createReceiptProduct($productIds['1'], 6, 140)
             ->persist()
                 ->createSale($store, '-4 days 9:01')
                 ->createReceiptProduct($productIds['1'], 5, 150)
@@ -125,7 +131,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $otherSubCategory = $this->factory()->catalog()->getSubCategory('other sub category');
         $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId);
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId, $stores['2']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateProductReport();
@@ -165,27 +171,27 @@ class GrossMarginSalesControllerTest extends WebTestCase
                     '3' => array(7540, 5800, 1740, 58),
                 )
             ),
-            '1 store, -4 days to -1 day' => array(
+            '1 store, -4 days to yesterday' => array(
                 '1',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(3000, 1800, 1200, 20),
                     '2' => array(2600, 1300, 1300, 26),
                     '3' => array(4940, 3800, 1140, 38),
                 )
             ),
-            'all stores, -4 days to -1 day' => array(
+            'all stores, -4 days to yesterday' => array(
                 '1',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(3000, 1800, 1200, 20),
                     '2' => array(2600, 1300, 1300, 26),
                     '3' => array(4940, 3800, 1140, 38),
                 )
             ),
-            'empty report: all stores, -9 days to -7 days' => array(
+            'empty report: all stores, -9 days to -8 days' => array(
                 null,
                 '-9 day 00:00:00',
                 '-7 day 00:00:00',
@@ -198,7 +204,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
             'empty report: all stores, +1 day to +5 days' => array(
                 null,
                 '+1 day 00:00:00',
-                '+5 day 00:00:00',
+                '+6 day 00:00:00',
                 array(
                     '1' => array(0, 0, 0, 0),
                     '2' => array(0, 0, 0, 0),
@@ -209,7 +215,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider grossReportEmptyProvider
+     * @dataProvider grossReportWithStoreEmptyProvider
      *
      * @param string $storeName
      * @param string $dateFrom
@@ -242,7 +248,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     /**
      * @return array
      */
-    public function grossReportEmptyProvider()
+    public function grossReportWithStoreEmptyProvider()
     {
         return array(
             '-4 days to -1 day' => array(
@@ -264,7 +270,32 @@ class GrossMarginSalesControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider grossReportEmptyProvider
+     * @return array
+     */
+    public function grossReportEmptyProvider()
+    {
+        return array(
+            '-4 days to -1 day' => array(
+                '-4 day 00:00:00',
+                '-1 day 00:00:00',
+            ),
+            'from -4 days' => array(
+                '-4 day 00:00:00',
+                null,
+            ),
+            'to -1 day' => array(
+                null,
+                '-1 day 00:00:00',
+            ),
+            'no dates' => array(
+                null,
+                null
+            )
+        );
+    }
+
+    /**
+     * @dataProvider grossReportWithStoreEmptyProvider
      * @param $storeName
      * @param $dateFrom
      * @param $dateTo
@@ -319,7 +350,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
         $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateCatalogGroupReport();
@@ -343,7 +374,6 @@ class GrossMarginSalesControllerTest extends WebTestCase
         }
     }
 
-
     /**
      * @return array
      */
@@ -355,37 +385,37 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 null,
                 null,
                 array(
-                    '1' => array(15640, 10300, 5340, 124),
+                    '1' => array(16480, 10780, 5700, 130),
                     '2' => array(13800, 10626, 3174, 138),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-1 to -4 days' => array(
+            'yesterday to -4 days' => array(
                 null,
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
-                    '1' => array(10540, 6900, 3640, 84),
+                    '1' => array(11380, 7380, 4000, 90),
                     '2' => array(9200, 7084, 2116, 92),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-1 to -4 days store 1' => array(
+            'yesterday to -4 days store 1' => array(
                 '1',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(10540, 6900, 3640, 84),
                     '2' => array(9200, 7084, 2116, 92),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-1 to -4 days store 2' => array(
+            'yesterday to -4 days store 2' => array(
                 '2',
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
-                    '1' => array(0, 0, 0, 0),
+                    '1' => array(840, 480, 360, 6),
                     '2' => array(0, 0, 0, 0),
                     '3' => array(0, 0, 0, 0),
                 )
@@ -393,7 +423,12 @@ class GrossMarginSalesControllerTest extends WebTestCase
         );
     }
 
-    public function testStoreGrossReportEmpty()
+    /**
+     * @dataProvider grossReportEmptyProvider
+     * @param string $dateFrom
+     * @param string $dateTo
+     */
+    public function testStoreGrossReportEmpty($dateFrom, $dateTo)
     {
         $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
 
@@ -404,24 +439,23 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->createProductByName('2.0', $catalogGroups['2']->id);
         // catalog group 3 does not have products
 
+        $query = $this->getFilterQuery($dateFrom, $dateTo);
+
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/reports/gross/stores',
             null,
-            array(
-                'dateFrom' => date('c', strtotime('-4 day 00:00:00')),
-                'dateTo' => date('c', strtotime('-1 day 00:00:00'))
-            )
+            $query
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, '*.store.id', $response);
-        $this->assertStoreGrossReport($response, $stores['1']->id, array(0, 0, 0, 0));
-        $this->assertStoreGrossReport($response, $stores['2']->id, array(0, 0, 0, 0));
-        $this->assertStoreGrossReport($response, $stores['3']->id, array(0, 0, 0, 0));
+        foreach ($stores as $store) {
+            $this->assertStoreGrossReport($response, $store->id, array(0, 0, 0, 0));
+        }
     }
 
     /**
@@ -443,7 +477,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
         $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4']);
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginSalesReportManager()->recalculateStoreReport();
@@ -478,16 +512,16 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 null,
                 array(
                     '1' => array(29440, 20926, 8514, 262),
-                    '2' => array(0, 0, 0, 0),
+                    '2' => array(840, 480, 360, 6),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
-            '-1 to -4 days' => array(
+            'yesterday to -4 days' => array(
                 '-4 day 00:00:00',
-                '-1 day 00:00:00',
+                '00:00:00',
                 array(
                     '1' => array(19740, 13984, 5756, 176),
-                    '2' => array(0, 0, 0, 0),
+                    '2' => array(840, 480, 360, 6),
                     '3' => array(0, 0, 0, 0),
                 )
             ),
@@ -496,20 +530,159 @@ class GrossMarginSalesControllerTest extends WebTestCase
                 null,
                 array(
                     '1' => array(24790, 17555, 7235, 221),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            'without today' => array(
+                null,
+                '00:00:00',
+                array(
+                    '1' => array(24390, 17355, 7035, 217),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0),
+                )
+            ),
+            'yesterday' => array(
+                '-1 day 00:00:00',
+                '-1 day 23:59:59',
+                array(
+                    '1' => array(5150, 3651, 1499, 45),
                     '2' => array(0, 0, 0, 0),
                     '3' => array(0, 0, 0, 0),
                 )
+            ),
+            '-3 days 23:59:59' => array(
+                '-3 day 00:00:00',
+                '-3 day 23:59:59',
+                array(
+                    '1' => array(4790, 3371, 1419, 43),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0)
+                )
+            ),
+            '-3 days 00:00:00' => array(
+                '-3 day 00:00:00',
+                '-2 day 00:00:00',
+                array(
+                    '1' => array(4790, 3371, 1419, 43),
+                    '2' => array(840, 480, 360, 6),
+                    '3' => array(0, 0, 0, 0)
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider networkGrossReportProvider
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @param array $expectedValues
+     */
+    public function testNetworkGrossReport($dateFrom, $dateTo, array $expectedValues)
+    {
+        $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
+
+        $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
+
+        $productIds = array();
+        $productIds['1'] = $this->createProductByName('1.1', $catalogGroups['1']->id);
+        $productIds['2'] = $this->createProductByName('1.2', $catalogGroups['1']->id);
+        $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
+        $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
+
+        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginSalesReportManager()->recalculateNetworkReport();
+
+        $query = $this->getFilterQuery($dateFrom, $dateTo);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/reports/gross',
+            null,
+            $query
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertReportValues($expectedValues, $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function networkGrossReportProvider()
+    {
+        return array(
+            'no dates' => array(
+                null,
+                null,
+                array(30280, 21406, 8874, 268)
+            ),
+            '-1 to -4 days' => array(
+                '-4 day 00:00:00',
+                '00:00:00',
+                array(20580, 14464, 6116, 182)
+            ),
+            'from -4 days' => array(
+                '-4 day 00:00:00',
+                null,
+                array(25630, 18035, 7595, 227)
             ),
             'to -1 days' => array(
                 null,
-                '-1 day 00:00:00',
-                array(
-                    '1' => array(24390, 17355, 7035, 217),
-                    '2' => array(0, 0, 0, 0),
-                    '3' => array(0, 0, 0, 0),
-                )
+                '00:00:00',
+                array(25230, 17835, 7395,223)
             ),
+            'yesterday' => array(
+                '-1 day 00:00:00',
+                '-1 day 23:59:59',
+                array(5150, 3651, 1499, 45)
+            ),
+            '-3 days 23:59' => array(
+                '-3 day 00:00:00',
+                '-3 day 23:59:59',
+                array(5630, 3851, 1779, 49)
+            ),
+            '-3 days 00:00' => array(
+                '-3 day 00:00:00',
+                '-2 day 00:00:00',
+                array(5630, 3851, 1779, 49)
+            )
         );
+    }
+
+    /**
+     * @dataProvider grossReportEmptyProvider
+     *
+     * @param string $dateFrom
+     * @param string $dateTo
+     */
+    public function testNetworkGrossReportEmpty($dateFrom, $dateTo)
+    {
+        $this->factory()->store()->getStores(array('1', '2', '3'));
+        $this->createProductsByNames(array('1', '2', '3'));
+        $this->factory()->catalog()->getSubCategory();
+
+        $query = $this->getFilterQuery($dateFrom, $dateTo);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/reports/gross",
+            null,
+            $query
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertReportValues(array(0, 0, 0, 0), $response);
     }
 
     /**
