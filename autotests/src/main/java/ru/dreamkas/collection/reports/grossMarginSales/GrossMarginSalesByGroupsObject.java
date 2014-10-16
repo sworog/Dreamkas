@@ -1,7 +1,6 @@
 package ru.dreamkas.collection.reports.grossMarginSales;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.dreamkas.collection.abstractObjects.AbstractObject;
 import ru.dreamkas.collection.abstractObjects.objectInterfaces.ObjectClickable;
@@ -24,7 +23,7 @@ public class GrossMarginSalesByGroupsObject extends AbstractObject implements Re
 
     @Override
     public void setProperties() {
-        groupName = getElement().findElement(By.name("groupName")).getText();
+        groupName = getElement().findElement(By.name("name")).getText();
         grossSales = getElement().findElement(By.name("grossSales")).getText();
         grossMargin = getElement().findElement(By.name("grossMargin")).getText();
         costOfGoods = getElement().findElement(By.name("costOfGoods")).getText();
@@ -33,7 +32,10 @@ public class GrossMarginSalesByGroupsObject extends AbstractObject implements Re
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
-                .compare("товар", groupName, row.get("товар"));
+                .compare("Группа", groupName, row.get("Группа"))
+                .compare("Продажи", grossSales, row.get("Продажи"))
+                .compare("Себестоимость", grossMargin, row.get("Себестоимость"))
+                .compare("Прибыль", costOfGoods, row.get("Прибыль"));
     }
 
     @Override
