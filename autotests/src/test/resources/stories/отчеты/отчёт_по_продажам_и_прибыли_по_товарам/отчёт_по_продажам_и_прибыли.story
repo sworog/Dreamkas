@@ -16,7 +16,6 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/отчеты/создание_юзера.story,
               precondition/отчеты/создание_магазина_с_товаром.story
 
-
 Given пользователь открывает страницу отчета по продажам и прибыли
 And пользователь авторизуется в системе используя адрес электронной почты 'reports@lighthouse.pro' и пароль 'lighthouse'
 And пользователь кликает на группу 'reports-group1'
