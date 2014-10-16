@@ -1,13 +1,19 @@
 module.exports = function(grunt) {
 
+	grunt.loadNpmTasks('grunt-shell');
+
 	grunt.initConfig({
-		exec: {
-			build: 'node tools/r.js -o tools/build.js',
-			remove_build: 'rm -rf build'
+		shell: {
+			build: {
+				command: 'node tools/r.js -o tools/build.js'
+			},
+			remove_build: {
+				command: 'rm -rf build'
+			}
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-exec');
+	grunt.registerTask('build', ['shell:remove_build', 'shell:build']);
+	grunt.registerTask('default', ['build']);
 
-	grunt.registerTask('default', ['exec:remove_build', 'exec:build']);
 };
