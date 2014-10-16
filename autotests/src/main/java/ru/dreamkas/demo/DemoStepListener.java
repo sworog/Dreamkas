@@ -113,6 +113,15 @@ public class DemoStepListener implements StepListener {
     }
 
     @Override
+    public void testSkipped() {
+    }
+
+    @Override
+    public void testPending() {
+
+    }
+
+    @Override
     public void notifyScreenChange() {
     }
 
