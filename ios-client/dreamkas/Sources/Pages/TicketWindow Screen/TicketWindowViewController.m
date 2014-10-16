@@ -18,11 +18,6 @@
 
 #pragma mark - View Lifecycle
 
-- (void)configureLocalization
-{
-    // ..
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -37,10 +32,23 @@
     DPLogFast(@"");
     
     // TODO: показываем окно выбора магазина, если магазин не был выбран ранее
-    // если магазин уже выбран - сразу отправляем запрос на сервер
+    
+    // TODO: если магазин уже выбран - сразу показываем его
     
     [self showViewControllerModally:ControllerById(SelectStoreViewControllerID)
                             segueId:TicketWindowToSelectStoreSegueName];
+}
+
+#pragma mark - Configuration Methods
+
+- (void)configureLocalization
+{
+    // ..
+}
+
+- (void)configureAccessibilityLabels
+{
+    [self.tableView setAccessibilityLabel:AI_TicketWindowPage_Table];
 }
 
 @end

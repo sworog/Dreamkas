@@ -24,9 +24,9 @@
           DPLog(LOG_ON, @"Получили распарсенный ответ сервера");
           
           // маппинг полученных данных в экземпляры сущностей
-          NSArray *models = [StoreModel modelsListWithRESTData:JSON];
+          NSArray *models = [StoreModel mapModelsFromList:JSON];
           
-          DPLog(LOG_ON, @"Закончили маппинг ответа сервера: %@", models);
+          DPLog(LOG_ON, @"Закончили маппинг ответа сервера");
           
           // сохраняем экземпляры сущностей в БД
           [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];

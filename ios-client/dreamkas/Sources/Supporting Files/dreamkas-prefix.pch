@@ -46,7 +46,7 @@
 //
 
 #import "AbstractModel.h"
-#import "AbstractModel+Additions.h"
+#import "AbstractModel+Mapper.h"
 
 //
 // Менеджеры и хэлперы
@@ -70,7 +70,6 @@
 
 #import "RESTClient.h"
 #import "RESTClient+Auth.h"
-#import "RESTClient+Groups.h"
 #import "RESTClient+Stores.h"
 
 //

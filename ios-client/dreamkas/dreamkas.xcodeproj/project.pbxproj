@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE00D11A19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */; };
+		CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */; };
 		CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */; };
 		CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */; };
 		CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */; };
@@ -19,8 +21,6 @@
 		CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */; };
 		CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */; };
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
-		CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */; };
-		CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */; };
 		CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
 		CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
 		CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
@@ -29,8 +29,6 @@
 		CE290F9A19EE605C005483A1 /* AbstractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290F9819EE605C005483A1 /* AbstractModel.m */; };
 		CE290F9F19EE605C005483A1 /* StoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290F9E19EE605C005483A1 /* StoreModel.m */; };
 		CE290FA019EE605C005483A1 /* StoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290F9E19EE605C005483A1 /* StoreModel.m */; };
-		CE290FA819EE61B1005483A1 /* AbstractModel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FA719EE61B1005483A1 /* AbstractModel+Additions.m */; };
-		CE290FA919EE61B1005483A1 /* AbstractModel+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FA719EE61B1005483A1 /* AbstractModel+Additions.m */; };
 		CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FEC19EE668B005483A1 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FB219EE668B005483A1 /* MagicalImportFunctions.m */; };
@@ -91,8 +89,6 @@
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
 		CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
-		CE3B95FA19E424A000E1D24F /* RESTClient+Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */; };
-		CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */; };
 		CE8AB37A19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
 		CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
 		CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37519E7C8D000B105E0 /* NSData+Base64.m */; };
@@ -243,6 +239,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE00D11819EFF3C800B600EB /* AbstractModel+Mapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractModel+Mapper.h"; sourceTree = "<group>"; };
+		CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AbstractModel+Mapper.m"; sourceTree = "<group>"; };
 		CE162A1D19E3CF3D009BCC3C /* ImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageToDataTransformer.h; sourceTree = "<group>"; };
 		CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageToDataTransformer.m; sourceTree = "<group>"; };
 		CE162A2619E3CF89009BCC3C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -258,8 +256,6 @@
 		CE1B3DA319DD40CA00A253D1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE1B3DA419DD40CA00A253D1 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE1B3DB819DD445700A253D1 /* dreamkas-prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dreamkas-prefix.pch"; sourceTree = "<group>"; };
-		CE1B3DBB19DD46DD00A253D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
-		CE1B3DBD19DD46DD00A253D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		CE1B3DC019DD46DD00A253D1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = InfoPlist.strings; sourceTree = "<group>"; };
 		CE1B3DC219DD46DD00A253D1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Localizable.strings; sourceTree = "<group>"; };
 		CE1B3DC919DD4A8800A253D1 /* StyleDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleDefines.h; sourceTree = "<group>"; };
@@ -274,8 +270,6 @@
 		CE290F9819EE605C005483A1 /* AbstractModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractModel.m; sourceTree = "<group>"; };
 		CE290F9D19EE605C005483A1 /* StoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreModel.h; sourceTree = "<group>"; };
 		CE290F9E19EE605C005483A1 /* StoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreModel.m; sourceTree = "<group>"; };
-		CE290FA619EE61B1005483A1 /* AbstractModel+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractModel+Additions.h"; sourceTree = "<group>"; };
-		CE290FA719EE61B1005483A1 /* AbstractModel+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AbstractModel+Additions.m"; sourceTree = "<group>"; };
 		CE290FAA19EE62DB005483A1 /* RESTClient+Stores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Stores.h"; sourceTree = "<group>"; };
 		CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Stores.m"; sourceTree = "<group>"; };
 		CE290FB119EE668B005483A1 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -341,8 +335,6 @@
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
 		CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Auth.h"; sourceTree = "<group>"; };
 		CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Auth.m"; sourceTree = "<group>"; };
-		CE3B95F819E424A000E1D24F /* RESTClient+Groups.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Groups.h"; sourceTree = "<group>"; };
-		CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Groups.m"; sourceTree = "<group>"; };
 		CE8AB37219E7C8D000B105E0 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
 		CE8AB37319E7C8D000B105E0 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
 		CE8AB37419E7C8D000B105E0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -530,8 +522,6 @@
 			children = (
 				CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */,
 				CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */,
-				CE3B95F819E424A000E1D24F /* RESTClient+Groups.h */,
-				CE3B95F919E424A000E1D24F /* RESTClient+Groups.m */,
 				CE290FAA19EE62DB005483A1 /* RESTClient+Stores.h */,
 				CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */,
 			);
@@ -607,7 +597,6 @@
 		CE1B3D9919DD40CA00A253D1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				CE1B3DB919DD46DD00A253D1 /* en.lproj */,
 				CE1B3DBE19DD46DD00A253D1 /* ru.lproj */,
 				CE1B3DA119DD40CA00A253D1 /* Headers */,
 				CE1B3D9A19DD40CA00A253D1 /* Certificates */,
@@ -665,15 +654,6 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		CE1B3DB919DD46DD00A253D1 /* en.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */,
-				CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */,
-			);
-			path = en.lproj;
-			sourceTree = "<group>";
-		};
 		CE1B3DBE19DD46DD00A253D1 /* ru.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,22 +681,6 @@
 			path = "Create Store";
 			sourceTree = "<group>";
 		};
-CE2D1C4019EEA67A0094F884 /* Integration Tests */ = {
-isa = PBXGroup;
-children = (
-CE2D1C4919EEAC090094F884 /* LogInTesting.m */,
-);
-path = "Integration Tests";
-sourceTree = "<group>";
-};
-CE2D1C4619EEA8530094F884 /* Unit Tests */ = {
-isa = PBXGroup;
-children = (
-CE2D1C4719EEA8630094F884 /* AuthTesting.m */,
-);
-path = "Unit Tests";
-sourceTree = "<group>";
-};
 		CE22CE2C19ED566F00A939E6 /* Select Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,8 +693,8 @@ sourceTree = "<group>";
 		CE290FA519EE617A005483A1 /* Model Categories */ = {
 			isa = PBXGroup;
 			children = (
-				CE290FA619EE61B1005483A1 /* AbstractModel+Additions.h */,
-				CE290FA719EE61B1005483A1 /* AbstractModel+Additions.m */,
+				CE00D11819EFF3C800B600EB /* AbstractModel+Mapper.h */,
+				CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */,
 			);
 			path = "Model Categories";
 			sourceTree = "<group>";
@@ -838,6 +802,22 @@ sourceTree = "<group>";
 			path = Core;
 			sourceTree = "<group>";
 		};
+		CE2D1C4019EEA67A0094F884 /* Integration Tests */ = {
+			isa = PBXGroup;
+			children = (
+				CE2D1C4919EEAC090094F884 /* LogInTesting.m */,
+			);
+			path = "Integration Tests";
+			sourceTree = "<group>";
+		};
+		CE2D1C4619EEA8530094F884 /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				CE2D1C4719EEA8630094F884 /* AuthTesting.m */,
+			);
+			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
 		CE3B95EA19E40D7800E1D24F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -936,9 +916,9 @@ sourceTree = "<group>";
 		CEC003ED19E6909B00AE256F /* TicketWindow Screen */ = {
 			isa = PBXGroup;
 			children = (
-				CE22CE2A19ED566F00A939E6 /* Store Screens */,
 				CEC0041719E69B3400AE256F /* TicketWindowViewController.h */,
 				CEC0041819E69B3400AE256F /* TicketWindowViewController.m */,
+				CE22CE2A19ED566F00A939E6 /* Store Screens */,
 			);
 			path = "TicketWindow Screen";
 			sourceTree = "<group>";
@@ -1247,7 +1227,6 @@ sourceTree = "<group>";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				en,
 				ru,
 			);
 			mainGroup = CE1B3D5A19DD3CF000A253D1;
@@ -1295,7 +1274,6 @@ sourceTree = "<group>";
 				CE946BDB19E6A91400D270E4 /* RobotoCondensed-Regular.ttf in Resources */,
 				CE946BBD19E6A91400D270E4 /* Roboto-Bold.ttf in Resources */,
 				CE946BCB19E6A91400D270E4 /* Roboto-Regular.ttf in Resources */,
-				CE1B3DC319DD46DD00A253D1 /* InfoPlist.strings in Resources */,
 				CE1B3DA819DD40CA00A253D1 /* text.txt in Resources */,
 				CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */,
 				CE1B3DA919DD40CA00A253D1 /* Images.xcassets in Resources */,
@@ -1309,7 +1287,6 @@ sourceTree = "<group>";
 				CE946BD319E6A91400D270E4 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				CE946BCF19E6A91400D270E4 /* Roboto-ThinItalic.ttf in Resources */,
 				CE946BCD19E6A91400D270E4 /* Roboto-Thin.ttf in Resources */,
-				CE1B3DC419DD46DD00A253D1 /* Localizable.strings in Resources */,
 				CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */,
 				CE946BD719E6A91400D270E4 /* RobotoCondensed-Light.ttf in Resources */,
 				CE946BD119E6A91400D270E4 /* RobotoCondensed-Bold.ttf in Resources */,
@@ -1385,6 +1362,7 @@ sourceTree = "<group>";
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
 				CEC0040519E6960400AE256F /* CustomTextField.m in Sources */,
 				CECFC4A419DD74C800ED88D3 /* AFURLResponseSerialization.m in Sources */,
+				CE00D11A19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CE29100C19EE668B005483A1 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				CECFC4A219DD74C800ED88D3 /* AFURLConnectionOperation.m in Sources */,
@@ -1404,11 +1382,9 @@ sourceTree = "<group>";
 				CEF2647119E81D16008BE93A /* NSDate+Utilities.m in Sources */,
 				CE290FF019EE668B005483A1 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */,
-				CE3B95FA19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
 				CE8AB38A19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
 				CE29100419EE668B005483A1 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				CE29101C19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
-				CE290FA819EE61B1005483A1 /* AbstractModel+Additions.m in Sources */,
 				CE290FFA19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
 				CE29101819EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
 				CECFC4A819DD74C800ED88D3 /* UIAlertView+AFNetworking.m in Sources */,
@@ -1448,7 +1424,6 @@ sourceTree = "<group>";
 			files = (
 				CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */,
 				CE29101F19EE668B005483A1 /* MagicalRecord.m in Sources */,
-				CECCA4E519E2BD2F00B165F3 /* kif_tests.m in Sources */,
 				CE290FA019EE605C005483A1 /* StoreModel.m in Sources */,
 				CE29100919EE668B005483A1 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
@@ -1460,7 +1435,6 @@ sourceTree = "<group>";
 				CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */,
 				CE29101319EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
 				CEF2647219E81D16008BE93A /* NSDate+Utilities.m in Sources */,
-				CE290FA919EE61B1005483A1 /* AbstractModel+Additions.m in Sources */,
 				CEF2646319E8127B008BE93A /* SignInViewController.m in Sources */,
 				CEF2647419E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
@@ -1486,9 +1460,7 @@ sourceTree = "<group>";
 				CE29100119EE668B005483A1 /* NSManagedObject+MagicalRecord.m in Sources */,
 				CE290FF719EE668B005483A1 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				CEC0040E19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
-				CECD93E919DEA77700232734 /* dreamkas_tests.swift in Sources */,
 				CE290FFF19EE668B005483A1 /* NSManagedObject+MagicalFinders.m in Sources */,
-				CE3B95FB19E424A000E1D24F /* RESTClient+Groups.m in Sources */,
 				CE290FF519EE668B005483A1 /* NSObject+MagicalDataImport.m in Sources */,
 				CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */,
 				CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */,
@@ -1499,6 +1471,7 @@ sourceTree = "<group>";
 				CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CEF2647619E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE29100D19EE668B005483A1 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
@@ -1535,22 +1508,6 @@ sourceTree = "<group>";
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CE1B3DBA19DD46DD00A253D1 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE1B3DBB19DD46DD00A253D1 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		CE1B3DBC19DD46DD00A253D1 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE1B3DBD19DD46DD00A253D1 /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
 		CE1B3DBF19DD46DD00A253D1 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
