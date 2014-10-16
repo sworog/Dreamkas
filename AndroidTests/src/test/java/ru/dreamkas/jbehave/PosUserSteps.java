@@ -7,6 +7,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.core.model.ExamplesTable;
 
 public class PosUserSteps {
 
@@ -60,4 +61,30 @@ public class PosUserSteps {
     public void thenTheUserChecksTheAutocompleteSearchEmptyTitleLabel(String expected) {
         posSteps.assertSearchResultEmptyLabelText(expected);
     }
+
+    @Then("пользователь проверяет, что в чеке продажи есть сообщение '$expected'")
+    public void thenTheUserChecksTheReceiptEmptyTitleLabel(String expected) {
+        posSteps.assertReceiptEmptyLabelText(expected);
+    }
+
+    @When("пользователь тапает по товару с названием '$title'")
+    public void thenTheUserTapOnProductInSearchResultWithTitle(String title) {
+        posSteps.tapOnProductInSearchResultWithTitle(title);
+    }
+
+    @Then("пользователь видит чек продажи '$count' в котором присутствует товары в количестве")
+    public void thenUserChecksReceiptItemsCount(Integer count) {
+        posSteps.assertReceiptItemsCount(count);
+    }
+
+    @Then("пользователь видит чек продажи в котором присутствует товары $examplesTable")
+    public void thenUserChecksReceipt(ExamplesTable examplesTable) {
+        posSteps.assertReceiptContainsProducts(examplesTable);
+    }
+
+    @Then("пользователь видит кнопку регистрации продажи с текстом '$expected'")
+    public void thenTheUserChecksTheReceiptTotal(String expected) {
+        posSteps.assertReceiptTotalButtonText(expected);
+    }
+
 }

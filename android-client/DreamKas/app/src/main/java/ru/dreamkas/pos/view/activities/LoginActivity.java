@@ -21,6 +21,8 @@ import org.androidannotations.annotations.ViewById;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
+
+import ru.dreamkas.pos.BuildConfig;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.controller.DreamkasSpiceService;
 import ru.dreamkas.pos.controller.PreferencesManager;
@@ -66,6 +68,10 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
         super.onStart();
         isActive = true;
         addEditTextChangeListeners();
+
+        if (BuildConfig.DEBUG) {
+            Toast.makeText(this, BuildConfig.ServerAddress, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

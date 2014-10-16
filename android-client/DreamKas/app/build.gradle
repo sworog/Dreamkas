@@ -11,7 +11,6 @@ buildscript {
     }
 }
 
-
 apply plugin: 'spoon'
 
 repositories {
@@ -57,7 +56,6 @@ android
         buildConfigField 'String', 'ServerAddress', '"' + host  + '"'
         versionCode 1
         versionName '0.113.4'
-
     }
 
     sourceSets {

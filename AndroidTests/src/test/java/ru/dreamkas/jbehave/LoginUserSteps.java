@@ -18,8 +18,6 @@ public class LoginUserSteps {
         loginSteps.clickOnLoginButton();
     }
 
-
-
     @Then("пользователь проверяет, что описание '$expectedDescription'")
     public void thenUserAssertsDescription(String expectedDescription) {
         loginSteps.assertDescription(expectedDescription);
