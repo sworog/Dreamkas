@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form.deprecated'),
-        SupplierModel = require('models/supplier/supplier');
+        SupplierModel = require('resources/supplier/model');
 
     return Form.extend({
         el: '.form_supplier',

@@ -33,8 +33,26 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
             }
         }
 
-        if (empty($criteria['$or'])) {
+        if ($filter->isPropertiesRequired() && empty($criteria['$or'])) {
             return array();
+        } elseif (empty($criteria['$or'])) {
+            $criteria = array();
+        }
+
+        if ($filter->hasSubCategory()) {
+            $criteriaSubCategory = array(
+                'subCategory' => new MongoId($filter->getSubCategory())
+            );
+            if (!empty($criteria)) {
+                $criteria = array(
+                    '$and' => array(
+                        $criteria,
+                        $criteriaSubCategory,
+                    ),
+                );
+            } else {
+                $criteria = $criteriaSubCategory;
+            }
         }
 
         if ($filter->isPurchasePriceNotEmpty()) {
@@ -45,6 +63,7 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
                 )
             );
         }
+
 
         return $this->findBy($criteria, null, 100);
     }

@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./form_supplierReturnProducts.ejs'),
-        model: require('models/supplierReturnProduct/supplierReturnProduct'),
+        model: require('resources/supplierReturnProduct/model'),
         collection: function() {
             var block = this,
                 productsCollection = block.get('models.supplierReturn.collections.products');
@@ -21,7 +21,7 @@ define(function(require, exports, module) {
             return productsCollection;
         },
         models: {
-            supplierReturn: require('models/supplierReturn/supplierReturn')
+            supplierReturn: require('resources/supplierReturn/model')
         },
         partials: {
             productsList: require('ejs!./productsList.ejs')

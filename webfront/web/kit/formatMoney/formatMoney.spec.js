@@ -10,8 +10,12 @@ define(function(require, exports, module) {
 
             numeral.language('root');
 
-            it('format integer number', function(){
+            it('format short integer number', function(){
                 expect(formatMoney(12)).toEqual('12,00');
+            });
+
+            it('format long integer number', function(){
+                expect(formatMoney(1200000)).toEqual('1 200 000,00');
             });
 
             it('format float number', function(){

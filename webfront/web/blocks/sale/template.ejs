@@ -1,39 +1,58 @@
-<% if (model) { %>
+<% if (models.receipt) { %>
 
 <div class="sale">
     <div class="sale__header">
-        <span class="sale__title">Чек на сумму <%- formatMoney(model.get('sumTotal')) %> <i class="fa fa-rub"></i></span>
-	<span role="button"
-		  class="sale__refundButton btn btn-primary btn-md">Возврат</span>
-	</div>
-	<div name="sale" class="sale__info">
-		<div>
-			<%= model.get('payment.type') == 'cash' ?
-				'<i class="fa fa-money"></i><span name="cash">Наличные</span>' :
-				'<i class="fa fa-credit-card"></i><span name="bankcard">Банковская карта</span>' %>
-		</div>
-		<div>
-			<i class="fa fa-clock-o"></i>
+        <span class="sale__title">Чек на сумму <%- formatMoney(models.receipt.get('sumTotal')) %>
+            <i class="fa fa-rub"></i>
+        </span>
+
+        <a data-modal="modal_refund"
+           class="sale__refundButton btn btn-primary btn-md">Возврат</a>
+
+    </div>
+
+    <div class="sale__scroll">
+        <div name="sale" class="sale__info">
+            <div>
+                <%= models.receipt.get('payment.type') == 'cash' ?
+                        '<i class="fa fa-money"></i><span name="cash">Наличные</span>' :
+                        '<i class="fa fa-credit-card"></i><span name="bankcard">Банковская карта</span>' %>
+            </div>
+            <div>
+                <i class="fa fa-clock-o"></i>
             <span name="date">
-                <%- formatDateTime(model.get('date'), { format: 'DD MMMM YYYY, HH:mm' }) %>
+                <%- formatDateTime(models.receipt.get('date'), {format: 'DD MMMM YYYY, HH:mm'}) %>
             </span>
-		</div>
-	</div>
-	<div name="products" class="sale__products">
-		<div class="sale__productsTitle">Товары</div>
-		<table>
+            </div>
+        </div>
+        <div name="products" class="sale__products">
+            <div class="sale__productsTitle">Товары</div>
+            <table>
 
-            <% model.collections.products.forEach(function(receiptProduct){ %>
+                <% models.receipt.collections.products.forEach(function(receiptProduct){ %>
 
-			<tr class="sale__product">
-				<td class="sale__productName" name="name"><%- receiptProduct.get('product.name') %></td>
-				<td class="sale__productQuantity" name="quantity"><%- receiptProduct.get('quantity') %> <%- receiptProduct.get('product.units') %></td>
-				<td class="sale__productPrice" name="price"><%- formatAmount(receiptProduct.get('price'), '0,0.00[00]') %> <i class="fa fa-rub"></i></td>
-			</tr>
+                <tr class="sale__product">
+                    <td class="sale__productName"
+                        name="name">
+                        <%- receiptProduct.get('product.name') %>
+                    </td>
 
-            <% }) %>
+                    <td class="sale__productQuantity"
+                        name="quantity">
+                        <%- receiptProduct.get('quantity') %> <%- receiptProduct.get('product.units') %>
+                    </td>
 
-        </table>
+                    <td class="sale__productPrice"
+                        name="price">
+                        <%- formatMoney(receiptProduct.get('totalPrice')) %>
+                        <i class="fa fa-rub"></i>
+                    </td>
+                </tr>
+
+                <% }) %>
+
+            </table>
+        </div>
     </div>
 
     <b block="modal_refund"></b>

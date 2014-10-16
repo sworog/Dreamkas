@@ -1,19 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var collectionBlock = require('kit/collectionBlock/collectionBlock');
 
-    return Block.extend({
-        collection: null,
-        initResources: function(){
-            var block = this;
-
-            Block.prototype.initResources.apply(block, arguments);
-
-            block.listenTo(block.collection, {
-                'add remove reset': function(){
-                    block.render();
-                }
-            });
-        }
-    });
+    return collectionBlock.extend({});
 });

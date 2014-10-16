@@ -25,6 +25,9 @@
 @import "/blocks/modal/modal.css";
 @import "/blocks/sale/sale.css";
 @import "/blocks/sideBar/sideBar.css";
+@import "/blocks/inputNumber/inputNumber.css";
+@import "/blocks/table/table.css";
+@import "/blocks/breadcrumbs/breadcrumbs.css";
 
 body {
     overflow-x: hidden;
@@ -66,8 +69,12 @@ body[status="loaded"]:before {
     transition: transform 1s, opacity 1s;
 }
 
-a {
+a, [href] {
     cursor: pointer;
+}
+
+a {
+    color: #428bca;
 }
 
 a:hover .fa {
@@ -133,7 +140,8 @@ a:hover .fa {
     color: #fff;
 }
 
-input.invalid {
+input.invalid,
+.form-control.invalid {
     border-color: #db4c4a;
 }
 
@@ -161,11 +169,6 @@ input.invalid {
 
 .modal-body {
     padding: 20px 65px;
-}
-
-.product__markup {
-    height: 34px;
-    line-height: 34px;
 }
 
 .product__link,
@@ -242,23 +245,26 @@ select.loading, input.loading {
     background-color: #f4f4f4;
 }
 
-.btn.disabled, .btn[disabled] {
-    background-color: #dadada;
-    border-color: #dadada;
-}
-
 .modal {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal.fade {
     opacity: 1;
 }
 
-.modal.fade .modal-dialog{
+.modal.fade .modal-dialog {
     transform: none !important;
 }
 
-.twitter-typeahead{
+.twitter-typeahead {
     width: 100%;
+}
+
+.tt-input {
+    background-color: #fff !important;
+}
+
+.page-title .fa {
+    color: #999;
 }

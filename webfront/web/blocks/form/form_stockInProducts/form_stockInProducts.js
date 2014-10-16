@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./form_stockInProducts.ejs'),
-        model: require('models/stockInProduct/stockInProduct'),
+        model: require('resources/stockInProduct/model'),
         collection: function() {
             var block = this,
                 productsCollection = block.get('models.stockIn.collections.products');
@@ -21,7 +21,7 @@ define(function(require, exports, module) {
             return productsCollection;
         },
         models: {
-            stockIn: require('models/stockIn/stockIn')
+            stockIn: require('resources/stockIn/model')
         },
         partials: {
             productsList: require('ejs!./productsList.ejs')

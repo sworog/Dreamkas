@@ -50,7 +50,7 @@ class RecalcProductPriceWorker implements WorkerInterface
     {
         $productVersion = $job->productVersion;
         $product = $productVersion->getObject();
-        $storeProducts = $this->storeProductRepository->findByProduct($product);
+        $storeProducts = $this->storeProductRepository->findOrCreateByProduct($product);
         $dm = $this->storeProductRepository->getDocumentManager();
         foreach ($storeProducts as $storeProduct) {
             $this->storeProductRepository->updateRetailPriceByProduct($storeProduct, $productVersion);

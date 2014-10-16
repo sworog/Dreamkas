@@ -4,10 +4,14 @@ define(function(require, exports, module) {
 
     return function(string) {
 
-        var normalizedString = (string || '').toString()
-            .replace(' ', '', 'gi')
-            .replace(',', '.', 'gi');
-        
+        if (_.isUndefined(string) || _.isNull(string)){
+            string = ''
+        }
+
+        var normalizedString = string.toString()
+            .replace(new RegExp(' ', 'gi'), '')
+            .replace(new RegExp(',', 'gi'), '.', 'gi');
+
         return parseFloat(normalizedString);
     }
 });

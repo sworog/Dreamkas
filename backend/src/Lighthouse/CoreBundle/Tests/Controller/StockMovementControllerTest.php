@@ -329,7 +329,7 @@ class StockMovementControllerTest extends WebTestCase
                 ->createInvoiceProduct($productIds['2'], 10.001, 12.54)
             ->flush();
 
-        $this->factory()
+        $sale1 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-07-25 12:00:01')
                 ->createReceiptProduct($productIds['1'], 1, 20.98)
@@ -337,8 +337,8 @@ class StockMovementControllerTest extends WebTestCase
 
         $this->factory()
             ->receipt()
-                ->createReturn($store, '2014-07-25 12:00:02')
-                ->createReceiptProduct($productIds['2'], 5, 15.45)
+                ->createReturn($store, '2014-07-25 12:00:02', $sale1)
+                ->createReceiptProduct($productIds['2'], 5)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();

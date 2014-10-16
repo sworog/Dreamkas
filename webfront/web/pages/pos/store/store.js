@@ -15,13 +15,12 @@ define(function(require, exports, module) {
             Page_pos.prototype.initialize.apply(page, arguments);
         },
         models: {
-            receipt: require('models/receipt/receipt')
+            receipt: require('resources/receipt/model')
         },
         blocks: {
             productFinder: require('blocks/productFinder/productFinder'),
             receipt: require('blocks/receipt/receipt'),
-            modal_receiptProduct: require('blocks/modal/receiptProduct/receiptProduct'),
-            modal_receipt: require('blocks/modal/receipt/receipt')
+            modal_receiptProduct: require('blocks/modal/receiptProduct/receiptProduct')
         }
     });
 });
