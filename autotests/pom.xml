@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>project.lighthouse</groupId>
     <artifactId>autotests</artifactId>
-    <version>0.43.115.1</version>
+    <version>0.44.118.2</version>
     <packaging>jar</packaging>
 
     <name>Lighthouse autotests</name>
