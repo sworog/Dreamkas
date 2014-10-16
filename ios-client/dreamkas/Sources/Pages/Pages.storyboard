@@ -233,7 +233,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Электронная почта" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZ4-bp-6N4" userLabel="Email Text Field" customClass="CustomTextField">
                                         <rect key="frame" x="70" y="110" width="628" height="52"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
                                             <outlet property="delegate" destination="6wI-lg-GTY" id="SfD-Bz-3HH"/>
                                         </connections>
@@ -252,7 +252,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pa9-FG-xrh" userLabel="Password Text Field" customClass="CustomTextField">
                                         <rect key="frame" x="70" y="190" width="628" height="52"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="6wI-lg-GTY" id="IB2-DP-JQM"/>
                                         </connections>
