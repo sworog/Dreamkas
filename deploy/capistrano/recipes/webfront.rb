@@ -3,11 +3,12 @@ namespace :webfront do
     task :default do
         create_config
         rename_api
+        build
     end
 
     desc "Build webfront app"
     task :build, :roles => :app, :except => { :no_release => true } do
-        run "cd #{latest_release} && sh lh_build.cmd"
+        run "sh -c 'cd #{latest_release} && npm run build"
     end
 
     desc "Create config.js"
