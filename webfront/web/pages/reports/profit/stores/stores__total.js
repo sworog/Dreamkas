@@ -1,24 +1,23 @@
 define(function(require, exports, module) {
     //requirements
-	var Block = require('kit/block/block');
+    var Block = require('kit/block/block');
 
     return Block.extend({
         template: require('ejs!./stores__total.ejs'),
-		collections: {
-			profit:	function() {
-				return PAGE.collections.profit;
-			}
-		},
-		initialize: function() {
-			var block = this;
+        models: {
+            profit: function() {
 
-			Block.prototype.initialize.apply(block, arguments);
+                var block = this,
+                    model = PAGE.models.profit;
 
-			block.listenTo(block.collections.profit, {
-				'change reset': function() {
-					block.render();
-				}
-			});
-		}
+                block.listenTo(model, {
+                    change: function() {
+                        block.render();
+                    }
+                });
+
+                return model;
+            }
+        }
     });
 });

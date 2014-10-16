@@ -2,11 +2,14 @@ define(function(require, exports, module) {
     //requirements
     var config = require('config'),
         get = require('kit/get/get'),
+        set = require('kit/set/set'),
         _ = require('lodash'),
         makeClass = require('kit/makeClass/makeClass'),
+        deepExtend = require('kit/deepExtend/deepExtend'),
         Backbone = require('backbone');
 
     var Model = makeClass(Backbone.Model, {
+        filters: {},
         constructor: function(attributes, options){
 
             options = _.extend({
@@ -25,6 +28,23 @@ define(function(require, exports, module) {
             }
 
             return Backbone.Model.prototype.toJSON.apply(this, arguments);
+        },
+        fetch: function(options) {
+
+            options = _.extend({
+                filters: {},
+                data: {}
+            }, options);
+
+            _.extend(this.filters, options.filters);
+
+            options.data = deepExtend({}, this.filters, options.data);
+
+            this.request && this.request.abort();
+
+            this.request = Backbone.Model.prototype.fetch.call(this, options);
+
+            return this.request;
         },
         getData: function() {
             var saveData;
