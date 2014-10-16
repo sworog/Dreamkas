@@ -89,21 +89,4 @@
     return alert_view;
 }
 
-+ (UIAlertView *)getAlertView:(NSString *)accessibilityLabel
-{
-    if ([[UIApplication sharedApplication].keyWindow isMemberOfClass:[UIWindow class]]) {
-        DPLogFast(@"There is no alerts showing right know");
-        return nil;
-    }
-    
-    for (UIView *view in [[UIApplication sharedApplication].keyWindow subviews]) {
-        DPLogFast(@">>>>>>>");
-        if (([view isKindOfClass:[UIAlertView class]]) &&
-            ([[view accessibilityLabel] isEqualToString:accessibilityLabel])) {
-            return (UIAlertView*) view;
-        }
-    }
-    return nil;
-}
-
 @end

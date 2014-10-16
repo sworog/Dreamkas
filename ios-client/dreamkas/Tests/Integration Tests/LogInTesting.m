@@ -48,18 +48,17 @@
     [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
 }
 
-//- (void)testFirstLogIn_Unsuccessfully
-//{
-//    [tester waitForTappableViewWithAccessibilityLabel:AI_AuthPage_LogInButton];
-//    [tester tapViewWithAccessibilityLabel:AI_AuthPage_LogInButton];
-//    
-//    [tester enterText:@"aa@bb.ru" intoViewWithAccessibilityLabel:AI_LogInPage_LoginField];
-//    [tester enterText:@"123456" intoViewWithAccessibilityLabel:AI_LogInPage_PwdField];
-//    
-//    [tester tapViewWithAccessibilityLabel:AI_LogInPage_LogInButton];
-//    
-//    [tester waitForTimeInterval:5.0];
-//    XCTAssertNotNil([DialogHelper getAlertView:AI_Common_ErrorAlert], @"Can't find UIAlertView with AccessibilityLabel: %@", AI_Common_ErrorAlert);
-//}
+- (void)testFirstLogIn_Unsuccessfully
+{
+    [tester waitForTappableViewWithAccessibilityLabel:AI_AuthPage_LogInButton];
+    [tester tapViewWithAccessibilityLabel:AI_AuthPage_LogInButton];
+    
+    [tester enterText:@"aa@bb.ru" intoViewWithAccessibilityLabel:AI_LogInPage_LoginField];
+    [tester enterText:@"123456" intoViewWithAccessibilityLabel:AI_LogInPage_PwdField];
+    
+    [tester tapViewWithAccessibilityLabel:AI_LogInPage_LogInButton];
+    
+    [tester waitForViewWithAccessibilityLabel:NSLocalizedString(@"dialog_helper_alert_title", nil)];
+}
 
 @end
