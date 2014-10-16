@@ -9,4 +9,6 @@ webfront/libpeerconnection.log
 JasmineAdapter-1.1.2.js
 npm-debug.log
 projectFilesBackup/
+*/.DS_Store
+.DS_Store
 dreamkas-api-client
