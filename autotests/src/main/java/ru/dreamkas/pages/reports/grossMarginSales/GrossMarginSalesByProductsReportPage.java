@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.collection.reports.grossMarginSales.GrossMarginSalesByProductsObjectCollection;
 import ru.dreamkas.common.pageObjects.BootstrapPageObject;
+import ru.dreamkas.elements.items.JSInput;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -27,7 +28,17 @@ public class GrossMarginSalesByProductsReportPage extends BootstrapPageObject {
         put("колонка 'Прибыль'", new NonType(this, org.openqa.selenium.By.xpath("//*[@data-sort-by='grossMargin']")));
         put("колонка 'Количество'", new NonType(this, org.openqa.selenium.By.xpath("//*[@data-sort-by='quantity']")));
         put("фильтр по сети", new SelectByVisibleText(this, "store"));
-        put("дата с", new SelectByVisibleText(this, "dateFrom"));
-        put("дата по", new SelectByVisibleText(this, "dateTo"));
+        put("дата с", getCustomJsInput("dateFrom"));
+        put("дата по", getCustomJsInput("dateTo"));
+    }
+
+    private JSInput getCustomJsInput(final String name) {
+        return new JSInput(this, name) {
+            @Override
+            public void evaluateUpdatingQueryScript() {
+                String commitChangesScript = "$('.inputDateRange').trigger('update')";
+                getPageObject().evaluateJavascript(commitChangesScript);
+            }
+        };
     }
 }
