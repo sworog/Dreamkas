@@ -1,5 +1,8 @@
 {
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "~0.1",
+    "grunt-exec": "^0.4.6",
     "karma": "~0.12",
     "karma-allure-reporter": "git://github.com/allure-framework/karma-allure-reporter.git",
     "karma-chrome-launcher": "~0.1",
