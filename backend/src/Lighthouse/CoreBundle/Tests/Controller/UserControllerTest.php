@@ -927,6 +927,7 @@ class UserControllerTest extends WebTestCase
                     'catalog/groups' => array(
                         'DELETE::{catalogGroup}',
                         'GET',
+                        'GET::reports/grossMarginSalesByCatalogGroup',
                         'GET::{catalogGroup}',
                         'GET::{group}/reports/grossMarginSalesByProduct',
                         'POST',

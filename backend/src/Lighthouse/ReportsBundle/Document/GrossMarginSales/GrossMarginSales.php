@@ -1,30 +1,28 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\Product;
+namespace Lighthouse\ReportsBundle\Document\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use DateTime;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation\Exclude;
-use Lighthouse\CoreBundle\Types\Numeric\Quantity;
+use DateTime;
 
 /**
  * @property string         $id
- * @property StoreProduct   $storeProduct
  * @property Money          $grossSales
  * @property Money          $grossMargin
  * @property Money          $costOfGoods
  * @property Quantity       $quantity
  * @property DateTime       $day
+ * @property Store          $store
  *
- * @MongoDB\Document(
- *      repositoryClass="Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository"
- * )
- * @MongoDB\Index(keys={"day"="asc", "storeProduct"="asc"})
+ * @MongoDB\MappedSuperclass
+ * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
  */
-class GrossMarginSalesProductReport extends AbstractDocument
+abstract class GrossMarginSales extends AbstractDocument
 {
     /**
      * @MongoDB\Id(strategy="NONE")
@@ -65,11 +63,10 @@ class GrossMarginSalesProductReport extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Store\StoreProduct",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
      *     simple=true
      * )
-     *
-     * @var StoreProduct
+     * @var Store
      */
-    protected $storeProduct;
+    protected $store;
 }

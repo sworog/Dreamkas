@@ -87,6 +87,19 @@
     margin-right: -10px;
 }
 
+.page_productsProfit__breadcrumbs {
+     font-size: 14px;
+     padding-bottom: 20px;
+ }
+
+.page_productsProfit__breadcrumbsLink:after {
+    content: "\f054";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-size: 12px;
+    margin: 0 5px;
+}
+
 /*-------------------- page pos -----------------------*/
 
 .page_pos {
@@ -131,3 +144,5 @@
     height: 100%;
     position: relative;
 }
+
+

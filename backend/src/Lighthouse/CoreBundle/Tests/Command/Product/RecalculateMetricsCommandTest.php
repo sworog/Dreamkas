@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Command\Product;
 use Lighthouse\CoreBundle\Command\Products\RecalculateMetricsCommand;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -25,8 +26,9 @@ class RecalculateMetricsCommandTest extends TestCase
             ->expects($this->exactly(2))
             ->method('recalculateDailyAverageSales');
 
+        /* @var ProjectContext|\PHPUnit_Framework_MockObject_MockObject $projectContextMock */
         $projectContextMock = $this
-            ->getMockBuilder('Lighthouse\CoreBundle\Security\Project\ProjectContext')
+            ->getMockBuilder(ProjectContext::getClassName())
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -43,6 +45,7 @@ class RecalculateMetricsCommandTest extends TestCase
         $project2Mock = new Project();
         $project2Mock->id = 'id2';
         $projectContextMock
+            ->expects($this->any())
             ->method('getAllProjects')
             ->will($this->returnValue(array($project1Mock, $project2Mock)));
 

@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
+use Lighthouse\CoreBundle\Test\Factory\CatalogFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
@@ -71,7 +72,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string|array $extra
      * @param null|string $subCategoryId
      * @param bool|string $putProductId string id of product to be updated
-     * @return mixed
+     * @return string product id
      */
     protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
     {
@@ -135,7 +136,7 @@ class WebTestCase extends ContainerAwareTestCase
         $failedNames = array();
         foreach ($names as $name) {
             try {
-                $products[$name] = $this->createProduct(array('name' => $name, 'barcode' => $name));
+                $products[$name] = $this->createProductByName($name);
             } catch (\PHPUnit_Framework_AssertionFailedError $e) {
                 $failedNames[] = $name;
             }
@@ -146,6 +147,16 @@ class WebTestCase extends ContainerAwareTestCase
             );
         }
         return $products;
+    }
+
+    /**
+     * @param string $name
+     * @param string $subCategoryId
+     * @return string
+     */
+    protected function createProductByName($name, $subCategoryId = null)
+    {
+        return $this->createProduct(array('name' => $name, 'barcode' => $name), $subCategoryId);
     }
 
     /**
@@ -275,7 +286,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createGroup($name = 'Продовольственные товары')
+    protected function createGroup($name = CatalogFactory::DEFAULT_GROUP_NAME)
     {
         return $this->factory()->catalog()->createGroup($name)->id;
     }
@@ -285,7 +296,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
+    protected function createCategory($groupId = null, $name = CatalogFactory::DEFAULT_CATEGORY_NAME)
     {
         return $this->factory()->catalog()->createCategory($groupId, $name)->id;
     }
@@ -295,7 +306,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createSubCategory($categoryId = null, $name = 'Водка')
+    protected function createSubCategory($categoryId = null, $name = CatalogFactory::DEFAULT_SUBCATEGORY_NAME)
     {
         return $this->factory()->catalog()->createSubCategory($categoryId, $name)->id;
     }

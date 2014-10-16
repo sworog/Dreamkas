@@ -12,7 +12,6 @@ use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\MongoDB\DocumentManager;
 use MongoCollection;
-use MongoCursor;
 use MongoId;
 
 /**
@@ -139,24 +138,21 @@ class DocumentRepository extends BaseRepository
 
     /**
      * @param array $ops
-     * @param int|null $timeout
      * @return ArrayIterator
      * @throws ResultException
      */
-    protected function aggregate(array $ops, $timeout = -1)
+    protected function aggregate(array $ops)
     {
-        if (null !== $timeout) {
-            $backupTimeout = MongoCursor::$timeout;
-            MongoCursor::$timeout = $timeout;
+        $result = $this->getDocumentCollection()->getMongoCollection()->aggregate($ops);
+
+        if (empty($result['ok'])) {
+            throw new ResultException($result);
         }
 
-        $result = $this->getDocumentCollection()->aggregate($ops);
+        $arrayIterator = new ArrayIterator(isset($result['result']) ? $result['result'] : array());
+        $arrayIterator->setCommandResult($result);
 
-        if (isset($backupTimeout)) {
-            MongoCursor::$timeout = $backupTimeout;
-        }
-
-        return $result;
+        return $arrayIterator;
     }
 
     /**

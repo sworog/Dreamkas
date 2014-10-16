@@ -2,7 +2,6 @@
 
 namespace Lighthouse\ReportsBundle\Command;
 
-use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
@@ -87,11 +86,10 @@ class RecalculateReportsCommand extends Command
 
             $this->projectContext->authenticate($project);
 
-            $output->writeln("<info>Cost Of Goods</info>");
             $this->grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
 
             $output->writeln("<info>Gross Margin Sales</info>");
-            $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport($output);
+            $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport();
 
             $this->projectContext->logout();
         }

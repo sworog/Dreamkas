@@ -1,6 +1,6 @@
 <?php
 
-namespace Document\GrossMarginSales;
+namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales;
 
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
@@ -42,9 +42,9 @@ class GrossMarginSalesProductTest extends WebTestCase
         $productId2 = $this->createProduct(2);
         $productId3 = $this->createProduct(3);
 
-        $storeProductId1 = $this->factory()->getStoreProduct($store->id, $productId1);
-        $storeProductId2 = $this->factory()->getStoreProduct($store->id, $productId2);
-        $storeProductId3 = $this->factory()->getStoreProduct($store->id, $productId3);
+        $this->factory()->getStoreProduct($store->id, $productId1);
+        $this->factory()->getStoreProduct($store->id, $productId2);
+        $this->factory()->getStoreProduct($store->id, $productId3);
 
         $this->factory()
             ->invoice()
@@ -74,16 +74,15 @@ class GrossMarginSalesProductTest extends WebTestCase
         $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
         $this->assertEquals(4, $recalculateCount);
 
-        $this->assertGrossMarginSalesProductReport($storeProductId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
-        $this->assertGrossMarginSalesProductReport($storeProductId3, '-1 day 00:00:00', 65.71, 43.35, 22.36, 2.55);
-
-        $this->assertGrossMarginSalesProductReport($storeProductId2, '-2 day 00:00:00', 202.59, 111.65, 90.94, 2.03);
-
-        $this->assertGrossMarginSalesProductReport($storeProductId3, '-4 day 00:00:00', 208, 136, 72, 8);
+        $this->assertProductReport($store->id, $productId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
+        $this->assertProductReport($store->id, $productId3, '-1 day 00:00:00', 65.71, 43.35, 22.36, 2.55);
+        $this->assertProductReport($store->id, $productId2, '-2 day 00:00:00', 202.59, 111.65, 90.94, 2.03);
+        $this->assertProductReport($store->id, $productId3, '-4 day 00:00:00', 208, 136, 72, 8);
     }
 
-    public function assertGrossMarginSalesProductReport(
-        $storeProductId,
+    public function assertProductReport(
+        $storeId,
+        $productId,
         $day,
         $grossSales,
         $costOfGoods,
@@ -91,7 +90,11 @@ class GrossMarginSalesProductTest extends WebTestCase
         $quantity
     ) {
         $day = new DateTimestamp($day);
-        $report = $this->getGrossMarginSalesProductRepository()->findByStoreProductAndDay($storeProductId, $day);
+        $report = $this->getGrossMarginSalesProductRepository()->findByStoreIdProductIdAndDay(
+            $storeId,
+            $productId,
+            $day
+        );
 
         $this->assertEquals($grossSales, $report->grossSales->toString());
         $this->assertEquals($costOfGoods, $report->costOfGoods->toString());

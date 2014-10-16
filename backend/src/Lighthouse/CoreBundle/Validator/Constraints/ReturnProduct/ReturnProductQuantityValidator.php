@@ -4,10 +4,8 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\ReturnProduct;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct;
-use Lighthouse\CoreBundle\Validator\Constraints\ClassConstraintInterface;
 use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 
 class ReturnProductQuantityValidator extends ConstraintValidator
 {

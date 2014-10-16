@@ -3,7 +3,7 @@
 
     <div class="page__title">
 
-        <a href="/reports/stockSell"
+        <a href="/reports/profit/groups"
            class="fa fa-long-arrow-left"
            style="font-size: 25px; margin-right: 10px;"></a>
 
@@ -27,7 +27,7 @@
                     <div class="row" style="padding-bottom: 20px;">
                         <div class="col-md-3">
                             <b block="select_store"
-                               data-selected="<%- params.storeId %>"
+                               data-selected="<%- params.store %>"
                                data-all="1"></b>
                         </div>
 
@@ -38,16 +38,9 @@
                         </div>
                     </div>
 
-                    <div class="breadcrumbs">
-                        <a href="/reports/stockSell" class="breadcrumbs__link">
-                            Все группы
-                        </a>
-                        <span class="breadcrumbs__title">
-                            <%- models.group.get('name') %>
-                        </span>
-                    </div>
+					<b block="breadcrumbs"></b>
 
-                    <b block="table_groupStockSell"></b>
+                    <b block="table_productsProfit"></b>
 
                 </div>
             </div>

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -14,9 +15,9 @@ use Lighthouse\CoreBundle\Rounding\RoundingManager;
 
 class CatalogFactory extends AbstractFactory
 {
-    const DEFAULT_GROUP_NAME = 'Продовольственные товары';
-    const DEFAULT_CATEGORY_NAME = 'Винно-водочные изделия';
-    const DEFAULT_SUBCATEGORY_NAME = 'Водка';
+    const DEFAULT_GROUP_NAME = CatalogManager::DEFAULT_NAME;
+    const DEFAULT_CATEGORY_NAME = CatalogManager::DEFAULT_NAME;
+    const DEFAULT_SUBCATEGORY_NAME = CatalogManager::DEFAULT_NAME;
     const DEFAULT_ROUNDING_NAME = Nearest1::NAME;
 
     /**
@@ -202,6 +203,19 @@ class CatalogFactory extends AbstractFactory
             throw new \RuntimeException(sprintf('SubCategory id#%s not found', $id));
         }
         return $subCategory;
+    }
+
+    /**
+     * @param array $names
+     * @return SubCategory[]
+     */
+    public function getSubCategories(array $names)
+    {
+        $subCategories = array();
+        foreach ($names as $name) {
+            $subCategories[$name] = $this->getSubCategory($name);
+        }
+        return $subCategories;
     }
 
     /**

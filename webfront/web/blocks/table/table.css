@@ -46,11 +46,12 @@
     font-size: 12px;
 }
 
-.table_stockSell__groupName {
+.table_groupsProfit__groupName {
     color: #0a819c;
 }
 
-.table_groupStockSell__percent{
+.table_productsProfit__percent,
+.table_groupsProfit__percent {
     font-size: 12px;
     color: #c6c6c6;
 }
