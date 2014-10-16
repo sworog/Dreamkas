@@ -28,5 +28,14 @@ define(function(require, exports, module) {
 
         });
 
+	
+	it('checking', function(){
+
+		expect(checkKey(27, ['ESC'])).toBeTruthy();
+		expect(checkKey(27, ['ESC', 'ENTER'])).toBeTruthy();
+		expect(!checkKey(27, ['ENTER'])).toBeTruthy();
+	});
+
     });
+
 });

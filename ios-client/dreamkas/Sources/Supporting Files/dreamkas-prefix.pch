@@ -1,0 +1,81 @@
+//
+//  dreamkas-prefix.pch
+//  dreamkas
+//
+//  Created by sig on 02.10.14.
+//  Copyright (c) 2014 Dreamkas. All rights reserved.
+//
+
+#ifndef dreamkas_prefix_pch
+#define dreamkas_prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//
+// Сторонние библиотеки
+//
+
+#import "AFNetworking.h"
+#import "DPLog.h"
+#import "MBProgressHUD.h"
+#import "NSDate+Utilities.h"
+#import "UIView+Positioning.h"
+#import "Reachability.h"
+
+//
+// Базовые
+//
+
+#import "AppDelegate.h"
+#import "BasicDefines.h"
+#import "StyleDefines.h"
+#import "BlockDefines.h"
+#import "NotificationDefines.h"
+#import "StoryboardSegues.h"
+#import "AccessibilityLabels.h"
+
+#import "CustomNavigationController.h"
+#import "AbstractViewController.h"
+#import "AbstractViewController+Modal.h"
+
+//
+// Модели и их обработчики
+//
+
+// ..
+
+//
+// Менеджеры и хэлперы
+//
+
+#import "DatesHelper.h"
+#import "ValidationHelper.h"
+#import "CurrentUserHelper.h"
+#import "DeviceInfoHelper.h"
+#import "DialogHelper.h"
+
+//
+// Вспомогательные протоколы
+//
+
+#import "CustomDataCellDelegate.h"
+
+//
+// Сетевой обмен
+//
+
+#import "RESTClient.h"
+#import "RESTClient+Auth.h"
+#import "RESTClient+Groups.h"
+
+//
+// Кастомные компоненты
+//
+
+#import "CustomLabel.h"
+#import "CustomFilledButton.h"
+#import "CustomEmptyButton.h"
+#import "CustomTextField.h"
+
+#endif
