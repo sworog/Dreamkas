@@ -12,12 +12,12 @@
 
 @optional
 
-///** Настройка ячейки данными модели */
-//- (CGFloat)configureWithModel:(NSManagedObject *)model;
-//
-///** Рассчет высоты ячейки согласно её содержимому */
-//+ (CGFloat)cellHeight:(UITableView *)tableView
-//       cellIdentifier:(NSString*)cellId
-//                model:(NSManagedObject*)model;
+/** Настройка ячейки данными модели */
+- (CGFloat)configureWithModel:(NSManagedObject *)model;
+
+/** Рассчет высоты ячейки согласно её содержимому */
++ (CGFloat)cellHeight:(UITableView *)tableView
+       cellIdentifier:(NSString*)cellId
+                model:(NSManagedObject*)model;
 
 @end

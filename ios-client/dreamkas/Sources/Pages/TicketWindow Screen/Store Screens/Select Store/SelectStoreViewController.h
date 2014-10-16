@@ -8,6 +8,6 @@
 
 #import "AbstractViewController.h"
 
-@interface SelectStoreViewController : AbstractViewController
+@interface SelectStoreViewController : AbstractTableViewController
 
 @end

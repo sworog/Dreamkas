@@ -306,8 +306,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="Cyi-Ge-36d" kind="custom" identifier="TicketWindowToCreateStoreSegue" customClass="CustomModalSegue" id="wc5-D0-Lxe"/>
                         <outlet property="tableView" destination="4A8-kn-6yP" id="jP5-Oy-Kh2"/>
+                        <segue destination="Cyi-Ge-36d" kind="custom" identifier="TicketWindowToCreateStoreSegue" customClass="CustomModalSegue" id="wc5-D0-Lxe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xc-Da-7Y7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -447,23 +447,19 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" id="YYg-WM-ySP">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell_StoreModel" id="YYg-WM-ySP">
                                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YYg-WM-ySP" id="Hnl-YN-Uq1">
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqk-KL-j6G" customClass="CustomLabel">
-                                                            <rect key="frame" x="70" y="3" width="657" height="40"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
                                                 </tableViewCellContentView>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Cyi-Ge-36d" id="y8S-3c-eas"/>
+                                            <outlet property="delegate" destination="Cyi-Ge-36d" id="VX6-oo-GD2"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -477,6 +473,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="tableViewItem" destination="Hpc-CY-leA" id="AQ3-UO-sxv"/>
                         <outlet property="titleLabel" destination="K1p-eZ-UGp" id="wZw-NJ-jAk"/>
                     </connections>
                 </viewController>

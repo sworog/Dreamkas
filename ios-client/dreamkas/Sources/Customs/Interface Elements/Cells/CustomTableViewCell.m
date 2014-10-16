@@ -8,16 +8,68 @@
 
 #import "CustomTableViewCell.h"
 
+#define LOG_ON 0
+
 @implementation CustomTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
+#pragma mark - Основная логика
+
+/**
+ *  Однократная конфигурация элементов ячейки после их загрузки из xib'a
+ */
+- (void)awakeFromNib
+{
+    DPLog(LOG_ON, @"");
+    
+    [super awakeFromNib];
+    
+    [self setSelectionStyle:UITableViewCellSelectionStyleGray];
+    [self setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    
+    self.backgroundColor = DefaultWhiteColor;
+    self.contentView.backgroundColor = [UIColor clearColor];
+    self.selectionStyle = UITableViewCellSelectionStyleGray;
+    
+    // addition me
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+/**
+ * Рассчет высоты ячейки согласно её содержимому
+ */
++ (CGFloat)cellHeight:(UITableView *)tableView cellIdentifier:(NSString*)cellId model:(NSManagedObject*)model
+{
+    DPLog(LOG_ON, @"");
+    
+    UITableViewCell<CustomDataCellDelegate> *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    return [cell configureWithModel:model];
+}
 
-    // Configure the view for the selected state
+/**
+ * Настройка ячейки данными модели
+ */
+- (CGFloat)configureWithModel:(NSManagedObject *)model
+{
+    DPLog(LOG_ON, @"");
+    
+    // redefine me
+    
+    return 56;
+}
+
+#pragma mark - Методы реакции на смену состояния ячейки
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    DPLog(LOG_ON, @"highlighted = %d", highlighted);
+    
+    [super setHighlighted:highlighted animated:animated];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    DPLog(LOG_ON, @"selected = %d", selected);
+    
+    [super setSelected:selected animated:animated];
 }
 
 @end
