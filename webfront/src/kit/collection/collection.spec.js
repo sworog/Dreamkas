@@ -5,8 +5,7 @@ define(function(require, exports, module) {
 
 	describe(module.id, function() {
 
-		var collection,
-			initFilters = { a: 1 };
+		var collection;
 
 		beforeEach(function() {
 			collection = new Collection();
