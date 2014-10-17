@@ -197,6 +197,7 @@
 		CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49A19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m */; };
 		CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */; };
 		CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC4B119DD808300ED88D3 /* DPLog.m */; };
+		CED5183119F1685E00BF2E9C /* StoresTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CED5183019F1685E00BF2E9C /* StoresTesting.m */; };
 		CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
 		CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
 		CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645D19E8126A008BE93A /* LogInViewController.m */; };
@@ -460,6 +461,7 @@
 		CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		CECFC4B019DD808300ED88D3 /* DPLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLog.h; sourceTree = "<group>"; };
 		CECFC4B119DD808300ED88D3 /* DPLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLog.m; sourceTree = "<group>"; };
+		CED5183019F1685E00BF2E9C /* StoresTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoresTesting.m; sourceTree = "<group>"; };
 		CEF2645319E80E88008BE93A /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractViewController.h; sourceTree = "<group>"; };
 		CEF2645419E80E88008BE93A /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractViewController.m; sourceTree = "<group>"; };
 		CEF2645C19E8126A008BE93A /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
@@ -838,6 +840,7 @@
 			isa = PBXGroup;
 			children = (
 				CE2D1C4719EEA8630094F884 /* AuthTesting.m */,
+				CED5183019F1685E00BF2E9C /* StoresTesting.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -1535,6 +1538,7 @@
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
+				CED5183119F1685E00BF2E9C /* StoresTesting.m in Sources */,
 				CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
 				CE29100719EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				CE290FEF19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
