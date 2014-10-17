@@ -27,24 +27,24 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots', 'allure', 'coverage'],
+        reporters: ['dots'],
 
-		allureReport: {
-			reportDir: 'report'
-		},
+		//allureReport: {
+		//	reportDir: 'report'
+		//},
 
-		coverageReporter: {
-			type : 'html',
-			dir: 'coverage/'
-		},
+		//coverageReporter: {
+		//	type : 'html',
+		//	dir: 'coverage/'
+		//},
 
-        preprocessors: {
-            // source files, that you wanna generate coverage for
-            // do not include tests or libraries
-            // (these files will be instrumented by Istanbul),
-            'blocks/**/!(*.spec.js)*.js': 'coverage',
-            'kit/**/!(*.spec.js)*.js': 'coverage'
-        },
+        //preprocessors: {
+        //    // source files, that you wanna generate coverage for
+        //    // do not include tests or libraries
+        //    // (these files will be instrumented by Istanbul),
+        //    'blocks/**/!(*.spec.js)*.js': 'coverage',
+        //    'kit/**/!(*.spec.js)*.js': 'coverage'
+        //},
 
         // web server port
         port: 9876,
