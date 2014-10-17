@@ -9,6 +9,7 @@ namespace :webfront do
 
     desc "Build webfront app"
     task :build, :roles => :app, :except => { :no_release => true } do
+        puts "--> NPM build".yellow
         run "cd #{latest_release} && npm install && npm run build"
     end
 
