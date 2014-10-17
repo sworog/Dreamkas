@@ -34,8 +34,8 @@ public class GrossMarginSalesByGroupsObject extends AbstractObject implements Re
         return new CompareResults()
                 .compare("Группа", groupName, row.get("Группа"))
                 .compare("Продажи", grossSales, row.get("Продажи"))
-                .compare("Себестоимость", grossMargin, row.get("Себестоимость"))
-                .compare("Прибыль", costOfGoods, row.get("Прибыль"));
+                .compare("Себестоимость", costOfGoods, row.get("Себестоимость"))
+                .compare("Прибыль", grossMargin, row.get("Прибыль"));
     }
 
     @Override

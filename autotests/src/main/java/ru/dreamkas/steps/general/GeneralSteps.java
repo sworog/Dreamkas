@@ -32,7 +32,7 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("странице отчетов", ReportsMainPage.class);
             put("странице отчета остатка товаров", StockBalanceReport.class);
             put("странице отчета по продажам и прибыли по товарам внутри группы", GrossMarginSalesByProductsReportPage.class);
-            put("странице отчета по продажам и прибыли по товарам группы", GrossMarginSalesByGroupsReportPage.class);
+            put("отчета по продажам и прибыли по товарам группы", GrossMarginSalesByGroupsReportPage.class);
         }};
     }
 
