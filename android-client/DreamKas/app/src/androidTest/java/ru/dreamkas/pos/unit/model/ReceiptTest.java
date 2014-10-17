@@ -43,6 +43,19 @@ public class ReceiptTest extends AndroidTestCase {
         assertThat("Receipt should be empty after clear", mReceipt.size(), is(0));
     }
 
+    public void testReceiptTotalAfterClear() {
+
+        Product product = new Product();
+        Product product2 = new Product();
+
+        mReceipt.add(product);
+        mReceipt.add(product2);
+
+        mReceipt.clear();
+
+        assertThat("Wrong receipt total", mReceipt.getTotal(), is(0));
+    }
+
     public void testReceiptTotal() {
 
         Product product = new Product();
@@ -57,8 +70,6 @@ public class ReceiptTest extends AndroidTestCase {
         mReceipt.add(product);
         mReceipt.add(product2);
         mReceipt.add(product3);
-
-        mReceipt.clear();
 
         assertThat("Wrong receipt total", mReceipt.getTotal(), is(273));
     }
