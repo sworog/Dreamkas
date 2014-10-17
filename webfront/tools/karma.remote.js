@@ -31,12 +31,12 @@ module.exports = function(config) {
         reporters: ['teamcity', 'allure', 'coverage'],
 
         allureReport: {
-            reportDir: 'allure-report'
+            reportDir: '../artifacts/allure-report'
         },
 
 		coverageReporter: {
             reporters:[
-                {type: 'html', dir:'coverage/'},
+                {type: 'html', dir:'../artifacts/coverage/'},
                 {type: 'teamcity'}
             ]
 		},
