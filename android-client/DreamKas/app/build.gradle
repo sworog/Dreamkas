@@ -56,9 +56,11 @@ android
         buildConfigField 'String', 'ServerAddress', '"' + host  + '"'
         versionCode 1
         versionName '0.113.4'
+        testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
     }
 
     sourceSets {
+
 
         main {
             androidTest.setRoot('src/androidTest')
