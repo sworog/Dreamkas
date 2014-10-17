@@ -8,6 +8,7 @@ define(function(require, exports, module) {
 		Model: require('resources/stockIn/model'),
 		Form: require('blocks/form/stockIn/stockIn'),
 		Form_products: require('blocks/form/stockMovementProducts/stockIn/stockIn'),
+		addButtonCaption: 'Оприходовать',
 		addTitle: 'Оприходование товаров',
 		editTitle: 'Редактирование оприходования',
 		removeCaption: 'Удалить оприходование'

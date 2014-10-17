@@ -8,6 +8,7 @@ define(function(require, exports, module) {
 		Model: require('resources/supplierReturn/model'),
 		Form: require('blocks/form/supplierReturn/supplierReturn'),
 		Form_products: require('blocks/form/stockMovementProducts/supplierReturn/supplierReturn'),
+		addButtonCaption: 'Вернуть',
 		addTitle: 'Возврат поставщику',
 		editTitle: 'Редактирование возврата',
 		removeCaption: 'Удалить возврат'

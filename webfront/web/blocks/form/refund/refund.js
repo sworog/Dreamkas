@@ -26,7 +26,10 @@ define(function(require, exports, module) {
         },
         submitSuccess: function(){
             document.getElementById('modal_refund').block.show({
-                success: true
+                success: true,
+				models: {
+					refund: this.model
+				}
             });
         },
         showFieldError: function(data, field){
