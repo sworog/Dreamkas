@@ -59,16 +59,10 @@ android
     }
 
     sourceSets {
-        androidTest.setRoot('src/androidTest')
-        unitTest {
-            java.srcDir file('src/androidTest')
-        }
 
-        testLocal {
-            java.srcDir file('src/androidTest')
-        }
         main {
-                res.srcDirs = [
+            androidTest.setRoot('src/androidTest')
+            res.srcDirs = [
                     'src/main/res',
                     'src/main/res/layouts',
                     'src/main/res/layouts/activities',
@@ -123,6 +117,7 @@ dependencies
             }
             androidTestCompile 'com.google.guava:guava:11.0.2'
             androidTestCompile 'com.squareup.spoon:spoon-client:1.1.0'
+
             apt "org.androidannotations:androidannotations:3.0"
             compile 'com.android.support:support-v4:19.0.0'
             compile 'com.octo.android.robospice:robospice:1.4.12'
