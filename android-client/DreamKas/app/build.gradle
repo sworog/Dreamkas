@@ -59,15 +59,16 @@ android
     }
 
     sourceSets {
+        androidTest.setRoot('src/androidTest')
         main {
-            res.srcDirs = [
-                'src/main/res',
-                'src/main/res/layouts',
-                'src/main/res/layouts/activities',
-                'src/main/res/layouts/components',
-                'src/main/res/layouts/fragments',
-                'src/main/res/layouts/item_templates',
-                'src/main/res/layouts/misc'
+                res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/layouts',
+                    'src/main/res/layouts/activities',
+                    'src/main/res/layouts/components',
+                    'src/main/res/layouts/fragments',
+                    'src/main/res/layouts/item_templates',
+                    'src/main/res/layouts/misc'
             ]
         }
     }

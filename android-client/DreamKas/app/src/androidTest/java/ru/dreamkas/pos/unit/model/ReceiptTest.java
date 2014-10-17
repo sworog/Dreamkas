@@ -53,7 +53,7 @@ public class ReceiptTest extends AndroidTestCase {
 
         mReceipt.clear();
 
-        assertThat("Wrong receipt total", mReceipt.getTotal(), is(0));
+        assertThat("Wrong receipt total after clear", mReceipt.getTotal(), is(0));
     }
 
     public void testReceiptTotal() {
