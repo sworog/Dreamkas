@@ -468,13 +468,19 @@
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YYg-WM-ySP" id="Hnl-YN-Uq1">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gdl-xz-7Xi" customClass="WordWrappingLabel">
-                                                            <rect key="frame" x="70" y="1" width="650" height="52"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gdl-xz-7Xi" customClass="WordWrappingLabel">
+                                                            <rect key="frame" x="70" y="0.0" width="650" height="51"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="gdl-xz-7Xi" secondAttribute="trailing" constant="48" id="AjW-Ro-7b7"/>
+                                                        <constraint firstItem="gdl-xz-7Xi" firstAttribute="leading" secondItem="Hnl-YN-Uq1" secondAttribute="leading" constant="70" id="bqv-FO-65z"/>
+                                                        <constraint firstItem="gdl-xz-7Xi" firstAttribute="top" secondItem="Hnl-YN-Uq1" secondAttribute="top" id="de1-FA-ROT"/>
+                                                        <constraint firstAttribute="bottom" secondItem="gdl-xz-7Xi" secondAttribute="bottom" id="ouP-5c-vXM"/>
+                                                    </constraints>
                                                 </tableViewCellContentView>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <connections>

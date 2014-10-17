@@ -39,6 +39,9 @@
 
 - (void)initialize
 {
+    self.numberOfLines = 0;
+    self.lineBreakMode = NSLineBreakByWordWrapping;
+    
     self.font = DefaultFont(self.font.pointSize);
     self.backgroundColor = [UIColor clearColor];
 }
