@@ -5,14 +5,14 @@ module.exports = function(config) {
     config.set({
 
         // base path, that will be used to resolve files and exclude
-        basePath: 'src),
+        basePath: '../src',
 
         // frameworks to use
         frameworks: ['jasmine', 'requirejs'],
 
         // list of files / patterns to load in the browser
         files: [
-            'karma.main.js',
+            '../tools/karma.main.js',
             {pattern: '**/*.js', included: false},
             {pattern: '**/*.ejs', included: false}
         ],

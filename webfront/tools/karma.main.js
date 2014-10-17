@@ -11,7 +11,7 @@ var specModules = specFiles.map(function(moduleUrl){
 require({
     baseUrl: '/base/'
 }, function(){
-    require(['../src/require.config.js'], function() {
+    require(['require.config'], function() {
         require(specModules, window.__karma__.start);
     });
 });
