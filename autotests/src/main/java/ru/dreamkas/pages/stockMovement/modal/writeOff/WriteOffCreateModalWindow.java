@@ -1,6 +1,5 @@
 package ru.dreamkas.pages.stockMovement.modal.writeOff;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.collection.writeOffProduct.WriteOffProductCollection;
 import ru.dreamkas.elements.items.Input;
@@ -36,11 +35,5 @@ public class WriteOffCreateModalWindow extends StockMovementModalPage {
     @Override
     public Integer getProductRowsCount() {
         return getProductRowsCount("table_writeOffProducts");
-    }
-
-    @Override
-    public String getTotalSum() {
-        String xpath = String.format("%s//*[@class='writeOff__totalSum']", modalWindowXpath());
-        return findVisibleElement(By.xpath(xpath)).getText();
     }
 }

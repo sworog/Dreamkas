@@ -11,6 +11,6 @@ public class InvoiceSupplierCreateModalWindow extends SupplierCreateModalPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@class='modal-dialog modal__dialog_supplier']";
+        return "//*[contains(@id, 'modal_supplier')]";
     }
 }

@@ -9,11 +9,6 @@ public class InvoiceEditModalWindow extends InvoiceCreateModalWindow {
     }
 
     @Override
-    public String modalWindowXpath() {
-        return "//*[@id='modal_invoiceEdit']";
-    }
-
-    @Override
     public void confirmationOkClick() {
         confirmationOkClick("Сохранить");
     }
