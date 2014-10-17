@@ -10,4 +10,10 @@
 
 @interface CustomTableViewCell : UITableViewCell <CustomDataCellDelegate>
 
+/** Фон ячейки под нажатое состояние */
+@property (nonatomic) UIView *selectedBackground;
+
+/** Разделитель ячейки */
+@property (nonatomic) IBOutlet UIView *cellSeparator;
+
 @end

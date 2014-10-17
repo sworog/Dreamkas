@@ -80,6 +80,7 @@
 #import "AbstractTableViewController.h"
 
 #import "CustomLabel.h"
+#import "WordWrappingLabel.h"
 #import "CustomFilledButton.h"
 #import "CustomEmptyButton.h"
 #import "CustomTextField.h"

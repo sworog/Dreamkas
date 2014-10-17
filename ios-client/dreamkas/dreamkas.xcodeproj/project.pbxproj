@@ -89,6 +89,10 @@
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
 		CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
+		CE4C876A19F10B9700221E53 /* SimpleTitledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876919F10B9700221E53 /* SimpleTitledCell.m */; };
+		CE4C876B19F10B9700221E53 /* SimpleTitledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876919F10B9700221E53 /* SimpleTitledCell.m */; };
+		CE4C877019F10C4100221E53 /* WordWrappingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */; };
+		CE4C877119F10C4100221E53 /* WordWrappingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */; };
 		CE500B7B19F00A4F00449C34 /* AbstractTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B7A19F00A4F00449C34 /* AbstractTableViewController.m */; };
 		CE500B7C19F00A4F00449C34 /* AbstractTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B7A19F00A4F00449C34 /* AbstractTableViewController.m */; };
 		CE500B8719F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8419F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m */; };
@@ -341,6 +345,10 @@
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
 		CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Auth.h"; sourceTree = "<group>"; };
 		CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Auth.m"; sourceTree = "<group>"; };
+		CE4C876819F10B9700221E53 /* SimpleTitledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTitledCell.h; sourceTree = "<group>"; };
+		CE4C876919F10B9700221E53 /* SimpleTitledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTitledCell.m; sourceTree = "<group>"; };
+		CE4C876E19F10C4100221E53 /* WordWrappingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordWrappingLabel.h; sourceTree = "<group>"; };
+		CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordWrappingLabel.m; sourceTree = "<group>"; };
 		CE500B7919F00A4F00449C34 /* AbstractTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTableViewController.h; sourceTree = "<group>"; };
 		CE500B7A19F00A4F00449C34 /* AbstractTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractTableViewController.m; sourceTree = "<group>"; };
 		CE500B7F19F00E2F00449C34 /* CoreDataFetchingDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataFetchingDelegate.h; sourceTree = "<group>"; };
@@ -1001,6 +1009,8 @@
 			children = (
 				CEC003F919E694BE00AE256F /* CustomTableViewCell.h */,
 				CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */,
+				CE4C876819F10B9700221E53 /* SimpleTitledCell.h */,
+				CE4C876919F10B9700221E53 /* SimpleTitledCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1019,6 +1029,8 @@
 			children = (
 				CE946BDF19E6AB2800D270E4 /* CustomLabel.h */,
 				CE946BE019E6AB2800D270E4 /* CustomLabel.m */,
+				CE4C876E19F10C4100221E53 /* WordWrappingLabel.h */,
+				CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1370,6 +1382,7 @@
 				CE290FF619EE668B005483A1 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				CEC0041519E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE946BED19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
+				CE4C876A19F10B9700221E53 /* SimpleTitledCell.m in Sources */,
 				CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */,
 				CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */,
 				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
@@ -1425,6 +1438,7 @@
 				CE500B8719F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				CE29100A19EE668B005483A1 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				CE290FFE19EE668B005483A1 /* NSManagedObject+MagicalFinders.m in Sources */,
+				CE4C877019F10C4100221E53 /* WordWrappingLabel.m in Sources */,
 				CEBC439E19E8048700C0E575 /* DialogHelper.m in Sources */,
 				CE8AB38619E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CE29101219EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
@@ -1467,9 +1481,11 @@
 				CE290FF319EE668B005483A1 /* NSNumber+MagicalDataImport.m in Sources */,
 				CE29101B19EE668B005483A1 /* MagicalRecord+Setup.m in Sources */,
 				CE29100B19EE668B005483A1 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
+				CE4C877119F10C4100221E53 /* WordWrappingLabel.m in Sources */,
 				CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */,
 				CE29101319EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
 				CEF2647219E81D16008BE93A /* NSDate+Utilities.m in Sources */,
+				CE4C876B19F10B9700221E53 /* SimpleTitledCell.m in Sources */,
 				CEF2646319E8127B008BE93A /* SignInViewController.m in Sources */,
 				CEF2647419E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,

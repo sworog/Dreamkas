@@ -38,7 +38,7 @@
         table_view_controller.tableView = self.tableViewItem;
         
         headerRefreshControl = [UIRefreshControl new];
-        [headerRefreshControl setTintColor:DefaultWhiteColor];
+        [headerRefreshControl setTintColor:DefaultBlackColor];
         [headerRefreshControl addTarget:self action:@selector(startNonLimitedRequest)
                        forControlEvents:UIControlEventValueChanged];
         table_view_controller.refreshControl = headerRefreshControl;
@@ -437,8 +437,10 @@
 - (BOOL)needUpdateData
 {
     return YES;
-    //    return ([self countOfItemsForSection:0] == 0 ||
-    //            [[self fetchClass] needToUpdateFor:[self dictionaryForUpdates]]);
+    
+//    TODO: решить вопрос с проверкой актуальности локальных данных
+//    return ([self countOfItemsForSection:0] == 0 ||
+//            [[self fetchClass] needToUpdateFor:[self dictionaryForUpdates]]);
 }
 
 /**
@@ -448,7 +450,8 @@
 {
     DPLog(LOG_ON, @"");
     
-    //    [[self fetchClass] setLastUpdateTime:[NSDate date] forParams:[self dictionaryForUpdates]];
+//    TODO: решить вопрос с установкой временных засечек на обновление
+//    [[self fetchClass] setLastUpdateTime:[NSDate date] forParams:[self dictionaryForUpdates]];
 }
 
 /**

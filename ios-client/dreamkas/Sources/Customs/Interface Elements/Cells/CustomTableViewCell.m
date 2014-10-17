@@ -28,7 +28,15 @@
     
     self.backgroundColor = DefaultWhiteColor;
     self.contentView.backgroundColor = [UIColor clearColor];
-    self.selectionStyle = UITableViewCellSelectionStyleGray;
+    
+    self.selectedBackground = [[UIView alloc] initWithFrame:self.contentView.bounds];
+    [self.selectedBackground setAutoresizingMask:self.contentView.autoresizingMask];
+    [self.selectedBackground setBackgroundColor:DefaultLightCyanColor];
+    [self setSelectedBackgroundView:self.selectedBackground];
+    
+    self.cellSeparator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, DefaultCellSeparatorHeight)];
+    [self.cellSeparator setBackgroundColor:DefaultLightGrayColor];
+    [self.contentView addSubview:self.cellSeparator];
     
     // addition me
 }
@@ -53,7 +61,7 @@
     
     // redefine me
     
-    return 56;
+    return DefaultSingleLineCellHeight;
 }
 
 #pragma mark - Методы реакции на смену состояния ячейки

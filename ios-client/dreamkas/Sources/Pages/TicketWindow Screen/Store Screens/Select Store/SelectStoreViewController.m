@@ -7,6 +7,7 @@
 //
 
 #import "SelectStoreViewController.h"
+#import "SimpleTitledCell.h"
 
 @interface SelectStoreViewController ()
 
@@ -55,7 +56,7 @@
  */
 - (Class)cellClass
 {
-    return [CustomTableViewCell class];
+    return [SimpleTitledCell class];
 }
 
 /**
@@ -99,18 +100,10 @@
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
-}
-
-/**
- * Настройка очередной ячейки таблицы с помощью полей соответствующего объекта
- */
-- (void)configureCell:(UITableViewCell<CustomDataCellDelegate>*)cell
-          atIndexPath:(NSIndexPath*)indexPath
-           withObject:(NSManagedObject*)object
-{
-    StoreModel *sm = (StoreModel*)object;
-    [[cell textLabel] setText:[sm name]];
+    NSString *cell_identifier = [NSString stringWithFormat:@"Cell_%@", [self fetchClass]];
+    return [SimpleTitledCell cellHeight:tableView
+                         cellIdentifier:cell_identifier
+                                  model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 @end
