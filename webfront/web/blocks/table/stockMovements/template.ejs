@@ -18,7 +18,8 @@
 
     <% if (stockMovementModel.get('type') === 'Invoice'){ %>
 
-    <tr data-invoice-date="<%- formatDate(stockMovementModel.get('date')) %>"
+    <tr name="invoice"
+		data-invoice-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-invoice-number="<%- stockMovementModel.get('number') %>">
 
         <% if (dateRowSpan) { %>
@@ -51,7 +52,8 @@
 
     <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
 
-    <tr data-writeoff-date="<%- formatDate(stockMovementModel.get('date')) %>"
+    <tr name="writeOff"
+		data-writeoff-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-writeoff-number="<%- stockMovementModel.get('number') %>">
 
         <% if (dateRowSpan) { %>
@@ -83,7 +85,8 @@
 
     <% if (stockMovementModel.get('type') === 'StockIn'){ %>
 
-    <tr data-stockin-date="<%- formatDate(stockMovementModel.get('date')) %>"
+    <tr name="stockIn"
+		data-stockin-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-stockin-number="<%- stockMovementModel.get('number') %>">
 
         <% if (dateRowSpan) { %>
@@ -116,7 +119,8 @@
 
     <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
 
-    <tr data-supplier-return-date="<%- formatDate(stockMovementModel.get('date')) %>"
+    <tr name="supplierReturn"
+		data-supplier-return-date="<%- formatDate(stockMovementModel.get('date')) %>"
         data-supplier-return-number="<%- stockMovementModel.get('number') %>">
 
         <% if (dateRowSpan) { %>
