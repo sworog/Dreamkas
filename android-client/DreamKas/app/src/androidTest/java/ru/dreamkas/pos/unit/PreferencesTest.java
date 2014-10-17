@@ -1,5 +1,6 @@
 package ru.dreamkas.pos.unit;
 
+import android.test.AndroidTestCase;
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 import junit.framework.Assert;
@@ -10,7 +11,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.Is.is;
 
-public class PreferencesTest extends InstrumentationTestCase
+public class PreferencesTest extends AndroidTestCase
 {
     @Override
     protected void setUp() throws Exception
@@ -60,7 +61,7 @@ public class PreferencesTest extends InstrumentationTestCase
 
     private PreferencesManager initPreferences()
     {
-        PreferencesManager.initializeInstance(getInstrumentation().getContext());
+        PreferencesManager.initializeInstance(getContext());
         return PreferencesManager.getInstance();
     }
 }

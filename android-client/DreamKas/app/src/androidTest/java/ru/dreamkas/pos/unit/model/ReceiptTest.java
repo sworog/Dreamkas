@@ -1,5 +1,6 @@
 package ru.dreamkas.pos.unit.model;
 
+import android.test.AndroidTestCase;
 import android.test.InstrumentationTestCase;
 
 import ru.dreamkas.pos.model.Receipt;
@@ -8,7 +9,7 @@ import ru.dreamkas.pos.model.api.Product;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class ReceiptTest extends InstrumentationTestCase {
+public class ReceiptTest extends AndroidTestCase {
     private Receipt mReceipt;
 
     @Override

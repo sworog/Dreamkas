@@ -1,12 +1,13 @@
 package ru.dreamkas.pos.unit.api;
 
+import android.test.AndroidTestCase;
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 import ru.dreamkas.pos.controller.requests.AuthRequest_;
 import ru.dreamkas.pos.model.api.AuthObject;
 import ru.dreamkas.pos.model.api.Token;
 
-public class AuthRequestTest extends InstrumentationTestCase
+public class AuthRequestTest extends AndroidTestCase//InstrumentationTestCase
 {
     private AuthRequest_ authRequest;
 
@@ -17,7 +18,7 @@ public class AuthRequestTest extends InstrumentationTestCase
 
         AuthObject ao = new AuthObject("webfront_webfront", "owner@lighthouse.pro", "lighthouse", "secret");
 
-        authRequest = AuthRequest_.getInstance_(getInstrumentation().getContext());
+        authRequest = AuthRequest_.getInstance_(getContext());
         authRequest.setCredentials(ao);
     }
 
