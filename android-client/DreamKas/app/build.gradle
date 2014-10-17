@@ -11,7 +11,6 @@ buildscript {
     }
 }
 
-
 apply plugin: 'spoon'
 
 repositories {
@@ -21,10 +20,6 @@ repositories {
     mavenCentral()
     jcenter()
 }
-
-
-
-
 
 android
 {
@@ -50,13 +45,35 @@ android
 
     defaultConfig
     {
-        applicationId 'ru.crystals.vaverjanov.dreamkas'
+        applicationId 'ru.dreamkas.pos'
         minSdkVersion 17
         targetSdkVersion 19
-        buildConfigField 'String', 'ServerAddress', '"http://av.staging.api.lighthouse.pro"'
+
+        def host = "http://av.staging.api.lighthouse.pro"
+        if(project.hasProperty("server_address")){
+            host = project.getProperty("server_address");
+        }
+        buildConfigField 'String', 'ServerAddress', '"' + host  + '"'
         versionCode 1
-        versionName '0.113.1'
+        versionName '0.113.4'
         testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
+    }
+
+    sourceSets {
+
+
+        main {
+            androidTest.setRoot('src/androidTest')
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/layouts',
+                    'src/main/res/layouts/activities',
+                    'src/main/res/layouts/components',
+                    'src/main/res/layouts/fragments',
+                    'src/main/res/layouts/item_templates',
+                    'src/main/res/layouts/misc'
+            ]
+        }
     }
 
     testOptions
@@ -76,10 +93,6 @@ android
             applicationIdSuffix ".debug"
         }
     }
-    productFlavors
-    {
-
-    }
 }
 
 apt
@@ -97,24 +110,23 @@ spoon
 }
 
 dependencies
-{
-    //provided 'com.jakewharton.espresso:espresso:1.1-r2|'
-    provided 'com.jakewharton.espresso:espresso-support-v4:1.1-r3'
-    androidTestCompile ('com.jakewharton.espresso:espresso-support-v4:1.1-r3')
-    {
-        exclude group:'com.android.support', module:'support-v4'
-    }
-    androidTestCompile 'com.google.guava:guava:11.0.2'
-    androidTestCompile 'com.squareup.spoon:spoon-client:1.1.0'
+        {
 
-    apt "org.androidannotations:androidannotations:3.0"
+            //provided 'com.jakewharton.espresso:espresso:1.1-r2|'
+            provided 'com.jakewharton.espresso:espresso-support-v4:1.1-r3'
+            androidTestCompile('com.jakewharton.espresso:espresso-support-v4:1.1-r3') {
+                exclude group: 'com.android.support', module: 'support-v4'
+            }
+            androidTestCompile 'com.google.guava:guava:11.0.2'
+            androidTestCompile 'com.squareup.spoon:spoon-client:1.1.0'
 
-    compile 'com.android.support:support-v4:19.0.0'
-    compile 'com.octo.android.robospice:robospice:1.4.12'
-    compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'
-    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
-    compile 'org.androidannotations:androidannotations-api:3.0'
-}
+            apt "org.androidannotations:androidannotations:3.0"
+            compile 'com.android.support:support-v4:19.0.0'
+            compile 'com.octo.android.robospice:robospice:1.4.12'
+            compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'
+            compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+            compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
+            compile 'org.androidannotations:androidannotations-api:3.0'
+        }
 
 
