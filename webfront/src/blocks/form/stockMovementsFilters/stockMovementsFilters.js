@@ -23,7 +23,7 @@ define(function(require, exports, module) {
                 PAGE.collections.stockMovements.fetch({
                     filters: filters
                 }).then(function(){
-                    PAGE.setParams(filters);
+                    PAGE.setParams(filters, { render: true });
                 });
             }
         },
