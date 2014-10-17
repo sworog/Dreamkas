@@ -13,13 +13,13 @@ public class WriteOffCreateModalWindow extends StockMovementModalPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_writeOffAdd']";
+        return "//*[@id='modal_writeOff']";
     }
 
     @Override
     public void createElements() {
         super.createElements();
-        put("cause", new Input(this, "//*[@class='writeOffProductForm']//*[@name='cause']"));
+        put("cause", new Input(this, "//*[@class='form_stockMovementProducts__controls']//*[@name='cause']"));
     }
 
     @Override
