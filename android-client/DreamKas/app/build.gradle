@@ -60,6 +60,13 @@ android
 
     sourceSets {
         androidTest.setRoot('src/androidTest')
+        unitTest {
+            java.srcDir file('src/androidTest')
+        }
+
+        testLocal {
+            java.srcDir file('src/androidTest')
+        }
         main {
                 res.srcDirs = [
                     'src/main/res',
