@@ -13,7 +13,7 @@ Meta:
 
 GivenStories: precondition/ресет_и_перезапуск_приложения.story,
               precondition/создание_пользователя.story,
-              precondition/создание_магазинов.story
+              precondition/создание_магазинов.story,
               precondition/создание_товаров.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
@@ -33,7 +33,7 @@ Meta:
 
 GivenStories: precondition/ресет_и_перезапуск_приложения.story,
               precondition/создание_пользователя.story,
-              precondition/создание_магазинов.story
+              precondition/создание_магазинов.story,
               precondition/создание_товаров.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
@@ -52,7 +52,7 @@ Meta:
 
 GivenStories: precondition/ресет_и_перезапуск_приложения.story,
               precondition/создание_пользователя.story,
-              precondition/создание_магазинов.story
+              precondition/создание_магазинов.story,
               precondition/создание_товаров.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
@@ -92,7 +92,7 @@ Meta:
 
 GivenStories: precondition/ресет_и_перезапуск_приложения.story,
               precondition/создание_пользователя.story,
-              precondition/создание_магазинов.story
+              precondition/создание_магазинов.story,
               precondition/создание_товаров.story
 
 Given пользователь авторизируется в системе используя адрес электронной почты 'androidpos@lighthouse.pro' и пароль 'lighthouse'
