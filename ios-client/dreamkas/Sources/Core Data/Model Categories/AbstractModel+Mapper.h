@@ -25,4 +25,9 @@
  */
 - (id)mapModelFields:(NSDictionary*)data;
 
+/**
+ * Поиск модели по первичному ключу
+ */
++ (id)findByPK:(NSString*)pk;
+
 @end

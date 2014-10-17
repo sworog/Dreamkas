@@ -22,7 +22,7 @@
 - (void)initialize
 {
     // включаем для контроллера массовое обновление и лимитированные запросы
-    [self setPullDownActionEnabled:YES];
+    [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
 }
 
@@ -46,7 +46,12 @@
 {
     DPLogFast(@"");
     
-    [self hideModalViewController];
+    if ([[CurrentUser lastUsedStoreID] length]) {
+        [self hideModalViewController];
+    }
+    else {
+        [DialogHelper showError:@"Для работы необходимо выбрать магазин"];
+    }
 }
 
 #pragma mark - Методы CustomTableViewController
@@ -104,6 +109,19 @@
     return [SimpleTitledCell cellHeight:tableView
                          cellIdentifier:cell_identifier
                                   model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+}
+
+/**
+ * Обработка нажатия по ячейке
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DPLogFast(@"");
+    
+    StoreModel *store = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [CurrentUser updateLastUsedStoreID:[store pk]];
+    
+    [self hideModalViewController];
 }
 
 @end

@@ -14,7 +14,7 @@
 
 @implementation CurrentUserHelper
 
-@synthesize lastUsedLogin, lastUsedPassword;
+@synthesize lastUsedLogin, lastUsedPassword, lastUsedStoreID;
 
 #pragma mark - Инициализация
 
@@ -36,7 +36,10 @@
         lastUsedLogin = [UserDefaults valueForKey:UserDefaultsKey(lastUsedLogin)];
         lastUsedPassword = [AESCrypt decrypt:[UserDefaults valueForKey:UserDefaultsKey(lastUsedPassword)]
                                     password:CurrentUserPrivateStorePassword];
+        lastUsedStoreID = [UserDefaults valueForKey:UserDefaultsKey(lastUsedStoreID)];
+
         DPLogFast(@"lastUsedLogin = %@, lastUsedPassword = %@", lastUsedLogin, lastUsedPassword);
+        DPLogFast(@"lastUsedStoreID = %@", lastUsedStoreID);
     }
     
     return self;
@@ -68,6 +71,22 @@
     [UserDefaults setValue:lastUsedLogin forKey:UserDefaultsKey(lastUsedLogin)];
     [UserDefaults setValue:[AESCrypt encrypt:lastUsedPassword password:CurrentUserPrivateStorePassword]
                     forKey:UserDefaultsKey(lastUsedPassword)];
+    [UserDefaults synchronize];
+}
+
+/**
+ * Метод для установки нового идентификатора магазина
+ */
+- (void)updateLastUsedStoreID:(NSString *)newStoreID
+{
+    DPLogFast(@"");
+    
+    if ([newStoreID length] < 1)
+        return;
+    
+    lastUsedStoreID = newStoreID.copy;
+    
+    [UserDefaults setValue:lastUsedStoreID forKey:UserDefaultsKey(lastUsedStoreID)];
     [UserDefaults synchronize];
 }
 

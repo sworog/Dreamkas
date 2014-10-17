@@ -95,6 +95,9 @@
     return model;
 }
 
+/**
+ * Поиск модели по первичному ключу
+ */
 + (id)findByPK:(NSString*)pk
 {
     return [self MR_findFirstByAttribute:@"pk"

@@ -10,6 +10,7 @@
 
 @interface TicketWindowViewController ()
 
+@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @end
@@ -22,21 +23,22 @@
 {
     [super viewDidLoad];
     
-    // ..
+    [self.titleLabel setText:@""];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
-    DPLogFast(@"");
-    
-    // TODO: показываем окно выбора магазина, если магазин не был выбран ранее
-    
-    // TODO: если магазин уже выбран - сразу показываем его
-    
-    [self showViewControllerModally:ControllerById(SelectStoreViewControllerID)
-                            segueId:TicketWindowToSelectStoreSegueName];
+    if ([[CurrentUser lastUsedStoreID] length] < 1) {
+        [self showViewControllerModally:ControllerById(SelectStoreViewControllerID)
+                                segueId:TicketWindowToSelectStoreSegueName];
+    }
+    else {
+        StoreModel *store = [StoreModel findByPK:[CurrentUser lastUsedStoreID]];
+        if ([[store name] length] > 0)
+            [self.titleLabel setText:[store name]];
+    }
 }
 
 #pragma mark - Configuration Methods
