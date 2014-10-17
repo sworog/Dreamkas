@@ -28,11 +28,11 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['teamcity', 'allure', 'coverage'],
+        reporters: ['teamcity', 'coverage'],
 
-        allureReport: {
-            reportDir: '../artifacts/allure-report'
-        },
+        //allureReport: {
+        //    reportDir: '../artifacts/allure-report'
+        //},
 
 		coverageReporter: {
             reporters:[
