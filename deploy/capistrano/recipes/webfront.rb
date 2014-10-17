@@ -9,7 +9,7 @@ namespace :webfront do
 
     desc "Build webfront app"
     task :build, :roles => :app, :except => { :no_release => true } do
-        run "sh -c 'cd #{latest_release} && #{sudo} npm install && npm run build'"
+        run "cd #{latest_release} && #{sudo} npm install && npm run build"
     end
 
     desc "Create config.js"
@@ -19,7 +19,7 @@ namespace :webfront do
 
     desc "Symlink web folder"
     task :symlink, :roles => :app, :except => { :no_release => true } do
-        run "cd #{latest_release} && ln -snf webfront/build webfront/web"
+        run "cd #{latest_release} && ln -snf build web"
     end
 
     task :rename_api, :roles => :app, :except => { :no_release => true } do
