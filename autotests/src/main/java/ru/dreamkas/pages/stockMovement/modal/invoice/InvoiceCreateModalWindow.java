@@ -32,11 +32,6 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage implements 
     }
 
     @Override
-    public void addProductButtonClick() {
-        addProductButtonClick("addInvoiceProduct");
-    }
-
-    @Override
     public InvoiceProductCollection getProductCollection() {
         return new InvoiceProductCollection(getDriver());
     }

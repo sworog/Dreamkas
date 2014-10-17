@@ -17,9 +17,4 @@ public class InvoiceEditModalWindow extends InvoiceCreateModalWindow {
     public void confirmationOkClick() {
         confirmationOkClick("Сохранить");
     }
-
-    @Override
-    public void confirmDeleteButtonClick() {
-        confirmDeleteButtonClick("invoice__removeLink");
-    }
 }

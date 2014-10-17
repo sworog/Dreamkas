@@ -29,11 +29,6 @@ public class WriteOffCreateModalWindow extends StockMovementModalPage {
     }
 
     @Override
-    public void addProductButtonClick() {
-        addProductButtonClick("addWriteOffProduct");
-    }
-
-    @Override
     public WriteOffProductCollection getProductCollection() {
         return new WriteOffProductCollection(getDriver());
     }

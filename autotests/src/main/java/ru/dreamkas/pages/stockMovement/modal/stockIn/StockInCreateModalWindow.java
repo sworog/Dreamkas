@@ -20,10 +20,6 @@ public class StockInCreateModalWindow extends StockMovementModalPage {
         confirmationOkClick("Оприходовать");
     }
 
-    public void addProductButtonClick() {
-        addProductButtonClick("addStockInProduct");
-    }
-
     @Override
     public StockInProductCollection getProductCollection() {
         return new StockInProductCollection(getDriver());

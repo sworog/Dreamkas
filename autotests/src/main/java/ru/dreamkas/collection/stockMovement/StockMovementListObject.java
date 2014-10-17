@@ -68,7 +68,7 @@ public class StockMovementListObject extends AbstractObject implements ObjectCli
 
     @Override
     public void click() {
-        getElement().click();
+        getElement().findElement(By.xpath(".//*[contains(@class, '__link')]")).click();
     }
 
     @Override
