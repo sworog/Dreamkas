@@ -15,8 +15,8 @@
     "karma-webdriverjs-launcher": "git://github.com/tatablack/karma-webdriverjs-launcher.git"
   },
   "scripts": {
-    "test": "node ./node_modules/karma/bin/karma start --single-run",
-    "test-remote": "node ./node_modules/karma/bin/karma start karma.remote.js --single-run",
+    "test": "node ./node_modules/karma/bin/karma start tools/karma.config.js --single-run",
+    "test-remote": "node ./node_modules/karma/bin/karma start tools/karma.remote.js --single-run",
     "build": "node ./node_modules/grunt-cli/bin/grunt build"
   }
 }
