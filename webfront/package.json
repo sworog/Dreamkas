@@ -1,5 +1,9 @@
 {
+  "name": "dreamkas-web-client",
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "~0.1",
+    "grunt-shell": "^1.1.1",
     "karma": "~0.12",
     "karma-allure-reporter": "git://github.com/allure-framework/karma-allure-reporter.git",
     "karma-chrome-launcher": "~0.1",
@@ -12,6 +16,7 @@
   },
   "scripts": {
     "test": "node ./node_modules/karma/bin/karma start --single-run",
-    "test-remote": "node ./node_modules/karma/bin/karma start karma.remote.js --single-run"
+    "test-remote": "node ./node_modules/karma/bin/karma start karma.remote.js --single-run",
+    "build": "node ./node_modules/grunt-cli/bin/grunt build"
   }
 }

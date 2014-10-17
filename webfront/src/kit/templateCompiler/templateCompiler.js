@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    require('lodash');
+    var _ = require('bower_components/lodash/dist/lodash');
 
     _.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
 

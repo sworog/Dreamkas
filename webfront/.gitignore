@@ -1,4 +1,6 @@
 /.bundle/
 /vendor/
 node_modules/
+build/
+web
 npm-debug.log
