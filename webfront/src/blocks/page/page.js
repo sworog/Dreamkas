@@ -65,19 +65,13 @@ define(function(require, exports, module) {
             Block.prototype.initialize.apply(page, arguments);
         },
 
-        initData: function() {
-            var page = this;
-
-            return $.when(Block.prototype.initData.apply(page, arguments)).then(function() {
-                return page.fetch();
-            });
-        },
-
         render: function() {
             var page = this,
+                args = [].slice.call(arguments),
                 autofocus;
 
-            Block.prototype.render.apply(page, arguments).then(function(){
+            $.when(page.fetch()).then(function(){
+                Block.prototype.render.apply(page, args);
 
                 if (previousPage) {
                     previousPage.remove();
@@ -93,9 +87,7 @@ define(function(require, exports, module) {
                 }
 
                 page.setStatus('loaded');
-
             });
-
         },
 
         remove: function() {

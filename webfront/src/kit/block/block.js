@@ -18,11 +18,32 @@ define(function(require, exports, module) {
 
         constructor: function(params) {
 
+            var block = this;
+
             deepExtend(this, params);
 
-            this.delegateGlobalEvents();
+            var initialize = this.initialize,
+                render = this.render;
 
-            View.apply(this, arguments);
+            this.initialize = function(data){
+
+                block.stopListening();
+
+                data && block.set(data);
+
+                initialize.apply(block, arguments);
+            };
+
+            this.render = function(data){
+
+                data && block.set(data);
+
+                render.apply(block, arguments);
+            };
+
+            View.apply(this);
+
+            this.render();
 
         },
 
@@ -36,9 +57,11 @@ define(function(require, exports, module) {
         formatDateTime: require('kit/formatDateTime/formatDateTime'),
         normalizeNumber: require('kit/normalizeNumber/normalizeNumber'),
 
-        initialize: function(){
+        initialize: function(data){
 
             var block = this;
+
+            block.delegateGlobalEvents();
 
             //save data constructors in hidden fields
 
@@ -48,55 +71,7 @@ define(function(require, exports, module) {
             block.__collection = block.__collection || block.collection;
             block.__model = block.__model || block.model;
 
-            this.render();
-
-        },
-
-        render: function(data) {
-            var block = this;
-
-            //always get actual data before rendering
-
-            return $.when(block.initData(data)).then(function(){
-
-                if (typeof block.template !== 'function') {
-                    return;
-                }
-
-                block.removeBlocks();
-
-                block.bindings && block.bindings.unbind();
-
-                block.setElement($(block.template(block)).replaceAll(block.el));
-
-                block.bindings = rivets.bind(block.el, block);
-
-                block.initBlocks();
-
-                block.el.block = block;
-
-            });
-
-        },
-
-        get: function() {
-            var args = [this].concat([].slice.call(arguments));
-
-            return get.apply(null, args);
-        },
-
-        set: function() {
-            var args = [this].concat([].slice.call(arguments));
-
-            return set.apply(null, args);
-        },
-
-        initData: function(data) {
-            var block = this;
-            
             if (data){
-
-                block.set(data);
 
                 _.extend(block.__collections, data.collections);
                 _.extend(block.__models, data.models);
@@ -118,6 +93,39 @@ define(function(require, exports, module) {
             block.collection = block.get('__collection');
             block.model = block.get('__model');
 
+        },
+
+        render: function() {
+            var block = this;
+
+            if (typeof block.template !== 'function') {
+                return;
+            }
+
+            block.removeBlocks();
+
+            block.bindings && block.bindings.unbind();
+
+            block.setElement($(block.template(block)).replaceAll(block.el));
+
+            block.bindings = rivets.bind(block.el, block);
+
+            block.initBlocks();
+
+            block.el.block = block;
+
+        },
+
+        get: function() {
+            var args = [this].concat([].slice.call(arguments));
+
+            return get.apply(null, args);
+        },
+
+        set: function() {
+            var args = [this].concat([].slice.call(arguments));
+
+            return set.apply(null, args);
         },
 
         initBlocks: function() {

@@ -31,28 +31,21 @@ define(function(require, exports, module) {
 
             Block.prototype.initialize.apply(block, arguments);
 
+            if (block.collection) {
+                block.listenTo(block.collection, {
+                    'change add remove reset': function() {
+                        block.render();
+                    }
+                });
+            }
+
             if (block.itemSelector) {
                 block.bindSwitchHandlers();
             }
         },
         render: function() {
-            var block = this;
-
-            Block.prototype.render.apply(block, arguments);
-
-            var $sortTriggers = block.$('[data-sort-by]'),
-                $sortTrigger = block.$('[data-sort-by="' + block.sortBy + '"]');
-
-            $sortTriggers.removeAttr('data-sorted-direction');
-
-            $sortTrigger.attr('data-sorted-direction', block.sortDirection);
-        },
-        initData: function(){
-
             var block = this,
                 sortedList;
-
-            Block.prototype.initData.apply(this, arguments);
 
             if (block.collection) {
 
@@ -63,21 +56,22 @@ define(function(require, exports, module) {
                 }
 
                 block.sortedCollection = new Collection(sortedList);
-
-                block.listenTo(block.collection, {
-                    'change add remove reset': function() {
-                        block.render();
-                    }
-                });
             }
+
+            Block.prototype.render.apply(block, arguments);
+
+            var $sortTriggers = block.$('[data-sort-by]'),
+                $sortTrigger = block.$('[data-sort-by="' + block.sortBy + '"]');
+
+            $sortTriggers.removeAttr('data-sorted-direction');
+
+            $sortTrigger.attr('data-sorted-direction', block.sortDirection);
         },
         sort: function(opt) {
 
             var block = this;
 
-            block.set(opt);
-
-            block.render();
+            block.render(opt);
         },
         bindSwitchHandlers: function() {
             var block = this;
