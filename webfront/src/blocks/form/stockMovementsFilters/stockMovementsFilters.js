@@ -24,6 +24,9 @@ define(function(require, exports, module) {
                     filters: filters
                 }).then(function(){
                     PAGE.setParams(filters);
+                    block.render({
+                        data: _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types')
+                    });
                 });
             }
         },
@@ -40,8 +43,9 @@ define(function(require, exports, module) {
         submitSuccess: function(){
             var block = this;
 
-            PAGE.setParams(block.data, {
-                render: true
+            PAGE.setParams(block.data);
+            block.render({
+                data: _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types')
             });
         },
         showErrors: function(error){
