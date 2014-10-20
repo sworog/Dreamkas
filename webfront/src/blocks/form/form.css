@@ -9,6 +9,21 @@
     color: rgb(153, 153, 153);
 }
 
+.form__errorMessage {
+    font-style: italic;
+    color: #db4c4a;
+    display: none;
+}
+
+.form__errorMessage_global {
+    padding-bottom: 20px;
+}
+
+.form__errorMessage_visible {
+    display: block;
+    padding-top: 5px;
+}
+
 .form__body {
     padding: 15px 20px;
     position: relative;
@@ -18,6 +33,10 @@
     width: 400px;
     margin: 0 auto;
     background: #eeeeee;
+}
+
+.form_stockMovementProducts{
+    margin: 0 -8px;
 }
 
 .form_receipt__totalPrice, .form_receipt__totalPrice .fa {

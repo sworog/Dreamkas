@@ -60,3 +60,8 @@
     font-size: 12px;
     color: #c6c6c6;
 }
+
+.table_stockMovements td[name="date"] {
+    background-color: #fff !important;
+    border-right: 1px solid #efefef;
+}
