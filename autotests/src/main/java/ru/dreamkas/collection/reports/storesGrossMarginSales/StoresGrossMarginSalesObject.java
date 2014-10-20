@@ -32,10 +32,10 @@ public class StoresGrossMarginSalesObject extends AbstractObject implements Resu
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
-                .compare("Магазин", name, row.get("Магазин"))
-                .compare("Продажи", grossSales, row.get("Продажи"))
-                .compare("Себестоимость", costOfGoods, row.get("Себестоимость"))
-                .compare("Прибыль", grossMargin, row.get("Прибыль"));
+                .compare("магазин", name, row.get("магазин"))
+                .compare("продажи", grossSales, row.get("продажи"))
+                .compare("себестоимость", costOfGoods, row.get("себестоимость"))
+                .compare("прибыль", grossMargin, row.get("прибыль"));
     }
 
     @Override
