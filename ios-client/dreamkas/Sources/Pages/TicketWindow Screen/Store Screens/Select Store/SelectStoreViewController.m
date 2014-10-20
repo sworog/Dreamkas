@@ -28,16 +28,24 @@
 
 #pragma mark - View Lifecycle
 
-- (void)configureLocalization
-{
-    [self.titleLabel setText:NSLocalizedString(@"select_store_title_name", nil)];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     // ..
+}
+
+#pragma mark - Configuration Methods
+
+- (void)configureLocalization
+{
+    // ..
+}
+
+- (void)configureAccessibilityLabels
+{
+    [self.titleLabel setText:NSLocalizedString(@"select_store_title_name", nil)];
+    [self.tableViewItem setAccessibilityLabel:AI_SelectStorePage_Table];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

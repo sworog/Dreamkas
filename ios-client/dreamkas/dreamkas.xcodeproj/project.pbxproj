@@ -83,8 +83,6 @@
 		CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE519EE668B005483A1 /* MagicalRecord+ShorthandSupport.m */; };
 		CE29101E19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
 		CE29101F19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
-		CE2D1C4819EEA8630094F884 /* AuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D1C4719EEA8630094F884 /* AuthTesting.m */; };
-		CE2D1C4A19EEAC090094F884 /* LogInTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D1C4919EEAC090094F884 /* LogInTesting.m */; };
 		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
@@ -115,6 +113,10 @@
 		CE8AB39319E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */ = {isa = PBXBuildFile; fileRef = CE8AB39019E7D1AA00B105E0 /* DreamkasDev.p12 */; };
 		CE8AB39419E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = CE8AB39119E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision */; };
 		CE8AB39519E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = CE8AB39119E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision */; };
+		CE91B79519F4ED4700258AB0 /* UTAuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */; };
+		CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */; };
+		CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */; };
+		CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79A19F4EE4100258AB0 /* ITStoresTesting.m */; };
 		CE946BB919E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBA19E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */; };
@@ -197,7 +199,6 @@
 		CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49A19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m */; };
 		CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */; };
 		CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC4B119DD808300ED88D3 /* DPLog.m */; };
-		CED5183119F1685E00BF2E9C /* StoresTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CED5183019F1685E00BF2E9C /* StoresTesting.m */; };
 		CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
 		CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
 		CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645D19E8126A008BE93A /* LogInViewController.m */; };
@@ -339,8 +340,6 @@
 		CE290FE919EE668B005483A1 /* MagicalRecordLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordLogging.h; sourceTree = "<group>"; };
 		CE290FEA19EE668B005483A1 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		CE290FEB19EE668B005483A1 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
-		CE2D1C4719EEA8630094F884 /* AuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthTesting.m; sourceTree = "<group>"; };
-		CE2D1C4919EEAC090094F884 /* LogInTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInTesting.m; sourceTree = "<group>"; };
 		CE2D1C4C19EEBCA10094F884 /* AccessibilityLabels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessibilityLabels.h; sourceTree = "<group>"; };
 		CE3B95ED19E40DA900E1D24F /* DatesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatesHelper.h; sourceTree = "<group>"; };
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
@@ -373,6 +372,10 @@
 		CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentUserHelper.m; sourceTree = "<group>"; };
 		CE8AB39019E7D1AA00B105E0 /* DreamkasDev.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = DreamkasDev.p12; sourceTree = "<group>"; };
 		CE8AB39119E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision */ = {isa = PBXFileReference; lastKnownFileType = file; path = DreamkasDevelopmentProfile.mobileprovision; sourceTree = "<group>"; };
+		CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTAuthTesting.m; sourceTree = "<group>"; };
+		CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTStoresTesting.m; sourceTree = "<group>"; };
+		CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITAuthTesting.m; sourceTree = "<group>"; };
+		CE91B79A19F4EE4100258AB0 /* ITStoresTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITStoresTesting.m; sourceTree = "<group>"; };
 		CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		CE946BA919E6A91400D270E4 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -461,7 +464,6 @@
 		CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		CECFC4B019DD808300ED88D3 /* DPLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLog.h; sourceTree = "<group>"; };
 		CECFC4B119DD808300ED88D3 /* DPLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLog.m; sourceTree = "<group>"; };
-		CED5183019F1685E00BF2E9C /* StoresTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoresTesting.m; sourceTree = "<group>"; };
 		CEF2645319E80E88008BE93A /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractViewController.h; sourceTree = "<group>"; };
 		CEF2645419E80E88008BE93A /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractViewController.m; sourceTree = "<group>"; };
 		CEF2645C19E8126A008BE93A /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
@@ -831,7 +833,8 @@
 		CE2D1C4019EEA67A0094F884 /* Integration Tests */ = {
 			isa = PBXGroup;
 			children = (
-				CE2D1C4919EEAC090094F884 /* LogInTesting.m */,
+				CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */,
+				CE91B79A19F4EE4100258AB0 /* ITStoresTesting.m */,
 			);
 			path = "Integration Tests";
 			sourceTree = "<group>";
@@ -839,8 +842,8 @@
 		CE2D1C4619EEA8530094F884 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				CE2D1C4719EEA8630094F884 /* AuthTesting.m */,
-				CED5183019F1685E00BF2E9C /* StoresTesting.m */,
+				CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */,
+				CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -1493,7 +1496,6 @@
 				CEF2647419E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */,
-				CE2D1C4819EEA8630094F884 /* AuthTesting.m in Sources */,
 				CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE29100319EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEF2645F19E8126A008BE93A /* LogInViewController.m in Sources */,
@@ -1504,11 +1506,13 @@
 				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE29101919EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
+				CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */,
 				CE29101719EE668B005483A1 /* MagicalRecord+iCloud.m in Sources */,
 				CEBC43A819E806F700C0E575 /* Reachability.m in Sources */,
 				CE500B8819F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				CEBC43A319E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
+				CE91B79519F4ED4700258AB0 /* UTAuthTesting.m in Sources */,
 				CE290FFD19EE668B005483A1 /* NSManagedObject+MagicalDataImport.m in Sources */,
 				CEC0041219E69B1700AE256F /* IntroViewController.m in Sources */,
 				CE29101519EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
@@ -1531,14 +1535,14 @@
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
-				CE2D1C4A19EEAC090094F884 /* LogInTesting.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
+				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
+				CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
-				CED5183119F1685E00BF2E9C /* StoresTesting.m in Sources */,
 				CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
 				CE29100719EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				CE290FEF19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,

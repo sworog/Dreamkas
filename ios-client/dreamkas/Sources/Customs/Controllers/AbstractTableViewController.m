@@ -640,7 +640,9 @@
     if (cell == nil) {
         cell = [[[self cellClass] alloc] initWithStyle:UITableViewCellStyleValue1
                                        reuseIdentifier:cell_identifier];
-    }
+    }    
+    [cell setAccessibilityLabel:AI_Common_CellAtIndexPath([indexPath section], [indexPath row])];
+    DPLogFast(@"cell accessibilityLabel = %@", [cell accessibilityLabel]);
     
     id object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath withObject:object];

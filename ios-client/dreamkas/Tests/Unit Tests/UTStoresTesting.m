@@ -1,24 +1,24 @@
 //
-//  StoresTesting.m
+//  UTStoresTesting.m
 //  dreamkas
 //
-//  Created by sig on 17.10.14.
+//  Created by sig on 20.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface StoresTesting : XCTestCase
+@interface UTStoresTesting : XCTestCase
 
 @end
 
-@implementation StoresTesting
+@implementation UTStoresTesting
 
 - (void)setUp
 {
     [super setUp];
-
+    
 #if API_USE_TEST_SERVER
     
     XCTestExpectation *expectation = [self expectationWithDescription:@"testing async method"];
@@ -37,7 +37,8 @@
     
 }
 
-- (void)tearDown {
+- (void)tearDown
+{
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }

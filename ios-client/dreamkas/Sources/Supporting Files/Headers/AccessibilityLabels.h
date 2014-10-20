@@ -21,6 +21,8 @@
 #define AI_Common_MessageAlert              @"AI_Common_MessageAlert"
 #define AI_Common_ConfirmAlert              @"AI_Common_ConfirmAlert"
 
+#define AI_Common_CellAtIndexPath(sid,rid)  [NSString stringWithFormat:@"AI_Common_CellAtIndexPath_s%ld_r%ld", sid, rid]
+
 //
 // Экран (разводящий) аутентификации в приложении
 //
@@ -48,5 +50,6 @@
 //
 
 #define AI_TicketWindowPage_Table           @"AI_TicketWindowPage_Table"
+#define AI_SelectStorePage_Table            @"AI_SelectStorePage_Table"
 
 #endif
