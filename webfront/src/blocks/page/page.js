@@ -63,6 +63,8 @@ define(function(require, exports, module) {
             document.body.classList.remove('modal-open');
 
             Block.prototype.initialize.apply(page, arguments);
+
+            return page.fetch();
         },
 
         render: function() {
@@ -70,24 +72,22 @@ define(function(require, exports, module) {
                 args = [].slice.call(arguments),
                 autofocus;
 
-            $.when(page.fetch()).then(function(){
-                Block.prototype.render.apply(page, args);
+            Block.prototype.render.apply(page, args);
 
-                if (previousPage) {
-                    previousPage.remove();
-                    previousPage = null;
-                }
+            if (previousPage) {
+                previousPage.remove();
+                previousPage = null;
+            }
 
-                autofocus = page.el.querySelector('[autofocus]');
+            autofocus = page.el.querySelector('[autofocus]');
 
-                if (autofocus) {
-                    setTimeout(function() {
-                        autofocus.focus();
-                    }, 0);
-                }
+            if (autofocus) {
+                setTimeout(function() {
+                    autofocus.focus();
+                }, 0);
+            }
 
-                page.setStatus('loaded');
-            });
+            page.setStatus('loaded');
         },
 
         remove: function() {

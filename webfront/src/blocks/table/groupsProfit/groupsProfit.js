@@ -16,11 +16,9 @@ define(function(require, exports, module) {
             return URI('/reports/profit/groups/' + groupProfitModel.get('subCategory.id'))
                 .search(filters).toString();
         },
-        initData: function() {
+        render: function() {
             var totalGrossSales = 0,
                 totalGrossMargin = 0;
-
-            Table.prototype.initData.apply(this, arguments);
 
             this.collection.forEach(function(profitModel) {
                 totalGrossSales += profitModel.get('grossSales');
@@ -29,6 +27,8 @@ define(function(require, exports, module) {
 
             this.totalGrossSales = totalGrossSales;
             this.totalGrossMargin = totalGrossMargin;
+
+            Table.prototype.render.apply(this, arguments);
 
         },
         calculateGrossSalesPercent: function(grossSales) {

@@ -31,20 +31,23 @@ define(function(require, exports, module) {
 
                 data && block.set(data);
 
-                initialize.apply(block, arguments);
+                return initialize.apply(block, arguments);
             };
 
             this.render = function(data){
 
                 data && block.set(data);
 
-                render.apply(block, arguments);
+                return render.apply(block, arguments);
             };
 
-            View.apply(this);
+            this.cid = _.uniqueId('view');
 
-            this.render();
+            this._ensureElement();
 
+            $.when(this.initialize()).then(function(){
+                block.render();
+            });
         },
 
         bindings: null,
@@ -99,6 +102,7 @@ define(function(require, exports, module) {
             var block = this;
 
             if (typeof block.template !== 'function') {
+                this.delegateEvents();
                 return;
             }
 

@@ -30,10 +30,10 @@ define(function(require, exports, module) {
         blocks: {
             modal_receipt: require('blocks/modal/receipt/receipt')
         },
-        initData: function() {
+        initialize: function() {
             var block = this;
 
-            Block.prototype.initData.apply(block, arguments);
+            var initialize = Block.prototype.initialize.apply(block, arguments);
 
             block.listenTo(block.models.receipt.collections.products, {
                 'add remove change reset': function() {
@@ -41,6 +41,8 @@ define(function(require, exports, module) {
                     block.$('.receipt__scrollContainer').scrollTop(block.$('.receipt__scrollContainer table').height());
                 }
             });
+
+            return initialize;
         },
         calculateItemPrice: function(receiptProductModel) {
             return formatMoney(normalizeNumber(receiptProductModel.get('quantity')) * normalizeNumber(receiptProductModel.get('price')));
