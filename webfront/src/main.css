@@ -24,8 +24,17 @@
 @import "blocks/inputNumber/inputNumber.css";
 @import "blocks/table/table.css";
 
+html, body {
+    height: 100%;
+}
+
 body {
     overflow-x: hidden;
+    color: #999999;
+    font-size: 13px;
+    font-family: Roboto, sans-serif;
+    line-height: 1.42857143;
+    background-color: #f0f2f5;
 }
 
 body:before {
@@ -70,6 +79,7 @@ a, [href] {
 
 a {
     color: #428bca;
+    text-decoration: none !important;
 }
 
 a:hover .fa {
@@ -78,12 +88,6 @@ a:hover .fa {
 
 .navbar-static-side ul li a .fa {
     color: #fff !important;
-}
-
-#signin-page, #signup-page {
-    height: 100%;
-    overflow: hidden;
-    background: url("/madmin/images/bg/3.jpg");
 }
 
 #topbar {

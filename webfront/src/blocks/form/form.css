@@ -1,3 +1,25 @@
+.form__header {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    text-transform: uppercase;
+    padding: 15px 20px;
+    background: #e9e9e9;
+    color: rgb(153, 153, 153);
+}
+
+.form__body {
+    padding: 15px 20px;
+    position: relative;
+}
+
+.form_login, .form_signup {
+    width: 400px;
+    margin: 0 auto;
+    background: #eeeeee;
+}
+
 .form_receipt__totalPrice, .form_receipt__totalPrice .fa {
     font-size: 28px;
     font-weight: bold;

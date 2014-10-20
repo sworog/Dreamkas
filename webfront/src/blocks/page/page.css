@@ -3,6 +3,11 @@
     position: relative;
 }
 
+.page_login, .page_signup {
+    padding: 100px 0;
+    background: url("/img/bg1.jpg");
+}
+
 .page__head {
     padding: 10px 30px;
     background: #ffffff;
