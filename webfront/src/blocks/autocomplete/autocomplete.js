@@ -29,6 +29,13 @@ define(function(require) {
                     .focus();
 
                 this.trigger('input:clear');
+            },
+            'keyup input.form-control': function(e) {
+
+                if (checkKey(e.keyCode, ['UP', 'DOWN', 'LEFT', 'RIGHT', 'TAB'])) {
+                    e.stopPropagation();
+                }
+
             }
         },
         remoteUrl: null,
