@@ -30,14 +30,20 @@
 {
     [super viewWillAppear:animated];
     
-    if ([[CurrentUser lastUsedStoreID] length] < 1) {
-        [self showViewControllerModally:ControllerById(SelectStoreViewControllerID)
-                                segueId:TicketWindowToSelectStoreSegueName];
-    }
-    else {
+    if ([[CurrentUser lastUsedStoreID] length]) {
         StoreModel *store = [StoreModel findByPK:[CurrentUser lastUsedStoreID]];
         if ([[store name] length] > 0)
             [self.titleLabel setText:[store name]];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if ([[CurrentUser lastUsedStoreID] length] < 1) {
+        [self showViewControllerModally:ControllerById(SelectStoreViewControllerID)
+                                segueId:TicketWindowToSelectStoreSegueName];
     }
 }
 
