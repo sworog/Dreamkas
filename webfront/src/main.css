@@ -179,7 +179,8 @@ select.loading, input.loading {
 .datepicker,
 .alert,
 .panel,
-.dropdown-menu {
+.dropdown-menu,
+.list-group-item {
     border-radius: 0 !important;
 }
 
