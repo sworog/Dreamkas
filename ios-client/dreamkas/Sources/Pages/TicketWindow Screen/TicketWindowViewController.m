@@ -53,4 +53,13 @@
     [self.tableView setAccessibilityLabel:AI_TicketWindowPage_Table];
 }
 
+#pragma mark - Обработка пользовательского взаимодействия
+
+- (IBAction)sidemenuButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+    
+    // TODO: показ бокового меню
+}
+
 @end
