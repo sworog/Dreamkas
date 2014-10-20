@@ -23,8 +23,8 @@
         <td name="name">
             <%- profitModel.get('store.name') %>
         </td>
-        <td>
-            <span name="grossSales">
+        <td name="grossSales">
+            <span name="grossSalesValue">
                 <%- formatMoney(profitModel.get('grossSales')) %>
             </span>
             <span name="grossSalesPercent" class="table_storesProfit__percent">
@@ -34,8 +34,8 @@
         <td name="costOfGoods">
             <%- formatMoney(profitModel.get('costOfGoods')) %>
         </td>
-        <td>
-            <span name="grossMargin">
+        <td name="grossMargin">
+            <span name="grossMarginValue">
                 <%- formatMoney(profitModel.get('grossMargin')) %>
             </span>
             <span name="grossMarginPercent" class="table_storesProfit__percent">
