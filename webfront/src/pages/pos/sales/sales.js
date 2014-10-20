@@ -53,12 +53,12 @@ define(function(require, exports, module) {
             }
         },
 
-        initData: function(){
+        initialize: function(){
 
             this.params.dateTo = this.get('params.dateTo');
             this.params.dateFrom = this.get('params.dateFrom');
 
-            return Page_pos.prototype.initData.apply(this, arguments);
+            return Page_pos.prototype.initialize.apply(this, arguments);
         },
 
         blocks: {

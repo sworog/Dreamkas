@@ -28,10 +28,13 @@ define(function(require, exports, module) {
             this.initialize = function(data){
 
                 block.stopListening();
+                block.delegateGlobalEvents();
 
                 data && block.set(data);
 
-                return initialize.apply(block, arguments);
+                return $.when(initialize.apply(block, arguments)).then(function(){
+                    block.render();
+                });
             };
 
             this.render = function(data){
@@ -41,13 +44,11 @@ define(function(require, exports, module) {
                 return render.apply(block, arguments);
             };
 
-            this.cid = _.uniqueId('view');
+            this.cid = _.uniqueId('block');
 
             this._ensureElement();
 
-            $.when(this.initialize()).then(function(){
-                block.render();
-            });
+            this.initialize.apply(this, arguments);
         },
 
         bindings: null,
@@ -63,8 +64,6 @@ define(function(require, exports, module) {
         initialize: function(data){
 
             var block = this;
-
-            block.delegateGlobalEvents();
 
             //save data constructors in hidden fields
 

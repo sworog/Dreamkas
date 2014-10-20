@@ -52,8 +52,7 @@ define(function(require, exports, module) {
         show: function(data) {
             var block = this;
 
-            block.initialize();
-            block.render(data);
+            block.initialize(data);
 
             document.body.classList.add('modal-open');
 
