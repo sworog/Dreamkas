@@ -22,9 +22,10 @@ public class StoresGrossMarginSalesReportPage extends GoodsGrossMarginSalesByPro
     public void createElements() {
         super.createElements();
         put("колонка 'Магазин'", new NonType(this, org.openqa.selenium.By.xpath("//*[@data-sort-by='name']")));
-        put("продажи по сети", new SelectByVisibleText(this, "storesGrossSales"));
-        put("себестоимость по сети", new SelectByVisibleText(this, "storesCostOfGoods"));
-        put("прибыль по сети", new SelectByVisibleText(this, "storesGrossMargin"));
+
+        put("продажи по сети", new NonType(this, org.openqa.selenium.By.name("storesGrossSales")));
+        put("себестоимость по сети", new NonType(this, org.openqa.selenium.By.name("storesCostOfGoods")));
+        put("прибыль по сети", new NonType(this, org.openqa.selenium.By.name("storesGrossMargin")));
 
         putDefaultCollection(new AbstractObjectCollection(getDriver(), By.name("store")) {
 

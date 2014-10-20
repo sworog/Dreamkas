@@ -2,6 +2,7 @@ package ru.dreamkas.steps.reports;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.jbehave.core.model.ExamplesTable;
 import ru.dreamkas.apiStorage.ApiStorage;
 import ru.dreamkas.apihelper.UrlHelper;
 import ru.dreamkas.elements.preLoader.BodyPreLoader;
@@ -47,5 +48,10 @@ public class ReportSteps extends ScenarioSteps {
     public void clickGroup(String groupName) {
         goodsGrossMarginSalesByGroupsReportPage.clickOnCollectionObjectByLocator(groupName);
         new BodyPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void checksTotalStoresGrossMarginSalesValues(ExamplesTable examplesTable) {
+        storesGrossMarginSalesReportPage.checkValues(examplesTable);
     }
 }
