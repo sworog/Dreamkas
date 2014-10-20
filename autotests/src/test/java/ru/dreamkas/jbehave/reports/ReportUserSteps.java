@@ -20,8 +20,11 @@ public class ReportUserSteps {
         reportSteps.clickOnStockBalanceReport();
     }
 
-    @Given("пользователь открывает страницу отчета по продажам и прибыли")
-    public void whenTheUserOpensGrossMarginSalesReportPage() { reportSteps.openGrossMarginSalesReportPage(); }
+    @Given("пользователь открывает страницу отчета по продажам и прибыли по товарам")
+    public void whenTheUserOpensGoodsGrossMarginSalesReportPage() { reportSteps.openGoodsGrossMarginSalesReportPage(); }
+
+    @Given("пользователь открывает страницу отчета по продажам и прибыли по сети")
+    public void whenTheUserOpensStoresGrossMarginSalesReportPage() { reportSteps.openStoresGrossMarginSalesReportPage(); }
 
     @When("пользователь нажимает на кнопку отчетов с названием 'Продажи и прибыль по товарам'")
     public void whenTheUserClicksOnGrossMarginSalesReportLink() { reportSteps.clickOnGrossMarginSalesReport(); }

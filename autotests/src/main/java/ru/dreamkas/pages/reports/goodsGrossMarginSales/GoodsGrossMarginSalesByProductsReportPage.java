@@ -1,20 +1,20 @@
-package ru.dreamkas.pages.reports.grossMarginSales;
+package ru.dreamkas.pages.reports.goodsGrossMarginSales;
 
 import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.dreamkas.collection.abstractObjects.AbstractObject;
 import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
-import ru.dreamkas.collection.reports.grossMarginSales.GrossMarginSalesByProductsObject;
+import ru.dreamkas.collection.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByProductsObject;
 import ru.dreamkas.common.pageObjects.BootstrapPageObject;
 import ru.dreamkas.elements.items.JSInput;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class GrossMarginSalesByProductsReportPage extends BootstrapPageObject {
+public class GoodsGrossMarginSalesByProductsReportPage extends BootstrapPageObject {
 
-    public GrossMarginSalesByProductsReportPage(WebDriver driver) {
+    public GoodsGrossMarginSalesByProductsReportPage(WebDriver driver) {
         super(driver);
     }
 
@@ -37,7 +37,7 @@ public class GrossMarginSalesByProductsReportPage extends BootstrapPageObject {
 
             @Override
             public AbstractObject createNode(WebElement element) {
-                return new GrossMarginSalesByProductsObject(element);
+                return new GoodsGrossMarginSalesByProductsObject(element);
             }
         });
     }

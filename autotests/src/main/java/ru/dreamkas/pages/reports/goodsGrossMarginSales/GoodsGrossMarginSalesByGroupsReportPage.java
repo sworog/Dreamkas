@@ -1,4 +1,4 @@
-package ru.dreamkas.pages.reports.grossMarginSales;
+package ru.dreamkas.pages.reports.goodsGrossMarginSales;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import net.thucydides.core.annotations.findby.By;
@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.dreamkas.collection.abstractObjects.AbstractObject;
 import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
-import ru.dreamkas.collection.reports.grossMarginSales.GrossMarginSalesByGroupsObject;
+import ru.dreamkas.collection.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByGroupsObject;
 import ru.dreamkas.elements.items.NonType;
 
 @DefaultUrl("/reports/profit/groups")
-public class GrossMarginSalesByGroupsReportPage extends GrossMarginSalesByProductsReportPage {
+public class GoodsGrossMarginSalesByGroupsReportPage extends GoodsGrossMarginSalesByProductsReportPage {
 
-    public GrossMarginSalesByGroupsReportPage(WebDriver driver) {
+    public GoodsGrossMarginSalesByGroupsReportPage(WebDriver driver) {
         super(driver);
     }
 
@@ -24,7 +24,7 @@ public class GrossMarginSalesByGroupsReportPage extends GrossMarginSalesByProduc
 
             @Override
             public AbstractObject createNode(WebElement element) {
-                return new GrossMarginSalesByGroupsObject(element);
+                return new GoodsGrossMarginSalesByGroupsObject(element);
             }
         });
     }
