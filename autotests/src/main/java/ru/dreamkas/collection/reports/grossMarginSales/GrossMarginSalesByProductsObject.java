@@ -8,9 +8,6 @@ import ru.dreamkas.collection.compare.CompareResults;
 
 import java.util.Map;
 
-/**
- * Created by d.raslov on 14.10.2014.
- */
 public class GrossMarginSalesByProductsObject extends AbstractObject implements ResultComparable {
 
     private String name;

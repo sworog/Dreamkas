@@ -42,17 +42,13 @@ class GrossMarginSalesProductTest extends WebTestCase
         $productId2 = $this->createProduct(2);
         $productId3 = $this->createProduct(3);
 
-        $this->factory()->getStoreProduct($store->id, $productId1);
-        $this->factory()->getStoreProduct($store->id, $productId2);
-        $this->factory()->getStoreProduct($store->id, $productId3);
-
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('-7 day 10:00:00'))), $store->id)
                 ->createInvoiceProduct($productId1, 7.77, 23.99)
                 ->createInvoiceProduct($productId2, 3.33, 55)
                 ->createInvoiceProduct($productId3, 13, 17)
-                ->persist();
+            ->persist();
 
         $this->factory()
             ->receipt()
@@ -70,8 +66,10 @@ class GrossMarginSalesProductTest extends WebTestCase
                 ->createReceiptProduct($productId3, 8, 26)
             ->flush();
 
-        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateGrossMarginSalesProductReport();
+        $trialBalanceCount = $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->assertEquals(3, $trialBalanceCount);
+
+        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateProductReport();
         $this->assertEquals(4, $recalculateCount);
 
         $this->assertProductReport($store->id, $productId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
@@ -95,6 +93,8 @@ class GrossMarginSalesProductTest extends WebTestCase
             $productId,
             $day
         );
+
+        $this->assertNotNull($report, 'Product report not found');
 
         $this->assertEquals($grossSales, $report->grossSales->toString());
         $this->assertEquals($costOfGoods, $report->costOfGoods->toString());

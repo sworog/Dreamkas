@@ -25,4 +25,12 @@ class GrossMarginSalesCatalogGroup extends GrossMarginSales
      * @var SubCategory
      */
     protected $subCategory;
+
+    /**
+     * @return SubCategory
+     */
+    public function getItem()
+    {
+        return $this->subCategory;
+    }
 }

@@ -10,8 +10,9 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use JMS\DiExtraBundle\Annotation as DI;
+use Closure;
 
 /**
  * @DI\Service("project.context")
@@ -121,6 +122,18 @@ class ProjectContext implements ClassNameable
             }
         }
         return null;
+    }
+
+    /**
+     * @param callable $callback
+     */
+    public function applyInProjects(Closure $callback)
+    {
+        foreach ($this->getAllProjects() as $project) {
+            $this->authenticate($project);
+            call_user_func($callback, $project);
+            $this->logout();
+        }
     }
 
     /**

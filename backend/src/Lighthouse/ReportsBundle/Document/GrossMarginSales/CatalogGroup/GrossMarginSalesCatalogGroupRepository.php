@@ -3,48 +3,16 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup;
 
 use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
-use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Output\OutputInterface;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesRepository;
 
-class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
+class GrossMarginSalesCatalogGroupRepository extends GrossMarginSalesRepository
 {
-    /**
-     * @var TrialBalanceRepository
-     */
-    protected $trialBalanceRepository;
-
-    /**
-     * @var NumericFactory
-     */
-    protected $numericFactory;
-
-    /**
-     * @param TrialBalanceRepository $trialBalanceRepository
-     */
-    public function setTrialBalanceRepository(TrialBalanceRepository $trialBalanceRepository)
-    {
-        $this->trialBalanceRepository = $trialBalanceRepository;
-    }
-
-    /**
-     * @param NumericFactory $numericFactory
-     */
-    public function setNumericFactory(NumericFactory $numericFactory)
-    {
-        $this->numericFactory = $numericFactory;
-    }
-
     /**
      * @param GrossMarginSalesFilter $filter
      * @return Cursor|GrossMarginSalesCatalogGroup[]
@@ -54,7 +22,7 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
         $criteria = array(
             'day' => array(
                 '$gte' => $filter->dateFrom,
-                '$lte' => $filter->dateTo,
+                '$lt' => $filter->dateTo,
             )
         );
 
@@ -66,50 +34,16 @@ class GrossMarginSalesCatalogGroupRepository extends DocumentRepository
     }
 
     /**
-     * @param OutputInterface $output
-     * @param int $batch
-     * @return int
+     * @param array $result
+     * @return GrossMarginSalesCatalogGroup
      */
-    public function recalculate(OutputInterface $output = null, $batch = 5000)
+    protected function createReport(array $result)
     {
-        $output = $output ?: new NullOutput();
-        $dotHelper = new DotHelper($output);
+        $report = new GrossMarginSalesCatalogGroup();
+        $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
+        $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
 
-        $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
-
-        $results = $this->aggregateByDays($requireDatePeriod->getStartDate(), $requireDatePeriod->getEndDate());
-        $count = 0;
-
-        $dotHelper->setTotalPositions(count($results));
-
-        foreach ($results as $result) {
-            $report = new GrossMarginSalesCatalogGroup();
-            $report->day = DateTimestamp::createFromParts(
-                $result['_id']['year'],
-                $result['_id']['month'],
-                $result['_id']['day']
-            );
-            $report->costOfGoods = $this->numericFactory->createMoneyFromCount($result['costOfGoodsSum']);
-            $report->quantity = $this->numericFactory->createQuantityFromCount($result['quantitySum']);
-            $report->grossSales = $this->numericFactory->createMoneyFromCount($result['grossSales']);
-            $report->grossMargin = $this->numericFactory->createMoneyFromCount($result['grossMargin']);
-            $report->store = $this->dm->getReference(Store::getClassName(), $result['_id']['store']);
-            $report->subCategory = $this->dm->getReference(SubCategory::getClassName(), $result['_id']['subCategory']);
-
-            $this->dm->persist($report);
-            $count++;
-            $dotHelper->write();
-
-            if ($count % $batch == 0) {
-                $this->dm->flush();
-            }
-        }
-
-        $this->dm->flush();
-
-        $dotHelper->end();
-
-        return $count;
+        return $report;
     }
 
     /**

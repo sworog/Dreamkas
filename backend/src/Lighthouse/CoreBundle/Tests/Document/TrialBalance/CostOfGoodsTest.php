@@ -919,7 +919,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertCostOfGood($supplierReturn->products[0], '30.00');
 
 
-        $return = $this->factory()
+        $this->factory()
             ->receipt()
                 ->createReturn($store, date('c', strtotime('-150 hour')), $sale)
                 ->createReceiptProduct($productId, 1)

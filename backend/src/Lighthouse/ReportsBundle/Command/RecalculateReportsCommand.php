@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Command;
 
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
@@ -80,19 +81,30 @@ class RecalculateReportsCommand extends Command
     {
         $output->writeln("<info>Recalculate reports started</info>");
 
-        $projects = $this->projectContext->getAllProjects();
-        foreach ($projects as $project) {
-            $output->writeln("<info>Recalculate reports for project {$project->getName()}");
+        $grossMarginManager = $this->grossMarginManager;
+        $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
 
-            $this->projectContext->authenticate($project);
+        $this->projectContext->applyInProjects(
+            function (Project $project) use ($output, $grossMarginManager, $grossMarginSalesReportManager) {
+                $output->writeln("<info>Recalculate reports for project {$project->getName()}");
 
-            $this->grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
+                $output->writeln("<info>Cost Of Goods</info>");
+                $grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
 
-            $output->writeln("<info>Gross Margin Sales</info>");
-            $this->grossMarginSalesReportManager->recalculateGrossMarginSalesProductReport();
+                $output->writeln("<info>Gross Margin Sales</info>");
+                $output->writeln("<info>Products</info>");
+                $grossMarginSalesReportManager->recalculateProductReport($output);
 
-            $this->projectContext->logout();
-        }
+                $output->writeln("<info>Catalog Groups</info>");
+                $grossMarginSalesReportManager->recalculateCatalogGroupReport($output);
+
+                $output->writeln("<info>Stores</info>");
+                $grossMarginSalesReportManager->recalculateStoreReport($output);
+
+                $output->writeln("<info>Network</info>");
+                $grossMarginSalesReportManager->recalculateNetworkReport($output);
+            }
+        );
 
         $output->writeln("<info>Recalculate reports finished</info>");
 

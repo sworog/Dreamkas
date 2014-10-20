@@ -16,7 +16,7 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage implements 
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_invoiceAdd']";
+        return "//*[@id='modal_invoice']";
     }
 
     @Override
@@ -32,11 +32,6 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage implements 
     }
 
     @Override
-    public void addProductButtonClick() {
-        addProductButtonClick("addInvoiceProduct");
-    }
-
-    @Override
     public InvoiceProductCollection getProductCollection() {
         return new InvoiceProductCollection(getDriver());
     }
@@ -46,18 +41,12 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage implements 
         return getProductRowsCount("table_invoiceProducts");
     }
 
-    @Override
-    public String getTotalSum() {
-        String xpath = String.format("%s//*[@class='invoice__totalSum']", modalWindowXpath());
-        return findVisibleElement(By.xpath(xpath)).getText();
-    }
-
     public void createSupplierButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addSupplierLink')]")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@id='form_invoice']//*[contains(@class, 'fa fa-plus')]")).click();
     }
 
     public void createProductButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addProductLink')]")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='form_stockMovementProducts']//*[contains(@class, 'fa fa-plus')]")).click();
     }
 
     public void clickPaidCheckBox() {

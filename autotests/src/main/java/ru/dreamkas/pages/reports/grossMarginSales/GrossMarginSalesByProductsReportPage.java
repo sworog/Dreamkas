@@ -2,7 +2,10 @@ package ru.dreamkas.pages.reports.grossMarginSales;
 
 import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
-import ru.dreamkas.collection.reports.grossMarginSales.GrossMarginSalesByProductsObjectCollection;
+import org.openqa.selenium.WebElement;
+import ru.dreamkas.collection.abstractObjects.AbstractObject;
+import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
+import ru.dreamkas.collection.reports.grossMarginSales.GrossMarginSalesByProductsObject;
 import ru.dreamkas.common.pageObjects.BootstrapPageObject;
 import ru.dreamkas.elements.items.JSInput;
 import ru.dreamkas.elements.items.NonType;
@@ -10,6 +13,7 @@ import ru.dreamkas.elements.items.SelectByVisibleText;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class GrossMarginSalesByProductsReportPage extends BootstrapPageObject {
+
     public GrossMarginSalesByProductsReportPage(WebDriver driver) {
         super(driver);
     }
@@ -21,7 +25,6 @@ public class GrossMarginSalesByProductsReportPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-        putDefaultCollection(new GrossMarginSalesByProductsObjectCollection(getDriver(), By.name("product")));
         put("колонка 'Товар'", new NonType(this, org.openqa.selenium.By.xpath("//*[@data-sort-by='product.name']")));
         put("колонка 'Продажи'", new NonType(this, org.openqa.selenium.By.xpath("//*[@data-sort-by='grossSales']")));
         put("колонка 'Себестоимость'", new NonType(this, org.openqa.selenium.By.xpath("//*[@data-sort-by='costOfGoods']")));
@@ -30,6 +33,13 @@ public class GrossMarginSalesByProductsReportPage extends BootstrapPageObject {
         put("фильтр по сети", new SelectByVisibleText(this, "store"));
         put("дата с", getCustomJsInput("dateFrom"));
         put("дата по", getCustomJsInput("dateTo"));
+        putDefaultCollection(new AbstractObjectCollection(getDriver(), By.name("product")) {
+
+            @Override
+            public AbstractObject createNode(WebElement element) {
+                return new GrossMarginSalesByProductsObject(element);
+            }
+        });
     }
 
     private JSInput getCustomJsInput(final String name) {

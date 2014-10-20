@@ -1,0 +1,31 @@
+<div id="<%- id %>"
+     class="modal modal_supplier">
+
+    <div class="modal__header">
+
+        <% if (referrer) { %>
+
+            <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+
+        <% } else { %>
+
+            <a class="modal__closeLink fa fa-times"></a>
+
+        <% } %>
+
+        <button form="form_supplier"
+                type="submit"
+                class="btn btn-primary pull-right">
+            <%- supplierId != 0 ? 'Сохранить' : 'Добавить' %>
+        </button>
+
+        <h4 class="modal__title">
+            <%- supplierId != 0 ? 'Редактирование поставщика' : 'Добавить поставщика' %>
+        </h4>
+    </div>
+    <div class="modal__body">
+
+        <b block="form_supplier"></b>
+
+    </div>
+</div>

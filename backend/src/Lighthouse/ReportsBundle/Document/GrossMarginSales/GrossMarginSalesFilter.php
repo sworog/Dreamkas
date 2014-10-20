@@ -7,6 +7,11 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
+/**
+ * @property DateTime $dateFrom
+ * @property DateTime $dateTo
+ * @property Store $store
+ */
 class GrossMarginSalesFilter extends AbstractDocument
 {
     /**

@@ -8,11 +8,6 @@ public class SupplierReturnEditModalWindow extends SupplierReturnCreateModalWind
     }
 
     @Override
-    public void confirmDeleteButtonClick() {
-        confirmDeleteButtonClick("supplierReturn__removeLink");
-    }
-
-    @Override
     public void confirmationOkClick() {
         confirmationOkClick("Сохранить");
     }

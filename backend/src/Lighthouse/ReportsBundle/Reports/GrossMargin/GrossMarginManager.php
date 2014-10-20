@@ -180,10 +180,11 @@ class GrossMarginManager
 
     /**
      * @param OutputInterface|null $output
+     * @return integer
      */
     public function calculateGrossMarginUnprocessedTrialBalance(OutputInterface $output = null)
     {
-        $this->costOfGoodCalculator->calculateUnprocessed($output);
+        return $this->costOfGoodCalculator->calculateUnprocessed($output);
     }
 
     public function recalculateDayGrossMargin()

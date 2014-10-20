@@ -4,7 +4,7 @@ server {
     root /var/www/$apihost.$env.api/current/web;
 
     access_log /var/log/nginx/$apihost.$env.api.access.log;
-    error_log  /var/log/nginx/$apihost.$env.api.error.log error;
+    error_log  /var/log/nginx/api.error.log error;
 
     index app.php;
     error_page 404 = /404.html?apihost=$apihost&env=$env;

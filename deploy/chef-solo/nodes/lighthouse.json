@@ -7,6 +7,8 @@
         "recipe[php]",
         "recipe[php-fpm]",
         "recipe[beanstalkd]",
+        "recipe[nodejs]",
+        "recipe[nodejs::npm]",
 
         "recipe[lighthouse]",
         "recipe[lighthouse::php]",

@@ -28,11 +28,13 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
     public abstract AbstractObjectCollection getProductCollection();
 
     public String getTotalSum() {
-        String xpath = String.format("%s//*[@class='totalSum']", modalWindowXpath());
+        String xpath = String.format("%s//*[contains(@class, 'totalPrice') and @name='totalPrice']", modalWindowXpath());
         return findVisibleElement(By.xpath(xpath)).getText();
     }
 
-    public abstract void addProductButtonClick();
+    public void addProductButtonClick() {
+        clickInTheModalWindowByXpath("//*[contains(@class, 'btn btn-default')]");
+    }
 
     public abstract Integer getProductRowsCount();
 
@@ -51,18 +53,18 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
         findVisibleElement(By.xpath(xpath)).click();
     }
 
-    protected void confirmDeleteButtonClick(String cssClass) {
-        String xpath = String.format("%s//*[@class='confirmLink__confirmation']//*[@class='removeLink %s']", modalWindowXpath(), cssClass);
-        findVisibleElement(By.xpath(xpath)).click();
-    }
-
-    protected void addProductButtonClick(String cssClass) {
-        String xpath = String.format("%s//*[contains(@class, '%s')]", modalWindowXpath(), cssClass);
+    public void confirmDeleteButtonClick() {
+        String xpath = String.format("%s//*[@class='confirmLink__confirmation']//*[contains(@class, '__removeLink')]", modalWindowXpath());
         findVisibleElement(By.xpath(xpath)).click();
     }
 
     protected Integer getProductRowsCount(String tableClass) {
         String cssSelector = String.format("table.%s tbody>tr", tableClass);
         return getDriver().findElements(By.cssSelector(cssSelector)).size();
+    }
+
+    @Override
+    public String getTitle() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
 }

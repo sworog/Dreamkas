@@ -8,8 +8,10 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Form\GrossMarginSales\GrossMarginSalesFilterType;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Network\GrossMarginSalesByNetwork;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Stores\GrossMarginSalesByStoresCollection;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -39,11 +41,11 @@ class GrossMarginSalesController extends AbstractRestController
      * @return GrossMarginSalesByProductsCollection
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @Rest\Route("catalog/groups/{group}/reports/grossMarginSalesByProduct")
+     * @Rest\Route("reports/gross/catalog/groups/{group}/products")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
-     * @ApiDoc()
+     * @ApiDoc
      */
-    public function getCatalogGroupReportsGrossMarginSalesByProductAction(SubCategory $group, Request $request)
+    public function getCatalogGroupProductsGrossReportAction(SubCategory $group, Request $request)
     {
         $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
         return $this->processFormCallback(
@@ -59,17 +61,57 @@ class GrossMarginSalesController extends AbstractRestController
      * @return GrossMarginSalesByCatalogGroupsCollection|FormInterface
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @Rest\Route("catalog/groups/reports/grossMarginSalesByCatalogGroup")
+     * @Rest\Route("reports/gross/catalog/groups")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
-    public function getCatalogGroupReportsGrossMarginSalesByCatalogGroupAction(Request $request)
+    public function getCatalogGroupsGrossReportAction(Request $request)
     {
         $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
         return $this->processFormCallback(
             $request,
             function (GrossMarginSalesFilter $filter) use ($grossMarginSalesReportManager) {
                 return $grossMarginSalesReportManager->getCatalogGroupsReports($filter);
+            }
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return GrossMarginSalesByStoresCollection|FormInterface
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("reports/gross/stores")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc
+     */
+    public function getStoresGrossReportAction(Request $request)
+    {
+        $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
+        return $this->processFormCallback(
+            $request,
+            function (GrossMarginSalesFilter $filter) use ($grossMarginSalesReportManager) {
+                return $grossMarginSalesReportManager->getStoreReports($filter);
+            }
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return GrossMarginSalesByNetwork|FormInterface
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("reports/gross")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc
+     */
+    public function getGrossReportAction(Request $request)
+    {
+        $grossMarginSalesReportManager = $this->grossMarginSalesReportManager;
+        return $this->processFormCallback(
+            $request,
+            function (GrossMarginSalesFilter $filter) use ($grossMarginSalesReportManager) {
+                return $grossMarginSalesReportManager->getNetworkReport($filter);
             }
         );
     }

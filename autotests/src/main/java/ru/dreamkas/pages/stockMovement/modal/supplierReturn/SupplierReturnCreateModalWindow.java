@@ -26,17 +26,12 @@ public class SupplierReturnCreateModalWindow extends StockMovementModalPage impl
 
     @Override
     public String modalWindowXpath() {
-        return "//*[contains(@class, 'modal_supplierReturn')]";
+        return "//*[contains(@id, 'modal_supplierReturn')]";
     }
 
     @Override
     public SupplierReturnProductCollection getProductCollection() {
         return new SupplierReturnProductCollection(getDriver());
-    }
-
-    @Override
-    public void addProductButtonClick() {
-        addProductButtonClick("addSupplierReturnProduct");
     }
 
     @Override

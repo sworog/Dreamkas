@@ -9,15 +9,6 @@ public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
     }
 
     @Override
-    public String modalWindowXpath() {
-        return "//*[@id='modal_writeOffEdit']";
-    }
-    
-    public void confirmDeleteButtonClick() {
-        confirmDeleteButtonClick("writeOff__removeLink");
-    }
-
-    @Override
     public void confirmationOkClick() {
         confirmationOkClick("Сохранить");
     }

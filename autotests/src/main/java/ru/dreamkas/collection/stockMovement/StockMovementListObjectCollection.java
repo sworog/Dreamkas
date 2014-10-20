@@ -8,7 +8,7 @@ import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
 public class StockMovementListObjectCollection<E extends StockMovementListObject> extends AbstractObjectCollection<E> {
 
     public StockMovementListObjectCollection(WebDriver webDriver) {
-        super(webDriver, By.xpath("//*[@class='writeOff__link' or @class='invoice__link' or @class='stockIn__link' or @class='supplierReturn__link']"));
+        super(webDriver, By.xpath("//*[@name='writeOff' or @name='invoice' or @name='stockIn' or @name='supplierReturn']"));
     }
 
     @Override

@@ -10,7 +10,7 @@ set :user,        "watchman"
 set :deploy_to_base,   "/var/www/"
 set :deploy_to,   "{#deploy_to_base}#{application}"
 set :deploy_via,  :remote_cache_sub_folder
-set :deploy_subdir, "webfront/web"
+set :deploy_subdir, "webfront"
 
 set :shared_children,   %w()
 
