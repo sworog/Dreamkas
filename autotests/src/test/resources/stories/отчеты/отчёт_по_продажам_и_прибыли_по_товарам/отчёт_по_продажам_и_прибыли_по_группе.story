@@ -1,6 +1,6 @@
 Meta:
 @release_0.44
-@us_118.1
+@us_118.2
 
 Narrative:
 Как владелец,

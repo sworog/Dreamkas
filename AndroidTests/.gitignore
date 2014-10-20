@@ -1,0 +1,5 @@
+/target
+/target-*
+/AndroidTests.iml
+/thucydides.properties
+/.idea
