@@ -42,7 +42,7 @@
     [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
     [tester waitForViewWithAccessibilityLabel:AI_SelectStorePage_Table];
     
-    [tester  tapViewWithAccessibilityLabel:AI_Common_CellAtIndexPath(@(0).integerValue, @(0).integerValue)];
+    [tester  tapViewWithAccessibilityLabel:AI_Common_CellAtIndexPath((long)0, (long)0)];
     [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
 }
 
