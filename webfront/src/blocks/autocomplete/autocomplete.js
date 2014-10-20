@@ -2,39 +2,44 @@ define(function(require) {
     //requirements
     var Block = require('kit/block/block'),
         config = require('config'),
+        checkKey = require('kit/checkKey/checkKey'),
         cookies = require('cookies');
 
     require('typeahead');
 
     return Block.extend({
-		value: '',
-		resetLink: false,
+        value: '',
+        resetLink: false,
         autofocus: false,
-		template: require('ejs!./template.ejs'),
-		events: {
-			'change input.form-control': function(e) {
-				if ($(e.currentTarget).val() == '')
-				{
-					this.trigger('input:clear');
-				}
-			},
-			'click .autocomplete__resetButton': function(e) {
-				e.preventDefault();
+        template: require('ejs!./template.ejs'),
+        events: {
+            'change input.form-control': function(e) {
 
-				var block = this;
+                if ($(e.currentTarget).val() == '') {
+                    this.trigger('input:clear');
+                }
+            },
+            'click .autocomplete__resetButton': function(e) {
+                e.preventDefault();
 
-				block.$el.find('input.form-control')
-					.typeahead('val', '')
-					.focus();
+                var block = this;
 
-				this.trigger('input:clear');
-			},
-			'keyup input.form-control': function(e) {
-				e.stopPropagation();
-			}
-		},
+                block.$el.find('input.form-control')
+                    .typeahead('val', '')
+                    .focus();
+
+                this.trigger('input:clear');
+            },
+            'keyup input.form-control': function(e) {
+
+                if (checkKey(e.keyCode, ['UP', 'DOWN', 'LEFT', 'RIGHT', 'TAB'])) {
+                    e.stopPropagation();
+                }
+
+            }
+        },
         remoteUrl: null,
-        render: function(){
+        render: function() {
             var block = this;
 
             Block.prototype.render.apply(block, arguments);
@@ -68,13 +73,13 @@ define(function(require) {
         initTypeahead: function() {
             var block = this;
 
-           	block.$el.find('input').typeahead({
-				highlight: true,
-				minLength: 3
-			},
-			{
-				source: block.engine.ttAdapter()
-			});
+            block.$el.find('input').typeahead({
+                    highlight: true,
+                    minLength: 3
+                },
+                {
+                    source: block.engine.ttAdapter()
+                });
         },
         remove: function() {
             var block = this;

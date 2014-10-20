@@ -12,7 +12,7 @@ public class StockInCreateModalWindow extends StockMovementModalPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[contains(@class, 'modal_stockIn')]";
+        return "//*[@id='modal_stockIn']";
     }
 
     @Override
