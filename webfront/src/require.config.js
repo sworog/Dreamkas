@@ -23,7 +23,7 @@ require.config({
             'form2js': 'bower_components/form2js/src/form2js',
             'numeral': 'bower_components/numeral/numeral',
             'amd-loader': 'bower_components/amd-loader/amd-loader',
-            'datepicker': 'madmin/vendors/bootstrap-datepicker/js/bootstrap-datepicker',
+            'datepicker': 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker',
             'typeahead': 'bower_components/typeahead.js/dist/typeahead.bundle'
         }
     },

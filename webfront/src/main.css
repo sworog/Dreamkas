@@ -1,14 +1,10 @@
-@import "madmin/vendors/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.css";
-@import "madmin/vendors/font-awesome/css/font-awesome.min.css";
-@import "madmin/vendors/bootstrap/css/bootstrap.min.css";
-@import "madmin/vendors/animate.css/animate.css";
-@import "madmin/vendors/iCheck/skins/all.css";
-@import "madmin/vendors/bootstrap-datepicker/css/datepicker.css";
-@import "madmin/css/blue-grey.css";
-@import "madmin/css/style-responsive.css";
+/* bower_components */
 @import "bower_components/select2/select2.css";
 @import "bower_components/select2/select2-bootstrap.css";
-@import "bower_components/sortable/css/sortable-theme-bootstrap.css";
+@import "bower_components/fontawesome/css/font-awesome.min.css";
+@import "bower_components/bootstrap/dist/css/bootstrap.min.css";
+@import "bower_components/bootstrap-datepicker/css/datepicker.css";
+
 /* blocks */
 @import "blocks/confirmLink/confirmLink.css";
 @import "blocks/checkbox/checkbox.css";

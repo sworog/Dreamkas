@@ -10,9 +10,7 @@ define(function(require) {
         getText = require('kit/getText/getText'),
         numeral = require('numeral');
 
-    require('madmin/js/jquery-ui');
-    require('madmin/vendors/bootstrap/js/bootstrap');
-    require('madmin/vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown');
+    require('bower_components/bootstrap/dist/js/bootstrap');
 
     getText.dictionary = require('i18n!nls/main');
 
