@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.dreamkas.collection.abstractObjects.AbstractObject;
 import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
-import ru.dreamkas.collection.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByGroupsObject;
+import ru.dreamkas.collection.reports.storesGrossMarginSales.StoresGrossMarginSalesObject;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByProductsReportPage;
 
@@ -25,7 +25,7 @@ public class StoresGrossMarginSalesReportPage extends GoodsGrossMarginSalesByPro
 
             @Override
             public AbstractObject createNode(WebElement element) {
-                return new GoodsGrossMarginSalesByGroupsObject(element);
+                return new StoresGrossMarginSalesObject(element);
             }
         });
     }
