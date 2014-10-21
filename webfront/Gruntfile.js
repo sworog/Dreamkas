@@ -13,13 +13,14 @@ module.exports = function(grunt) {
 			}
 		},
 		casper: {
-			test : {
-				options : {
-					test : true
-				},
-				files : {
-					'xunit/casper-results.xml' : ['tests/test.js']
-				}
+			options : {
+				test : true,
+				parallel : false,
+				concurrency : 10
+			},
+			task : {
+				src: [grunt.option('test') || 'tests/releases'],
+				dest: ['xunit/casper-report.xml']
 			}
 		}
 	});
