@@ -10,7 +10,7 @@ define(function(require, exports, module) {
 				var page = this,
 					currentTime = Date.now();
 
-				return page.formatDate(moment(currentTime).subtract(1, 'month'));
+				return page.formatDate(moment(currentTime).subtract(1, 'week'));
 			}
 		},
 		models: {
