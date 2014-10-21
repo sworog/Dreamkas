@@ -10,10 +10,61 @@
 
 @interface SidemenuViewController ()
 
+@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
+
 @end
 
 @implementation SidemenuViewController
 
-// ..
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self.titleLabel setText:@""];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([[CurrentUser lastUsedStoreID] length]) {
+        StoreModel *store = [StoreModel findByPK:[CurrentUser lastUsedStoreID]];
+        if ([[store name] length] > 0)
+            [self.titleLabel setText:[store name]];
+    }
+}
+
+#pragma mark - Configuration Methods
+
+- (void)configureLocalization
+{
+    // ..
+}
+
+- (void)configureAccessibilityLabels
+{
+    // ..
+}
+
+#pragma mark - Обработка пользовательского взаимодействия
+
+- (IBAction)changeStoreButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+    
+    [(AbstractViewController*)self.parentViewController showViewControllerModally:ControllerById(SelectStoreViewControllerID)
+                                                                          segueId:TicketWindowToSelectStoreSegueName];
+}
+
+- (IBAction)logoutButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+    
+    [CurrentUser resetLastUsedAuthData];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 @end

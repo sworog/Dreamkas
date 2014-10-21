@@ -10,7 +10,6 @@
 
 @interface TicketWindowViewController ()
 
-@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 
 @end
@@ -23,18 +22,14 @@
 {
     [super viewDidLoad];
     
-    [self.titleLabel setText:@""];
+    // ..
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    if ([[CurrentUser lastUsedStoreID] length]) {
-        StoreModel *store = [StoreModel findByPK:[CurrentUser lastUsedStoreID]];
-        if ([[store name] length] > 0)
-            [self.titleLabel setText:[store name]];
-    }
+    // ..
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,8 +59,6 @@
 - (IBAction)sidemenuButtonClicked:(id)sender
 {
     DPLogFast(@"");
-    
-    // TODO: показ бокового меню
     
     [self showSidemenu:^{
         // ..

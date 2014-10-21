@@ -75,6 +75,19 @@
 }
 
 /**
+ * Метод для сброса последних использованных авторизационных данных
+ */
+- (void)resetLastUsedAuthData
+{
+    lastUsedLogin = nil;
+    lastUsedPassword = nil;
+    
+    [UserDefaults setValue:nil forKey:UserDefaultsKey(lastUsedLogin)];
+    [UserDefaults setValue:nil forKey:UserDefaultsKey(lastUsedPassword)];
+    [UserDefaults synchronize];
+}
+
+/**
  * Метод для установки нового идентификатора магазина
  */
 - (void)updateLastUsedStoreID:(NSString *)newStoreID

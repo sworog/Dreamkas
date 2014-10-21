@@ -33,6 +33,11 @@
 - (void)updateLastUsedLogin:(NSString *)newLogin lastUsedPassword:(NSString *)newPassword;
 
 /**
+ * Метод для сброса последних использованных авторизационных данных
+ */
+- (void)resetLastUsedAuthData;
+
+/**
  * Метод для установки нового идентификатора магазина
  */
 - (void)updateLastUsedStoreID:(NSString *)newStoreID;
