@@ -182,4 +182,23 @@
     position: relative;
 }
 
+.page__removeLink {
+    color: #999;
+    display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+
+.page__removeLink.loading {
+    background-color: #F4C9CC;
+    color: #fff;
+}
+
+.confirmLink__confirmation .page__removeLink {
+    color: #d40000;
+}
+
 

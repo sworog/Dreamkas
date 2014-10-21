@@ -180,7 +180,8 @@ select.loading, input.loading {
 .alert,
 .panel,
 .dropdown-menu,
-.list-group-item {
+.list-group-item,
+.popover {
     border-radius: 0 !important;
 }
 
