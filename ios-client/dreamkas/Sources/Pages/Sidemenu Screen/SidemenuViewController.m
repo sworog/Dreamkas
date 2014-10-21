@@ -12,6 +12,8 @@
 
 @property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
 
+@property (nonatomic, weak) IBOutlet CustomFilledButton *changeStoreButton;
+
 @end
 
 @implementation SidemenuViewController
@@ -45,7 +47,7 @@
 
 - (void)configureAccessibilityLabels
 {
-    // ..
+    [self.changeStoreButton setAccessibilityLabel:AI_Sidemenu_ChangeStoreButton];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

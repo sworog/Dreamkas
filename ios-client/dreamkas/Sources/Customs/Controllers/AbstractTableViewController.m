@@ -641,7 +641,7 @@
         cell = [[[self cellClass] alloc] initWithStyle:UITableViewCellStyleValue1
                                        reuseIdentifier:cell_identifier];
     }    
-    [cell setAccessibilityLabel:AI_Common_CellAtIndexPath([indexPath section], [indexPath row])];
+    [cell setAccessibilityLabel:AI_Common_CellAtIndexPath((long)[indexPath section], (long)[indexPath row])];
     DPLogFast(@"cell accessibilityLabel = %@", [cell accessibilityLabel]);
     
     id object = [self.fetchedResultsController objectAtIndexPath:indexPath];

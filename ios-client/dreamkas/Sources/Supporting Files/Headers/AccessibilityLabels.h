@@ -50,6 +50,18 @@
 //
 
 #define AI_TicketWindowPage_Table           @"AI_TicketWindowPage_Table"
+#define AI_TicketWindowPage_SidemenuButton  @"AI_TicketWindowPage_SidemenuButton"
+
+//
+// Боковое меню
+//
+
+#define AI_Sidemenu_ChangeStoreButton       @"AI_Sidemenu_ChangeStoreButton"
+
+//
+// Экран выбора магазина
+//
+
 #define AI_SelectStorePage_Table            @"AI_SelectStorePage_Table"
 
 #endif

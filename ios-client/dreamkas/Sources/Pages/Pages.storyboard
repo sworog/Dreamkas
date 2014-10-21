@@ -336,6 +336,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="768"/>
                     <connections>
+                        <outlet property="changeStoreButton" destination="Vc6-M3-DNf" id="KUw-21-did"/>
                         <outlet property="titleLabel" destination="303-AQ-zJu" id="JUS-FZ-mkz"/>
                     </connections>
                 </viewController>
@@ -395,6 +396,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="sidemenuButton" destination="hzx-Oy-qju" id="Aja-ps-bBR"/>
                         <outlet property="tableView" destination="4A8-kn-6yP" id="jP5-Oy-Kh2"/>
                         <segue destination="Cyi-Ge-36d" kind="custom" identifier="TicketWindowToCreateStoreSegue" customClass="CustomModalSegue" id="wc5-D0-Lxe"/>
                     </connections>

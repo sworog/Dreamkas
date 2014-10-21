@@ -11,6 +11,7 @@
 @interface TicketWindowViewController ()
 
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIButton *sidemenuButton;
 
 @end
 
@@ -52,6 +53,7 @@
 - (void)configureAccessibilityLabels
 {
     [self.tableView setAccessibilityLabel:AI_TicketWindowPage_Table];
+    [self.sidemenuButton setAccessibilityLabel:AI_TicketWindowPage_SidemenuButton];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
