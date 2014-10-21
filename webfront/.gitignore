@@ -2,5 +2,6 @@
 /vendor/
 node_modules/
 build/
+xunit/
 web
 npm-debug.log

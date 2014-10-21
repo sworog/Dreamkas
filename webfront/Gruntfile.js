@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 		casper: {
 			test : {
 				options : {
-					//test : true
+					test : true
 				},
 				files : {
 					'xunit/casper-results.xml' : ['tests/test.js']

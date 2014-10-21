@@ -1,11 +1,10 @@
-var casper = require('casper').create();
+casper.test.begin('Dreamkas', function suite(test) {
 
-casper.start('http://casperjs.org/', function() {
-    this.echo(this.getTitle());
+    casper.start("http://borovin.lighthouse.pro", function() {
+        test.assertTitle("Dreamkas", "title is ok")
+    });
+
+    casper.run(function() {
+        test.done();
+    });
 });
-
-casper.thenOpen('http://phantomjs.org', function() {
-    this.echo(this.getTitle());
-});
-
-casper.run();
