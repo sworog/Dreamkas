@@ -27,7 +27,7 @@ public class ProductEditModalWindow extends ProductCreateModalWindow {
     }
 
     public void confirmDeleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink']")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink form_product__removeLink']")).click();
     }
 
     @Override
