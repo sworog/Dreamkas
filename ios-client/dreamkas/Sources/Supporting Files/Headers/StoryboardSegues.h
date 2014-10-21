@@ -33,5 +33,6 @@
 #define LogInViewControllerID                       @"LogInViewControllerID"
 #define SignInViewControllerID                      @"SignInViewControllerID"
 #define SelectStoreViewControllerID                 @"SelectStoreViewControllerID"
+#define SidemenuViewControllerID                    @"SidemenuViewControllerID"
 
 #endif

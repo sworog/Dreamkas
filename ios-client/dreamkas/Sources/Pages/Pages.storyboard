@@ -282,6 +282,48 @@
             </objects>
             <point key="canvasLocation" x="5208" y="2145"/>
         </scene>
+        <!--Sidemenu View Controller-->
+        <scene sceneID="If3-fx-dPN">
+            <objects>
+                <viewController storyboardIdentifier="SidemenuViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2Tg-QV-1xG" customClass="SidemenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="We5-R4-dTf"/>
+                        <viewControllerLayoutGuide type="bottom" id="38Z-0S-fAf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2Qm-35-otJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcp-gr-4hl" customClass="CustomLabel">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="8Uv-LD-C17"/>
+                                    <constraint firstAttribute="height" constant="70" id="QRN-nA-0nF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hcp-gr-4hl" firstAttribute="leading" secondItem="2Qm-35-otJ" secondAttribute="leading" id="78m-4S-qCG"/>
+                            <constraint firstItem="hcp-gr-4hl" firstAttribute="top" secondItem="We5-R4-dTf" secondAttribute="bottom" id="ctm-Zt-W5z"/>
+                            <constraint firstItem="38Z-0S-fAf" firstAttribute="top" secondItem="hcp-gr-4hl" secondAttribute="bottom" constant="698" id="dPR-NY-MDD"/>
+                            <constraint firstAttribute="trailing" secondItem="hcp-gr-4hl" secondAttribute="trailing" id="oEH-lv-Dp3"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="768"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1JA-6M-1bY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6088" y="738"/>
+        </scene>
         <!--Ticket Window View Controller-->
         <scene sceneID="rvi-NM-cK3">
             <objects>

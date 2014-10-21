@@ -66,6 +66,10 @@
     DPLogFast(@"");
     
     // TODO: показ бокового меню
+    
+    [self showSidemenu:^{
+        // ..
+    }];
 }
 
 @end

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		CE00D11A19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */; };
 		CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */; };
+		CE10A83019F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CE10A82F19F6546B0056DF91 /* AbstractViewController+Sidemenu.m */; };
+		CE10A83119F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CE10A82F19F6546B0056DF91 /* AbstractViewController+Sidemenu.m */; };
+		CE10A83719F655200056DF91 /* SidemenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE10A83619F655200056DF91 /* SidemenuViewController.m */; };
+		CE10A83819F655200056DF91 /* SidemenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE10A83619F655200056DF91 /* SidemenuViewController.m */; };
 		CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */; };
 		CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */; };
 		CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */; };
@@ -253,6 +257,10 @@
 /* Begin PBXFileReference section */
 		CE00D11819EFF3C800B600EB /* AbstractModel+Mapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractModel+Mapper.h"; sourceTree = "<group>"; };
 		CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AbstractModel+Mapper.m"; sourceTree = "<group>"; };
+		CE10A82E19F6546B0056DF91 /* AbstractViewController+Sidemenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractViewController+Sidemenu.h"; sourceTree = "<group>"; };
+		CE10A82F19F6546B0056DF91 /* AbstractViewController+Sidemenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AbstractViewController+Sidemenu.m"; sourceTree = "<group>"; };
+		CE10A83519F655200056DF91 /* SidemenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidemenuViewController.h; sourceTree = "<group>"; };
+		CE10A83619F655200056DF91 /* SidemenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidemenuViewController.m; sourceTree = "<group>"; };
 		CE162A1D19E3CF3D009BCC3C /* ImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageToDataTransformer.h; sourceTree = "<group>"; };
 		CE162A1E19E3CF3D009BCC3C /* ImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageToDataTransformer.m; sourceTree = "<group>"; };
 		CE162A2619E3CF89009BCC3C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -503,6 +511,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE10A83419F654FA0056DF91 /* Sidemenu Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE10A83519F655200056DF91 /* SidemenuViewController.h */,
+				CE10A83619F655200056DF91 /* SidemenuViewController.m */,
+			);
+			path = "Sidemenu Screen";
+			sourceTree = "<group>";
+		};
 		CE162A1A19E3CF3D009BCC3C /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +634,7 @@
 				CEC003EC19E6909B00AE256F /* Intro Screen */,
 				CEC003EB19E6909B00AE256F /* Auth Screen */,
 				CEC003ED19E6909B00AE256F /* TicketWindow Screen */,
+				CE10A83419F654FA0056DF91 /* Sidemenu Screen */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -1143,6 +1161,8 @@
 				CEF2645419E80E88008BE93A /* AbstractViewController.m */,
 				CEF2646419E81C57008BE93A /* AbstractViewController+Modal.h */,
 				CEF2646519E81C57008BE93A /* AbstractViewController+Modal.m */,
+				CE10A82E19F6546B0056DF91 /* AbstractViewController+Sidemenu.h */,
+				CE10A82F19F6546B0056DF91 /* AbstractViewController+Sidemenu.m */,
 			);
 			path = AbstractVC;
 			sourceTree = "<group>";
@@ -1400,6 +1420,7 @@
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CE290F9919EE605C005483A1 /* AbstractModel.m in Sources */,
+				CE10A83719F655200056DF91 /* SidemenuViewController.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
 				CE29100819EE668B005483A1 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				CE290FF219EE668B005483A1 /* NSNumber+MagicalDataImport.m in Sources */,
@@ -1432,6 +1453,7 @@
 				CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */,
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CEF2647119E81D16008BE93A /* NSDate+Utilities.m in Sources */,
+				CE10A83019F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
 				CE290FF019EE668B005483A1 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */,
 				CE8AB38A19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
@@ -1520,6 +1542,7 @@
 				CE29100119EE668B005483A1 /* NSManagedObject+MagicalRecord.m in Sources */,
 				CE290FF719EE668B005483A1 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				CEC0040E19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
+				CE10A83119F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
 				CE290FFF19EE668B005483A1 /* NSManagedObject+MagicalFinders.m in Sources */,
 				CE290FF519EE668B005483A1 /* NSObject+MagicalDataImport.m in Sources */,
 				CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */,
@@ -1544,6 +1567,7 @@
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
 				CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
+				CE10A83819F655200056DF91 /* SidemenuViewController.m in Sources */,
 				CE29100719EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				CE290FEF19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				CE500B7C19F00A4F00449C34 /* AbstractTableViewController.m in Sources */,
