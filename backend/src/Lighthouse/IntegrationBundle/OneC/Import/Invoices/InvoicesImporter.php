@@ -289,20 +289,20 @@ class InvoicesImporter
     /**
      * @param array $row
      * @param Invoice $invoice
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct|null
+     * @return InvoiceProduct|null
      */
     protected function createInvoiceProduct(array $row, Invoice $invoice)
     {
         $invoiceProduct = null;
-        if (isset($row[0], $row[2], $row[4])
+        if (isset($row[0], $row[2], $row[3])
             && '' != $row[0]
             && '' != $row[2]
-            && '' != $row[4]
+            && '' != $row[3]
         ) {
             $sku = $this->getProductSku($row[0]);
             $productVersion = $this->getProductVersion($sku);
             $quantity = $this->normalizeQuantity($row[2]);
-            $price = $this->normalizeQuantity($row[4]);
+            $price = $this->normalizeQuantity($row[3]);
 
             $invoiceProduct = new InvoiceProduct();
             $invoiceProduct->parent = $invoice;
