@@ -72,7 +72,7 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
         $output = $output ?: new NullOutput();
         $dotHelper = new DotHelper($output);
 
-        $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
+        $requireDatePeriod = new DatePeriod("-1 year 00:00", "+1 day 23:59:59");
 
         $results = $this->aggregateByDays($requireDatePeriod->getStartDate(), $requireDatePeriod->getEndDate());
         $count = 0;

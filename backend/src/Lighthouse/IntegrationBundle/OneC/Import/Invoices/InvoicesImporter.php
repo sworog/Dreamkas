@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
@@ -57,6 +58,11 @@ class InvoicesImporter
     protected $numericFactory;
 
     /**
+     * @var InvoiceRepository
+     */
+    protected $invoiceRepository;
+
+    /**
      * @var Store[]
      */
     protected $stores = array();
@@ -72,20 +78,23 @@ class InvoicesImporter
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "versionFactory" = @DI\Inject("lighthouse.core.versionable.factory"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
-     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
+     *      "invoiceRepository" = @DI\Inject("lighthouse.core.document.repository.stock_movement.invoice")
      * })
      * @param StoreRepository $storeRepository
      * @param ProductRepository $productRepository
      * @param VersionFactory $versionFactory
      * @param ExceptionalValidator $validator
      * @param NumericFactory $numericFactory
+     * @param InvoiceRepository $invoiceRepository
      */
     public function __construct(
         StoreRepository $storeRepository,
         ProductRepository $productRepository,
         VersionFactory $versionFactory,
         ExceptionalValidator $validator,
-        NumericFactory $numericFactory
+        NumericFactory $numericFactory,
+        InvoiceRepository $invoiceRepository
     ) {
         $this->storeRepository = $storeRepository;
         $this->productRepository = $productRepository;
@@ -93,6 +102,7 @@ class InvoicesImporter
         $this->validator = $validator;
         $this->numericFactory = $numericFactory;
         $this->documentManager = $productRepository->getDocumentManager();
+        $this->invoiceRepository = $invoiceRepository;
     }
 
     /**
@@ -110,6 +120,7 @@ class InvoicesImporter
         $file->setCsvControl(',');
 
         $i = 0;
+        /* @var Invoice $currentInvoice */
         $currentInvoice = null;
         /* @var \Exception[] $errors */
         $errors = array();
@@ -119,7 +130,9 @@ class InvoicesImporter
                 $invoice = $this->createInvoice($row);
                 if ($invoice) {
                     $dotHelper->end(false);
-                    $output->writeln('');
+                    if ($currentInvoice) {
+                        $this->persistInvoice($currentInvoice, $output);
+                    }
                     if (++$i % $batchSize == 0) {
                         $output->writeln('<info>Flushing</info>');
                         $this->documentManager->flush();
@@ -137,34 +150,24 @@ class InvoicesImporter
                             )
                         );
                     }
-                    if ($currentInvoice) {
-                        $this->documentManager->persist($currentInvoice);
-                    }
                     $currentInvoice = $invoice;
-                    $this->validator->validate($currentInvoice);
+                } elseif ($currentInvoice) {
+                    $invoiceProduct = $this->createInvoiceProduct($row, $currentInvoice);
+                    if ($invoiceProduct) {
+                        $currentInvoice->products->add($invoiceProduct);
+                        $dotHelper->write();
+                    } else {
+                        $dotHelper->writeQuestion('?');
+                    }
                 }
             } catch (\Exception $e) {
                 $dotHelper->writeError('E');
                 $errors[] = $e;
                 $currentInvoice = null;
             }
-            if ($currentInvoice && null === $invoice) {
-                try {
-                    $invoiceProduct = $this->createInvoiceProduct($row, $currentInvoice);
-                    if ($invoiceProduct) {
-                        $this->validator->validate($invoiceProduct);
-                        $currentInvoice->products->add($invoiceProduct);
-                        $dotHelper->write();
-                    }
-                } catch (\Exception $e) {
-                    $dotHelper->writeError('E');
-                    $errors[] = $e;
-                    $currentInvoice = null;
-                }
-            }
         }
         if ($currentInvoice) {
-            $this->documentManager->persist($currentInvoice);
+            $this->persistInvoice($currentInvoice, $output);
         }
         $output->writeln('');
         $output->writeln('<info>Flushing</info>');
@@ -206,7 +209,8 @@ class InvoicesImporter
                 $store = $this->lastStore;
             }
 
-            $invoice = new Invoice();
+            $invoice = $this->invoiceRepository->createNew();
+
             $invoice->date = $date;
             $invoice->number = $number;
             $invoice->store = $store;
@@ -221,6 +225,23 @@ class InvoicesImporter
             $this->checkStoreRow($row);
         }
         return $invoice;
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param OutputInterface $output
+     */
+    protected function persistInvoice(Invoice $invoice, OutputInterface $output)
+    {
+        $output->write('<info>Persist</info>');
+        try {
+            $this->validator->validate($invoice);
+            $this->documentManager->persist($invoice);
+            $output->writeln(' OK');
+        } catch (\Exception $e) {
+            $output->writeln(sprintf(' <error>Validation Failed</error>: %s', $e->getMessage()));
+        }
+        $output->writeln(str_repeat('-', 60));
     }
 
     /**
@@ -273,14 +294,14 @@ class InvoicesImporter
     protected function createInvoiceProduct(array $row, Invoice $invoice)
     {
         $invoiceProduct = null;
-        if (isset($row[0], $row[1], $row[4])
+        if (isset($row[0], $row[2], $row[4])
             && '' != $row[0]
-            && '' != $row[1]
+            && '' != $row[2]
             && '' != $row[4]
         ) {
             $sku = $this->getProductSku($row[0]);
             $productVersion = $this->getProductVersion($sku);
-            $quantity = $this->normalizeQuantity($row[1]);
+            $quantity = $this->normalizeQuantity($row[2]);
             $price = $this->normalizeQuantity($row[4]);
 
             $invoiceProduct = new InvoiceProduct();
