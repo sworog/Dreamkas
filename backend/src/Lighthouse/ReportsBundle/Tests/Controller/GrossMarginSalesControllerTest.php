@@ -5,6 +5,7 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
@@ -133,8 +134,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId, $stores['2']);
 
-        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateProductReport();
+        $this->runRecalculateCommand();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo, $storeName, $stores);
 
@@ -352,8 +352,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
-        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateCatalogGroupReport();
+        $this->runRecalculateCommand();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo, $storeName, $stores);
 
@@ -479,8 +478,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
-        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateStoreReport();
+        $this->runRecalculateCommand();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo);
 
@@ -675,7 +673,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/reports/gross",
+            '/api/1/reports/gross',
             null,
             $query
         );
@@ -755,5 +753,13 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->assertSame($expectedValues[1], $reportElement['costOfGoods']);
         $this->assertSame($expectedValues[2], $reportElement['grossMargin']);
         $this->assertSame($expectedValues[3], $reportElement['quantity']);
+    }
+
+    /**
+     * @return ApplicationTester
+     */
+    protected function runRecalculateCommand()
+    {
+        return $this->createConsoleTester(false, true)->runCommand('lighthouse:reports:recalculate');
     }
 }

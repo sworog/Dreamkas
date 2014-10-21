@@ -67,6 +67,8 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
      */
     public function recalculate(OutputInterface $output = null, $batch = 5000)
     {
+        $this->dm->clear();
+
         $output = $output ?: new NullOutput();
         $dotHelper = new DotHelper($output);
 

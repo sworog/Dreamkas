@@ -5,14 +5,6 @@ define(function(require, exports, module) {
     return Page_profit.extend({
         content: require('ejs!./content.ejs'),
 		ProfitCollection: require('resources/storesProfit/collection'),
-		params: {
-			dateFrom: function(){
-				var page = this,
-					currentTime = Date.now();
-
-				return page.formatDate(moment(currentTime).subtract(1, 'month'));
-			}
-		},
 		models: {
 			profit: function() {
 				var page = this,

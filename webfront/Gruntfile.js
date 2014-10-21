@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		shell: {
 			build: {
-				command: 'node tools/r.js -o tools/build.js'
+				command: 'node tools/r.js -o tools/buildConfig.js'
 			},
 			remove_build: {
 				command: 'rm -rf build'

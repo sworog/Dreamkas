@@ -1,6 +1,8 @@
 /.bundle/
 /vendor/
+src/config.js
 node_modules/
+xunit/
 build/
 web
 npm-debug.log

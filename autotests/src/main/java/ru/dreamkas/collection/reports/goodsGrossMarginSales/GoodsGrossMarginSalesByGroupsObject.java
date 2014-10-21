@@ -1,4 +1,4 @@
-package ru.dreamkas.collection.reports.grossMarginSales;
+package ru.dreamkas.collection.reports.goodsGrossMarginSales;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,14 +10,14 @@ import ru.dreamkas.collection.compare.CompareResults;
 
 import java.util.Map;
 
-public class GrossMarginSalesByGroupsObject extends AbstractObject implements ResultComparable, ObjectLocatable, ObjectClickable {
+public class GoodsGrossMarginSalesByGroupsObject extends AbstractObject implements ResultComparable, ObjectLocatable, ObjectClickable {
 
     private String groupName;
     private String grossSales;
     private String grossMargin;
     private String costOfGoods;
 
-    public GrossMarginSalesByGroupsObject(WebElement element) {
+    public GoodsGrossMarginSalesByGroupsObject(WebElement element) {
         super(element);
     }
 
