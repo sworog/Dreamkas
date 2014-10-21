@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="ConfirmButtonComponent">
+        <attr name="confirmationText" format="string" />
+    </declare-styleable>
+</resources>

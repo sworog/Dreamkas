@@ -2,17 +2,20 @@ package ru.dreamkas.steps.reports;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.jbehave.core.model.ExamplesTable;
 import ru.dreamkas.apiStorage.ApiStorage;
 import ru.dreamkas.apihelper.UrlHelper;
 import ru.dreamkas.elements.preLoader.BodyPreLoader;
 import ru.dreamkas.pages.reports.ReportsMainPage;
-import ru.dreamkas.pages.reports.grossMarginSales.GrossMarginSalesByGroupsReportPage;
+import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByGroupsReportPage;
+import ru.dreamkas.pages.reports.storesGrossMarginSales.StoresGrossMarginSalesReportPage;
 
 public class ReportSteps extends ScenarioSteps {
 
     ReportsMainPage reportsMainPage;
 
-    GrossMarginSalesByGroupsReportPage grossMarginSalesByGroupsReportPage;
+    GoodsGrossMarginSalesByGroupsReportPage goodsGrossMarginSalesByGroupsReportPage;
+    StoresGrossMarginSalesReportPage storesGrossMarginSalesReportPage;
 
     @Step
     public void clickOnStockBalanceReport() {
@@ -32,13 +35,23 @@ public class ReportSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openGrossMarginSalesReportPage() {
-        grossMarginSalesByGroupsReportPage.open();
+    public void openGoodsGrossMarginSalesReportPage() {
+        goodsGrossMarginSalesByGroupsReportPage.open();
+    }
+
+    @Step
+    public void openStoresGrossMarginSalesReportPage() {
+        storesGrossMarginSalesReportPage.open();
     }
 
     @Step
     public void clickGroup(String groupName) {
-        grossMarginSalesByGroupsReportPage.clickOnCollectionObjectByLocator(groupName);
+        goodsGrossMarginSalesByGroupsReportPage.clickOnCollectionObjectByLocator(groupName);
         new BodyPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void checksTotalStoresGrossMarginSalesValues(ExamplesTable examplesTable) {
+        storesGrossMarginSalesReportPage.checkValues(examplesTable);
     }
 }

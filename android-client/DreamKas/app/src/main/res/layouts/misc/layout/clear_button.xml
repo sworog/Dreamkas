@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.dreamkas.pos.view.components.ConfirmButtonComponent xmlns:android="http://schemas.android.com/apk/res/android"
+    android:text="Очистить чек"
+    android:id="@+id/btnReceiptClear"
+    android:background="@color/White"
+    android:textColor="@color/VeryDarkGray"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right">
+
+</ru.dreamkas.pos.view.components.ConfirmButtonComponent>
