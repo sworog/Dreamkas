@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-shell');
+	grunt.loadNpmTasks('grunt-casper');
 
 	grunt.initConfig({
 		shell: {
@@ -9,6 +10,16 @@ module.exports = function(grunt) {
 			},
 			remove_build: {
 				command: 'rm -rf build'
+			}
+		},
+		casper: {
+			test : {
+				options : {
+					//test : true
+				},
+				files : {
+					'xunit/casper-results.xml' : ['tests/test.js']
+				}
 			}
 		}
 	});

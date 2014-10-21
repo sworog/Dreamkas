@@ -2,6 +2,7 @@
   "name": "dreamkas-web-client",
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-casper": "^0.4.1",
     "grunt-cli": "~0.1",
     "grunt-shell": "^1.1.1",
     "karma": "~0.12",
