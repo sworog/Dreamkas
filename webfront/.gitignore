@@ -2,8 +2,8 @@
 /vendor/
 src/config.js
 node_modules/
+report/
 xunit/
 build/
-xunit/
 web
 npm-debug.log

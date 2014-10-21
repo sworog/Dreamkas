@@ -15,7 +15,7 @@ public class ProductEditModalWindow extends ProductCreateModalWindow {
     }
 
     protected WebElement findDeleteButton() {
-        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink product__removeLink']"));
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink']"));
     }
 
     public void deleteButtonClick() {
@@ -27,7 +27,7 @@ public class ProductEditModalWindow extends ProductCreateModalWindow {
     }
 
     public void confirmDeleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink product__removeLink']")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink']")).click();
     }
 
     @Override
