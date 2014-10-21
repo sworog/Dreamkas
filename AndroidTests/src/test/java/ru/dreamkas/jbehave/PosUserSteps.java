@@ -26,11 +26,19 @@ public class PosUserSteps {
         posSteps.clickOnSaveStoreSettings();
     }
 
+    @When("пользователь нажимает на кнопку 'Очистить чек'")
+    @Given("пользователь нажимает на кнопку 'Очистить чек'")
+    public void whenTheUserClicksOnClearReceiptButton() {
+        posSteps.clickOnClearReceiptButton();
+    }
+
+
     @When("пользователь открывает боковое меню и нажимает на элемент '$item'")
     public void whenTheUserOpensDrawerAndClickOnItem(String item) {
         posSteps.openDrawerAndClickOnDrawerOption(item);
     }
 
+    @Given("пользователь набирает в поле поиска товаров '$productSearchQuery'")
     @When("пользователь набирает в поле поиска товаров '$productSearchQuery'")
     @Alias("пользователь набирает в поле поиска товаров productSearchQuery")
     public void whenTheUserTypeProductSearchQuery(String productSearchQuery) {
@@ -67,6 +75,7 @@ public class PosUserSteps {
         posSteps.assertReceiptEmptyLabelText(expected);
     }
 
+    @Given("пользователь тапает по товару с названием '$title'")
     @When("пользователь тапает по товару с названием '$title'")
     public void thenTheUserTapOnProductInSearchResultWithTitle(String title) {
         posSteps.tapOnProductInSearchResultWithTitle(title);
@@ -86,5 +95,11 @@ public class PosUserSteps {
     public void thenTheUserChecksTheReceiptTotal(String expected) {
         posSteps.assertReceiptTotalButtonText(expected);
     }
+
+    @Then("пользователь видит что кнопка перешла в режим ожидания подтверждения с надписью '$expectedLabel'")
+    public void thenTheUserChecksTheCleraReceiptButtonLabel(String expectedLabel) {
+        posSteps.assertClearReceiptButtonLabelText(expectedLabel);
+    }
+
 
 }
