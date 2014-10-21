@@ -65,3 +65,12 @@
     background-color: #fff !important;
     border-right: 1px solid #efefef;
 }
+
+.table_stockMovementProducts td {
+    vertical-align: middle !important;
+}
+
+.table_stockMovementProducts__removeProductLink {
+    padding: 7px 13px;
+    font-size: 17px;
+}
