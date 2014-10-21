@@ -17,6 +17,9 @@
 - (id)init
 {
     if ((self = [super init])) {
+        // инициализация локального хранилища данных
+        [MagicalRecord setupAutoMigratingCoreDataStack];
+        
         // инициализация модуля для работы с веб-сервисом
         #if API_USE_TEST_SERVER
             self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_TEST_SERVER_URL]];
