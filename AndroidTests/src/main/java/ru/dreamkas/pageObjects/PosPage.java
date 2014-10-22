@@ -126,4 +126,14 @@ public class PosPage extends CommonPageObject {
     public String getReceiptTotalButtonLabel() {
         return registerReceiptButton.getText();
     }
+
+    public void clickOnClearReceiptButton() {
+        WebElement btnClearReceiptButton = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/btnReceiptClear"));
+        btnClearReceiptButton.click();
+    }
+
+    public String getReceiptClearButtonLabel() {
+        WebElement btnClearReceiptButton = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/btnReceiptClear"));
+        return btnClearReceiptButton.getText();
+    }
 }

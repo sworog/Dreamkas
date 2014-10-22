@@ -94,4 +94,12 @@ public class PosSteps extends ScenarioSteps {
     public void assertReceiptTotalButtonText(String expected) {
         assertThat(posPage.getReceiptTotalButtonLabel(), is(expected));
     }
+
+    public void assertClearReceiptButtonLabelText(String expectedLabel) {
+        assertThat(posPage.getReceiptClearButtonLabel(), is(expectedLabel));
+    }
+
+    public void clickOnClearReceiptButton() {
+        posPage.clickOnClearReceiptButton();
+    }
 }
