@@ -9,7 +9,7 @@
 #import "IntroViewController.h"
 #import "CustomLabel.h"
 
-static const CGFloat TimeoutBeforeStart = 2.0f;
+static const CGFloat TimeoutBeforeStart = 1.f;
 
 @interface IntroViewController()
 
@@ -26,9 +26,9 @@ static const CGFloat TimeoutBeforeStart = 2.0f;
     [self.titleLabel setText:NSLocalizedString(@"intro_screen_title", nil)];
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
     // запускаем логику по таймауту
     [NSTimer scheduledTimerWithTimeInterval:TimeoutBeforeStart target:self

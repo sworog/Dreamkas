@@ -12,7 +12,7 @@ define(function(require, exports, module) {
 
             cookies.set('posStoreId', page.params.storeId);
 
-            Page_pos.prototype.initialize.apply(page, arguments);
+            return Page_pos.prototype.initialize.apply(page, arguments);
         },
         models: {
             receipt: require('resources/receipt/model')

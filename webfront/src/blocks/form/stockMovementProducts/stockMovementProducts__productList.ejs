@@ -6,9 +6,8 @@
     <td name="quantity"><%- formatAmount(product.get('quantity')) %> <%- product.get('product.object.units') || 'шт.' %></td>
     <td name="totalPrice"><%- formatMoney(product.get('totalPrice')) %></td>
     <td>
-        <a style="font-size: 17px; position: relative; left: 4px; top: -2px;"
-           data-model-cid="<%- product.cid %>"
-           class="table_stockMovementProducts__removeProductLink btn fa fa-times"></a>
+        <a data-model-cid="<%- product.cid %>"
+           class="table_stockMovementProducts__removeProductLink fa fa-times"></a>
     </td>
 </tr>
 <% }); %>

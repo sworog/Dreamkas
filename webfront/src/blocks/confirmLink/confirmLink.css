@@ -14,3 +14,7 @@
 .confirmLink_active .confirmLink__trigger {
     display: none;
 }
+
+.confirmLink__confirmation .removeLink {
+    color: #d40000;
+}

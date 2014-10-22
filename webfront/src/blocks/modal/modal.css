@@ -33,6 +33,10 @@
     display: block;
 }
 
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .modal__header {
     border-bottom: 1px solid #e5e5e5;
     padding: 10px 20px;

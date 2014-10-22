@@ -6,14 +6,27 @@
     android:layout_height="match_parent"
     tools:context="ru.dreamkas.pos.view.MainActivity">
 
+
+
     <LinearLayout
+        android:focusable="true"
+
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        >
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/llFragmentContainer"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </RelativeLayout>
+
     <ListView android:id="@+id/lstDrawer"
         android:focusable="false"
         android:layout_width="400dp"

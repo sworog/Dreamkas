@@ -18,13 +18,15 @@ define(function(require, exports, module) {
 		initialize: function() {
 			var block = this;
 
-			Block.prototype.initialize.apply(block, arguments);
+			var initialize = Block.prototype.initialize.apply(block, arguments);
 
 			block.listenTo(block.collections.profit, {
 				'change reset': function() {
 					block.render();
 				}
 			});
+
+			return initialize;
 		},
 
 		allGroupsUrl: function() {
