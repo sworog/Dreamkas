@@ -1,10 +1,11 @@
 {
   "name": "dreamkas-web-client",
   "devDependencies": {
+    "chai": "^1.9.2",
     "grunt": "^0.4.5",
-    "grunt-casper": "^0.4.1",
     "grunt-cli": "~0.1",
     "grunt-shell": "^1.1.1",
+    "grunt-webdriver": "^0.4.4",
     "karma": "~0.12",
     "karma-chrome-launcher": "~0.1",
     "karma-coverage": "~0.2",
