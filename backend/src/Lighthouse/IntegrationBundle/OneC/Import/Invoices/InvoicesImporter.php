@@ -11,6 +11,8 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
+use Lighthouse\CoreBundle\Document\Supplier\SupplierRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
@@ -63,9 +65,19 @@ class InvoicesImporter
     protected $invoiceRepository;
 
     /**
+     * @var SupplierRepository
+     */
+    protected $supplierRepository;
+
+    /**
      * @var Store[]
      */
     protected $stores = array();
+
+    /**
+     * @var Supplier[]
+     */
+    protected $suppliers = array();
 
     /**
      * @var Store
@@ -79,7 +91,8 @@ class InvoicesImporter
      *      "versionFactory" = @DI\Inject("lighthouse.core.versionable.factory"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
      *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
-     *      "invoiceRepository" = @DI\Inject("lighthouse.core.document.repository.stock_movement.invoice")
+     *      "invoiceRepository" = @DI\Inject("lighthouse.core.document.repository.stock_movement.invoice"),
+     *      "supplierRepository" = @DI\Inject("lighthouse.core.document.repository.supplier")
      * })
      * @param StoreRepository $storeRepository
      * @param ProductRepository $productRepository
@@ -87,6 +100,7 @@ class InvoicesImporter
      * @param ExceptionalValidator $validator
      * @param NumericFactory $numericFactory
      * @param InvoiceRepository $invoiceRepository
+     * @param SupplierRepository $supplierRepository
      */
     public function __construct(
         StoreRepository $storeRepository,
@@ -94,7 +108,8 @@ class InvoicesImporter
         VersionFactory $versionFactory,
         ExceptionalValidator $validator,
         NumericFactory $numericFactory,
-        InvoiceRepository $invoiceRepository
+        InvoiceRepository $invoiceRepository,
+        SupplierRepository $supplierRepository
     ) {
         $this->storeRepository = $storeRepository;
         $this->productRepository = $productRepository;
@@ -103,6 +118,7 @@ class InvoicesImporter
         $this->numericFactory = $numericFactory;
         $this->documentManager = $productRepository->getDocumentManager();
         $this->invoiceRepository = $invoiceRepository;
+        $this->supplierRepository = $supplierRepository;
     }
 
     /**
@@ -215,12 +231,13 @@ class InvoicesImporter
             $invoice->number = $number;
             $invoice->store = $store;
             $invoice->accepter = 'Накладных Импорт';
-            $invoice->legalEntity = 'Магазин';
+            $invoice->legalEntity = trim($row[5]);
+            $invoice->paid = ('Да' === trim($row[10]));
 
-            // FIXME Supplier should be auto generated on import?
-            //$supplier = trim($row[8]);
-            //$supplier = ($supplier) ?: 'Не указан';
-            //$invoice->supplier = $supplier;
+            $supplierName = trim($row[8]);
+            if ($supplierName) {
+                $invoice->supplier = $this->getSupplier($supplierName);
+            }
         } else {
             $this->checkStoreRow($row);
         }
@@ -349,5 +366,36 @@ class InvoicesImporter
         } else {
             throw new RuntimeException(sprintf("Product with sku '%s' not found", $sku));
         }
+    }
+
+    /**
+     * @param string $name
+     * @return Supplier
+     */
+    protected function getSupplier($name)
+    {
+        if (!isset($this->suppliers[$name])) {
+            $supplier = $this->supplierRepository->findOneByName($name);
+            if (!$supplier) {
+                $supplier = $this->createSupplier($name);
+            }
+            $supplierReference = $this->supplierRepository->getReference($supplier->id);
+            $this->suppliers[$name] = $supplierReference;
+        }
+
+        return $this->suppliers[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return Supplier
+     */
+    protected function createSupplier($name)
+    {
+        $supplier = $this->supplierRepository->createNew();
+        $supplier->name = $name;
+        $this->supplierRepository->save($supplier);
+
+        return $supplier;
     }
 }

@@ -24,4 +24,13 @@ class SupplierRepository extends DocumentRepository
         $nullSupplier->id = $id;
         return $nullSupplier;
     }
+
+    /**
+     * @param string $name
+     * @return Supplier|null
+     */
+    public function findOneByName($name)
+    {
+        return $this->findOneBy(array('name' => $name));
+    }
 }
