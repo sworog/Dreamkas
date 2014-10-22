@@ -46,4 +46,7 @@
 
 #define DefaultTextFieldHeight              52.f
 
+#define DefaultSingleLineCellHeight         52.f
+#define DefaultCellSeparatorHeight          1.f
+
 #endif

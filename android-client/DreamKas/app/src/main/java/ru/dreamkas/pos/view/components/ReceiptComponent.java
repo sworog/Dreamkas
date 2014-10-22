@@ -1,5 +1,6 @@
 package ru.dreamkas.pos.view.components;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -75,6 +77,8 @@ public class ReceiptComponent extends LinearLayout {
         btnClearReceipt = (ConfirmButtonComponent)View.inflate(mContext,R.layout.clear_button, null);
         btnClearReceipt.setConfirmationText(DreamkasApp.getResourceString(R.string.msgClearReceiptConfitmationText));
         lvReceipt.addFooterView(btnClearReceipt);
+        btnClearReceipt.setContainer((RelativeLayout)((Activity)mContext).findViewById(R.id.llFragmentContainer));
+
     }
 
     public void clearReceipt(){
@@ -111,7 +115,6 @@ public class ReceiptComponent extends LinearLayout {
 
         changeReceiptTotal();
         btnClearReceipt.changeState(ConfirmButtonComponent.State.REGULAR);
-
 
         scrollToBottom();
     }

@@ -5,5 +5,6 @@ node_modules/
 report/
 xunit/
 build/
+report/
 web
 npm-debug.log

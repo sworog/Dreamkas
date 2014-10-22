@@ -46,6 +46,7 @@
     UIImageView *blurred_image_view = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
     UIColor *tintColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+    //blurred_image_view.image = self.view.imageRepresentation;
     blurred_image_view.image = [self.view.imageRepresentation applyBlurWithRadius:8
                                                                         tintColor:tintColor
                                                             saturationDeltaFactor:1.8

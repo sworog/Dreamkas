@@ -1,24 +1,27 @@
 //
-//  LogInTesting.m
+//  ITAuthTesting.m
 //  dreamkas
 //
-//  Created by sig on 15.10.14.
+//  Created by sig on 20.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <KIF/KIF.h>
 #import <XCTest/XCTest.h>
 
-@interface LogInTesting : KIFTestCase
+#import <KIF/KIF.h>
+#import "KIF/KIFTypist.h"
+
+@interface ITAuthTesting : KIFTestCase
 
 @end
 
-@implementation LogInTesting
+@implementation ITAuthTesting
 
 - (void)beforeEach
 {
-    // ..
+    [UIApplication sharedApplication].keyWindow.layer.speed = 1.0;
+    [KIFTypist setKeystrokeDelay:0.2];
 }
 
 - (void)afterEach
