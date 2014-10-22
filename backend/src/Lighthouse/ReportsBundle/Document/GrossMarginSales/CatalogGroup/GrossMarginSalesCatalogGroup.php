@@ -11,7 +11,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *      repositoryClass
  *          = "Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupRepository"
  * )
- * @MongoDB\Index(keys={"day"="asc", "subCategory"="asc"})
+ * @MongoDB\Index(keys={"day"="asc", "store"="asc"})
  *
  * @property SubCategory $subCategory
  */
