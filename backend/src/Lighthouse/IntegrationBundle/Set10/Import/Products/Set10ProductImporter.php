@@ -390,10 +390,13 @@ class Set10ProductImporter
         $product->barcode = $good->getDefaultBarcode() ? $good->getDefaultBarcode()->getCode() : null;
         $product->barcodes = $this->getBarcodes($good);
         $product->vendor = $good->getManufacturerName();
-        $product->purchasePrice = $this->getPurchasePrice($good);
+        $product->purchasePrice = $this->getPurchasePrice($good, 0.8);
+        $product->sellingPrice = $this->getPurchasePrice($good, 1);
+        /*
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
         $product->retailMarkupMin = 15;
         $product->retailMarkupMax = 20;
+        */
         $product->typeProperties = $this->createType($good);
 
         $product->subCategory = $this->getCatalog($good);
@@ -479,13 +482,14 @@ class Set10ProductImporter
 
     /**
      * @param GoodElement $good
+     * @param int|float $multiplier
      * @return Money
      */
-    public function getPurchasePrice(GoodElement $good)
+    public function getPurchasePrice(GoodElement $good, $multiplier = 1)
     {
         $salePrice = $good->getPrice();
         $salePriceMoney = $this->moneyModelTransformer->reverseTransform($salePrice);
-        $purchasePrice = $salePriceMoney->mul(0.80);
+        $purchasePrice = $salePriceMoney->mul($multiplier);
         return $purchasePrice;
     }
 
