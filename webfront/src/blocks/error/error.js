@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block.deprecated'),
+    var Block = require('kit/block/block'),
         _ = require('lodash');
 
     return Block.extend({

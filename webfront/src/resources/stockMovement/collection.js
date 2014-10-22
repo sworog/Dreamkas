@@ -18,19 +18,27 @@ define(function(require) {
             data.forEach(function(item) {
                 switch (item.type) {
                     case "Invoice":
-                        collection.add(new InvoiceModel(item));
+                        collection.add(new InvoiceModel(item), {
+                            silent: true
+                        });
                         break;
 
                     case "WriteOff":
-                        collection.add(new WriteOffModel(item));
+                        collection.add(new WriteOffModel(item), {
+                            silent: true
+                        });
                         break;
 
                     case "StockIn":
-                        collection.add(new StockInModel(item));
+                        collection.add(new StockInModel(item), {
+                            silent: true
+                        });
                         break;
 
                     case "SupplierReturn":
-                        collection.add(new SupplierReturnModel(item));
+                        collection.add(new SupplierReturnModel(item), {
+                            silent: true
+                        });
                         break;
                 }
             });

@@ -8,11 +8,9 @@ define(function(require, exports, module) {
         collection: function(){
             return PAGE.collections.profit
         },
-        initData: function() {
+        render: function() {
             var totalGrossSales = 0,
                 totalGrossMargin = 0;
-
-            Table.prototype.initData.apply(this, arguments);
 
             this.collection.forEach(function(profitModel) {
                 totalGrossSales += profitModel.get('grossSales');
@@ -21,6 +19,8 @@ define(function(require, exports, module) {
 
             this.totalGrossSales = totalGrossSales;
             this.totalGrossMargin = totalGrossMargin;
+
+            Table.prototype.render.apply(this, arguments);
 
         },
         calculateGrossSalesPercent: function(grossSales) {

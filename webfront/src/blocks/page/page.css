@@ -3,6 +3,11 @@
     position: relative;
 }
 
+.page_login, .page_signup {
+    padding: 100px 0;
+    background: url("/img/bg1.jpg");
+}
+
 .page__head {
     padding: 10px 30px;
     background: #ffffff;
@@ -84,7 +89,7 @@
 .page_reports__link .fa{
     font-size: 20px;
     font-weight: bold;
-    margin-right: -10px;
+    margin-top: -1px;
 }
 
 /*---------------------- profit -----------------------*/

@@ -26,7 +26,7 @@ define(function(require, exports, module) {
 
                 block.calculateMarkup();
             },
-            'click .confirmLink__confirmation .product__removeLink': function(e) {
+            'click .form_product__removeLink': function(e) {
                 var block = this;
 
                 e.target.classList.add('loading');

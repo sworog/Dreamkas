@@ -10,7 +10,7 @@
     </thead>
     <tbody>
 
-    <% _.forEach(collection.groupBy('date'), function(stockMovements, date){ %>
+    <% _.forEach(groupedByDateList, function(stockMovements, date){ %>
 
     <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
 

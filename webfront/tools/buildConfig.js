@@ -24,7 +24,7 @@
             drop_debugger: true,
             drop_console: true
         },
-        warnings: true,
+        warnings: false,
         comments: false
     },
 

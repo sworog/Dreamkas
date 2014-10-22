@@ -56,6 +56,14 @@ define(function(require, exports, module) {
             }
         },
 
+        initialize: function() {
+
+            this.params.dateTo = this.get('params.dateTo');
+            this.params.dateFrom = this.get('params.dateFrom');
+
+            return Page.prototype.initialize.apply(this, arguments);
+        },
+
         inputDateRangeHandler: function(e) {
 
             var dateFromInput = e.target.querySelector('[name="dateFrom"]'),
@@ -80,14 +88,6 @@ define(function(require, exports, module) {
                 dateFromInput.classList.remove('loading');
                 dateToInput.classList.remove('loading');
             });
-        },
-
-        initData: function() {
-
-            this.params.dateTo = this.get('params.dateTo');
-            this.params.dateFrom = this.get('params.dateFrom');
-
-            return Page.prototype.initData.apply(this, arguments);
         },
 
         blocks: {
