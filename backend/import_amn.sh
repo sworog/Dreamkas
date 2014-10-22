@@ -21,9 +21,9 @@ project=amn
 ./app/console lighthouse:import:products -e=$env fixtures/amn-goods.xml --batch-size=$batch_size --project=$project
 
 
-./app/console lighthouse:import:invoices:csv -e=$env --project=$project --original-date=2013-06-21 --import-date="-5 months 21 days" fixtures/amn-invoices.csv
+./app/console lighthouse:import:invoices:csv -e=$env --project=$project --original-date=2013-11-01 --import-date="now" fixtures/amn-invoices.csv
 
-./app/console lighthouse:import:sales:local -e=$env --project=$project --sort=filedate --receipt-date=2013-06-21 --import-date="-5 months 21 days" $receipts
+./app/console lighthouse:import:sales:local -e=$env --project=$project --sort=filedate --receipt-date=2013-11-01 --import-date="now" $receipts
 
 ./app/console lighthouse:products:recalculate_metrics -e=$env
 ./app/console lighthouse:reports:recalculate -e=$env
