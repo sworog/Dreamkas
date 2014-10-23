@@ -84,15 +84,18 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
             $this->setReportValues($report, $result);
 
             $this->dm->persist($report);
-            $count++;
-            $dotHelper->write();
 
-            if ($count % $batch == 0) {
+            if (++$count % $batch == 0) {
+                $dotHelper->writeQuestion();
                 $this->dm->flush();
+                $this->dm->clear();
+            } else {
+                $dotHelper->write();
             }
         }
 
         $this->dm->flush();
+        $this->dm->clear();
 
         $dotHelper->end();
 

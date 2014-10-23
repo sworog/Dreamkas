@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales;
+namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Store;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -87,7 +87,8 @@ class GrossMarginSalesStoreTest extends WebTestCase
         $trialBalanceCount = $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->assertEquals(5, $trialBalanceCount);
 
-        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateStoreReport();
+
+        $recalculateCount = $this->getGrossMarginSalesStoreRepository()->recalculate(null, 4);
         $this->assertEquals(5, $recalculateCount);
 
         $this->assertStoreReportNotFound($stores['1'], '00:00:00');

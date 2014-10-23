@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales;
+namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Product;
 
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
@@ -10,14 +10,6 @@ use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportMana
 
 class GrossMarginSalesProductTest extends WebTestCase
 {
-    /**
-     * @return GrossMarginSalesReportManager
-     */
-    public function getGrossMarginSalesReportManager()
-    {
-        return $this->getContainer()->get('lighthouse.reports.gross_margin_sales.manager');
-    }
-
     /**
      * @return GrossMarginSalesProductRepository
      */
@@ -34,7 +26,11 @@ class GrossMarginSalesProductTest extends WebTestCase
         return $this->getContainer()->get('lighthouse.reports.gross_margin.manager');
     }
 
-    public function testCalculateGrossMarginSalesProduct()
+    /**
+     * @dataProvider calculateGrossMarginSalesProductProvider
+     * @param int $batch
+     */
+    public function testCalculateGrossMarginSalesProduct($batch)
     {
         $store = $this->factory()->store()->getStore();
 
@@ -69,13 +65,27 @@ class GrossMarginSalesProductTest extends WebTestCase
         $trialBalanceCount = $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->assertEquals(3, $trialBalanceCount);
 
-        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateProductReport();
+        $recalculateCount = $this->getGrossMarginSalesProductRepository()->recalculate(null, $batch);
         $this->assertEquals(4, $recalculateCount);
 
         $this->assertProductReport($store->id, $productId1, '-1 day 00:00:00', 121.59, 71.97, 49.62, 3);
         $this->assertProductReport($store->id, $productId3, '-1 day 00:00:00', 65.71, 43.35, 22.36, 2.55);
         $this->assertProductReport($store->id, $productId2, '-2 day 00:00:00', 202.59, 111.65, 90.94, 2.03);
         $this->assertProductReport($store->id, $productId3, '-4 day 00:00:00', 208, 136, 72, 8);
+    }
+
+    /**
+     * @return array
+     */
+    public function calculateGrossMarginSalesProductProvider()
+    {
+        return array(
+            'batch size 1' => array(1),
+            'batch size 2' => array(2),
+            'batch size 3' => array(3),
+            'batch size 4' => array(4),
+            'batch size 5' => array(5),
+        );
     }
 
     public function assertProductReport(
@@ -87,14 +97,14 @@ class GrossMarginSalesProductTest extends WebTestCase
         $grossMargin,
         $quantity
     ) {
-        $day = new DateTimestamp($day);
+        $date = new DateTimestamp($day);
         $report = $this->getGrossMarginSalesProductRepository()->findByStoreIdProductIdAndDay(
             $storeId,
             $productId,
-            $day
+            $date
         );
 
-        $this->assertNotNull($report, 'Product report not found');
+        $this->assertNotNull($report, sprintf('Product report for day %s not found', $day));
 
         $this->assertEquals($grossSales, $report->grossSales->toString());
         $this->assertEquals($costOfGoods, $report->costOfGoods->toString());
