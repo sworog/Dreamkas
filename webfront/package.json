@@ -18,7 +18,7 @@
     "webdriverio": "^2.2.3"
   },
   "scripts": {
-    "test": "node ./node_modules/karma/bin/karma start tools/karma.config.js --single-run",
+    "test": "node ./node_modules/grunt-cli/bin/grunt test --report=mocha-teamcity-reporter",
     "test-remote": "node ./node_modules/karma/bin/karma start tools/karma.remote.js --single-run",
     "build": "node ./node_modules/grunt-cli/bin/grunt build"
   }
