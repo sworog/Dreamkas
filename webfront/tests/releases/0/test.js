@@ -16,8 +16,6 @@ describe('test', function () {
                     expect(attr).to.have.string('loaded')
                 });
 
-                browser.saveScreenshot('test.png');
-
             })
             .end(done);
 
