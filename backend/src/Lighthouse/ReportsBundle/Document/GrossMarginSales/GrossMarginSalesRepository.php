@@ -57,6 +57,8 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
         $report->grossSales = $this->numericFactory->createMoneyFromCount($result['grossSales']);
         $report->grossMargin = $this->numericFactory->createMoneyFromCount($result['grossMargin']);
 
+        $report->id = $this->getReportId($report);
+
         return $report;
     }
 
@@ -100,6 +102,22 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
         $dotHelper->end();
 
         return $count;
+    }
+
+    /**
+     * @param GrossMarginSales $dayReport
+     * @return string
+     */
+    protected function getReportId(GrossMarginSales $dayReport)
+    {
+        $id = (string) $dayReport->day->getTimestamp();
+        if ($dayReport->store) {
+            $id.= ':' . $this->getDocumentIdentifierValue($dayReport->store);
+        }
+        if ($dayReport->getItem()) {
+            $id.= ':' . $this->getDocumentIdentifierValue($dayReport->getItem());
+        }
+        return $id;
     }
 
     /**
