@@ -10,6 +10,8 @@ define(function(require) {
         getText = require('kit/getText/getText'),
         numeral = require('numeral');
 
+    require('bower_components/bootstrap/dist/js/bootstrap');
+
     getText.dictionary = require('i18n!nls/main');
 
     moment.lang('root', require('i18n!nls/moment'));
