@@ -1,15 +1,12 @@
-var expect = require('chai').expect;
+var expect = require('chai').expect,
+    browser = require('./browser');
 
 describe('test', function () {
 
     it('body status', function(done) {
 
         browser
-            .setViewportSize({
-                width: 1024,
-                height: 800
-            })
-            .url('http://lighthouse.dev')
+            .url(host)
             .waitForExist('body[status="loaded"]', 5000, function(){
 
                 browser.getAttribute('body', 'status', function(error, attr){

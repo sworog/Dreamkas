@@ -11,18 +11,34 @@ module.exports = function(grunt) {
 		},
 		webdriver: {
 			options: {
+				//webdriverio options (https://github.com/webdriverio/webdriverio#options)
 				desiredCapabilities: {
 					browserName: 'phantomjs'
 				},
-				reporter: 'mocha-teamcity-reporter'
+				screenshotPath: 'tests/screenshots/',
+
+				//grunt-webdriver mocha options (https://github.com/webdriverio/grunt-webdriver#options)
+				reporter: '<%= grunt.option("reporter") %>'
 			},
 			test: {
-				tests: './tests/releases/**/*.js'
+				tests: './tests/*.js'
 			}
 		}
 	});
 
 	grunt.registerTask('build', ['shell:build']);
+
+	grunt.registerTask('test', function(){
+		var host = grunt.option('host');
+
+		if (!host){
+			grunt.warn('Host must be specified (--host=hostName).');
+		}
+
+		global['host'] = host;
+		grunt.task.run('webdriver');
+	});
+
 	grunt.registerTask('default', ['build']);
 
 };
