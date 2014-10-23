@@ -2,6 +2,7 @@
 /vendor/
 src/config.js
 node_modules/
+phantomjsdriver.log
 build/
 web
 npm-debug.log

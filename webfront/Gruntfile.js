@@ -12,8 +12,9 @@ module.exports = function(grunt) {
 		webdriver: {
 			options: {
 				desiredCapabilities: {
-					//browserName: 'phantomjs'
-				}
+					browserName: 'phantomjs'
+				},
+				reporter: 'mocha-teamcity-reporter'
 			},
 			test: {
 				tests: './tests/releases/**/*.js'
