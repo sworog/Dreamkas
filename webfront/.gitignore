@@ -1,7 +1,7 @@
 /.bundle/
-/vendor/
 src/config.js
 node_modules/
+phantomjsdriver.log
 report/
 xunit/
 build/
