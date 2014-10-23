@@ -1,3 +1,5 @@
+var browser = require('../../browser');
+
 var expect = require('chai').expect;
 
 describe('test', function () {
