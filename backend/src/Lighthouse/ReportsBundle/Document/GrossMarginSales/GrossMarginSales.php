@@ -82,6 +82,9 @@ abstract class GrossMarginSales extends AbstractDocument
     public function prePersist()
     {
         $this->id = $this->day->getTimestamp();
+        if ($this->store) {
+            $this->id.= ':' . $this->store->id;
+        }
         if ($this->getItem()) {
             $this->id.= ':' . $this->getItem()->id;
         }
