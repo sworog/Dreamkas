@@ -6,5 +6,6 @@ report/
 xunit/
 build/
 report/
+vendor/
 web
 npm-debug.log
