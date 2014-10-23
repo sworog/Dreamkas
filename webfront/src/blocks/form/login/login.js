@@ -21,6 +21,20 @@ define(function(require) {
 
             form__errorMessage.innerHTML = getText(error.error);
             form__errorMessage.classList.add('form__errorMessage_visible');
+        },
+        message: function() {
+            var params = PAGE.params,
+                message = '';
+
+            if (params.signup == 'success') {
+                message = 'Регистрация прошла успешно. Пароль выслан Вам на почту.';
+            }
+
+            if (params.recover == 'success') {
+                message = 'Пароль от аккаунта выслан Вам на почту.';
+            }
+
+            return message;
         }
     });
 });

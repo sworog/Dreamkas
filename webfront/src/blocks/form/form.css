@@ -29,10 +29,15 @@
     position: relative;
 }
 
-.form_login, .form_signup {
-    width: 400px;
+.form_login, .form_pass {
+    width: 500px;
     margin: 0 auto;
     background: #eeeeee;
+}
+
+.form_login__message:not(:empty) {
+    margin: 0 0 16px 0;
+    text-align: center;
 }
 
 .form_stockMovementProducts{
