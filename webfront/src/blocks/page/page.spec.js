@@ -7,7 +7,7 @@ define(function(require, exports, module) {
         it('global PAGE variable is right', function() {
 
             var page = Page({
-                el: null
+                el: '<div></div>'
             });
 
             expect(window.PAGE).toBe(page);
@@ -16,7 +16,7 @@ define(function(require, exports, module) {
         it('content of #page-wrapper is right', function() {
 
             var page = Page({
-                el: null
+                el: '<div></div>'
             });
 
             expect($('.page__contentSide', page.el).html().trim()).toBe(page.content());
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
             spyOn(Page.prototype, 'fetch');
 
             var page = Page({
-                el: null
+                el: '<div></div>'
             });
 
             expect(Page.prototype.fetch).toHaveBeenCalled();
