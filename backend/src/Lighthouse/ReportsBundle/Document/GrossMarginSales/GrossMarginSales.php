@@ -20,6 +20,7 @@ use DateTime;
  * @property Store          $store
  *
  * @MongoDB\MappedSuperclass
+ * @MongoDB\HasLifecycleCallbacks
  * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
  */
 abstract class GrossMarginSales extends AbstractDocument
@@ -74,4 +75,15 @@ abstract class GrossMarginSales extends AbstractDocument
      * @return object
      */
     abstract public function getItem();
+
+    /**
+     * @MongoDB\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->id = $this->day->getTimestamp();
+        if ($this->getItem()) {
+            $this->id.= ':' . $this->getItem()->id;
+        }
+    }
 }
