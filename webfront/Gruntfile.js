@@ -10,8 +10,13 @@ module.exports = function(grunt) {
 			}
 		},
 		webdriver: {
+			options: {
+				desiredCapabilities: {
+					//browserName: 'phantomjs'
+				}
+			},
 			test: {
-				tests: './tests/**/*.js'
+				tests: './tests/releases/**/*.js'
 			}
 		}
 	});
