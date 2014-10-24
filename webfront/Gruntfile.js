@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 				desiredCapabilities: {
 					browserName: 'phantomjs'
 				},
-				logLevel: 'verbose',
+				//logLevel: 'verbose',
 				screenshotPath: 'tests/screenshots/',
 
 				//grunt-webdriver mocha options (https://github.com/webdriverio/grunt-webdriver#options)

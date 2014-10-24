@@ -1,19 +1,14 @@
 var expect = require('chai').expect,
     browser = require('./browser');
 
-describe('test', function () {
+describe('Initial tests', function () {
 
-    it('body status', function(done) {
+    it('title is ok', function(done) {
 
         browser
             .url(host)
-            .waitForExist('body[status="loaded"]', 10000, function(){
-
-                browser.getAttribute('body', 'status', function(error, attr){
-                    browser.saveScreenshot('artifacts/test.png');
-                    expect(attr).to.have.string('loaded')
-                });
-
+            .getTitle(function(err, value){
+                expect(value).to.equal('Dreamkas');
             })
             .end(done);
 
