@@ -154,7 +154,7 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user checks the restore password text is '$expected'")
-    @Alias("пользователь видит текст что востановление пароля прошло успешно")
+    @Alias("пользователь видит текст над формой логина '$expected'")
     public void thenTheUserChecksTheRestorePasswordText(String expected) {
         authorizationSteps.assertRestorePasswordText(expected);
     }

@@ -7,22 +7,23 @@ Narrative:
 Чтобы продолжить пользоваться системой.
 
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
-
-
 Scenario: Востановление забытого пароля
 
 Meta:
 @smoke
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Given пользователь запускает консольную команду для создания пользователя с параметрами: адрес электронной почты 'autotests@lighthouse.pro' и пароль 'A1234567a'
 
 Given пользователь открывает стартовую страницу авторизации
+Then пользователь ждет пока загрузится страница
 
 When пользователь нажимает на ссылку востановления пароля
 And пользователь вводит 'autotests@lighthouse.pro' в поле email на старанице восстановления пароля
+And пользователь нажимает кнопку востановления пароля
 
-Then пользователь видит текст что востановление пароля прошло успешно
+Then пользователь видит текст над формой логина 'Пароль от аккаунта выслан Вам на почту.'
 And пользователь видит что в форме уже заполнены поля на странице авторизации
 | elementName | value |
 | email | autotests@lighthouse.pro |

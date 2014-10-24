@@ -5,6 +5,7 @@ import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.elements.Buttons.ButtonFacade;
+import ru.dreamkas.elements.bootstrap.buttons.SuccessBtnFacade;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
 
@@ -18,7 +19,7 @@ public class RestorePasswordPage extends CommonPageObject {
     @Override
     public void createElements() {
         put("email", new Input(this, "email"));
-        put("recoverPasswordButton", new ButtonFacade(this, "Восcтановить"));
+        put("recoverPasswordButton", new SuccessBtnFacade(this, org.openqa.selenium.By.xpath("//*[contains(@class, 'btn btn-success') and contains(text(), 'Восстановить')]")));
         put("pageTitleText", new NonType(this, By.xpath("//*[@class='content']/h1")));
         put("pageText", new NonType(this, By.xpath("//*[@class='content']/p")));
     }
