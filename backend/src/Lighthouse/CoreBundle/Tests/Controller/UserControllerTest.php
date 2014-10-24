@@ -1391,8 +1391,8 @@ class UserControllerTest extends WebTestCase
         $this->assertInstanceOf('Swift_Message', $message);
         $this->assertEquals('noreply@lighthouse.pro', key($message->getFrom()));
         $this->assertEquals('signup@lh.com', key($message->getTo()));
-        $this->assertEquals('Добро пожаловать в Lighthouse', $message->getSubject());
-        $this->assertContains('Добро пожаловать в Lighthouse!', $message->getBody());
+        $this->assertEquals('Добро пожаловать в Dreamkas', $message->getSubject());
+        $this->assertContains('Добро пожаловать в Dreamkas!', $message->getBody());
         $this->assertContains('Ваш пароль для входа:', $message->getBody());
         $this->assertContains('Если это письмо пришло вам по ошибке, просто проигнорируйте его', $message->getBody());
 
@@ -1551,7 +1551,7 @@ class UserControllerTest extends WebTestCase
 
         $messages = $this->getSentEmailMessages();
         $this->assertCount(2, $messages);
-        $this->assertContains('Вы воспользовались формой восстановления пароля в Lighthouse.', $messages[1]->getBody());
+        $this->assertContains('Вы воспользовались формой восстановления пароля в Dreamkas.', $messages[1]->getBody());
         $this->assertContains('Ваш новый пароль для входа:', $messages[1]->getBody());
         $newPassword = $this->getPasswordFromEmailBody($messages[1]->getBody());
 
