@@ -136,7 +136,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void assertSignUpText() {
         authorizationPage.checkValue(
                 "signUpPageTitle",
-                "Ваша учетная запись успешно создана.\nДля входа введите пароль присланный вам на email.");
+                "Регистрация прошла успешно. Пароль выслан Вам на почту.");
     }
 
     @Step
