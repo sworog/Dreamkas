@@ -7,9 +7,10 @@ describe('test', function () {
 
         browser
             .url(host)
-            .waitForExist('body[status="loaded"]', 5000, function(){
+            .waitForExist('body[status="loaded"]', 10000, function(){
 
                 browser.getAttribute('body', 'status', function(error, attr){
+                    browser.saveScreenshot('artifacts/test.png');
                     expect(attr).to.have.string('loaded')
                 });
 
