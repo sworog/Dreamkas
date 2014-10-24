@@ -35,6 +35,8 @@ module.exports = function(grunt) {
 			grunt.warn('Host must be specified (--host=hostName).');
 		}
 
+		grunt.log.ok('Tests start on host ' + host);
+
 		global['host'] = host;
 		grunt.task.run('webdriver');
 	});
