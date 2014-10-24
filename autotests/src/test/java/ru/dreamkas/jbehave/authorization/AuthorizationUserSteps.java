@@ -112,6 +112,7 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user inputs stored password from restore password email in password field")
+    @Alias("пользователь вводит пароль полученный из письма о восстановлении пароля")
     public void whenTheUserInputsStoredPasswordFromRestorePasswordEmailInPasswordField() {
         String password = emailSteps.getRestorePasswordEmailCredentials();
         authorizationSteps.passwordFieldInput(password);
@@ -124,16 +125,19 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user clicks on forgot password link")
+    @Alias("пользователь нажимает на ссылку востановления пароля")
     public void whenTheUserClicksOnForgotPasswordLink() {
         authorizationSteps.forgotPasswordLinkClick();
     }
 
     @When("the user clicks on restore password button")
+    @Alias("пользователь нажимает кнопку востановления пароля")
     public void whenTheUserClicksOnRestorePasswordButton() {
         authorizationSteps.recoverPasswordButtonClick();
     }
 
     @When("the user inputs '$value' value in restore password email field")
+    @Alias("пользователь вводит '$value' в поле email на старанице восстановления пароля")
     public void whenTheUserInputsValueInRestorePasswordEmailField(String value) {
         authorizationSteps.restorePasswordPageEmailInput(value);
     }
@@ -150,6 +154,7 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user checks the restore password text is '$expected'")
+    @Alias("пользователь видит текст что востановление пароля прошло успешно")
     public void thenTheUserChecksTheRestorePasswordText(String expected) {
         authorizationSteps.assertRestorePasswordText(expected);
     }

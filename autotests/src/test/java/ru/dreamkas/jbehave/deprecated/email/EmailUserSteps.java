@@ -44,6 +44,7 @@ public class EmailUserSteps {
     }
 
     @Then("the user assert the restore password email message content matches the required template")
+    @Alias("пользовател видит что письмо соответствует шаблону письма о востановлении пароля")
     public void thenTheUserAssertsTheRestorePasswordEmailMessageContentMatchesTheRequiredTemplate() {
         emailSteps.matchEmailContentToRestorePasswordRegexPattern();
     }
