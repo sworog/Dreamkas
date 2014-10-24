@@ -1389,7 +1389,7 @@ class UserControllerTest extends WebTestCase
         $message = $collectedMessages[0];
 
         $this->assertInstanceOf('Swift_Message', $message);
-        $this->assertEquals('noreply@lighthouse.pro', key($message->getFrom()));
+        $this->assertEquals('noreply@dreamkas.ru', key($message->getFrom()));
         $this->assertEquals('signup@lh.com', key($message->getTo()));
         $this->assertEquals('Добро пожаловать в Dreamkas', $message->getSubject());
         $this->assertContains('Добро пожаловать в Dreamkas!', $message->getBody());
