@@ -40,8 +40,8 @@
         <project.parallel.agent.total>1</project.parallel.agent.total>
         <project.parallel.agent.number>1</project.parallel.agent.number>
         <!--email-->
-        <email.username>lighthouse.eddystone@gmail.com</email.username>
-        <email.password>RZ8XnfRk</email.password>
+        <email.username>autotests@lighthouse.pro</email.username>
+        <email.password>A1234567a</email.password>
         <!--other-->
         <init>test</init>
     </properties>
