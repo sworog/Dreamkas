@@ -43,7 +43,7 @@ class GrossMarginSalesProductRepository extends GrossMarginSalesRepository
      * @param DateTime $day
      * @return GrossMarginSalesProduct
      */
-    public function findByStoreIdProductIdAndDay($storeId, $productId, DateTime $day)
+    public function findOneByStoreIdProductIdAndDay($storeId, $productId, DateTime $day)
     {
         return $this->findOneBy(
             array(

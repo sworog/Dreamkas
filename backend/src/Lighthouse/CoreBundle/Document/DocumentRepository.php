@@ -28,7 +28,7 @@ class DocumentRepository extends BaseRepository
      */
     public function createNew()
     {
-        return $stockMovement = $this->getClassMetadata()->getReflectionClass()->newInstance();
+        return $this->getClassMetadata()->getReflectionClass()->newInstance();
     }
 
     /**

@@ -57,6 +57,8 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
         $report->grossSales = $this->numericFactory->createMoneyFromCount($result['grossSales']);
         $report->grossMargin = $this->numericFactory->createMoneyFromCount($result['grossMargin']);
 
+        $report->id = $this->getReportId($report);
+
         return $report;
     }
 
@@ -72,7 +74,7 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
         $output = $output ?: new NullOutput();
         $dotHelper = new DotHelper($output);
 
-        $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
+        $requireDatePeriod = new DatePeriod("-1 year 00:00", "+1 day 23:59:59");
 
         $results = $this->aggregateByDays($requireDatePeriod->getStartDate(), $requireDatePeriod->getEndDate());
         $count = 0;
@@ -84,19 +86,38 @@ abstract class GrossMarginSalesRepository extends DocumentRepository
             $this->setReportValues($report, $result);
 
             $this->dm->persist($report);
-            $count++;
-            $dotHelper->write();
 
-            if ($count % $batch == 0) {
+            if (++$count % $batch == 0) {
+                $dotHelper->writeQuestion();
                 $this->dm->flush();
+                $this->dm->clear();
+            } else {
+                $dotHelper->write();
             }
         }
 
         $this->dm->flush();
+        $this->dm->clear();
 
         $dotHelper->end();
 
         return $count;
+    }
+
+    /**
+     * @param GrossMarginSales $dayReport
+     * @return string
+     */
+    protected function getReportId(GrossMarginSales $dayReport)
+    {
+        $id = (string) $dayReport->day->getTimestamp();
+        if ($dayReport->store) {
+            $id.= ':' . $this->getDocumentIdentifierValue($dayReport->store);
+        }
+        if ($dayReport->getItem()) {
+            $id.= ':' . $this->getDocumentIdentifierValue($dayReport->getItem());
+        }
+        return $id;
     }
 
     /**

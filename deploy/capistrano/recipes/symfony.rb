@@ -290,6 +290,13 @@ namespace :symfony do
                 capifony_puts_ok
             end
         end
+
+        task :amn, :roles => :app, :except => { :no_release => true } do
+            check_app_deployed
+            puts "--> Import AMN".yellow
+            stream "sh -c 'cd #{latest_release} && ./import_amn.sh #{symfony_env_prod}'"
+            capifony_puts_ok
+        end
     end
 
     task :import_xml do
@@ -305,7 +312,7 @@ namespace :symfony do
     end
 
     namespace :reports do
-        desc "Recalculate reports data, required: -S projectId=<..>"
+        desc "Recalculate reports data"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
             stream console_command("lighthouse:reports:recalculate"), :once => true
         end
