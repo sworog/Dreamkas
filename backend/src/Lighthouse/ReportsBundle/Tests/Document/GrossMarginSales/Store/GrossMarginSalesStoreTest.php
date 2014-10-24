@@ -12,14 +12,6 @@ use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportMana
 class GrossMarginSalesStoreTest extends WebTestCase
 {
     /**
-     * @return GrossMarginSalesReportManager
-     */
-    public function getGrossMarginSalesReportManager()
-    {
-        return $this->getContainer()->get('lighthouse.reports.gross_margin_sales.manager');
-    }
-
-    /**
      * @return GrossMarginSalesStoreRepository
      */
     public function getGrossMarginSalesStoreRepository()
