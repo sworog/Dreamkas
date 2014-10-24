@@ -8,6 +8,7 @@ describe('Initial tests', function () {
         browser
             .url(host)
             .getTitle(function(err, value){
+                console.log(value);
                 expect(value).to.equal('Dreamkas');
             })
             .end(done);
