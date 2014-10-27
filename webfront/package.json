@@ -29,12 +29,13 @@
     "karma-jasmine": "~0.2.0",
     "karma-requirejs": "~0.2",
     "karma-teamcity-reporter": "~0.1",
+    "karma-phantomjs-launcher": "~0.1",
     "karma-webdriverjs-launcher": "git://github.com/tatablack/karma-webdriverjs-launcher.git",
     "mocha-teamcity-reporter": "0.0.4",
     "webdriverio": "^2.2.3"
   },
   "scripts": {
-    "test": "node ./node_modules/karma/bin/karma start tools/karma.config.js --single-run",
+    "test": "node ./node_modules/karma/bin/karma start ./tools/karma.conf.js --single-run",
     "test-remote": "node ./node_modules/karma/bin/karma start tools/karma.remote.js --single-run",
     "build": "node ./node_modules/grunt-cli/bin/grunt build"
   }

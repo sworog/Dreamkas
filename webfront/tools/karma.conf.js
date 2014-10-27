@@ -13,6 +13,7 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             '../tools/karma.main.js',
+            'polyfills.js',
             'bower_components/jquery/dist/jquery.min.js',
             {pattern: '**/*.js', included: false},
             {pattern: '**/*.ejs', included: false}
@@ -30,22 +31,20 @@ module.exports = function(config) {
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: ['dots'],
 
-		//allureReport: {
-		//	reportDir: 'report'
-		//},
+        coverageReporter: {
+            reporters:[
+                {type: 'html', dir:'../artifacts/coverage/'},
+                {type: 'teamcity'}
+            ]
+        },
 
-		//coverageReporter: {
-		//	type : 'html',
-		//	dir: 'coverage/'
-		//},
-
-        //preprocessors: {
-        //    // source files, that you wanna generate coverage for
-        //    // do not include tests or libraries
-        //    // (these files will be instrumented by Istanbul),
-        //    'blocks/**/!(*.spec.js)*.js': 'coverage',
-        //    'kit/**/!(*.spec.js)*.js': 'coverage'
-        //},
+        preprocessors: {
+            // source files, that you wanna generate coverage for
+            // do not include tests or libraries
+            // (these files will be instrumented by Istanbul),
+            'blocks/**/!(*.spec.js)*.js': 'coverage',
+            'kit/**/!(*.spec.js)*.js': 'coverage'
+        },
 
         // web server port
         port: 9876,
@@ -72,7 +71,7 @@ module.exports = function(config) {
         // - Safari (only Mac)
         // - PhantomJS
         // - IE (only Windows)
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['PhantomJS'],
 
 
         // If browser does not capture in given timeout [ms], kill it
