@@ -163,6 +163,8 @@
 		CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */; };
 		CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
 		CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
+		CE966A7E19FEA34D007EF9D0 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE966A7D19FEA34D007EF9D0 /* ProductModel.m */; };
+		CE966A7F19FEA34D007EF9D0 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE966A7D19FEA34D007EF9D0 /* ProductModel.m */; };
 		CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
 		CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
 		CEBC439B19E8042800C0E575 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
@@ -409,6 +411,8 @@
 		CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmptyButton.h; sourceTree = "<group>"; };
 		CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmptyButton.m; sourceTree = "<group>"; };
 		CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardSegues.h; sourceTree = "<group>"; };
+		CE966A7C19FEA34D007EF9D0 /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
+		CE966A7D19FEA34D007EF9D0 /* ProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
 		CEBC439519E7FB9D00C0E575 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		CEBC439C19E8048700C0E575 /* DialogHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogHelper.h; sourceTree = "<group>"; };
@@ -536,6 +540,8 @@
 				CE290F9719EE605C005483A1 /* AbstractModel.h */,
 				CE290F9819EE605C005483A1 /* AbstractModel.m */,
 				CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */,
+				CE966A7C19FEA34D007EF9D0 /* ProductModel.h */,
+				CE966A7D19FEA34D007EF9D0 /* ProductModel.m */,
 				CE290F9D19EE605C005483A1 /* StoreModel.h */,
 				CE290F9E19EE605C005483A1 /* StoreModel.m */,
 			);
@@ -1446,6 +1452,7 @@
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CE29100219EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
+				CE966A7E19FEA34D007EF9D0 /* ProductModel.m in Sources */,
 				CEC0040D19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
@@ -1526,6 +1533,7 @@
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
+				CE966A7F19FEA34D007EF9D0 /* ProductModel.m in Sources */,
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE29101919EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
 				CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */,

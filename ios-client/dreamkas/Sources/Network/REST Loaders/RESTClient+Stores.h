@@ -15,4 +15,10 @@
  */
 - (void)requestStores:(ArrayResponseBlock)completionBlock;
 
+/**
+ * Получение продуктов по названию, SKU или штрих-коду
+ */
+- (void)requestProductsByQuery:(NSString *)queryValue
+                  onCompletion:(ArrayResponseBlock)completionBlock;
+
 @end

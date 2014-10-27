@@ -31,6 +31,16 @@
     [super viewWillAppear:animated];
     
     // ..
+    
+    //
+    // запрос продуктов
+    //
+    [NetworkManager requestProductsByQuery:@"400476"
+                              onCompletion:^(NSArray *data, NSError *error) {
+        if (error != nil) {
+            return;
+        }
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
