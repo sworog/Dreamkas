@@ -11,7 +11,7 @@ define(function(require, exports, module) {
         events: {
             'click .modal_group__closeLink': function(e) {
 
-                router.navigate('/catalog');
+                this.afterDelete();
             }
         },
         models: {
@@ -33,6 +33,17 @@ define(function(require, exports, module) {
             this.models.group = PAGE.models.group || PAGE.collections.groups.get(this.groupId) || new GroupModel;
 
             Modal.prototype.render.apply(this, arguments);
+        },
+        hide: function() {
+
+            if (this.deleted) {
+                this.afterDelete();
+            }
+
+            return Modal.prototype.hide.apply(this, arguments);
+        },
+        afterDelete: function() {
+            router.navigate('/catalog');
         },
         blocks: {
             form_group: function() {

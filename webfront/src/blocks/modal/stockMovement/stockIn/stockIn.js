@@ -12,6 +12,6 @@ define(function(require, exports, module) {
 		addTitle: 'Оприходование товаров',
 		editTitle: 'Редактирование оприходования',
 		removeCaption: 'Удалить оприходование',
-		deletedTitle: 'Оприходование успешно удалено.'
+		deletedTitle: 'Оприходование удалено'
     });
 });
