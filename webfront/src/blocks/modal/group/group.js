@@ -43,7 +43,7 @@ define(function(require, exports, module) {
             return Modal.prototype.hide.apply(this, arguments);
         },
         afterDelete: function() {
-            router.navigate('/catalog');
+            router.navigate('/catalog', { replace: true });
         },
         blocks: {
             form_group: function() {

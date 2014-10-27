@@ -221,7 +221,11 @@ And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
 
-Then the user waits for modal window closing
+Then пользователь* в модальном окне проверяет, что поле с именем 'заголовок успешного удаления' имеет значение 'Группа удалена'
+And пользователь* в модальном окне проверяет, что поле с именем 'название удаленной группы' имеет значение 'GroupDeletion'
+
+Then the user clicks on continue button in deleted group modal window
+And the user waits for modal window closing
 And the user waits for page finishing loading
 
 Then the user asserts the groups list not contain group with name 'GroupDeletion'

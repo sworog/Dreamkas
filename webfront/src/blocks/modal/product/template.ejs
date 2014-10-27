@@ -34,17 +34,17 @@
     <% } else { %>
 
     <div class="modal__body" style="text-align: center">
-        <h3 style="padding-bottom: 20px;">
+        <h3 name="successRemoveTitle" style="padding-bottom: 20px;">
             Товар удален
         </h3>
-        <h4 style="padding-bottom: 60px;">
+        <h4 name="removedGroupName" style="padding-bottom: 60px;">
             <%- models.product.get('name') %>
             <br>
             (<%- models.group.get('name') %>)
         </h4>
 
         <div style="padding-bottom: 30px;">
-            <a class="btn btn-primary modal__closeLink"
+            <a name="removeContinue" class="btn btn-primary modal__closeLink"
                style="padding: 10px 30px;">
                 Продолжить работу
             </a>
