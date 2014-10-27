@@ -1,8 +1,11 @@
 /.bundle/
-/vendor/
 src/config.js
 node_modules/
 phantomjsdriver.log
 build/
+report/
+xunit/
+report/
+vendor/
 web
 npm-debug.log

@@ -61,7 +61,6 @@ class Invoice extends StockMovement
      *     targetDocument="Lighthouse\CoreBundle\Document\Supplier\Supplier",
      *     simple=true
      * )
-     * Assert\NotBlank(message="lighthouse.validation.errors.invoice.supplier.empty")
      * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.supplier.does_not_exists")
      * @var Supplier
      */
