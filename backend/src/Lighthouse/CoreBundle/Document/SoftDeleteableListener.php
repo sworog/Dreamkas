@@ -9,8 +9,8 @@ use Lighthouse\CoreBundle\MongoDB\DocumentManager;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
- * @DI\Service("lighthouse.core.document.softdeleteable.listener")
- * @DI\DoctrineMongoDBListener(events={"postSoftDelete"})
+ * @@DI\Service("lighthouse.core.document.softdeleteable.listener")
+ * @@DI\DoctrineMongoDBListener(events={"postSoftDelete"})
  */
 class SoftDeleteableListener
 {

@@ -7,7 +7,6 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Store\GrossMarginSalesStoreRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 
 class GrossMarginSalesStoreTest extends WebTestCase
 {

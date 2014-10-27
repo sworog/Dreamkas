@@ -1119,14 +1119,6 @@ class WriteOffControllerTest extends WebTestCase
     {
         $invoice = $this->getWriteOffRepository()->find($invoiceId);
         $this->assertNull($invoice);
-
-        $filterCollection = $this->getWriteOffRepository()->getDocumentManager()->getFilterCollection();
-        $filterCollection->disable('softdeleteable');
-
-        $invoice = $this->getWriteOffRepository()->find($invoiceId);
-        $this->assertNull($invoice);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**
@@ -1136,15 +1128,6 @@ class WriteOffControllerTest extends WebTestCase
     {
         $writeOffProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
         $this->assertNull($writeOffProduct);
-
-        $filterCollection = $this->getWriteOffProductRepository()->getDocumentManager()->getFilterCollection();
-
-        $filterCollection->disable('softdeleteable');
-
-        $writeOffProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
-        $this->assertNull($writeOffProduct);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**
