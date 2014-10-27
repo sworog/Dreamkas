@@ -9,6 +9,21 @@ define(function(require, exports, module) {
 		Form: null,
 		Form_products: null,
 		Model: null,
+        deleted: false,
+        deletedTitle: 'Удаление прошло успешно',
+        partials: {
+            deleted: require('ejs!./deleted.ejs')
+        },
+        initialize: function(data){
+
+            data = data || {};
+
+            if (typeof data.deleted === 'undefined'){
+                this.deleted = false;
+            }
+
+            return Modal.prototype.initialize.apply(this, arguments);
+        },
         model: function(){
             var Model = this.Model;
 
@@ -22,7 +37,9 @@ define(function(require, exports, module) {
 
                 block.model.destroy().then(function() {
                     e.target.classList.remove('loading');
-                    block.hide();
+                    block.show({
+                        deleted: true
+                    });
                 });
             }
         },

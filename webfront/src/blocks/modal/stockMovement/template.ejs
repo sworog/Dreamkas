@@ -1,6 +1,8 @@
 <div id="<%- id %>"
      class="modal modal_stockMovement">
 
+    <% if (!deleted) { %>
+
     <div class="modal__header">
         <a class="modal__closeLink pull-left fa fa-times"></a>
 
@@ -45,5 +47,11 @@
         </div>
         <% } %>
     </div>
-    
+
+    <% } else { %>
+
+        <%= partials.deleted(obj) %>
+
+    <% } %>
+
 </div>

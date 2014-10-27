@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 		addButtonCaption: 'Оприходовать',
 		addTitle: 'Оприходование товаров',
 		editTitle: 'Редактирование оприходования',
-		removeCaption: 'Удалить оприходование'
+		removeCaption: 'Удалить оприходование',
+		deletedTitle: 'Оприходование успешно удалено.'
     });
 });

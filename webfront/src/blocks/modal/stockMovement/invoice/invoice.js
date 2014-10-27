@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 		addButtonCaption: 'Принять',
 		addTitle: 'Приёмка товаров от поставщика',
 		editTitle: 'Редактирование приёмки товаров от поставщика',
-		removeCaption: 'Удалить приемку'
+		removeCaption: 'Удалить приемку',
+		deletedTitle: 'Приемка успешно удалена.'
     });
 });

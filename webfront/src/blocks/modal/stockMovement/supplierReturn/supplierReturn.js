@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 		addButtonCaption: 'Вернуть',
 		addTitle: 'Возврат поставщику',
 		editTitle: 'Редактирование возврата',
-		removeCaption: 'Удалить возврат'
+		removeCaption: 'Удалить возврат',
+		deletedTitle: 'Возврат поставщику успешно удален.'
     });
 });
