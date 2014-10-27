@@ -1040,14 +1040,6 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $invoice = $this->getSupplierReturnRepository()->find($invoiceId);
         $this->assertNull($invoice);
-
-        $filterCollection = $this->getSupplierReturnRepository()->getDocumentManager()->getFilterCollection();
-        $filterCollection->disable('softdeleteable');
-
-        $invoice = $this->getSupplierReturnRepository()->find($invoiceId);
-        $this->assertNull($invoice);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**
@@ -1057,15 +1049,6 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $invoiceProduct = $this->getSupplierReturnProductRepository()->find($invoiceProductId);
         $this->assertNull($invoiceProduct);
-
-        $filterCollection = $this->getSupplierReturnProductRepository()->getDocumentManager()->getFilterCollection();
-
-        $filterCollection->disable('softdeleteable');
-
-        $invoiceProduct = $this->getSupplierReturnProductRepository()->find($invoiceProductId);
-        $this->assertNull($invoiceProduct);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**
