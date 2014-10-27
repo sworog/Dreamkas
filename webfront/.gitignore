@@ -2,9 +2,9 @@
 src/config.js
 node_modules/
 phantomjsdriver.log
+build/
 report/
 xunit/
-build/
 report/
 vendor/
 web

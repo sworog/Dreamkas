@@ -1,4 +1,4 @@
-Добро пожаловать в Lighthouse!
+Добро пожаловать в Dreamkas!
 
 Ваш пароль для входа: <?php echo $password ?>
 
