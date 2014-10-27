@@ -1,5 +1,21 @@
 {
   "name": "dreamkas-web-client",
+  "version": "0.45.119.4",
+  "description": "dreamkas node utils",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/crystalservice/lighthouse.git"
+  },
+  "author": "",
+  "license": "proprietary",
+  "bugs": {
+    "url": "https://github.com/crystalservice/lighthouse/issues"
+  },
+  "homepage": "https://github.com/crystalservice/lighthouse",
   "devDependencies": {
     "chai": "^1.9.2",
     "grunt": "^0.4.5",
