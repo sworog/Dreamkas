@@ -1,17 +1,11 @@
-var expect = require('chai').expect,
-    browser = require('./browser');
+casper.test.begin("Hello, Test!", 1, function(test) {
 
-describe('Initial tests', function () {
+    casper.start('http://lighthouse.dev', function() {
+        var title = this.getTitle();
 
-    it('title is ok', function(done) {
-
-        browser
-            .url(host)
-            .getTitle(function(err, value){
-                expect(value).to.equal('Dreamkas');
-            })
-            .end(done);
-
+        test.assertEquals(title, 'Dreamkas');
+        test.done();
     });
 
+    casper.run();
 });
