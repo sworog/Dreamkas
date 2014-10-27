@@ -546,7 +546,7 @@ class SubCategoryControllerTest extends WebTestCase
             '/api/1/subcategories/' . $subCategoryId
         );
 
-        $this->assertResponseCode(404);
+        $this->assertResponseCode(200, 'Sub category is soft deletable and should be accessed directly');
     }
 
     public function testDeleteNotEmptySubCategory()

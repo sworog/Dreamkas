@@ -335,10 +335,11 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param integer $expectedCode
+     * @param string $message
      */
-    public function assertResponseCode($expectedCode)
+    public function assertResponseCode($expectedCode, $message = '')
     {
-        Assert::assertResponseCode($expectedCode, $this->client);
+        Assert::assertResponseCode($expectedCode, $this->client, $message);
     }
 
     /**
