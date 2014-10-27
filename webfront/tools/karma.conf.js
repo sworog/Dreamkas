@@ -12,6 +12,7 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
+            'polyfills.js',
             '../tools/karma.main.js',
             'bower_components/jquery/dist/jquery.min.js',
             {pattern: '**/*.js', included: false},
