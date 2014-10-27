@@ -39,12 +39,6 @@ define(function(require, exports, module) {
                         id: page.params.groupId
                     });
 
-                page.listenTo(groupModel, {
-                    destroy: function() {
-                        router.navigate('/catalog');
-                    }
-                });
-
                 return groupModel;
             }
         },
