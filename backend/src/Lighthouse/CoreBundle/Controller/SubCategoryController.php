@@ -115,7 +115,7 @@ class SubCategoryController extends AbstractRestController
      */
     public function getCategorySubcategoriesAction(Category $category)
     {
-        return $this->documentRepository->findByParent($category->id);
+        return $this->documentRepository->findByCategory($category);
     }
 
     /**
@@ -127,7 +127,7 @@ class SubCategoryController extends AbstractRestController
      */
     public function getStoreCategorySubcategoriesAction(Store $store, Category $category)
     {
-        return $this->documentRepository->findByParent($category->id);
+        return $this->documentRepository->findByCategory($category);
     }
 
     /**
@@ -210,7 +210,7 @@ class SubCategoryController extends AbstractRestController
     public function getCatalogGroupsAction()
     {
         $defaultCategory = $this->catalogManager->getDefaultCategory();
-        return $this->documentRepository->findByParent($defaultCategory->id);
+        return $this->documentRepository->findByCategory($defaultCategory);
     }
 
     /**

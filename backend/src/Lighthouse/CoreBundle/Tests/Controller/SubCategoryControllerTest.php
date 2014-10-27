@@ -549,6 +549,46 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(200, 'Sub category is soft deletable and should be accessed directly');
     }
 
+    public function testDeleteSubCategoryIsNotExposedInCategorySubCategoriesField()
+    {
+        $category = $this->factory()->catalog()->getCategory();
+        $subCategories = $this->factory()->catalog()->getSubCategories(array('1', '2'));
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/categories/{$category->id}"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, 'subCategories.*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategories['1']->id, 'subCategories.*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategories['2']->id, 'subCategories.*.id', $getResponse);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/subcategories/{$subCategories['2']->id}"
+        );
+
+        $this->assertResponseCode(204);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/categories/{$category->id}"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, 'subCategories.*.id', $getResponse);
+        Assert::assertJsonPathEquals($subCategories['1']->id, 'subCategories.*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($subCategories['2']->id, 'subCategories.*.id', $getResponse);
+    }
+
     public function testDeleteNotEmptySubCategory()
     {
         $subCategoryId = $this->createSubCategory();
