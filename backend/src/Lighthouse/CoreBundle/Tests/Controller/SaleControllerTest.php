@@ -665,7 +665,8 @@ class SaleControllerTest extends WebTestCase
     {
         $pairs = array();
         foreach ($values as $key => $value) {
-            $pairs["{{$prefix}{$key}}"] = $value;
+            $pairKey = '{' . $prefix . $key . '}';
+            $pairs[$pairKey] = $value;
         }
         return $pairs;
     }
