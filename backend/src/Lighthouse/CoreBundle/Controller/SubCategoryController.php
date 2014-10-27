@@ -100,9 +100,7 @@ class SubCategoryController extends AbstractRestController
      * @param SubCategory $subCategory
      * @return SubCategory
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc(
-     *      resource = true
-     * )
+     * @ApiDoc(resource = true)
      */
     public function getStoreSubcategoryAction(Store $store, SubCategory $subCategory)
     {
@@ -113,9 +111,7 @@ class SubCategoryController extends AbstractRestController
      * @param Category $category
      * @return SubCategory[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      resource = true
-     * )
+     * @ApiDoc(resource = true)
      */
     public function getCategorySubcategoriesAction(Category $category)
     {
@@ -225,15 +221,10 @@ class SubCategoryController extends AbstractRestController
      */
     protected function processCatalogGroupForm(Request $request, SubCategory $catalogGroup)
     {
-        $formType = new CatalogGroupType();
-        $form = $this->createForm($formType, $catalogGroup);
-
-        $form->submit($request);
-
-        if ($form->isValid()) {
-            return $this->saveDocument($catalogGroup, $form);
-        } else {
-            return $form;
-        }
+        return $this->processForm(
+            $request,
+            $catalogGroup,
+            new CatalogGroupType()
+        );
     }
 }

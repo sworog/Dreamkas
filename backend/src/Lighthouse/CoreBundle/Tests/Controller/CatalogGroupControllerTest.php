@@ -141,32 +141,41 @@ class CatalogGroupControllerTest extends WebTestCase
 
         $this->assertNull($deleteResponse);
 
-        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/catalog/groups/' . $catalogGroupId
         );
 
-        $this->assertResponseCode(404);
+        $this->assertResponseCode(200);
+    }
 
-        $subCategory = $this->getSubCategoryRepository()->find($catalogGroupId);
-        $this->assertNull($subCategory);
+    public function testDeleteCatalogGroupIsNotVisibleInList()
+    {
+        $catalogGroupId1 = $this->createCatalogGroup('Группа1');
+        $catalogGroupId2 = $this->createCatalogGroup('Группа2');
 
-        $subCategories = $this->getSubCategoryRepository()->findAll();
-        $this->assertCount(0, $subCategories);
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
-        $this
-            ->getSubCategoryRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/catalog/groups/' . $catalogGroupId1
+        );
 
-        $subCategory = $this->getSubCategoryRepository()->find($catalogGroupId);
-        $this->assertInstanceOf(SubCategory::getClassName(), $subCategory);
+        $this->assertResponseCode(204);
 
-        $subCategories = $this->getSubCategoryRepository()->findAll();
-        $this->assertCount(1, $subCategories);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/catalog/groups'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($catalogGroupId2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($catalogGroupId1, '*.id', $getResponse);
     }
 
     public function testDeleteWithDuplicateName()
@@ -183,16 +192,20 @@ class CatalogGroupControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->createCatalogGroup('Хомячки');
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/catalog/groups',
+            array('name' => 'Хомячки')
+        );
 
-        $this
-            ->getSubCategoryRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
+        $this->assertResponseCode(400);
 
-        $deletedSubcategory = $this->getSubCategoryRepository()->find($catalogGroupId1);
-        $this->assertContains('Хомячки (Удалено', $deletedSubcategory->name);
+        Assert::assertJsonPathEquals(
+            'Группа с таким названием уже существует',
+            'errors.children.name.errors.0',
+            $postResponse
+        );
     }
 
     /**
