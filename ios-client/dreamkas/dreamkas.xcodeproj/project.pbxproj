@@ -87,6 +87,16 @@
 		CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE519EE668B005483A1 /* MagicalRecord+ShorthandSupport.m */; };
 		CE29101E19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
 		CE29101F19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
+		CE39DDBE19FFD38A00150C28 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */; };
+		CE39DDBF19FFD38A00150C28 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */; };
+		CE39DDC219FFD39900150C28 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC119FFD39900150C28 /* GroupsViewController.m */; };
+		CE39DDC319FFD39900150C28 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC119FFD39900150C28 /* GroupsViewController.m */; };
+		CE39DDC619FFD3AF00150C28 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC519FFD3AF00150C28 /* SearchViewController.m */; };
+		CE39DDC719FFD3AF00150C28 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC519FFD3AF00150C28 /* SearchViewController.m */; };
+		CE39DDCA19FFD3BE00150C28 /* CheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC919FFD3BE00150C28 /* CheckViewController.m */; };
+		CE39DDCB19FFD3BE00150C28 /* CheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC919FFD3BE00150C28 /* CheckViewController.m */; };
+		CE39DDCE19FFED8E00150C28 /* SearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDCD19FFED8E00150C28 /* SearchButton.m */; };
+		CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDCD19FFED8E00150C28 /* SearchButton.m */; };
 		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
@@ -357,6 +367,16 @@
 		CE290FEA19EE668B005483A1 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		CE290FEB19EE668B005483A1 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
 		CE2D1C4C19EEBCA10094F884 /* AccessibilityLabels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessibilityLabels.h; sourceTree = "<group>"; };
+		CE39DDBC19FFD38A00150C28 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
+		CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
+		CE39DDC019FFD39900150C28 /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
+		CE39DDC119FFD39900150C28 /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
+		CE39DDC419FFD3AF00150C28 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		CE39DDC519FFD3AF00150C28 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		CE39DDC819FFD3BE00150C28 /* CheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckViewController.h; sourceTree = "<group>"; };
+		CE39DDC919FFD3BE00150C28 /* CheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckViewController.m; sourceTree = "<group>"; };
+		CE39DDCC19FFED8E00150C28 /* SearchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchButton.h; sourceTree = "<group>"; };
+		CE39DDCD19FFED8E00150C28 /* SearchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchButton.m; sourceTree = "<group>"; };
 		CE3B95ED19E40DA900E1D24F /* DatesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatesHelper.h; sourceTree = "<group>"; };
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
 		CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Auth.h"; sourceTree = "<group>"; };
@@ -650,6 +670,8 @@
 				CEC003EC19E6909B00AE256F /* Intro Screen */,
 				CEC003EB19E6909B00AE256F /* Auth Screen */,
 				CEC003ED19E6909B00AE256F /* TicketWindow Screen */,
+				CE39DDB619FFD28B00150C28 /* LeftSide Screens */,
+				CE39DDB719FFD28B00150C28 /* RightSide Screens */,
 				CE10A83419F654FA0056DF91 /* Sidemenu Screen */,
 			);
 			path = Pages;
@@ -882,6 +904,60 @@
 			path = "Unit Tests";
 			sourceTree = "<group>";
 		};
+		CE39DDB619FFD28B00150C28 /* LeftSide Screens */ = {
+			isa = PBXGroup;
+			children = (
+				CE39DDB819FFD36500150C28 /* Favorites Screen */,
+				CE39DDB919FFD36500150C28 /* Groups Screen */,
+				CE39DDBA19FFD36500150C28 /* Search Screen */,
+			);
+			path = "LeftSide Screens";
+			sourceTree = "<group>";
+		};
+		CE39DDB719FFD28B00150C28 /* RightSide Screens */ = {
+			isa = PBXGroup;
+			children = (
+				CE39DDBB19FFD36C00150C28 /* Check Screen */,
+			);
+			path = "RightSide Screens";
+			sourceTree = "<group>";
+		};
+		CE39DDB819FFD36500150C28 /* Favorites Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE39DDBC19FFD38A00150C28 /* FavoritesViewController.h */,
+				CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */,
+			);
+			path = "Favorites Screen";
+			sourceTree = "<group>";
+		};
+		CE39DDB919FFD36500150C28 /* Groups Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE39DDC019FFD39900150C28 /* GroupsViewController.h */,
+				CE39DDC119FFD39900150C28 /* GroupsViewController.m */,
+			);
+			path = "Groups Screen";
+			sourceTree = "<group>";
+		};
+		CE39DDBA19FFD36500150C28 /* Search Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE39DDC419FFD3AF00150C28 /* SearchViewController.h */,
+				CE39DDC519FFD3AF00150C28 /* SearchViewController.m */,
+			);
+			path = "Search Screen";
+			sourceTree = "<group>";
+		};
+		CE39DDBB19FFD36C00150C28 /* Check Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE39DDC819FFD3BE00150C28 /* CheckViewController.h */,
+				CE39DDC919FFD3BE00150C28 /* CheckViewController.m */,
+			);
+			path = "Check Screen";
+			sourceTree = "<group>";
+		};
 		CE3B95EA19E40D7800E1D24F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1044,6 +1120,8 @@
 				CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */,
 				CE6CC1F219FFB45F0087FE2C /* CloseButton.h */,
 				CE6CC1F319FFB45F0087FE2C /* CloseButton.m */,
+				CE39DDCC19FFED8E00150C28 /* SearchButton.h */,
+				CE39DDCD19FFED8E00150C28 /* SearchButton.m */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1440,6 +1518,7 @@
 				CE500B8919F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				CE8AB38019E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CEF2647B19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
+				CE39DDC219FFD39900150C28 /* GroupsViewController.m in Sources */,
 				CE290FFC19EE668B005483A1 /* NSManagedObject+MagicalDataImport.m in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
@@ -1450,6 +1529,7 @@
 				CE290FF219EE668B005483A1 /* NSNumber+MagicalDataImport.m in Sources */,
 				CE29101A19EE668B005483A1 /* MagicalRecord+Setup.m in Sources */,
 				CE29100619EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				CE39DDCA19FFD3BE00150C28 /* CheckViewController.m in Sources */,
 				CEBC43A719E806F700C0E575 /* Reachability.m in Sources */,
 				CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */,
 				CECFC4AB19DD74C800ED88D3 /* UIProgressView+AFNetworking.m in Sources */,
@@ -1479,6 +1559,7 @@
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CEF2647119E81D16008BE93A /* NSDate+Utilities.m in Sources */,
 				CE10A83019F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
+				CE39DDCE19FFED8E00150C28 /* SearchButton.m in Sources */,
 				CE290FF019EE668B005483A1 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */,
 				CE8AB38A19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
@@ -1493,6 +1574,7 @@
 				CE290FFE19EE668B005483A1 /* NSManagedObject+MagicalFinders.m in Sources */,
 				CE4C877019F10C4100221E53 /* WordWrappingLabel.m in Sources */,
 				CEBC439E19E8048700C0E575 /* DialogHelper.m in Sources */,
+				CE39DDC619FFD3AF00150C28 /* SearchViewController.m in Sources */,
 				CE8AB38619E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CE29101219EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
 				CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */,
@@ -1514,6 +1596,7 @@
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
 				CEF2647519E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
+				CE39DDBE19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
 				CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CEBC43A219E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
 				CE29100E19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
@@ -1538,8 +1621,11 @@
 				CE4C877119F10C4100221E53 /* WordWrappingLabel.m in Sources */,
 				CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */,
 				CE29101319EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
+				CE39DDCB19FFD3BE00150C28 /* CheckViewController.m in Sources */,
 				CEF2647219E81D16008BE93A /* NSDate+Utilities.m in Sources */,
+				CE39DDBF19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
 				CE4C876B19F10B9700221E53 /* SimpleTitledCell.m in Sources */,
+				CE39DDC319FFD39900150C28 /* GroupsViewController.m in Sources */,
 				CEF2646319E8127B008BE93A /* SignInViewController.m in Sources */,
 				CEF2647419E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
@@ -1581,12 +1667,14 @@
 				CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CEF2647619E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE29100D19EE668B005483A1 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				CE39DDC719FFD3AF00150C28 /* SearchViewController.m in Sources */,
 				CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
+				CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,

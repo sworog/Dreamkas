@@ -32,7 +32,12 @@
 #define MainNavigationControllerID                  @"MainNavigationControllerID"
 #define LogInViewControllerID                       @"LogInViewControllerID"
 #define SignInViewControllerID                      @"SignInViewControllerID"
+
 #define SelectStoreViewControllerID                 @"SelectStoreViewControllerID"
 #define SidemenuViewControllerID                    @"SidemenuViewControllerID"
+
+#define GroupsViewControllerID                      @"GroupsViewControllerID"
+#define SearchViewControllerID                      @"SearchViewControllerID"
+#define CheckViewControllerID                       @"CheckViewControllerID"
 
 #endif

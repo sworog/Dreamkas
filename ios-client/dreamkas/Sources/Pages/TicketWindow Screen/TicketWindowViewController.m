@@ -7,10 +7,16 @@
 //
 
 #import "TicketWindowViewController.h"
+#import "GroupsViewController.h"
+#import "SearchViewController.h"
+#import "CheckViewController.h"
 
 @interface TicketWindowViewController ()
 
 @property (nonatomic, weak) IBOutlet UIButton *sidemenuButton;
+
+@property (nonatomic, weak) IBOutlet UIView *leftSideContainerView;
+@property (nonatomic, weak) IBOutlet UIView *rightSideContainerView;
 
 @end
 
@@ -23,6 +29,16 @@
     [super viewDidLoad];
     
     [self.sidemenuButton.titleLabel setFont:DefaultLiHeiProFont(22.f)];
+    
+    GroupsViewController *gvc = ControllerById(GroupsViewControllerID);
+    [self addChildViewController:gvc];
+    [self.leftSideContainerView addSubview:gvc.view];
+    [gvc didMoveToParentViewController:self];
+    
+    CheckViewController *cvc = ControllerById(CheckViewControllerID);
+    [self addChildViewController:cvc];
+    [self.rightSideContainerView addSubview:cvc.view];
+    [cvc didMoveToParentViewController:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
