@@ -9,7 +9,6 @@ use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
-use DateTime;
 
 class GrossMarginControllerTest extends WebTestCase
 {
