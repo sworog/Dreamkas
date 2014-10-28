@@ -11,6 +11,7 @@ define(function(require, exports, module) {
 		addButtonCaption: 'Списать',
 		addTitle: 'Списание товаров',
 		editTitle: 'Редактирование списания товаров',
-		removeCaption: 'Удалить списание'
+		removeCaption: 'Удалить списание',
+		deletedTitle: 'Списание удалено'
 	});
 });

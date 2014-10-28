@@ -43,7 +43,7 @@
     overflow: hidden;
 }
 
-.modal__closeLink, .modal__backLink {
+.modal__header .modal__closeLink, .modal__header .modal__backLink {
     cursor: pointer;
     height: 55px;
     width: 55px;
@@ -91,6 +91,6 @@
     font-weight: bold;
 }
 
-.modal_stockMovement {
+.modal_stockMovement:not(.modal_stockMovementDeleted) {
     width: 70% !important;
 }

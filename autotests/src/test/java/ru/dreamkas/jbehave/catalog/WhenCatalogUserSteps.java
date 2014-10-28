@@ -1,6 +1,7 @@
 package ru.dreamkas.jbehave.catalog;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import ru.dreamkas.steps.catalog.CatalogSteps;
 
@@ -64,11 +65,6 @@ public class WhenCatalogUserSteps {
         catalogSteps.editGroupModalPageDeleteGroupButtonClick();
     }
 
-    @When("the user clicks on delete group confirm button in edit group modal window")
-    public void whenTheUserClicksOnDeleteGroupConfirmButtonInEditGroupModalWindow() {
-        catalogSteps.editGroupModalPageDeleteGroupConfirmButtonClick();
-    }
-
     @When("the user clicks on the edit group icon")
     public void whenTheUserClicksOnTheEditGroupIcon() {
         catalogSteps.editGroupIconClick();
@@ -78,4 +74,10 @@ public class WhenCatalogUserSteps {
     public void whenTheUserClicksOnTheBackLinkLongArrowIconOnTheGroupPage() {
         catalogSteps.backArrowButtonClick();
     }
+
+    @When("the user clicks on delete group confirm button in edit group modal window")
+    public void whenTheUserClicksOnDeleteGroupConfirmButtonInEditGroupModalWindow() {
+        catalogSteps.editGroupModalPageDeleteGroupConfirmButtonClick();
+    }
+
 }

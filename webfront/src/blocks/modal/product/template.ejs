@@ -1,6 +1,7 @@
 <div id="<%- id %>"
      class="modal">
 
+    <% if (!deleted) { %>
     <div class="modal__header">
 
 		<% if (referrer) { %>
@@ -29,5 +30,27 @@
         <b block="form_product"></b>
 
     </div>
+
+    <% } else { %>
+
+    <div class="modal__body" style="text-align: center">
+        <h3 name="successRemoveTitle" style="padding-bottom: 20px;">
+            Товар удален
+        </h3>
+        <h4 name="removedProductName" style="padding-bottom: 60px;">
+            <%- models.product.get('name') %>
+            <br>
+            (<%- models.group.get('name') %>)
+        </h4>
+
+        <div style="padding-bottom: 30px;">
+            <a name="removeContinue" class="btn btn-primary modal__closeLink"
+               style="padding: 10px 30px;">
+                Продолжить работу
+            </a>
+        </div>
+    </div>
+
+    <% } %>
 
 </div>
