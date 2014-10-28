@@ -53,4 +53,9 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     public void clickInTheModalWindowByFinBy(By findBy) {
         findVisibleElement(By.xpath(modalWindowXpath())).findElement(findBy).click();
     }
+
+    @Override
+    public void continueButtonClick() {
+        throw new AssertionError("Not implemented");
+    }
 }

@@ -3,9 +3,7 @@ package ru.dreamkas.pages.catalog.modal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
-import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
-import ru.dreamkas.elements.items.SelectByLabel;
 
 /**
  * Edit group modal page object
@@ -36,5 +34,10 @@ public class EditGroupModalPage extends CreateGroupModalPage {
     @Override
     public void confirmationOkClick() {
         new PrimaryBtnFacade(this, "Сохранить").click();
+    }
+
+    @Override
+    public void continueButtonClick() {
+        findVisibleElement(By.name("removeContinue")).click();
     }
 }

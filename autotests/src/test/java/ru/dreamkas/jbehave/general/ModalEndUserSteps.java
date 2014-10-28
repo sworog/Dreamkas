@@ -68,4 +68,9 @@ public class ModalEndUserSteps {
     public void whenUserClicksOnConfirmDeleteButton() {
         modalSteps.confirmDeleteButtonClick();
     }
+
+    @When("пользователь* в модальном окне нажимает кнопку продолжить")
+    public void whenUserClicksOnContinueButton() {
+        modalSteps.continueButtonClick();
+    }
 }

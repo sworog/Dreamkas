@@ -140,7 +140,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void deletedGroupModalPageContinueButtonClick() {
-        groupPage.clickOnCommonItemWihName("кнопка продолжения работы");
+        editGroupModalPage.clickOnCommonItemWihName("кнопка продолжения работы");
     }
 
     @Step
