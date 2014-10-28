@@ -24,6 +24,12 @@ define(function(require, exports, module) {
 
         });
 
+        it('active link in sidebar', function(){
+
+            expect($.trim(mainPage.el.querySelector('.sideBar__item_active').textContent)).toBe('Обзор');
+
+        });
+
     });
 
 });
