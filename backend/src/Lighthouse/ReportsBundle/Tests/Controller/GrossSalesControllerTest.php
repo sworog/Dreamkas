@@ -107,29 +107,29 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'date' => $this->createDate('10:00'),
                     'value' => 1207.06,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'date' => $this->createDate('-1 day 10:00'),
                     'value' => 1207.06,
                     'diff' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-1 day 23:59:59')),
+                    'date' => $this->createDate('-1 day 23:59:59'),
                     'value' => 1810.59,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'date' => $this->createDate('-7 day 10:00'),
                     'value' => 1309.06,
                     'diff' => -7.79
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-7 day 23:59:59')),
+                    'date' => $this->createDate('-7 day 23:59:59'),
                     'value' => 1912.59,
                 ),
             ),
@@ -156,27 +156,27 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'date' => $this->createDate('10:00'),
                     'value' => 0,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'date' => $this->createDate('-1 day 10:00'),
                     'value' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-1 day 23:59:59')),
+                    'date' => $this->createDate('-1 day 23:59:59'),
                     'value' => 0,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'date' => $this->createDate('-7 day 10:00'),
                     'value' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-7 day 23:59:59')),
+                    'date' => $this->createDate('-7 day 23:59:59'),
                     'value' => 0,
                 ),
             ),
@@ -298,29 +298,29 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'date' => $this->createDate('10:00'),
                     'value' => 603.53,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'date' => $this->createDate('-1 day 10:00'),
                     'value' => 325.74,
                     'diff' => 85.28,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-1 day 23:59:59')),
+                    'date' => $this->createDate('-1 day 23:59:59'),
                     'value' => 325.74,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'date' => $this->createDate('-7 day 10:00'),
                     'value' => 846.92,
                     'diff' => -28.74
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-7 day 23:59:59')),
+                    'date' => $this->createDate('-7 day 23:59:59'),
                     'value' => 846.92,
                 ),
             ),
@@ -347,29 +347,29 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-7 days 10:00')),
+                    'date' => $this->createDate('-7 days 10:00'),
                     'value' => 846.92,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-8 day 10:00')),
+                    'date' => $this->createDate('-8 day 10:00'),
                     'value' => 0,
                     'diff' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-8 day 23:59:59')),
+                    'date' => $this->createDate('-8 day 23:59:59'),
                     'value' => 0,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-14 day 10:00')),
+                    'date' => $this->createDate('-14 day 10:00'),
                     'value' => 0,
                     'diff' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime('-14 day 23:59:59')),
+                    'date' => $this->createDate('-14 day 23:59:59'),
                     'value' => 0,
                 ),
             ),
@@ -401,7 +401,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/reports/grossSalesByHours",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c'))
         );
 
         $this->assertResponseCode(200);
@@ -410,31 +410,31 @@ class GrossSalesControllerTest extends WebTestCase
 
         for ($i = 0; $i <= 7; $i++) {
             $expectedYesterday[$i] = array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 0{$i}:00")),
+                'dayHour' => $this->createDate("-1 day 0{$i}:00"),
                 'hourSum' => 0,
             );
             $expectedWeekAgo[$i] = array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 0{$i}:00")),
+                'dayHour' => $this->createDate("-1 week 0{$i}:00"),
                 'hourSum' => 0,
             );
         }
         $expectedYesterday += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 08:00')),
+                'dayHour' => $this->createDate('-1 day 08:00'),
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                'dayHour' => $this->createDate('-1 day 09:00'),
                 'hourSum' => 603.53,
             ),
         );
         $expectedWeekAgo += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 08:00')),
+                'dayHour' => $this->createDate('-1 week 08:00'),
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 09:00')),
+                'dayHour' => $this->createDate('-1 week 09:00'),
                 'hourSum' => 705.53,
             ),
         );
@@ -442,43 +442,43 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 0 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('00:00')),
+                    'dayHour' => $this->createDate('00:00'),
                     'hourSum' => 0,
                 ),
                 1 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('01:00')),
+                    'dayHour' => $this->createDate('01:00'),
                     'hourSum' => 0,
                 ),
                 2 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('02:00')),
+                    'dayHour' => $this->createDate('02:00'),
                     'hourSum' => 0,
                 ),
                 3 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('03:00')),
+                    'dayHour' => $this->createDate('03:00'),
                     'hourSum' => 0,
                 ),
                 4 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('04:00')),
+                    'dayHour' => $this->createDate('04:00'),
                     'hourSum' => 0,
                 ),
                 5 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('05:00')),
+                    'dayHour' => $this->createDate('05:00'),
                     'hourSum' => 0,
                 ),
                 6 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('06:00')),
+                    'dayHour' => $this->createDate('06:00'),
                     'hourSum' => 0,
                 ),
                 7 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('07:00')),
+                    'dayHour' => $this->createDate('07:00'),
                     'hourSum' => 0,
                 ),
                 8 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('08:00')),
+                    'dayHour' => $this->createDate('08:00'),
                     'hourSum' => 603.53,
                 ),
                 9 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'hourSum' => 603.53,
                 ),
             ),
@@ -631,21 +631,21 @@ class GrossSalesControllerTest extends WebTestCase
         }
         $expectedYesterday += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 08:00')),
+                'dayHour' => $this->createDate('-1 day 08:00'),
                 'hourSum' => 0,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                'dayHour' => $this->createDate('-1 day 09:00'),
                 'hourSum' => 0,
             ),
         );
         $expectedWeekAgo += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 08:00')),
+                'dayHour' => $this->createDate('-1 week 08:00'),
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 09:00')),
+                'dayHour' => $this->createDate('-1 week 09:00'),
                 'hourSum' => 705.53,
             ),
         );
@@ -653,43 +653,43 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 0 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('00:00')),
+                    'dayHour' => $this->createDate('00:00'),
                     'hourSum' => 0,
                 ),
                 1 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('01:00')),
+                    'dayHour' => $this->createDate('01:00'),
                     'hourSum' => 0,
                 ),
                 2 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('02:00')),
+                    'dayHour' => $this->createDate('02:00'),
                     'hourSum' => 0,
                 ),
                 3 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('03:00')),
+                    'dayHour' => $this->createDate('03:00'),
                     'hourSum' => 0,
                 ),
                 4 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('04:00')),
+                    'dayHour' => $this->createDate('04:00'),
                     'hourSum' => 0,
                 ),
                 5 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('05:00')),
+                    'dayHour' => $this->createDate('05:00'),
                     'hourSum' => 0,
                 ),
                 6 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('06:00')),
+                    'dayHour' => $this->createDate('06:00'),
                     'hourSum' => 0,
                 ),
                 7 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('07:00')),
+                    'dayHour' => $this->createDate('07:00'),
                     'hourSum' => 0,
                 ),
                 8 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('08:00')),
+                    'dayHour' => $this->createDate('08:00'),
                     'hourSum' => 603.53,
                 ),
                 9 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'hourSum' => 603.53,
                 ),
             ),
@@ -778,15 +778,15 @@ class GrossSalesControllerTest extends WebTestCase
         $expectedResponse = array(
             array(
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'dayHour' => $this->createDate('-1 day 23:00'),
                     'runningSum' => 708.91,
                 ),
                 'twoDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'dayHour' => $this->createDate('-2 days 23:00'),
                     'runningSum' => 715.55,
                 ),
                 'eightDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'dayHour' => $this->createDate('-8 days 23:00'),
                     'runningSum' => 360.86,
                 ),
                 'store' => array(
@@ -801,15 +801,15 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'dayHour' => $this->createDate('-1 day 23:00'),
                     'runningSum' => 1535.51,
                 ),
                 'twoDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'dayHour' => $this->createDate('-2 days 23:00'),
                     'runningSum' => 594.75,
                 ),
                 'eightDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'dayHour' => $this->createDate('-8 days 23:00'),
                     'runningSum' => 748.43,
                 ),
                 'store' => array(
@@ -824,15 +824,15 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'dayHour' => $this->createDate('-1 day 23:00'),
                     'runningSum' => 0,
                 ),
                 'twoDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'dayHour' => $this->createDate('-2 days 23:00'),
                     'runningSum' => 838.84,
                 ),
                 'eightDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'dayHour' => $this->createDate('-8 days 23:00'),
                     'runningSum' => 965.58,
                 ),
                 'store' => array(
@@ -872,15 +872,15 @@ class GrossSalesControllerTest extends WebTestCase
         $expectedEmptyResponse = array(
             array(
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'dayHour' => $this->createDate('-1 day 23:00'),
                     'runningSum' => 0,
                 ),
                 'twoDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'dayHour' => $this->createDate('-2 days 23:00'),
                     'runningSum' => 0,
                 ),
                 'eightDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'dayHour' => $this->createDate('-8 days 23:00'),
                     'runningSum' => 0,
                 ),
                 'store' => array(
@@ -895,15 +895,15 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'dayHour' => $this->createDate('-1 day 23:00'),
                     'runningSum' => 0,
                 ),
                 'twoDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'dayHour' => $this->createDate('-2 days 23:00'),
                     'runningSum' => 0,
                 ),
                 'eightDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'dayHour' => $this->createDate('-8 days 23:00'),
                     'runningSum' => 0,
                 ),
                 'store' => array(
@@ -918,15 +918,15 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                    'dayHour' => $this->createDate('-1 day 23:00'),
                     'runningSum' => 0,
                 ),
                 'twoDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                    'dayHour' => $this->createDate('-2 days 23:00'),
                     'runningSum' => 0,
                 ),
                 'eightDaysAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                    'dayHour' => $this->createDate('-8 days 23:00'),
                     'runningSum' => 0,
                 ),
                 'store' => array(
@@ -945,6 +945,18 @@ class GrossSalesControllerTest extends WebTestCase
         $this->assertSame($expectedEmptyResponse, $response);
     }
 
+    /**
+     * @param string $modify
+     * @param string $format
+     * @return string
+     */
+    protected function createDate($modify, $format = DateTime::ISO8601)
+    {
+        $date = new DateTime('now');
+        $date->modify($modify);
+        return $date->format($format);
+    }
+
     public function testGetGrossSales()
     {
         $this->createSales();
@@ -958,24 +970,24 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSales',
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c'))
         );
 
         $this->assertResponseCode(200);
 
         $expectedResponse = array(
             'yesterday' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                'dayHour' => $this->createDate('-1 day 23:00'),
                 'runningSum' => 2244.42,
                 'hourSum' => 0,
             ),
             'twoDaysAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                'dayHour' => $this->createDate('-2 days 23:00'),
                 'runningSum' => 2149.14,
                 'hourSum' => 0,
             ),
             'eightDaysAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                'dayHour' => $this->createDate('-8 days 23:00'),
                 'runningSum' => 2074.87,
                 'hourSum' => 0,
             ),
@@ -1005,17 +1017,17 @@ class GrossSalesControllerTest extends WebTestCase
 
         $expectedResponse = array(
             'yesterday' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
+                'dayHour' => $this->createDate('-1 day 23:00'),
                 'runningSum' => 0,
                 'hourSum' => 0,
             ),
             'twoDaysAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
+                'dayHour' => $this->createDate('-2 days 23:00'),
                 'runningSum' => 0,
                 'hourSum' => 0,
             ),
             'eightDaysAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
+                'dayHour' => $this->createDate('-8 days 23:00'),
                 'runningSum' => 0,
                 'hourSum' => 0,
             ),
@@ -1147,7 +1159,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ->createReceiptProduct($productIds['1'], 11, 34.77)
                 ->createReceiptProduct($productIds['3'], 9, 64.79)
             ->persist()
-        // 9 days ago, should not be counted
+            // 9 days ago, should not be counted
                 ->createSale($stores['1'], '-9 days 10:01')
                 ->createReceiptProduct($productIds['1'], 1, 34.77)
                 ->createReceiptProduct($productIds['2'], 8, 43.55)
@@ -1271,15 +1283,15 @@ class GrossSalesControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => $this->createDate('10:00'),
                     'runningSum' => 312.93,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => $this->createDate('-1 day 10:00'),
                     'runningSum' => 312.93,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => $this->createDate('-7 day 10:00'),
                     'runningSum' => 414.93,
                 ),
                 'storeProduct' => array(
@@ -1290,15 +1302,15 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => $this->createDate('10:00'),
                     'runningSum' => 583.11,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => $this->createDate('-1 day 10:00'),
                     'runningSum' => 583.11,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => $this->createDate('-7 day 10:00'),
                     'runningSum' => 583.11,
                 ),
                 'storeProduct' => array(
@@ -1346,28 +1358,28 @@ class GrossSalesControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         $expectedProduct2Today = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+            'dayHour' => $this->createDate('09:00'),
             'runningSum' => 0,
         );
         $expectedProduct2Yesterday = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+            'dayHour' => $this->createDate('-1 day 09:00'),
             'runningSum' => 0,
         );
         $expectedProduct2WeekAgo = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+            'dayHour' => $this->createDate('-7 day 09:00'),
             'runningSum' => 0,
         );
 
         $expectedProduct1Today = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+            'dayHour' => $this->createDate('09:00'),
             'runningSum' => 0,
         );
         $expectedProduct1Yesterday = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+            'dayHour' => $this->createDate('-1 day 09:00'),
             'runningSum' => 0,
         );
         $expectedProduct1WeekAgo = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+            'dayHour' => $this->createDate('-7 day 09:00'),
             'runningSum' => 0,
         );
 
@@ -1512,15 +1524,15 @@ class GrossSalesControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 278.51,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 644.12,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 443.93,
                 ),
                 'subCategory' => array(
@@ -1529,15 +1541,15 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 129.58,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 64.79,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 842.27,
                 ),
                 'subCategory' => array(
@@ -1573,15 +1585,15 @@ class GrossSalesControllerTest extends WebTestCase
 
         $emptyDayReport = array(
             'today' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                'dayHour' => $this->createDate('09:00'),
                 'runningSum' => 0,
             ),
             'yesterday' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                'dayHour' => $this->createDate('-1 day 09:00'),
                 'runningSum' => 0,
             ),
             'weekAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                'dayHour' => $this->createDate('-7 day 09:00'),
                 'runningSum' => 0,
             )
         );
@@ -1645,30 +1657,30 @@ class GrossSalesControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 408.09,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 708.91,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 1286.2,
                 ),
                 'category' => array('id' => $catalogIds['1.1']),
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'category' => array('id' => $catalogIds['1.2'])
@@ -1722,15 +1734,15 @@ class GrossSalesControllerTest extends WebTestCase
 
         $emptyDayReport = array(
             'today' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                'dayHour' => $this->createDate('09:00'),
                 'runningSum' => 0,
             ),
             'yesterday' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                'dayHour' => $this->createDate('-1 day 09:00'),
                 'runningSum' => 0,
             ),
             'weekAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                'dayHour' => $this->createDate('-7 day 09:00'),
                 'runningSum' => 0,
             )
         );
@@ -1772,30 +1784,30 @@ class GrossSalesControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 408.09,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 708.91,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 1286.2,
                 ),
                 'group' => array('id' => $catalogIds['1'])
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'group' => array('id' => $catalogIds['2']),
@@ -1830,30 +1842,30 @@ class GrossSalesControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'group' => array('id' => $catalogIds['1'])
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
+                    'dayHour' => $this->createDate('09:00'),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
+                    'dayHour' => $this->createDate('-1 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
+                    'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
                 'group' => array('id' => $catalogIds['2'])
