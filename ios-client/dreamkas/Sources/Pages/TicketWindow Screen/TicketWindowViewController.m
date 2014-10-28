@@ -10,7 +10,6 @@
 
 @interface TicketWindowViewController ()
 
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIButton *sidemenuButton;
 
 @end
@@ -23,7 +22,7 @@
 {
     [super viewDidLoad];
     
-    // ..
+    [self.sidemenuButton.titleLabel setFont:DefaultLiHeiProFont(22.f)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -31,16 +30,6 @@
     [super viewWillAppear:animated];
     
     // ..
-    
-    //
-    // запрос продуктов
-    //
-    [NetworkManager requestProductsByQuery:@"400476"
-                              onCompletion:^(NSArray *data, NSError *error) {
-        if (error != nil) {
-            return;
-        }
-    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -62,7 +51,6 @@
 
 - (void)configureAccessibilityLabels
 {
-    [self.tableView setAccessibilityLabel:AI_TicketWindowPage_Table];
     [self.sidemenuButton setAccessibilityLabel:AI_TicketWindowPage_SidemenuButton];
 }
 

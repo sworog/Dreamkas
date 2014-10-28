@@ -2,7 +2,7 @@
 //  ProductModel.m
 //  dreamkas
 //
-//  Created by sig on 27.10.14.
+//  Created by sig on 28.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -12,5 +12,9 @@
 @implementation ProductModel
 
 @dynamic name;
+@dynamic barcode;
+@dynamic purchasePrice;
+@dynamic sellingPrice;
+@dynamic sku;
 
 @end

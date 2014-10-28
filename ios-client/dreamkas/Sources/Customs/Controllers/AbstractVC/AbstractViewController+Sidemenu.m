@@ -10,10 +10,6 @@
 #import <objc/runtime.h>
 #import "SidemenuViewController.h"
 
-#define SidemenuOverlayAlpha    0.6f
-#define SidemenuWidth           320.f
-#define SidemenuHeight          768.f
-
 @implementation AbstractViewController (Sidemenu)
 
 @dynamic sidemenuContainerView;
@@ -61,7 +57,7 @@
     
     if (self.sidemenuOverlayView == nil) {
         self.sidemenuOverlayView = [[UIControl alloc] initWithFrame:self.view.frame];
-        [self.sidemenuOverlayView setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:SidemenuOverlayAlpha]];
+        [self.sidemenuOverlayView setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:DefaultSidemenuOverlayAlpha]];
         [self.sidemenuOverlayView addTarget:self
                                      action:@selector(sidemenuOverlayTouched)
                            forControlEvents:UIControlEventTouchUpInside];
@@ -86,8 +82,8 @@
     if ((svc == nil) || (self.sidemenuContainerView == nil))
         return;
     
-    [svc.view setWidth:SidemenuWidth];
-    [svc.view setHeight:SidemenuHeight];
+    [svc.view setWidth:DefaultSidemenuWidth];
+    [svc.view setHeight:DefaultSidemenuHeight];
     
     [self addChildViewController:svc];
     [self.sidemenuContainerView addSubview:svc.view];
@@ -99,8 +95,8 @@
     DPLogFast(@"");
     
     if (self.sidemenuContainerView == nil) {
-        self.sidemenuContainerView = [[UIView alloc] initWithFrame:CGRectMake(-SidemenuWidth, 0,
-                                                                              SidemenuWidth, SidemenuHeight)];
+        self.sidemenuContainerView = [[UIView alloc] initWithFrame:CGRectMake(-DefaultSidemenuWidth, 0,
+                                                                              DefaultSidemenuWidth, DefaultSidemenuHeight)];
         [self.sidemenuContainerView setBackgroundColor:DefaultWhiteColor];
         [self.view addSubview:self.sidemenuContainerView];
         [self placeControllerInSidemenu:ControllerById(SidemenuViewControllerID)];
@@ -129,7 +125,7 @@
     [self.sidemenuOverlayView setAlpha:1.f];
     [UIView animateWithDuration:KeyboardAnimationDuration animations:^(void) {
         [self.sidemenuOverlayView setAlpha:0.f];
-        [self.sidemenuContainerView setX:-SidemenuWidth];
+        [self.sidemenuContainerView setX:-DefaultSidemenuWidth];
     } completion:^(BOOL finished) {
         [self hideSidemenuOverlay];
         if (completionBlock)

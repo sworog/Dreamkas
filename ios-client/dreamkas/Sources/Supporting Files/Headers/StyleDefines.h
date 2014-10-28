@@ -22,6 +22,16 @@
 #define DefaultLightFont(fsize)             [UIFont fontWithName:(DefaultLightFontName) size:(fsize)]
 
 //
+// Символьные шрифты приложения
+//
+
+#define DefaultLiHeiProFontName             @"LiHei Pro"
+#define DefaultAwesomeFontName              @"FontAwesome"
+
+#define DefaultLiHeiProFont(fsize)          [UIFont fontWithName:(DefaultLiHeiProFontName) size:(fsize)]
+#define DefaultAwesomeFont(fsize)           [UIFont fontWithName:(DefaultAwesomeFontName) size:(fsize)]
+
+//
 // Цвета приложения
 //
 
@@ -48,5 +58,9 @@
 
 #define DefaultSingleLineCellHeight         52.f
 #define DefaultCellSeparatorHeight          1.f
+
+#define DefaultSidemenuOverlayAlpha    0.6f
+#define DefaultSidemenuWidth           256.f
+#define DefaultSidemenuHeight          768.f
 
 #endif

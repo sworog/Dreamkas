@@ -101,6 +101,12 @@
 		CE500B8819F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8419F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m */; };
 		CE500B8919F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */; };
 		CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */; };
+		CE6CC1ED19FF9D480087FE2C /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1EC19FF9D480087FE2C /* ProductModel.m */; };
+		CE6CC1EE19FF9D480087FE2C /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1EC19FF9D480087FE2C /* ProductModel.m */; };
+		CE6CC1F019FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
+		CE6CC1F119FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
+		CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1F319FFB45F0087FE2C /* CloseButton.m */; };
+		CE6CC1F519FFB45F0087FE2C /* CloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1F319FFB45F0087FE2C /* CloseButton.m */; };
 		CE8AB37A19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
 		CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
 		CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37519E7C8D000B105E0 /* NSData+Base64.m */; };
@@ -163,8 +169,6 @@
 		CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */; };
 		CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
 		CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
-		CE966A7E19FEA34D007EF9D0 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE966A7D19FEA34D007EF9D0 /* ProductModel.m */; };
-		CE966A7F19FEA34D007EF9D0 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE966A7D19FEA34D007EF9D0 /* ProductModel.m */; };
 		CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
 		CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
 		CEBC439B19E8042800C0E575 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
@@ -223,6 +227,8 @@
 		CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2647A19E81D72008BE93A /* UIImage+ImageEffects.m */; };
 		CEF2648419E82245008BE93A /* CustomModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2648319E82245008BE93A /* CustomModalSegue.m */; };
 		CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2648319E82245008BE93A /* CustomModalSegue.m */; };
+		CEFB2DF819FFC13A00220E97 /* LiHei Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEFB2DF719FFC13A00220E97 /* LiHei Pro.ttf */; };
+		CEFB2DF919FFC13A00220E97 /* LiHei Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEFB2DF719FFC13A00220E97 /* LiHei Pro.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -368,6 +374,11 @@
 		CE500B8419F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		CE500B8519F0148500449C34 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		CE6CC1EB19FF9D480087FE2C /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
+		CE6CC1EC19FF9D480087FE2C /* ProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
+		CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
+		CE6CC1F219FFB45F0087FE2C /* CloseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloseButton.h; sourceTree = "<group>"; };
+		CE6CC1F319FFB45F0087FE2C /* CloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloseButton.m; sourceTree = "<group>"; };
 		CE8AB37219E7C8D000B105E0 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
 		CE8AB37319E7C8D000B105E0 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
 		CE8AB37419E7C8D000B105E0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -411,8 +422,6 @@
 		CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmptyButton.h; sourceTree = "<group>"; };
 		CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmptyButton.m; sourceTree = "<group>"; };
 		CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardSegues.h; sourceTree = "<group>"; };
-		CE966A7C19FEA34D007EF9D0 /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
-		CE966A7D19FEA34D007EF9D0 /* ProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
 		CEBC439519E7FB9D00C0E575 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		CEBC439C19E8048700C0E575 /* DialogHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogHelper.h; sourceTree = "<group>"; };
@@ -494,6 +503,7 @@
 		CEF2647A19E81D72008BE93A /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		CEF2648219E82245008BE93A /* CustomModalSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomModalSegue.h; sourceTree = "<group>"; };
 		CEF2648319E82245008BE93A /* CustomModalSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomModalSegue.m; sourceTree = "<group>"; };
+		CEFB2DF719FFC13A00220E97 /* LiHei Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LiHei Pro.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,8 +550,8 @@
 				CE290F9719EE605C005483A1 /* AbstractModel.h */,
 				CE290F9819EE605C005483A1 /* AbstractModel.m */,
 				CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */,
-				CE966A7C19FEA34D007EF9D0 /* ProductModel.h */,
-				CE966A7D19FEA34D007EF9D0 /* ProductModel.m */,
+				CE6CC1EB19FF9D480087FE2C /* ProductModel.h */,
+				CE6CC1EC19FF9D480087FE2C /* ProductModel.m */,
 				CE290F9D19EE605C005483A1 /* StoreModel.h */,
 				CE290F9E19EE605C005483A1 /* StoreModel.m */,
 			);
@@ -919,6 +929,8 @@
 		CE946BA619E6A91400D270E4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				CEFB2DF719FFC13A00220E97 /* LiHei Pro.ttf */,
+				CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */,
 				CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */,
 				CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */,
 				CE946BA919E6A91400D270E4 /* Roboto-Bold.ttf */,
@@ -1030,6 +1042,8 @@
 				CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */,
 				CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */,
 				CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */,
+				CE6CC1F219FFB45F0087FE2C /* CloseButton.h */,
+				CE6CC1F319FFB45F0087FE2C /* CloseButton.m */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1359,8 +1373,10 @@
 				CE946BC719E6A91400D270E4 /* Roboto-Medium.ttf in Resources */,
 				CE946BC119E6A91400D270E4 /* Roboto-Italic.ttf in Resources */,
 				CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */,
+				CE6CC1F019FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */,
 				CE946BC519E6A91400D270E4 /* Roboto-LightItalic.ttf in Resources */,
 				CE946BD319E6A91400D270E4 /* RobotoCondensed-BoldItalic.ttf in Resources */,
+				CEFB2DF819FFC13A00220E97 /* LiHei Pro.ttf in Resources */,
 				CE946BCF19E6A91400D270E4 /* Roboto-ThinItalic.ttf in Resources */,
 				CE946BCD19E6A91400D270E4 /* Roboto-Thin.ttf in Resources */,
 				CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */,
@@ -1385,11 +1401,13 @@
 				CE946BC619E6A91400D270E4 /* Roboto-LightItalic.ttf in Resources */,
 				CE946BD219E6A91400D270E4 /* RobotoCondensed-Bold.ttf in Resources */,
 				CE946BD419E6A91400D270E4 /* RobotoCondensed-BoldItalic.ttf in Resources */,
+				CE6CC1F119FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */,
 				CE946BDC19E6A91400D270E4 /* RobotoCondensed-Regular.ttf in Resources */,
 				CE946BBC19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */,
 				CE946BBE19E6A91400D270E4 /* Roboto-Bold.ttf in Resources */,
 				CE946BC419E6A91400D270E4 /* Roboto-Light.ttf in Resources */,
 				CE946BCA19E6A91400D270E4 /* Roboto-MediumItalic.ttf in Resources */,
+				CEFB2DF919FFC13A00220E97 /* LiHei Pro.ttf in Resources */,
 				CE946BCE19E6A91400D270E4 /* Roboto-Thin.ttf in Resources */,
 				CE946BC019E6A91400D270E4 /* Roboto-BoldItalic.ttf in Resources */,
 				CE8AB39519E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */,
@@ -1452,7 +1470,7 @@
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CE29100219EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
-				CE966A7E19FEA34D007EF9D0 /* ProductModel.m in Sources */,
+				CE6CC1ED19FF9D480087FE2C /* ProductModel.m in Sources */,
 				CEC0040D19E69A6B00AE256F /* CustomNavigationController.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
@@ -1478,6 +1496,7 @@
 				CE8AB38619E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CE29101219EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
 				CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */,
+				CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
 				CECFC4A619DD74C800ED88D3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
@@ -1533,7 +1552,7 @@
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
-				CE966A7F19FEA34D007EF9D0 /* ProductModel.m in Sources */,
+				CE6CC1EE19FF9D480087FE2C /* ProductModel.m in Sources */,
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE29101919EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
 				CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */,
@@ -1576,6 +1595,7 @@
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
 				CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
 				CE10A83819F655200056DF91 /* SidemenuViewController.m in Sources */,
+				CE6CC1F519FFB45F0087FE2C /* CloseButton.m in Sources */,
 				CE29100719EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				CE290FEF19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				CE500B7C19F00A4F00449C34 /* AbstractTableViewController.m in Sources */,

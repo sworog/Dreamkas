@@ -8,7 +8,7 @@
 
 #import "AbstractModel+Mapper.h"
 
-#define LOG_ON 1
+#define LOG_ON 0
 #define PK_FIELD_KEYWORD @"id"
 
 @implementation AbstractModel (Mapper)

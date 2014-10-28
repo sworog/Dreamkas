@@ -4,7 +4,11 @@
         <attribute name="pk" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
     <entity name="ProductModel" representedClassName="ProductModel" parentEntity="AbstractModel" syncable="YES">
+        <attribute name="barcode" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="purchasePrice" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sellingPrice" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="sku" optional="YES" attributeType="Integer 64" minValueString="0" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="StoreModel" representedClassName="StoreModel" parentEntity="AbstractModel" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,7 +16,7 @@
     </entity>
     <elements>
         <element name="AbstractModel" positionX="-63" positionY="-18" width="128" height="60"/>
+        <element name="ProductModel" positionX="-63" positionY="0" width="128" height="118"/>
         <element name="StoreModel" positionX="-63" positionY="-9" width="128" height="73"/>
-        <element name="ProductModel" positionX="-63" positionY="0" width="128" height="58"/>
     </elements>
 </model>
