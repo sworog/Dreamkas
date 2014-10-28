@@ -134,7 +134,7 @@ class GrossMarginControllerTest extends WebTestCase
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
             "GET",
-            "/api/1/stores/" . $storeId . "/reports/grossMargin",
+            "/api/1/stores/{$storeId}/reports/grossMargin",
             null,
             array('time' => date('c', strtotime("2014-01-10 10:35:47")))
         );
@@ -251,13 +251,13 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->createInvoice(
-                    array('date' => $date->copy()->modify('-2 days 08:00')->format(DateTime::ISO8601)),
+                    array('date' => $this->createDate('-2 days 08:00')),
                     $store->id
                 )
                 ->createInvoiceProduct($product, 50, 90)
             ->persist()
                 ->createInvoice(
-                    array('date' => $date->copy()->modify('-1 day 08:00')->format(DateTime::ISO8601)),
+                    array('date' => $this->createDate('-1 day 08:00')),
                     $store->id
                 )
                 ->createInvoiceProduct($product, 35, 100)
@@ -285,11 +285,11 @@ class GrossMarginControllerTest extends WebTestCase
 
         $expectedResponse = array(
             array(
-                'date' => $date->copy()->modify('-1 day 00:00')->format(DateTime::ISO8601),
+                'date' => $this->createDate('-1 day 00:00'),
                 'sum' => 850,
             ),
             array(
-                'date' => $date->copy()->modify('-2 days 00:00')->format(DateTime::ISO8601),
+                'date' => $this->createDate('-2 days 00:00'),
                 'sum' => 875,
             ),
         );

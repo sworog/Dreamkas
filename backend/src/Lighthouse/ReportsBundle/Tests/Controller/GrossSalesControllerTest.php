@@ -99,7 +99,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/reports/grossSales",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -148,7 +148,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales',
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -290,7 +290,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/reports/grossSales",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -339,7 +339,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/reports/grossSales",
             null,
-            array('time' => date('c', strtotime('-7 day 10:35:47')))
+            array('time' => $this->createDate('-7 day 10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -612,7 +612,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/reports/grossSalesByHours",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -726,7 +726,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/reports/grossSalesByHours",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -770,7 +770,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSalesByStores',
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -864,7 +864,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSalesByStores',
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -945,18 +945,6 @@ class GrossSalesControllerTest extends WebTestCase
         $this->assertSame($expectedEmptyResponse, $response);
     }
 
-    /**
-     * @param string $modify
-     * @param string $format
-     * @return string
-     */
-    protected function createDate($modify, $format = DateTime::ISO8601)
-    {
-        $date = new DateTime('now');
-        $date->modify($modify);
-        return $date->format($format);
-    }
-
     public function testGetGrossSales()
     {
         $this->createSales();
@@ -1010,7 +998,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSales',
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1260,7 +1248,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
             null,
-            array('time' => date('c', strtotime('11:35:47')))
+            array('time' => $this->createDate('11:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1352,7 +1340,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1424,7 +1412,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1509,7 +1497,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1571,7 +1559,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1614,7 +1602,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1642,7 +1630,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1700,7 +1688,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1720,7 +1708,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1769,7 +1757,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/reports/grossSalesByGroups",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1827,7 +1815,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/reports/grossSalesByGroups",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
@@ -1884,7 +1872,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$stores['1']->id}/reports/grossSalesByGroups",
             null,
-            array('time' => date('c', strtotime('10:35:47')))
+            array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
