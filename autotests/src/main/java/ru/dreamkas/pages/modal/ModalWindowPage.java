@@ -56,6 +56,6 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
 
     @Override
     public void continueButtonClick() {
-        throw new AssertionError("Not implemented");
+        findVisibleElement(By.name("removeContinue")).click();
     }
 }

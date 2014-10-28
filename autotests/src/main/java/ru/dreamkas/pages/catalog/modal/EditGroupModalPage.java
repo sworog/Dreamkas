@@ -17,10 +17,8 @@ public class EditGroupModalPage extends CreateGroupModalPage {
     @Override
     public void createElements() {
         super.createElements();
-
         put("заголовок успешного удаления", new NonType(this, "//*[@name='successRemoveTitle']"));
         put("название удаленной группы", new NonType(this, "//*[@name='removedGroupName']"));
-        put("кнопка продолжения работы", new NonType(this, "//*[@name='removeContinue']"));
     }
 
     public void deleteButtonClick() {
@@ -34,10 +32,5 @@ public class EditGroupModalPage extends CreateGroupModalPage {
     @Override
     public void confirmationOkClick() {
         new PrimaryBtnFacade(this, "Сохранить").click();
-    }
-
-    @Override
-    public void continueButtonClick() {
-        findVisibleElement(By.name("removeContinue")).click();
     }
 }

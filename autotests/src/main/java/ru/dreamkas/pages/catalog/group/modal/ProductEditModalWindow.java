@@ -44,9 +44,4 @@ public class ProductEditModalWindow extends ProductCreateModalWindow {
     public void confirmationOkClick() {
         new PrimaryBtnFacade(this, "Сохранить").click();
     }
-
-    @Override
-    public void continueButtonClick() {
-        findVisibleElement(By.name("removeContinue")).click();
-    }
 }
