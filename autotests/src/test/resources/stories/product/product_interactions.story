@@ -74,6 +74,7 @@ Scenario: Product deletion
 Meta:
 @smoke
 @id_s38u101s3
+@us_119.4
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 

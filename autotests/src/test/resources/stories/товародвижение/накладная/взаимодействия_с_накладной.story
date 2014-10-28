@@ -114,6 +114,7 @@ Scenario: Удаление накладной
 Meta:
 @smoke
 @id_s39u102s3
+@us_119.4
 
 GivenStories: precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
               precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story,
