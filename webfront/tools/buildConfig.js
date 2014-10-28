@@ -1,5 +1,6 @@
 ({
     baseUrl: '../src/',
+
     mainConfigFile: '../src/require.config.js',
     dir: "../build",
 
@@ -31,6 +32,11 @@
     modules: [
         {
             name: "main",
+            exclude: ['jquery', 'require.config'],
+            include: ['require.config.prod']
+        },
+        {
+            name: "require.config",
             exclude: ['jquery'],
             include: ['app']
         },
