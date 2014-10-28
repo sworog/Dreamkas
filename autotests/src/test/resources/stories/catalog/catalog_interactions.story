@@ -208,6 +208,7 @@ Scenario: Deleting the group with name, which had the already deleted group
 Meta:
 @smoke
 @id_s38u100s12
+@us_119.4
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 

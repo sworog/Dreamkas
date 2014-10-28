@@ -110,6 +110,7 @@ Scenario: Удаление списания
 Meta:
 @smoke
 @id_s40u103s3
+@us_119.4
 
 GivenStories: precondition/writeOff/aPreconditionToUserCreation.story,
               precondition/writeOff/aPreconditionToTestDataCreation.story,

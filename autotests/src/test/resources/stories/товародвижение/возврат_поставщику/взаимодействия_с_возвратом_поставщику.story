@@ -152,6 +152,7 @@ Scenario: Удаление возврата поставщику
 Meta:
 @id_s40u105s4
 @smoke
+@us_119.4
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/товародвижение/возврат_поставщику/создать_магазин_с_ассортиментом.story,

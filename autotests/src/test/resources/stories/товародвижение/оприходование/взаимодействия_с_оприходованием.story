@@ -115,6 +115,7 @@ Scenario: Удаление оприходования
 Meta:
 @smoke
 @id_s40u104s3
+@us_119.4
 
 GivenStories: precondition/stockIn/aPreconditionToUserCreation.story,
               precondition/stockIn/aPreconditionToTestDataCreation.story,
