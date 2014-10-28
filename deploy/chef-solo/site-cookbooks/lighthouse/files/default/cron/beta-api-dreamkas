@@ -1,0 +1,2 @@
+20 4 * * *  watchman php /var/www/beta.api/current/app/console lighthouse:products:recalculate_metrics >> /var/www/beta.api/current/logs/cron
+1,16,31,46 * * * * watchman php /var/www/beta.api/current/app/console lighthouse:reports:recalculate >> /var/www/beta.api/current/logs/cron
