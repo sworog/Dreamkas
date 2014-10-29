@@ -21,7 +21,7 @@
 
 - (void)initialize
 {
-    // включаем для контроллера массовое обновление и лимитированные запросы
+    // выключаем для контроллера массовое обновление и лимитированные запросы
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
 }

@@ -8,6 +8,8 @@
 
 #import "AbstractViewController.h"
 
-@interface ProductsViewController : AbstractViewController
+@interface ProductsViewController : AbstractTableViewController
+
+@property (nonatomic) GroupModel *groupInstance;
 
 @end

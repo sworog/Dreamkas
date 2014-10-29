@@ -123,7 +123,7 @@
 - (void)initBackButton
 {
     BackButton *back_btn = [BackButton buttonWithType:UIButtonTypeCustom];
-    back_btn.frame = CGRectMake(0, 0, 64, 64);
+    back_btn.frame = CGRectMake(0, 0, DefaultTopPanelHeight, DefaultTopPanelHeight);
     [back_btn addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *left_btn = [[UIBarButtonItem alloc] initWithCustomView:back_btn];

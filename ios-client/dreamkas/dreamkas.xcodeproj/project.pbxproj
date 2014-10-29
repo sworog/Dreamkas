@@ -99,6 +99,16 @@
 		CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
 		CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
 		CE3B95F519E4189100E1D24F /* RESTClient+Auth.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */; };
+		CE3C76331A0138070057493E /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76321A0138070057493E /* GroupCell.m */; };
+		CE3C76341A0138070057493E /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76321A0138070057493E /* GroupCell.m */; };
+		CE3C76371A013B4D0057493E /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76361A013B4D0057493E /* ProductCell.m */; };
+		CE3C76381A013B4D0057493E /* ProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76361A013B4D0057493E /* ProductCell.m */; };
+		CE3C763F1A0142C30057493E /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C763E1A0142C30057493E /* GroupModel.m */; };
+		CE3C76401A0142C30057493E /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C763E1A0142C30057493E /* GroupModel.m */; };
+		CE3C76471A0143080057493E /* ProductModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76461A0143080057493E /* ProductModel+Mapper.m */; };
+		CE3C76481A0143080057493E /* ProductModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76461A0143080057493E /* ProductModel+Mapper.m */; };
+		CE3C764F1A0148610057493E /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C764E1A0148610057493E /* ProductModel.m */; };
+		CE3C76501A0148610057493E /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C764E1A0148610057493E /* ProductModel.m */; };
 		CE4C876A19F10B9700221E53 /* SimpleTitledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876919F10B9700221E53 /* SimpleTitledCell.m */; };
 		CE4C876B19F10B9700221E53 /* SimpleTitledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876919F10B9700221E53 /* SimpleTitledCell.m */; };
 		CE4C877019F10C4100221E53 /* WordWrappingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */; };
@@ -109,8 +119,6 @@
 		CE500B8819F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8419F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m */; };
 		CE500B8919F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */; };
 		CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */; };
-		CE6CC1ED19FF9D480087FE2C /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1EC19FF9D480087FE2C /* ProductModel.m */; };
-		CE6CC1EE19FF9D480087FE2C /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1EC19FF9D480087FE2C /* ProductModel.m */; };
 		CE6CC1F019FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
 		CE6CC1F119FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
 		CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1F319FFB45F0087FE2C /* CloseButton.m */; };
@@ -383,6 +391,16 @@
 		CE3B95EE19E40DA900E1D24F /* DatesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatesHelper.m; sourceTree = "<group>"; };
 		CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Auth.h"; sourceTree = "<group>"; };
 		CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Auth.m"; sourceTree = "<group>"; };
+		CE3C76311A0138070057493E /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
+		CE3C76321A0138070057493E /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
+		CE3C76351A013B4D0057493E /* ProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCell.h; sourceTree = "<group>"; };
+		CE3C76361A013B4D0057493E /* ProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCell.m; sourceTree = "<group>"; };
+		CE3C763D1A0142C30057493E /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
+		CE3C763E1A0142C30057493E /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
+		CE3C76451A0143080057493E /* ProductModel+Mapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProductModel+Mapper.h"; sourceTree = "<group>"; };
+		CE3C76461A0143080057493E /* ProductModel+Mapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProductModel+Mapper.m"; sourceTree = "<group>"; };
+		CE3C764D1A0148610057493E /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
+		CE3C764E1A0148610057493E /* ProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
 		CE4C876819F10B9700221E53 /* SimpleTitledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTitledCell.h; sourceTree = "<group>"; };
 		CE4C876919F10B9700221E53 /* SimpleTitledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTitledCell.m; sourceTree = "<group>"; };
 		CE4C876E19F10C4100221E53 /* WordWrappingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordWrappingLabel.h; sourceTree = "<group>"; };
@@ -396,8 +414,6 @@
 		CE500B8419F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		CE500B8519F0148500449C34 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
-		CE6CC1EB19FF9D480087FE2C /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
-		CE6CC1EC19FF9D480087FE2C /* ProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
 		CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		CE6CC1F219FFB45F0087FE2C /* CloseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloseButton.h; sourceTree = "<group>"; };
 		CE6CC1F319FFB45F0087FE2C /* CloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloseButton.m; sourceTree = "<group>"; };
@@ -578,8 +594,10 @@
 				CE290F9719EE605C005483A1 /* AbstractModel.h */,
 				CE290F9819EE605C005483A1 /* AbstractModel.m */,
 				CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */,
-				CE6CC1EB19FF9D480087FE2C /* ProductModel.h */,
-				CE6CC1EC19FF9D480087FE2C /* ProductModel.m */,
+				CE3C764D1A0148610057493E /* ProductModel.h */,
+				CE3C764E1A0148610057493E /* ProductModel.m */,
+				CE3C763D1A0142C30057493E /* GroupModel.h */,
+				CE3C763E1A0142C30057493E /* GroupModel.m */,
 				CE290F9D19EE605C005483A1 /* StoreModel.h */,
 				CE290F9E19EE605C005483A1 /* StoreModel.m */,
 			);
@@ -787,6 +805,8 @@
 			children = (
 				CE00D11819EFF3C800B600EB /* AbstractModel+Mapper.h */,
 				CE00D11919EFF3C800B600EB /* AbstractModel+Mapper.m */,
+				CE3C76451A0143080057493E /* ProductModel+Mapper.h */,
+				CE3C76461A0143080057493E /* ProductModel+Mapper.m */,
 			);
 			path = "Model Categories";
 			sourceTree = "<group>";
@@ -1134,6 +1154,10 @@
 				CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */,
 				CE4C876819F10B9700221E53 /* SimpleTitledCell.h */,
 				CE4C876919F10B9700221E53 /* SimpleTitledCell.m */,
+				CE3C76311A0138070057493E /* GroupCell.h */,
+				CE3C76321A0138070057493E /* GroupCell.m */,
+				CE3C76351A013B4D0057493E /* ProductCell.h */,
+				CE3C76361A013B4D0057493E /* ProductCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1543,6 +1567,7 @@
 				CE29101A19EE668B005483A1 /* MagicalRecord+Setup.m in Sources */,
 				CE29100619EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				CE39DDCA19FFD3BE00150C28 /* CheckViewController.m in Sources */,
+				CE3C76471A0143080057493E /* ProductModel+Mapper.m in Sources */,
 				CEBC43A719E806F700C0E575 /* Reachability.m in Sources */,
 				CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */,
 				CECFC4AB19DD74C800ED88D3 /* UIProgressView+AFNetworking.m in Sources */,
@@ -1564,13 +1589,13 @@
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CE29100219EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
-				CE6CC1ED19FF9D480087FE2C /* ProductModel.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
 				CE8DA4E71A011D54007C24D8 /* BackButton.m in Sources */,
 				CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */,
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
+				CE3C76371A013B4D0057493E /* ProductCell.m in Sources */,
 				CEF2647119E81D16008BE93A /* NSDate+Utilities.m in Sources */,
 				CE10A83019F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
 				CE39DDCE19FFED8E00150C28 /* SearchButton.m in Sources */,
@@ -1592,11 +1617,13 @@
 				CE29101219EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
 				CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */,
 				CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */,
+				CE3C76331A0138070057493E /* GroupCell.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
 				CECFC4A619DD74C800ED88D3 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CEF2647319E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CEF2646219E8127B008BE93A /* SignInViewController.m in Sources */,
+				CE3C763F1A0142C30057493E /* GroupModel.m in Sources */,
 				CE8AB37E19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */,
 				CE290FF419EE668B005483A1 /* NSObject+MagicalDataImport.m in Sources */,
@@ -1608,6 +1635,7 @@
 				CE29101E19EE668B005483A1 /* MagicalRecord.m in Sources */,
 				CE290FEE19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
+				CE3C764F1A0148610057493E /* ProductModel.m in Sources */,
 				CEF2647519E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CE39DDBE19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
@@ -1654,11 +1682,11 @@
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
-				CE6CC1EE19FF9D480087FE2C /* ProductModel.m in Sources */,
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE29101919EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
 				CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */,
 				CE29101719EE668B005483A1 /* MagicalRecord+iCloud.m in Sources */,
+				CE3C76481A0143080057493E /* ProductModel+Mapper.m in Sources */,
 				CEBC43A819E806F700C0E575 /* Reachability.m in Sources */,
 				CE500B8819F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				CEBC43A319E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
@@ -1669,6 +1697,7 @@
 				CEC0041219E69B1700AE256F /* IntroViewController.m in Sources */,
 				CE29101519EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
 				CE29101119EE668B005483A1 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
+				CE3C76341A0138070057493E /* GroupCell.m in Sources */,
 				CE29100119EE668B005483A1 /* NSManagedObject+MagicalRecord.m in Sources */,
 				CE290FF719EE668B005483A1 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				CE10A83119F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
@@ -1686,13 +1715,16 @@
 				CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
+				CE3C76401A0142C30057493E /* GroupModel.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
 				CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */,
+				CE3C76501A0148610057493E /* ProductModel.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
+				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,
 				CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,

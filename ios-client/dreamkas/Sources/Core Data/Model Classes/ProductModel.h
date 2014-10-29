@@ -2,7 +2,7 @@
 //  ProductModel.h
 //  dreamkas
 //
-//  Created by sig on 28.10.14.
+//  Created by sig on 29.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -10,13 +10,15 @@
 #import <CoreData/CoreData.h>
 #import "AbstractModel.h"
 
+@class GroupModel;
 
 @interface ProductModel : AbstractModel
 
-@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * barcode;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * purchasePrice;
 @property (nonatomic, retain) NSNumber * sellingPrice;
-@property (nonatomic, retain) NSNumber * sku;
+@property (nonatomic, retain) NSString * sku;
+@property (nonatomic, retain) GroupModel *group;
 
 @end

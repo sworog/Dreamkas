@@ -46,6 +46,7 @@
 #import "AbstractModel+Mapper.h"
 #import "StoreModel.h"
 #import "ProductModel.h"
+#import "GroupModel.h"
 
 //
 // Менеджеры и хэлперы

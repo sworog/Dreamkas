@@ -8,7 +8,14 @@
 
 #import "AbstractModel.h"
 
-@interface AbstractModel (Mapper)
+@protocol ThoroughMappingProtocol <NSObject>
+
+@optional
+- (void)thoroughMap:(NSDictionary*)data forModelField:(NSString*)field;
+@end
+
+
+@interface AbstractModel (Mapper) <ThoroughMappingProtocol>
 
 /**
  * Маппинг массива данных

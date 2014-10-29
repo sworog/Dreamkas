@@ -8,6 +8,6 @@
 
 #import "AbstractViewController.h"
 
-@interface GroupsViewController : AbstractViewController
+@interface GroupsViewController : AbstractTableViewController
 
 @end

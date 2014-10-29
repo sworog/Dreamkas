@@ -31,7 +31,7 @@
     
     self.selectedBackground = [[UIView alloc] initWithFrame:self.contentView.bounds];
     [self.selectedBackground setAutoresizingMask:self.contentView.autoresizingMask];
-    [self.selectedBackground setBackgroundColor:DefaultLightCyanColor];
+    [self.selectedBackground setBackgroundColor:DefaultLightGrayColor];
     [self setSelectedBackgroundView:self.selectedBackground];
     
     self.cellSeparator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.contentView.width, DefaultCellSeparatorHeight)];
