@@ -123,13 +123,13 @@ public class DateTimeHelper {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(ISO_8601);
         TimeZone timeZone = TimeZone.getTimeZone("UTC");
         simpleDateFormat.setTimeZone(timeZone);
-        return simpleDateFormat.format(date);
+        return simpleDateFormat.format(new Date(date.getTime() - 3600 * 1000));
     }
 
     public static String getExpectedSaleDate(String saleDate, String pattern) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateTimeHelper.ISO_8601, new Locale("ru"));
-            Date convertedSaleDate = new org.joda.time.DateTime(simpleDateFormat.parse(saleDate)).plusHours(4).toDate();
+            Date convertedSaleDate = new org.joda.time.DateTime(simpleDateFormat.parse(saleDate)).plusHours(3).toDate();
             String[] months = {"января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"};
             DateFormatSymbols customDateFormatSymbols = DateFormatSymbols.getInstance(new Locale("ru"));
             customDateFormatSymbols.setMonths(months);
