@@ -222,9 +222,9 @@ class UserProvider implements UserProviderInterface
 
         /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
-            ->setFrom('noreply@lighthouse.pro')
+            ->setFrom('noreply@dreamkas.ru')
             ->setTo($user->email)
-            ->setSubject('Добро пожаловать в Lighthouse')
+            ->setSubject('Добро пожаловать в Dreamkas')
             ->setBody($messageBody);
 
         $this->mailer->send($message);
@@ -267,9 +267,9 @@ class UserProvider implements UserProviderInterface
 
         /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
-            ->setFrom('noreply@lighthouse.pro')
+            ->setFrom('noreply@dreamkas.ru')
             ->setTo($user->email)
-            ->setSubject('Восстановление пароля в Lighthouse')
+            ->setSubject('Восстановление пароля в Dreamkas')
             ->setBody($messageBody);
 
         $this->mailer->send($message);

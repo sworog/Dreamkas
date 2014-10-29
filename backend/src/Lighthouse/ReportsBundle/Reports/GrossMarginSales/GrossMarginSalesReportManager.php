@@ -154,8 +154,8 @@ class GrossMarginSalesReportManager
      */
     public function getProductsReports(GrossMarginSalesFilter $filter, SubCategory $catalogGroup)
     {
-        $reports = $this->grossMarginSalesProductRepository->findByFilterCatalogGroup($filter, $catalogGroup);
         $products = $this->productRepository->findBySubCategory($catalogGroup);
+        $reports = $this->grossMarginSalesProductRepository->findByFilterCatalogGroup($filter, $catalogGroup);
         return new GrossMarginSalesByProductsCollection(
             $this->numericFactory,
             $reports,
@@ -169,8 +169,8 @@ class GrossMarginSalesReportManager
      */
     public function getCatalogGroupsReports(GrossMarginSalesFilter $filter)
     {
-        $reports = $this->grossMarginSalesCatalogGroupRepository->findByFilter($filter);
         $catalogGroups = $this->catalogManager->getCatalogGroups();
+        $reports = $this->grossMarginSalesCatalogGroupRepository->findByFilter($filter);
         return new GrossMarginSalesByCatalogGroupsCollection(
             $this->numericFactory,
             $reports,
@@ -184,8 +184,8 @@ class GrossMarginSalesReportManager
      */
     public function getStoreReports(GrossMarginSalesFilter $filter)
     {
-        $reports = $this->grossMarginSalesStoreRepository->findByFilter($filter);
         $stores = $this->storeRepository->findAll();
+        $reports = $this->grossMarginSalesStoreRepository->findByFilter($filter);
         return new GrossMarginSalesByStoresCollection(
             $this->numericFactory,
             $reports,

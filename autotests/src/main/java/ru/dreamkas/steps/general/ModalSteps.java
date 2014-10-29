@@ -6,6 +6,7 @@ import ru.dreamkas.common.pageObjects.ModalWindowPageObject;
 import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.pages.catalog.group.modal.ProductCreateModalWindow;
 import ru.dreamkas.pages.catalog.group.modal.ProductEditModalWindow;
+import ru.dreamkas.pages.catalog.modal.EditGroupModalPage;
 import ru.dreamkas.pages.pos.ReceiptModalPage;
 import ru.dreamkas.pages.pos.ReceiptPositionEditModalWindow;
 import ru.dreamkas.pages.pos.RefundModalWindowPage;
@@ -29,6 +30,7 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     @Override
     Map<String, Class> getPageObjectClasses() {
         return new HashMap<String, Class>() {{
+            put("редактирования группы", EditGroupModalPage.class);
             put("создания товара", ProductCreateModalWindow.class);
             put("редактирования товара", ProductEditModalWindow.class);
             put("создания приемки", InvoiceCreateModalWindow.class);
@@ -89,6 +91,12 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     @Step
     public void confirmDeleteButtonClick() {
         getCurrentPageObject().confirmDeleteButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void continueButtonClick() {
+        getCurrentPageObject().continueButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 }

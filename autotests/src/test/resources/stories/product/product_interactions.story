@@ -74,6 +74,7 @@ Scenario: Product deletion
 Meta:
 @smoke
 @id_s38u101s3
+@us_119.4
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -87,9 +88,16 @@ When the user clicks on the product with name 'Продукт3'
 And the user clicks on delete product button in edit product modal window
 And the user clicks on delete product confirm button in edit product modal window
 
+When пользователь* находится в модальном окне 'редактирования товара'
+Then пользователь* в модальном окне проверяет, что поле с именем 'заголовок успешного удаления' имеет значение 'Товар удален'
+And пользователь* в модальном окне проверяет, что поле с именем 'название удаленного товара' имеет значение 'Продукт3
+(groups30u101)'
+
+When пользователь* в модальном окне нажимает кнопку продолжить
+
 Then the user waits for modal window closing
 
-Then the user asserts the groups list not contain product with name 'Продукт2'
+Then the user asserts the groups list not contain product with name 'Продукт3'
 
 Scenario: Can't delete group with products
 

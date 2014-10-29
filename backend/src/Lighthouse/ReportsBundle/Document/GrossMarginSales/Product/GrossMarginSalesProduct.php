@@ -14,7 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository"
  * )
- * @MongoDB\Index(keys={"day"="asc", "product"="asc"})
+ * @MongoDB\Index(keys={"day"="asc", "subCategory"="asc", "store"="asc"})
  */
 class GrossMarginSalesProduct extends GrossMarginSales
 {

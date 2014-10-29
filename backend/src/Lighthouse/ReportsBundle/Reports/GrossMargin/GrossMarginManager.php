@@ -6,11 +6,13 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginRepository;
+use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginCollection;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMargin;
+use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginCollection;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
-use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginCollection;
+
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -63,11 +65,12 @@ class GrossMarginManager
     /**
      * @param Store $store
      * @param DateTime $date
-     * @return \Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginCollection
+     * @return StoreDayGrossMarginCollection
      */
     public function getStoreGrossMarginReport(Store $store, DateTime $date)
     {
-        $date->setTime(0, 0, 0);
+        $date = DateTime::createFromFormat('Y-m-d H:i:s', $date->format('Y-m-d 00:00:00'));
+
         $cursor = $this->storeDayGrossMarginRepository->findByStoreId($store->id, $date);
         $collection = $this->fillStoreDayGrossMarginCollection($cursor, $date);
         return $collection;
@@ -90,7 +93,10 @@ class GrossMarginManager
             );
             $collection->append($missingDays);
             $collection->add($storeDayGrossMargin);
-            $previousDay = $storeDayGrossMargin->date;
+            $previousDay = DateTime::createFromFormat(
+                'Y-m-d H:i:s',
+                $storeDayGrossMargin->date->format('Y-m-d 00:00:00')
+            );
         }
         return $collection;
     }

@@ -1,30 +1,20 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales;
+namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Network;
 
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\ReportsBundle\Document\GrossMarginSales\Store\GrossMarginSalesStoreRepository;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\Network\GrossMarginSalesNetworkRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
 
-class GrossMarginSalesStoreTest extends WebTestCase
+class GrossMarginSalesNetworkTest extends WebTestCase
 {
     /**
-     * @return GrossMarginSalesReportManager
+     * @return GrossMarginSalesNetworkRepository
      */
-    public function getGrossMarginSalesReportManager()
+    public function getGrossMarginSalesNetworkRepository()
     {
-        return $this->getContainer()->get('lighthouse.reports.gross_margin_sales.manager');
-    }
-
-    /**
-     * @return GrossMarginSalesStoreRepository
-     */
-    public function getGrossMarginSalesStoreRepository()
-    {
-        return $this->getContainer()->get('lighthouse.reports.document.gross_margin_sales.store.repository');
+        return $this->getContainer()->get('lighthouse.reports.document.gross_margin_sales.network.repository');
     }
 
     /**
@@ -87,40 +77,32 @@ class GrossMarginSalesStoreTest extends WebTestCase
         $trialBalanceCount = $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->assertEquals(5, $trialBalanceCount);
 
-        $recalculateCount = $this->getGrossMarginSalesReportManager()->recalculateStoreReport();
-        $this->assertEquals(5, $recalculateCount);
+        $recalculateCount = $this->getGrossMarginSalesNetworkRepository()->recalculate();
+        $this->assertEquals(4, $recalculateCount);
 
-        $this->assertStoreReportNotFound($stores['1'], '00:00:00');
-        $this->assertStoreReportNotFound($stores['2'], '00:00:00');
+        $this->assertNetworkReportNotFound('today');
 
-        $this->assertStoreReport($stores['1'], '-1 days 00:00:00', 242.73, 192.50, 50.23, 10.5);
-        $this->assertStoreReport($stores['2'], '-1 days 00:00:00', 332.87, 217.00, 115.87, 9.5);
-
-        $this->assertStoreReport($stores['1'], '-2 days 00:00:00', 139.73, 102.5, 37.23, 4.5);
-        $this->assertStoreReportNotFound($stores['2'], '-2 days 00:00:00');
-
-        $this->assertStoreReportNotFound($stores['1'], '-3 days 00:00:00');
-        $this->assertStoreReport($stores['2'], '-3 days 00:00:00', 117.09, 89, 28.09, 4);
-
-        $this->assertStoreReportNotFound($stores['2'], '-4 days 00:00:00');
-        $this->assertStoreReportNotFound($stores['2'], '-4 days 00:00:00');
-
-        $this->assertStoreReport($stores['1'], '-5 days 00:00:00', 60, 45, 15, 2);
-        $this->assertStoreReportNotFound($stores['2'], '-5 days 00:00:00');
+        $this->assertNetworkReport('-1 days', 575.60, 409.50, 166.10, 20);
+        $this->assertNetworkReport('-2 days', 139.73, 102.5, 37.23, 4.5);
+        $this->assertNetworkReport('-3 days', 117.09, 89, 28.09, 4);
+        $this->assertNetworkReportNotFound('-4 days');
+        $this->assertNetworkReport('-5 days', 60, 45, 15, 2);
     }
 
-    public function assertStoreReport(
-        Store $store,
-        $day,
-        $grossSales,
-        $costOfGoods,
-        $grossMargin,
-        $quantity
-    ) {
+    /**
+     * @param string $day
+     * @param float $grossSales
+     * @param float $costOfGoods
+     * @param float $grossMargin
+     * @param float $quantity
+     */
+    public function assertNetworkReport($day, $grossSales, $costOfGoods, $grossMargin, $quantity)
+    {
         $day = new DateTimestamp($day);
-        $report = $this->getGrossMarginSalesStoreRepository()->findByStoreIdAndDay($store->id, $day);
+        $day->setTime(0, 0, 0);
+        $report = $this->getGrossMarginSalesNetworkRepository()->findByDay($day);
 
-        $this->assertNotNull($report, 'Store report not found');
+        $this->assertNotNull($report, 'Network report not found');
 
         $this->assertEquals($grossSales, $report->grossSales->toString());
         $this->assertEquals($costOfGoods, $report->costOfGoods->toString());
@@ -129,13 +111,13 @@ class GrossMarginSalesStoreTest extends WebTestCase
     }
 
     /**
-     * @param Store $store
-     * @param $day
+     * @param string $day
      */
-    public function assertStoreReportNotFound(Store $store, $day)
+    public function assertNetworkReportNotFound($day)
     {
         $day = new DateTimestamp($day);
-        $report = $this->getGrossMarginSalesStoreRepository()->findByStoreIdAndDay($store->id, $day);
+        $day->setTime(0, 0, 0);
+        $report = $this->getGrossMarginSalesNetworkRepository()->findByDay($day);
 
         $this->assertNull($report);
     }

@@ -1,14 +1,25 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('blocks/page/page'),
+        moment = require('moment'),
         router = require('router');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'stockMovement',
         params: {
-            dateFrom: null,
-            dateTo: null,
+            dateTo: function() {
+                var page = this,
+                    currentTime = Date.now();
+
+                return page.formatDate(moment(currentTime));
+            },
+            dateFrom: function() {
+                var page = this,
+                    currentTime = Date.now();
+
+                return page.formatDate(moment(currentTime).subtract(1, 'week'));
+            },
             types: null
         },
         collections: {
@@ -32,6 +43,13 @@ define(function(require, exports, module) {
 			modal_writeOff: require('blocks/modal/stockMovement/writeOff/writeOff'),
             form_stockMovementsFilters: require('blocks/form/stockMovementsFilters/stockMovementsFilters'),
             table_stockMovements: require('blocks/table/stockMovements/stockMovements')
+        },
+        initialize: function(){
+
+            this.params.dateTo = this.get('params.dateTo');
+            this.params.dateFrom = this.get('params.dateFrom');
+
+            return Page.prototype.initialize.apply(this, arguments);
         }
     });
 });

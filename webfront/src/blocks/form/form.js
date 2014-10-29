@@ -71,7 +71,9 @@ define(function(require) {
                         var modal = block.$el.closest('.modal')[0];
 
                         if (modal) {
-                            modal.block.hide();
+                            modal.block.show({
+                                deleted: true
+                            });
                         }
                     }
                 });

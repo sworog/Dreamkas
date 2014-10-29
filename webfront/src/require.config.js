@@ -1,9 +1,11 @@
 require.config({
+
     paths: {
         'moment': 'bower_components/momentjs/moment',
         'jquery': 'bower_components/jquery/dist/jquery',
         'select2': 'bower_components/select2/select2',
         'select2_locale_ru': 'bower_components/select2/select2_locale_ru',
+        'mockjax': 'bower_components/jquery-mockjax/jquery.mockjax',
 
         //plugins
         'i18n': 'bower_components/requirejs-i18n/i18n',

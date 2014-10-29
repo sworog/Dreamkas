@@ -208,6 +208,7 @@ Scenario: Deleting the group with name, which had the already deleted group
 Meta:
 @smoke
 @id_s38u100s12
+@us_119.4
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -220,6 +221,12 @@ When the user clicks on the group with name 'GroupDeletion'
 And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
+
+When пользователь* находится в модальном окне 'редактирования группы'
+Then пользователь* в модальном окне проверяет, что поле с именем 'заголовок успешного удаления' имеет значение 'Группа удалена'
+And пользователь* в модальном окне проверяет, что поле с именем 'название удаленной группы' имеет значение 'GroupDeletion'
+
+When пользователь* в модальном окне нажимает кнопку продолжить
 
 Then the user waits for modal window closing
 And the user waits for page finishing loading
