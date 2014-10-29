@@ -14,6 +14,39 @@
 
 @implementation CheckViewController
 
-// ..
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.title = @"Чек";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // ..
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // ..
+}
+
+#pragma mark - Configuration Methods
+
+- (void)configureLocalization
+{
+    // ..
+}
+
+- (void)configureAccessibilityLabels
+{
+    // ..
+}
 
 @end

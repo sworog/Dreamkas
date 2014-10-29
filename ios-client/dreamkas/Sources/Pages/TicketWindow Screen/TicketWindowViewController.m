@@ -30,11 +30,13 @@
     [self.sidemenuButton.titleLabel setFont:DefaultLiHeiProFont(22.f)];
     
     UINavigationController *ls_nc = ControllerById(LeftSideNavigationControllerID);
+    [ls_nc.view setWidth:DefaultLeftSideWidth];
     [self addChildViewController:ls_nc];
     [self.leftSideContainerView addSubview:ls_nc.view];
     [ls_nc didMoveToParentViewController:self];
     
     UINavigationController *rs_nc = ControllerById(RightSideNavigationControllerID);
+    [rs_nc.view setWidth:DefaultRightSideWidth];
     [self addChildViewController:rs_nc];
     [self.rightSideContainerView addSubview:rs_nc.view];
     [rs_nc didMoveToParentViewController:self];

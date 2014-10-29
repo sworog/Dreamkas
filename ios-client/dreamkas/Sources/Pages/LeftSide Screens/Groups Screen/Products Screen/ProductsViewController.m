@@ -14,13 +14,39 @@
 
 @implementation ProductsViewController
 
-#pragma mark - Обработка пользовательского взаимодействия
+#pragma mark - View Lifecycle
 
-- (IBAction)backButtonClicked:(id)sender
+- (void)viewDidLoad
 {
-    DPLogFast(@"");
+    [super viewDidLoad];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    self.title = @"Молочные продукты";
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // ..
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // ..
+}
+
+#pragma mark - Configuration Methods
+
+- (void)configureLocalization
+{
+    // ..
+}
+
+- (void)configureAccessibilityLabels
+{
+    // ..
 }
 
 @end

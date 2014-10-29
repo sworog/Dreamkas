@@ -75,7 +75,7 @@
 // Кастомные компоненты
 //
 
-#import "CustomNavigationController.h"
+#import "AbstractNavigationController.h"
 
 #import "AbstractViewController.h"
 #import "AbstractViewController+Modal.h"

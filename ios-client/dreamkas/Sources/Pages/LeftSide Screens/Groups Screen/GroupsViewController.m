@@ -7,10 +7,10 @@
 //
 
 #import "GroupsViewController.h"
+#import "SearchButton.h"
+#import "BackButton.h"
 
 @interface GroupsViewController ()
-
-@property (nonatomic, weak) IBOutlet UIButton *searchButton;
 
 @end
 
@@ -22,9 +22,18 @@
 {
     [super viewDidLoad];
     
-    [self.searchButton.titleLabel setFont:DefaultAwesomeFont(20.f)];
-    
     self.title = @"Все товары";
+    
+    [self placeSearchBarButton];
+}
+
+- (void)placeSearchBarButton
+{
+    SearchButton *btn = [SearchButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 64, 64);
+    [btn addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *right_btn = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItem = right_btn;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,7 +64,7 @@
 
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)searchButtonClicked:(id)sender
+- (void)searchButtonClicked
 {
     DPLogFast(@"");
     
