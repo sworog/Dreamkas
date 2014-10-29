@@ -1,26 +1,45 @@
 define(function(require, exports, module) {
     //requirements
-    var StoresPage = require('./stores');
+    var Page = require('./stores');
 
-    require('resources/store/mock/get/collection');
+    //mocks
+    var ajaxMock = require('kit/ajaxMock/ajaxMock'),
+        stores_3 = require('resources/store/mocks/1'),
+        stores_0 = require('resources/store/mocks/2');
 
     describe(module.id, function(){
 
-        var page;
+        beforeEach(function(){
+            ajaxMock.clear();
+        });
 
-        beforeEach(function(done){
+        it('активный пункт меню - Магазины', function(done){
 
-            page = new StoresPage;
+            ajaxMock(stores_3);
+
+            var page = new Page;
 
             page.on('loaded', function(){
+
+                expect($.trim(page.$('.sideBar__item_active').text())).toBe('Магазины');
+
                 done();
             });
 
         });
 
-        it('активный пункт меню - Магазины', function(){
+        it('сообщение, если магазинов нет', function(done){
 
-            expect($.trim(page.$('.sideBar__item_active').text())).toBe('Магазины');
+            ajaxMock(stores_0);
+
+            var page = new Page;
+
+            page.on('loaded', function(){
+
+                expect($.trim(page.$('.alert-info').text())).toBe('У вас ещё нет ни одного магазина');
+
+                done();
+            });
 
         });
 
