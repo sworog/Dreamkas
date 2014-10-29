@@ -23,6 +23,8 @@
     [super viewDidLoad];
     
     [self.searchButton.titleLabel setFont:DefaultAwesomeFont(20.f)];
+    
+    self.title = @"Все товары";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -57,7 +59,7 @@
 {
     DPLogFast(@"");
     
-    // ..
+    [self performSegueWithIdentifier:@"GroupsToProductsSegueID" sender:self];
 }
 
 @end

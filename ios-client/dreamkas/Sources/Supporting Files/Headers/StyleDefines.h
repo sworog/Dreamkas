@@ -39,7 +39,7 @@
 #define DefaultLightCyanColor               RGB(89, 189, 246)
 
 #define DefaultGrayColor                    RGB(158, 158, 158)
-#define DefaultLightGrayColor               RGB(226, 226, 226)
+#define DefaultLightGrayColor               RGB(236, 236, 236)
 
 #define DefaultWhiteColor                   [UIColor whiteColor]
 #define DefaultBlackColor                   [UIColor blackColor]
@@ -63,6 +63,7 @@
 #define DefaultSidemenuWidth                256.f
 #define DefaultSidemenuHeight               768.f
 
+#define DefaultTopPanelHeight               64.f
 #define DefaultBottomPanelHeight            64.f
 #define DefaultLeftSideWidth                704.f
 #define DefaultRightSideWidth               320.f

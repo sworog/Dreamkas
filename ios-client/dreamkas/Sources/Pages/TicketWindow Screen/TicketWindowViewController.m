@@ -8,7 +8,6 @@
 
 #import "TicketWindowViewController.h"
 #import "GroupsViewController.h"
-#import "SearchViewController.h"
 #import "CheckViewController.h"
 
 @interface TicketWindowViewController ()
@@ -30,15 +29,15 @@
     
     [self.sidemenuButton.titleLabel setFont:DefaultLiHeiProFont(22.f)];
     
-    GroupsViewController *gvc = ControllerById(GroupsViewControllerID);
-    [self addChildViewController:gvc];
-    [self.leftSideContainerView addSubview:gvc.view];
-    [gvc didMoveToParentViewController:self];
+    UINavigationController *ls_nc = ControllerById(LeftSideNavigationControllerID);
+    [self addChildViewController:ls_nc];
+    [self.leftSideContainerView addSubview:ls_nc.view];
+    [ls_nc didMoveToParentViewController:self];
     
-    CheckViewController *cvc = ControllerById(CheckViewControllerID);
-    [self addChildViewController:cvc];
-    [self.rightSideContainerView addSubview:cvc.view];
-    [cvc didMoveToParentViewController:self];
+    UINavigationController *rs_nc = ControllerById(RightSideNavigationControllerID);
+    [self addChildViewController:rs_nc];
+    [self.rightSideContainerView addSubview:rs_nc.view];
+    [rs_nc didMoveToParentViewController:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated

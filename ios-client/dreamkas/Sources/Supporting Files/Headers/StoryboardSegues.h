@@ -36,6 +36,9 @@
 #define SelectStoreViewControllerID                 @"SelectStoreViewControllerID"
 #define SidemenuViewControllerID                    @"SidemenuViewControllerID"
 
+#define LeftSideNavigationControllerID              @"LeftSideNavigationControllerID"
+#define RightSideNavigationControllerID             @"RightSideNavigationControllerID"
+
 #define GroupsViewControllerID                      @"GroupsViewControllerID"
 #define SearchViewControllerID                      @"SearchViewControllerID"
 #define CheckViewControllerID                       @"CheckViewControllerID"
