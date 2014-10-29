@@ -4,6 +4,7 @@
         "recipe[nginx]",
         "recipe[php]",
         "recipe[php-fpm]",
+        "recipe[composer]",
         "recipe[beanstalkd]",
 
         "recipe[lighthouse]",
@@ -14,13 +15,14 @@
         "directives": {
             "date.timezone": "Europe/Moscow",
             "post_max_size": "100M"
-        }
+        },
+        "ext_conf_dir": "/etc/php5/mods-available"
     },
     "php-fpm": {
-        "pools": [{":name": "www"}],
-        "pool": {
+        "pools": {
             "www": {
-                "user": "www-data",
+                "enable": true,
+                "user": "watchman",
                 "group": "www-data",
                 "max_children": 10,
                 "start_servers": 4,

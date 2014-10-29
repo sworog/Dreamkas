@@ -6,6 +6,7 @@
         "recipe[mongodb]",
         "recipe[php]",
         "recipe[php-fpm]",
+        "recipe[composer]",
         "recipe[beanstalkd]",
         "recipe[nodejs]",
         "recipe[nodejs::npm]",
