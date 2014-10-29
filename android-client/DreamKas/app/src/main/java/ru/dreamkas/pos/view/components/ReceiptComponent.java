@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
 
 import ru.dreamkas.pos.DreamkasApp;
@@ -23,6 +24,7 @@ import ru.dreamkas.pos.adapters.ReceiptAdapter;
 import ru.dreamkas.pos.model.Receipt;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.misc.StringDecorator;
+import ru.dreamkas.pos.view.popup.BasePopup;
 
 @EViewGroup(R.layout.receipt_component)
 public class ReceiptComponent extends LinearLayout {
@@ -91,6 +93,13 @@ public class ReceiptComponent extends LinearLayout {
     @Click(R.id.btnRegisterReceipt)
     void registerReceipt(){
         //todo register
+    }
+
+    @ItemClick
+    void lvReceiptItemClicked(Product obj) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog5, null, false);
+        BasePopup aa = new BasePopup(getContext(), view, null);
+        aa.show(this);
     }
 
     private void scrollToBottom() {

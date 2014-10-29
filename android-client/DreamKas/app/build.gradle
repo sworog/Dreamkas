@@ -70,6 +70,7 @@ android
                     'src/main/res/layouts/activities',
                     'src/main/res/layouts/components',
                     'src/main/res/layouts/fragments',
+                    'src/main/res/layouts/dialog_fragments',
                     'src/main/res/layouts/item_templates',
                     'src/main/res/layouts/misc'
             ]
