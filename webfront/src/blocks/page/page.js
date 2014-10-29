@@ -38,7 +38,10 @@ define(function(require, exports, module) {
 
     return Block.extend({
 
-        el: '.page',
+        el: function(){
+            return document.querySelector('.page') || document.createElement('div');
+        },
+
         template: require('ejs!./template.ejs'),
 
         activeNavigationItem: 'main',
@@ -100,7 +103,7 @@ define(function(require, exports, module) {
         setStatus: function(status) {
             var page = this;
 
-            page.trigger('status:' + status);
+            page.trigger(status);
 
             if (status === 'loading' && window.PAGE) {
                 document.body.removeAttribute('status');
