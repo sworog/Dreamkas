@@ -11,7 +11,6 @@ Scenario: Возврат средств на банковскую карту
 
 Meta:
 @smoke
-@raslov
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/касса/создание_юзера.story,

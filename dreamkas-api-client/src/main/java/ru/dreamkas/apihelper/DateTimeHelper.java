@@ -123,7 +123,7 @@ public class DateTimeHelper {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(ISO_8601);
         TimeZone timeZone = TimeZone.getTimeZone("UTC");
         simpleDateFormat.setTimeZone(timeZone);
-        return simpleDateFormat.format(new Date(date.getTime() - 3600 * 1000));
+        return simpleDateFormat.format(date);
     }
 
     public static String getExpectedSaleDate(String saleDate, String pattern) {
