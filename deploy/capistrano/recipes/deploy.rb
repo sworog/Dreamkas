@@ -102,10 +102,10 @@ namespace :deploy do
 
         set :force, exists?(:force) ? true : false
 
-        set :application, "#{host}.#{stage}.#{app_end}"
+        set :application, "#{host}.#{stage}.#{app_end}" unless exists?(:application)
         set :deploy_to,   "/var/www/#{application}"
         set :symfony_env_prod, exists?(:symfony_env) ? symfony_env : stage
-        set :application_url, "http://#{application}.lighthouse.pro"
+        set :application_url, "http://#{application}.lighthouse.pro" unless exists?(:application_url)
 
         puts "--> Branch ".yellow + "#{branch}".red + " will be used for deploy".yellow
         puts "--> Application will be deployed to ".yellow + application_url.red

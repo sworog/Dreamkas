@@ -53,5 +53,23 @@ define(function(require, exports, module) {
             expect($.trim(page.el.querySelectorAll('.sideBar__item')[2].textContent)).toBe('Отчеты');
 
         });
+
+        it('четвертая ссылка в меню навигации - Ассортимент', function() {
+
+            expect($.trim(page.el.querySelectorAll('.sideBar__item')[3].textContent)).toBe('Ассортимент');
+
+        });
+
+        it('пятая ссылка в меню навигации - Поставщики', function() {
+
+            expect($.trim(page.el.querySelectorAll('.sideBar__item')[4].textContent)).toBe('Поставщики');
+
+        });
+
+        it('шестая ссылка в меню навигации - Магазины', function() {
+
+            expect($.trim(page.el.querySelectorAll('.sideBar__item')[5].textContent)).toBe('Магазины');
+
+        });
     });
 });
