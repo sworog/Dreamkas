@@ -3,9 +3,25 @@
     position: relative;
 }
 
-.page_login, .page_signup, .page_recover {
-    padding: 100px 0;
-    background: url("/img/bg1.jpg");
+.page_outside {
+    padding: 38px 0;
+    background: #4A5D68;
+}
+
+.page_outside__logoWrap {
+    text-align: center;
+}
+
+.page_outside__logo {
+    height: 130px;
+    width: 224px;
+    line-height: 0;
+    text-align: center;
+    color: transparent !important;
+    background: url("/img/logo_2.png") 0 center no-repeat;
+    background-size: auto 130px;
+    display: inline-block;
+    margin-bottom: 40px;
 }
 
 .page__head {
