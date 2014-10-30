@@ -134,8 +134,8 @@ nelmio_api_doc:
     name: Lighthouse API
 
 ekino_new_relic:
-    application_name: Lighthouse API
-    api_key: 60b4080090e6f23a1fd9c71c4fd25403518ec1f2
+    application_name: "Dreamkas %kernel.environment% API"
+    api_key: 123e886f0c6641b422f9f035980c8f2966177d25
 
 leezy_pheanstalk:
     enabled: true
