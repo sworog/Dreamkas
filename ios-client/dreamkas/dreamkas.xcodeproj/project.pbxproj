@@ -125,6 +125,8 @@
 		CE82B2941A02532200CBF803 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE82B2921A02532200CBF803 /* SearchViewController.m */; };
 		CE82B2971A0254D900CBF803 /* ProductSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE82B2961A0254D900CBF803 /* ProductSearchCell.m */; };
 		CE82B2981A0254D900CBF803 /* ProductSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE82B2961A0254D900CBF803 /* ProductSearchCell.m */; };
+		CE886A651A028B6D00587D70 /* SearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE886A641A028B6D00587D70 /* SearchField.m */; };
+		CE886A661A028B6D00587D70 /* SearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE886A641A028B6D00587D70 /* SearchField.m */; };
 		CE8AB37A19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
 		CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37319E7C8D000B105E0 /* AESCrypt.m */; };
 		CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8AB37519E7C8D000B105E0 /* NSData+Base64.m */; };
@@ -423,6 +425,8 @@
 		CE82B2921A02532200CBF803 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		CE82B2951A0254D900CBF803 /* ProductSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSearchCell.h; sourceTree = "<group>"; };
 		CE82B2961A0254D900CBF803 /* ProductSearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSearchCell.m; sourceTree = "<group>"; };
+		CE886A631A028B6D00587D70 /* SearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchField.h; sourceTree = "<group>"; };
+		CE886A641A028B6D00587D70 /* SearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchField.m; sourceTree = "<group>"; };
 		CE8AB37219E7C8D000B105E0 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
 		CE8AB37319E7C8D000B105E0 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
 		CE8AB37419E7C8D000B105E0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -1187,6 +1191,8 @@
 			children = (
 				CEC0040319E6960400AE256F /* CustomTextField.h */,
 				CEC0040419E6960400AE256F /* CustomTextField.m */,
+				CE886A631A028B6D00587D70 /* SearchField.h */,
+				CE886A641A028B6D00587D70 /* SearchField.m */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -1656,6 +1662,7 @@
 				CEDC5F741A00DF7300991527 /* ProductsViewController.m in Sources */,
 				CE29101E19EE668B005483A1 /* MagicalRecord.m in Sources */,
 				CE290FEE19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
+				CE886A651A028B6D00587D70 /* SearchField.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
 				CE3C764F1A0148610057493E /* ProductModel.m in Sources */,
 				CEF2647519E81D16008BE93A /* UIView+Screenshot.m in Sources */,
@@ -1746,6 +1753,7 @@
 				CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */,
 				CE3C76501A0148610057493E /* ProductModel.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
+				CE886A661A028B6D00587D70 /* SearchField.m in Sources */,
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
 				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "SearchViewController.h"
 #import "ProductSearchCell.h"
+#import "SearchField.h"
 
 #define RequiredSearchfieldValueLenght 3
 
@@ -20,6 +21,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 @interface SearchViewController () <UITextFieldDelegate>
 
 @property (nonatomic) IBOutlet CustomLabel *infoMsgLabel;
+@property (nonatomic) SearchField *searchField;
 
 @end
 
@@ -40,7 +42,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 {
     [super viewDidLoad];
     
-    [self.infoMsgLabel setTextColor:DefaultDarkGrayColor];
+    [self.infoMsgLabel setTextColor:DefaultGrayColor];
     
     [self placeSearchField];
 }
@@ -66,18 +68,12 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 
 - (void)placeSearchField
 {
-    UITextField *field = [[UITextField alloc] initWithFrame:CGRectZero];
-    [field setDelegate:self];
-    [field setWidth:600];
-    [field setHeight:DefaultTopPanelHeight];
-    [field setBackgroundColor:[UIColor clearColor]];
-    [field setTextAlignment:NSTextAlignmentLeft];
-    [field setFont:DefaultFont(20)];
-    [field setTextColor:DefaultBlackColor];
-    [field setPlaceholder:NSLocalizedString(@"product_search_field_placeholder", nil)];
-    [field setClearButtonMode:UITextFieldViewModeWhileEditing];
-    [field setReturnKeyType:UIReturnKeyDone];
-    self.navigationItem.titleView = field;
+    self.searchField = [[SearchField alloc] initWithFrame:CGRectZero];
+    [self.searchField setDelegate:self];
+    [self.searchField setWidth:600];
+    [self.searchField setHeight:DefaultTopPanelHeight];
+    [self.searchField setPlaceholder:NSLocalizedString(@"product_search_field_placeholder", nil)];
+    self.navigationItem.titleView = self.searchField;
 }
 
 - (void)configureLocalization
@@ -220,16 +216,16 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     NSPredicate *predicate = nil;
     
     // фильтр по категории
-//    if (self.groupInstance) {
-//        [format_array addObject:@"self IN %@"];
-//        [argument_array addObject:[self.groupInstance products]];
-//    }
+    //    if (self.groupInstance) {
+    //        [format_array addObject:@"self IN %@"];
+    //        [argument_array addObject:[self.groupInstance products]];
+    //    }
     
     // ..
     
     // формируем предикат по полученным данным
-//    predicate = [NSPredicate predicateWithFormat:[format_array componentsJoinedByString:@" AND "]
-//                                   argumentArray:argument_array];
+    //    predicate = [NSPredicate predicateWithFormat:[format_array componentsJoinedByString:@" AND "]
+    //                                   argumentArray:argument_array];
     return predicate;
 }
 
@@ -241,16 +237,16 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [super requestDataFromServer];
     
     __weak typeof(self)weak_self = self;
-    [NetworkManager requestProductsFromGroup:@"5434f7022cde6e70078b45ac"
-                                onCompletion:^(NSArray *data, NSError *error) {
-                                    __strong typeof(self)strong_self = weak_self;
-                                    
-                                    if (error != nil) {
-                                        [strong_self onMappingFailure:error];
-                                        return;
-                                    }
-                                    [strong_self onMappingCompletion:data];
-                                }];
+    [NetworkManager requestProductsByQuery:@"йогу"
+                              onCompletion:^(NSArray *data, NSError *error) {
+                                  __strong typeof(self)strong_self = weak_self;
+                                  
+                                  if (error != nil) {
+                                      [strong_self onMappingFailure:error];
+                                      return;
+                                  }
+                                  [strong_self onMappingCompletion:data];
+                              }];
 }
 
 /**
@@ -260,8 +256,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 {
     NSString *cell_identifier = [NSString stringWithFormat:@"Cell_%@", [self fetchClass]];
     return [ProductSearchCell cellHeight:tableView
-                    cellIdentifier:cell_identifier
-                             model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+                          cellIdentifier:cell_identifier
+                                   model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 @end
