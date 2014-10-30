@@ -5,20 +5,21 @@
         "recipe[mongodb]",
         "recipe[php]",
         "recipe[composer]",
+        "recipe[composer::self_update]",
         "recipe[beanstalkd]",
         "recipe[java]",
 
         "recipe[lighthouse]",
         "recipe[lighthouse::php]",
         "recipe[lighthouse::tests]",
-        "recipe[lighthouse::vpn]",
         "recipe[teamcity::agent]",
         "recipe[lighthouse::agent]"
     ],
     "php": {
         "directives": {
             "date.timezone": "Europe/Moscow"
-        }
+        },
+        "ext_conf_dir": "/etc/php5/mods-available"
     },
     "beanstalkd": {
         "opts": {
@@ -36,7 +37,8 @@
     "teamcity": {
         "agents": {
             "default": {
-                "server_url": "http://teamcity.lighthouse.pro/"
+                "server_url": "http://teamcity.lighthouse.pro/",
+                "system_dir": "agent"
             }
         }
     },
