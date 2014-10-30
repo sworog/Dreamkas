@@ -2,18 +2,14 @@
     "run_list": [
         "recipe[apt::default]",
         "recipe[nginx]",
-        "recipe[mongodb::10gen_repo]",
-        "recipe[mongodb]",
         "recipe[php]",
         "recipe[php-fpm]",
         "recipe[composer]",
         "recipe[beanstalkd]",
-        "recipe[nodejs]",
-        "recipe[nodejs::npm]",
 
         "recipe[lighthouse]",
         "recipe[lighthouse::php]",
-        "recipe[lighthouse::hosts]"
+        "recipe[lighthouse::dreamkas_host_beta]"
     ],
     "php": {
         "directives": {
@@ -25,6 +21,7 @@
     "php-fpm": {
         "pools": {
             "www": {
+                "enable": true,
                 "user": "watchman",
                 "group": "www-data",
                 "max_children": 10,

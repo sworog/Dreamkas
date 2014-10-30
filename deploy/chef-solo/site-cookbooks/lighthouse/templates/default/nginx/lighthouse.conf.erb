@@ -54,9 +54,13 @@ server {
     satisfy any;
 
     allow 85.114.29.78;
+    allow 31.186.97.3;
+    allow 178.132.203.223;
+    allow 37.200.69.192;
+    allow 37.200.65.23;
     deny all;
 
-    auth_basic           "Lighthouse Pro";
+    auth_basic "Lighthouse Pro";
     auth_basic_user_file htpasswd;
     #end auth
 
@@ -65,22 +69,30 @@ server {
         set $env "staging";
     }
 
-    root /var/www/$webfronthost.$env.webfront/current;
-
     access_log /var/log/nginx/$webfronthost.$env.webfront.access.log;
-    error_log  /var/log/nginx/$webfronthost.$env.webfront.error.log error;
+    error_log  /var/log/nginx/webfront.error.log error;
 
     index index.html;
 
     error_page 404 = /404.html?webfronthost=$webfronthost&env=$env;
 
-    try_files $uri $uri/ @rewrite;
+    root /var/www/$webfronthost.$env.webfront/current;
+
+    location / {
+        error_page 404 = @rewrite;
+        error_log off;
+        if (-f $document_root/web/index.html) {
+            root /var/www/$webfronthost.$env.webfront/current/web;
+        }
+        try_files $uri $uri/ @rewrite;
+    }
 
     location @rewrite {
-        if (!-f $document_root/index.html) {
-            return 404;
-        }
         rewrite ^.*$ /index.html last;
+    }
+
+    location @web {
+        rewrite ^.*$ /web/index.html last;
     }
 
     location ~ /\.ht {

@@ -29,7 +29,12 @@ php_pear "mongo" do
   action :install
 end
 
-package "libpcre3-dev"
-php_pear "apc" do
-  action :install
+link "/etc/php5/cli/conf.d/mongo.ini" do
+	to "/etc/php5/mods-available/mongo.ini"
 end
+
+link "/etc/php5/fpm/conf.d/mongo.ini" do
+	to "/etc/php5/mods-available/mongo.ini"
+end
+
+package "php5-apcu"
