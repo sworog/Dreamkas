@@ -9,7 +9,6 @@
 #import "AbstractModel.h"
 
 @protocol ThoroughMappingProtocol <NSObject>
-
 @optional
 - (void)thoroughMap:(NSDictionary*)data forModelField:(NSString*)field;
 @end

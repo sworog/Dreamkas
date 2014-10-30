@@ -73,7 +73,6 @@
         
         if (([data[key] isKindOfClass:[NSDictionary class]]) || ([data[key] isKindOfClass:[NSArray class]])) {
             DPLog(LOG_ON, @"Mapping value Class is %@", NSStringFromClass([data[key] class]));
-            
             if ([self respondsToSelector:@selector(thoroughMap:forModelField:)]) {
                 [self thoroughMap:data forModelField:key];
             }
