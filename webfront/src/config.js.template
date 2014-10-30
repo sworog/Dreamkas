@@ -4,5 +4,6 @@ define({
     mockApiUrl: 'http://lh.apiary.io',
     clientId: 'webfront_webfront',
     clientSecret: 'secret',
-    debugLevel: 2
+    debugLevel: 2,
+    googleAnalyticsId '%google_analytics_id%'
 });
