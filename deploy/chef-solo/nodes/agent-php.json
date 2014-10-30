@@ -14,7 +14,7 @@
         "recipe[lighthouse::tests]",
         "recipe[teamcity::agent]",
         "recipe[lighthouse::agent]",
-        "recipe[newrelic]"
+        "role[newrelic]"
     ],
     "php": {
         "directives": {
@@ -45,8 +45,5 @@
     },
     "mognodb": {
         "smallfiles": true
-    },
-    "newrelic": {
-        "license": "123e886f0c6641b422f9f035980c8f2966177d25"
     }
 }
