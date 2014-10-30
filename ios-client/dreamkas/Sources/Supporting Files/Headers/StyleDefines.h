@@ -38,6 +38,7 @@
 #define DefaultCyanColor                    RGB(64, 169, 244)
 #define DefaultLightCyanColor               RGB(89, 189, 246)
 
+#define DefaultDarkGrayColor                RGB(105, 105, 105)
 #define DefaultGrayColor                    RGB(158, 158, 158)
 #define DefaultLightGrayColor               RGB(236, 236, 236)
 
@@ -58,6 +59,7 @@
 
 #define DefaultSingleLineCellHeight         52.f
 #define DefaultCellSeparatorHeight          1.f
+#define DefaultVerticalCellInsets           17.f
 
 #define DefaultSidemenuOverlayAlpha         0.6f
 #define DefaultSidemenuWidth                256.f

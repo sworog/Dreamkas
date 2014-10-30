@@ -41,7 +41,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
     self.titleLabel.font = DefaultBoldFont(18);
-    [self setTitleColor:DefaultBlackColor forState:UIControlStateNormal];
+    [self setTitleColor:DefaultDarkGrayColor forState:UIControlStateNormal];
     [self setTitleColor:DefaultGrayColor forState:UIControlStateHighlighted];
     [self setTitle:@"✕" forState:UIControlStateNormal];
 }

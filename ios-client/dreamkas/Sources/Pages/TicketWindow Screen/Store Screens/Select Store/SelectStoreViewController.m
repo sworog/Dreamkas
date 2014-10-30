@@ -7,7 +7,7 @@
 //
 
 #import "SelectStoreViewController.h"
-#import "SimpleTitledCell.h"
+#import "StoreSelectionCell.h"
 
 @interface SelectStoreViewController ()
 
@@ -69,7 +69,7 @@
  */
 - (Class)cellClass
 {
-    return [SimpleTitledCell class];
+    return [StoreSelectionCell class];
 }
 
 /**
@@ -114,9 +114,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cell_identifier = [NSString stringWithFormat:@"Cell_%@", [self fetchClass]];
-    return [SimpleTitledCell cellHeight:tableView
-                         cellIdentifier:cell_identifier
-                                  model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    return [StoreSelectionCell cellHeight:tableView
+                           cellIdentifier:cell_identifier
+                                    model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 /**

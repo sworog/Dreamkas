@@ -8,8 +8,6 @@
 
 #import "ProductCell.h"
 
-#define VerticalCellInsets 17.f
-
 @implementation ProductCell
 
 #pragma mark - Основная логика
@@ -23,18 +21,36 @@
     
     [self.titleLabel setFont:DefaultFont(18)];
     [self.titleLabel setTextColor:DefaultCyanColor];
+    
+    [self.priceLabel setFont:DefaultFont(18)];
+    [self.priceLabel setTextColor:DefaultBlackColor];
 }
 
 /**
  * Настройка ячейки данными модели
  */
-- (CGFloat)configureWithModel:(GroupModel *)model
+- (CGFloat)configureWithModel:(ProductModel *)model
 {
     [self.titleLabel setText:[model name]];
-    [self.titleLabel setY:VerticalCellInsets];
+    [self.titleLabel setY:DefaultVerticalCellInsets];
     
-    CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + VerticalCellInsets;
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setGroupingSeparator:@" "];
+    [formatter setGroupingSize:3];
+    [formatter setDecimalSeparator:@","];
+    [formatter setAlwaysShowsDecimalSeparator:YES];
+    [formatter setUsesGroupingSeparator:YES];
+    [formatter setMaximumFractionDigits:2];
+    [formatter setMinimumFractionDigits:2];
+    
+    NSMutableString *str = [NSMutableString stringWithFormat:@"%@ ₽", [formatter stringFromNumber:[model sellingPrice]]];
+    [self.priceLabel setText:str];
+    [self.priceLabel setY:DefaultVerticalCellInsets];
+    
+    CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + DefaultVerticalCellInsets;
     self.cellSeparator.y = (float)(cell_height - DefaultCellSeparatorHeight);
+    self.priceLabel.centerY = (float)cell_height/2.f;
     
     return cell_height;
 }

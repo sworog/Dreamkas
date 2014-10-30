@@ -1,16 +1,16 @@
 //
-//  SimpleTitledCell.h
+//  StoreSelectionCell.h
 //  dreamkas
 //
-//  Created by sig on 17.10.14.
+//  Created by sig on 30.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
 #import "CustomTableViewCell.h"
 
-@interface SimpleTitledCell : CustomTableViewCell
+@interface StoreSelectionCell : CustomTableViewCell
 
-/** Название пособия */
+/** Название магазина */
 @property (nonatomic, weak) IBOutlet WordWrappingLabel *titleLabel;
 
 @end

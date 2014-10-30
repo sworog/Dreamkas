@@ -8,8 +8,6 @@
 
 #import "GroupCell.h"
 
-#define VerticalCellInsets 17.f
-
 @implementation GroupCell
 
 #pragma mark - Основная логика
@@ -23,6 +21,10 @@
     
     [self.titleLabel setFont:DefaultFont(18)];
     [self.titleLabel setTextColor:DefaultCyanColor];
+    
+    [self.arrowLabel setText:@"❯"];
+    [self.arrowLabel setFont:DefaultFont(18)];
+    [self.arrowLabel setTextColor:DefaultDarkGrayColor];
 }
 
 /**
@@ -31,10 +33,11 @@
 - (CGFloat)configureWithModel:(GroupModel *)model
 {
     [self.titleLabel setText:[model name]];
-    [self.titleLabel setY:VerticalCellInsets];
+    [self.titleLabel setY:DefaultVerticalCellInsets];
     
-    CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + VerticalCellInsets;
+    CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + DefaultVerticalCellInsets;
     self.cellSeparator.y = (float)(cell_height - DefaultCellSeparatorHeight);
+    self.arrowLabel.centerY = (float)cell_height/2.f;
     
     return cell_height;
 }

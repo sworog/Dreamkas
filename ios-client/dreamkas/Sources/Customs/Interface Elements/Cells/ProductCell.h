@@ -13,4 +13,7 @@
 /** Название продуктовой единицы */
 @property (nonatomic, weak) IBOutlet WordWrappingLabel *titleLabel;
 
+/** Стоимость продуктовой единицы */
+@property (nonatomic, weak) IBOutlet UILabel *priceLabel;
+
 @end

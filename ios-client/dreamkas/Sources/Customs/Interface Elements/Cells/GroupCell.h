@@ -13,4 +13,7 @@
 /** Название продуктовой группы */
 @property (nonatomic, weak) IBOutlet WordWrappingLabel *titleLabel;
 
+/** Стрелка */
+@property (nonatomic, weak) IBOutlet UILabel *arrowLabel;
+
 @end
