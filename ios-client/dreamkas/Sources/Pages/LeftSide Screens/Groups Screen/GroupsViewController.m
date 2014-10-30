@@ -79,7 +79,7 @@
 {
     DPLogFast(@"");
     
-    // ..
+    [self performSegueWithIdentifier:GroupsToSearchSegueName sender:self];
 }
 
 #pragma mark - Методы CustomTableViewController
@@ -98,6 +98,14 @@
 - (Class)fetchClass
 {
     return [GroupModel class];
+}
+
+/**
+ * Метод возвращает название параметра, по которому происходит сортировка при выборке из БД
+ */
+- (NSString*)fetchSortedField
+{
+    return @"name";
 }
 
 /**

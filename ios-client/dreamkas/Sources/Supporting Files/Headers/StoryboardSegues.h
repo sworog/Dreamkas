@@ -26,6 +26,7 @@
 #define TicketWindowToSelectStoreSegueName          @"TicketWindowToSelectStoreSegue"
 
 #define GroupsToProductsSegueName                   @"GroupsToProductsSegue"
+#define GroupsToSearchSegueName                     @"GroupsToSearchSegue"
 
 //
 // Идентификаторы экранов
