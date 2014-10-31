@@ -18,8 +18,6 @@ set :web_path,    "web"
 
 set :shared_files, [app_path + "/config/parameters.yml"]
 
-server domain, :app, :web, :primary => true
-
 set :git_enable_pull_requests, true
 set :repository,  "git@github.com:dreamkas/dreamkas.git"
 set :scm,         :git

@@ -12,8 +12,6 @@ set :deploy_subdir, 'webfront'
 
 set :domain, 'coquille.lighthouse.pro' unless exists?(:domain)
 
-server domain, :app, :web, :primary => true
-
 set :shared_children,   []
 
 set :git_enable_pull_requests, true
