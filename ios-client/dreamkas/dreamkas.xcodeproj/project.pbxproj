@@ -197,6 +197,8 @@
 		CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
 		CEA66B391A0239D100BBECD1 /* StoreSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */; };
 		CEA66B3A1A0239D100BBECD1 /* StoreSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */; };
+		CEA9932E1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9932D1A038A8C00B9D821 /* AbstractViewController+Keyboard.m */; };
+		CEA9932F1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9932D1A038A8C00B9D821 /* AbstractViewController+Keyboard.m */; };
 		CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
 		CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */; };
 		CEBC439B19E8042800C0E575 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3DC119DD46DD00A253D1 /* Localizable.strings */; };
@@ -478,6 +480,9 @@
 		CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardSegues.h; sourceTree = "<group>"; };
 		CEA66B371A0239D100BBECD1 /* StoreSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSelectionCell.h; sourceTree = "<group>"; };
 		CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSelectionCell.m; sourceTree = "<group>"; };
+		CEA993281A0385D500B9D821 /* KeyboardEventsListenerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardEventsListenerProtocol.h; sourceTree = "<group>"; };
+		CEA9932C1A038A8C00B9D821 /* AbstractViewController+Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractViewController+Keyboard.h"; sourceTree = "<group>"; };
+		CEA9932D1A038A8C00B9D821 /* AbstractViewController+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AbstractViewController+Keyboard.m"; sourceTree = "<group>"; };
 		CEBC439519E7FB9D00C0E575 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		CEBC439619E7FB9D00C0E575 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		CEBC439C19E8048700C0E575 /* DialogHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogHelper.h; sourceTree = "<group>"; };
@@ -1216,6 +1221,7 @@
 				CEC003FE19E694F900AE256F /* CustomDataCellDelegate.h */,
 				CE500B7F19F00E2F00449C34 /* CoreDataFetchingDelegate.h */,
 				CE500B8019F00FFA00449C34 /* DataRequestingDelegate.h */,
+				CEA993281A0385D500B9D821 /* KeyboardEventsListenerProtocol.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1323,6 +1329,8 @@
 				CEF2646519E81C57008BE93A /* AbstractViewController+Modal.m */,
 				CE10A82E19F6546B0056DF91 /* AbstractViewController+Sidemenu.h */,
 				CE10A82F19F6546B0056DF91 /* AbstractViewController+Sidemenu.m */,
+				CEA9932C1A038A8C00B9D821 /* AbstractViewController+Keyboard.h */,
+				CEA9932D1A038A8C00B9D821 /* AbstractViewController+Keyboard.m */,
 			);
 			path = AbstractVC;
 			sourceTree = "<group>";
@@ -1601,6 +1609,7 @@
 				CE8DA4E31A0106FD007C24D8 /* CustomNavigationBar.m in Sources */,
 				CE290F9F19EE605C005483A1 /* StoreModel.m in Sources */,
 				CE29101419EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
+				CEA9932E1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */,
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
 				CEC0040519E6960400AE256F /* CustomTextField.m in Sources */,
@@ -1747,6 +1756,7 @@
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CE3C76401A0142C30057493E /* GroupModel.m in Sources */,
+				CEA9932F1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,

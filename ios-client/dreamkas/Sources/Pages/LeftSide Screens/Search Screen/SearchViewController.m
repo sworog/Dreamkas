@@ -11,6 +11,7 @@
 #import "SearchField.h"
 
 #define RequiredSearchfieldValueLenght 3
+#define TableViewDefaultHeight 640
 
 typedef NS_ENUM(NSInteger, kInfoMessageType) {
     kInfoMessageTypeNone = 0,
@@ -18,7 +19,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     kInfoMessageTypeNoResults
 };
 
-@interface SearchViewController () <UITextFieldDelegate>
+@interface SearchViewController () <UITextFieldDelegate, KeyboardEventsListenerProtocol>
 
 @property (nonatomic) IBOutlet CustomLabel *infoMsgLabel;
 @property (nonatomic) SearchField *searchField;
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     // выключаем для контроллера массовое обновление и лимитированные запросы
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
+    [self becomeKeyboardEventsListener];
 }
 
 #pragma mark - View Lifecycle
@@ -51,10 +53,10 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 {
     [super viewWillAppear:animated];
     
-    // ..
-    
     [self.tableViewItem setHidden:YES];
     [self setInfoMessage:kInfoMessageTypeEmptyField];
+    
+    [self.searchField becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -104,6 +106,27 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
             [self.infoMsgLabel setHidden:YES];
             break;
     }
+}
+
+#pragma mark - Методы KeyboardEventsListenerProtocol
+
+- (void)keyboardWillAppear:(NSNotification *)notification
+{
+    DPLogFast(@"self.tableViewItem = %@", self.tableViewItem);
+    
+    CGRect keyboard_bounds;
+    [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
+    
+    [self.tableViewItem setHeight:TableViewDefaultHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
+    [self.tableViewItem reloadData];
+}
+
+- (void)keyboardWillDisappear:(NSNotification *)notification
+{
+    DPLogFast(@"");
+    
+    [self.tableViewItem setHeight:TableViewDefaultHeight];
+    [self.tableViewItem reloadData];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
@@ -211,8 +234,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
  */
 - (NSPredicate*)fetchPredicate
 {
-    NSMutableArray *argument_array = [NSMutableArray new];
-    NSMutableArray *format_array = [NSMutableArray new];
+    //    NSMutableArray *argument_array = [NSMutableArray new];
+    //    NSMutableArray *format_array = [NSMutableArray new];
     NSPredicate *predicate = nil;
     
     // фильтр по категории

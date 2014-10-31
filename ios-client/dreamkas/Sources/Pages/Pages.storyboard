@@ -948,7 +948,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="704" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="caX-gF-D1R">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="caX-gF-D1R">
                                 <rect key="frame" x="0.0" y="20" width="704" height="640"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1006,6 +1006,12 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jHg-wH-lWe" firstAttribute="top" secondItem="caX-gF-D1R" secondAttribute="bottom" id="52e-UO-bBX"/>
+                            <constraint firstItem="caX-gF-D1R" firstAttribute="leading" secondItem="n2C-ky-uYZ" secondAttribute="leading" id="DTY-5d-RAq"/>
+                            <constraint firstItem="caX-gF-D1R" firstAttribute="top" secondItem="9r8-Jh-Kj0" secondAttribute="bottom" constant="20" id="Dmb-Rl-QY4"/>
+                            <constraint firstAttribute="trailing" secondItem="caX-gF-D1R" secondAttribute="trailing" id="Pnl-5M-SMA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Jbv-C2-LGe"/>
                     <nil key="simulatedStatusBarMetrics"/>

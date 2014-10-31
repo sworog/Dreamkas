@@ -63,6 +63,7 @@
 //
 
 #import "CustomDataCellDelegate.h"
+#import "KeyboardEventsListenerProtocol.h"
 
 //
 // Сетевой обмен
@@ -81,6 +82,7 @@
 #import "AbstractViewController.h"
 #import "AbstractViewController+Modal.h"
 #import "AbstractViewController+Sidemenu.h"
+#import "AbstractViewController+Keyboard.h"
 
 #import "AbstractTableViewController.h"
 
