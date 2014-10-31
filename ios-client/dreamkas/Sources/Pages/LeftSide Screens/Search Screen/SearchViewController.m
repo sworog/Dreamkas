@@ -129,15 +129,6 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [self.tableViewItem reloadData];
 }
 
-#pragma mark - Обработка пользовательского взаимодействия
-
-- (void)searchButtonClicked
-{
-    DPLogFast(@"");
-    
-    // ..
-}
-
 #pragma mark - Методы UITextfield Delegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -172,6 +163,9 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     if (tmp.length >= RequiredSearchfieldValueLenght) {
         [self.tableViewItem setHidden:NO];
         [self setInfoMessage:kInfoMessageTypeNone];
+        
+        [self shouldReloadTableView];
+        
     }
     else {
         [self.tableViewItem setHidden:YES];
@@ -190,7 +184,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     DPLogFast(@"");
-    [textField resignFirstResponder];
+    [self.searchField setText:@"Йогурт"];
+//    [textField resignFirstResponder];
     return YES;
 }
 
@@ -234,21 +229,32 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
  */
 - (NSPredicate*)fetchPredicate
 {
-    //    NSMutableArray *argument_array = [NSMutableArray new];
-    //    NSMutableArray *format_array = [NSMutableArray new];
+    NSMutableArray *argument_array = [NSMutableArray new];
+    NSMutableArray *format_array = [NSMutableArray new];
     NSPredicate *predicate = nil;
     
-    // фильтр по категории
-    //    if (self.groupInstance) {
-    //        [format_array addObject:@"self IN %@"];
-    //        [argument_array addObject:[self.groupInstance products]];
-    //    }
+    // формируем выборку по названию
+    [format_array addObject:@"name CONTAINS[c] %@"];
+    [argument_array addObject:self.searchField.text];
     
-    // ..
+    // формируем выборку по штрих-коду
+    [format_array addObject:@"barcode CONTAINS[c] %@"];
+    [argument_array addObject:self.searchField.text];
     
-    // формируем предикат по полученным данным
-    //    predicate = [NSPredicate predicateWithFormat:[format_array componentsJoinedByString:@" AND "]
-    //                                   argumentArray:argument_array];
+    // формируем выборку по sku
+    [format_array addObject:@"sku CONTAINS[c] %@"];
+    [argument_array addObject:self.searchField.text];
+    
+    if (self.tableViewItem.isHidden) {
+        // формируем предикат с заведомо пустой выдачей
+        predicate = [NSPredicate predicateWithValue:NO];
+    }
+    else {
+        // формируем предикат по полученным данным
+        predicate = [NSPredicate predicateWithFormat:[format_array componentsJoinedByString:@" OR "]
+                                       argumentArray:argument_array];
+    }
+    
     return predicate;
 }
 
@@ -260,7 +266,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [super requestDataFromServer];
     
     __weak typeof(self)weak_self = self;
-    [NetworkManager requestProductsByQuery:@"йогу"
+    [NetworkManager requestProductsByQuery:self.searchField.text
                               onCompletion:^(NSArray *data, NSError *error) {
                                   __strong typeof(self)strong_self = weak_self;
                                   
