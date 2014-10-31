@@ -86,23 +86,27 @@ class RecalculateReportsCommand extends Command
 
         $this->projectContext->applyInProjects(
             function (Project $project) use ($output, $grossMarginManager, $grossMarginSalesReportManager) {
-                $output->writeln("<info>Recalculate reports for project {$project->getName()}");
+                try {
+                    $output->writeln("<info>Recalculate reports for project {$project->getName()}");
 
-                $output->writeln("<info>Cost Of Goods</info>");
-                $grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
+                    $output->writeln("<info>Cost Of Goods</info>");
+                    $grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
 
-                $output->writeln("<info>Gross Margin Sales</info>");
-                $output->writeln("<info>Products</info>");
-                $grossMarginSalesReportManager->recalculateProductReport($output);
+                    $output->writeln("<info>Gross Margin Sales</info>");
+                    $output->writeln("<info>Products</info>");
+                    $grossMarginSalesReportManager->recalculateProductReport($output);
 
-                $output->writeln("<info>Catalog Groups</info>");
-                $grossMarginSalesReportManager->recalculateCatalogGroupReport($output);
+                    $output->writeln("<info>Catalog Groups</info>");
+                    $grossMarginSalesReportManager->recalculateCatalogGroupReport($output);
 
-                $output->writeln("<info>Stores</info>");
-                $grossMarginSalesReportManager->recalculateStoreReport($output);
+                    $output->writeln("<info>Stores</info>");
+                    $grossMarginSalesReportManager->recalculateStoreReport($output);
 
-                $output->writeln("<info>Network</info>");
-                $grossMarginSalesReportManager->recalculateNetworkReport($output);
+                    $output->writeln("<info>Network</info>");
+                    $grossMarginSalesReportManager->recalculateNetworkReport($output);
+                } catch (\Exception $e) {
+                    $output->writeln(sprintf("<error>%s</error>", (string) $e));
+                }
             }
         );
 
