@@ -1,11 +1,15 @@
 package ru.dreamkas.pos.view.components;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -25,6 +29,8 @@ import ru.dreamkas.pos.model.Receipt;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.misc.StringDecorator;
 import ru.dreamkas.pos.view.popup.BasePopup;
+import ru.dreamkas.pos.view.popup.ReceiptItemEditDialog;
+import ru.dreamkas.pos.view.popup.ReceiptItemEditPopup;
 
 @EViewGroup(R.layout.receipt_component)
 public class ReceiptComponent extends LinearLayout {
@@ -79,8 +85,6 @@ public class ReceiptComponent extends LinearLayout {
         btnClearReceipt = (ConfirmButtonComponent)View.inflate(mContext,R.layout.clear_button, null);
         btnClearReceipt.setConfirmationText(DreamkasApp.getResourceString(R.string.msgClearReceiptConfitmationText));
         lvReceipt.addFooterView(btnClearReceipt);
-        btnClearReceipt.setContainer((RelativeLayout)((Activity)mContext).findViewById(R.id.llFragmentContainer));
-
     }
 
     public void clearReceipt(){
@@ -97,9 +101,33 @@ public class ReceiptComponent extends LinearLayout {
 
     @ItemClick
     void lvReceiptItemClicked(Product obj) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog5, null, false);
-        BasePopup aa = new BasePopup(getContext(), view, null);
-        aa.show(this);
+        /*View view = LayoutInflater.from(getContext()).inflate(R.layout.edit_receipt_item, null, false);
+        ReceiptItemEditPopup aa = new ReceiptItemEditPopup(getContext(), view, null);
+        aa.show(this);*/
+
+        /*View view = LayoutInflater.from(mContext).inflate(R.layout.edit_receipt_item, (ViewGroup)getRootView(), false);
+        ReceiptItemEditPopup aa = new ReceiptItemEditPopup(mContext, view, null);
+        aa.show(this);*/
+
+        /*final Dialog dialog = new Dialog(getContext());
+
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.edit_receipt_item);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = 800;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);*/
+
+        final ReceiptItemEditDialog dialog = new ReceiptItemEditDialog(getContext());
+        dialog.show();
+
+
+
     }
 
     private void scrollToBottom() {
