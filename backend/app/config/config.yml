@@ -159,6 +159,6 @@ lighthouse_core:
         tube_prefix: "%database_name%_%kernel.environment%"
     selectel:
         auth:
-            username: 18487
-            password: 4hSmzgdljt
+            username: 36480
+            password: 1avrj2rw
         container: "%database_name%_%kernel.environment%"
