@@ -1,5 +1,5 @@
 set :default_stage, "staging"
-set :stage_dir, "config/stages"
+set :stage_dir, "deploy/stages"
 
 require 'capistrano/ext/multistage'
 
@@ -17,7 +17,7 @@ server domain, :app, :web, :primary => true
 set :shared_children,   []
 
 set :git_enable_pull_requests, true
-set :repository, 'git@github.com:crystalservice/lighthouse.git'
+set :repository, 'git@github.com:dreamkas/dreamkas.git'
 set :scm, :git
 
 ssh_options[:forward_agent] = true
