@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use DateTime;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -335,10 +336,11 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param integer $expectedCode
+     * @param string $message
      */
-    public function assertResponseCode($expectedCode)
+    public function assertResponseCode($expectedCode, $message = '')
     {
-        Assert::assertResponseCode($expectedCode, $this->client);
+        Assert::assertResponseCode($expectedCode, $this->client, $message);
     }
 
     /**
@@ -428,5 +430,17 @@ class WebTestCase extends ContainerAwareTestCase
             Assert::assertJsonPathEquals($orderProduct['quantity'], 'products.*.quantity', $response);
             Assert::assertJsonPathEquals($orderProduct['product'], 'products.*.product.product.id', $response);
         }
+    }
+
+    /**
+     * @param string $modify
+     * @param string $format
+     * @return string
+     */
+    protected function createDate($modify, $format = DateTime::ISO8601)
+    {
+        $date = new DateTime('now');
+        $date->modify($modify);
+        return $date->format($format);
     }
 }

@@ -1636,6 +1636,74 @@ class UserControllerTest extends WebTestCase
         $this->assertNotNull($accessToken->access_token);
     }
 
+    public function testTwoUserOneProject()
+    {
+        $project = $this->factory()->user()->createProject("testProject");
+        $user1 = $this->factory()->user()
+            ->createUser("user1@test.com", 'test', User::getDefaultRoles(), "user1", "position", $project);
+        $user2 = $this->factory()->user()
+            ->createUser("user2@test.com", 'test', User::getDefaultRoles(), "user2", "position", $project);
+        $otherProjectUser = $this->factory()->user()->createUser('other@test.com', 'test', User::getDefaultRoles());
+
+        $user1AccessToken = $this->factory()->oauth()->auth($user1, 'test');
+        $user2AccessToken = $this->factory()->oauth()->auth($user2, 'test');
+        $otherProjectUserAccessToken = $this->factory()->oauth()->auth($otherProjectUser, 'test');
+
+        $storeData = array(
+            'name' => 'магазин_номер-32',
+            'address' => 'СПБ, профессора Попова пр., д. 37, пом 3А',
+            'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
+        );
+
+        $response = $this->clientJsonRequest(
+            $user1AccessToken,
+            'POST',
+            '/api/1/stores',
+            $storeData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+        $storeId = $response['id'];
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, $name, $response);
+        }
+
+        $response = $this->clientJsonRequest(
+            $user1AccessToken,
+            'GET',
+            "/api/1/stores"
+        );
+
+        $this->assertResponseCode(200);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, "0.{$name}", $response);
+        }
+
+
+        $response = $this->clientJsonRequest(
+            $user2AccessToken,
+            'GET',
+            "/api/1/stores"
+        );
+
+        $this->assertResponseCode(200);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, "0.{$name}", $response);
+        }
+
+
+        $response = $this->clientJsonRequest(
+            $otherProjectUserAccessToken,
+            'GET',
+            "/api/1/stores"
+        );
+
+        $this->assertResponseCode(200);
+        $this->assertEmpty($response);
+    }
+
     /**
      * @return \Swift_Message[]
      */

@@ -1,0 +1,11 @@
+{
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[nginx]",
+        "recipe[nodejs]",
+        "recipe[nodejs::npm]",
+
+        "recipe[lighthouse]",
+        "recipe[lighthouse::dreamkas_webfront_host_beta]"
+    ]
+}

@@ -1094,14 +1094,6 @@ class StockInControllerTest extends WebTestCase
     {
         $invoice = $this->getStockInRepository()->find($invoiceId);
         $this->assertNull($invoice);
-
-        $filterCollection = $this->getStockInRepository()->getDocumentManager()->getFilterCollection();
-        $filterCollection->disable('softdeleteable');
-
-        $invoice = $this->getStockInRepository()->find($invoiceId);
-        $this->assertNull($invoice);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**
@@ -1111,15 +1103,6 @@ class StockInControllerTest extends WebTestCase
     {
         $invoiceProduct = $this->getStockInProductRepository()->find($invoiceProductId);
         $this->assertNull($invoiceProduct);
-
-        $filterCollection = $this->getStockInProductRepository()->getDocumentManager()->getFilterCollection();
-
-        $filterCollection->disable('softdeleteable');
-
-        $invoiceProduct = $this->getStockInProductRepository()->find($invoiceProductId);
-        $this->assertNull($invoiceProduct);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**

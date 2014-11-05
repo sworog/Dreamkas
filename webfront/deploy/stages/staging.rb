@@ -1,0 +1,1 @@
+server domain, :app, :web, :primary => true

@@ -40,7 +40,8 @@ class Category extends AbstractNode
      *      targetDocument="Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory",
      *      simple=true,
      *      cascade="persist",
-     *      mappedBy="category"
+     *      mappedBy="category",
+     *      repositoryMethod="findByCategory"
      * )
      * @var SubCategory[]|Collection|PersistentCollection
      */

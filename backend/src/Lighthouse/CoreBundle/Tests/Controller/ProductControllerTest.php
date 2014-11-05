@@ -2624,72 +2624,118 @@ class ProductControllerTest extends WebTestCase
 
     public function testDeleteAction()
     {
-        $productId = $this->createProduct(array('name' => 'Продукт'));
+        $productIds = $this->createProductsByNames(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/products/' . $productId
+            "/api/1/products/{$productIds['1']}"
         );
 
         $this->assertResponseCode(204);
 
         $this->assertNull($deleteResponse);
 
-        $this->client->setCatchException();
+        // assert product is accessable by direct link
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/' . $productId
+            "/api/1/products/{$productIds['1']}"
         );
 
-        $this->assertResponseCode(404);
-
-        $product = $this->getProductRepository()->find($productId);
-        $this->assertNull($product);
-
-        $products = $this->getProductRepository()->findAll();
-        $this->assertCount(0, $products);
-
-        $this
-            ->getProductRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
-
-        $product = $this->getProductRepository()->find($productId);
-        $this->assertInstanceOf(Product::getClassName(), $product);
-
-        $products = $this->getProductRepository()->findAll();
-        $this->assertCount(1, $products);
+        $this->assertResponseCode(200);
     }
 
-    public function testDeleteWithDuplicateName()
+    public function testDeleteProductIsNotVisibleInProductsList()
     {
-        $productId = $this->createProduct(array('name' => 'Хомячок'));
+        $productIds = $this->createProductsByNames(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/products/' . $productId
+            "/api/1/products/{$productIds['1']}"
         );
 
         $this->assertResponseCode(204);
 
-        $this->createProduct(array('name' => 'Хомячок'));
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/products"
+        );
 
-        $this
-            ->getProductRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
+        $this->assertResponseCode(200);
 
-        $deletedProduct = $this->getProductRepository()->find($productId);
-        $this->assertContains('Хомячок (Удалено', $deletedProduct->name);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($productIds['2'], '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($productIds['1'], '*.id', $getResponse);
+    }
+
+    public function testDeleteProductIsNotVisibleInSubCategoryProductsList()
+    {
+        $productIds = $this->createProductsByNames(array('1', '2'));
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$productIds['1']}"
+        );
+
+        $this->assertResponseCode(204);
+
+        // assert product is not visible in sub category products list
+        $subCategoryId = $this->factory()->catalog()->getSubCategory()->id;
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/subcategories/{$subCategoryId}/products"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($productIds['2'], '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($productIds['1'], '*.id', $getResponse);
+    }
+
+    public function testDeleteProductIsNotVisibleInProductSearch()
+    {
+        $productIds = $this->createProductsByNames(array('Каша овсяная', 'Каша гречневая'));
+        $productId1 = $productIds['Каша овсяная'];
+        $productId2 = $productIds['Каша гречневая'];
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$productId1}"
+        );
+
+        $this->assertResponseCode(204);
+
+        $query = array(
+            'properties' => array('name'),
+            'query' => 'Каша'
+        );
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products/search?' . http_build_query($query)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($productId2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($productId1, '*.id', $getResponse);
     }
 
     /**

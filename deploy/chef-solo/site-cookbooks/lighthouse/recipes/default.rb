@@ -10,7 +10,6 @@ when "debian"
   package "curl"
   package "git"
   package "mc"
-  package "smbclient"
 when "rhel"
   package "vim-common"
   package "mc"
@@ -83,4 +82,8 @@ cookbook_file "authorized_keys" do
   path "/home/watchman/.ssh/authorized_keys"
   owner "watchman"
   group "watchman"
+end
+
+package "tzdata" do
+  action :upgrade
 end

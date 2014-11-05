@@ -1,9 +1,9 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page');
+    var Page_outside = require('pages/outside/outside');
 
-    return Page.extend({
-        template: require('ejs!./template.ejs'),
+    return Page_outside.extend({
+        formBlock: 'form_recover',
         blocks: {
             form_recover: require('blocks/form/pass/recover/recover')
         }
