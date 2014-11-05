@@ -10,10 +10,14 @@
 
 @protocol KeyboardEventsListenerProtocol <NSObject>
 
+@optional
+
 /** Уведомление о показе клавиатуры */
 - (void)keyboardWillAppear:(NSNotification *)notification;
+- (void)keyboardDidAppear:(NSNotification *)notification;
 
 /** Уведомление о скрытии клавиатуры */
 - (void)keyboardWillDisappear:(NSNotification *)notification;
+- (void)keyboardDidDisappear:(NSNotification *)notification;
 
 @end

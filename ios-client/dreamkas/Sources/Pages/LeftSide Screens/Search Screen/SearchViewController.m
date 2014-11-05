@@ -11,7 +11,7 @@
 #import "SearchField.h"
 
 #define RequiredSearchfieldValueLenght 3
-#define TableViewDefaultHeight 640
+#define ControllerViewDefaultHeight 660
 
 typedef NS_ENUM(NSInteger, kInfoMessageType) {
     kInfoMessageTypeNone = 0,
@@ -119,14 +119,14 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 
 #pragma mark - Методы KeyboardEventsListenerProtocol
 
-- (void)keyboardWillAppear:(NSNotification *)notification
+- (void)keyboardDidAppear:(NSNotification *)notification
 {
     DPLogFast(@"self.tableViewItem = %@", self.tableViewItem);
     
     CGRect keyboard_bounds;
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
     
-    [self.tableViewItem setHeight:TableViewDefaultHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
+    [self.view setHeight:ControllerViewDefaultHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
     [self.tableViewItem reloadData];
 }
 
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 {
     DPLogFast(@"");
     
-    [self.tableViewItem setHeight:TableViewDefaultHeight];
+    [self.view setHeight:ControllerViewDefaultHeight];
     [self.tableViewItem reloadData];
 }
 
@@ -176,7 +176,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
         [self.tableViewItem setHidden:NO];
         [self setInfoMessage:kInfoMessageTypeNone];
         
-        [self requestDataFromServer];
+        [self shouldReloadTableView];
         
     }
     else {
@@ -190,12 +190,17 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
     DPLogFast(@"");
+    
+    [self.tableViewItem setHidden:YES];
+    [self setInfoMessage:kInfoMessageTypeEmptyField];
+    
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     DPLogFast(@"");
+    
     [textField resignFirstResponder];
     return YES;
 }
@@ -245,16 +250,16 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     NSPredicate *predicate = nil;
     
     // формируем выборку по названию
-    [format_array addObject:@"name CONTAINS[c] %@"];
-    [argument_array addObject:self.searchField.text];
+    [format_array addObject:@"name contains[cd] %@"];
+    [argument_array addObject:searchString];
     
     // формируем выборку по штрих-коду
-    [format_array addObject:@"barcode CONTAINS[c] %@"];
-    [argument_array addObject:self.searchField.text];
+    [format_array addObject:@"barcode CONTAINS[cd] %@"];
+    [argument_array addObject:searchString];
     
     // формируем выборку по sku
-    [format_array addObject:@"sku CONTAINS[c] %@"];
-    [argument_array addObject:self.searchField.text];
+    [format_array addObject:@"sku CONTAINS[cd] %@"];
+    [argument_array addObject:searchString];
     
     if (self.tableViewItem.isHidden) {
         // формируем предикат с заведомо пустой выдачей
@@ -266,6 +271,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
                                        argumentArray:argument_array];
     }
     
+    DPLogFast(@"fetch predicate = %@", predicate);
     return predicate;
 }
 
