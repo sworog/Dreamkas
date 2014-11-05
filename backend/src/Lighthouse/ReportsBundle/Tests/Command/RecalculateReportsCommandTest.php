@@ -2,14 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Command;
 
-use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Test\DataAwareTestCase;
-use Lighthouse\ReportsBundle\Command\RecalculateReportsCommand;
-use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
-use Symfony\Component\Console\Tester\CommandTester;
-use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class RecalculateReportsCommandTest extends DataAwareTestCase
 {

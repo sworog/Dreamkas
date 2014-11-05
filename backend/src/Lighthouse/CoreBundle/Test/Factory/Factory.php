@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
 use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceFactory;
 use Lighthouse\CoreBundle\Test\Factory\Order\OrderFactory;
 use Lighthouse\CoreBundle\Test\Factory\Receipt\ReceiptFactory;
@@ -13,7 +12,6 @@ use Lighthouse\CoreBundle\Test\Factory\StockIn\StockInFactory;
 use Lighthouse\CoreBundle\Test\Factory\SupplierReturn\SupplierReturnFactory;
 use Lighthouse\CoreBundle\Test\Factory\WriteOff\WriteOffFactory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
