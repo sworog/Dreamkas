@@ -30,7 +30,7 @@ logger.level = Logger::IMPORTANT
 set :normalize_asset_timestamps, false
 
 after 'deploy:restart' do
-    puts "--> Webfront was successfully deployed to ".green + "#{application_url}".yellow
+    puts "--> Webfront was successfully deployed to ".green + application_url.yellow
 end
 
 after 'deploy:finalize_update', 'webfront'
