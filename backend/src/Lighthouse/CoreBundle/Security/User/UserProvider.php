@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Templating\EngineInterface;
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Swift_Mailer;
 
@@ -23,6 +24,9 @@ use Swift_Mailer;
  */
 class UserProvider implements UserProviderInterface
 {
+    const MESSAGE_FROM_EMAIL = "noreply@dreamkas.ru";
+    const MESSAGE_FROM_NAME = "Dreamkas.ru";
+
     /**
      * @var UserRepository
      */
@@ -54,13 +58,19 @@ class UserProvider implements UserProviderInterface
     protected $container;
 
     /**
+     * @var Translator
+     */
+    protected $translator;
+
+    /**
      * @DI\InjectParams({
      *      "userRepository"    = @DI\Inject("lighthouse.core.document.repository.user"),
      *      "encoderFactory"    = @DI\Inject("security.encoder_factory"),
      *      "validator"         = @DI\Inject("lighthouse.core.validator"),
      *      "mailer"            = @DI\Inject("mailer"),
      *      "container"         = @DI\Inject("service_container"),
-     *      "passwordGenerator" = @DI\Inject("hackzilla_password_generator")
+     *      "passwordGenerator" = @DI\Inject("hackzilla_password_generator"),
+     *      "translator"        = @DI\Inject("translator")
      * })
      *
      * @param UserRepository $userRepository
@@ -69,6 +79,7 @@ class UserProvider implements UserProviderInterface
      * @param Swift_Mailer $mailer
      * @param ContainerInterface $container
      * @param PasswordGenerator $passwordGenerator
+     * @param Translator $translator
      */
     public function __construct(
         UserRepository $userRepository,
@@ -76,7 +87,8 @@ class UserProvider implements UserProviderInterface
         ValidatorInterface $validator,
         Swift_Mailer $mailer,
         ContainerInterface $container,
-        PasswordGenerator $passwordGenerator
+        PasswordGenerator $passwordGenerator,
+        Translator $translator
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
@@ -84,6 +96,7 @@ class UserProvider implements UserProviderInterface
         $this->mailer = $mailer;
         $this->container = $container;
         $this->passwordGenerator = $passwordGenerator;
+        $this->translator = $translator;
     }
 
     /**
@@ -222,9 +235,9 @@ class UserProvider implements UserProviderInterface
 
         /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
-            ->setFrom('noreply@dreamkas.ru')
+            ->setFrom(array(self::MESSAGE_FROM_EMAIL => self::MESSAGE_FROM_NAME))
             ->setTo($user->email)
-            ->setSubject('Добро пожаловать в Dreamkas')
+            ->setSubject($this->translator->trans("lighthouse.email.register.subject", array(), 'emails'))
             ->setBody($messageBody);
 
         $this->mailer->send($message);
@@ -267,9 +280,9 @@ class UserProvider implements UserProviderInterface
 
         /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
-            ->setFrom('noreply@dreamkas.ru')
+            ->setFrom(array(self::MESSAGE_FROM_EMAIL => self::MESSAGE_FROM_NAME))
             ->setTo($user->email)
-            ->setSubject('Восстановление пароля в Dreamkas')
+            ->setSubject($this->translator->trans("lighthouse.email.restore_password.subject", array(), 'emails'))
             ->setBody($messageBody);
 
         $this->mailer->send($message);
