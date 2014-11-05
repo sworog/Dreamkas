@@ -20,7 +20,9 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 };
 
 @interface SearchViewController () <UITextFieldDelegate, KeyboardEventsListenerProtocol>
-
+{
+    NSMutableString *searchString;
+}
 @property (nonatomic) IBOutlet CustomLabel *infoMsgLabel;
 @property (nonatomic) SearchField *searchField;
 
@@ -36,6 +38,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
     [self becomeKeyboardEventsListener];
+    
+    searchString = [NSMutableString string];
 }
 
 #pragma mark - View Lifecycle
@@ -108,6 +112,11 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     }
 }
 
+- (BOOL)isSearchRequestValid
+{
+    return (searchString.length >= RequiredSearchfieldValueLenght);
+}
+
 #pragma mark - Методы KeyboardEventsListenerProtocol
 
 - (void)keyboardWillAppear:(NSNotification *)notification
@@ -160,11 +169,14 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     NSMutableString *tmp = [NSMutableString stringWithString:textField.text];
     [tmp replaceCharactersInRange:range withString:string];
     
-    if (tmp.length >= RequiredSearchfieldValueLenght) {
+    searchString = [NSMutableString stringWithString:tmp];
+    DPLogFast(@"searchString = %@", searchString);
+    
+    if ([self isSearchRequestValid]) {
         [self.tableViewItem setHidden:NO];
         [self setInfoMessage:kInfoMessageTypeNone];
         
-        [self shouldReloadTableView];
+        [self requestDataFromServer];
         
     }
     else {
@@ -184,8 +196,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     DPLogFast(@"");
-    [self.searchField setText:@"Йогурт"];
-//    [textField resignFirstResponder];
+    [textField resignFirstResponder];
     return YES;
 }
 
@@ -259,14 +270,29 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 }
 
 /**
+ *  Обработчик события выполнения запроса (в качестве параметра получает число выбранных записей)
+ */
+- (void)onFetchCompletion:(NSInteger)itemsCount
+{
+    [super onFetchCompletion:itemsCount];
+    
+    if ((itemsCount < 1) && [self isSearchRequestValid]) {
+        [self setInfoMessage:kInfoMessageTypeNoResults];
+    }
+}
+
+/**
  *  Метод, инициирующий загрузку данных с сервера
  */
 - (void)requestDataFromServer
 {
+    if ([self isSearchRequestValid] == NO)
+        return;
+    
     [super requestDataFromServer];
     
     __weak typeof(self)weak_self = self;
-    [NetworkManager requestProductsByQuery:self.searchField.text
+    [NetworkManager requestProductsByQuery:searchString
                               onCompletion:^(NSArray *data, NSError *error) {
                                   __strong typeof(self)strong_self = weak_self;
                                   
