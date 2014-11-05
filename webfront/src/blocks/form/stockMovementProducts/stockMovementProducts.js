@@ -26,9 +26,10 @@ define(function(require, exports, module) {
             },
             'click .table_stockMovementProducts__removeProductLink': function(e){
                 var block = this,
-                    modelCid = e.currentTarget.dataset.modelCid;
+                    modelCid = e.currentTarget.dataset.modelCid,
+                    product;
 
-                block.collection.remove(block.collection.get(modelCid));
+                block.collection.remove(block.collection.get(modelCid), { temp: true });
             }
         },
         blocks: {
@@ -71,7 +72,7 @@ define(function(require, exports, module) {
         submitSuccess: function(invoice) {
             var block = this;
 
-            block.collection.push(invoice.products[0]);
+            block.collection.push(invoice.products[0], { temp: true });
 
             block.clear();
 

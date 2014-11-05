@@ -125,7 +125,7 @@ define(function(require) {
             }
 
             if (modal && !modal.block.referrer) {
-                modal.block.hide();
+                modal.block.hide({ submitSuccess: true });
             }
 
             if (modal && modal.block.referrer) {

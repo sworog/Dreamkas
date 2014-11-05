@@ -58,6 +58,17 @@ define(function(require, exports, module) {
                     collection: this.model.collections.products
                 });
             }
+        },
+        hide: function(options) {
+            options = options || {};
+
+            if (options.submitSuccess) {
+                this.model.collections.products.applyChanges();
+            } else {
+                this.model.collections.products.restore();
+            }
+
+            return Modal.prototype.hide.call(this, arguments);
         }
     });
 });
