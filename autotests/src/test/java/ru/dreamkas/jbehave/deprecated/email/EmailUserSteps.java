@@ -15,6 +15,7 @@ public class EmailUserSteps {
     EmailSteps emailSteps;
 
     @Given("the user prepares email inbox")
+    @Alias("пользователь удаляет все сообщения в ящике")
     public void givenTheUserPreparesEmailInbox() {
         emailSteps.deleteAllMessages();
     }

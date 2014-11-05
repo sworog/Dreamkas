@@ -1389,7 +1389,7 @@ class UserControllerTest extends WebTestCase
         $message = $collectedMessages[0];
 
         $this->assertInstanceOf('Swift_Message', $message);
-        $this->assertEquals('noreply@dreamkas.ru', key($message->getFrom()));
+        $this->assertEquals(array('noreply@dreamkas.ru' => 'Dreamkas.ru'), $message->getFrom());
         $this->assertEquals('signup@lh.com', key($message->getTo()));
         $this->assertEquals('Добро пожаловать в Dreamkas', $message->getSubject());
         $this->assertContains('Добро пожаловать в Dreamkas!', $message->getBody());
@@ -1551,6 +1551,8 @@ class UserControllerTest extends WebTestCase
 
         $messages = $this->getSentEmailMessages();
         $this->assertCount(2, $messages);
+        $this->assertEquals(array('noreply@dreamkas.ru' => 'Dreamkas.ru'), $messages[1]->getFrom());
+        $this->assertEquals('Восстановление пароля в Dreamkas', $messages[1]->getSubject());
         $this->assertContains('Вы воспользовались формой восстановления пароля в Dreamkas.', $messages[1]->getBody());
         $this->assertContains('Ваш новый пароль для входа:', $messages[1]->getBody());
         $newPassword = $this->getPasswordFromEmailBody($messages[1]->getBody());
