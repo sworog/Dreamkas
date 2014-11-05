@@ -10,9 +10,10 @@ namespace :webfront do
 
     desc "Build webfront app"
     task :build, :roles => :app, :except => { :no_release => true } do
+        capifony_pretty_print "--> NPM build"
         flag = fetch(:npm_flag, '')
-        puts "--> NPM build".yellow
         run "cd #{latest_release} && npm install #{flag} && npm run build"
+        capifony_puts_ok
     end
 
     desc "Symlink web folder"
@@ -22,6 +23,7 @@ namespace :webfront do
 
     desc "Setup config"
     task :config, :roles => :app, :except => { :no_release => true } do
+        capifony_pretty_print "--> Setup config.js"
         template = File.read(File.join('src', 'config.js.template'))
 
         api_url = fetch(:api_url, "#{host}.#{stage}.api.lighthouse.pro")
@@ -30,6 +32,7 @@ namespace :webfront do
         result = ERB.new(template).result(binding)
 
         put result, "#{latest_release}/src/config.js", :mode => 0644
+        capifony_puts_ok
     end
 
 end
