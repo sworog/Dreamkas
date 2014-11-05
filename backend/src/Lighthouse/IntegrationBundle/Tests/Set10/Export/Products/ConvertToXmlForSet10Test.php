@@ -646,6 +646,7 @@ EOF;
 
     public function testExportWorkerGetUrl()
     {
+        $this->authenticateProject();
         $worker = $this->getExportProductsWorker();
 
         $configUrlId = $this->createConfig(Set10Export::URL_CONFIG_NAME, "smb://test:test@host/centrum/products/");
