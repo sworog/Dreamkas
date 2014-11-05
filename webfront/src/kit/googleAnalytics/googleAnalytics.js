@@ -1,9 +1,10 @@
 define(function(require) {
-    var config = require('config');
+    var config = require('config'),
+        googleAnalyticsId = config.googleAnalyticsId;
 
     return {
         init: function () {
-            if (config.googleAnalyticsId) {
+            if (googleAnalyticsId) {
                 (function (i, s, o, g, r, a, m) {
                     i['GoogleAnalyticsObject'] = r;
                     i[r] = i[r] || function () {
@@ -16,7 +17,12 @@ define(function(require) {
                     m.parentNode.insertBefore(a, m)
                 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-                ga('create', config.googleAnalyticsId, 'auto');
+                ga('create', googleAnalyticsId, 'auto');
+                this.sendPageview();
+            }
+        },
+        sendPageview: function() {
+            if (googleAnalyticsId) {
                 ga('send', 'pageview');
             }
         }

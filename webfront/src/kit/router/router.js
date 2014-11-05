@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var uri = require('bower_components/uri.js/src/URI'),
-        _ = require('bower_components/lodash/dist/lodash');
+        _ = require('bower_components/lodash/dist/lodash'),
+        googleAnalytics = require('kit/googleAnalytics/googleAnalytics');
 
     // Cached regex for stripping leading and trailing slashes.
     var rootStripper = /^\/+|\/+$/g;
@@ -184,6 +185,8 @@ define(function(require) {
                         params: params,
                         route: route
                     });
+
+                    googleAnalytics.sendPageview();
                 }
             });
 
