@@ -3,6 +3,7 @@
 namespace Lighthouse\ReportsBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\ReportsBundle\Command\RecalculateReportsCommand;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesReportManager;
@@ -10,68 +11,135 @@ use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Symfony\Component\Console\Tester\CommandTester;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
-class RecalculateReportsCommandTest extends ContainerAwareTestCase
+class RecalculateReportsCommandTest extends DataAwareTestCase
 {
+    protected function prepareDataForProject2()
+    {
+        $factory = $this->factory('project2');
+
+        $stores = $factory->store()->getStores(array('21', '22'));
+
+        $catalogGroups = $factory->catalog()->getSubCategories(array('2.1', '2.2'));
+
+        $product211 = $factory->catalog()->createProductByName('2.1.1', $catalogGroups['2.1']);
+        $product222 = $factory->catalog()->createProductByName('2.2.2', $catalogGroups['2.2']);
+
+        $factory
+            ->invoice()
+                ->createInvoice(array('date' => '-7 days'), $stores['21']->id)
+                ->createInvoiceProduct($product211->id, 10, 20)
+                ->createInvoiceProduct($product222->id, 5, 25)
+            ->persist()
+                ->createInvoice(array('date' => '-6 days'), $stores['22']->id)
+                ->createInvoiceProduct($product211->id, 11, 21)
+                ->createInvoiceProduct($product222->id, 6, 26)
+            ->flush();
+
+        $factory
+            ->receipt()
+                ->createSale($stores['21'], '-3 days 11:23')
+                ->createReceiptProduct($product211->id, 1, 30)
+                ->createReceiptProduct($product222->id, 2.5, 31.09)
+            ->persist()
+                ->createSale($stores['22'], '-2 days 11:23')
+                ->createReceiptProduct($product211->id, 1, 30)
+                ->createReceiptProduct($product222->id, 2.5, 31.09)
+            ->flush();
+    }
+
+    protected function prepareDataForProject3()
+    {
+        $factory = $this->factory('project3');
+
+        $stores = $factory->store()->getStores(array('31', '32', '33'));
+
+        $catalogGroups = $factory->catalog()->getSubCategories(array('3.1', '3.2', '3.3'));
+
+        $product311 = $factory->catalog()->createProductByName('3.1.1', $catalogGroups['3.1']);
+        $product322 = $factory->catalog()->createProductByName('3.2.2', $catalogGroups['3.2']);
+        $product333 = $factory->catalog()->createProductByName('3.3.3', $catalogGroups['3.3']);
+        $product334 = $factory->catalog()->createProductByName('3.3.4', $catalogGroups['3.3']);
+
+        $factory
+            ->invoice()
+                ->createInvoice(array('date' => '-7 days'), $stores['31']->id)
+                ->createInvoiceProduct($product311->id, 10, 20)
+                ->createInvoiceProduct($product322->id, 5, 25)
+            ->persist()
+                ->createInvoice(array('date' => '-6 days'), $stores['32']->id)
+                ->createInvoiceProduct($product322->id, 11, 21)
+                ->createInvoiceProduct($product333->id, 6, 26)
+            ->persist()
+                ->createInvoice(array('date' => '-4 days'), $stores['33']->id)
+                ->createInvoiceProduct($product333->id, 11, 21)
+                ->createInvoiceProduct($product334->id, 6, 26)
+            ->flush();
+
+        $factory
+            ->receipt()
+                ->createSale($stores['31'], '-3 days 11:23')
+                ->createReceiptProduct($product311->id, 1, 30)
+                ->createReceiptProduct($product322->id, 2.5, 31.09)
+            ->persist()
+                ->createSale($stores['32'], '-2 days 11:23')
+                ->createReceiptProduct($product322->id, 1, 30)
+                ->createReceiptProduct($product333->id, 2.5, 31.09)
+            ->persist()
+                ->createSale($stores['33'], '-2 days 11:23')
+                ->createReceiptProduct($product333->id, 1, 30)
+                ->createReceiptProduct($product334->id, 2.5, 31.09)
+            ->persist()
+                ->createSale($stores['33'], '-1 days 11:23')
+                ->createReceiptProduct($product333->id, 2, 30)
+            ->flush();
+    }
+
     public function testExecute()
     {
-        $this->clearMongoDb();
+        $this->prepareDataForProject2();
+        $this->prepareDataForProject3();
 
-        /* @var GrossSalesReportManager|MockObject $grossSalesManagerMock */
-        $grossSalesManagerMock = $this
-            ->getMockBuilder('Lighthouse\\ReportsBundle\\Reports\\GrossSales\\GrossSalesReportManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $tester = $this->createConsoleTester();
+        $tester->runCommand('lighthouse:reports:recalculate');
 
-        $grossSalesManagerMock
-            ->expects($this->never())
-            ->method('recalculateStoreGrossSalesReport');
-        $grossSalesManagerMock
-            ->expects($this->never())
-            ->method('recalculateGrossSalesProductReport');
+        $this->assertEquals(0, $tester->getStatusCode());
 
-        /* @var GrossMarginManager|MockObject $grossMarginManagerMock */
-        $grossMarginManagerMock = $this
-            ->getMockBuilder('Lighthouse\\ReportsBundle\\Reports\\GrossMargin\\GrossMarginManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $expectedDisplay = <<<EOF
+Recalculate reports started
+Recalculate reports for project project1
+Cost Of Goods
+Gross Margin Sales
+Products
+Catalog Groups
+Stores
+Network
+Recalculate reports for project project2
+Cost Of Goods
+....                                                 4 / 4
+Gross Margin Sales
+Products
+....                                                 4 / 4
+Catalog Groups
+....                                                 4 / 4
+Stores
+..                                                   2 / 2
+Network
+..                                                   2 / 2
+Recalculate reports for project project3
+Cost Of Goods
+......                                               6 / 6
+Gross Margin Sales
+Products
+.......                                              7 / 7
+Catalog Groups
+......                                               6 / 6
+Stores
+....                                                 4 / 4
+Network
+...                                                  3 / 3
+Recalculate reports finished
 
-        $grossMarginManagerMock
-            ->expects($this->exactly(2))
-            ->method($this->anything());
-
-        /* @var GrossMarginSalesReportManager|MockObject $grossMarginSalesReportManagerMock */
-        $grossMarginSalesReportManagerMock = $this
-            ->getMockBuilder('Lighthouse\\ReportsBundle\\Reports\\GrossMarginSales\\GrossMarginSalesReportManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $grossMarginSalesReportManagerMock
-            ->expects($this->exactly(8))
-            ->method($this->stringStartsWith('recalculate'));
-
-        // project1 was created when called factory for the first time
-        $this->factory()->user()->getProject('project2');
-
-        $projectContext = $this->getContainer()->get('project.context');
-
-        $command = new RecalculateReportsCommand(
-            $grossSalesManagerMock,
-            $grossMarginManagerMock,
-            $grossMarginSalesReportManagerMock,
-            $projectContext
-        );
-
-        $commandTester = new CommandTester($command);
-
-        $input = array();
-
-        $exitCode = $commandTester->execute($input);
-
-        $this->assertEquals(0, $exitCode);
-
-        $this->assertContains('Recalculate reports started', $commandTester->getDisplay());
-        $this->assertContains('Recalculate reports for project project1', $commandTester->getDisplay());
-        $this->assertContains('Recalculate reports for project project2', $commandTester->getDisplay());
-        $this->assertContains('Recalculate reports finished', $commandTester->getDisplay());
+EOF;
+        $this->assertEquals($expectedDisplay, $tester->getDisplay());
     }
 }
