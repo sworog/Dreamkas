@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use LighthouseKernel;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
@@ -105,9 +106,18 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function factory()
     {
         if (null === $this->factory) {
-            $this->factory = new Factory(static::createKernel()->boot()->getContainer());
+            $this->factory = $this->createFactory();
         }
         return $this->factory;
+    }
+
+    /**
+     * @param string $projectName
+     * @return Factory
+     */
+    protected function createFactory($projectName = UserFactory::PROJECT_DEFAULT_NAME)
+    {
+        return new Factory(static::createKernel()->boot()->getContainer(), $projectName);
     }
 
     protected function clearMongoDb()

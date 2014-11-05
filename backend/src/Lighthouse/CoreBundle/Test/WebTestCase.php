@@ -13,7 +13,7 @@ use PHPUnit_Framework_ExpectationFailedException;
 /**
  * @codeCoverageIgnore
  */
-class WebTestCase extends ContainerAwareTestCase
+class WebTestCase extends DataAwareTestCase
 {
     /**
      * @var Client
@@ -65,6 +65,8 @@ class WebTestCase extends ContainerAwareTestCase
 
         $request->setJsonData($data);
         $request->setJsonHeaders();
+
+        $this->client->shutdownKernelBeforeRequest();
 
         return $this->client->jsonRequest($request);
     }
@@ -120,44 +122,6 @@ class WebTestCase extends ContainerAwareTestCase
     protected function updateProduct($productId, array $data)
     {
         $this->createProduct($data, null, $productId);
-    }
-
-    /**
-     * @param array $names
-     * @param bool $unique
-     * @throws \PHPUnit_Framework_AssertionFailedError
-     * @return array|string[] sku => id
-     */
-    protected function createProductsByNames(array $names, $unique = false)
-    {
-        if ($unique) {
-            $names = array_unique($names);
-        }
-        $products = array();
-        $failedNames = array();
-        foreach ($names as $name) {
-            try {
-                $products[$name] = $this->createProductByName($name);
-            } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-                $failedNames[] = $name;
-            }
-        }
-        if (count($failedNames) > 0) {
-            throw new \PHPUnit_Framework_AssertionFailedError(
-                sprintf('Failed to create products with following names: %s', implode(', ', $failedNames))
-            );
-        }
-        return $products;
-    }
-
-    /**
-     * @param string $name
-     * @param string $subCategoryId
-     * @return string
-     */
-    protected function createProductByName($name, $subCategoryId = null)
-    {
-        return $this->createProduct(array('name' => $name, 'barcode' => $name), $subCategoryId);
     }
 
     /**
