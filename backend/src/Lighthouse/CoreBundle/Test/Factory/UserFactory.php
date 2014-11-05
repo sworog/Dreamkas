@@ -163,11 +163,12 @@ class UserFactory extends AbstractFactory
     }
 
     /**
+     * @param string $name
      * @return ProjectToken
      */
-    public function authProject()
+    public function authProject($name = self::PROJECT_DEFAULT_NAME)
     {
-        $token = new ProjectToken($this->getProject());
+        $token = new ProjectToken($this->getProject($name));
         $this->getSecurityContext()->setToken($token);
         return $token;
     }

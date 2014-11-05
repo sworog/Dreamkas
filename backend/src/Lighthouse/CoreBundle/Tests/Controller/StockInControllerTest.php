@@ -14,7 +14,7 @@ class StockInControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $date = strtotime('-1 day');
 
         $stockInData = StockInBuilder::create(date('c', $date), $store->id)
@@ -49,7 +49,7 @@ class StockInControllerTest extends WebTestCase
     public function testPostStockInValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $stockInData = StockInBuilder::create('2012-07-11', $store->id)
             ->addProduct($productId)
             ->toArray($data);
@@ -80,7 +80,7 @@ class StockInControllerTest extends WebTestCase
     public function testPutStockInValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $postData = StockInBuilder::create('11.07.2012', $store->id)
             ->addProduct($productId)
             ->toArray();
@@ -164,7 +164,7 @@ class StockInControllerTest extends WebTestCase
     public function testGetAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $stockIn = $this->factory()
             ->stockIn()
@@ -189,7 +189,7 @@ class StockInControllerTest extends WebTestCase
 
     public function testGetActionNotFound()
     {
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $this->factory()
             ->stockIn()
                 ->createStockIn()
@@ -217,9 +217,9 @@ class StockInControllerTest extends WebTestCase
     public function testStockInTotals()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         // Create stockin with product#1
         $stockInData = StockInBuilder::create(null, $store->id)
@@ -295,9 +295,9 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         $stockIn1 = $this->factory()
             ->stockIn()
@@ -334,7 +334,7 @@ class StockInControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $stockIn1 = $this->factory()
             ->stockIn()
@@ -390,7 +390,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
@@ -431,9 +431,9 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct('111');
-        $productId2 = $this->createProduct('222');
-        $productId3 = $this->createProduct('333');
+        $productId1 = $this->createProductByName('111');
+        $productId2 = $this->createProductByName('222');
+        $productId3 = $this->createProductByName('333');
 
         $this->factory()
             ->stockIn()
@@ -503,7 +503,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $stockInData = StockInBuilder::create(null, $store->id)
             ->addProduct($productId, 7.99, 2)
@@ -537,7 +537,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $stockInData = StockInBuilder::create(null, $store->id)
             ->addProduct($productId, 7.99, 2)
@@ -784,8 +784,8 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct(1);
-        $productId2 = $this->createProduct(2);
+        $productId1 = $this->createProductByName(1);
+        $productId2 = $this->createProductByName(2);
 
         $this->assertStoreProductTotals($store->id, $productId1, 0);
 
@@ -849,7 +849,7 @@ class StockInControllerTest extends WebTestCase
     public function testProductDataDoesNotChangeInStockInAfterProductUpdate()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
+        $productId = $this->createProductByName('Кефир 1%');
         $stockIn = $this->factory()
             ->stockIn()
                 ->createStockIn($store)
@@ -899,7 +899,7 @@ class StockInControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $stockIn1 = $this->factory()
             ->stockIn()
@@ -984,7 +984,7 @@ class StockInControllerTest extends WebTestCase
     public function testPutWithEmptyQuantity()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $stockIn = $this->factory()
             ->stockIn()
@@ -1016,9 +1016,9 @@ class StockInControllerTest extends WebTestCase
     public function testProductCategoryIsNotExposed()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         $stockIn = $this->factory()
             ->stockIn()
@@ -1054,7 +1054,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProduct(array('name' => 'Продукт'));
+        $productId = $this->createProductByName('Продукт');
 
         $stockIn = $this->factory()
             ->stockIn()

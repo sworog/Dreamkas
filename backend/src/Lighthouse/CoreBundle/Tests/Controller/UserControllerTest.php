@@ -1667,7 +1667,7 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
-        $storeId = $response['id'];
+
         foreach ($storeData as $name => $value) {
             Assert::assertJsonPathEquals($value, $name, $response);
         }

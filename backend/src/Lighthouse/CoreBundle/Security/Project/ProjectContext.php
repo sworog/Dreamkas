@@ -8,13 +8,13 @@ use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Closure;
+use LighthouseKernel;
 
 /**
  * @DI\Service("project.context")
@@ -141,17 +141,15 @@ class ProjectContext implements ClassNameable
     public function applyInProjects(Closure $callback)
     {
         foreach ($this->getAllProjects() as $project) {
-            $this->authenticate($project);
-            $kernel = new \LighthouseKernel(
-                $this->kernel->getEnvironment(),
-                $this->kernel->isDebug()
-            );
+            $kernel = new LighthouseKernel($this->kernel->getEnvironment(), $this->kernel->isDebug());
             $kernel->boot();
+
             $container = $kernel->getContainer();
             $container->get('project.context')->authenticateByProjectName($project->getName());
-            call_user_func($callback, $project, $kernel->getContainer());
+
+            call_user_func($callback, $project, $container);
+
             $kernel->shutdown();
-            $this->logout();
         }
     }
 
