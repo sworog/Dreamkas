@@ -3,12 +3,12 @@
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Product;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\IntegrationBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 
-class GrossMarginSalesProductTest extends WebTestCase
+class GrossMarginSalesProductTest extends DataAwareTestCase
 {
     /**
      * @return GrossMarginSalesProductRepository
