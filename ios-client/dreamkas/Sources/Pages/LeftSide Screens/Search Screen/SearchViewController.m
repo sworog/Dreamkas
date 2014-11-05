@@ -288,6 +288,20 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 }
 
 /**
+ *  Метод, уведомляющий об окончании работы fetch-контроллера
+ *  в связи с изменениями полей объектов БД
+ */
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [super controllerDidChangeContent:controller];
+    
+    if (([self countOfItems] > 0) && [self isSearchRequestValid]) {
+        [self.tableViewItem setHidden:NO];
+        [self setInfoMessage:kInfoMessageTypeNone];
+    }
+}
+
+/**
  *  Метод, инициирующий загрузку данных с сервера
  */
 - (void)requestDataFromServer
