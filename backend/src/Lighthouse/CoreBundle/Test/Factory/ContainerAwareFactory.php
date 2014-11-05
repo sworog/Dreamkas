@@ -27,7 +27,7 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
     /**
      * @return DocumentManager
      */
-    protected function getDocumentManager()
+    public function getDocumentManager()
     {
         return $this->container->get('doctrine_mongodb.odm.document_manager');
     }
@@ -38,6 +38,24 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
     public function getValidator()
     {
         return $this->container->get('lighthouse.core.validator');
+    }
+
+    /**
+     * @return $this
+     */
+    public function flush()
+    {
+        $this->getDocumentManager()->flush();
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clear()
+    {
+        $this->getDocumentManager()->clear();
+        return $this;
     }
 
     /**

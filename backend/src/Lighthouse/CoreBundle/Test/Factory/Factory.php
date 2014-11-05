@@ -50,11 +50,13 @@ class Factory extends ContainerAwareFactory
 
     /**
      * @param ContainerInterface $container
+     * @param string $projectName
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, $projectName = UserFactory::PROJECT_DEFAULT_NAME)
     {
-        $this->initFactories();
         parent::__construct($container);
+        $this->initFactories();
+        $this->user()->authProject($projectName);
     }
 
     protected function initFactories()
@@ -76,18 +78,6 @@ class Factory extends ContainerAwareFactory
     }
 
     /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        parent::setContainer($container);
-
-        if ($container) {
-            $this->user()->authProject();
-        }
-    }
-
-    /**
      * @param string $name
      * @param array $arguments
      * @return AbstractFactory
@@ -102,24 +92,6 @@ class Factory extends ContainerAwareFactory
             }
         }
         return $this->factories[$name];
-    }
-
-    /**
-     * @return Factory
-     */
-    public function flush()
-    {
-        $this->getDocumentManager()->flush();
-        return $this;
-    }
-
-    /**
-     * @return Factory
-     */
-    public function clear()
-    {
-        $this->getDocumentManager()->clear();
-        return $this;
     }
 
     /**
@@ -187,21 +159,5 @@ class Factory extends ContainerAwareFactory
     protected function getStoreProductRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.store_product');
-    }
-
-    /**
-     * @return ReceiptRepository
-     */
-    protected function getReceiptRepository()
-    {
-        return $this->container->get('lighthouse.core.document.repository.receipt');
-    }
-
-    /**
-     * @return ExceptionalValidator
-     */
-    public function getValidator()
-    {
-        return $this->container->get('lighthouse.core.validator');
     }
 }

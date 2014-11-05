@@ -24,7 +24,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     /**
      * @var Factory
      */
-    private $factory;
+    private $factories = array();
 
     public static function setUpBeforeClass()
     {
@@ -35,7 +35,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function tearDown()
     {
         static::shutdownKernel();
-        $this->factory = null;
+        $this->factories = array();
     }
 
     /**
@@ -101,14 +101,15 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
+     * @param string $name
      * @return Factory
      */
-    protected function factory()
+    protected function factory($name = UserFactory::PROJECT_DEFAULT_NAME)
     {
-        if (null === $this->factory) {
-            $this->factory = $this->createFactory();
+        if (!isset($this->factories[$name])) {
+            $this->factories[$name] = $this->createFactory($name);
         }
-        return $this->factory;
+        return $this->factories[$name];
     }
 
     /**
