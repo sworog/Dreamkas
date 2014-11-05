@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var currentUserModel = require('resources/currentUser/model.inst'),
-        Error = require('blocks/error/error'),
+        Error = require('blocks/modal/error/error'),
         cookies = require('cookies'),
         router = require('router'),
         $ = require('jquery'),
@@ -59,7 +59,7 @@ define(function(require) {
 
         new Error({
             jsError: jsError
-        });
+        }).show();
     };
 
     $(document).on('click', '[href]', function(e) {

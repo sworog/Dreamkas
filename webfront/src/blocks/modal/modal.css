@@ -72,6 +72,12 @@
     position: relative;
 }
 
+.modal_error {
+    position: absolute !important;
+    bottom: auto;
+    top: 80px;
+}
+
 .modal_receipt__successTitle {
     margin: 0 -60px 30px;
     font-size: 25px;
