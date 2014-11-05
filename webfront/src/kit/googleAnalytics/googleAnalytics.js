@@ -18,12 +18,14 @@ define(function(require) {
                 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
                 ga('create', googleAnalyticsId, 'auto');
-                this.sendPageview();
             }
         },
         sendPageview: function() {
+
+            var url = window.location.pathname + window.location.search;
+
             if (googleAnalyticsId) {
-                ga('send', 'pageview');
+                ga('send', 'pageview', url);
             }
         }
     };
