@@ -603,7 +603,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $productId = $this->createProduct('', $subCategoryId);
+        $productId = $this->createProductByName('1', $subCategoryId);
 
         $response = $this->clientJsonRequest(
             $accessToken,

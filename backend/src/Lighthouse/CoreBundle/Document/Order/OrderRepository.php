@@ -15,7 +15,7 @@ class OrderRepository extends DocumentRepository
     public function findAllByStoreId($storeId, OrdersFilter $ordersFilter)
     {
         $criteria = array('store' => $storeId);
-        $sort = array('createdDate' => self::SORT_DESC);
+        $sort = array('createdDate' => self::SORT_DESC, 'id' => self::SORT_DESC);
         if ($ordersFilter->hasIncomplete()) {
             $criteria['invoice'] = null;
         }
