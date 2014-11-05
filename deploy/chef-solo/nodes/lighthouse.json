@@ -13,7 +13,9 @@
 
         "recipe[lighthouse]",
         "recipe[lighthouse::php]",
-        "recipe[lighthouse::hosts]"
+        "recipe[lighthouse::hosts]",
+
+        "role[ux-host]"
     ],
     "php": {
         "directives": {
