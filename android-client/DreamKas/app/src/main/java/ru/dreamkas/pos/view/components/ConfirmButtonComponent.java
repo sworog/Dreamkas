@@ -2,7 +2,6 @@ package ru.dreamkas.pos.view.components;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -17,22 +16,19 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import ru.dreamkas.pos.R;
-import ru.dreamkas.pos.view.activities.LoginActivity;
-import ru.dreamkas.pos.view.popup.ReceiptItemEditDialog;
 
-//@EViewGroup(R.layout.product_search_component)
 public class ConfirmButtonComponent extends Button implements View.OnClickListener {
     private String mConfirmText = "Подтвердить очистку чека";
     private CharSequence mRegularText;
     private OnClickListener mExternalOnClickListener;
     private State mCurrentState = State.REGULAR;
-    private Dialog mRealTouchOwner;
+    private Window.Callback mRealTouchOwner;
     private PopupWindow pw;
-    //private Window.Callback mRealTouchOwner;
+
+    public enum State{
+        REGULAR, WAIT_FOR_CONFIRM, CONFIRMED;
+    }
 
     public ConfirmButtonComponent(Context context) {
         super(context);
@@ -51,31 +47,6 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
         init();
     }
 
-    private void setAttributes(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.confirm_button_component);
-        CharSequence s = a.getString(R.styleable.confirm_button_component_confirmationText);
-        if (s != null) {
-            mConfirmText = s.toString();
-        }
-        a.recycle();
-    }
-
-    public void setTouchOwner(ReceiptItemEditDialog dispatcherTarget) {
-        mRealTouchOwner = dispatcherTarget;
-    }
-
-    public enum State{
-        REGULAR, WAIT_FOR_CONFIRM, CONFIRMED;
-    }
-
-    private void init(){
-        super.setOnClickListener(this);
-    }
-
-   /* public void setContainer(View parentContainer){
-        mLayout = parentContainer;
-    }*/
-
     @Override
     public void onClick(View v) {
         switch (mCurrentState){
@@ -88,14 +59,32 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
         }
     }
 
-    public void changeState(State state){
+    @Override
+    public void setOnClickListener(View.OnClickListener listener){
+        mExternalOnClickListener = listener;
+    }
 
+    private void setAttributes(Context context, AttributeSet attrs) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.confirm_button_component);
+        CharSequence s = a.getString(R.styleable.confirm_button_component_confirmationText);
+        if (s != null) {
+            mConfirmText = s.toString();
+        }
+        a.recycle();
+    }
 
+    private void init(){
+        super.setOnClickListener(this);
+    }
+
+    public void setTouchOwner(Window.Callback dispatcherTarget) {
+        mRealTouchOwner = dispatcherTarget;
+    }
+
+    public void changeState(final State state){
         if(state == mCurrentState){
             return;
         }
-
-
 
         final ConfirmButtonComponent thisBtn = this;
 
@@ -110,8 +99,6 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
                 setTextColor(Color.RED);
                 mRegularText = getText();
                 setText(mConfirmText);
-
-                final View rv = getRootView().findViewById(android.R.id.content);
 
                 View transparentLayerView = LayoutInflater.from(getContext()).inflate(R.layout.empty_container, null, false);
                 pw = new PopupWindow(transparentLayerView, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
@@ -135,8 +122,6 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
                             if (!isPointWithin(x, y, buttonCoors[0], buttonCoors[1], buttonCoors[2], buttonCoors[3]))
                             {
                                 changeState(State.REGULAR);
-                            }else {
-                                Toast.makeText(getContext(), "OLOLO", Toast.LENGTH_SHORT).show();
                             }
                         }
                         if(mRealTouchOwner != null){
@@ -151,6 +136,10 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
                             public void run() {
                                 if(pw != null){
                                     pw.dismiss();
+
+                                    if(state != State.CONFIRMED){
+                                        changeState(State.REGULAR);
+                                    }
                                 }
                             }
                         }, 200);
@@ -173,11 +162,6 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
 
     static boolean isPointWithin(int x, int y, int x1, int y1, int x2, int y2) {
         return (x <= x2 && x >= x1 && y <= y2 && y >= y1);
-    }
-
-    @Override
-    public void setOnClickListener(View.OnClickListener listener){
-        mExternalOnClickListener = listener;
     }
 
     public void setConfirmationText(String confirm) {

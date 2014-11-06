@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="fill_parent"
         android:orientation="horizontal"
         android:layout_width="fill_parent">
-        <!--<ru.dreamkas.pos.view.components.CustomEditText
-            android:id="@+id/txtValue"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionSearch"
-            android:layout_weight="1"
-            app:ErrorTextColor="#f00"
-            app:ErrorDefaultBackground="@android:drawable/alert_light_frame"
-            app:ErrorDefaultBackgroundAbove="@android:drawable/alert_dark_frame"
-            app:ErrorDefaultIcon="@drawable/ic_launcher"
-            android:inputType="numberDecimal"
-            android:digits="0123456789."
-            android:lines="1" />-->
-
         <EditText
             android:id="@+id/txtValue"
             android:layout_width="fill_parent"
@@ -26,10 +11,7 @@
             android:imeOptions="actionSearch"
             android:layout_weight="1"
             android:inputType="numberDecimal"
-            android:digits="0123456789."
             android:lines="1" />
-
-
         <Button android:text="−"
             android:id="@+id/btnDown"
             android:background="@color/White"

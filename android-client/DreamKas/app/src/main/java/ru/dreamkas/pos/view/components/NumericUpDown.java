@@ -1,35 +1,29 @@
 package ru.dreamkas.pos.view.components;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.util.AttributeSet;
-import android.util.Pair;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.ViewById;
-
+import org.springframework.util.ObjectUtils;
 import java.math.BigDecimal;
-
-import ru.dreamkas.pos.ConverterHelper;
+import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
+import ru.dreamkas.pos.model.listeners.ValueChangedListener;
 
 @EViewGroup(R.layout.numeric_updown)
 public class NumericUpDown extends LinearLayout {
-    //private float mValue = -1;
-
     @ViewById
     EditText txtValue;
+    private ValueChangedListener mValueChangedListener;
 
     public NumericUpDown(Context context) {
-
         super(context);
-
     }
 
     public NumericUpDown(Context context, AttributeSet attrs) {
@@ -42,9 +36,8 @@ public class NumericUpDown extends LinearLayout {
 
     @AfterViews
     void init(){
-        txtValue.setText(String.valueOf(0));
+        setValue(BigDecimal.ZERO);
         txtValue.setSelection(txtValue.getText().length());
-        //txtValue.setError("Неверный формат");
     }
 
     @Click(R.id.btnDown)
@@ -57,9 +50,33 @@ public class NumericUpDown extends LinearLayout {
         changeValue(1);
     }
 
-    private void changeValue(int delta) {
-        //int cursorPosition = myEditText.getSelectionStart();
+    @TextChange(R.id.txtValue)
+    void onTextChangesOnTxtValue() {
+        BigDecimal value = BigDecimal.ZERO;
 
+        if (txtValue.length() > 0){
+            txtValue.setError(null);
+
+            try{
+                value = new BigDecimal(txtValue.getText().toString());
+                if(value.signum() < 0){
+                    txtValue.setError(DreamkasApp.getResourceString(R.string.msg_error_negative_value));
+                }else if(value.signum() == 0) {
+                    txtValue.setError(DreamkasApp.getResourceString(R.string.msg_error_zero_value));
+                }
+            }catch (Exception ex){
+                txtValue.setError(DreamkasApp.getResourceString(R.string.msg_error_wrong_format));
+            }
+        }else if(txtValue.length() == 0){
+            txtValue.setError(DreamkasApp.getResourceString(R.string.msg_error_empty_value));
+        }
+
+        if(mValueChangedListener != null){
+            mValueChangedListener.changedTo(value);
+        }
+    }
+
+    private void changeValue(int delta) {
         BigDecimal value = getValue();
         if(value != null){
             BigDecimal result = getValue().add(new BigDecimal(delta));
@@ -68,7 +85,7 @@ public class NumericUpDown extends LinearLayout {
                 result = BigDecimal.ZERO;
             }
 
-            txtValue.setText(result.toString());
+            setValue(result);
             txtValue.setSelection(txtValue.getText().length());
         }
     }
@@ -82,15 +99,23 @@ public class NumericUpDown extends LinearLayout {
 
         }catch (NumberFormatException ex){
             txtValue.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-            txtValue.setError("Неверный формат");
+            txtValue.setError(DreamkasApp.getResourceString(R.string.msg_error_wrong_format));
         }
         return null;
     }
 
-    @TextChange(R.id.txtValue)
-    void onTextChangesOnTxtValue() {
-       /* if(txtValue.getText().length() == 0){
-            init();
-        }*/
+    public CharSequence getError(){
+        return txtValue.getError();
+    }
+
+    public void setValueChangedListener(ValueChangedListener listener) {
+        mValueChangedListener = listener;
+    }
+
+    public void setValue(BigDecimal value) {
+        txtValue.setText(ObjectUtils.getDisplayString(value));
+        if(mValueChangedListener != null){
+            mValueChangedListener.changedTo(value);
+        }
     }
 }

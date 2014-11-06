@@ -5,175 +5,176 @@
     android:visibility="visible"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="#CC000000"
-    android:gravity="center">
-
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_width="800dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:background="#CC000000"
+        android:gravity="center">
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="800dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ru.dreamkas.pos.view.components.HorizontalPager
-            android:id="@+id/horizontal_pager"
-            android:layout_width="fill_parent"
-            android:layout_height="0px"
-            android:layout_weight="1">
+            <ru.dreamkas.pos.view.components.HorizontalPager
+                android:id="@+id/horizontal_pager"
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_weight="1">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/White"
-                >
                 <LinearLayout
-                    android:id="@+id/tbDialog"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:orientation="horizontal">
-                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:layout_width="fill_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal" >
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageButton
-                                android:id="@+id/btnCloseModal"
-                                android:background="@color/White"
-                                android:src="@drawable/ic_close_black_24dp"
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:layout_marginLeft="10dp"
-                                android:text="103 Р"
-                                android:textSize="20sp"
-                                android:textColor="@color/Black"
-                                />
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/btnSave"
-                            android:layout_width="120dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerInParent="true"
-                            android:layout_marginRight="10dp"
-                            android:text="Сохранить"
-                            android:textColor="@color/White"
-
-                            android:background="@color/DarkCyan"/>
-
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:background="#c0c0c0"/>
-
-                <ScrollView
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:fillViewport="true"
-                    android:measureAllChildren="false">
-
+                    android:background="@color/White">
                     <LinearLayout
-                        android:orientation="vertical"
+                        android:id="@+id/tbDialog"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="80dp"
-                        android:paddingRight="80dp">
+                        android:layout_height="80dp"
+                        android:orientation="horizontal">
+                        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" >
 
-                        <TextView
-                            android:id="@+id/lblProductName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-                            android:gravity="left"
-                            android:layout_marginTop="20dp"
-                            android:text="Молоко 'Веселый молочник'"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageButton
+                                    android:id="@+id/btnCloseModal"
+                                    android:background="@color/White"
+                                    android:src="@drawable/ic_close_black_24dp"
+                                    android:layout_width="70dp"
+                                    android:layout_height="match_parent" />
+
+                                <TextView
+                                    android:id="@+id/lblTotal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="103 Р"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/Black"
+                                    />
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/btnSave"
+                                android:layout_width="120dp"
+                                android:layout_height="50dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="10dp"
+                                android:text="Сохранить"
+                                style="@style/dk_button"
+                                />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="#c0c0c0"/>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fillViewport="true"
+                        android:measureAllChildren="false">
 
                         <LinearLayout
-                            android:layout_marginTop="40dp"
-                            android:orientation="horizontal"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content">
-
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1">
-
-                                <TextView
-                                    android:text="Цена продажи"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"/>
-                                <EditText
-                                    android:text="103"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:gravity="center_vertical"
-                                    android:textAppearance="?android:attr/textAppearanceMedium"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:layout_width="fill_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_weight="1">
-
-                                <TextView
-                                    android:text="Количество"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"/>
-                                <ru.dreamkas.pos.view.components.NumericUpDown_
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"/>
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <RelativeLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <ru.dreamkas.pos.view.components.ConfirmButtonComponent
-                                android:id="@+id/btnRemoveFromReceipt"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="80dp"
+                            android:paddingRight="80dp">
+
+                            <TextView
+                                android:id="@+id/lblProductName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="20dp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentBottom="true"
-                                android:background="@color/White"
-                                app:confirmationText="Подтвердить удаление"
-                                android:text="УДАЛИТЬ ИЗ ЧЕКА"/>
-                        </RelativeLayout>
-                    </LinearLayout>
-                </ScrollView>
-            </LinearLayout>
+                                android:layout_gravity="left"
+                                android:gravity="left"
+                                android:layout_marginTop="20dp"
+                                android:text="Молоко 'Веселый молочник'"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                />
 
-    </ru.dreamkas.pos.view.components.HorizontalPager>
+                            <LinearLayout
+                                android:layout_marginTop="40dp"
+                                android:orientation="horizontal"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:descendantFocusability="beforeDescendants"
+                                    android:focusableInTouchMode="true"
+                                    android:layout_weight="1">
+
+                                    <TextView
+                                        android:text="Цена продажи"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"/>
+                                    <EditText
+                                        android:id="@+id/txtSellingPrice"
+                                        android:text="0"
+
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:gravity="center_vertical"
+                                        android:inputType="numberDecimal"
+                                        android:textAppearance="?android:attr/textAppearanceMedium"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1">
+                                    <TextView
+                                        android:text="Количество"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"/>
+                                    <ru.dreamkas.pos.view.components.NumericUpDown_
+                                        android:id="@+id/nupQuantity"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"/>
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                                <ru.dreamkas.pos.view.components.ConfirmButtonComponent
+                                    android:id="@+id/btnRemoveFromReceipt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="20dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_alignParentBottom="true"
+                                    android:background="@color/White"
+                                    app:confirmationText="Подтвердить удаление"
+                                    android:text="УДАЛИТЬ ИЗ ЧЕКА"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+        </ru.dreamkas.pos.view.components.HorizontalPager>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -181,5 +182,5 @@
         android:id="@+id/llFragmentContainer"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
+        android:layout_height="match_parent"/>
 </RelativeLayout>

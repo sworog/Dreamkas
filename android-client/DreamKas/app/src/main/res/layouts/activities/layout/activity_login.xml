@@ -1,17 +1,8 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llLoginMain"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    >
-
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rlLogin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -45,9 +36,7 @@
             android:hint="Email"
             android:drawableLeft="@drawable/email"
             android:inputType="textEmailAddress"
-            android:text="owner@lighthouse.pro"
             />
-
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
@@ -59,9 +48,7 @@
             android:maxLines="1"
             android:lines="1"
             android:password="true"
-            android:drawableLeft="@drawable/password"
-            android:text="lighthouse"
-            />
+            android:drawableLeft="@drawable/password"/>
 
         <Button
             android:id="@+id/btnLogin"
@@ -70,11 +57,6 @@
             android:padding="10dp"
             android:layout_margin="4dp"
             android:text="Войти"
-            android:background="@color/DarkCyan"
-
-            />
+            style="@style/dk_button"/>
     </LinearLayout>
-
 </RelativeLayout>
-
-</LinearLayout>

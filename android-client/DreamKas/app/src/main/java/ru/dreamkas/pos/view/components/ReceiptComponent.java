@@ -1,36 +1,30 @@
 package ru.dreamkas.pos.view.components;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.ViewById;
-
+import java.math.BigDecimal;
 import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.adapters.ReceiptAdapter;
 import ru.dreamkas.pos.model.Receipt;
+import ru.dreamkas.pos.model.ReceiptItem;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.misc.StringDecorator;
-import ru.dreamkas.pos.view.popup.BasePopup;
 import ru.dreamkas.pos.view.popup.ReceiptItemEditDialog;
-import ru.dreamkas.pos.view.popup.ReceiptItemEditPopup;
 
 @EViewGroup(R.layout.receipt_component)
 public class ReceiptComponent extends LinearLayout {
@@ -84,6 +78,7 @@ public class ReceiptComponent extends LinearLayout {
     private void addFooterClearButton() {
         btnClearReceipt = (ConfirmButtonComponent)View.inflate(mContext,R.layout.clear_button, null);
         btnClearReceipt.setConfirmationText(DreamkasApp.getResourceString(R.string.msgClearReceiptConfitmationText));
+        btnClearReceipt.setTouchOwner((Activity)mContext);
         lvReceipt.addFooterView(btnClearReceipt);
     }
 
@@ -100,34 +95,39 @@ public class ReceiptComponent extends LinearLayout {
     }
 
     @ItemClick
-    void lvReceiptItemClicked(Product obj) {
-        /*View view = LayoutInflater.from(getContext()).inflate(R.layout.edit_receipt_item, null, false);
-        ReceiptItemEditPopup aa = new ReceiptItemEditPopup(getContext(), view, null);
-        aa.show(this);*/
-
-        /*View view = LayoutInflater.from(mContext).inflate(R.layout.edit_receipt_item, (ViewGroup)getRootView(), false);
-        ReceiptItemEditPopup aa = new ReceiptItemEditPopup(mContext, view, null);
-        aa.show(this);*/
-
-        /*final Dialog dialog = new Dialog(getContext());
-
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.edit_receipt_item);
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = 800;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-
-        dialog.show();
-        dialog.getWindow().setAttributes(lp);*/
-
+    void lvReceiptItemClicked(ReceiptItem item) {
         final ReceiptItemEditDialog dialog = new ReceiptItemEditDialog(getContext());
+
+        dialog.setReceiptItem(item);
         dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(final DialogInterface arg0) {
+                switch (dialog.getResult()){
+                    case Save:
+                        ReceiptItem item = dialog.getReceiptItem();
 
+                        int start = lvReceipt.getFirstVisiblePosition();
+                        for(int i=start, j=lvReceipt.getLastVisiblePosition();i<=j;i++)
+                            if(item==lvReceipt.getItemAtPosition(i)){
+                                View view = lvReceipt.getChildAt(i-start);
+                                lvReceipt.getAdapter().getView(i, view, lvReceipt);
+                                break;
+                            }
 
+                        BigDecimal delta = item.getTotal().add(dialog.getBackup().getTotal().negate());
 
+                        mReceipt.changeTo(delta);
+                        changeReceiptTotal();
+                        break;
+                    case Cancel:
+                        break;
+                    case RemoveReceipt:
+                        ((ReceiptAdapter) ((HeaderViewListAdapter)lvReceipt.getAdapter()).getWrappedAdapter()).remove(dialog.getReceiptItem());
+                        break;
+                }
+            }
+        });
     }
 
     private void scrollToBottom() {
@@ -140,8 +140,7 @@ public class ReceiptComponent extends LinearLayout {
     }
 
     private void changeReceiptTotal() {
-        SpannableStringBuilder msgSellInTheAmountOff = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msgSellInTheAmountOff),
-                                                                                                                    mReceipt.getTotal(), StringDecorator.RUBLE_CODE);
+        SpannableStringBuilder msgSellInTheAmountOff = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msgSellInTheAmountOff), mReceipt.getTotal().toString(), StringDecorator.RUBLE_CODE);
         btnRegisterReceipt.setText(msgSellInTheAmountOff);
     }
 
