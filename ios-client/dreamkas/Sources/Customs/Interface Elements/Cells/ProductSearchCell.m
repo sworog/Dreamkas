@@ -7,6 +7,7 @@
 //
 
 #import "ProductSearchCell.h"
+#import "SearchViewController.h"
 
 @implementation ProductSearchCell
 
@@ -31,8 +32,30 @@
  */
 - (CGFloat)configureWithModel:(ProductModel *)model
 {
-    [self.titleLabel setText:[model name]];
+    // установка наименования и прочих параметров
+    
+    NSString *search_substring = [UserDefaults objectForKey:kSearchViewControllerSearchFieldKey];
+    
     [self.titleLabel setY:DefaultVerticalCellInsets];
+    NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[[model name] lowercaseString]
+                                                                                   attributes:@{NSFontAttributeName:DefaultFont(18),
+                                                                                                NSForegroundColorAttributeName:DefaultBlackColor}];
+    if ([search_substring length]) {
+        [m_attr_str setAttributes:@{NSFontAttributeName:DefaultBoldFont(18),NSForegroundColorAttributeName:DefaultBlackColor}
+                            range:[[model name] rangeOfString:search_substring options:NSCaseInsensitiveSearch]];
+    }
+    
+    if ([[model sku] length]) {
+        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"/%@", [model sku]]
+                                                                           attributes:@{NSFontAttributeName:DefaultFont(18),NSForegroundColorAttributeName:DefaultGrayColor}]];
+    }
+    if ([[model barcode] length]) {
+        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"/%@", [model barcode]]
+                                                                           attributes:@{NSFontAttributeName:DefaultFont(18),NSForegroundColorAttributeName:DefaultGrayColor}]];
+    }
+    [self.titleLabel setAttributedText:m_attr_str];
+    
+    // установка цены
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];

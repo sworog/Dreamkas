@@ -79,6 +79,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [self.searchField setWidth:600];
     [self.searchField setHeight:DefaultTopPanelHeight];
     [self.searchField setPlaceholder:NSLocalizedString(@"product_search_field_placeholder", nil)];
+    [self.searchField setKeyboardType:UIKeyboardTypeDefault];
+    [self.searchField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     self.navigationItem.titleView = self.searchField;
 }
 
@@ -140,28 +142,6 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 
 #pragma mark - Методы UITextfield Delegate
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    DPLogFast(@"");
-    return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    DPLogFast(@"");
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    DPLogFast(@"");
-    return YES;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    DPLogFast(@"");
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     DPLogFast(@"");
@@ -171,6 +151,9 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     
     searchString = [NSMutableString stringWithString:tmp];
     DPLogFast(@"searchString = %@", searchString);
+    
+    [UserDefaults setObject:searchString forKey:kSearchViewControllerSearchFieldKey];
+    [UserDefaults synchronize];
     
     if ([self isSearchRequestValid]) {
         [self.tableViewItem setHidden:NO];

@@ -50,6 +50,18 @@
 {
     [super setText:text];
     
+    [self updateLabelHeight];
+}
+
+- (void)setAttributedText:(NSAttributedString *)attributedText
+{
+    [super setAttributedText:attributedText];
+    
+    [self updateLabelHeight];
+}
+
+- (void)updateLabelHeight
+{
     CGRect lbl_rect = self.frame;
     CGSize constraint_size = (CGSize){self.frame.size.width, CGFLOAT_MAX};
     

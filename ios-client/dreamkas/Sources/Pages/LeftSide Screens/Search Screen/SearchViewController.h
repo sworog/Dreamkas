@@ -8,6 +8,8 @@
 
 #import "AbstractTableViewController.h"
 
+#define kSearchViewControllerSearchFieldKey @"SearchViewControllerSearchField"
+
 @interface SearchViewController : AbstractTableViewController
 
 @end
