@@ -36,8 +36,8 @@
     
     NSString *search_substring = [UserDefaults objectForKey:kSearchViewControllerSearchFieldKey];
     
-    [self.titleLabel setY:DefaultVerticalCellInsets];
-    NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[[model name] lowercaseString]
+    [self.titleLabel setY:DefaultVerticalCellInsets];    
+    NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[[model name] lowercaseStringWithFirstUppercaseLetter]
                                                                                    attributes:@{NSFontAttributeName:DefaultFont(18),
                                                                                                 NSForegroundColorAttributeName:DefaultBlackColor}];
     if ([search_substring length]) {
@@ -46,12 +46,14 @@
     }
     
     if ([[model sku] length]) {
-        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"/%@", [model sku]]
-                                                                           attributes:@{NSFontAttributeName:DefaultFont(18),NSForegroundColorAttributeName:DefaultGrayColor}]];
+        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", [model sku]]
+                                                                           attributes:@{NSFontAttributeName:DefaultLightFont(16),
+                                                                                        NSForegroundColorAttributeName:DefaultGrayColor}]];
     }
     if ([[model barcode] length]) {
-        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"/%@", [model barcode]]
-                                                                           attributes:@{NSFontAttributeName:DefaultFont(18),NSForegroundColorAttributeName:DefaultGrayColor}]];
+        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" / %@", [model barcode]]
+                                                                           attributes:@{NSFontAttributeName:DefaultLightFont(16),
+                                                                                        NSForegroundColorAttributeName:DefaultGrayColor}]];
     }
     [self.titleLabel setAttributedText:m_attr_str];
     
@@ -69,7 +71,6 @@
     
     NSMutableString *str = [NSMutableString stringWithFormat:@"%@ ₽", [formatter stringFromNumber:[model sellingPrice]]];
     [self.priceLabel setText:str];
-    [self.priceLabel setY:DefaultVerticalCellInsets];
     
     CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + DefaultVerticalCellInsets;
     self.cellSeparator.y = (float)(cell_height - DefaultCellSeparatorHeight);

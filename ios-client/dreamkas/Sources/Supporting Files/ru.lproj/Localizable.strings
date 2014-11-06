@@ -21,7 +21,7 @@
 
 "product_search_empty_message" = "Для поиска товара введите 3 или более символа";
 "product_search_no_results_message" = "Товаров не найдено";
-"product_search_field_placeholder" = "Наименование или артикул";
+"product_search_field_placeholder" = "Наименование, штрих-код или артикул";
 
 /*
  *  ============================================================================

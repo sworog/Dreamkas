@@ -37,6 +37,7 @@
 
 #import "NSDate+Utilities.h"
 #import "UIView+Positioning.h"
+#import "NSString+CaseMethods.h"
 
 //
 // Модели и их обработчики

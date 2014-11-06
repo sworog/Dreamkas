@@ -195,6 +195,8 @@
 		CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */; };
 		CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
 		CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
+		CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
+		CE9E0DEB1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
 		CEA66B391A0239D100BBECD1 /* StoreSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */; };
 		CEA66B3A1A0239D100BBECD1 /* StoreSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */; };
 		CEA9932E1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9932D1A038A8C00B9D821 /* AbstractViewController+Keyboard.m */; };
@@ -478,6 +480,8 @@
 		CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmptyButton.h; sourceTree = "<group>"; };
 		CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmptyButton.m; sourceTree = "<group>"; };
 		CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardSegues.h; sourceTree = "<group>"; };
+		CE9E0DE81A0BAFEB00D6F92B /* NSString+CaseMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CaseMethods.h"; sourceTree = "<group>"; };
+		CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CaseMethods.m"; sourceTree = "<group>"; };
 		CEA66B371A0239D100BBECD1 /* StoreSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSelectionCell.h; sourceTree = "<group>"; };
 		CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreSelectionCell.m; sourceTree = "<group>"; };
 		CEA993281A0385D500B9D821 /* KeyboardEventsListenerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardEventsListenerProtocol.h; sourceTree = "<group>"; };
@@ -1075,6 +1079,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		CE9E0DE51A0BAFB600D6F92B /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				CE9E0DE81A0BAFEB00D6F92B /* NSString+CaseMethods.h */,
+				CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
 		CEBC439419E7FB9D00C0E575 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -1356,6 +1369,7 @@
 		CEF2646819E81D16008BE93A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				CE9E0DE51A0BAFB600D6F92B /* NSString */,
 				CEF2647819E81D72008BE93A /* UIImage */,
 				CEF2646919E81D16008BE93A /* NSDate */,
 				CEF2646C19E81D16008BE93A /* UIView */,
@@ -1598,6 +1612,7 @@
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
 				CE29100819EE668B005483A1 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				CE290FF219EE668B005483A1 /* NSNumber+MagicalDataImport.m in Sources */,
+				CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */,
 				CE29101A19EE668B005483A1 /* MagicalRecord+Setup.m in Sources */,
 				CE29100619EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				CE39DDCA19FFD3BE00150C28 /* CheckViewController.m in Sources */,
@@ -1776,6 +1791,7 @@
 				CE8DA4E41A0106FD007C24D8 /* CustomNavigationBar.m in Sources */,
 				CE29100719EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				CE290FEF19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
+				CE9E0DEB1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */,
 				CE500B7C19F00A4F00449C34 /* AbstractTableViewController.m in Sources */,
 				CEBC439F19E8048700C0E575 /* DialogHelper.m in Sources */,
 				CE290FF119EE668B005483A1 /* NSEntityDescription+MagicalDataImport.m in Sources */,
