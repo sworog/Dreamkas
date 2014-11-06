@@ -2,6 +2,7 @@ package ru.dreamkas.pages.stockMovement.modal;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
 import ru.dreamkas.elements.items.DateInput;
@@ -10,7 +11,6 @@ import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import ru.dreamkas.elements.items.autocomplete.ProductAutoComplete;
 import ru.dreamkas.handler.field.FieldChecker;
-import ru.dreamkas.helper.DateTimeHelper;
 import ru.dreamkas.pages.modal.ModalWindowPage;
 
 public abstract class StockMovementModalPage extends ModalWindowPage {
