@@ -65,12 +65,13 @@ class CatalogFactory extends AbstractFactory
 
     /**
      * @param string $name
+     * @param SubCategory $subCategory
      * @return Product
      */
-    public function getProductByName($name = self::DEFAULT_PRODUCT_NAME)
+    public function getProductByName($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
     {
         if (!isset($this->productNames[$name])) {
-            $this->createProductByName($name);
+            $this->createProductByName($name, $subCategory);
         }
         return $this->getProductById($this->productNames[$name]);
     }
@@ -84,7 +85,7 @@ class CatalogFactory extends AbstractFactory
     {
         $products = array();
         foreach ($names as $name) {
-            $products[$name]  = $this->getProductByName($name, $subCategory);
+            $products[$name] = $this->getProductByName($name, $subCategory);
         }
         return $products;
     }
