@@ -6,6 +6,8 @@ set :api_url,     "api.dreamkas.ru" unless exists?(:api_url)
 set (:application_folder) {"#{host}.#{app_end}"}
 set (:application_url) {"http://#{host}.dreamkas.ru"}
 
+set :google_analytics_id, 'UA-56269916-1'
+
 set :npm_flag, '--production'
 
 server domain, :app, :web, :primary => true

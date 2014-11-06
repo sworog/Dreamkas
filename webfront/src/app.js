@@ -8,9 +8,12 @@ define(function(require) {
         _ = require('lodash'),
         moment = require('moment'),
         getText = require('kit/getText/getText'),
-        numeral = require('numeral');
+        numeral = require('numeral'),
+        googleAnalytics = require('kit/googleAnalytics/googleAnalytics');
 
     require('bower_components/bootstrap/dist/js/bootstrap');
+
+    googleAnalytics.init();
 
     getText.dictionary = require('i18n!nls/main');
 
