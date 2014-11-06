@@ -1,7 +1,6 @@
 define({
     baseUrl: 'http://<%= api_url %>',
     baseApiUrl: 'http://<%= api_url %>/api/1',
-    mockApiUrl: 'http://lh.apiary.io',
     clientId: 'webfront_webfront',
     clientSecret: 'secret',
     debugLevel: 2,
