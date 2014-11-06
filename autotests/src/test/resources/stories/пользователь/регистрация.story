@@ -6,16 +6,15 @@ Narrative:
 Я хочу зарегистрировать аккаунт в LH,
 Чтобы иметь в системе свою учётную запись.
 
-
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
-
-
 Scenario: Регистрация нового пользователя
 
 Meta:
 @smoke
 
-Given полльзователь открывает страницу регистации
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
+Given пользователь удаляет все сообщения в ящике
+And полльзователь открывает страницу регистации
 
 When пользователь вводит 'autotests@lighthouse.pro' в поле email
 And пользователь нажимает кнопку зарегистрироваться
@@ -27,7 +26,7 @@ And пользователь видит что в форме уже заполн
 
 When пользователь получает последнее сообщение из тестового email из папки входящие
 
-Then пользователь видит что сообщение пришло от 'noreply@dreamkas.ru'
+Then пользователь видит что сообщение пришло от '"Dreamkas.ru" <noreply@dreamkas.ru>'
 And пользователь видит что заголовок сообщения содержит текст 'Добро пожаловать в Dreamkas'
 And пользовател видит что письмо соответствует шаблону письма о регистации
 
