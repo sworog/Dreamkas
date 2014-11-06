@@ -12,10 +12,15 @@
 
 - (NSString *)lowercaseStringWithFirstUppercaseLetter
 {
+    if ([self length] < 1) {
+        return self;
+    }
+    
     NSMutableString *str = [[NSMutableString alloc] initWithString:[self lowercaseString]];
     NSRange range = NSMakeRange(0, 1);
     [str replaceCharactersInRange:range
                        withString:[[str substringWithRange:range] uppercaseString]];
+    
     return [str copy];
 }
 
