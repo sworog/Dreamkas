@@ -34,16 +34,14 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$el.addClass('modal_visible');
-
-            document.getElementById('modal__wrapper').classList.add('modal__wrapper_visible');
+            block.showWrapper();
         },
         hide: function() {
             var block = this,
                 modals = $('.modal_visible');
 
             if (modals.length == 1) {
-                document.body.classList.remove('modal-open');
-                document.getElementById('modal__wrapper').classList.remove('modal__wrapper_visible');
+                block.hideWrapper();
             }
 
             block.$el.removeClass('modal_visible');

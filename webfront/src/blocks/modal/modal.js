@@ -53,11 +53,7 @@ define(function(require, exports, module) {
             var block = this;
 
             block.initialize(data);
-
-            document.body.classList.add('modal-open');
-
             block.toggle();
-
             block.trigger('shown');
         },
         toggle: function(){
@@ -68,22 +64,28 @@ define(function(require, exports, module) {
                 .siblings('.modal')
                 .removeClass('modal_visible');
 
-            document.getElementById('modal__wrapper').classList.add('modal__wrapper_visible');
-
+            block.showWrapper();
             block.$('[autofocus]').focus();
         },
         hide: function() {
             var block = this;
 
-            document.body.classList.remove('modal-open');
-
             block.el.classList.remove('modal_visible');
 
-            document.getElementById('modal__wrapper').classList.remove('modal__wrapper_visible');
-
+            block.hideWrapper();
             block.reset();
-
             block.trigger('hidden');
+        },
+        getWrapper: function() {
+            return document.getElementById('modal__wrapper');
+        },
+        showWrapper: function() {
+            document.body.classList.add('modal-open');
+            this.getWrapper().classList.add('modal__wrapper_visible');
+        },
+        hideWrapper: function() {
+            document.body.classList.remove('modal-open');
+            this.getWrapper().classList.remove('modal__wrapper_visible');
         },
         reset: function(){
             this.$('form').each(function(){
