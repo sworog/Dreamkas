@@ -43,8 +43,8 @@
     //[self setBarTintColor:DefaultLightGrayColor];
     
     // Для текста устанавливается только семейство шрифтов, цвет задается из вне
-    [self setTitleTextAttributes:@{NSFontAttributeName:DefaultFont(20),
-                                   NSForegroundColorAttributeName:self.titleTextAttributes[NSForegroundColorAttributeName]}];
+    [self setTitleTextAttributes:@{NSFontAttributeName:DefaultMediumFont(20),
+                                   NSForegroundColorAttributeName:[self.titleTextAttributes[NSForegroundColorAttributeName] colorWithAlphaComponent:0.87]}];
     
     // Для заголовка задается смещение по вертикали
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:-10

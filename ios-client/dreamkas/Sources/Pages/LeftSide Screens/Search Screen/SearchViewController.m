@@ -48,7 +48,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 {
     [super viewDidLoad];
     
-    [self.infoMsgLabel setTextColor:DefaultGrayColor];
+    [self.infoMsgLabel setFont:DefaultFont(12)];
+    [self.infoMsgLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.54]];
     
     [self placeSearchField];
 }

@@ -20,11 +20,8 @@
 {
     [super awakeFromNib];
     
-    [self.titleLabel setFont:DefaultFont(18)];
-    [self.titleLabel setTextColor:DefaultBlackColor];
-    
-    [self.priceLabel setFont:DefaultFont(18)];
-    [self.priceLabel setTextColor:DefaultBlackColor];
+    [self.priceLabel setFont:DefaultMediumFont(16)];
+    [self.priceLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.54]];
 }
 
 /**
@@ -34,26 +31,37 @@
 {
     // установка наименования и прочих параметров
     
+    [self.titleLabel setY:DefaultVerticalCellInsets];
     NSString *search_substring = [UserDefaults objectForKey:kSearchViewControllerSearchFieldKey];
-    
-    [self.titleLabel setY:DefaultVerticalCellInsets];    
     NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[[model name] lowercaseStringWithFirstUppercaseLetter]
-                                                                                   attributes:@{NSFontAttributeName:DefaultFont(18),
-                                                                                                NSForegroundColorAttributeName:DefaultBlackColor}];
+                                                                                   attributes:@{NSFontAttributeName:DefaultFont(16),
+                                                                                                NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.54]}];
     if ([search_substring length]) {
-        [m_attr_str setAttributes:@{NSFontAttributeName:DefaultBoldFont(18),NSForegroundColorAttributeName:DefaultBlackColor}
+        [m_attr_str setAttributes:@{NSFontAttributeName:DefaultFont(16),
+                                    NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.87]}
                             range:[[model name] rangeOfString:search_substring options:NSCaseInsensitiveSearch]];
     }
-    
     if ([[model sku] length]) {
-        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", [model sku]]
-                                                                           attributes:@{NSFontAttributeName:DefaultLightFont(16),
-                                                                                        NSForegroundColorAttributeName:DefaultGrayColor}]];
+        NSMutableAttributedString *sku_str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@", [model sku]]
+                                                                      attributes:@{NSFontAttributeName:DefaultFont(12),
+                                                                                   NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.54]}];
+        if ([search_substring length]) {
+            [sku_str setAttributes:@{NSFontAttributeName:DefaultFont(12),
+                                        NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.87]}
+                                range:[[sku_str string] rangeOfString:search_substring options:NSCaseInsensitiveSearch]];
+        }
+        [m_attr_str appendAttributedString:sku_str];
     }
     if ([[model barcode] length]) {
-        [m_attr_str appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" / %@", [model barcode]]
-                                                                           attributes:@{NSFontAttributeName:DefaultLightFont(16),
-                                                                                        NSForegroundColorAttributeName:DefaultGrayColor}]];
+        NSMutableAttributedString *barcode_str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@" / %@", [model barcode]]
+                                                                                    attributes:@{NSFontAttributeName:DefaultFont(12),
+                                                                                                 NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.54]}];
+        if ([search_substring length]) {
+            [barcode_str setAttributes:@{NSFontAttributeName:DefaultFont(12),
+                                     NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.87]}
+                             range:[[barcode_str string] rangeOfString:search_substring options:NSCaseInsensitiveSearch]];
+        }
+        [m_attr_str appendAttributedString:barcode_str];
     }
     [self.titleLabel setAttributedText:m_attr_str];
     

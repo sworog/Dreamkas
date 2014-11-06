@@ -19,11 +19,11 @@
 {
     [super awakeFromNib];
     
-    [self.titleLabel setFont:DefaultFont(18)];
-    [self.titleLabel setTextColor:DefaultCyanColor];
+    [self.titleLabel setFont:DefaultFont(16)];
+    [self.titleLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
     
-    [self.priceLabel setFont:DefaultFont(18)];
-    [self.priceLabel setTextColor:DefaultBlackColor];
+    [self.priceLabel setFont:DefaultFont(16)];
+    [self.priceLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
 }
 
 /**

@@ -49,8 +49,8 @@
     [self setClearButtonMode:UITextFieldViewModeWhileEditing];
     [self setReturnKeyType:UIReturnKeyDone];
     
-    self.textColor = DefaultBlackColor;
-    self.font = DefaultLightFont(18);
+    self.textColor = DefaultDarkGrayColor;
+    self.font = DefaultFont(18);
     self.autocorrectionType = UITextAutocorrectionTypeNo;
     
     self.clearButtonMode = UITextFieldViewModeWhileEditing;

@@ -16,10 +16,12 @@
 #define DefaultFontName                     @"Roboto-Regular"
 #define DefaultBoldFontName                 @"Roboto-Bold"
 #define DefaultLightFontName                @"Roboto-Light"
+#define DefaultMediumFontName               @"Roboto-Medium"
 
 #define DefaultFont(fsize)                  [UIFont fontWithName:(DefaultFontName) size:(fsize)]
 #define DefaultBoldFont(fsize)              [UIFont fontWithName:(DefaultBoldFontName) size:(fsize)]
 #define DefaultLightFont(fsize)             [UIFont fontWithName:(DefaultLightFontName) size:(fsize)]
+#define DefaultMediumFont(fsize)            [UIFont fontWithName:(DefaultMediumFontName) size:(fsize)]
 
 //
 // Символьные шрифты приложения

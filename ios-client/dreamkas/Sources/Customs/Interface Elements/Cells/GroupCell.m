@@ -19,8 +19,8 @@
 {
     [super awakeFromNib];
     
-    [self.titleLabel setFont:DefaultFont(18)];
-    [self.titleLabel setTextColor:DefaultCyanColor];
+    [self.titleLabel setFont:DefaultFont(16)];
+    [self.titleLabel setTextColor:[DefaultCyanColor colorWithAlphaComponent:0.87]];
     
     [self.arrowLabel setText:@"❯"];
     [self.arrowLabel setFont:DefaultFont(18)];
