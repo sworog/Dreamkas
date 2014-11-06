@@ -9,6 +9,8 @@ import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import ru.dreamkas.elements.items.autocomplete.ProductAutoComplete;
+import ru.dreamkas.handler.field.FieldChecker;
+import ru.dreamkas.helper.DateTimeHelper;
 import ru.dreamkas.pages.modal.ModalWindowPage;
 
 public abstract class StockMovementModalPage extends ModalWindowPage {
@@ -19,7 +21,7 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("date", new DateInput(this, "//*[@name='date']"));
+        put("date", getCustomDateInput());
         put("store", new SelectByVisibleText(this, "//*[@name='store']"));
         put("product.name", new ProductAutoComplete(this, "//*[@name='product.name' and contains(@class, 'input')]"));
         put("price", new Input(this, "//*[@name='price']"));
@@ -69,5 +71,28 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
     @Override
     public String getTitle() {
         return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
+    }
+
+    private DateInput getCustomDateInput() {
+        return new DateInput(this, "//*[@name='date']") {
+
+            @Override
+            public void setValue(String value) {
+                String convertedValue = DateTimeHelper.getDate(value);
+                super.setValue(convertedValue);
+            }
+
+            @Override
+            public FieldChecker getFieldChecker() {
+                return new FieldChecker(this) {
+
+                    @Override
+                    public void assertValueEqual(String expectedValue) {
+                        String convertedValue = DateTimeHelper.getDate(expectedValue);
+                        super.assertValueEqual(convertedValue);
+                    }
+                };
+            }
+        };
     }
 }

@@ -8,6 +8,7 @@ import ru.dreamkas.collection.abstractObjects.objectInterfaces.ObjectClickable;
 import ru.dreamkas.collection.abstractObjects.objectInterfaces.ObjectLocatable;
 import ru.dreamkas.collection.abstractObjects.objectInterfaces.ResultComparable;
 import ru.dreamkas.collection.compare.CompareResults;
+import ru.dreamkas.helper.DateTimeHelper;
 
 import java.util.Map;
 
@@ -82,8 +83,9 @@ public class StockMovementListObject extends AbstractObject implements ObjectCli
         String status = row.get("status") != null
                 ? row.get("status")
                 : "";
+        String convertedDate = DateTimeHelper.getDate(row.get("date"));
         return new CompareResults()
-                .compare("date", date, row.get("date"))
+                .compare("date", date, convertedDate)
                 .compare("type", type, row.get("type"))
                 .compare("status", this.status, status)
                 .compare("store", store, row.get("store"))
