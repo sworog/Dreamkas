@@ -149,6 +149,10 @@
 		CE8DA4E41A0106FD007C24D8 /* CustomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8DA4E21A0106FD007C24D8 /* CustomNavigationBar.m */; };
 		CE8DA4E71A011D54007C24D8 /* BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8DA4E61A011D54007C24D8 /* BackButton.m */; };
 		CE8DA4E81A011D54007C24D8 /* BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8DA4E61A011D54007C24D8 /* BackButton.m */; };
+		CE912E901A0BD3A1001FDACE /* UTProductsTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */; };
+		CE912E941A0BD62D001FDACE /* ITProductsTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E931A0BD62D001FDACE /* ITProductsTesting.m */; };
+		CE912E981A0BD8A0001FDACE /* PincodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E971A0BD8A0001FDACE /* PincodeViewController.m */; };
+		CE912E991A0BD8A1001FDACE /* PincodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E971A0BD8A0001FDACE /* PincodeViewController.m */; };
 		CE91B79519F4ED4700258AB0 /* UTAuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */; };
 		CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */; };
 		CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */; };
@@ -451,6 +455,10 @@
 		CE8DA4E21A0106FD007C24D8 /* CustomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationBar.m; sourceTree = "<group>"; };
 		CE8DA4E51A011D54007C24D8 /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
 		CE8DA4E61A011D54007C24D8 /* BackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackButton.m; sourceTree = "<group>"; };
+		CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTProductsTesting.m; sourceTree = "<group>"; };
+		CE912E931A0BD62D001FDACE /* ITProductsTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITProductsTesting.m; sourceTree = "<group>"; };
+		CE912E961A0BD8A0001FDACE /* PincodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PincodeViewController.h; sourceTree = "<group>"; };
+		CE912E971A0BD8A0001FDACE /* PincodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PincodeViewController.m; sourceTree = "<group>"; };
 		CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTAuthTesting.m; sourceTree = "<group>"; };
 		CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTStoresTesting.m; sourceTree = "<group>"; };
 		CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITAuthTesting.m; sourceTree = "<group>"; };
@@ -939,6 +947,7 @@
 			isa = PBXGroup;
 			children = (
 				CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */,
+				CE912E931A0BD62D001FDACE /* ITProductsTesting.m */,
 				CE91B79A19F4EE4100258AB0 /* ITStoresTesting.m */,
 			);
 			path = "Integration Tests";
@@ -948,6 +957,7 @@
 			isa = PBXGroup;
 			children = (
 				CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */,
+				CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */,
 				CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */,
 			);
 			path = "Unit Tests";
@@ -1052,6 +1062,15 @@
 			path = Encryption;
 			sourceTree = "<group>";
 		};
+		CE912E951A0BD88B001FDACE /* Pincode Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE912E961A0BD8A0001FDACE /* PincodeViewController.h */,
+				CE912E971A0BD8A0001FDACE /* PincodeViewController.m */,
+			);
+			path = "Pincode Screen";
+			sourceTree = "<group>";
+		};
 		CE946BA619E6A91400D270E4 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -1112,6 +1131,7 @@
 				CEC0041319E69B2500AE256F /* AuthViewController.h */,
 				CEC0041419E69B2500AE256F /* AuthViewController.m */,
 				CEF2645819E81258008BE93A /* LogIn Screen */,
+				CE912E951A0BD88B001FDACE /* Pincode Screen */,
 				CEF2645919E81258008BE93A /* SignIn Screen */,
 			);
 			path = "Auth Screen";
@@ -1675,6 +1695,7 @@
 				CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CEF2647319E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CEF2646219E8127B008BE93A /* SignInViewController.m in Sources */,
+				CE912E981A0BD8A0001FDACE /* PincodeViewController.m in Sources */,
 				CE3C763F1A0142C30057493E /* GroupModel.m in Sources */,
 				CE8AB37E19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE3B95F419E4189100E1D24F /* RESTClient+Auth.m in Sources */,
@@ -1732,6 +1753,8 @@
 				CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE29100319EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEF2645F19E8126A008BE93A /* LogInViewController.m in Sources */,
+				CE912E991A0BD8A1001FDACE /* PincodeViewController.m in Sources */,
+				CE912E941A0BD62D001FDACE /* ITProductsTesting.m in Sources */,
 				CEF2646719E81C57008BE93A /* AbstractViewController+Modal.m in Sources */,
 				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
@@ -1778,6 +1801,7 @@
 				CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */,
 				CE3C76501A0148610057493E /* ProductModel.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
+				CE912E901A0BD3A1001FDACE /* UTProductsTesting.m in Sources */,
 				CE886A661A028B6D00587D70 /* SearchField.m in Sources */,
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,

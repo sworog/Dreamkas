@@ -58,6 +58,7 @@
 {
     SearchButton *btn = [SearchButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, DefaultTopPanelHeight, DefaultTopPanelHeight);
+    [btn setAccessibilityLabel:AI_TicketWindowPage_SearchButton];
     [btn addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *right_btn = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = right_btn;

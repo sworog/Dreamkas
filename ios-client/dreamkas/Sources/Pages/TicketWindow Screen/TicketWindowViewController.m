@@ -74,6 +74,9 @@
 - (void)configureAccessibilityLabels
 {
     [self.sidemenuButton setAccessibilityLabel:AI_TicketWindowPage_SidemenuButton];
+    
+    [self.leftSideContainerView setAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
+    [self.rightSideContainerView setAccessibilityLabel:AI_TicketWindowPage_RightContainer];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

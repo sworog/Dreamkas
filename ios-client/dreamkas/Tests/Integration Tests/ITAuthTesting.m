@@ -48,7 +48,7 @@
     
     [tester tapViewWithAccessibilityLabel:AI_LogInPage_LogInButton];
     
-    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
 }
 
 - (void)testFirstLogIn_Unsuccessfully

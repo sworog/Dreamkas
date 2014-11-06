@@ -82,6 +82,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [self.searchField setPlaceholder:NSLocalizedString(@"product_search_field_placeholder", nil)];
     [self.searchField setKeyboardType:UIKeyboardTypeDefault];
     [self.searchField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    [self.searchField setAccessibilityLabel:AI_SearchPage_SearchField];
     self.navigationItem.titleView = self.searchField;
 }
 

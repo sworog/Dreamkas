@@ -46,7 +46,7 @@
 /**
  * Тестируем запрос доступных магазинов
  */
-- (void)testGetingStores
+- (void)testGettingStores
 {
     
 #if API_USE_TEST_SERVER
