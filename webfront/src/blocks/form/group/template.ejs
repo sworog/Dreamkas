@@ -1,0 +1,51 @@
+<form id="<%- id %>" class="form form_group">
+    <div class="form-group">
+
+        <label class="control-label">Наименование</label>
+
+        <div class="input-icon right">
+            <input
+                    name="name"
+                    type="text"
+                    placeholder="Наименование группы"
+                    class="form-control"
+                    autofocus
+                    value="<%- model.get('name') %>">
+        </div>
+    </div>
+
+    <% if (model.id) { %>
+
+    <% if (collections.groupProducts.length) { %>
+
+    <button type="button"
+            block="popover"
+            class="removeLink"
+            data-placement="top"
+            data-content="Чтобы удалить группу, нужно сначала удалить все товары в ней.">
+
+        <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+        Удалить группу
+    </button>
+
+    <% } else { %>
+    <div class="confirmLink">
+
+        <div class="confirmLink__trigger">
+            <span class="removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Удалить группу
+            </span>
+        </div>
+
+        <div class="confirmLink__confirmation">
+            <span class="removeLink form_group__removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Подтвердить удаление
+            </span>
+        </div>
+
+    </div>
+    <% } %>
+    <% } %>
+</form>

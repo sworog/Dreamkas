@@ -14,32 +14,32 @@ class ReturnProductControllerTest extends WebTestCase
 
         $products = $this->createProductsByNames(array('1', '2', '3', '4'));
 
-        $this->factory()
+        $saleObject1 = $this->factory()
             ->receipt()
-                ->createReturn($store, '2012-05-12T19:31:44.492+04:00')
-                ->createReceiptProduct($products['1'], 1, 513)
-                ->createReceiptProduct($products['3'], 25, 180)
+            ->createSale($store, '2012-05-12T00:00:00.000+04:00')
+            ->createReceiptProduct($products['3'], 100, 513)
+            ->createReceiptProduct($products['4'], 25, 180)
+            ->createReceiptProduct($products['1'], 1.57, 36)
+            ->createReceiptProduct($products['3'], 3.576, 36)
             ->flush();
 
         $this->factory()
             ->receipt()
-                ->createReturn($store, '2012-05-12T19:46:32.912+04:00')
-                ->createReceiptProduct($products['4'], 1, 36)
+                ->createReturn($store, '2012-05-12T19:31:44.492+04:00', $saleObject1)
+                ->createReceiptProduct($products['1'], 1) //36
+                ->createReceiptProduct($products['3'], 25) //36
             ->flush();
 
         $this->factory()
             ->receipt()
-                ->createReturn($store, '2012-05-12T19:47:33.418+04:00')
-                ->createReceiptProduct($products['4'], 1, 38)
+                ->createReturn($store, '2012-05-12T19:46:32.912+04:00', $saleObject1)
+                ->createReceiptProduct($products['4'], 1) //180
             ->flush();
 
         $this->factory()
             ->receipt()
-                ->createSale($store, '2012-05-12T00:00:00.000+04:00')
-                ->createReceiptProduct($products['3'], 1, 513)
-                ->createReceiptProduct($products['4'], 25, 180)
-                ->createReceiptProduct($products['1'], 1.57, 36)
-                ->createReceiptProduct($products['3'], 3.576, 36)
+                ->createReturn($store, '2012-05-12T19:47:33.418+04:00', $saleObject1)
+                ->createReceiptProduct($products['4'], 1) //180
             ->flush();
 
         $accessToken = $this->factory()->oauth()->auth($departmentManager);
@@ -63,9 +63,9 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($store->id, '0.parent.store.id', $getResponse1);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.parent.date', $getResponse1);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.date', $getResponse1);
-        Assert::assertJsonPathEquals('513.00', '0.price', $getResponse1);
+        Assert::assertJsonPathEquals('36.00', '0.price', $getResponse1);
         Assert::assertJsonPathEquals('1', '0.quantity', $getResponse1);
-        Assert::assertJsonPathEquals('513.00', '0.totalPrice', $getResponse1);
+        Assert::assertJsonPathEquals('36.00', '0.totalPrice', $getResponse1);
 
         Assert::assertNotJsonHasPath('*.store', $getResponse1);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse1);
@@ -100,9 +100,9 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($getResponse1[0]['parent']['id'], '0.parent.id', $getResponse3);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.parent.date', $getResponse3);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.date', $getResponse3);
-        Assert::assertJsonPathEquals('180.00', '0.price', $getResponse3);
+        Assert::assertJsonPathEquals('513.00', '0.price', $getResponse3);
         Assert::assertJsonPathEquals('25', '0.quantity', $getResponse3);
-        Assert::assertJsonPathEquals('4500.00', '0.totalPrice', $getResponse3);
+        Assert::assertJsonPathEquals('12825.00', '0.totalPrice', $getResponse3);
 
         Assert::assertNotJsonHasPath('*.store', $getResponse3);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse3);
@@ -124,19 +124,19 @@ class ReturnProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($store->id, '0.parent.store.id', $getResponse4);
         Assert::assertJsonPathEquals(1, '0.parent.itemsCount', $getResponse4);
-        Assert::assertJsonPathEquals('38.00', '0.parent.sumTotal', $getResponse4);
+        Assert::assertJsonPathEquals('180.00', '0.parent.sumTotal', $getResponse4);
         Assert::assertJsonPathEquals(1, '1.parent.itemsCount', $getResponse4);
-        Assert::assertJsonPathEquals('36.00', '1.parent.sumTotal', $getResponse4);
+        Assert::assertJsonPathEquals('180.00', '1.parent.sumTotal', $getResponse4);
         Assert::assertJsonPathEquals('2012-05-12T19:47:33+0400', '0.parent.date', $getResponse4);
         Assert::assertJsonPathEquals('2012-05-12T19:46:32+0400', '1.parent.date', $getResponse4);
 
-        Assert::assertJsonPathEquals('38.00', '0.price', $getResponse4);
+        Assert::assertJsonPathEquals('180.00', '0.price', $getResponse4);
         Assert::assertJsonPathEquals('1', '0.quantity', $getResponse4);
-        Assert::assertJsonPathEquals('38.00', '0.totalPrice', $getResponse4);
+        Assert::assertJsonPathEquals('180.00', '0.totalPrice', $getResponse4);
 
-        Assert::assertJsonPathEquals('36.00', '1.price', $getResponse4);
+        Assert::assertJsonPathEquals('180.00', '1.price', $getResponse4);
         Assert::assertJsonPathEquals('1', '1.quantity', $getResponse4);
-        Assert::assertJsonPathEquals('36.00', '1.totalPrice', $getResponse4);
+        Assert::assertJsonPathEquals('180.00', '1.totalPrice', $getResponse4);
 
         Assert::assertNotJsonHasPath('*.store', $getResponse4);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse4);
@@ -150,6 +150,6 @@ class ReturnProductControllerTest extends WebTestCase
         unset($return1['products'], $return3['products']);
         $this->assertEquals($return1, $return3);
         Assert::assertJsonPathEquals(2, 'itemsCount', $return1);
-        Assert::assertJsonPathEquals('5013.00', 'sumTotal', $return1);
+        Assert::assertJsonPathEquals('12861.00', 'sumTotal', $return1);
     }
 }

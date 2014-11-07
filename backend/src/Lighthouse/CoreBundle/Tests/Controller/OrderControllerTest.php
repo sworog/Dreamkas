@@ -14,9 +14,9 @@ class OrderControllerTest extends WebTestCase
     {
         $storeId = $this->factory()->store()->getStoreId();
 
-        $product1 = $this->createProduct('1');
-        $product2 = $this->createProduct('2');
-        $product3 = $this->createProduct('3');
+        $product1 = $this->createProductByName('1');
+        $product2 = $this->createProductByName('2');
+        $product3 = $this->createProductByName('3');
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -69,7 +69,7 @@ class OrderControllerTest extends WebTestCase
     public function testPostOrderEmptyProductsValidation()
     {
         $storeId = $this->factory()->store()->getStoreId();
-        $this->createProduct();
+        $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory()->flush();
 
@@ -100,7 +100,7 @@ class OrderControllerTest extends WebTestCase
     public function testPostOrderValidation($expectedCode, array $data, array $assertions = array())
     {
         $storeId = $this->factory()->store()->getStoreId();
-        $product = $this->createProduct();
+        $product = $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory()->flush();
 
@@ -279,7 +279,7 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $supplier1 = $this->factory()->supplier()->getSupplier('Перевоз1');
         $supplier2 = $this->factory()->supplier()->getSupplier('Перевоз2');
@@ -342,7 +342,7 @@ class OrderControllerTest extends WebTestCase
     public function testGerOrdersFilter(array $filter, array $expectedOrders)
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->factory()->catalog()->getProductByName()->id;
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $order1 = $this->factory()
@@ -376,7 +376,7 @@ class OrderControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/orders',
+            "/api/1/stores/{$store->id}/orders",
             null,
             $filter
         );
@@ -416,7 +416,7 @@ class OrderControllerTest extends WebTestCase
     public function testPostOrderProductValidation($expectedCode, array $data, array $assertions = array())
     {
         $storeId = $this->factory()->store()->getStoreId();
-        $product = $this->createProduct();
+        $product = $this->createProductByName();
 
         $postData = $data + array(
             'product' => $product,
@@ -550,7 +550,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testOrderProductVersion()
     {
-        $productId = $this->createProduct(array('name' => 'original'));
+        $productId = $this->createProductByName('original');
         $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory()->flush();
 
@@ -568,7 +568,7 @@ class OrderControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders',
+            "/api/1/stores/{$storeId}/orders",
             $postData
         );
 
@@ -581,7 +581,7 @@ class OrderControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/orders/' . $orderId
+            "/api/1/stores/{$storeId}/orders/{$orderId}"
         );
 
         $this->assertResponseCode(200);
@@ -592,7 +592,7 @@ class OrderControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/orders/' . $orderId
+            "/api/1/stores/{$storeId}/orders/{$orderId}"
         );
 
         $this->assertResponseCode(200);
@@ -603,9 +603,9 @@ class OrderControllerTest extends WebTestCase
     {
         $storeId = $this->factory()->store()->getStoreId();
 
-        $product1 = $this->createProduct('1');
-        $product2 = $this->createProduct('2');
-        $product3 = $this->createProduct('3');
+        $product1 = $this->createProductByName('1');
+        $product2 = $this->createProductByName('2');
+        $product3 = $this->createProductByName('3');
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -660,9 +660,9 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderAction()
     {
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
@@ -723,7 +723,7 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProduct('1');
+        $productId = $this->createProductByName('1');
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $order = $this->factory()
@@ -765,7 +765,7 @@ class OrderControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId = $this->createProduct('1');
+        $productId = $this->createProductByName('1');
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
@@ -795,7 +795,7 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProduct('1');
+        $productId = $this->createProductByName('1');
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $order = $this->factory()
@@ -824,7 +824,7 @@ class OrderControllerTest extends WebTestCase
     public function testDeleteAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
@@ -832,6 +832,7 @@ class OrderControllerTest extends WebTestCase
                 ->createOrderProduct($productId, 10)
             ->flush();
 
+        $this->authenticateProject();
         $orderProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.order_product');
         $this->assertCount(1, $orderProductRepository->findAll());
 
@@ -852,7 +853,7 @@ class OrderControllerTest extends WebTestCase
     public function testDeleteWithInvoice()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
@@ -884,9 +885,9 @@ class OrderControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId1 = $this->createProduct(array('name' => 'Кефир1Назв', 'barcode' => '1111111'));
-        $productId2 = $this->createProduct(array('name' => 'Кефир2Назв', 'barcode' => '2222222'));
-        $productId3 = $this->createProduct(array('name' => 'Кефир3Назв', 'barcode' => '3333333'));
+        $productId1 = $this->createProductByName('Кефир1Назв');
+        $productId2 = $this->createProductByName('Кефир2Назв');
+        $productId3 = $this->createProductByName('Кефир3Назв');
 
         $order = $this->factory()
             ->order()
@@ -932,9 +933,9 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderActionChangeProduct()
     {
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
@@ -988,8 +989,8 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderRemoveProduct()
     {
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
 
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
@@ -1030,8 +1031,8 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderAddProduct()
     {
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
 
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();

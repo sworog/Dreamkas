@@ -1,0 +1,14 @@
+{
+  "name": "newrelic",
+  "description": "The base role for systems that serve web server",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "newrelic": {
+      "license": "123e886f0c6641b422f9f035980c8f2966177d25"
+    }
+  },
+  "run_list": [
+    "recipe[newrelic]"
+  ]
+}

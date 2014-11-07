@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\DataTransformer\QuantityTransformer;
+use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -26,6 +27,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Stopwatch\StopwatchEvent;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -74,6 +76,11 @@ class Set10ProductImporter
     protected $quantityTransformer;
 
     /**
+     * @var CatalogManager
+     */
+    protected $catalogManager;
+
+    /**
      * @var array
      */
     protected $productSkus = array();
@@ -112,7 +119,8 @@ class Set10ProductImporter
      *      "categoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.category"),
      *      "subCategoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.subcategory"),
      *      "moneyModelTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model"),
-     *      "quantityTransformer" = @DI\Inject("lighthouse.core.data_transformer.quantity")
+     *      "quantityTransformer" = @DI\Inject("lighthouse.core.data_transformer.quantity"),
+     *      "catalogManager" = @DI\Inject("lighthouse.core.document.catalog.manager")
      * })
      * @param ObjectManager $dm
      * @param ValidatorInterface $validator
@@ -122,6 +130,7 @@ class Set10ProductImporter
      * @param SubCategoryRepository $subCategoryRepository
      * @param MoneyModelTransformer $moneyModelTransformer
      * @param QuantityTransformer $quantityTransformer
+     * @param CatalogManager $catalogManager
      */
     public function __construct(
         ObjectManager $dm,
@@ -131,7 +140,8 @@ class Set10ProductImporter
         CategoryRepository $categoryRepository,
         SubCategoryRepository $subCategoryRepository,
         MoneyModelTransformer $moneyModelTransformer,
-        QuantityTransformer $quantityTransformer
+        QuantityTransformer $quantityTransformer,
+        CatalogManager $catalogManager
     ) {
         $this->dm = $dm;
         $this->validator = $validator;
@@ -141,6 +151,7 @@ class Set10ProductImporter
         $this->subCategoryRepository = $subCategoryRepository;
         $this->moneyModelTransformer = $moneyModelTransformer;
         $this->quantityTransformer = $quantityTransformer;
+        $this->catalogManager = $catalogManager;
     }
 
     /**
@@ -170,7 +181,10 @@ class Set10ProductImporter
         $batchSize = ($batchSize) ?: $this->batchSize;
         $currentBatch = $count;
 
-        /* @var GoodElement $goodElement */
+        $batchPersistEvent = null;
+        $flushEvent = null;
+        $persistEvent = null;
+
         while ($goodElement = $parser->readNextElement()) {
 
             $persistEvent = $stopwatch->start('allPersist');
@@ -213,9 +227,9 @@ class Set10ProductImporter
                 $output->writeln(
                     sprintf(
                         ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
-                        $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
-                        $currentFlushEvent->getDuration(),
-                        $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
+                        $this->countEventSpeed($batchPersistEvent),
+                        $this->countEventDuration($currentFlushEvent, 1),
+                        $this->countEventSpeed($batchPersistEvent, $currentFlushEvent)
                     )
                 );
             }
@@ -236,9 +250,9 @@ class Set10ProductImporter
             $output->writeln(
                 sprintf(
                     ' - Persist: %.01f prod/s. Flush+Clear: %d ms, %.01f prod/s',
-                    $this->countSpeed($batchPersistEvent->getPeriods(), $batchPersistEvent->getDuration() / 1000),
-                    $currentFlushEvent->getDuration(),
-                    $this->countSpeed($batchPersistEvent->getPeriods(), $currentFlushEvent->getDuration() / 1000)
+                    $this->countEventSpeed($batchPersistEvent),
+                    $this->countEventDuration($currentFlushEvent, 1),
+                    $this->countEventSpeed($batchPersistEvent, $currentFlushEvent)
                 )
             );
         }
@@ -249,27 +263,27 @@ class Set10ProductImporter
         $output->writeln(
             sprintf(
                 '<info>Total persist</info> - %d products in %d seconds, %.01f prod/s',
-                count($persistEvent->getPeriods()),
-                $persistEvent->getDuration() / 1000,
-                $this->countSpeed(count($persistEvent->getPeriods()), $persistEvent->getDuration() / 1000)
+                $this->countEventPeriods($persistEvent),
+                $this->countEventDuration($persistEvent),
+                $this->countEventSpeed($persistEvent)
             )
         );
         $output->writeln(
             sprintf(
                 '<info>Total flush</info> - %d flushes in %d seconds, average %d ms, %.01f prod/s',
-                count($flushEvent->getPeriods()),
-                $flushEvent->getDuration() / 1000,
-                $flushEvent->getDuration() / count($flushEvent->getPeriods()),
-                $this->countSpeed($persistEvent->getPeriods(), $flushEvent->getDuration() / 1000)
+                $this->countEventPeriods($flushEvent),
+                $this->countEventDuration($flushEvent),
+                $this->countEventDuration($flushEvent, 1) / $this->countEventPeriods($flushEvent),
+                $this->countEventSpeed($persistEvent, $flushEvent)
             )
         );
 
         $output->writeln(
             sprintf(
                 '<info>Total</info> - took %d sec, speed - %.01f prod/s, memory - %d mb',
-                $allEvent->getDuration() / 1000,
-                $this->countSpeed($persistEvent->getPeriods(), $allEvent->getDuration() / 1000),
-                $allEvent->getMemory() / 1048576
+                $this->countEventDuration($allEvent),
+                $this->countEventSpeed($persistEvent, $allEvent),
+                $this->countEventMemory($allEvent)
             )
         );
 
@@ -277,20 +291,49 @@ class Set10ProductImporter
     }
 
     /**
-     * @param array|int|float $count
-     * @param int|float $duration
-     * @return float
+     * @param StopwatchEvent $event
+     * @return int
      */
-    protected function countSpeed($count, $duration)
+    protected function countEventPeriods(StopwatchEvent $event = null)
     {
-        if (is_array($count) || $count instanceof \Countable) {
-            $count = count($count);
+        return $event ? count($event->getPeriods()) : 0;
+    }
+
+    /**
+     * @param StopwatchEvent $event
+     * @param int $divider
+     * @return float|int
+     */
+    protected function countEventDuration(StopwatchEvent $event = null, $divider = 1000)
+    {
+        return $event ? $event->getDuration() / $divider : 0;
+    }
+
+    /**
+     * @param StopwatchEvent $periodEvent
+     * @param StopwatchEvent $durationEvent
+     * @return float|int
+     */
+    protected function countEventSpeed(StopwatchEvent $periodEvent = null, StopwatchEvent $durationEvent = null)
+    {
+        if ($periodEvent) {
+            $count = $this->countEventPeriods($periodEvent);
+            $duration = $durationEvent ? $durationEvent->getDuration() : $periodEvent->getDuration();
+            if ($duration > 0) {
+                return $count / $duration * 1000;
+            }
         }
-        if ($duration > 0) {
-            return $count / $duration;
-        } else {
-            return 0;
-        }
+        return 0;
+    }
+
+    /**
+     * @param StopwatchEvent $event
+     * @param int $divider
+     * @return float|int
+     */
+    protected function countEventMemory(StopwatchEvent $event = null, $divider = 1048576)
+    {
+        return $event ? $event->getMemory() / $divider : 0;
     }
 
     /**
@@ -344,13 +387,16 @@ class Set10ProductImporter
         $product->name = $good->getGoodName();
         $product->sku  = $good->getMarkingOfTheGood();
         $product->vat  = $good->getVat();
-        $product->barcode = $good->getDefaultBarcode()->getCode();
+        $product->barcode = $good->getDefaultBarcode() ? $good->getDefaultBarcode()->getCode() : null;
         $product->barcodes = $this->getBarcodes($good);
         $product->vendor = $good->getManufacturerName();
-        $product->purchasePrice = $this->getPurchasePrice($good);
+        $product->purchasePrice = $this->getPurchasePrice($good, 0.8);
+        $product->sellingPrice = $this->getPurchasePrice($good, 1);
+        /*
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
         $product->retailMarkupMin = 15;
         $product->retailMarkupMax = 20;
+        */
         $product->typeProperties = $this->createType($good);
 
         $product->subCategory = $this->getCatalog($good);
@@ -436,13 +482,14 @@ class Set10ProductImporter
 
     /**
      * @param GoodElement $good
+     * @param int|float $multiplier
      * @return Money
      */
-    public function getPurchasePrice(GoodElement $good)
+    public function getPurchasePrice(GoodElement $good, $multiplier = 1)
     {
         $salePrice = $good->getPrice();
         $salePriceMoney = $this->moneyModelTransformer->reverseTransform($salePrice);
-        $purchasePrice = $salePriceMoney->mul(0.80);
+        $purchasePrice = $salePriceMoney->mul($multiplier);
         return $purchasePrice;
     }
 
@@ -454,8 +501,13 @@ class Set10ProductImporter
     {
         $groups = $this->normalizeGroups($good);
 
+        /*
         $group = $this->getGroup($groups[0]['id'], $groups[0]['name']);
         $category = $this->getCategory($groups[1]['id'], $groups[1]['name'], $group);
+        */
+
+        $category = $this->catalogManager->getDefaultCategory();
+
         $subCategory = $this->getSubCategory($groups[2]['id'], $groups[2]['name'], $category);
 
         return $subCategory;

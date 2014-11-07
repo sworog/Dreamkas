@@ -46,7 +46,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testStorePostInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 5.99);
 
@@ -73,7 +73,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testPostInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 5.99);
         $invoiceData['store'] = $store->id;
@@ -112,7 +112,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoicesAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         for ($i = 0; $i < 5; $i++) {
             $this->factory()
                 ->invoice()
@@ -178,7 +178,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $invoice = $this->factory()
             ->invoice()
                 ->createInvoice($invoiceData, $store->id)
@@ -241,7 +241,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('41');
         $store2 = $this->factory()->store()->getStore('43');
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
@@ -280,7 +280,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testPostInvoiceValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $postData = $data + $this->getInvoiceData($supplier->id, $productId, 10, 5.99);
@@ -359,7 +359,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testStorePutInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier1 = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
         $supplier2 = $this->factory()->supplier()->getSupplier('ООО "Подставщик"');
 
@@ -410,7 +410,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testPutInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier1 = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
         $supplier2 = $this->factory()->supplier()->getSupplier('ООО "Подставщик"');
 
@@ -683,7 +683,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('41');
         $store2 = $this->factory()->store()->getStore('43');
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
         $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
@@ -744,9 +744,9 @@ class InvoiceControllerTest extends WebTestCase
     public function testInvoicesFilter($query, $count, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct('111');
-        $productId2 = $this->createProduct('222');
-        $productId3 = $this->createProduct('333');
+        $productId1 = $this->createProductByName('111');
+        $productId2 = $this->createProductByName('222');
+        $productId3 = $this->createProductByName('333');
 
         $this->factory()
             ->invoice()
@@ -848,8 +848,8 @@ class InvoiceControllerTest extends WebTestCase
     public function testInvoicesFilterOrder()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct('111');
-        $productId2 = $this->createProduct('222');
+        $productId1 = $this->createProductByName('111');
+        $productId2 = $this->createProductByName('222');
 
         $this->factory()
             ->invoice()
@@ -1154,7 +1154,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct('1');
+        $productId = $this->createProductByName('1');
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 5.99);
         $invoiceData['date'] = '';
@@ -1227,7 +1227,7 @@ class InvoiceControllerTest extends WebTestCase
     ) {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct('1');
+        $productId = $this->createProductByName('1');
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 5.99);
         $invoiceData = $invalidData + $invoiceData;
@@ -1529,7 +1529,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testProductsBecomeEmptyOnPutOnAcceptanceDateChange()
     {
         $store = $this->factory()->store()->createStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 5.99);
@@ -1619,8 +1619,8 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -1746,8 +1746,8 @@ class InvoiceControllerTest extends WebTestCase
 
         $order = $this->factory()
             ->order()
-            ->createOrder($store, $supplier, '2014-04-16 17:39')
-            ->createOrderProduct($productId, 11)
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId, 11)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1942,7 +1942,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, $quantity, $price);
 
@@ -1984,7 +1984,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId);
         $invoiceData['products'][0]['dummy'] = 'dummy';
@@ -2100,7 +2100,7 @@ class InvoiceControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
@@ -2172,7 +2172,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 17.68);
 
         $invoiceData['products'][0] = $data + $invoiceData['products'][0];
@@ -2200,7 +2200,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 17.68);
         $invoiceData['store'] = $store->id;
 
@@ -2229,7 +2229,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 17.68);
         $invoiceData['date'] = '';
         $invoiceData['products'][0] = $data + $invoiceData['products'][0];
@@ -2504,7 +2504,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, $quantity, $price);
 
@@ -2604,8 +2604,8 @@ class InvoiceControllerTest extends WebTestCase
     ) {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $product1Id = $this->createProduct('_1');
-        $product2Id = $this->createProduct('_2');
+        $product1Id = $this->createProductByName('_1');
+        $product2Id = $this->createProductByName('_2');
 
         $this->assertStoreProductTotals($store->id, $product1Id, 0, null);
         $this->assertStoreProductTotals($store->id, $product2Id, 0, null);
@@ -2795,7 +2795,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 11.12);
         $invoiceData['products'][1] = array(
@@ -2851,7 +2851,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 11.12);
         $invoiceData['products'][1] = array(
@@ -2906,7 +2906,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $supplier = $this->factory()->supplier()->getSupplier();
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 11.12);
         $invoiceData['products'][1] = array(
@@ -2945,7 +2945,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
 
-        $newProductId = $this->createProduct('NEW');
+        $newProductId = $this->createProductByName('NEW');
         $invoiceData['products'][2]['product'] = $newProductId;
 
         $this->clientJsonRequest(
@@ -2965,8 +2965,8 @@ class InvoiceControllerTest extends WebTestCase
     {
         $supplier = $this->factory()->supplier()->getSupplier();
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
 
         $invoiceData0 = $this->getInvoiceData($supplier->id, $productId1, 10, 23.33);
         $invoiceData0['date'] = date('c', strtotime('-31 days'));
@@ -3126,7 +3126,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 26);
         $invoiceData['date'] = date('c', strtotime('now'));
@@ -3180,7 +3180,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testProductDataDoesNotChangeInInvoiceAfterProductUpdate()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
+        $productId = $this->createProductByName('Кефир 1%');
 
         $this->assertProduct($productId, array('name' => 'Кефир 1%'));
 
@@ -3341,7 +3341,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 1, 9.99);
 
@@ -3375,7 +3375,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoiceProductAfterEditInvoiceAcceptanceDate()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
         $invoice = $this->factory()
             ->invoice()
             ->createInvoice(array('date' => '2014-01-10T12:33:33+0400'), $store->id)
@@ -3414,9 +3414,9 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         $invoice = $this->factory()
             ->invoice()
@@ -3448,14 +3448,6 @@ class InvoiceControllerTest extends WebTestCase
     {
         $invoice = $this->getInvoiceRepository()->find($invoiceId);
         $this->assertNull($invoice);
-
-        $filterCollection = $this->getInvoiceRepository()->getDocumentManager()->getFilterCollection();
-        $filterCollection->disable('softdeleteable');
-
-        $invoice = $this->getInvoiceRepository()->find($invoiceId);
-        $this->assertNull($invoice);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**
@@ -3465,15 +3457,6 @@ class InvoiceControllerTest extends WebTestCase
     {
         $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
         $this->assertNull($invoiceProduct);
-
-        $filterCollection = $this->getInvoiceProductRepository()->getDocumentManager()->getFilterCollection();
-
-        $filterCollection->disable('softdeleteable');
-
-        $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
-        $this->assertNull($invoiceProduct);
-
-        $filterCollection->enable('softdeleteable');
     }
 
     /**

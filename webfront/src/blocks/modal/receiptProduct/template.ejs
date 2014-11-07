@@ -1,0 +1,23 @@
+<div id="modal_receiptProduct"
+     class="modal modal_receiptProduct">
+
+    <div class="modal__header">
+        <a class="modal__closeLink pull-left fa fa-times"></a>
+
+        <button form="form_receiptProduct"
+                type="submit"
+                class="btn btn-primary pull-right">
+            Сохранить
+        </button>
+
+        <h4 class="modal__title">
+            <%- models.receiptProduct.collection ? 'Редактирование позиции в чеке' : 'Добавление позиции в чек'%>
+        </h4>
+    </div>
+    <div class="modal__body">
+
+        <b block="form_receiptProduct"></b>
+
+    </div>
+
+</div>

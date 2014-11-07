@@ -1,0 +1,5 @@
+/target
+/target-*
+/autotests.iml
+/thucydides.properties
+/.idea

@@ -9,6 +9,8 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseReportsBundle:GrossSales\Product\GrossSalesProductReport
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.reports.document.gross_sales.subcategory.repository:
         parent: doctrine_mongodb.odm.repository
@@ -37,6 +39,42 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseReportsBundle:GrossMargin\DayGrossMargin
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.reports.document.gross_margin_sales.product.repository:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository
+        arguments:
+            - LighthouseReportsBundle:GrossMarginSales\Product\GrossMarginSalesProduct
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.reports.document.gross_margin_sales.catalog_group.repository:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupRepository
+        arguments:
+            - LighthouseReportsBundle:GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroup
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.reports.document.gross_margin_sales.store.repository:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\ReportsBundle\Document\GrossMarginSales\Store\GrossMarginSalesStoreRepository
+        arguments:
+            - LighthouseReportsBundle:GrossMarginSales\Store\GrossMarginSalesStore
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.reports.document.gross_margin_sales.network.repository:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\ReportsBundle\Document\GrossMarginSales\Network\GrossMarginSalesNetworkRepository
+        arguments:
+            - LighthouseReportsBundle:GrossMarginSales\Network\GrossMarginSalesNetwork
         calls:
             - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]

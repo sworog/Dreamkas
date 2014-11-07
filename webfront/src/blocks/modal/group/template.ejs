@@ -1,0 +1,46 @@
+<div id="<%- id %>"
+     class="modal">
+
+    <% if (!deleted) { %>
+
+    <div class="modal__header">
+        <a class="modal__closeLink pull-left fa fa-times"></a>
+
+        <button form="form_group"
+                type="submit"
+                class="btn btn-primary pull-right">
+            <%- models.group.id ? 'Сохранить' : 'Добавить' %>
+        </button>
+
+        <h4 class="modal__title">
+            <%- models.group.id ? 'Редактирование группы' : 'Добавить группу' %>
+        </h4>
+
+    </div>
+    <div class="modal__body">
+
+        <b block="form_group"></b>
+
+    </div>
+
+    <% } else { %>
+
+    <div class="modal__body" style="text-align: center">
+        <h3 name="successRemoveTitle" style="padding-bottom: 20px;">
+            Группа удалена
+        </h3>
+        <h4 name="removedGroupName" style="padding-bottom: 60px;">
+            <%- models.group.get('name') %>
+        </h4>
+
+        <div style="padding-bottom: 30px;">
+            <a name="removeContinue" class="btn btn-primary modal_group__closeLink"
+               style="padding: 10px 30px;">
+                Продолжить работу
+            </a>
+        </div>
+    </div>
+
+    <% } %>
+
+</div>

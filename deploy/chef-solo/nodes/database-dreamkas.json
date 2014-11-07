@@ -1,0 +1,9 @@
+{
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[mongodb::10gen_repo]",
+        "recipe[mongodb]",
+
+        "recipe[lighthouse]"
+    ]
+}

@@ -33,8 +33,26 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
             }
         }
 
-        if (empty($criteria['$or'])) {
+        if ($filter->isPropertiesRequired() && empty($criteria['$or'])) {
             return array();
+        } elseif (empty($criteria['$or'])) {
+            $criteria = array();
+        }
+
+        if ($filter->hasSubCategory()) {
+            $criteriaSubCategory = array(
+                'subCategory' => new MongoId($filter->getSubCategory())
+            );
+            if (!empty($criteria)) {
+                $criteria = array(
+                    '$and' => array(
+                        $criteria,
+                        $criteriaSubCategory,
+                    ),
+                );
+            } else {
+                $criteria = $criteriaSubCategory;
+            }
         }
 
         if ($filter->isPurchasePriceNotEmpty()) {
@@ -46,6 +64,12 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
             );
         }
 
+        if (isset($criteria['$and'])) {
+            $criteria['$and'][] = array('deletedAt' => null);
+        } else {
+            $criteria['deletedAt'] = null;
+        }
+
         return $this->findBy($criteria, null, 100);
     }
 
@@ -55,7 +79,7 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
      */
     public function findBySubCategory(SubCategory $subCategory)
     {
-        return $this->findBy(array('subCategory' => $subCategory->id));
+        return $this->findBy(array('subCategory' => $subCategory->id, 'deletedAt' => null));
     }
 
     /**
@@ -93,7 +117,8 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
     {
         $query = $this
             ->createQueryBuilder()
-            ->field('subCategory')->equals($parentId)
+                ->field('subCategory')->equals($parentId)
+                ->field('deletedAt')->equals(null)
             ->count()
             ->getQuery();
         $count = $query->execute();
@@ -176,10 +201,21 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
     }
 
     /**
-     * @return array|Cursor|Product[]
+     * @return Cursor|Product[]
      */
     public function findAll()
     {
         return $this->findBy(array(), array('id' => self::SORT_ASC));
+    }
+
+    /**
+     * @return Cursor|Product[]
+     */
+    public function findAllActive()
+    {
+        return $this->findBy(
+            array('deletedAt' => null),
+            array('id' => self::SORT_ASC)
+        );
     }
 }

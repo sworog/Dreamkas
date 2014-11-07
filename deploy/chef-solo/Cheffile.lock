@@ -3,29 +3,31 @@ SITE
   specs:
     7-zip (1.0.2)
       windows (>= 1.2.2)
-    apt (2.5.3)
+    apt (2.6.0)
     ark (0.9.0)
       7-zip (>= 0.0.0)
       windows (>= 0.0.0)
     beanstalkd (0.1.4)
     bluepill (2.3.1)
       rsyslog (>= 0.0.0)
-    build-essential (2.0.6)
-    chef-sugar (2.2.0)
+    build-essential (2.1.2)
+    chef-sugar (2.4.1)
     chef_handler (1.1.6)
-    composer (1.0.4)
+    composer (1.0.6)
       php (>= 0.0.0)
-    cron (1.4.0)
+    cron (1.6.1)
     gradle (1.5.1)
       ark (>= 0.0.0)
       java (>= 0.0.0)
-    iis (2.1.2)
+    iis (2.1.5)
       windows (>= 1.2.6)
     iptables (0.14.0)
     iptables-ng (2.2.0)
     java (1.28.0)
-    mysql (5.5.1)
+    mysql (5.6.1)
       yum-mysql-community (>= 0.0.0)
+    newrelic (2.2.0)
+      python (>= 0.0.0)
     nginx (2.7.4)
       apt (~> 2.2)
       bluepill (~> 2.3)
@@ -33,7 +35,7 @@ SITE
       ohai (~> 2.0)
       runit (~> 1.2)
       yum-epel (~> 0.3)
-    nodejs (2.1.0)
+    nodejs (2.2.0)
       apt (>= 0.0.0)
       ark (>= 0.0.0)
       build-essential (>= 0.0.0)
@@ -41,7 +43,7 @@ SITE
     ohai (2.0.1)
     openssh (1.3.4)
       iptables (>= 0.0.0)
-    php (1.4.6)
+    php (1.5.0)
       build-essential (>= 0.0.0)
       iis (>= 0.0.0)
       mysql (>= 0.0.0)
@@ -58,13 +60,13 @@ SITE
       yum (~> 3.0)
       yum-epel (>= 0.0.0)
     ssh-util (0.6.3)
-    windows (1.34.2)
+    windows (1.34.6)
       chef_handler (>= 0.0.0)
     xml (1.2.6)
       build-essential (>= 0.0.0)
       chef-sugar (>= 0.0.0)
-    yum (3.3.1)
-    yum-epel (0.5.1)
+    yum (3.4.1)
+    yum-epel (0.5.2)
       yum (~> 3.0)
     yum-mysql-community (0.1.10)
       yum (>= 3.0)
@@ -72,7 +74,7 @@ SITE
 GIT
   remote: https://github.com/edelight/chef-mongodb
   ref: master
-  sha: b27564fc57bd87be775a00e26616973a3c0ced2c
+  sha: 72ffcb114df6c453b59717eb390b2819d48025bd
   specs:
     mongodb (0.16.1)
       apt (>= 1.8.2)
@@ -115,9 +117,9 @@ GIT
 GIT
   remote: https://github.com/yevgenko/cookbook-php-fpm
   ref: master
-  sha: bd7ac6ca2d47bc8a086364e5cb4cbc24e1ae14d1
+  sha: 0de41d6a549e45250702f994b97c82c5c0afd140
   specs:
-    php-fpm (0.6.11)
+    php-fpm (0.7.0)
       apt (>= 0.0.0)
       yum (>= 3.0)
 
@@ -125,11 +127,13 @@ DEPENDENCIES
   android-sdk (>= 0)
   beanstalkd (>= 0)
   composer (>= 0)
+  composer (>= 0)
   cron (>= 0)
   gradle (>= 0)
   iptables-ng (>= 0)
   java (>= 0)
   mongodb (>= 0)
+  newrelic (>= 0)
   nginx (>= 0)
   nodejs (>= 0)
   openssh (>= 0)

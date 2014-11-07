@@ -1,0 +1,42 @@
+<!--BEGIN TITLE PAGE-->
+<div class="page__head">
+
+    <div class="pull-right">
+        <span data-modal="modal_product"
+              data-product-id="0"
+              class="btn btn-primary btn-md">Добавить товар</span>
+    </div>
+
+    <div class="page__title">
+
+        <a href="/catalog"
+           class="fa fa-long-arrow-left"
+           style="font-size: 25px; margin-right: 10px;"></a>
+
+        {models.group.attributes.name}
+
+        <a data-modal="modal_group"
+           data-group-id="<%- models.group.id %>"
+           class="fa fa-edit"
+           style="font-size: 20px; margin-left: 10px;"></a>
+    </div>
+
+</div>
+<!--END TITLE PAGE-->
+
+<!--BEGIN CONTENT-->
+<div class="page__content">
+    <div class="row">
+        <div class="col-md-12">
+
+            <b block="table_groupProducts"></b>
+
+        </div>
+    </div>
+</div>
+<!--END CONTENT-->
+
+<!--MODALS-->
+<b block="modal_group"></b>
+<b block="modal_product"></b>
+<!--END MODALS-->

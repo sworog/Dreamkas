@@ -2,11 +2,11 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossSales;
 
+use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Lighthouse\ReportsBundle\Document\GrossSales\Product\GrossSalesProductRepository;
-use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class ProductGrossSalesTest extends WebTestCase
+class ProductGrossSalesTest extends DataAwareTestCase
 {
     /**
      * @return GrossSalesReportManager
@@ -29,9 +29,9 @@ class ProductGrossSalesTest extends WebTestCase
         $store = $this->factory()->store()->getStore('1');
         $otherStore = $this->factory()->store()->getStore('Other');
 
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         $storeProductId1 = $this->factory()->getStoreProduct($store->id, $productId1);
         $storeProductId2 = $this->factory()->getStoreProduct($store->id, $productId2);
@@ -62,35 +62,41 @@ class ProductGrossSalesTest extends WebTestCase
         $this->getGrossSalesReportManager()->recalculateGrossSalesProductReport();
 
         // Product 1
-        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 07:00:00', 0);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 08:00:00', 104.31);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 09:00:00', 104.31);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 10:00:00', 104.31);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 11:00:00', 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 07:00:00', 0, 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 08:00:00', 104.31, 3);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 09:00:00', 104.31, 3);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 10:00:00', 104.31, 3);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 11:00:00', 0, 0);
 
         // Product 2
-        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 07:00:00', 0);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 08:00:00', 194.37);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 09:00:00', 194.37);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 10:00:00', 194.37);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 11:00:00', 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 07:00:00', 0, 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 08:00:00', 194.37, 3);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 09:00:00', 194.37, 3);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 10:00:00', 194.37, 3);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 11:00:00', 0, 0);
 
         // Product 3
-        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 07:00:00', 0);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 08:00:00', 304.85);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 09:00:00', 304.85);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 10:00:00', 0);
-        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 11:00:00', 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 07:00:00', 0, 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 08:00:00', 304.85, 7);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 09:00:00', 304.85, 7);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 10:00:00', 0, 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 11:00:00', 0, 0);
     }
 
     /**
      * @param string $storeProductId
      * @param string $dayHour
      * @param float $expectedHourSum
+     * @param float $expectedHourQuantity
      */
-    public function assertStoreProductGrossSalesHourSum($storeProductId, $dayHour, $expectedHourSum)
-    {
+    public function assertStoreProductGrossSalesHourSum(
+        $storeProductId,
+        $dayHour,
+        $expectedHourSum,
+        $expectedHourQuantity
+    ) {
         $report = $this->getProductGrossSalesRepository()->findByStoreProductAndDayHour($storeProductId, $dayHour);
         $this->assertEquals($expectedHourSum, $report->hourSum->toString());
+        $this->assertEquals($expectedHourQuantity, $report->hourQuantity->toString());
     }
 }

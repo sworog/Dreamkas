@@ -38,7 +38,7 @@ class StoreProductControllerTest extends WebTestCase
             User::ROLE_STORE_MANAGER
         );
 
-        $this->productId = $this->createProduct();
+        $this->productId = $this->createProductByName();
         $this->storeId = $this->factory()->store()->getStoreId();
 
         $this->factory()->store()->linkStoreManagers($this->storeManager->id, $this->storeId);
@@ -1192,5 +1192,158 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, '*.product.name', $response);
         Assert::assertJsonPathEquals('Пиво светлое Балтика', '*.product.name', $response);
         Assert::assertJsonPathEquals('Пиво ERDINGER светлое', '*.product.name', $response);
+    }
+
+    public function testGetStoreProductsWithSubCategoryFilter()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $subCategory1 = $this->factory()->catalog()->getSubCategory('1');
+        $subCategory2 = $this->factory()->catalog()->getSubCategory('2');
+
+        $this->createProduct('11', $subCategory1->id);
+        $this->createProduct('12', $subCategory1->id);
+        $this->createProduct('21', $subCategory2->id);
+        $this->createProduct('22', $subCategory2->id);
+        $this->createProduct('23', $subCategory2->id);
+
+        $accessToken = $this->factory()->oauth()->authAsStoreManager();
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/products?subCategory={$subCategory1->id}"
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(2, '*.inventory', $getResponse);
+        Assert::assertJsonPathCount(2, '*.product.name', $getResponse);
+        Assert::assertJsonPathContains('11', '*.product.name', $getResponse);
+        Assert::assertJsonPathContains('12', '*.product.name', $getResponse);
+
+        $accessToken = $this->factory()->oauth()->authAsStoreManager();
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/products?subCategory={$subCategory2->id}"
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(3, '*.inventory', $getResponse);
+        Assert::assertJsonPathCount(3, '*.product.name', $getResponse);
+        Assert::assertJsonPathContains('21', '*.product.name', $getResponse);
+        Assert::assertJsonPathContains('22', '*.product.name', $getResponse);
+        Assert::assertJsonPathContains('23', '*.product.name', $getResponse);
+    }
+
+    public function testGetStoreProductsWithProductFilter()
+    {
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+
+        $this->createProduct(array('name' => 'Велосипед 2010004')); // 10002
+        $this->createProduct(array('name' => 'Самокат'));  // 10003
+        $this->createProduct(array('name' => 'Ролики детские')); // 10004
+        $this->createProduct(array('name' => 'Растишка курьёз')); // 10005
+        $this->createProduct(array('name' => 'Велосипед 10006'));// 10006
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products' . '?properties[]=name&properties[]=sku&query=Велосипед'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.inventory', $response);
+        Assert::assertJsonPathCount(2, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед 2010004', '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед 10006', '*.product.name', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products' . '?properties[]=name&properties[]=sku&query=1000'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(6, '*.inventory', $response);
+        Assert::assertJsonPathCount(6, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед 2010004', '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед 10006', '*.product.name', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products' . '?properties[]=name&properties[]=sku&query=детс'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.inventory', $response);
+        Assert::assertJsonPathCount(1, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Ролики детские', '*.product.name', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products' . '?properties[]=name&properties[]=sku&query=10004'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.inventory', $response);
+        Assert::assertJsonPathCount(2, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед 2010004', '*.product.name', $response);
+        Assert::assertJsonPathEquals('Ролики детские', '*.product.name', $response);
+    }
+
+    public function testGetStoreProductsWithProductAndSubCategoryFilter()
+    {
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $subCategory1 = $this->factory()->catalog()->getSubCategory("Женские лясики");
+        $subCategory2 = $this->factory()->catalog()->getSubCategory("Мужские лясипеды");
+
+        $this->createProduct(array('name' => 'Велосипед Женский'), $subCategory1->id); // 10002
+        $this->createProduct(array('name' => 'Велосипед Унисекс'), $subCategory1->id);  // 10003
+        $this->createProduct(array('name' => 'Велосипед Мужекс'), $subCategory2->id); // 10004
+        $this->createProduct(array('name' => 'Велосипед Девекс'), $subCategory1->id); // 10005
+        $this->createProduct(array('name' => 'Велосипед Мужской'), $subCategory2->id);// 10006
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeId}/products" .
+            "?properties[]=name&properties[]=sku&query=екс"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.inventory', $response);
+        Assert::assertJsonPathCount(3, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед Унисекс', '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед Девекс', '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед Мужекс', '*.product.name', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeId}/products" .
+            "?properties[]=name&properties[]=sku&query=екс" .
+            "&subCategory={$subCategory1->id}"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.inventory', $response);
+        Assert::assertJsonPathCount(2, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед Унисекс', '*.product.name', $response);
+        Assert::assertJsonPathEquals('Велосипед Девекс', '*.product.name', $response);
     }
 }

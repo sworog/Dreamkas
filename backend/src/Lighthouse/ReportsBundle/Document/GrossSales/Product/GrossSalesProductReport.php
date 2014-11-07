@@ -8,12 +8,14 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation\Exclude;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 /**
  * @property string         $id
  * @property StoreProduct   $product
  * @property Money          $runningSum
  * @property Money          $hourSum
+ * @property Quantity       $hourQuantity
  * @property DateTime       $dayHour
  *
  * @MongoDB\Document(
@@ -47,6 +49,12 @@ class GrossSalesProductReport extends AbstractDocument
      * @var Money
      */
     protected $hourSum;
+
+    /**
+     * @MongoDB\Field(type="quantity")
+     * @var Quantity
+     */
+    protected $hourQuantity;
 
     /**
      * @MongoDB\ReferenceOne(
