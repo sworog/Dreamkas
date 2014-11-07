@@ -111,4 +111,50 @@
     XCTAssertTrue([[[cell titleLabel] text] containsString:name_for_applepie], @"Search Product By Name: received product Name not match \"%@\"", name_for_applepie);
 }
 
+- (void)testSearchProductBySKUAndVerifyAnswer
+{
+    [tester waitForTappableViewWithAccessibilityLabel:AI_PincodePage_GoAheadButton];
+    [tester tapViewWithAccessibilityLabel:AI_PincodePage_GoAheadButton];
+    
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_SearchButton];
+    [tester tapViewWithAccessibilityLabel:AI_TicketWindowPage_SearchButton];
+    
+    [tester waitForViewWithAccessibilityLabel:AI_SearchPage_SearchField];
+    [tester waitForKeyboard];
+    
+    NSString *sku_for_subaru_impreza = @"10015";
+    NSString *name_for_subaru_impreza = @"Subaru Impreza WRX STi";
+    NSString *price_for_subaru_impreza = @"1 459 900,00";
+    [tester enterText:sku_for_subaru_impreza intoViewWithAccessibilityLabel:AI_SearchPage_SearchField];
+    [tester waitForTimeInterval:5.f];
+    
+    ProductSearchCell *cell = (ProductSearchCell*)[tester  waitForViewWithAccessibilityLabel:AI_Common_CellAtIndexPath((long)0, (long)0)];
+    
+    XCTAssertTrue([[[cell titleLabel] text] containsString:sku_for_subaru_impreza], @"Search Product By SKU: received product SKU not match \"%@\"", sku_for_subaru_impreza);
+    XCTAssertTrue([[[cell titleLabel] text] containsString:name_for_subaru_impreza], @"Search Product By SKU: received product NAME not match \"%@\"", name_for_subaru_impreza);
+    XCTAssertTrue([[[cell priceLabel] text] containsString:price_for_subaru_impreza], @"Search Product By SKU: received product PRICE not match \"%@\"", price_for_subaru_impreza);
+}
+
+- (void)testSearchProductWithEmptyPriceValue
+{
+    [tester waitForTappableViewWithAccessibilityLabel:AI_PincodePage_GoAheadButton];
+    [tester tapViewWithAccessibilityLabel:AI_PincodePage_GoAheadButton];
+    
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_SearchButton];
+    [tester tapViewWithAccessibilityLabel:AI_TicketWindowPage_SearchButton];
+    
+    [tester waitForViewWithAccessibilityLabel:AI_SearchPage_SearchField];
+    [tester waitForKeyboard];
+    
+    NSString *name_for_cherry = @"Вишня";
+    [tester enterText:name_for_cherry intoViewWithAccessibilityLabel:AI_SearchPage_SearchField];
+    [tester waitForTimeInterval:5.f];
+    
+    ProductSearchCell *cell = (ProductSearchCell*)[tester  waitForViewWithAccessibilityLabel:AI_Common_CellAtIndexPath((long)0, (long)0)];
+    
+    XCTAssertTrue([[[cell titleLabel] text] containsString:name_for_cherry], @"Search Product By Name: received product Name not match \"%@\"", name_for_cherry);
+    XCTAssertTrue([[[cell priceLabel] text] containsString:@"0,00"], @"Search Product By SKU: received product PRICE not match 0,00");
+    XCTAssertTrue([[cell priceLabel] isHidden], @"Search Product By Name: received product Price not hidden");
+}
+
 @end
