@@ -166,14 +166,18 @@
 .page_pos .sideBar {
     transition: transform .2s;
     transform: translate3d(-250px, 0, 0);
+    -webkit-transition: -webkit-transform .2s;
+    -webkit-transform: translate3d(-250px, 0, 0);
 }
 
 .page_pos .page__contentSide {
     transition: opacity .2s;
+    -webkit-transition: opacity .2s;
 }
 
 .page_pos.page_sideBarVisible .sideBar {
     transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 .page_pos.page_sideBarVisible .page__contentSide {
