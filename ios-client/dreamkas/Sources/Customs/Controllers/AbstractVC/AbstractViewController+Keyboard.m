@@ -46,6 +46,7 @@
                                                    object:nil];
     }
 }
+
 /*
 - (void)keyboardWillAppear:(NSNotification *)notification
 {
@@ -74,6 +75,6 @@
                                    reason:@"Данный метод запрещено вызывать у абстрактного контроллера"
                                  userInfo:notification.userInfo];
 }
- */
+*/
 
 @end

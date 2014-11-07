@@ -10,6 +10,8 @@
 #import <objc/runtime.h>
 #import "SidemenuViewController.h"
 
+#define kSidemenuStatusKey @"SidemenuStatusKey"
+
 @implementation AbstractViewController (Sidemenu)
 
 @dynamic sidemenuContainerView;
@@ -77,19 +79,6 @@
 
 #pragma mark - Работа с боковым меню
 
-- (void)placeControllerInSidemenu:(UIViewController*)svc
-{
-    if ((svc == nil) || (self.sidemenuContainerView == nil))
-        return;
-    
-    [svc.view setWidth:DefaultSidemenuWidth];
-    [svc.view setHeight:DefaultSidemenuHeight];
-    
-    [self addChildViewController:svc];
-    [self.sidemenuContainerView addSubview:svc.view];
-    [svc didMoveToParentViewController:self];
-}
-
 - (void)showSidemenu:(VoidResponseBlock)completionBlock
 {
     DPLogFast(@"");
@@ -110,9 +99,25 @@
         [self.sidemenuOverlayView setAlpha:1.f];
         [self.sidemenuContainerView setX:0];
     } completion:^(BOOL finished) {
+        [UserDefaults setObject:@YES forKey:kSidemenuStatusKey];
+        [UserDefaults synchronize];
+        
         if (completionBlock)
             completionBlock();
     }];
+}
+
+- (void)placeControllerInSidemenu:(UIViewController*)svc
+{
+    if ((svc == nil) || (self.sidemenuContainerView == nil))
+        return;
+    
+    [svc.view setWidth:DefaultSidemenuWidth];
+    [svc.view setHeight:DefaultSidemenuHeight];
+    
+    [self addChildViewController:svc];
+    [self.sidemenuContainerView addSubview:svc.view];
+    [svc didMoveToParentViewController:self];
 }
 
 - (void)hideSidemenu:(VoidResponseBlock)completionBlock
@@ -128,9 +133,18 @@
         [self.sidemenuContainerView setX:-DefaultSidemenuWidth];
     } completion:^(BOOL finished) {
         [self hideSidemenuOverlay];
+        
+        [UserDefaults setObject:@NO forKey:kSidemenuStatusKey];
+        [UserDefaults synchronize];
+        
         if (completionBlock)
             completionBlock();
     }];
+}
+
+- (BOOL)doesSidemenuShown
+{
+    return [[UserDefaults objectForKey:kSidemenuStatusKey] boolValue];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

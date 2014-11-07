@@ -16,4 +16,6 @@
 - (void)showSidemenu:(VoidResponseBlock)completionBlock;
 - (void)hideSidemenu:(VoidResponseBlock)completionBlock;
 
+- (BOOL)doesSidemenuShown;
+
 @end

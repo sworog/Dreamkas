@@ -61,7 +61,9 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [self.tableViewItem setHidden:YES];
     [self setInfoMessage:kInfoMessageTypeEmptyField];
     
-    [self.searchField becomeFirstResponder];
+    // делаем фокус на поле поиска, если не показывается боковое меню
+    if ([self doesSidemenuShown] == NO)
+        [self.searchField becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated
