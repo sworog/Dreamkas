@@ -91,7 +91,7 @@
     
     [[UIApplication sharedApplication].keyWindow.layer addAnimation:transition forKey:@"transition"];
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [CATransaction setCompletionBlock: ^ {
+    [CATransaction setCompletionBlock:^(void) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(transition.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^ {
             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
         });

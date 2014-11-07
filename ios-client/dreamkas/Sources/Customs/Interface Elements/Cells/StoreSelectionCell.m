@@ -1,16 +1,14 @@
 //
-//  SimpleTitledCell.m
+//  StoreSelectionCell.m
 //  dreamkas
 //
-//  Created by sig on 17.10.14.
+//  Created by sig on 30.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "SimpleTitledCell.h"
+#import "StoreSelectionCell.h"
 
-#define VerticalCellInsets 17.f
-
-@implementation SimpleTitledCell
+@implementation StoreSelectionCell
 
 #pragma mark - Основная логика
 
@@ -31,9 +29,9 @@
 - (CGFloat)configureWithModel:(StoreModel *)model
 {
     [self.titleLabel setText:[model name]];
-    [self.titleLabel setY:VerticalCellInsets];
+    [self.titleLabel setY:DefaultVerticalCellInsets];
     
-    CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + VerticalCellInsets;
+    CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + DefaultVerticalCellInsets;
     self.cellSeparator.y = (float)(cell_height - DefaultCellSeparatorHeight);
     
     return cell_height;

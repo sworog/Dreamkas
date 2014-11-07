@@ -280,15 +280,38 @@ static char UIScrollViewPullToRefreshView;
         NSString *subtitle = [self.subtitles objectAtIndex:self.state];
         self.subtitleLabel.text = subtitle.length > 0 ? subtitle : nil;
         
+        CGSize titleSize = CGSizeZero;
+        CGSize subtitleSize = CGSizeZero;
         
-        CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font
-                                            constrainedToSize:CGSizeMake(labelMaxWidth,self.titleLabel.font.lineHeight)
-                                                lineBreakMode:self.titleLabel.lineBreakMode];
-        
-        
-        CGSize subtitleSize = [self.subtitleLabel.text sizeWithFont:self.subtitleLabel.font
-                                                  constrainedToSize:CGSizeMake(labelMaxWidth,self.subtitleLabel.font.lineHeight)
-                                                      lineBreakMode:self.subtitleLabel.lineBreakMode];
+        if (CurrentIOSVersion >= 7.f) {
+            
+            if (self.titleLabel.text.length) {
+                NSAttributedString *attr_text = [[NSAttributedString alloc] initWithString:self.titleLabel.text
+                                                                                attributes:@{NSFontAttributeName:self.titleLabel.font}];
+                CGRect attr_rect = [attr_text boundingRectWithSize:CGSizeMake(labelMaxWidth,self.titleLabel.font.lineHeight)
+                                                           options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+                titleSize = CGSizeMake(ceilf(attr_rect.size.width), ceilf(attr_rect.size.height));
+            }
+            
+            if (self.subtitleLabel.text.length) {
+                NSAttributedString *attr_text_sub = [[NSAttributedString alloc] initWithString:self.subtitleLabel.text
+                                                                                    attributes:@{NSFontAttributeName:self.subtitleLabel.font}];
+                CGRect attr_rect_sub = [attr_text_sub boundingRectWithSize:CGSizeMake(labelMaxWidth,self.subtitleLabel.font.lineHeight)
+                                                                   options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+                subtitleSize = CGSizeMake(ceilf(attr_rect_sub.size.width), ceilf(attr_rect_sub.size.height));
+            }
+        }
+#if (__IPHONE_OS_VERSION_MIN_REQUIRED < 7)
+        else {
+            titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font
+                                         constrainedToSize:CGSizeMake(labelMaxWidth,self.titleLabel.font.lineHeight)
+                                             lineBreakMode:self.titleLabel.lineBreakMode];
+            
+            subtitleSize = [self.subtitleLabel.text sizeWithFont:self.subtitleLabel.font
+                                               constrainedToSize:CGSizeMake(labelMaxWidth,self.subtitleLabel.font.lineHeight)
+                                                   lineBreakMode:self.subtitleLabel.lineBreakMode];
+        }
+#endif
         
         CGFloat maxLabelWidth = MAX(titleSize.width,subtitleSize.width);
         

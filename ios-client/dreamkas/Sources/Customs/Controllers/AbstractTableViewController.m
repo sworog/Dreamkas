@@ -326,8 +326,14 @@
         // сброс параметров лимитирования
         [self resetQueryParams];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, (unsigned long)NULL), ^(void) {
-            [self requestDataFromServer];
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, (unsigned long)NULL), ^(void) {
+//            [self requestDataFromServer];
+//        });
+        
+        __weak typeof(self)weak_self = self;
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            __strong typeof(self)strong_self = weak_self;
+            [strong_self requestDataFromServer];
         });
     }
     

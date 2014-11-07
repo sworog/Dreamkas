@@ -15,4 +15,21 @@
  */
 - (void)requestStores:(ArrayResponseBlock)completionBlock;
 
+/**
+ * Получение списка групп продуктов
+ */
+- (void)requestGroups:(ArrayResponseBlock)completionBlock;
+
+/**
+ * Получение продуктов из конкретной группы
+ */
+- (void)requestProductsFromGroup:(NSString *)groupId
+                    onCompletion:(ArrayResponseBlock)completionBlock;
+
+/**
+ * Получение продуктов по названию, SKU или штрих-коду
+ */
+- (void)requestProductsByQuery:(NSString *)queryValue
+                  onCompletion:(ArrayResponseBlock)completionBlock;
+
 @end

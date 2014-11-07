@@ -1,14 +1,14 @@
 //
-//  CustomNavigationController.m
+//  AbstractNavigationController.m
 //  dreamkas
 //
-//  Created by sig on 09.10.14.
+//  Created by sig on 29.10.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "CustomNavigationController.h"
+#import "AbstractNavigationController.h"
 
-@implementation CustomNavigationController
+@implementation AbstractNavigationController
 
 - (BOOL)shouldAutorotate
 {
