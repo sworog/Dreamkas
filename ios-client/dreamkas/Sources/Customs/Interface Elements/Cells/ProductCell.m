@@ -31,7 +31,7 @@
  */
 - (CGFloat)configureWithModel:(ProductModel *)model
 {
-    [self.titleLabel setText:[[model name] lowercaseStringWithFirstUppercaseLetter]];
+    [self.titleLabel setText:[model name]];
     [self.titleLabel setY:DefaultVerticalCellInsets];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];

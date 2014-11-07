@@ -33,7 +33,7 @@
     
     [self.titleLabel setY:DefaultVerticalCellInsets];
     NSString *search_substring = [UserDefaults objectForKey:kSearchViewControllerSearchFieldKey];
-    NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[[model name] lowercaseStringWithFirstUppercaseLetter]
+    NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[model name]
                                                                                    attributes:@{NSFontAttributeName:DefaultFont(16),
                                                                                                 NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.54]}];
     if ([search_substring length]) {

@@ -92,9 +92,9 @@
 }
 
 /**
- * Тестируем запрос поиска товара по его штрих-коду
+ * Тестируем запрос поиска товара по его артикулу
  */
-- (void)testGettingProductByBarcode
+- (void)testGettingProductBySKU
 {
     
 #if API_USE_TEST_SERVER
@@ -106,12 +106,74 @@
     [NetworkManager requestProductsByQuery:sku_for_subaru_impreza
                               onCompletion:^(NSArray *data, NSError *error)
      {
+         XCTAssertNil(error, @"Get Product By SKU failed");
+         
+         XCTAssertTrue([data count] == 1, @"Get Product By SKU failed: wrong elements count in response");
+         
+         ProductModel *subaru_model = [data firstObject];
+         XCTAssertTrue([[subaru_model sku] isEqualToString:sku_for_subaru_impreza], @"Get Product By SKU failed: wrong sku in response");
+         
+         [expectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:10.0 handler:nil];
+    
+#endif
+    
+}
+
+/**
+ * Тестируем запрос поиска товара по его штрих-коду
+ */
+- (void)testGettingProductByBarcode
+{
+    
+#if API_USE_TEST_SERVER
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testing async method"];
+    
+    NSString *barcode_for_yogurt = @"5252356987412";
+    
+    [NetworkManager requestProductsByQuery:barcode_for_yogurt
+                              onCompletion:^(NSArray *data, NSError *error)
+     {
          XCTAssertNil(error, @"Get Product By Barcode failed");
          
          XCTAssertTrue([data count] == 1, @"Get Product By Barcode failed: wrong elements count in response");
          
-         ProductModel *subaru_model = [data firstObject];
-         XCTAssertTrue([[subaru_model sku] isEqualToString:sku_for_subaru_impreza], @"Get Product By Barcode failed: wrong elements count in response");
+         ProductModel *yogurt_model = [data firstObject];
+         XCTAssertTrue([[yogurt_model barcode] isEqualToString:barcode_for_yogurt], @"Get Product By Barcode failed: wrong barcode in response");
+         
+         [expectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:10.0 handler:nil];
+    
+#endif
+    
+}
+
+/**
+ * Тестируем запрос поиска товара по его наименованию
+ */
+- (void)testGettingProductByName
+{
+    
+#if API_USE_TEST_SERVER
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testing async method"];
+    
+    NSString *name_for_applepie = @"Фруктовый пирог";
+    
+    [NetworkManager requestProductsByQuery:name_for_applepie
+                              onCompletion:^(NSArray *data, NSError *error)
+     {
+         XCTAssertNil(error, @"Get Product By Name failed");
+         
+         XCTAssertTrue([data count] == 1, @"Get Product By Name failed: wrong elements count in response");
+         
+         ProductModel *applepie_model = [data firstObject];
+         XCTAssertTrue([[applepie_model name] isEqualToString:name_for_applepie], @"Get Product By Name failed: wrong name in response");
          
          [expectation fulfill];
      }];

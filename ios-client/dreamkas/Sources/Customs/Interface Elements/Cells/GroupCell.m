@@ -32,7 +32,7 @@
  */
 - (CGFloat)configureWithModel:(GroupModel *)model
 {
-    [self.titleLabel setText:[[model name] lowercaseStringWithFirstUppercaseLetter]];
+    [self.titleLabel setText:[model name]];
     [self.titleLabel setY:DefaultVerticalCellInsets];
     
     CGFloat cell_height = CGRectGetMaxY(self.titleLabel.frame) + DefaultVerticalCellInsets;
