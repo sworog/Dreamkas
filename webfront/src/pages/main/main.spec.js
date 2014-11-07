@@ -7,24 +7,22 @@ define(function(require, exports, module) {
         var mainPage;
 
         beforeEach(function(){
-            mainPage = new MainPage({
-                el: '<div></div>'
-            });
+            mainPage = new MainPage;
         });
 
-        it('header title', function(){
+        it('заголовок страницы', function(){
 
             expect(mainPage.el.querySelector('.page__title').textContent).toBe('Обзор');
 
         });
 
-        it('content title', function(){
+        it('контент', function(){
 
             expect(mainPage.el.querySelector('.page__content h1').textContent).toBe('Добро пожаловать в Дримкас!');
 
         });
 
-        it('active link in sidebar', function(){
+        it('активная ссылка в меню', function(){
 
             expect($.trim(mainPage.el.querySelector('.sideBar__item_active').textContent)).toBe('Обзор');
 
