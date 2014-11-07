@@ -37,8 +37,9 @@
 // Цвета приложения
 //
 
-#define DefaultCyanColor                    RGB(64, 169, 244)
-#define DefaultLightCyanColor               RGB(89, 189, 246)
+#define DefaultCyanColor                    RGB(66, 173, 248)
+#define DefaultLightCyanColor               RGB(79, 182, 248)
+#define DefaultSuperLightCyanColor          RGB(146, 213, 251)
 
 #define DefaultDarkGrayColor                RGB(105, 105, 105)
 #define DefaultGrayColor                    RGB(158, 158, 158)

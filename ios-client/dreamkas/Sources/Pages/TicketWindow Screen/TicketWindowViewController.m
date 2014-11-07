@@ -7,10 +7,11 @@
 //
 
 #import "TicketWindowViewController.h"
+#import "SidemenuButton.h"
 
 @interface TicketWindowViewController ()
 
-@property (nonatomic, weak) IBOutlet UIButton *sidemenuButton;
+@property (nonatomic, weak) IBOutlet SidemenuButton *sidemenuButton;
 
 @property (nonatomic, weak) IBOutlet UIView *leftSideContainerView;
 @property (nonatomic, weak) IBOutlet UIView *rightSideContainerView;
@@ -24,8 +25,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.sidemenuButton.titleLabel setFont:DefaultLiHeiProFont(22.f)];
     
     [self placeLeftAndRightSideControllers];
 }

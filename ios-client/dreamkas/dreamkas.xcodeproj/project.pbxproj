@@ -201,6 +201,10 @@
 		CE9A7EF11A0D14AD00509548 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EEF1A0D14AD00509548 /* CartModel.m */; };
 		CE9A7EF51A0D151F00509548 /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF41A0D151F00509548 /* CartViewController.m */; };
 		CE9A7EF61A0D151F00509548 /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF41A0D151F00509548 /* CartViewController.m */; };
+		CE9A7EFA1A0D1B0A00509548 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF91A0D1B0A00509548 /* MoreButton.m */; };
+		CE9A7EFB1A0D1B0A00509548 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF91A0D1B0A00509548 /* MoreButton.m */; };
+		CE9A7F001A0D1E0F00509548 /* SidemenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */; };
+		CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */; };
 		CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
 		CE9E0DEB1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
 		CEA66B391A0239D100BBECD1 /* StoreSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */; };
@@ -492,6 +496,10 @@
 		CE9A7EEF1A0D14AD00509548 /* CartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartModel.m; sourceTree = "<group>"; };
 		CE9A7EF31A0D151F00509548 /* CartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartViewController.h; sourceTree = "<group>"; };
 		CE9A7EF41A0D151F00509548 /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartViewController.m; sourceTree = "<group>"; };
+		CE9A7EF81A0D1B0A00509548 /* MoreButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreButton.h; sourceTree = "<group>"; };
+		CE9A7EF91A0D1B0A00509548 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
+		CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidemenuButton.h; sourceTree = "<group>"; };
+		CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidemenuButton.m; sourceTree = "<group>"; };
 		CE9E0DE81A0BAFEB00D6F92B /* NSString+CaseMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CaseMethods.h"; sourceTree = "<group>"; };
 		CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CaseMethods.m"; sourceTree = "<group>"; };
 		CEA66B371A0239D100BBECD1 /* StoreSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSelectionCell.h; sourceTree = "<group>"; };
@@ -1199,16 +1207,20 @@
 		CEC003F119E6942E00AE256F /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				CE946BEB19E6BB1E00D270E4 /* CustomFilledButton.h */,
-				CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */,
-				CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */,
-				CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */,
-				CE6CC1F219FFB45F0087FE2C /* CloseButton.h */,
-				CE6CC1F319FFB45F0087FE2C /* CloseButton.m */,
-				CE39DDCC19FFED8E00150C28 /* SearchButton.h */,
-				CE39DDCD19FFED8E00150C28 /* SearchButton.m */,
 				CE8DA4E51A011D54007C24D8 /* BackButton.h */,
 				CE8DA4E61A011D54007C24D8 /* BackButton.m */,
+				CE6CC1F219FFB45F0087FE2C /* CloseButton.h */,
+				CE6CC1F319FFB45F0087FE2C /* CloseButton.m */,
+				CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */,
+				CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */,
+				CE946BEB19E6BB1E00D270E4 /* CustomFilledButton.h */,
+				CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */,
+				CE9A7EF81A0D1B0A00509548 /* MoreButton.h */,
+				CE9A7EF91A0D1B0A00509548 /* MoreButton.m */,
+				CE39DDCC19FFED8E00150C28 /* SearchButton.h */,
+				CE39DDCD19FFED8E00150C28 /* SearchButton.m */,
+				CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */,
+				CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1637,6 +1649,7 @@
 				CE290F9919EE605C005483A1 /* AbstractModel.m in Sources */,
 				CE10A83719F655200056DF91 /* SidemenuViewController.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
+				CE9A7EFA1A0D1B0A00509548 /* MoreButton.m in Sources */,
 				CE29100819EE668B005483A1 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				CE290FF219EE668B005483A1 /* NSNumber+MagicalDataImport.m in Sources */,
 				CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */,
@@ -1696,6 +1709,7 @@
 				CEA66B391A0239D100BBECD1 /* StoreSelectionCell.m in Sources */,
 				CE29101219EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
 				CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */,
+				CE9A7F001A0D1E0F00509548 /* SidemenuButton.m in Sources */,
 				CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */,
 				CE3C76331A0138070057493E /* GroupCell.m in Sources */,
 				CECFC4A319DD74C800ED88D3 /* AFURLRequestSerialization.m in Sources */,
@@ -1804,6 +1818,7 @@
 				CE3C76401A0142C30057493E /* GroupModel.m in Sources */,
 				CEA9932F1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
+				CE9A7EFB1A0D1B0A00509548 /* MoreButton.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
 				CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */,
@@ -1811,6 +1826,7 @@
 				CE912E901A0BD3A1001FDACE /* UTProductsTesting.m in Sources */,
 				CE886A661A028B6D00587D70 /* SearchField.m in Sources */,
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
+				CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
 				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,
 				CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */,
