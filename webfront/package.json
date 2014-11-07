@@ -1,6 +1,5 @@
 {
   "name": "dreamkas-web-client",
-  "version": "0.45.119.4",
   "description": "dreamkas node utils",
   "main": "index.js",
   "scripts": {
@@ -18,8 +17,6 @@
     "url": "https://github.com/crystalservice/lighthouse/issues"
   },
   "homepage": "https://github.com/crystalservice/lighthouse",
-  "dependencies": {
-  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-cli": "~0.1",
