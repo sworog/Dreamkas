@@ -117,7 +117,8 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
     {
         $query = $this
             ->createQueryBuilder()
-            ->field('subCategory')->equals($parentId)
+                ->field('subCategory')->equals($parentId)
+                ->field('deletedAt')->equals(null)
             ->count()
             ->getQuery();
         $count = $query->execute();

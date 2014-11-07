@@ -1,4 +1,6 @@
 require 'time_diff'
+require 'i18n'
+I18n.config.enforce_available_locales = true
 
 def remote_folder_exists?(path)
     'true' ==  capture("if [ -d #{path} ]; then echo 'true'; fi").strip
@@ -96,14 +98,15 @@ namespace :deploy do
     task :init do
 
         set :app_end, 'api' unless exists?(:app_end)
-        set :branch, `git rev-parse --abbrev-ref HEAD`.delete("\n") || "master" unless exists?(:branch)
+        set :branch, `git rev-parse --abbrev-ref HEAD`.delete("\n") unless exists?(:branch)
         set :host, branch unless exists?(:host)
         set :host, host.gsub('/', '-')
 
         set :force, exists?(:force) ? true : false
 
-        set :application, "#{host}.#{stage}.#{app_end}" unless exists?(:application)
-        set :deploy_to,   "/var/www/#{application}"
+        set :application, exists?(:application_folder) ? "#{application_folder}" : "#{host}.#{stage}.#{app_end}";
+
+        set :deploy_to,   "#{deploy_to_base}#{application}"
         set :symfony_env_prod, exists?(:symfony_env) ? symfony_env : stage
         set :application_url, "http://#{application}.lighthouse.pro" unless exists?(:application_url)
 
@@ -118,7 +121,8 @@ namespace :deploy do
         revisions = hosts.map do |host|
             host_releases_path = File.join(deploy_to_base, host, version_dir)
             releases = capture("if [ -d #{host_releases_path} ]; then ls -x #{host_releases_path}; fi", :except => { :no_release => true }).split.sort
-            last_release = releases.length > 0 ? Time.parse(releases.last.sub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\1-\2-\3 \4:\5:\6 UTC')).getlocal : nil
+            last_release_date = releases.last.sub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\1-\2-\3 \4:\5:\6 UTC') unless releases.empty?
+            last_release = releases.length > 0 ? Time.parse(last_release_date).getlocal : nil
             {
                 :host => host,
                 :last_release => last_release,

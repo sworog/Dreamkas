@@ -130,7 +130,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $subCategory = $this->factory()->catalog()->getSubCategory();
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
         $otherSubCategory = $this->factory()->catalog()->getSubCategory('other sub category');
-        $productOtherSubCategoryId = $this->createProduct('33', $otherSubCategory->id);
+        $productOtherSubCategoryId = $this->createProductByName('33', $otherSubCategory->id);
 
         $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId, $stores['2']);
 
@@ -345,10 +345,10 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
 
         $productIds = array();
-        $productIds['1'] = $this->createProductByName('1.1', $catalogGroups['1']->id);
-        $productIds['2'] = $this->createProductByName('1.2', $catalogGroups['1']->id);
-        $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
-        $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
+        $productIds['1'] = $this->factory()->catalog()->createProductByName('1.1', $catalogGroups['1'])->id;
+        $productIds['2'] = $this->factory()->catalog()->createProductByName('1.2', $catalogGroups['1'])->id;
+        $productIds['3'] = $this->factory()->catalog()->createProductByName('1.3', $catalogGroups['1'])->id;
+        $productIds['4'] = $this->factory()->catalog()->createProductByName('2.0', $catalogGroups['2'])->id;
 
         $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
@@ -592,8 +592,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
 
-        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginSalesReportManager()->recalculateNetworkReport();
+        $this->runRecalculateCommand();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo);
 

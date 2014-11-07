@@ -7,6 +7,7 @@ import org.json.JSONException;
 import ru.dreamkas.api.objects.Product;
 import ru.dreamkas.api.objects.Store;
 import ru.dreamkas.api.objects.Supplier;
+import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.steps.api.builder.InvoiceBuilderSteps;
 import ru.dreamkas.apiStorage.ApiStorage;
 
@@ -22,7 +23,7 @@ public class InvoiceBuilderUserSteps {
     public void givenTheUserWithEmailCreatesInvoiceApiObject(String date, Boolean paid, String storeName, String supplierName) throws JSONException {
         Store store = ApiStorage.getCustomVariableStorage().getStores().get(storeName);
         Supplier supplier = ApiStorage.getCustomVariableStorage().getSuppliers().get(supplierName);
-        invoiceBuilderSteps.build(date, paid, store.getId(), supplier.getId());
+        invoiceBuilderSteps.build(DateTimeHelper.getDate(date), paid, store.getId(), supplier.getId());
     }
 
     @Given("the user adds the product with name '$name' with price '$price' and quantity '$quantity 'to invoice api object")

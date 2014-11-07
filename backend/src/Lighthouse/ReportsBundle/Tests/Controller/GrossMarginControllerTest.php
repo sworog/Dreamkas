@@ -12,13 +12,19 @@ use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 
 class GrossMarginControllerTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->authenticateProject();
+    }
+
     protected function prepareData()
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         $this->factory()
             ->invoice()
@@ -122,6 +128,7 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $storeId = $this->prepareData();
 
+        $this->authenticateProject();
         // Calculate CostOfGoods
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
@@ -180,6 +187,7 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $storeId = $this->prepareData();
 
+        $this->authenticateProject();
         // Calculate CostOfGoods
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
@@ -243,7 +251,7 @@ class GrossMarginControllerTest extends WebTestCase
     public function testGetStoreGrossMarginReportsWithDataFromAutotests()
     {
         $store = $this->factory()->store()->getStore('1');
-        $product = $this->createProduct('1');
+        $product = $this->createProductByName('1');
 
         $date = new DateTimestamp();
 
@@ -300,7 +308,7 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore('1');
         $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
-        $product = $this->createProduct('1');
+        $product = $this->createProductByName('1');
 
         // Begin inventory
         $this->factory()
@@ -358,7 +366,7 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore('1');
         $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
-        $product = $this->createProduct('1');
+        $product = $this->createProductByName('1');
 
         // Begin inventory
         $this->factory()
@@ -515,7 +523,7 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId = $this->createProduct('1');
+        $productId = $this->createProductByName('1');
 
         $this->factory()
             ->invoice()

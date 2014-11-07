@@ -1,9 +1,9 @@
 package ru.dreamkas.elements.items;
 
+import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.common.item.CommonItem;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.handler.field.FieldChecker;
-import ru.dreamkas.helper.DateTimeHelper;
 
 public class JSInput extends CommonItem {
 

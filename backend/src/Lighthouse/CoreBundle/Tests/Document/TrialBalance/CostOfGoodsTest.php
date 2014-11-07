@@ -16,6 +16,12 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class CostOfGoodsTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->authenticateProject();
+    }
+
     public function testIndexRangeCreatedOnInvoiceConsecutiveInsert()
     {
         $productIds = $this->createProductsByNames(array('1', '2', '3'));

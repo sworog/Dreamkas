@@ -112,8 +112,6 @@ class MetaContainerTest extends WebTestCase
     
     public function testCollectionWithMultiMetaGenerators()
     {
-        $this->clearMongoDb();
-
         $this->createProductsByNames(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
@@ -145,7 +143,8 @@ class MetaContainerTest extends WebTestCase
             ->expects($this->any())
             ->method('getMetaForElement')
             ->will($this->returnValue($returnMetaGeneratorTwo));
-        
+
+        $this->authenticateProject();
         $collection = $this->getProductCollectionWithMetaGenerators(array(
                 $mockMetaGeneratorOne,
                 $mockMetaGeneratorTwo

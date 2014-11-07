@@ -108,7 +108,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
-And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт4', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт31', units 'шт.', barcode '123454321', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 
 And the user navigates to the group with name 'groups30u101'
 And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password

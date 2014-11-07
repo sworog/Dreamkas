@@ -2,19 +2,19 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossSales;
 
+use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreRepository;
-use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class StoreGrossSalesTest extends WebTestCase
+class StoreGrossSalesTest extends DataAwareTestCase
 {
     public function testCalculateGrossSales()
     {
         $store = $this->factory()->store()->getStore('1');
 
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
-        $productId3 = $this->createProduct('3');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
+        $productId3 = $this->createProductByName('3');
 
         $this->factory()
             ->receipt()

@@ -9,6 +9,7 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     var Collection = makeClass(Backbone.Collection, {
+        original: null,
         filters: {},
         model: require('kit/model/model'),
         initialize: function(data, options){
@@ -34,6 +35,33 @@ define(function(require, exports, module) {
             this.request = Backbone.Collection.prototype.fetch.call(this, options);
 
             return this.request;
+        },
+        add: function(item, options) {
+            options = options || {};
+
+            if (options.temp) {
+                this.original = this.original || this.clone();
+            }
+
+            return Backbone.Collection.prototype.add.apply(this, arguments);
+        },
+        remove: function(item, options) {
+            options = options || {};
+
+            if (options.temp) {
+                this.original = this.original || this.clone();
+            }
+
+            return Backbone.Collection.prototype.remove.apply(this, arguments);
+        },
+        applyChanges: function() {
+            this.original = null;
+        },
+        restore: function() {
+            if (this.original) {
+                this.reset(this.original.models);
+                this.original = null;
+            }
         }
     });
 

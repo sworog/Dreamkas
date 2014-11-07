@@ -13,7 +13,7 @@ class ReturnControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $sale = $this->factory()->receipt()
             ->createSale($store, '2014-09-11T19:31:50+0400')
@@ -292,7 +292,7 @@ class ReturnControllerTest extends WebTestCase
     public function testTwoReturnForOneSaleQuantityValidation()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $sale = $this->factory()->receipt()
             ->createSale($store, '2014-09-11T19:31:50+0400')
@@ -439,7 +439,7 @@ class ReturnControllerTest extends WebTestCase
     public function testProductInventoryChangeOnReturn()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $this->factory()
             ->invoice()

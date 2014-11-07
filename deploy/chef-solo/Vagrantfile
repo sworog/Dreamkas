@@ -6,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "default" do |hosts|
-    hosts.vm.box = "precise64"
+    hosts.vm.box = "ubuntu/trusty64"
     hosts.vm.network :private_network, ip: "192.168.33.17"
 
     hosts.vm.provider :virtualbox do |vb|

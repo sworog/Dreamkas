@@ -109,6 +109,8 @@ When the user clicks on the group with name 'Группа для удалени�
 And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
+When пользователь* находится в модальном окне 'редактирования группы'
+And пользователь* в модальном окне нажимает кнопку продолжить
 
 Then the user waits for modal window closing
 And the user waits for page finishing loading

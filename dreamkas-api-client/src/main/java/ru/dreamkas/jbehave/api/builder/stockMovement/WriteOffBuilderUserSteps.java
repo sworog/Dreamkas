@@ -3,6 +3,7 @@ package ru.dreamkas.jbehave.api.builder.stockMovement;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import ru.dreamkas.api.objects.Store;
+import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.steps.api.builder.WriteOffBuilderSteps;
 import ru.dreamkas.apiStorage.ApiStorage;
 
@@ -14,7 +15,7 @@ public class WriteOffBuilderUserSteps {
     @Given("пользователь создает апи объект списания с датой '$date', магазином с именем '$storeName'")
     public void givenTheUserCreatesWriteOffApiObject(String date, String storeName) {
         Store store = ApiStorage.getCustomVariableStorage().getStores().get(storeName);
-        writeOffBuilderSteps.build(store.getId(), date);
+        writeOffBuilderSteps.build(store.getId(), DateTimeHelper.getDate(date));
     }
 
     @Given("пользователь добавляет к апи объекту списания продукт с именем '$name', ценой '$price', количеством '$quantity' и причиной '$cause'")

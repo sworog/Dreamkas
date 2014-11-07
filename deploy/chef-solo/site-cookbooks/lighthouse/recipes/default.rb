@@ -83,3 +83,7 @@ cookbook_file "authorized_keys" do
   owner "watchman"
   group "watchman"
 end
+
+package "tzdata" do
+  action :upgrade
+end

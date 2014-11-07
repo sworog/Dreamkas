@@ -4,7 +4,8 @@ define(function(require, exports, module) {
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         cookies = require('cookies'),
-        _ = require('lodash');
+        _ = require('lodash'),
+        googleAnalytics = require('kit/googleAnalytics/googleAnalytics');
 
     var posWindowReference = null,
         previousPage;
@@ -91,6 +92,8 @@ define(function(require, exports, module) {
             }
 
             page.setStatus('loaded');
+
+            googleAnalytics.sendPageview();
         },
 
         remove: function() {
@@ -129,7 +132,9 @@ define(function(require, exports, module) {
 
 			if (opt.render) {
 				page.render();
-			}
+			} else {
+                googleAnalytics.sendPageview();
+            }
         }
     });
 });

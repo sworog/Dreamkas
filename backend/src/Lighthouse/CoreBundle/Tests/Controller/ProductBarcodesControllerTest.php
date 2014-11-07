@@ -16,7 +16,7 @@ class ProductBarcodesControllerTest extends WebTestCase
      */
     public function testPutAction(array $data, $expectedCode, array $assertions, array $productAssertions = array())
     {
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
@@ -48,7 +48,7 @@ class ProductBarcodesControllerTest extends WebTestCase
         array $assertions,
         array $productAssertions = array()
     ) {
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(

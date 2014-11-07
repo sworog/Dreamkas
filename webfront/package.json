@@ -1,6 +1,5 @@
 {
   "name": "dreamkas-web-client",
-  "version": "0.45.119.4",
   "description": "dreamkas node utils",
   "main": "index.js",
   "scripts": {
@@ -23,7 +22,6 @@
     "grunt-cli": "~0.1",
     "grunt-shell": "^1.1.1",
     "karma": "~0.12",
-    "karma-chrome-launcher": "~0.1",
     "karma-coverage": "~0.2",
     "karma-jasmine": "~0.2.0",
     "karma-phantomjs-launcher": "~0.1",

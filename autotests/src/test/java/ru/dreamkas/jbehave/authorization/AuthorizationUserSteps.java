@@ -59,6 +59,7 @@ public class AuthorizationUserSteps {
     }
 
     @Given("the user opens lighthouse restore password page")
+    @Alias("пользователь открывает страницу восстановления пароля")
     public void givenTheUserOpensRestorePasswordPage() {
         authorizationSteps.restorePasswordPageOpen();
     }
@@ -171,12 +172,8 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user asserts the restore password page title text is '$text'")
+    @Alias("пользователь проверяет, что заголовок страницы восстановления пароля равен '$text'")
     public void thenTheUserAssertsTheRestorePasswordPageTitle(String text) {
         authorizationSteps.assertPageTitleText(text);
-    }
-
-    @Then("the user asserts the restore password page text is '$text'")
-    public void thenTheUserAssertsTheRestorePasswordPageText(String text) {
-        authorizationSteps.assertPageText(text);
     }
 }
