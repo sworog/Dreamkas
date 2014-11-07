@@ -3,6 +3,13 @@
     <entity name="AbstractModel" representedClassName="AbstractModel" isAbstract="YES" syncable="YES">
         <attribute name="pk" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
+    <entity name="CartModel" representedClassName="CartModel" parentEntity="AbstractModel" syncable="YES">
+        <attribute name="itemsCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="paymentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sumTotal" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductModel" inverseName="carts" inverseEntity="ProductModel" syncable="YES"/>
+        <relationship name="store" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreModel" inverseName="carts" inverseEntity="StoreModel" syncable="YES"/>
+    </entity>
     <entity name="GroupModel" representedClassName="GroupModel" parentEntity="AbstractModel" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProductModel" inverseName="group" inverseEntity="ProductModel" syncable="YES"/>
@@ -13,16 +20,19 @@
         <attribute name="purchasePrice" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
         <attribute name="sellingPrice" optional="YES" attributeType="Double" minValueString="0" defaultValueString="0.0" syncable="YES"/>
         <attribute name="sku" optional="YES" attributeType="String" minValueString="0" syncable="YES"/>
+        <relationship name="carts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CartModel" inverseName="products" inverseEntity="CartModel" syncable="YES"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupModel" inverseName="products" inverseEntity="GroupModel" syncable="YES"/>
     </entity>
     <entity name="StoreModel" representedClassName="StoreModel" parentEntity="AbstractModel" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="carts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CartModel" inverseName="store" inverseEntity="CartModel" syncable="YES"/>
     </entity>
     <elements>
         <element name="AbstractModel" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="GroupModel" positionX="-63" positionY="27" width="128" height="73"/>
-        <element name="ProductModel" positionX="-63" positionY="0" width="128" height="133"/>
-        <element name="StoreModel" positionX="-63" positionY="-9" width="128" height="73"/>
+        <element name="ProductModel" positionX="-63" positionY="0" width="128" height="148"/>
+        <element name="StoreModel" positionX="-63" positionY="-9" width="128" height="88"/>
+        <element name="CartModel" positionX="-54" positionY="45" width="128" height="118"/>
     </elements>
 </model>

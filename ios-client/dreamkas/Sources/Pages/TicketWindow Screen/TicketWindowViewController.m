@@ -7,8 +7,6 @@
 //
 
 #import "TicketWindowViewController.h"
-#import "GroupsViewController.h"
-#import "CheckViewController.h"
 
 @interface TicketWindowViewController ()
 

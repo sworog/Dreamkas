@@ -757,10 +757,10 @@
             </objects>
             <point key="canvasLocation" x="9650" y="1210"/>
         </scene>
-        <!--Check View Controller-->
+        <!--Cart View Controller-->
         <scene sceneID="Ro9-Z0-baL">
             <objects>
-                <viewController storyboardIdentifier="CheckViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NUX-9f-cIq" customClass="CheckViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NUX-9f-cIq" customClass="CartViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sie-aE-d4O"/>
                         <viewControllerLayoutGuide type="bottom" id="A65-fl-BVr"/>

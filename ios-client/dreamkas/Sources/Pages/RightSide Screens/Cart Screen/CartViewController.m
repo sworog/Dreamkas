@@ -1,18 +1,18 @@
 //
-//  CheckViewController.m
+//  CartViewController.m
 //  dreamkas
 //
-//  Created by sig on 28.10.14.
+//  Created by sig on 07.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "CheckViewController.h"
+#import "CartViewController.h"
 
-@interface CheckViewController ()
+@interface CartViewController ()
 
 @end
 
-@implementation CheckViewController
+@implementation CartViewController
 
 #pragma mark - View Lifecycle
 

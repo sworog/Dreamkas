@@ -31,8 +31,6 @@
 		CE22CE3619ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
 		CE290F9919EE605C005483A1 /* AbstractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290F9819EE605C005483A1 /* AbstractModel.m */; };
 		CE290F9A19EE605C005483A1 /* AbstractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290F9819EE605C005483A1 /* AbstractModel.m */; };
-		CE290F9F19EE605C005483A1 /* StoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290F9E19EE605C005483A1 /* StoreModel.m */; };
-		CE290FA019EE605C005483A1 /* StoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290F9E19EE605C005483A1 /* StoreModel.m */; };
 		CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FEC19EE668B005483A1 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FB219EE668B005483A1 /* MagicalImportFunctions.m */; };
@@ -91,8 +89,6 @@
 		CE39DDBF19FFD38A00150C28 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */; };
 		CE39DDC219FFD39900150C28 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC119FFD39900150C28 /* GroupsViewController.m */; };
 		CE39DDC319FFD39900150C28 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC119FFD39900150C28 /* GroupsViewController.m */; };
-		CE39DDCA19FFD3BE00150C28 /* CheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC919FFD3BE00150C28 /* CheckViewController.m */; };
-		CE39DDCB19FFD3BE00150C28 /* CheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC919FFD3BE00150C28 /* CheckViewController.m */; };
 		CE39DDCE19FFED8E00150C28 /* SearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDCD19FFED8E00150C28 /* SearchButton.m */; };
 		CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDCD19FFED8E00150C28 /* SearchButton.m */; };
 		CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B95EE19E40DA900E1D24F /* DatesHelper.m */; };
@@ -107,8 +103,6 @@
 		CE3C76401A0142C30057493E /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C763E1A0142C30057493E /* GroupModel.m */; };
 		CE3C76471A0143080057493E /* ProductModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76461A0143080057493E /* ProductModel+Mapper.m */; };
 		CE3C76481A0143080057493E /* ProductModel+Mapper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C76461A0143080057493E /* ProductModel+Mapper.m */; };
-		CE3C764F1A0148610057493E /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C764E1A0148610057493E /* ProductModel.m */; };
-		CE3C76501A0148610057493E /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3C764E1A0148610057493E /* ProductModel.m */; };
 		CE4C877019F10C4100221E53 /* WordWrappingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */; };
 		CE4C877119F10C4100221E53 /* WordWrappingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */; };
 		CE500B7B19F00A4F00449C34 /* AbstractTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B7A19F00A4F00449C34 /* AbstractTableViewController.m */; };
@@ -199,6 +193,14 @@
 		CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */; };
 		CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
 		CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
+		CE9A7EE81A0D14AC00509548 /* StoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EE71A0D14AC00509548 /* StoreModel.m */; };
+		CE9A7EE91A0D14AC00509548 /* StoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EE71A0D14AC00509548 /* StoreModel.m */; };
+		CE9A7EEC1A0D14AD00509548 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EEB1A0D14AD00509548 /* ProductModel.m */; };
+		CE9A7EED1A0D14AD00509548 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EEB1A0D14AD00509548 /* ProductModel.m */; };
+		CE9A7EF01A0D14AD00509548 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EEF1A0D14AD00509548 /* CartModel.m */; };
+		CE9A7EF11A0D14AD00509548 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EEF1A0D14AD00509548 /* CartModel.m */; };
+		CE9A7EF51A0D151F00509548 /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF41A0D151F00509548 /* CartViewController.m */; };
+		CE9A7EF61A0D151F00509548 /* CartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF41A0D151F00509548 /* CartViewController.m */; };
 		CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
 		CE9E0DEB1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
 		CEA66B391A0239D100BBECD1 /* StoreSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */; };
@@ -332,8 +334,6 @@
 		CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateStoreViewController.m; sourceTree = "<group>"; };
 		CE290F9719EE605C005483A1 /* AbstractModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractModel.h; sourceTree = "<group>"; };
 		CE290F9819EE605C005483A1 /* AbstractModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractModel.m; sourceTree = "<group>"; };
-		CE290F9D19EE605C005483A1 /* StoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreModel.h; sourceTree = "<group>"; };
-		CE290F9E19EE605C005483A1 /* StoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreModel.m; sourceTree = "<group>"; };
 		CE290FAA19EE62DB005483A1 /* RESTClient+Stores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Stores.h"; sourceTree = "<group>"; };
 		CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Stores.m"; sourceTree = "<group>"; };
 		CE290FB119EE668B005483A1 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -397,8 +397,6 @@
 		CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		CE39DDC019FFD39900150C28 /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
 		CE39DDC119FFD39900150C28 /* GroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupsViewController.m; sourceTree = "<group>"; };
-		CE39DDC819FFD3BE00150C28 /* CheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckViewController.h; sourceTree = "<group>"; };
-		CE39DDC919FFD3BE00150C28 /* CheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckViewController.m; sourceTree = "<group>"; };
 		CE39DDCC19FFED8E00150C28 /* SearchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchButton.h; sourceTree = "<group>"; };
 		CE39DDCD19FFED8E00150C28 /* SearchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchButton.m; sourceTree = "<group>"; };
 		CE3B95ED19E40DA900E1D24F /* DatesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatesHelper.h; sourceTree = "<group>"; };
@@ -413,8 +411,6 @@
 		CE3C763E1A0142C30057493E /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
 		CE3C76451A0143080057493E /* ProductModel+Mapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProductModel+Mapper.h"; sourceTree = "<group>"; };
 		CE3C76461A0143080057493E /* ProductModel+Mapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProductModel+Mapper.m"; sourceTree = "<group>"; };
-		CE3C764D1A0148610057493E /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
-		CE3C764E1A0148610057493E /* ProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
 		CE4C876E19F10C4100221E53 /* WordWrappingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordWrappingLabel.h; sourceTree = "<group>"; };
 		CE4C876F19F10C4100221E53 /* WordWrappingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordWrappingLabel.m; sourceTree = "<group>"; };
 		CE500B7919F00A4F00449C34 /* AbstractTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTableViewController.h; sourceTree = "<group>"; };
@@ -488,6 +484,14 @@
 		CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmptyButton.h; sourceTree = "<group>"; };
 		CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmptyButton.m; sourceTree = "<group>"; };
 		CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardSegues.h; sourceTree = "<group>"; };
+		CE9A7EE61A0D14AC00509548 /* StoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreModel.h; sourceTree = "<group>"; };
+		CE9A7EE71A0D14AC00509548 /* StoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreModel.m; sourceTree = "<group>"; };
+		CE9A7EEA1A0D14AD00509548 /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
+		CE9A7EEB1A0D14AD00509548 /* ProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
+		CE9A7EEE1A0D14AD00509548 /* CartModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartModel.h; sourceTree = "<group>"; };
+		CE9A7EEF1A0D14AD00509548 /* CartModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartModel.m; sourceTree = "<group>"; };
+		CE9A7EF31A0D151F00509548 /* CartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartViewController.h; sourceTree = "<group>"; };
+		CE9A7EF41A0D151F00509548 /* CartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartViewController.m; sourceTree = "<group>"; };
 		CE9E0DE81A0BAFEB00D6F92B /* NSString+CaseMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CaseMethods.h"; sourceTree = "<group>"; };
 		CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CaseMethods.m"; sourceTree = "<group>"; };
 		CEA66B371A0239D100BBECD1 /* StoreSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSelectionCell.h; sourceTree = "<group>"; };
@@ -622,13 +626,15 @@
 			children = (
 				CE290F9719EE605C005483A1 /* AbstractModel.h */,
 				CE290F9819EE605C005483A1 /* AbstractModel.m */,
-				CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */,
-				CE3C764D1A0148610057493E /* ProductModel.h */,
-				CE3C764E1A0148610057493E /* ProductModel.m */,
+				CE9A7EEE1A0D14AD00509548 /* CartModel.h */,
+				CE9A7EEF1A0D14AD00509548 /* CartModel.m */,
 				CE3C763D1A0142C30057493E /* GroupModel.h */,
 				CE3C763E1A0142C30057493E /* GroupModel.m */,
-				CE290F9D19EE605C005483A1 /* StoreModel.h */,
-				CE290F9E19EE605C005483A1 /* StoreModel.m */,
+				CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */,
+				CE9A7EEA1A0D14AD00509548 /* ProductModel.h */,
+				CE9A7EEB1A0D14AD00509548 /* ProductModel.m */,
+				CE9A7EE61A0D14AC00509548 /* StoreModel.h */,
+				CE9A7EE71A0D14AC00509548 /* StoreModel.m */,
 			);
 			path = "Model Classes";
 			sourceTree = "<group>";
@@ -976,7 +982,7 @@
 		CE39DDB719FFD28B00150C28 /* RightSide Screens */ = {
 			isa = PBXGroup;
 			children = (
-				CE39DDBB19FFD36C00150C28 /* Check Screen */,
+				CE9A7EF21A0D150100509548 /* Cart Screen */,
 			);
 			path = "RightSide Screens";
 			sourceTree = "<group>";
@@ -998,15 +1004,6 @@
 				CE39DDC119FFD39900150C28 /* GroupsViewController.m */,
 			);
 			path = "Groups Screen";
-			sourceTree = "<group>";
-		};
-		CE39DDBB19FFD36C00150C28 /* Check Screen */ = {
-			isa = PBXGroup;
-			children = (
-				CE39DDC819FFD3BE00150C28 /* CheckViewController.h */,
-				CE39DDC919FFD3BE00150C28 /* CheckViewController.m */,
-			);
-			path = "Check Screen";
 			sourceTree = "<group>";
 		};
 		CE3B95EA19E40D7800E1D24F /* Helpers */ = {
@@ -1096,6 +1093,15 @@
 				CE946BB819E6A91400D270E4 /* RobotoCondensed-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CE9A7EF21A0D150100509548 /* Cart Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE9A7EF31A0D151F00509548 /* CartViewController.h */,
+				CE9A7EF41A0D151F00509548 /* CartViewController.m */,
+			);
+			path = "Cart Screen";
 			sourceTree = "<group>";
 		};
 		CE9E0DE51A0BAFB600D6F92B /* NSString */ = {
@@ -1607,6 +1613,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */,
+				CE9A7EF01A0D14AD00509548 /* CartModel.m in Sources */,
 				CE29101019EE668B005483A1 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				CE8AB37A19E7C8D000B105E0 /* AESCrypt.m in Sources */,
 				CE29100019EE668B005483A1 /* NSManagedObject+MagicalRecord.m in Sources */,
@@ -1635,14 +1642,12 @@
 				CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */,
 				CE29101A19EE668B005483A1 /* MagicalRecord+Setup.m in Sources */,
 				CE29100619EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
-				CE39DDCA19FFD3BE00150C28 /* CheckViewController.m in Sources */,
 				CE3C76471A0143080057493E /* ProductModel+Mapper.m in Sources */,
 				CEBC43A719E806F700C0E575 /* Reachability.m in Sources */,
 				CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */,
 				CECFC4AB19DD74C800ED88D3 /* UIProgressView+AFNetworking.m in Sources */,
 				CE82B2931A02532200CBF803 /* SearchViewController.m in Sources */,
 				CE8DA4E31A0106FD007C24D8 /* CustomNavigationBar.m in Sources */,
-				CE290F9F19EE605C005483A1 /* StoreModel.m in Sources */,
 				CE29101419EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
 				CEA9932E1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */,
@@ -1650,6 +1655,7 @@
 				CEC0040519E6960400AE256F /* CustomTextField.m in Sources */,
 				CECFC4A419DD74C800ED88D3 /* AFURLResponseSerialization.m in Sources */,
 				CE00D11A19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
+				CE9A7EEC1A0D14AD00509548 /* ProductModel.m in Sources */,
 				CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CE29100C19EE668B005483A1 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				CECFC4A219DD74C800ED88D3 /* AFURLConnectionOperation.m in Sources */,
@@ -1660,6 +1666,8 @@
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CE29100219EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
+				CE9A7EF51A0D151F00509548 /* CartViewController.m in Sources */,
+				CE9A7EE81A0D14AC00509548 /* StoreModel.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
@@ -1709,7 +1717,6 @@
 				CE290FEE19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				CE886A651A028B6D00587D70 /* SearchField.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
-				CE3C764F1A0148610057493E /* ProductModel.m in Sources */,
 				CEF2647519E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CE39DDBE19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
@@ -1726,7 +1733,6 @@
 			files = (
 				CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */,
 				CE29101F19EE668B005483A1 /* MagicalRecord.m in Sources */,
-				CE290FA019EE605C005483A1 /* StoreModel.m in Sources */,
 				CE29100919EE668B005483A1 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CE8AB38B19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
@@ -1741,7 +1747,6 @@
 				CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */,
 				CE29101319EE668B005483A1 /* MagicalRecord+Actions.m in Sources */,
 				CE8DA4E81A011D54007C24D8 /* BackButton.m in Sources */,
-				CE39DDCB19FFD3BE00150C28 /* CheckViewController.m in Sources */,
 				CEF2647219E81D16008BE93A /* NSDate+Utilities.m in Sources */,
 				CE39DDBF19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
 				CE39DDC319FFD39900150C28 /* GroupsViewController.m in Sources */,
@@ -1750,6 +1755,7 @@
 				CE82B2941A02532200CBF803 /* SearchViewController.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */,
+				CE9A7EED1A0D14AD00509548 /* ProductModel.m in Sources */,
 				CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */,
 				CE29100319EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEF2645F19E8126A008BE93A /* LogInViewController.m in Sources */,
@@ -1762,6 +1768,7 @@
 				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE29101919EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
+				CE9A7EE91A0D14AC00509548 /* StoreModel.m in Sources */,
 				CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */,
 				CE29101719EE668B005483A1 /* MagicalRecord+iCloud.m in Sources */,
 				CE3C76481A0143080057493E /* ProductModel+Mapper.m in Sources */,
@@ -1793,13 +1800,13 @@
 				CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
+				CE9A7EF61A0D151F00509548 /* CartViewController.m in Sources */,
 				CE3C76401A0142C30057493E /* GroupModel.m in Sources */,
 				CEA9932F1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
 				CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */,
-				CE3C76501A0148610057493E /* ProductModel.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CE912E901A0BD3A1001FDACE /* UTProductsTesting.m in Sources */,
 				CE886A661A028B6D00587D70 /* SearchField.m in Sources */,
@@ -1809,6 +1816,7 @@
 				CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
+				CE9A7EF11A0D14AD00509548 /* CartModel.m in Sources */,
 				CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
 				CE10A83819F655200056DF91 /* SidemenuViewController.m in Sources */,
 				CE6CC1F519FFB45F0087FE2C /* CloseButton.m in Sources */,
