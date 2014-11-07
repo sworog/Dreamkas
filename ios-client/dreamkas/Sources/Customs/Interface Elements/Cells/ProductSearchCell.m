@@ -77,6 +77,11 @@
     [formatter setMaximumFractionDigits:2];
     [formatter setMinimumFractionDigits:2];
     
+    [self.priceLabel setHidden:YES];
+    if ([[model sellingPrice] doubleValue] > 0.0f) {
+        [self.priceLabel setHidden:NO];
+    }
+    
     NSMutableString *str = [NSMutableString stringWithFormat:@"%@ ₽", [formatter stringFromNumber:[model sellingPrice]]];
     [self.priceLabel setText:str];
     

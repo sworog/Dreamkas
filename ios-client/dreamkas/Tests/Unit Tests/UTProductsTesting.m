@@ -91,4 +91,35 @@
     
 }
 
+/**
+ * Тестируем запрос поиска товара по его штрих-коду
+ */
+- (void)testGettingProductByBarcode
+{
+    
+#if API_USE_TEST_SERVER
+    
+    XCTestExpectation *expectation = [self expectationWithDescription:@"testing async method"];
+    
+    NSString *sku_for_subaru_impreza = @"10015";
+    
+    [NetworkManager requestProductsByQuery:sku_for_subaru_impreza
+                              onCompletion:^(NSArray *data, NSError *error)
+     {
+         XCTAssertNil(error, @"Get Product By Barcode failed");
+         
+         XCTAssertTrue([data count] == 1, @"Get Product By Barcode failed: wrong elements count in response");
+         
+         ProductModel *subaru_model = [data firstObject];
+         XCTAssertTrue([[subaru_model sku] isEqualToString:sku_for_subaru_impreza], @"Get Product By Barcode failed: wrong elements count in response");
+         
+         [expectation fulfill];
+     }];
+    
+    [self waitForExpectationsWithTimeout:10.0 handler:nil];
+    
+#endif
+    
+}
+
 @end
