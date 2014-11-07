@@ -2638,14 +2638,16 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertNull($deleteResponse);
 
-        // assert product is accessable by direct link
-        $this->clientJsonRequest(
+        // assert product is accessible by direct link
+        $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
             "/api/1/products/{$productIds['1']}"
         );
 
         $this->assertResponseCode(200);
+        $this->assertNotEquals('1', $getResponse['name']);
+        $this->assertContains('Удалено', $getResponse['name']);
     }
 
     public function testDeleteProductIsNotVisibleInProductsList()

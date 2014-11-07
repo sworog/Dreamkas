@@ -126,7 +126,8 @@ class CatalogGroupControllerTest extends WebTestCase
 
     public function testDeleteAction()
     {
-        $catalogGroupId = $this->createCatalogGroup('Группа1');
+        $groupName = 'Группа1';
+        $catalogGroupId = $this->createCatalogGroup($groupName);
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
@@ -140,13 +141,14 @@ class CatalogGroupControllerTest extends WebTestCase
 
         $this->assertNull($deleteResponse);
 
-        $this->clientJsonRequest(
+        $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/catalog/groups/' . $catalogGroupId
         );
 
         $this->assertResponseCode(200);
+        $this->assertNotEquals($groupName, $getResponse['name']);
     }
 
     public function testDeleteCatalogGroupIsNotVisibleInList()
@@ -198,13 +200,74 @@ class CatalogGroupControllerTest extends WebTestCase
             array('name' => 'Хомячки')
         );
 
-        $this->assertResponseCode(400);
+        $this->assertResponseCode(201);
+        $this->assertNotEquals($catalogGroupId1, $postResponse['id']);
+    }
 
-        Assert::assertJsonPathEquals(
-            'Группа с таким названием уже существует',
-            'errors.children.name.errors.0',
-            $postResponse
+    public function testDeleteGroupAfterAllProductsDelete()
+    {
+        $catalogGroup = $this->factory()->catalog()->getSubCategory('To be deleted');
+
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'), $catalogGroup);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        // try to delete group with 3 products
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
         );
+        $this->assertResponseCode(409);
+
+        // delete 1st product and try to delete group with 2 products, should fail
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$products['1']->id}"
+        );
+        $this->assertResponseCode(204);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
+        );
+        $this->assertResponseCode(409);
+
+        // delete 2nd product and try to delete group with 1 product, should fail
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$products['2']->id}"
+        );
+        $this->assertResponseCode(204);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
+        );
+        $this->assertResponseCode(409);
+
+        // delete 3rd product and try to delete group without products, should pass
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$products['3']->id}"
+        );
+        $this->assertResponseCode(204);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
+        );
+        $this->assertResponseCode(204);
     }
 
     /**
