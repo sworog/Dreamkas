@@ -2,13 +2,15 @@ package ru.dreamkas.pos.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+
+import ru.dreamkas.pos.Constants;
 import ru.dreamkas.pos.model.api.Product;
 
 public class Receipt extends ArrayList<ReceiptItem> {
 
     BigDecimal mTotal = BigDecimal.ZERO;
     public BigDecimal getTotal(){
-        return mTotal;
+        return mTotal == null ? null : mTotal.setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP);
     }
 
     public void changeTo(BigDecimal delta){

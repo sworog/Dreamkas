@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.adapters.ReceiptAdapter;
+import ru.dreamkas.pos.model.ReceiptItem;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.misc.StringDecorator;
 
@@ -25,7 +26,7 @@ public class ReceiptAdapterTest extends AndroidTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        ArrayList<Product> data = new ArrayList<Product>();
+        ArrayList<ReceiptItem> data = new ArrayList<ReceiptItem>();
 
         product1 = new Product();
         product1.setName("test1");
@@ -35,8 +36,8 @@ public class ReceiptAdapterTest extends AndroidTestCase {
         product2.setName("test2");
         product2.setSku("10003");
 
-        data.add(product1);
-        data.add(product2);
+        data.add(new ReceiptItem(product1));
+        data.add(new ReceiptItem(product2));
 
         mAdapter = new ReceiptAdapter(getContext(), R.layout.receipt_listview_item, data);
     }
@@ -54,7 +55,7 @@ public class ReceiptAdapterTest extends AndroidTestCase {
         View view = mAdapter.getView(0, null, null);
 
         TextView quantity = (TextView) view.findViewById(R.id.txtReceiptItemQuantity);
-        String origin = String.format("1.0 %s", product1.getUnits() == null ? "шт" : product1.getUnits());
+        String origin = String.format("1,0 %s", product1.getUnits() == null ? "шт" : product1.getUnits());
 
         assertThat("Quantity view string doesn't match.", quantity.getText().toString(), is(origin));
     }
@@ -63,7 +64,7 @@ public class ReceiptAdapterTest extends AndroidTestCase {
         View view = mAdapter.getView(0, null, null);
 
         TextView cost = (TextView) view.findViewById(R.id.txtReceiptItemCost);
-        String origin = String.format("%d %c", product1.getSellingPrice() == null ? 0 : product1.getSellingPrice(), StringDecorator.RUBLE_CODE);
+        String origin = String.format("%s %c", product1.getSellingPrice() == null ? "0.00" : product1.getSellingPrice(), StringDecorator.RUBLE_CODE);
 
         assertThat("Selling price view string doesn't match", cost.getText().toString(), is(origin));
     }

@@ -11,6 +11,7 @@
             android:imeOptions="actionSearch"
             android:layout_weight="1"
             android:inputType="numberDecimal"
+            android:digits="0123456789.,"
             android:lines="1" />
         <Button android:text="−"
             android:id="@+id/btnDown"

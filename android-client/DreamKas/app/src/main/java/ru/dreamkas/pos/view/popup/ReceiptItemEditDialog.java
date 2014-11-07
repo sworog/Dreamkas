@@ -35,6 +35,7 @@ public class ReceiptItemEditDialog extends Dialog {
     private EditText txtSellingPrice;
     private NumericUpDown nupQuantity;
     private Button btnSave;
+    private int mDeleteButtonVisibility = View.VISIBLE;
 
     public enum DialogResult{RemoveReceipt, Save, Cancel;}
 
@@ -81,6 +82,10 @@ public class ReceiptItemEditDialog extends Dialog {
         super.cancel();
     }
 
+    public void setDeleteButtonVisible(int visibility) {
+        mDeleteButtonVisibility = visibility;
+    }
+
     public ReceiptItem getBackup() {
         return mBackup;
     }
@@ -98,6 +103,7 @@ public class ReceiptItemEditDialog extends Dialog {
         calcTotal();
 
         btnRemoveFromReceipt = (ConfirmButtonComponent) findViewById(R.id.btnRemoveFromReceipt);
+        btnRemoveFromReceipt.setVisibility(mDeleteButtonVisibility);
         btnRemoveFromReceipt.setTouchOwner(this);
         btnRemoveFromReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +142,7 @@ public class ReceiptItemEditDialog extends Dialog {
     }
 
     private void calcTotal() {
-        SpannableStringBuilder total = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msgSellInTheAmountOff), mReceiptItem.getTotal().toString(), StringDecorator.RUBLE_CODE);
+        SpannableStringBuilder total = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), mReceiptItem.getTotal().toString(), StringDecorator.RUBLE_CODE);
         lblTotal.setText(total);
     }
 

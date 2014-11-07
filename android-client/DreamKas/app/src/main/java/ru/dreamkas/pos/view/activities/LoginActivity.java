@@ -111,6 +111,9 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
 
             Toast.makeText(this, "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
+
+            txtUsername.setText("owner@lighthouse.pro");
+            txtPassword.setText("lighthouse");
         }
         super.onStart();
     }

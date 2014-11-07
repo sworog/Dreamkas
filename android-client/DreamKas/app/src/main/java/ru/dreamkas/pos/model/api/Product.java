@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.math.BigDecimal;
 import javax.annotation.Nullable;
 
+import ru.dreamkas.pos.Constants;
+
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Product extends NamedObject{
     private String sku;
@@ -32,10 +34,11 @@ public class Product extends NamedObject{
     }
 
     public BigDecimal getSellingPrice() {
-        return sellingPrice;
+
+        return sellingPrice == null ? null : sellingPrice.setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP);
     }
     public void setSellingPrice(BigDecimal value) {
-        sellingPrice = value;
+        sellingPrice = value == null ? null : value.setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP);
     }
 
     public void setBarcode(@Nullable String barcode) {

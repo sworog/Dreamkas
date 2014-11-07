@@ -44,6 +44,7 @@ public class ReceiptComponent extends LinearLayout {
     private Receipt mReceipt;
     private ConfirmButtonComponent btnClearReceipt;
     private ReceiptAdapter mAdapter;
+    private boolean mDialogInProgress;
 
     public ReceiptComponent(Context context) {
         super(context);
@@ -116,7 +117,6 @@ public class ReceiptComponent extends LinearLayout {
                             }
 
                         BigDecimal delta = item.getTotal().add(dialog.getBackup().getTotal().negate());
-
                         mReceipt.changeTo(delta);
                         changeReceiptTotal();
                         break;
@@ -145,9 +145,56 @@ public class ReceiptComponent extends LinearLayout {
     }
 
     public void add(Product product) {
+        ReceiptItem item = prepareProductForReceipt(product);
+        if(item != null){
+            addReceiptItem(item);
+        }
+    }
+
+    private ReceiptItem prepareProductForReceipt(Product product) {
+        if(product.getSellingPrice() != null && product.getSellingPrice() != BigDecimal.ZERO){
+            return new ReceiptItem(product);
+        }
+
+        if(mDialogInProgress){
+            return null;
+        }
+
+        mDialogInProgress = true;
+
+        final ReceiptItem receiptItem = new ReceiptItem(product);
+
+        final ReceiptItemEditDialog dialog = new ReceiptItemEditDialog(getContext());
+
+        dialog.setReceiptItem(receiptItem);
+        dialog.setDeleteButtonVisible(View.GONE);
+        dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(final DialogInterface arg0) {
+                mDialogInProgress = false;
+                switch (dialog.getResult()){
+                    case Save:
+                        addReceiptItem(receiptItem);
+                        break;
+                    case Cancel:
+                    case RemoveReceipt:
+                        break;
+                }
+            }
+        });
+
+        return null;
+    }
+
+    private void addReceiptItem(ReceiptItem item){
         setReceiptView(false);
-        mReceipt.add(product);
+        mReceipt.add(item);
         mAdapter.notifyDataSetChanged();
+
+        BigDecimal delta = item.getTotal();
+        mReceipt.changeTo(delta);
+        changeReceiptTotal();
 
         changeReceiptTotal();
         btnClearReceipt.changeState(ConfirmButtonComponent.State.REGULAR);
