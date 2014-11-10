@@ -86,6 +86,7 @@ lighthouse:
                 password:
                     not_equals_email: E-mail и пароль не должны совпадать
                     not_equals_password: Пароли отличаются
+                    does_not_match_current: Неверный пароль
                 email:
                     unique: Пользователь с таким email уже существует
                     not_exists: Пользователь с таким e-mail не зарегистрирован в системе

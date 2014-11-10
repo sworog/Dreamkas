@@ -1754,7 +1754,7 @@ class UserControllerTest extends WebTestCase
             $this->performJsonAssertions($postResponse, $assertions);
 
             $this->assertUserCanNotLogin($email, $newPasswordFirst);
-            $this->assertUserCanLogin($email, $oldPassword);
+            $this->assertUserCanLogin($email, 'old_password');
         }
     }
 
@@ -1773,7 +1773,16 @@ class UserControllerTest extends WebTestCase
                 'new_password',
                 'wrong_password',
                 array(
-                    'errors.children.password.error.0' => ''
+                    'errors.children.password.errors.0' => 'Неверный пароль'
+                )
+            ),
+            'empty current password' => array(
+                400,
+                'new_password',
+                'new_password',
+                '',
+                array(
+                    'errors.children.password.errors.0' => 'Неверный пароль'
                 )
             ),
             'not valid new passwords do not match' => array(

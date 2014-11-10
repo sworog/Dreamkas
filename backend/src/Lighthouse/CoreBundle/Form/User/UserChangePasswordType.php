@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form\User;
 
+use Lighthouse\CoreBundle\Validator\Constraints\User\CurrentUserPassword;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -19,7 +20,9 @@ class UserChangePasswordType extends AbstractType
                 'password',
                 'password',
                 array(
-
+                    'constraints' => array(
+                        new CurrentUserPassword()
+                    )
                 )
             )
             ->add(
