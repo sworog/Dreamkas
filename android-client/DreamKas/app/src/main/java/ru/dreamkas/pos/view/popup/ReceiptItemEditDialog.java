@@ -15,11 +15,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import org.springframework.util.ObjectUtils;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
+import ru.dreamkas.pos.Constants;
 import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.model.listeners.ValueChangedListener;
 import ru.dreamkas.pos.model.ReceiptItem;
 import ru.dreamkas.pos.view.components.ConfirmButtonComponent;
+import ru.dreamkas.pos.view.components.NumericEditText;
 import ru.dreamkas.pos.view.components.NumericUpDown;
 import ru.dreamkas.pos.view.misc.StringDecorator;
 
@@ -32,7 +38,7 @@ public class ReceiptItemEditDialog extends Dialog {
     private ImageButton btnClose;
     private ReceiptItem mReceiptItem;
     private TextView lblProductName;
-    private EditText txtSellingPrice;
+    private NumericEditText txtSellingPrice;
     private NumericUpDown nupQuantity;
     private Button btnSave;
     private int mDeleteButtonVisibility = View.VISIBLE;
@@ -91,6 +97,10 @@ public class ReceiptItemEditDialog extends Dialog {
     }
 
     private void init() {
+
+
+
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,9 +132,8 @@ public class ReceiptItemEditDialog extends Dialog {
         lblProductName = (TextView) findViewById(R.id.lblProductName);
         lblProductName.setText(mReceiptItem.getProduct().getName());
 
-        txtSellingPrice = (EditText) findViewById(R.id.txtSellingPrice);
-        txtSellingPrice.setText(ObjectUtils.getDisplayString(mReceiptItem.getSellingPrice()));
-        txtSellingPrice.setPadding(0,0,0,0);
+        txtSellingPrice = (NumericEditText) findViewById(R.id.txtSellingPrice);
+        txtSellingPrice.setValue(mReceiptItem.getSellingPrice());
 
         nupQuantity = (NumericUpDown) findViewById(R.id.nupQuantity);
         nupQuantity.setValueChangedListener(new ValueChangedListener<BigDecimal>() {
@@ -143,7 +152,7 @@ public class ReceiptItemEditDialog extends Dialog {
     }
 
     private void calcTotal() {
-        SpannableStringBuilder total = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), mReceiptItem.getTotal().toString(), StringDecorator.RUBLE_CODE);
+        SpannableStringBuilder total = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(mReceiptItem.getTotal()), StringDecorator.RUBLE_CODE);
         lblTotal.setText(total);
     }
 
@@ -182,10 +191,11 @@ public class ReceiptItemEditDialog extends Dialog {
 
     private void validate() {
         mReceiptItem.setSellingPrice(BigDecimal.ZERO);
+
         if (txtSellingPrice.length() > 0){
             txtSellingPrice.setError(null);
             try{
-                BigDecimal value = new BigDecimal(txtSellingPrice.getText().toString());
+                BigDecimal value = txtSellingPrice.getValue();
                 if(value.signum() < 0){
                     txtSellingPrice.setError(DreamkasApp.getResourceString(R.string.msg_error_negative_value));
                 }else if(value.signum() == 0){

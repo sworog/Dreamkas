@@ -140,7 +140,7 @@ public class ReceiptComponent extends LinearLayout {
     }
 
     private void changeReceiptTotal() {
-        SpannableStringBuilder msgSellInTheAmountOff = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msgSellInTheAmountOff), mReceipt.getTotal().toString(), StringDecorator.RUBLE_CODE);
+        SpannableStringBuilder msgSellInTheAmountOff = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msgSellInTheAmountOff), DreamkasApp.getMoneyFormat().format(mReceipt.getTotal()), StringDecorator.RUBLE_CODE);
         btnRegisterReceipt.setText(msgSellInTheAmountOff);
     }
 

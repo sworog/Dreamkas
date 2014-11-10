@@ -26,33 +26,39 @@ public class NumericEditText extends EditText{
 
     private InputFilter mInputFilter = new InputFilter() {
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            String currentValue = getText().toString().substring(0, dstart);
+            String currentValue = dest.toString();//.substring(0, dstart) +  + getText().toString().substring(dend, getText().length());
             String separator = String.valueOf(mDecimalFormat.getDecimalFormatSymbols().getDecimalSeparator());
 
-            StringBuilder sb = new StringBuilder(source);
+            String targetValue = currentValue.substring(0, dstart) + source.toString().substring(start, end) + currentValue.substring(dend, currentValue.length());
 
-            for (int i = 0; i < sb.length(); i++) {
-                char symbol = sb.charAt(i);
-                Boolean filterIt = filterSymbol(symbol, currentValue, separator, Constants.DOT, Constants.COMMA);
-                if(filterIt){
-                    sb.deleteCharAt(i);
-                    i--;
+            int commaCount = StringUtils.countMatches(targetValue, String.valueOf(Constants.COMMA));
+            int dotCount = StringUtils.countMatches(targetValue, String.valueOf(Constants.DOT));
+
+            if((dotCount > 0 && commaCount > 0) || (dotCount > 1) || (commaCount > 1)){
+                return "";
+            }
+
+            String[] valueParts = targetValue.split("\\" + separator);
+
+            if(valueParts.length > 1){
+                String lastBlock = valueParts[valueParts.length - 1];
+                if(lastBlock.length() > mMaximumFractionDigits){
+                    return "";
                 }
             }
 
-            if(sb.equals(source)){
-                return null;
-            }else {
-                return sb;
-            }
-
+            return null;
         }
     };
 
-    private Boolean filterSymbol(char symbol,String currentValue, String separator, char dot, char comma) {
-        if((symbol == dot || symbol == comma) && (currentValue.contains(separator) || currentValue.contains(separator))){
+    private Boolean filterSymbol(char symbol, int dstart, int dend, String currentValue, String separator, char dot, char comma) {
+
+
+       /* if((symbol == dot || symbol == comma) && (currentValue.contains(separator) || currentValue.contains(separator))){
             return true;
-        }
+        }*/
+
+        //currentValue.substring(0, dstart) + currentValue.substring(dend, getText().length())
 
         String[] valueParts = currentValue.split(separator);
 
@@ -126,7 +132,11 @@ public class NumericEditText extends EditText{
     }
 
     public void setValue(BigDecimal value) {
-        setText(mDecimalFormat.format(value));
+        String formattedValue = "";
+        if(value != null){
+            formattedValue = mDecimalFormat.format(value);
+        }
+        setText(formattedValue);
     }
 
     private char getCurrentSeparator(String str) {
@@ -153,7 +163,7 @@ public class NumericEditText extends EditText{
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
         otherSymbols.setDecimalSeparator(separator);
 
-        mDecimalFormat = new DecimalFormat("", otherSymbols);
+        mDecimalFormat = new DecimalFormat("0", otherSymbols);
         mDecimalFormat.setParseBigDecimal(true);
         mDecimalFormat.setMinimumFractionDigits(mMinimumFractionDigits);
         mDecimalFormat.setMaximumFractionDigits(mMaximumFractionDigits);

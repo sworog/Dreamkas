@@ -12,6 +12,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import ru.dreamkas.pos.Constants;
+import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.model.ReceiptItem;
 import ru.dreamkas.pos.view.misc.StringDecorator;
@@ -71,7 +72,8 @@ public class ReceiptAdapter extends ArrayAdapter<ReceiptItem> {
         holder.txtTitle.setText(String.format("%s / %s" + (namedObject.getProduct().getBarcode() == null ? "" : " / " + namedObject.getProduct().getBarcode()), namedObject.getProduct().getName(), namedObject.getProduct().getSku()));
         holder.txtQuantity.setText(String.format("%s %s", quantityFormat.format(namedObject.getQuantity()), namedObject.getProduct().getUnits() == null ? "шт" : namedObject.getProduct().getUnits()));
 
-        SpannableStringBuilder cost = StringDecorator.buildStringWithRubleSymbol("%s %c",  namedObject.getSellingPrice() == null ? "0.00" : namedObject.getTotal().toString() ,StringDecorator.RUBLE_CODE);
+        SpannableStringBuilder cost = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(namedObject.getTotal()), StringDecorator.RUBLE_CODE);
+        //SpannableStringBuilder cost = StringDecorator.buildStringWithRubleSymbol(msg_info_ruble_value,  namedObject.getSellingPrice() == null ? "0.00" : namedObject.getTotal().toString() ,StringDecorator.RUBLE_CODE);
         holder.txtCost.setText(cost);
 
         return row;
