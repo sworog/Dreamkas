@@ -6,8 +6,7 @@ define(function(require, exports, module) {
         url: Model.baseApiUrl + '/users/current/changePassword',
         saveData: [
             'password',
-            'newPassword',
-            'repeated'
+            'newPassword'
         ]
     });
 });

@@ -20,6 +20,12 @@
     color: rgb(153, 153, 153);
 }
 
+.form__successMessage {
+    font-size: 14px;
+    margin-right: 20px;
+    line-height: 38px;
+}
+
 .form__errorMessage {
     font-style: italic;
     color: #db4c4a;
