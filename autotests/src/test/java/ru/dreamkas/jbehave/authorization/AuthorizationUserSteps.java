@@ -48,6 +48,7 @@ public class AuthorizationUserSteps {
 
     @Given("the user logs in using '$userName' userName and '$password' password")
     @Alias("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
+    @When("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
     public void givenTheUserLogsInUsingCredentials(String userName, String password) {
         authorizationSteps.authorization(userName, password);
     }
@@ -76,6 +77,7 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user logs out")
+    @Alias("пользователь разлогинивается")
     public void whenTheUserLogsOut() {
         menuNavigationSteps.userNameLinkClick();
         menuNavigationSteps.logOutButtonClick();
