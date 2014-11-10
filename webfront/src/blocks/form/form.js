@@ -19,7 +19,7 @@ define(function(require) {
             return block.model && _.cloneDeep(block.model.toJSON());
         },
         events: {
-            'keyup :input': function() {
+            'focus :input': function() {
                 var block = this;
 
                 block.removeSuccessMessage();
