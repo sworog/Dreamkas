@@ -1,5 +1,6 @@
 package ru.dreamkas.pages.user;
 
+import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.common.pageObjects.BootstrapPageObject;
@@ -8,6 +9,7 @@ import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.exceptions.NotImplementedException;
 
+@DefaultUrl("/settings")
 public class Settings extends BootstrapPageObject {
 
     public Settings(WebDriver driver) {
