@@ -57,7 +57,8 @@ define(function(require, exports, module) {
                 return new Form_products({
                     collection: this.model.collections.products
                 });
-            }
+            },
+            form_store: require('blocks/form/store/store')
         },
         hide: function(options) {
             options = options || {};

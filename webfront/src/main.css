@@ -23,6 +23,7 @@
 @import "blocks/inputNumber/inputNumber.css";
 @import "blocks/table/table.css";
 @import "blocks/removeLink/removeLink.css";
+@import "blocks/select/select.css";
 
 html, body {
     height: 100%;
@@ -231,5 +232,11 @@ select.loading, input.loading {
 .datepicker table tr td.selected.disabled,
 .datepicker table tr td.selected.disabled:hover {
     background-image: none !important;
+}
+
+.btn-transparent {
+    color: #0a819c !important;
+    border-color: #097992;
+    background-color: transparent;
 }
 
