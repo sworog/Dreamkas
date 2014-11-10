@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\User\CurrentUserType;
+use Lighthouse\CoreBundle\Form\User\UserChangePasswordModel;
 use Lighthouse\CoreBundle\Form\User\UserChangePasswordType;
 use Lighthouse\CoreBundle\Form\User\UserRestorePasswordType;
 use Lighthouse\CoreBundle\Form\User\UserType;
@@ -234,13 +235,14 @@ class UserController extends AbstractRestController
         $user = $this->securityContext->getToken()->getUser();
         return $this->processFormCallback(
             $request,
-            function ($document, FormInterface $form) use ($userProvider, $user) {
-                $newPassword = $form->get('newPassword')->getData();
-                $userProvider->updateUserWithPassword($user, $newPassword);
+            function (UserChangePasswordModel $formModel) use ($userProvider, $user) {
+                $userProvider->updateUserWithPassword($user, $formModel->newPassword);
                 return $user;
             },
-            null,
-            new UserChangePasswordType()
+            new UserChangePasswordModel($user),
+            new UserChangePasswordType(),
+            true,
+            false
         );
     }
 

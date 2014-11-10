@@ -1773,7 +1773,9 @@ class UserControllerTest extends WebTestCase
                 'new_password',
                 'wrong_password',
                 array(
-                    'errors.children.password.errors.0' => 'Неверный пароль'
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors' => null,
+                    'errors.children.newPassword.children.second.errors' => null
                 )
             ),
             'empty current password' => array(
@@ -1782,7 +1784,9 @@ class UserControllerTest extends WebTestCase
                 'new_password',
                 '',
                 array(
-                    'errors.children.password.errors.0' => 'Неверный пароль'
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors' => null,
+                    'errors.children.newPassword.children.second.errors' => null
                 )
             ),
             'not valid new passwords do not match' => array(
@@ -1790,6 +1794,11 @@ class UserControllerTest extends WebTestCase
                 'new_password',
                 'mew_password',
                 'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются',
+                    'errors.children.newPassword.children.second.errors' => null
+                )
             ),
             'not valid second new password is empty' => array(
                 400,
@@ -1797,21 +1806,55 @@ class UserControllerTest extends WebTestCase
                 '',
                 'old_password',
                 array(
-                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются'
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются',
+                    'errors.children.newPassword.children.second.errors' => null
                 )
             ),
             'not valid new password is less then 6 chars' => array(
                 400,
-                'new_pa',
-                'new_pa',
+                'pass',
+                'pass',
                 'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'Не более 6 символов',
+                    'errors.children.newPassword.children.second.errors' => null
+                )
             ),
             'not valid new password equals email' => array(
                 400,
                 'password@dreamkas.ru',
                 'password@dreamkas.ru',
                 'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'E-mail и пароль не должны совпадать',
+                    'errors.children.newPassword.children.second.errors' => null,
+                )
             ),
+            'not valid old password and new password equals email' => array(
+                400,
+                'password@dreamkas.ru',
+                'password@dreamkas.ru',
+                'wrong_password',
+                array(
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors.0' => 'E-mail и пароль не должны совпадать',
+                    'errors.children.newPassword.children.second.errors' => null,
+                )
+            ),
+            'empty old password and new password does not match, second is less than 6 chars' => array(
+                400,
+                '123123',
+                '123',
+                '',
+                array(
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются',
+                    'errors.children.newPassword.children.second.errors' => null,
+                )
+            )
         );
     }
 

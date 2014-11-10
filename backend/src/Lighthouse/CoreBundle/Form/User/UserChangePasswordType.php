@@ -2,12 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Form\User;
 
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Lighthouse\CoreBundle\Validator\Constraints\User\CurrentUserPassword;
-use Symfony\Component\Form\AbstractType;
+use Lighthouse\CoreBundle\Validator\Constraints\User\Password;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserChangePasswordType extends AbstractType
+class UserChangePasswordType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -31,28 +31,26 @@ class UserChangePasswordType extends AbstractType
                 array(
                     'type' => 'password',
                     'invalid_message' => 'lighthouse.validation.errors.user.password.not_equals_password',
+                    'constraints' => array(
+                        new Password()
+                    )
+                )
+            )
+            ->add(
+                'email',
+                'text',
+                array(
+                    'read_only' => true
                 )
             )
         ;
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return UserChangePasswordModel::getClassName();
     }
 }
