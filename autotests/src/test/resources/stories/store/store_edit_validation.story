@@ -17,7 +17,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107-edit-store1' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107-edit-store1'
 And the user inputs values on the edit store modal window
@@ -38,7 +38,7 @@ Given the user with email 's39u107@lighthouse.pro' creates the store with name '
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107-edit-store3' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107-edit-store2'
 And the user inputs values on the edit store modal window
@@ -58,7 +58,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107-edit-store4' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107-edit-store4'
 And the user inputs values on the edit store modal window
@@ -82,7 +82,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107-edit-store5' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107-edit-store5'
 And the user generates symbols with count '51' in the edit store modal window field with name 'name'
@@ -100,7 +100,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107-edit-store6' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107-edit-store5'
 And the user generates symbols with count '50' in the edit store modal window field with name 'name'
@@ -120,7 +120,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107-edit-store7' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107-edit-store7'
 And the user generates symbols with count '301' in the edit store modal window field with name 'address'
@@ -138,7 +138,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107-edit-store7' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107-edit-store7'
 And the user generates symbols with count '300' in the edit store modal window field with name 'address'

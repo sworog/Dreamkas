@@ -15,7 +15,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 And the user clicks on add button on the create new store modal window
@@ -32,7 +32,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107store-val-3' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 And the user inputs values on the create new store modal window
@@ -50,7 +50,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 And the user inputs values on the create new store modal window
@@ -72,7 +72,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 When the user generates symbols with count '51' in the create store modal window field with name 'name'
@@ -88,7 +88,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 When the user generates symbols with count '50' in the create store modal window field with name 'name'
@@ -106,7 +106,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 And the user inputs values on the create new store modal window
@@ -125,7 +125,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 And the user inputs values on the create new store modal window
