@@ -4,20 +4,15 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\User;
 
 use Symfony\Component\Validator\Constraint;
 
+/**
+ * @Annotation
+ */
 class CurrentUserPassword extends Constraint
 {
     /**
      * @var string
      */
     public $message = 'lighthouse.validation.errors.user.password.does_not_match_current';
-
-    /**
-     * @return array|string
-     */
-    public function getTargets()
-    {
-        return self::PROPERTY_CONSTRAINT;
-    }
 
     /**
      * @return string
