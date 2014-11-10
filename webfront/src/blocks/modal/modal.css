@@ -53,10 +53,7 @@
     line-height: 55px;
     float: left;
     color: #999;
-}
-
-.modal__header .modal__backLink{
-    font-size: 24px;
+    font-size: 16px;
 }
 
 .modal__header .modal__closeLink:hover,
