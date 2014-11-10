@@ -1675,7 +1675,7 @@ class UserControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $user1AccessToken,
             'GET',
-            "/api/1/stores"
+            '/api/1/stores'
         );
 
         $this->assertResponseCode(200);
@@ -1687,7 +1687,7 @@ class UserControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $user2AccessToken,
             'GET',
-            "/api/1/stores"
+            '/api/1/stores'
         );
 
         $this->assertResponseCode(200);
@@ -1699,11 +1699,168 @@ class UserControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $otherProjectUserAccessToken,
             'GET',
-            "/api/1/stores"
+            '/api/1/stores'
         );
 
         $this->assertResponseCode(200);
         $this->assertEmpty($response);
+    }
+
+    /**
+     * @dataProvider userChangePasswordProvider
+     *
+     * @param int $expectedResponseCode
+     * @param string $newPasswordFirst
+     * @param string $newPasswordSecond
+     * @param string $oldPassword
+     * @param array $assertions
+     */
+    public function testUserChangePassword(
+        $expectedResponseCode,
+        $newPasswordFirst = 'new_password',
+        $newPasswordSecond = 'new_password',
+        $oldPassword = 'old_password',
+        array $assertions = array()
+    ) {
+        $email = 'password@dreamkas.ru';
+
+        $user = $this->factory()->user()->createProjectUser($email, 'old_password');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser($email, 'old_password');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users/current/changePassword',
+            array(
+                'password' => $oldPassword,
+                'newPassword' => array(
+                    'first' => $newPasswordFirst,
+                    'second' => $newPasswordSecond
+                )
+            )
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->factory()->clear();
+
+        if (200 === $expectedResponseCode) {
+            Assert::assertJsonPathEquals($user->id, 'id', $postResponse);
+
+            $this->assertUserCanLogin($email, $newPasswordFirst);
+            $this->assertUserCanNotLogin($email, $oldPassword);
+        } else {
+            $this->performJsonAssertions($postResponse, $assertions);
+
+            $this->assertUserCanNotLogin($email, $newPasswordFirst);
+            $this->assertUserCanLogin($email, $oldPassword);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function userChangePasswordProvider()
+    {
+        return array(
+            'valid' => array(
+                200,
+            ),
+            'not valid current password' => array(
+                400,
+                'new_password',
+                'new_password',
+                'wrong_password',
+                array(
+                    'errors.children.password.error.0' => ''
+                )
+            ),
+            'not valid new passwords do not match' => array(
+                400,
+                'new_password',
+                'mew_password',
+                'old_password',
+            ),
+            'not valid second new password is empty' => array(
+                400,
+                'new_password',
+                '',
+                'old_password',
+                array(
+                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются'
+                )
+            ),
+            'not valid new password is less then 6 chars' => array(
+                400,
+                'new_pa',
+                'new_pa',
+                'old_password',
+            ),
+            'not valid new password equals email' => array(
+                400,
+                'password@dreamkas.ru',
+                'password@dreamkas.ru',
+                'old_password',
+            ),
+        );
+    }
+
+    public function testUserChangePasswordNotAuthorized()
+    {
+        $this->client->setCatchException();
+        $postResponse = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/current/changePassword',
+            array(
+                'password' => 'pass',
+                'newPassword' => array(
+                    'first' => 'paw',
+                    'second' => 'pal'
+                )
+            )
+        );
+
+        $this->assertResponseCode(401);
+        Assert::assertJsonPathEquals('access_denied', 'error', $postResponse);
+        Assert::assertJsonPathEquals('OAuth2 authentication required', 'error_description', $postResponse);
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     * @param string $message
+     */
+    public function assertUserCanNotLogin($email, $password, $message = '')
+    {
+        try {
+            $this->factory()->oauth()->doAuthByUsername($email, $password);
+            $message = $message ?: sprintf(
+                "User '%s' should not be able to login with '%s' password",
+                $email,
+                $password
+            );
+            $this->fail($message);
+        } catch (OAuth2ServerException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     * @param string $message
+     */
+    public function assertUserCanLogin($email, $password, $message = '')
+    {
+        try {
+            $accessToken = $this->factory()->oauth()->doAuthByUsername($email, $password);
+            $this->assertNotNull($accessToken->access_token);
+        } catch (OAuth2ServerException $e) {
+            $message = $message ?: sprintf("User '%s' should be able to login with '%s' password", $email, $password);
+            $this->fail($message);
+        }
     }
 
     /**

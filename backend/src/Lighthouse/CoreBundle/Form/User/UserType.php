@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * Class InvoiceType
  * @DI\Service("lighthouse_core.form.user")
  */
 class UserType extends DocumentType
