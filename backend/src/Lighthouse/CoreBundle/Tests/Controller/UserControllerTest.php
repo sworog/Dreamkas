@@ -1818,7 +1818,9 @@ class UserControllerTest extends WebTestCase
                 'old_password',
                 array(
                     'errors.children.password.errors' => null,
-                    'errors.children.newPassword.children.first.errors.0' => 'Не более 6 символов',
+                    'errors.children.newPassword.children.first.errors.0'
+                    =>
+                    'Значение слишком короткое. Должно быть равно 6 символам или больше.',
                     'errors.children.newPassword.children.second.errors' => null
                 )
             ),
