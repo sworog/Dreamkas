@@ -51,27 +51,6 @@ public class NumericEditText extends EditText{
         }
     };
 
-    private Boolean filterSymbol(char symbol, int dstart, int dend, String currentValue, String separator, char dot, char comma) {
-
-
-       /* if((symbol == dot || symbol == comma) && (currentValue.contains(separator) || currentValue.contains(separator))){
-            return true;
-        }*/
-
-        //currentValue.substring(0, dstart) + currentValue.substring(dend, getText().length())
-
-        String[] valueParts = currentValue.split(separator);
-
-        if(valueParts.length > 1){
-            String lastBlock = valueParts[valueParts.length - 1];
-            if(lastBlock.length() == mMaximumFractionDigits){
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public NumericEditText(Context context) {
         super(context);
         init();
@@ -87,6 +66,12 @@ public class NumericEditText extends EditText{
         super(context, attrs, defStyle);
         setAttributes(context, attrs);
         init();
+    }
+
+    public void setMinMaxFractionDigits(Integer min, Integer max){
+        mMinimumFractionDigits = min;
+        mMaximumFractionDigits = max;
+        changeFormat(mDecimalFormat.getDecimalFormatSymbols().getDecimalSeparator());
     }
 
     private void setAttributes(Context context, AttributeSet attrs) {

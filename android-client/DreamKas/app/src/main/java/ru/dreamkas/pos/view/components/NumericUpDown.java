@@ -121,4 +121,8 @@ public class NumericUpDown extends LinearLayout {
             mValueChangedListener.changedTo(value);
         }
     }
+
+    public BigDecimal getValue(){
+        return txtValue.getValue();
+    }
 }
