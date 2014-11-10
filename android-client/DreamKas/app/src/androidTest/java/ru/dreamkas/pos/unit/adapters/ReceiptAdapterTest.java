@@ -44,7 +44,6 @@ public class ReceiptAdapterTest extends AndroidTestCase {
 
     public void testItemViewContentTitle(){
         View view = mAdapter.getView(0, null, null);
-
         String origin = String.format("%s / %s", product1.getName(), product1.getSku());
         TextView title = (TextView) view.findViewById(R.id.txtReceiptItemTitle);
 
@@ -64,7 +63,7 @@ public class ReceiptAdapterTest extends AndroidTestCase {
         View view = mAdapter.getView(0, null, null);
 
         TextView cost = (TextView) view.findViewById(R.id.txtReceiptItemCost);
-        String origin = String.format("%s %c", product1.getSellingPrice() == null ? "0.00" : product1.getSellingPrice(), StringDecorator.RUBLE_CODE);
+        String origin = String.format("%s %c", product1.getSellingPrice() == null ? "0,00" : product1.getSellingPrice(), StringDecorator.RUBLE_CODE);
 
         assertThat("Selling price view string doesn't match", cost.getText().toString(), is(origin));
     }
