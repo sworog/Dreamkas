@@ -40,10 +40,12 @@
 - (void)initialize
 {
     self.backgroundColor = [UIColor clearColor];
-    self.titleLabel.font = DefaultLiHeiProFont(26);
     [self setTitleColor:DefaultSuperLightCyanColor forState:UIControlStateNormal];
     [self setTitleColor:DefaultGrayColor forState:UIControlStateHighlighted];
-    [self setTitle:@"≣" forState:UIControlStateNormal];
+    
+    unichar ch = 0xf0c9;
+    self.titleLabel.font = DefaultAwesomeFont(20);
+    [self setTitle:[NSString stringWithFormat:@"%C", ch] forState:UIControlStateNormal];
 }
 
 @end
