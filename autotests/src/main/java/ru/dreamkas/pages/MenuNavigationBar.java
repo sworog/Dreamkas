@@ -24,5 +24,6 @@ public class MenuNavigationBar extends CommonPageObject {
         put("stockMovementMenuItem", new NonType(this, By.xpath("//*[@class='sideBar__item ' and i[contains(@class, 'exchange')]]")));
         put("launchPosButton", new PrimaryBtnFacade(this, "Запустить кассу"));
         put("logOutButton", new NavigationLinkFacade(this, "Выйти"));
+        put("настройки пользователя", new NonType(this, By.xpath("")));
     }
 }
