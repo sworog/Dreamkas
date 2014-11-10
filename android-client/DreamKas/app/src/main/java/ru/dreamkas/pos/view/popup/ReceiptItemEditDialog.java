@@ -124,6 +124,7 @@ public class ReceiptItemEditDialog extends Dialog {
 
         txtSellingPrice = (EditText) findViewById(R.id.txtSellingPrice);
         txtSellingPrice.setText(ObjectUtils.getDisplayString(mReceiptItem.getSellingPrice()));
+        txtSellingPrice.setPadding(0,0,0,0);
 
         nupQuantity = (NumericUpDown) findViewById(R.id.nupQuantity);
         nupQuantity.setValueChangedListener(new ValueChangedListener<BigDecimal>() {

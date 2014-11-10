@@ -1,5 +1,9 @@
 <resources>
     <declare-styleable name="confirm_button_component">
-        <attr name="confirmationText" format="string" />
+        <attr name="confirmation_text" format="string" />
+    </declare-styleable>
+    <declare-styleable name="numeric_edit_text">
+        <attr name="minimum_fraction_digits" format="integer" />
+        <attr name="maximum_fraction_digits" format="integer" />
     </declare-styleable>
 </resources>

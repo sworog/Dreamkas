@@ -121,26 +121,31 @@
                                     android:layout_height="fill_parent"
                                     android:descendantFocusability="beforeDescendants"
                                     android:focusableInTouchMode="true"
+                                    android:paddingBottom="4dp"
                                     android:layout_weight="1">
 
                                     <TextView
                                         android:text="Цена продажи"
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"/>
-                                    <EditText
+                                    <ru.dreamkas.pos.view.components.NumericEditText
                                         android:id="@+id/txtSellingPrice"
                                         android:text="0"
-
+                                        app:minimum_fraction_digits="2"
+                                        app:maximum_fraction_digits="2"
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"
                                         android:gravity="center_vertical"
                                         android:inputType="numberDecimal"
+                                        android:digits="0123456789.,"
                                         android:textAppearance="?android:attr/textAppearanceMedium"/>
                                 </LinearLayout>
                                 <LinearLayout
                                     android:orientation="vertical"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
+                                    android:descendantFocusability="beforeDescendants"
+                                    android:focusableInTouchMode="true"
                                     android:layout_weight="1">
                                     <TextView
                                         android:text="Количество"
@@ -148,9 +153,9 @@
                                         android:layout_height="wrap_content"/>
                                     <ru.dreamkas.pos.view.components.NumericUpDown_
                                         android:id="@+id/nupQuantity"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"/>
-
+                                        android:gravity="center_vertical"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"/>
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -165,7 +170,7 @@
                                     android:layout_centerHorizontal="true"
                                     android:layout_alignParentBottom="true"
                                     android:background="@color/White"
-                                    app:confirmationText="Подтвердить удаление"
+                                    app:confirmation_text="Подтвердить удаление"
                                     android:text="УДАЛИТЬ ИЗ ЧЕКА"/>
                             </RelativeLayout>
                         </LinearLayout>

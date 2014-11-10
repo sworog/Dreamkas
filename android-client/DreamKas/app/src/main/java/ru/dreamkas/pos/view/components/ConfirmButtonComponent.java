@@ -66,7 +66,7 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
 
     private void setAttributes(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.confirm_button_component);
-        CharSequence s = a.getString(R.styleable.confirm_button_component_confirmationText);
+        CharSequence s = a.getString(R.styleable.confirm_button_component_confirmation_text);
         if (s != null) {
             mConfirmText = s.toString();
         }
