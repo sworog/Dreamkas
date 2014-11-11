@@ -19,17 +19,14 @@
 
 		<tr class="form_stockMovementProducts__controls">
 			<td>
-				<div class="row">
-					<div class="col-md-11">
+				<div class="input-group">
 
-						<b block="autocomplete_products"></b>
+					<b block="autocomplete_products"></b>
 
-					</div>
-					<div class="col-md-1">
-						<a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
-						   data-modal="<%- productModalId %>"
-						   class="fa fa-plus"></a>
-					</div>
+					<a class="input-group-addon">
+						<i class="fa fa-plus"></i>
+					</a>
+
 				</div>
 			</td>
 			<td>
@@ -69,6 +66,7 @@
 		</tr>
 		</tfoot>
 	</table>
+
 	<div class="form__errorMessage form__errorMessage_global"></div>
 
 	<b block="modal_product"
