@@ -1,0 +1,27 @@
+<form id="<%- id %>" class="form form_stockIn">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Дата *</label>
+
+                <b block="inputDate"
+                   data-value="<%- model.get('date') ? formatDate(model.get('date')) : formatDate(new Date()) %>"></b>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Магазин *</label>
+
+                <div class="input-icon right">
+
+					<b block="select_store"
+					   data-selected="<%- model.get('store.id') %>"></b>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

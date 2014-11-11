@@ -26,7 +26,7 @@ public class EmailHandler {
         try {
             Session session = Session.getInstance(props, null);
             store = session.getStore();
-            store.connect("imap.gmail.com", userName, password);
+            store.connect("imap.yandex.ru", userName, password);
         } catch (Exception e) {
             throw new AssertionError(e);
         }

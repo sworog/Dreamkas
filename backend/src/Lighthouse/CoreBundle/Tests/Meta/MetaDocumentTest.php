@@ -6,9 +6,9 @@ use JMS\Serializer\SerializerInterface;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Test\Assert;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 
-class MetaDocumentTest extends WebTestCase
+class MetaDocumentTest extends DataAwareTestCase
 {
     /**
      * @return SerializerInterface
@@ -28,8 +28,8 @@ class MetaDocumentTest extends WebTestCase
 
     public function testInvoiceProductsReferenceManyIsSerialized()
     {
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
         $store = $this->factory()->store()->getStore();
         $invoice = $this->factory()
             ->invoice()
@@ -51,8 +51,8 @@ class MetaDocumentTest extends WebTestCase
 
     public function testWriteOffProductsReferenceManyIsSerialized()
     {
-        $productId1 = $this->createProduct('1');
-        $productId2 = $this->createProduct('2');
+        $productId1 = $this->createProductByName('1');
+        $productId2 = $this->createProductByName('2');
         $store = $this->factory()->store()->getStore();
 
         $writeOff = $this->factory()

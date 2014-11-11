@@ -406,6 +406,7 @@ class SalesImporterTest extends WebTestCase
         $batchSize = null,
         DatePeriod $datePeriod = null
     ) {
+        $this->authenticateProject();
         /* @var SalesImporter $importer */
         $importer = $this->getContainer()->get('lighthouse.integration.set10.import.sales.importer');
         $xmlFile = $this->getFixtureFilePath('Set10/Import/Sales/' . $xmlFile);

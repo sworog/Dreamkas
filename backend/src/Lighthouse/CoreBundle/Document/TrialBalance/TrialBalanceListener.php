@@ -90,7 +90,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
      */
     protected function processSupportsRangeIndexRemove(TrialBalance $trialBalance, DocumentManager $dm)
     {
-        $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
+        $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext(
+            $trialBalance,
+            $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+        );
 
         if (null != $nextProcessedTrialBalance) {
             $oldValue = $nextProcessedTrialBalance->processingStatus;
@@ -120,9 +123,15 @@ class TrialBalanceListener extends AbstractMongoDBListener
         DocumentManager $dm
     ) {
         if ($storeProduct != $trialBalance->storeProduct) {
-            $needProcessedTrialProduct = $this->trialBalanceRepository->findOnePrevious($trialBalance);
+            $needProcessedTrialProduct = $this->trialBalanceRepository->findOnePrevious(
+                $trialBalance,
+                $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+            );
             if (null == $needProcessedTrialProduct) {
-                $needProcessedTrialProduct = $this->trialBalanceRepository->findOneNext($trialBalance);
+                $needProcessedTrialProduct = $this->trialBalanceRepository->findOneNext(
+                    $trialBalance,
+                    $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+                );
             }
             if (null != $needProcessedTrialProduct) {
                 $needProcessedTrialProduct->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
@@ -225,7 +234,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
         foreach ($trialBalances as $trialBalance) {
             if ($newAcceptanceDate > $oldAcceptanceDate) {
-                $nextTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
+                $nextTrialBalance = $this->trialBalanceRepository->findOneNext(
+                    $trialBalance,
+                    $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+                );
                 if (null != $nextTrialBalance) {
                     $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
                     $this->computeChangeSet($dm, $nextTrialBalance);

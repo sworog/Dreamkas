@@ -928,7 +928,6 @@ class UserControllerTest extends WebTestCase
                         'DELETE::{catalogGroup}',
                         'GET',
                         'GET::{catalogGroup}',
-                        'GET::{group}/reports/grossMarginSalesByProduct',
                         'POST',
                         'PUT::{catalogGroup}',
                     ),
@@ -987,6 +986,10 @@ class UserControllerTest extends WebTestCase
                         'PUT::{bankAccount}',
                     ),
                     'others' => array(
+                        'GET::api/1/reports/gross',
+                        'GET::api/1/reports/gross/catalog/groups',
+                        'GET::api/1/reports/gross/catalog/groups/{group}/products',
+                        'GET::api/1/reports/gross/stores',
                         'GET::api/1/reports/grossMargin',
                         'GET::api/1/reports/grossSales',
                         'GET::api/1/reports/grossSalesByStores'
@@ -1386,10 +1389,10 @@ class UserControllerTest extends WebTestCase
         $message = $collectedMessages[0];
 
         $this->assertInstanceOf('Swift_Message', $message);
-        $this->assertEquals('noreply@lighthouse.pro', key($message->getFrom()));
+        $this->assertEquals(array('noreply@dreamkas.ru' => 'Dreamkas.ru'), $message->getFrom());
         $this->assertEquals('signup@lh.com', key($message->getTo()));
-        $this->assertEquals('Добро пожаловать в Lighthouse', $message->getSubject());
-        $this->assertContains('Добро пожаловать в Lighthouse!', $message->getBody());
+        $this->assertEquals('Добро пожаловать в Dreamkas', $message->getSubject());
+        $this->assertContains('Добро пожаловать в Dreamkas!', $message->getBody());
         $this->assertContains('Ваш пароль для входа:', $message->getBody());
         $this->assertContains('Если это письмо пришло вам по ошибке, просто проигнорируйте его', $message->getBody());
 
@@ -1548,7 +1551,9 @@ class UserControllerTest extends WebTestCase
 
         $messages = $this->getSentEmailMessages();
         $this->assertCount(2, $messages);
-        $this->assertContains('Вы воспользовались формой восстановления пароля в Lighthouse.', $messages[1]->getBody());
+        $this->assertEquals(array('noreply@dreamkas.ru' => 'Dreamkas.ru'), $messages[1]->getFrom());
+        $this->assertEquals('Восстановление пароля в Dreamkas', $messages[1]->getSubject());
+        $this->assertContains('Вы воспользовались формой восстановления пароля в Dreamkas.', $messages[1]->getBody());
         $this->assertContains('Ваш новый пароль для входа:', $messages[1]->getBody());
         $newPassword = $this->getPasswordFromEmailBody($messages[1]->getBody());
 
@@ -1631,6 +1636,74 @@ class UserControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->doAuthByUsername('user@lh.com', $newPassword);
         $this->assertNotNull($accessToken->access_token);
+    }
+
+    public function testTwoUserOneProject()
+    {
+        $project = $this->factory()->user()->createProject("testProject");
+        $user1 = $this->factory()->user()
+            ->createUser("user1@test.com", 'test', User::getDefaultRoles(), "user1", "position", $project);
+        $user2 = $this->factory()->user()
+            ->createUser("user2@test.com", 'test', User::getDefaultRoles(), "user2", "position", $project);
+        $otherProjectUser = $this->factory()->user()->createUser('other@test.com', 'test', User::getDefaultRoles());
+
+        $user1AccessToken = $this->factory()->oauth()->auth($user1, 'test');
+        $user2AccessToken = $this->factory()->oauth()->auth($user2, 'test');
+        $otherProjectUserAccessToken = $this->factory()->oauth()->auth($otherProjectUser, 'test');
+
+        $storeData = array(
+            'name' => 'магазин_номер-32',
+            'address' => 'СПБ, профессора Попова пр., д. 37, пом 3А',
+            'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
+        );
+
+        $response = $this->clientJsonRequest(
+            $user1AccessToken,
+            'POST',
+            '/api/1/stores',
+            $storeData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, $name, $response);
+        }
+
+        $response = $this->clientJsonRequest(
+            $user1AccessToken,
+            'GET',
+            "/api/1/stores"
+        );
+
+        $this->assertResponseCode(200);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, "0.{$name}", $response);
+        }
+
+
+        $response = $this->clientJsonRequest(
+            $user2AccessToken,
+            'GET',
+            "/api/1/stores"
+        );
+
+        $this->assertResponseCode(200);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, "0.{$name}", $response);
+        }
+
+
+        $response = $this->clientJsonRequest(
+            $otherProjectUserAccessToken,
+            'GET',
+            "/api/1/stores"
+        );
+
+        $this->assertResponseCode(200);
+        $this->assertEmpty($response);
     }
 
     /**

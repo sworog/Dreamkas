@@ -2,22 +2,31 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Rounding\Nearest1;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;
 
 class CatalogFactory extends AbstractFactory
 {
-    const DEFAULT_GROUP_NAME = 'Продовольственные товары';
-    const DEFAULT_CATEGORY_NAME = 'Винно-водочные изделия';
-    const DEFAULT_SUBCATEGORY_NAME = 'Водка';
+    const DEFAULT_PRODUCT_NAME = 'product';
+    const DEFAULT_GROUP_NAME = CatalogManager::DEFAULT_NAME;
+    const DEFAULT_CATEGORY_NAME = CatalogManager::DEFAULT_NAME;
+    const DEFAULT_SUBCATEGORY_NAME = CatalogManager::DEFAULT_NAME;
     const DEFAULT_ROUNDING_NAME = Nearest1::NAME;
+
+    /**
+     * @var array
+     */
+    protected $productNames = array();
 
     /**
      * @var array name => id
@@ -33,6 +42,66 @@ class CatalogFactory extends AbstractFactory
      * @var array name => id
      */
     protected $subCategoryNames = array();
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function createProductByName($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    {
+        $product = new Product();
+        $product->name = $name;
+        $product->vat = 18;
+
+        $product->subCategory = $subCategory ?: $this->getSubCategory();
+
+        $this->save($product);
+
+        $this->productNames[$name] = $product->id;
+
+        return $product;
+    }
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function getProductByName($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    {
+        if (!isset($this->productNames[$name])) {
+            $this->createProductByName($name, $subCategory);
+        }
+        return $this->getProductById($this->productNames[$name]);
+    }
+
+    /**
+     * @param array $names
+     * @param SubCategory $subCategory
+     * @return Product[]
+     */
+    public function getProductByNames(array $names, SubCategory $subCategory = null)
+    {
+        $products = array();
+        foreach ($names as $name) {
+            $products[$name] = $this->getProductByName($name, $subCategory);
+        }
+        return $products;
+    }
+
+    /**
+     * @param string $id
+     * @return Product
+     */
+    public function getProductById($id)
+    {
+        $product = $this->getProductRepository()->find($id);
+        if (null === $product) {
+            throw new \RuntimeException(sprintf('Product id#%s not found', $id));
+        }
+        return $product;
+    }
 
     /**
      * @param string $name
@@ -53,8 +122,7 @@ class CatalogFactory extends AbstractFactory
         $group->retailMarkupMax = $retailMarkupMax;
         $group->rounding = $this->getRounding($rounding);
 
-        $this->getDocumentManager()->persist($group);
-        $this->getDocumentManager()->flush();
+        $this->save($group);
 
         $this->groupNames[$group->name] = $group->id;
 
@@ -205,6 +273,19 @@ class CatalogFactory extends AbstractFactory
     }
 
     /**
+     * @param array $names
+     * @return SubCategory[]
+     */
+    public function getSubCategories(array $names)
+    {
+        $subCategories = array();
+        foreach ($names as $name) {
+            $subCategories[$name] = $this->getSubCategory($name);
+        }
+        return $subCategories;
+    }
+
+    /**
      * @param string $name
      * @return AbstractRounding
      */
@@ -244,5 +325,13 @@ class CatalogFactory extends AbstractFactory
     protected function getSubCategoryRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.classifier.subcategory');
+    }
+
+    /**
+     * @return ProductRepository
+     */
+    protected function getProductRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.product');
     }
 }

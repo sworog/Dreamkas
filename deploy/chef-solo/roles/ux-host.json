@@ -1,0 +1,11 @@
+{
+  "name": "ux-host",
+  "description": "UX web host and sftp server",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "run_list": [
+    "recipe[nginx]",
+
+    "recipe[lighthouse::ux_host]"
+  ]
+}

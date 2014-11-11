@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -127,7 +126,8 @@ class CatalogGroupControllerTest extends WebTestCase
 
     public function testDeleteAction()
     {
-        $catalogGroupId = $this->createCatalogGroup('Группа1');
+        $groupName = 'Группа1';
+        $catalogGroupId = $this->createCatalogGroup($groupName);
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
@@ -141,32 +141,42 @@ class CatalogGroupControllerTest extends WebTestCase
 
         $this->assertNull($deleteResponse);
 
-        $this->client->setCatchException();
-        $this->clientJsonRequest(
+        $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/catalog/groups/' . $catalogGroupId
         );
 
-        $this->assertResponseCode(404);
+        $this->assertResponseCode(200);
+        $this->assertNotEquals($groupName, $getResponse['name']);
+    }
 
-        $subCategory = $this->getSubCategoryRepository()->find($catalogGroupId);
-        $this->assertNull($subCategory);
+    public function testDeleteCatalogGroupIsNotVisibleInList()
+    {
+        $catalogGroupId1 = $this->createCatalogGroup('Группа1');
+        $catalogGroupId2 = $this->createCatalogGroup('Группа2');
 
-        $subCategories = $this->getSubCategoryRepository()->findAll();
-        $this->assertCount(0, $subCategories);
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
-        $this
-            ->getSubCategoryRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/catalog/groups/' . $catalogGroupId1
+        );
 
-        $subCategory = $this->getSubCategoryRepository()->find($catalogGroupId);
-        $this->assertInstanceOf(SubCategory::getClassName(), $subCategory);
+        $this->assertResponseCode(204);
 
-        $subCategories = $this->getSubCategoryRepository()->findAll();
-        $this->assertCount(1, $subCategories);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/catalog/groups'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($catalogGroupId2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($catalogGroupId1, '*.id', $getResponse);
     }
 
     public function testDeleteWithDuplicateName()
@@ -183,16 +193,81 @@ class CatalogGroupControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
-        $this->createCatalogGroup('Хомячки');
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/catalog/groups',
+            array('name' => 'Хомячки')
+        );
 
-        $this
-            ->getSubCategoryRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
+        $this->assertResponseCode(201);
+        $this->assertNotEquals($catalogGroupId1, $postResponse['id']);
+    }
 
-        $deletedSubcategory = $this->getSubCategoryRepository()->find($catalogGroupId1);
-        $this->assertContains('Хомячки (Удалено', $deletedSubcategory->name);
+    public function testDeleteGroupAfterAllProductsDelete()
+    {
+        $catalogGroup = $this->factory()->catalog()->getSubCategory('To be deleted');
+
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'), $catalogGroup);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        // try to delete group with 3 products
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
+        );
+        $this->assertResponseCode(409);
+
+        // delete 1st product and try to delete group with 2 products, should fail
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$products['1']->id}"
+        );
+        $this->assertResponseCode(204);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
+        );
+        $this->assertResponseCode(409);
+
+        // delete 2nd product and try to delete group with 1 product, should fail
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$products['2']->id}"
+        );
+        $this->assertResponseCode(204);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
+        );
+        $this->assertResponseCode(409);
+
+        // delete 3rd product and try to delete group without products, should pass
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$products['3']->id}"
+        );
+        $this->assertResponseCode(204);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/catalog/groups/{$catalogGroup->id}"
+        );
+        $this->assertResponseCode(204);
     }
 
     /**

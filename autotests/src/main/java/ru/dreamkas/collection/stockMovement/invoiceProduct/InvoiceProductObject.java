@@ -31,8 +31,4 @@ public class InvoiceProductObject extends StockMovementProductObject {
                 .compare("quantity", quantity, row.get("quantity"))
                 .compare("totalPrice", totalPrice, row.get("totalPrice"));
     }
-
-    public void clickDeleteIcon() {
-        clickDeleteIcon("delInvoiceProduct");
-    }
 }

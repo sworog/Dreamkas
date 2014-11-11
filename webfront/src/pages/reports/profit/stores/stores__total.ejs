@@ -1,0 +1,20 @@
+<div class="page_storesProfit__total row">
+	<div class="page_storesProfit__totalCell col-md-3">
+		<div class="page_storesProfit__totalCaption">Продажи по сети, <i class="fa fa-rub"></i></div>
+		<div name="storesGrossSales" class="page_storesProfit__totalValueBig">
+			<%- formatMoney(models.profit.get('grossSales')) %>
+		</div>
+	</div>
+	<div class="page_storesProfit__totalCell col-md-3">
+		<div class="page_storesProfit__totalCaption">Себестоимость по сети, <i class="fa fa-rub"></i></div>
+		<div name="storesCostOfGoods" class="page_storesProfit__totalValue">
+			<%- formatMoney(models.profit.get('costOfGoods')) %>
+		</div>
+	</div>
+	<div class="page_storesProfit__totalCell col-md-3">
+		<div class="page_storesProfit__totalCaption">Прибыль по сети, <i class="fa fa-rub"></i></div>
+		<div name="storesGrossMargin" class="page_storesProfit__totalValue">
+			<%- formatMoney(models.profit.get('grossMargin')) %>
+		</div>
+	</div>
+</div>

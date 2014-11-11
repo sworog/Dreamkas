@@ -41,6 +41,7 @@ public class AuthorizationUserSteps {
     }
 
     @Given("the user opens lighthouse sign up page")
+    @Alias("полльзователь открывает страницу регистации")
     public void givenTheUserOpensLighthouseSignUpPage() {
         authorizationSteps.openSignUpPage();
     }
@@ -58,6 +59,7 @@ public class AuthorizationUserSteps {
     }
 
     @Given("the user opens lighthouse restore password page")
+    @Alias("пользователь открывает страницу восстановления пароля")
     public void givenTheUserOpensRestorePasswordPage() {
         authorizationSteps.restorePasswordPageOpen();
     }
@@ -81,7 +83,7 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user checks that authorized is '$userName' user")
-    @Alias("the user checks that authorized is <userName> user")
+    @Alias("пользователь видит что он авторизирован как '$userName'")
     public void thenTheUserChecksThatAuthorizedIsUser(String userName) {
         authorizationSteps.checkUser(userName);
     }
@@ -92,44 +94,51 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user clicks on sign up button")
+    @Alias("пользователь нажимает кнопку зарегистрироваться")
     public void whenTheUserClicksOnTheSignUpButton() {
         authorizationSteps.signUpButtonClick();
     }
 
     @When("the user inputs '$value' value in email field")
-    @Alias("the user inputs value in email field")
+    @Alias("пользователь вводит '$value' в поле email")
     public void whenTheUserInputsValueInEmailField(String value) {
         authorizationSteps.emailFieldInput(value);
     }
 
     @When("the user inputs stored password from email in password field")
+    @Alias("пользователь вводит пароль полученный из письма о регистации")
     public void whenTheUserInputsStoredPasswordFromEmailInPasswordField() {
         String password = emailSteps.getSignUpEmailCredentials();
         authorizationSteps.passwordFieldInput(password);
     }
 
     @When("the user inputs stored password from restore password email in password field")
+    @Alias("пользователь вводит пароль полученный из письма о восстановлении пароля")
     public void whenTheUserInputsStoredPasswordFromRestorePasswordEmailInPasswordField() {
         String password = emailSteps.getRestorePasswordEmailCredentials();
         authorizationSteps.passwordFieldInput(password);
     }
 
     @When("the user clicks on sign in button and logs in")
+    @Alias("пользовател жмёт кнопку авторизироваться и авторизируется")
     public void whenTheUserClicksOnSignInButtonAndLogsIn() {
         authorizationSteps.loginButtonClick();
     }
 
     @When("the user clicks on forgot password link")
+    @Alias("пользователь нажимает на ссылку востановления пароля")
     public void whenTheUserClicksOnForgotPasswordLink() {
         authorizationSteps.forgotPasswordLinkClick();
     }
 
     @When("the user clicks on restore password button")
+    @Alias("пользователь нажимает кнопку востановления пароля")
     public void whenTheUserClicksOnRestorePasswordButton() {
         authorizationSteps.recoverPasswordButtonClick();
     }
 
     @When("the user inputs '$value' value in restore password email field")
+    @Alias("пользователь вводит '$value' в поле email на старанице восстановления пароля")
     public void whenTheUserInputsValueInRestorePasswordEmailField(String value) {
         authorizationSteps.restorePasswordPageEmailInput(value);
     }
@@ -140,16 +149,19 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user checks the sign up text is expected")
+    @Alias("пользователь видит текст что регистрация прошла успешно")
     public void thenTheUserChecksTheSignUpText() {
         authorizationSteps.assertSignUpText();
     }
 
     @Then("the user checks the restore password text is '$expected'")
+    @Alias("пользователь видит текст над формой логина '$expected'")
     public void thenTheUserChecksTheRestorePasswordText(String expected) {
         authorizationSteps.assertRestorePasswordText(expected);
     }
 
     @Then("the user asserts the elements have values on auth page $examplesTable")
+    @Alias("пользователь видит что в форме уже заполнены поля на странице авторизации $examplesTable")
     public void thenTheUserAssertsTheElementsHaveValuesOnAuthPage(ExamplesTable examplesTable) {
         authorizationSteps.assertValues(examplesTable);
     }
@@ -160,12 +172,8 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user asserts the restore password page title text is '$text'")
+    @Alias("пользователь проверяет, что заголовок страницы восстановления пароля равен '$text'")
     public void thenTheUserAssertsTheRestorePasswordPageTitle(String text) {
         authorizationSteps.assertPageTitleText(text);
-    }
-
-    @Then("the user asserts the restore password page text is '$text'")
-    public void thenTheUserAssertsTheRestorePasswordPageText(String text) {
-        authorizationSteps.assertPageText(text);
     }
 }

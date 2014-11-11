@@ -3,19 +3,23 @@
 namespace Lighthouse\CoreBundle\Security\Project;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\ClassNameable;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use JMS\DiExtraBundle\Annotation as DI;
+use Closure;
+use LighthouseKernel;
 
 /**
  * @DI\Service("project.context")
  */
-class ProjectContext
+class ProjectContext implements ClassNameable
 {
     /**
      * @var SecurityContextInterface
@@ -33,23 +37,32 @@ class ProjectContext
     protected $userProvider;
 
     /**
+     * @var KernelInterface
+     */
+    protected $kernel;
+
+    /**
      * @DI\InjectParams({
      *      "securityContext" = @DI\Inject("security.context"),
      *      "projectRepository" = @DI\Inject("lighthouse.core.document.repository.project"),
-     *      "userProvider" = @DI\Inject("lighthouse.core.user.provider")
+     *      "userProvider" = @DI\Inject("lighthouse.core.user.provider"),
+     *      "kernel" = @DI\Inject("kernel")
      * })
      * @param SecurityContextInterface $securityContext
      * @param ProjectRepository $projectRepository
      * @param UserProviderInterface $userProvider
+     * @param KernelInterface $kernel
      */
     public function __construct(
         SecurityContextInterface $securityContext,
         ProjectRepository $projectRepository,
-        UserProviderInterface $userProvider
+        UserProviderInterface $userProvider,
+        KernelInterface $kernel
     ) {
         $this->securityContext = $securityContext;
         $this->projectRepository = $projectRepository;
         $this->userProvider  = $userProvider;
+        $this->kernel = $kernel;
     }
 
     /**
@@ -123,10 +136,36 @@ class ProjectContext
     }
 
     /**
+     * @param callable $callback
+     */
+    public function applyInProjects(Closure $callback)
+    {
+        foreach ($this->getAllProjects() as $project) {
+            $kernel = new LighthouseKernel($this->kernel->getEnvironment(), $this->kernel->isDebug());
+            $kernel->boot();
+
+            $container = $kernel->getContainer();
+            $container->get('project.context')->authenticateByProjectName($project->getName());
+
+            call_user_func($callback, $project, $container);
+
+            $kernel->shutdown();
+        }
+    }
+
+    /**
      * @return Project[]|Cursor
      */
     public function getAllProjects()
     {
         return $this->projectRepository->findAll();
+    }
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
     }
 }

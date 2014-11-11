@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use LighthouseKernel;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
@@ -23,7 +24,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     /**
      * @var Factory
      */
-    private $factory;
+    private $factories = array();
 
     public static function setUpBeforeClass()
     {
@@ -34,7 +35,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function tearDown()
     {
         static::shutdownKernel();
-        $this->factory = null;
+        $this->factories = array();
     }
 
     /**
@@ -100,14 +101,24 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
+     * @param string $name
      * @return Factory
      */
-    protected function factory()
+    protected function factory($name = UserFactory::PROJECT_DEFAULT_NAME)
     {
-        if (null === $this->factory) {
-            $this->factory = new Factory(static::createKernel()->boot()->getContainer());
+        if (!isset($this->factories[$name])) {
+            $this->factories[$name] = $this->createFactory($name);
         }
-        return $this->factory;
+        return $this->factories[$name];
+    }
+
+    /**
+     * @param string $projectName
+     * @return Factory
+     */
+    protected function createFactory($projectName = UserFactory::PROJECT_DEFAULT_NAME)
+    {
+        return new Factory(static::createKernel()->boot()->getContainer(), $projectName);
     }
 
     protected function clearMongoDb()

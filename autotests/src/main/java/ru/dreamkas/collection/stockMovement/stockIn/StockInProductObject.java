@@ -8,9 +8,4 @@ public class StockInProductObject extends StockMovementProductObject {
     public StockInProductObject(WebElement element) {
         super(element);
     }
-
-    @Override
-    public void clickDeleteIcon() {
-        clickDeleteIcon("delStockInProduct");
-    }
 }

@@ -23,20 +23,20 @@ class ReturnProductControllerTest extends WebTestCase
             ->createReceiptProduct($products['3'], 3.576, 36)
             ->flush();
 
-        $returnObject1 = $this->factory()
+        $this->factory()
             ->receipt()
                 ->createReturn($store, '2012-05-12T19:31:44.492+04:00', $saleObject1)
                 ->createReceiptProduct($products['1'], 1) //36
                 ->createReceiptProduct($products['3'], 25) //36
             ->flush();
 
-        $returnObject2 = $this->factory()
+        $this->factory()
             ->receipt()
                 ->createReturn($store, '2012-05-12T19:46:32.912+04:00', $saleObject1)
                 ->createReceiptProduct($products['4'], 1) //180
             ->flush();
 
-        $returnObject3 = $this->factory()
+        $this->factory()
             ->receipt()
                 ->createReturn($store, '2012-05-12T19:47:33.418+04:00', $saleObject1)
                 ->createReceiptProduct($products['4'], 1) //180

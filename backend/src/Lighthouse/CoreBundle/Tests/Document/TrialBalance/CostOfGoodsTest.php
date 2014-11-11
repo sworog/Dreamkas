@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
@@ -15,6 +16,12 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class CostOfGoodsTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->authenticateProject();
+    }
+
     public function testIndexRangeCreatedOnInvoiceConsecutiveInsert()
     {
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
@@ -388,13 +395,23 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array(), $store->id)
+                ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
                 ->createInvoiceProduct($productId, 1.345, 23.77)
-                ->createInvoiceProduct($productId, 2.332, 0.1)
+            ->flush();
+        $this->factory()
+            ->stockIn()
+                ->createStockIn($store, date('c', strtotime('now')))
+                ->createStockInProduct($productId, 2.332, 0.1)
+            ->flush();
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
                 ->createInvoiceProduct($productId, 3, 13.3)
                 ->createInvoiceProduct($productId, 4.23, 14)
-            ->persist()
-                ->createInvoice(array(), $store->id)
+            ->flush();
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
                 ->createInvoiceProduct($productId, 5.7, 17.99)
             ->flush();
         // Total quantity = 16.607
@@ -866,6 +883,68 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertCostOfGood($sale1->products[0], '1150.00');
     }
 
+    public function testCostOfGoodsCalculateWithAllStockMovementProductTypes()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => date('c', strtotime('-200 hour'))), $store->id)
+                ->createInvoiceProduct($productId, 3, 11)
+            ->flush();
+
+        $this->factory()
+            ->stockIn()
+                ->createStockIn($store, date('c', strtotime('-190 hour')))
+                ->createStockInProduct($productId, 5, 15)
+            ->flush();
+
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale($store, date('c', strtotime('-180 hour')))
+                ->createReceiptProduct($productId, 4, 20)
+            ->flush();
+
+        $writeOff = $this->factory()
+            ->writeOff()
+                ->createWriteOff($store, date('c', strtotime('-170 hour')))
+                ->createWriteOffProduct($productId, 2, 18)
+            ->flush();
+
+        $supplierReturn = $this->factory()
+            ->supplierReturn()
+                ->createSupplierReturn($store, date('c', strtotime('-160 hour')))
+                ->createSupplierReturnProduct($productId, 2, 15)
+            ->flush();
+
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $this->assertCostOfGood($sale->products[0], '48.00');
+        $this->assertCostOfGood($writeOff->products[0], '30.00');
+        $this->assertCostOfGood($supplierReturn->products[0], '30.00');
+
+
+        $this->factory()
+            ->receipt()
+                ->createReturn($store, date('c', strtotime('-150 hour')), $sale)
+                ->createReceiptProduct($productId, 1)
+            ->flush();
+
+        $sale2 = $this->factory()
+            ->receipt()
+                ->createSale($store, date('c', strtotime('-140 hour')))
+                ->createReceiptProduct($productId, 1, 20)
+            ->flush();
+
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $this->assertCostOfGood($sale->products[0], '48.00');
+        $this->assertCostOfGood($writeOff->products[0], '30.00');
+        $this->assertCostOfGood($supplierReturn->products[0], '30.00');
+        $this->assertCostOfGood($sale2->products[0], '12.00');
+    }
+
     /**
      * @param string $storeProductId
      * @param string $reasonType
@@ -888,12 +967,12 @@ class CostOfGoodsTest extends WebTestCase
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct $saleProduct
+     * @param StockMovementProduct $stockMovementProduct
      * @param string $expectedCostOfGood
      */
-    protected function assertCostOfGood(SaleProduct $saleProduct, $expectedCostOfGood)
+    protected function assertCostOfGood(StockMovementProduct $stockMovementProduct, $expectedCostOfGood)
     {
-        $trialBalance = $this->getTrialBalanceRepository()->findOneByStockMovementProduct($saleProduct);
+        $trialBalance = $this->getTrialBalanceRepository()->findOneByStockMovementProduct($stockMovementProduct);
         $this->assertSame($expectedCostOfGood, $trialBalance->costOfGoods->toString());
     }
 

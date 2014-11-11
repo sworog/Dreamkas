@@ -7,9 +7,9 @@ parameters:
     database_password: ~
 
     mailer_transport:  smtp
-    mailer_host:       smtp.yandex.ru
-    mailer_user:       noreply@lighthouse.pro
-    mailer_password:   A1234567a
+    mailer_host:       smtp.gmail.com
+    mailer_user:       noreply@dreamkas.ru
+    mailer_password:   Ok6oobiha9
 
     locale:            ru
     secret:            kjhf843f34nbfi34fed23efedf34

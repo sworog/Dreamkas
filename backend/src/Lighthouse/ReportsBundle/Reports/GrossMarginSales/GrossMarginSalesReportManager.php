@@ -3,20 +3,20 @@
 namespace Lighthouse\ReportsBundle\Reports\GrossMarginSales;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
-use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Lighthouse\CoreBundle\Types\Numeric\Quantity;
-use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductReport;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup\GrossMarginSalesCatalogGroupRepository;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\Network\GrossMarginSalesNetworkRepository;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
-use Doctrine\ODM\MongoDB\Cursor;
-use DateTime;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProduct;
-use Lighthouse\ReportsBundle\Reports\GrossMarginSales\GrossMarginSalesByProducts\GrossMarginSalesByProductsCollection;
+use Lighthouse\ReportsBundle\Document\GrossMarginSales\Store\GrossMarginSalesStoreRepository;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\CatalogGroups\GrossMarginSalesByCatalogGroupsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Network\GrossMarginSalesByNetwork;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Products\GrossMarginSalesByProductsCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Stores\GrossMarginSalesByStoresCollection;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -30,14 +30,34 @@ class GrossMarginSalesReportManager
     protected $grossMarginSalesProductRepository;
 
     /**
-     * @var StoreProductRepository
+     * @var GrossMarginSalesCatalogGroupRepository
      */
-    protected $storeProductRepository;
+    protected $grossMarginSalesCatalogGroupRepository;
+
+    /**
+     * @var GrossMarginSalesStoreRepository
+     */
+    protected $grossMarginSalesStoreRepository;
+
+    /**
+     * @var GrossMarginSalesNetworkRepository
+     */
+    protected $grossMarginSalesNetworkRepository;
 
     /**
      * @var ProductRepository
      */
     protected $productRepository;
+
+    /**
+     * @var CatalogManager
+     */
+    protected $catalogManager;
+
+    /**
+     * @var StoreRepository
+     */
+    protected $storeRepository;
 
     /**
      * @var NumericFactory
@@ -48,127 +68,138 @@ class GrossMarginSalesReportManager
      * @DI\InjectParams({
      *      "grossMarginSalesProductRepository"
      *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.product.repository"),
-     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
+     *      "grossMarginSalesCatalogGroupRepository"
+     *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.catalog_group.repository"),
+     *      "grossMarginSalesStoreRepository"
+     *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.store.repository"),
+     *      "grossMarginSalesNetworkRepository"
+     *          = @DI\Inject("lighthouse.reports.document.gross_margin_sales.network.repository"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
-     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
+     *      "catalogManager" = @DI\Inject("lighthouse.core.document.catalog.manager"),
+     *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
      * })
      *
      * @param GrossMarginSalesProductRepository $grossMarginSalesProductRepository
-     * @param StoreProductRepository $storeProductRepository
+     * @param GrossMarginSalesCatalogGroupRepository $grossMarginSalesCatalogGroupRepository
+     * @param GrossMarginSalesStoreRepository $grossMarginSalesStoreRepository
+     * @param GrossMarginSalesNetworkRepository $grossMarginSalesNetworkRepository
      * @param ProductRepository $productRepository
+     * @param CatalogManager $catalogManager
+     * @param StoreRepository $storeRepository
      * @param NumericFactory $numericFactory
      */
     public function __construct(
         GrossMarginSalesProductRepository $grossMarginSalesProductRepository,
-        StoreProductRepository $storeProductRepository,
+        GrossMarginSalesCatalogGroupRepository $grossMarginSalesCatalogGroupRepository,
+        GrossMarginSalesStoreRepository $grossMarginSalesStoreRepository,
+        GrossMarginSalesNetworkRepository $grossMarginSalesNetworkRepository,
         ProductRepository $productRepository,
+        CatalogManager $catalogManager,
+        StoreRepository $storeRepository,
         NumericFactory $numericFactory
     ) {
         $this->grossMarginSalesProductRepository = $grossMarginSalesProductRepository;
-        $this->storeProductRepository = $storeProductRepository;
+        $this->grossMarginSalesCatalogGroupRepository = $grossMarginSalesCatalogGroupRepository;
+        $this->grossMarginSalesStoreRepository = $grossMarginSalesStoreRepository;
+        $this->grossMarginSalesNetworkRepository = $grossMarginSalesNetworkRepository;
+
         $this->productRepository = $productRepository;
+        $this->catalogManager = $catalogManager;
+        $this->storeRepository = $storeRepository;
+
         $this->numericFactory = $numericFactory;
     }
 
     /**
      * @param OutputInterface $output
-     * @param int $batch
      * @return int
      */
-    public function recalculateGrossMarginSalesProductReport(OutputInterface $output = null, $batch = 5000)
+    public function recalculateProductReport(OutputInterface $output = null)
     {
-        return $this->grossMarginSalesProductRepository->recalculate($output, $batch);
+        return $this->grossMarginSalesProductRepository->recalculate($output);
     }
 
     /**
-     * @param SubCategory $subCategory
-     * @param $storeId
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
-     * @return GrossMarginSalesByProductsCollection
+     * @param OutputInterface $output
+     * @return int
      */
-    public function getGrossSalesByProductForStoreReports(
-        SubCategory $subCategory,
-        $storeId,
-        DateTime $dateFrom,
-        DateTime $dateTo
-    ) {
-        $products = $this->productRepository->findBySubCategory($subCategory);
-        $storeProducts = $this->storeProductRepository->findOrCreateByStoreIdSubCategory($storeId, $subCategory);
-
-        $reports = $this->getReportsByStoreProducts($storeProducts->getIds(), $dateFrom, $dateTo);
-
-        return $this->fillReportsByProducts($reports, $products);
-    }
-
-    /**
-     * @param SubCategory $subCategory
-     * @param DateTime $startDate
-     * @param DateTime $endDate
-     * @return GrossMarginSalesByProductsCollection
-     */
-    public function getGrossSalesByProductForSubCategoryReports(
-        SubCategory $subCategory,
-        DateTime $startDate,
-        DateTime $endDate
-    ) {
-        $products = $this->productRepository->findBySubCategory($subCategory);
-        $storeProducts = $this->storeProductRepository->findBySubCategory($subCategory);
-
-        $reports = $this->getReportsByStoreProducts($storeProducts->getIds(), $startDate, $endDate);
-
-        return $this->fillReportsByProducts($reports, $products);
-    }
-
-    /**
-     * @param array|string[] $storeProductIds
-     * @param DateTime $dateFrom
-     * @param DateTime $dateTo
-     * @return GrossMarginSalesByProductsCollection
-     */
-    protected function getReportsByStoreProducts($storeProductIds, DateTime $dateFrom, DateTime $dateTo)
+    public function recalculateCatalogGroupReport(OutputInterface $output = null)
     {
-        $reports = $this
-            ->grossMarginSalesProductRepository
-            ->findByStoreProductsAndPeriod($storeProductIds, $dateFrom, $dateTo);
-
-        $collection = new GrossMarginSalesByProductsCollection();
-
-        foreach ($reports as $report) {
-            $grossMarginSalesByProductReport = $collection->getByProduct($report->storeProduct->product);
-            $grossMarginSalesByProductReport->storeProduct = $report->storeProduct;
-            $grossMarginSalesByProductReport->grossSales
-                = $report->grossSales->add($grossMarginSalesByProductReport->grossSales);
-            $grossMarginSalesByProductReport->costOfGoods
-                = $report->costOfGoods->add($grossMarginSalesByProductReport->costOfGoods);
-            $grossMarginSalesByProductReport->grossMargin
-                = $report->grossMargin->add($grossMarginSalesByProductReport->grossMargin);
-            $grossMarginSalesByProductReport->quantity
-                = $report->quantity->add($grossMarginSalesByProductReport->quantity);
-        }
-
-        return $collection;
+        return $this->grossMarginSalesCatalogGroupRepository->recalculate($output);
     }
 
     /**
-     * @param GrossMarginSalesByProductsCollection $reports
-     * @param $products
+     * @param OutputInterface $output
+     * @return int
+     */
+    public function recalculateStoreReport(OutputInterface $output = null)
+    {
+        return $this->grossMarginSalesStoreRepository->recalculate($output);
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @return int
+     */
+    public function recalculateNetworkReport(OutputInterface $output = null)
+    {
+        return $this->grossMarginSalesNetworkRepository->recalculate($output);
+    }
+
+    /**
+     * @param GrossMarginSalesFilter $filter
+     * @param SubCategory $catalogGroup
      * @return GrossMarginSalesByProductsCollection
      */
-    protected function fillReportsByProducts(
-        GrossMarginSalesByProductsCollection $reports,
-        $products
-    ) {
-        foreach ($products as $product) {
-            if (!$reports->containsProduct($product)) {
-                $grossMarginSalesByProductReport = $reports->getByProduct($product);
-                $grossMarginSalesByProductReport->grossSales = $this->numericFactory->createMoney(0);
-                $grossMarginSalesByProductReport->costOfGoods = $this->numericFactory->createMoney(0);
-                $grossMarginSalesByProductReport->grossMargin = $this->numericFactory->createMoney(0);
-                $grossMarginSalesByProductReport->quantity = $this->numericFactory->createQuantity(0);
-            }
-        }
+    public function getProductsReports(GrossMarginSalesFilter $filter, SubCategory $catalogGroup)
+    {
+        $products = $this->productRepository->findBySubCategory($catalogGroup);
+        $reports = $this->grossMarginSalesProductRepository->findByFilterCatalogGroup($filter, $catalogGroup);
+        return new GrossMarginSalesByProductsCollection(
+            $this->numericFactory,
+            $reports,
+            $products
+        );
+    }
 
-        return $reports;
+    /**
+     * @param GrossMarginSalesFilter $filter
+     * @return GrossMarginSalesByCatalogGroupsCollection
+     */
+    public function getCatalogGroupsReports(GrossMarginSalesFilter $filter)
+    {
+        $catalogGroups = $this->catalogManager->getCatalogGroups();
+        $reports = $this->grossMarginSalesCatalogGroupRepository->findByFilter($filter);
+        return new GrossMarginSalesByCatalogGroupsCollection(
+            $this->numericFactory,
+            $reports,
+            $catalogGroups
+        );
+    }
+
+    /**
+     * @param GrossMarginSalesFilter $filter
+     * @return GrossMarginSalesByStoresCollection
+     */
+    public function getStoreReports(GrossMarginSalesFilter $filter)
+    {
+        $stores = $this->storeRepository->findAll();
+        $reports = $this->grossMarginSalesStoreRepository->findByFilter($filter);
+        return new GrossMarginSalesByStoresCollection(
+            $this->numericFactory,
+            $reports,
+            $stores
+        );
+    }
+
+    /**
+     * @param GrossMarginSalesFilter $filter
+     * @return GrossMarginSalesByNetwork
+     */
+    public function getNetworkReport(GrossMarginSalesFilter $filter)
+    {
+        $dayReports = $this->grossMarginSalesNetworkRepository->findByFilter($filter);
+        return new GrossMarginSalesByNetwork($this->numericFactory, $dayReports);
     }
 }

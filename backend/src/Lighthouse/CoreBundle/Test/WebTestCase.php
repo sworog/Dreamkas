@@ -2,16 +2,18 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use DateTime;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
+use Lighthouse\CoreBundle\Test\Factory\CatalogFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
  * @codeCoverageIgnore
  */
-class WebTestCase extends ContainerAwareTestCase
+class WebTestCase extends DataAwareTestCase
 {
     /**
      * @var Client
@@ -64,6 +66,8 @@ class WebTestCase extends ContainerAwareTestCase
         $request->setJsonData($data);
         $request->setJsonHeaders();
 
+        $this->client->shutdownKernelBeforeRequest();
+
         return $this->client->jsonRequest($request);
     }
 
@@ -71,7 +75,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string|array $extra
      * @param null|string $subCategoryId
      * @param bool|string $putProductId string id of product to be updated
-     * @return mixed
+     * @return string product id
      */
     protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
     {
@@ -118,34 +122,6 @@ class WebTestCase extends ContainerAwareTestCase
     protected function updateProduct($productId, array $data)
     {
         $this->createProduct($data, null, $productId);
-    }
-
-    /**
-     * @param array $names
-     * @param bool $unique
-     * @throws \PHPUnit_Framework_AssertionFailedError
-     * @return array|string[] sku => id
-     */
-    protected function createProductsByNames(array $names, $unique = false)
-    {
-        if ($unique) {
-            $names = array_unique($names);
-        }
-        $products = array();
-        $failedNames = array();
-        foreach ($names as $name) {
-            try {
-                $products[$name] = $this->createProduct(array('name' => $name, 'barcode' => $name));
-            } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-                $failedNames[] = $name;
-            }
-        }
-        if (count($failedNames) > 0) {
-            throw new \PHPUnit_Framework_AssertionFailedError(
-                sprintf('Failed to create products with following names: %s', implode(', ', $failedNames))
-            );
-        }
-        return $products;
     }
 
     /**
@@ -275,7 +251,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createGroup($name = 'Продовольственные товары')
+    protected function createGroup($name = CatalogFactory::DEFAULT_GROUP_NAME)
     {
         return $this->factory()->catalog()->createGroup($name)->id;
     }
@@ -285,7 +261,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
+    protected function createCategory($groupId = null, $name = CatalogFactory::DEFAULT_CATEGORY_NAME)
     {
         return $this->factory()->catalog()->createCategory($groupId, $name)->id;
     }
@@ -295,7 +271,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $name
      * @return string
      */
-    protected function createSubCategory($categoryId = null, $name = 'Водка')
+    protected function createSubCategory($categoryId = null, $name = CatalogFactory::DEFAULT_SUBCATEGORY_NAME)
     {
         return $this->factory()->catalog()->createSubCategory($categoryId, $name)->id;
     }
@@ -324,10 +300,11 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param integer $expectedCode
+     * @param string $message
      */
-    public function assertResponseCode($expectedCode)
+    public function assertResponseCode($expectedCode, $message = '')
     {
-        Assert::assertResponseCode($expectedCode, $this->client);
+        Assert::assertResponseCode($expectedCode, $this->client, $message);
     }
 
     /**
@@ -417,5 +394,17 @@ class WebTestCase extends ContainerAwareTestCase
             Assert::assertJsonPathEquals($orderProduct['quantity'], 'products.*.quantity', $response);
             Assert::assertJsonPathEquals($orderProduct['product'], 'products.*.product.product.id', $response);
         }
+    }
+
+    /**
+     * @param string $modify
+     * @param string $format
+     * @return string
+     */
+    protected function createDate($modify, $format = DateTime::ISO8601)
+    {
+        $date = new DateTime('now');
+        $date->modify($modify);
+        return $date->format($format);
     }
 }

@@ -2,6 +2,7 @@ package ru.dreamkas.jbehave.catalog;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
 import ru.dreamkas.steps.catalog.CatalogSteps;
 
 public class ThenCatalogUserSteps {
@@ -57,5 +58,10 @@ public class ThenCatalogUserSteps {
     @Then("the user asserts the group title equals stored name")
     public void thenTheUserAssertStoredGroupTitle() {
         catalogSteps.assertStoredGroupTitle();
+    }
+
+    @Then("the user clicks on continue button in deleted group modal window")
+    public void whenTheUserClicksOnContinueButtonInDeletedGroupModalWindow() {
+        catalogSteps.deletedGroupModalPageContinueButtonClick();
     }
 }

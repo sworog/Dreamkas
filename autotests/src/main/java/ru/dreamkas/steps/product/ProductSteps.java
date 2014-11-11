@@ -4,13 +4,13 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
+import ru.dreamkas.apiStorage.ApiStorage;
 import ru.dreamkas.common.item.interfaces.Findable;
 import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.helper.StringGenerator;
 import ru.dreamkas.pages.catalog.group.GroupPage;
 import ru.dreamkas.pages.catalog.group.modal.ProductCreateModalWindow;
 import ru.dreamkas.pages.catalog.group.modal.ProductEditModalWindow;
-import ru.dreamkas.storage.DefaultStorage;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -99,7 +99,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void productCollectionProductWithNameClickOnProductWithStoredName() {
-        groupPage.clickOnCollectionObjectByLocator(DefaultStorage.getCustomVariableStorage().getName());
+        groupPage.clickOnCollectionObjectByLocator(ApiStorage.getCustomVariableStorage().getName());
     }
 
     @Step

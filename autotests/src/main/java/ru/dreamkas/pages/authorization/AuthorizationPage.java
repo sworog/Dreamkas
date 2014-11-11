@@ -21,7 +21,7 @@ public class AuthorizationPage extends CommonPageObject {
         put("userName", new Input(this, "username"));
         put("password", new Input(this, "password"));
         put("email", new Input(this, "username"));
-        put("signUpPageTitle", new NonType(this, By.xpath("//*[@class='content']/p")));
+        put("signUpPageTitle", new NonType(this, By.xpath("//*[@class='form_login__message']")));
         put("form_login", new NonType(this, By.id("form_login")));
         put("loginButton", new SuccessBtnFacade(this, By.xpath("//*[contains(@class, 'btn btn-success') and contains(text(), 'Войти')]")));
         put("forgotPasswordLink", new LinkFacade(this, "Забыли пароль?"));

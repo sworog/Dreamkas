@@ -267,13 +267,13 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param DateTime|string|null $time
+     * @param DateTime $time
      * @param array $intervals
      * @return DateTimestamp[]
      */
     protected function getDayHours($time, array $intervals)
     {
-        $dateTime = new DateTimestamp($time);
+        $dateTime = $time ? DateTimestamp::createFromTimestamp($time->getTimestamp()) : new DateTimestamp();
         $dateTime->setMinutes(0)->setSeconds(0);
         $dayHours = array();
         foreach ($intervals as $key => $interval) {
@@ -296,7 +296,8 @@ class GrossSalesReportManager
      */
     public function getDatesForDay($time, array $intervals)
     {
-        $dateTime = new DateTimestamp($time);
+        $dateTime = DateTimestamp::createFromTimestamp($time->getTimestamp());
+
         $dateTime->setMinutes(0)->setSeconds(0);
         $dayHours = array();
         foreach ($intervals as $key => $interval) {

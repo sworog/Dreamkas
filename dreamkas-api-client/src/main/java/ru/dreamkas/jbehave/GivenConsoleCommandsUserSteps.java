@@ -30,7 +30,7 @@ public class GivenConsoleCommandsUserSteps {
         ApiStorage.getStorageClearable().clear();
     }
 
-    @Given("the user runs the symfony:reports:recalculate command")
+    @Given("пользователь запускает команду пересчета отчетов")
     public void givenTheUserRunTheSymfonyReportsRecalculateCommand() throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestsSymfonyReportsRecalculateCommand();
     }
