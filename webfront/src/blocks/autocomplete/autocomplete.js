@@ -10,18 +10,50 @@ define(function(require, exports, module) {
         data: [],
         query: '',
         request: null,
-        suggestionTemplate: function(){},
+        suggestionTemplate: function() {
+        },
         autofocus: false,
-        blocks: {
-            suggestion: function(){
-                return new Block({
-                    data: this.data,
-                    query: this.query,
-                    template: this.suggestionTemplate
-                });
+        events: {
+            'keyup .autocomplete__input': function(e) {
+
+                var block = this,
+                    input = e.target;
+
+                block.query = input.value;
+
+                if (input.value.length >= 3) {
+
+                    block.$input.addClass('loading');
+
+                    $.when(block.getData()).then(function() {
+
+                        block.renderSuggestion();
+
+                        block.$tetherElement.width(block.$input.outerWidth());
+                        block.tether.enable();
+                        block.tether.position();
+
+                        block.$input.removeClass('loading');
+                    });
+
+                } else if (input.value.length) {
+                    block.renderSuggestion();
+                    block.$tetherElement.width(block.$input.outerWidth());
+                    block.tether.enable();
+                    block.tether.position();
+                } else {
+                    block.tether.disable();
+                }
+
+            },
+            'blur .autocomplete__input': function() {
+
+                var block = this;
+
+                block.tether.disable();
             }
         },
-        initialize: function(){
+        initialize: function() {
             var block = this;
 
             var init = Block.prototype.initialize.apply(block, arguments);
@@ -30,7 +62,7 @@ define(function(require, exports, module) {
 
             return init;
         },
-        render: function(){
+        render: function() {
             var block = this;
 
             var render = Block.prototype.render.apply(block, arguments);
@@ -48,23 +80,32 @@ define(function(require, exports, module) {
 
             return render;
         },
-        getData: function(){
+        renderSuggestion: function() {
+
+            var block = this;
+
+            block.$tetherElement.html(block.suggestionTemplate(block));
+        },
+        getData: function() {
             var block = this;
 
             block.request && block.request.abort();
 
-            if (typeof block.source === 'string'){
+            if (typeof block.source === 'string') {
                 block.request = $.ajax({
                     url: block.source,
                     data: {
                         query: block.query
                     }
+                }).then(function(data) {
+                    block.request = null;
+                    block.data = data;
                 });
 
                 return block.request;
             }
         },
-        remove: function(){
+        remove: function() {
 
             var block = this;
 

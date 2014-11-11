@@ -1,22 +1,14 @@
 <div class="autocomplete">
 
-    <div class="input-group" style="width: 100%;">
-
-        <a class="input-group-addon">
-            <i class="fa fa-search"></i>
-        </a>
-
-        <input <%- autofocus && 'autofocus' %>
-                placeholder="<%- placeholder %>"
-                type="text"
-                class="form-control autocomplete__input"
-                value="<%- query %>">
-
-    </div>
+    <input <%- autofocus && 'autofocus' %>
+            placeholder="<%- placeholder %>"
+            type="text"
+            class="form-control autocomplete__input"
+            value="<%- query %>">
 
     <div class="autocomplete__tether">
 
-        <b block="suggestion"></b>
+        <%= suggestionTemplate(obj) %>
 
     </div>
 
