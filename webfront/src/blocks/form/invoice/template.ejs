@@ -1,5 +1,5 @@
-<% var supplierModalId = _.uniqueId('modal_supplier') %>
-<% var storeModalId = _.uniqueId('modal_store') %>
+<% var supplierModalId = 'modal_supplierForInvoice' + cid %>
+<% var storeModalId = 'modal_storeForInvoice' + cid %>
 
 <form id="<%- id %>" class="form form_invoice">
     <div class="row">
@@ -10,6 +10,8 @@
 
                 <b block="inputDate"
                    data-value="<%- model.get('date') ? formatDate(model.get('date')) : formatDate(new Date()) %>"></b>
+
+                <div class="form__errorMessage" for="date"></div>
 
             </div>
         </div>
@@ -41,6 +43,9 @@
                 </div>
 
                 <% } %>
+
+                <div class="form__errorMessage" for="store"></div>
+
             </div>
         </div>
         <div class="col-md-4">
