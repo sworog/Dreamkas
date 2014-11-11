@@ -79,7 +79,6 @@ public class AuthorizationUserSteps {
     @When("the user logs out")
     @Alias("пользователь разлогинивается")
     public void whenTheUserLogsOut() {
-        menuNavigationSteps.userNameLinkClick();
         menuNavigationSteps.logOutButtonClick();
         DefaultStorage.getUserVariableStorage().setIsAuthorized(false);
     }
