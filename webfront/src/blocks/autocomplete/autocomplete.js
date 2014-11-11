@@ -23,26 +23,12 @@ define(function(require, exports, module) {
 
                 if (input.value.length >= 3) {
 
-                    block.$input.addClass('loading');
-
-                    $.when(block.getData()).then(function() {
-
-                        block.renderSuggestion();
-
-                        block.$tetherElement.width(block.$input.outerWidth());
-                        block.tether.enable();
-                        block.tether.position();
-
-                        block.$input.removeClass('loading');
-                    });
+                    block.getData();
 
                 } else if (input.value.length) {
-                    block.renderSuggestion();
-                    block.$tetherElement.width(block.$input.outerWidth());
-                    block.tether.enable();
-                    block.tether.position();
+                    block.showSuggestion();
                 } else {
-                    block.tether.disable();
+                    block.hideSuggestion();
                 }
 
             },
@@ -50,7 +36,7 @@ define(function(require, exports, module) {
 
                 var block = this;
 
-                block.tether.disable();
+                block.hideSuggestion();
             }
         },
         initialize: function() {
@@ -80,11 +66,21 @@ define(function(require, exports, module) {
 
             return render;
         },
-        renderSuggestion: function() {
+        showSuggestion: function() {
 
             var block = this;
 
             block.$tetherElement.html(block.suggestionTemplate(block));
+
+            block.$tetherElement.width(block.$input.outerWidth());
+            block.tether.enable();
+            block.tether.position();
+        },
+        hideSuggestion: function() {
+
+            var block = this;
+
+            block.tether.disable();
         },
         getData: function() {
             var block = this;
@@ -92,18 +88,35 @@ define(function(require, exports, module) {
             block.request && block.request.abort();
 
             if (typeof block.source === 'string') {
+
+                block.$input.addClass('loading');
+
                 block.request = $.ajax({
                     url: block.source,
                     data: {
                         query: block.query
                     }
                 }).then(function(data) {
+
                     block.request = null;
                     block.data = data;
+
+                    block.showSuggestion();
+
+                    block.$input.removeClass('loading');
                 });
 
                 return block.request;
             }
+        },
+        select: function(index) {
+
+            var block = this,
+                itemData = block.data[index];
+
+            block.trigger('select', itemData);
+
+
         },
         remove: function() {
 
