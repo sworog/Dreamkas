@@ -91,12 +91,7 @@ class User extends AbstractDocument implements UserInterface
     /**
      * @MongoDB\String
      * @Assert\NotBlank(groups={"creation", "Update current"})
-     * @Assert\Length(min="6", groups={"Default", "Update current"})
-     * @LighthouseAssert\NotEqualsField(
-     *      groups={"Default", "Update current"},
-     *      field = "email",
-     *      message = "lighthouse.validation.errors.user.password.not_equals_email"
-     * )
+     * @LighthouseAssert\User\Password(groups={"Default", "Update current"})
      * @Serializer\Exclude
      * @var string
      */

@@ -17,7 +17,7 @@ GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal'
 And the user inputs values on the edit supplier modal window
@@ -37,7 +37,7 @@ GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal1', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal1'
 And the user generates symbols with count '101' in the edit supplier modal window field with name 'name'
@@ -55,7 +55,7 @@ GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal2', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal2'
 And the user generates symbols with count '100' in the edit supplier modal window field with name 'name'
@@ -75,7 +75,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal3', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal3'
 And the user generates symbols with count '301' in the edit supplier modal window field with name 'address'
@@ -93,7 +93,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal4', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal4'
 And the user generates symbols with count '300' in the edit supplier modal window field with name 'address'
@@ -113,7 +113,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal5', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal5'
 And the user generates symbols with count '301' in the edit supplier modal window field with name 'phone'
@@ -131,7 +131,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal6', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal6'
 And the user generates symbols with count '300' in the edit supplier modal window field with name 'phone'
@@ -151,7 +151,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal7', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal7'
 And the user generates symbols with count '301' in the edit supplier modal window field with name 'email'
@@ -169,7 +169,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal8', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal8'
 And the user generates symbols with count '300' in the edit supplier modal window field with name 'email'
@@ -189,7 +189,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal9', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal9'
 And the user generates symbols with count '301' in the edit supplier modal window field with name 'contactPerson'
@@ -207,7 +207,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplierEditVal10', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplierEditVal10'
 And the user generates symbols with count '300' in the edit supplier modal window field with name 'contactPerson'
