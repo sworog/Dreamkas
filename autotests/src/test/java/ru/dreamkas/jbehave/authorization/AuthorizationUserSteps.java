@@ -71,6 +71,7 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user logs in using '$userName' userName and '$password' password to check validation")
+    @Alias("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password' для проверки валидации")
     public void givenTheUserLogsInUsingUserNameAndPasswordToCheckValidation(String userName, String password) {
         authorizationSteps.authorizationFalse(userName, password);
     }

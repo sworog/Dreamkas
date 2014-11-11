@@ -12,7 +12,8 @@ Scenario: Смена пароля
 Meta:
 @smoke
 
-GivenStories: precondition/пользователь/создание_юзера.story
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/пользователь/создание_юзера.story
 
 Given пользователь открывает стартовую страницу авторизации
 And пользователь авторизуется в системе используя адрес электронной почты 'user@lighthouse.pro' и пароль 'lighthouse'
@@ -41,7 +42,8 @@ Scenario: Попытка авторизироваться под старым п
 
 Meta:
 
-GivenStories: precondition/пользователь/создание_юзера.story
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/пользователь/создание_юзера.story
 
 Given пользователь открывает стартовую страницу авторизации
 And пользователь авторизуется в системе используя адрес электронной почты 'user@lighthouse.pro' и пароль 'lighthouse'
@@ -62,15 +64,16 @@ Then пользователь* проверяет, что 'сообщение о
 
 When пользователь разлогинивается
 
-When пользователь авторизуется в системе используя адрес электронной почты 'user@lighthouse.pro' и пароль 'lighthouse'
+When пользователь авторизуется в системе используя адрес электронной почты 'user@lighthouse.pro' и пароль 'lighthouse' для проверки валидации
 
-Then пользователь видит сообщение об ошибке 'Пароль неверен!'
+Then пользователь видит сообщение об ошибке 'Неверный логин или пароль'
 
 Scenario: Проверка заголовка страницы настроек
 
 Meta:
 
-GivenStories: precondition/пользователь/создание_юзера.story
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/пользователь/создание_юзера.story
 
 Given пользователь открывает стартовую страницу авторизации
 And пользователь авторизуется в системе используя адрес электронной почты 'user@lighthouse.pro' и пароль 'lighthouse'
