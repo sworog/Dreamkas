@@ -5,7 +5,13 @@ import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import ru.dreamkas.pageObjects.elements.Button;
+import ru.dreamkas.pageObjects.elements.Input;
+import ru.dreamkas.pageObjects.elements.interfaces.Elementable;
 
 public class PosPage extends CommonPageObject {
 
@@ -48,6 +54,12 @@ public class PosPage extends CommonPageObject {
 
     @FindBy(id = "ru.dreamkas.pos.debug:id/btnRegisterReceipt")
     private WebElement registerReceiptButton;
+
+    public PosPage(){
+        super();
+        putElementable("Очистить чек", new Input(this, "btnReceiptClear"));
+        putElementable("Перейти к кассе",new Input(this, "btnSaveStoreSettings"));
+    }
 
     public String getActionBarTitle() {
         return actionBarTitle.getText();
@@ -103,6 +115,11 @@ public class PosPage extends CommonPageObject {
         clickOnElementWithText(items, title);
     }
 
+    public void tapOnReceiptListItemWithTitle(String title) {
+        List<WebElement> items = lvReceipt.findElements(By.className("android.widget.TextView"));
+        clickOnElementWithText(items, title);
+    }
+
     public Integer getReceiptItemsCount() {
         List<WebElement> items = lvReceipt.findElements(By.className("android.widget.LinearLayout"));
         return items.size();
@@ -127,13 +144,25 @@ public class PosPage extends CommonPageObject {
         return registerReceiptButton.getText();
     }
 
-    public void clickOnClearReceiptButton() {
-        WebElement btnClearReceiptButton = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/btnReceiptClear"));
-        btnClearReceiptButton.click();
+
+
+    public String getEditReceiptModalTitle() {
+        WebElement title = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/lblTotal"));
+        return title.getText();
     }
 
-    public String getReceiptClearButtonLabel() {
-        WebElement btnClearReceiptButton = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/btnReceiptClear"));
-        return btnClearReceiptButton.getText();
+    public String getEditReceiptModalProductName() {
+        WebElement productName = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/lblProductName"));
+        return productName.getText();
+    }
+
+    public String getEditReceiptModalSellingPrice() {
+        WebElement sellingPrice = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/txtSellingPrice"));
+        return sellingPrice.getText();
+    }
+
+    public String getEditReceiptModalQuantity() {
+        WebElement quantity = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/txtValue"));
+        return quantity.getText();
     }
 }

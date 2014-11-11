@@ -1,29 +1,28 @@
 package ru.dreamkas.steps;
 
-import ru.dreamkas.pageObjects.LoginPage;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.steps.ScenarioSteps;
+import net.thucydides.core.pages.Pages;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+public class LoginSteps extends GeneralSteps {
 
-public class LoginSteps extends ScenarioSteps {
-
-    LoginPage loginPage;
+    public LoginSteps(Pages pages) {
+        super(pages);
+        setCurrentPageObject("экран логина");
+    }
 
     @Step
     public void inputLoginCredentials(String email, String password) {
-        loginPage.inputLoginCredentials(email, password);
+        setValue("пользователь", email);
+        setValue("пароль", password);
     }
 
     @Step
     public void clickOnLoginButton() {
-        loginPage.clickOnLoginButton();
-
+        clickOnElement("Войти");
     }
 
     @Step
     public void assertDescription(String expectedDescription) {
-        assertThat(loginPage.getDescription(), is(expectedDescription));
+        assertText("описание", expectedDescription);
     }
 }

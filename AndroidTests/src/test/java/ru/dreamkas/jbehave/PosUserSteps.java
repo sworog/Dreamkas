@@ -20,18 +20,41 @@ public class PosUserSteps {
         posSteps.chooseSpinnerItemWithValue(storeName);
     }
 
-    @When("пользователь нажимает на кнопку 'Перейти к кассе'")
+    /*@When("пользователь нажимает на кнопку 'Перейти к кассе'")
     @Given("пользователь нажимает на кнопку 'Перейти к кассе'")
     public void whenTheUserClicksOnPosNavigateButton() {
         posSteps.clickOnSaveStoreSettings();
+    }*/
+
+    @When("пользователь нажимает на кнопку '$buttonName'")
+    @Given("пользователь нажимает на кнопку '$buttonName'")
+    public void whenTheUserClicksOnButton(String buttonName) {
+        posSteps.clickOnButton(buttonName);
     }
 
-    @When("пользователь нажимает на кнопку 'Очистить чек'")
-    @Given("пользователь нажимает на кнопку 'Очистить чек'")
-    public void whenTheUserClicksOnClearReceiptButton() {
-        posSteps.clickOnClearReceiptButton();
+    @When("пользователь нажимает на кнопку '$buttonName' в диалоге редактирования товарной позиции")
+    @Given("пользователь нажимает на кнопку '$buttonName' в диалоге редактирования товарной позиции")
+    public void whenTheUserClicksOnButtonRditReceiptItem(String buttonName) {
+        posSteps.clickOnButtonEditReceiptDialog(buttonName);
     }
 
+    /*@When("пользователь нажимает на кнопку 'Удалить из чека'")
+    @Given("пользователь нажимает на кнопку 'Удалить из чека'")
+    public void whenTheUserClicksOnRemoveFromReceiptButton() {
+        posSteps.clickOnRemoveFromReceiptButton();
+    }
+
+    @When("пользователь нажимает на кнопку '+' контрола количества товара")
+    @Given("пользователь нажимает на кнопку '+' контрола количества товара")
+    public void whenTheUserClicksOnQuantityIncrementButton() {
+        posSteps.clickOnquantityIncrementButton();
+    }
+
+    @When("пользователь нажимает на кнопку '-' контрола количества товара")
+    @Given("пользователь нажимает на кнопку '-' контрола количества товара")
+    public void whenTheUserClicksOnQuantityIncrementButton() {
+        posSteps.clickOnquantityDecrementButton();
+    }*/
 
     @When("пользователь открывает боковое меню и нажимает на элемент '$item'")
     public void whenTheUserOpensDrawerAndClickOnItem(String item) {
@@ -81,6 +104,12 @@ public class PosUserSteps {
         posSteps.tapOnProductInSearchResultWithTitle(title);
     }
 
+    @Given("пользователь тапает по товару с названием '$title' в чеке продажи")
+    @When("пользователь тапает по товару с названием '$title' в чеке продажи")
+    public void thenTheUserTapOnProductInReceiptWithTitle(String title) {
+        posSteps.tapOnProductInReceiptWithTitle(title);
+    }
+
     @Then("пользователь видит чек продажи '$count' в котором присутствует товары в количестве")
     public void thenUserChecksReceiptItemsCount(Integer count) {
         posSteps.assertReceiptItemsCount(count);
@@ -96,9 +125,17 @@ public class PosUserSteps {
         posSteps.assertReceiptTotalButtonText(expected);
     }
 
-    @Then("пользователь видит что кнопка перешла в режим ожидания подтверждения с надписью '$expectedLabel'")
-    public void thenTheUserChecksTheCleraReceiptButtonLabel(String expectedLabel) {
-        posSteps.assertClearReceiptButtonLabelText(expectedLabel);
+    @Then("пользователь видит что кнопка '$buttonName' содержит текст '$expectedLabel'")
+    public void thenTheUserChecksTheCleraReceiptButtonLabel(String buttonName, String expectedLabel) {
+        posSteps.assertButtonLabelText(buttonName, expectedLabel);
+    }
+
+    @Then("пользователь видит модальное окно с заголовком '$expectedTitle' для товара '$expectedProductName' с ценой продажи '$expectedSellingPrice' и в количестве '$expectedQuantity'")
+    public void thenTheUserChecksEditReceiptModal(String expectedTitle, String expectedProductName, String expectedSellingPrice, String expectedQuantity) {
+        posSteps.assertEditReceiptTitle(expectedTitle);
+        posSteps.assertEditReceiptProductName(expectedProductName);
+        posSteps.assertEditReceiptSellingPrice(expectedSellingPrice);
+        posSteps.assertEditReceiptQuantity(expectedQuantity);
     }
 
 

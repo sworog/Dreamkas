@@ -7,11 +7,24 @@ import net.thucydides.core.webdriver.WebDriverFacade;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.appium.java_client.android.AndroidDriver;
+import ru.dreamkas.pageObjects.elements.interfaces.Elementable;
 
 public class CommonPageObject extends PageObject {
+
+    private Map<String,Elementable> elements = new HashMap<String, Elementable>();
+
+    public Map<String, Elementable> getElements() {
+        return elements;
+    }
+
+    public void putElementable(String elementName, Elementable elementable) {
+        elements.put(elementName, elementable);
+    }
 
     public AndroidDriver getAppiumDriver() {
         WebDriverFacade webDriverFacade = (WebDriverFacade)getDriver();
@@ -48,4 +61,15 @@ public class CommonPageObject extends PageObject {
         }
         return strs;
     }
+
+    public void clickOnButton(String name) {
+        WebElement button = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/" + elements.get(name)));
+        button.click();
+    }
+
+    public String getButtonLabel(String name) {
+        WebElement button = getAppiumDriver().findElement(By.id("ru.dreamkas.pos.debug:id/" + elements.get(name)));
+        return button.getText();
+    }
+
 }

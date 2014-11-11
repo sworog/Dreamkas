@@ -7,6 +7,8 @@ Narrative:
 Я хочу авторизоваться в Dreamkas android,
 Чтобы начать работать с приложением
 
+GivenStories: precondition/очищение_базы_данных.story
+
 Scenario: Пользователь успешно авторизуется в системе
 
 Meta:

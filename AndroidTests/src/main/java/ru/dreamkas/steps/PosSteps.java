@@ -1,6 +1,8 @@
 package ru.dreamkas.steps;
 
 import ru.dreamkas.pageObjects.PosPage;
+import ru.dreamkas.pageObjects.dialogs.EditReceiptItemPage;
+
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -16,6 +18,7 @@ import static org.junit.Assert.assertThat;
 public class PosSteps extends ScenarioSteps {
 
     PosPage posPage;
+    EditReceiptItemPage editReceiptPage;
 
     @Step
     public void assertActionBarTitle(String expectedTitle) {
@@ -27,10 +30,10 @@ public class PosSteps extends ScenarioSteps {
         posPage.chooseSpinnerItemWithValue(value);
     }
 
-    @Step
+    /*@Step
     public void clickOnSaveStoreSettings() {
         posPage.clickOnSaveStoreSettings();
-    }
+    }*/
 
     @Step
     public void assertStore(String store) {
@@ -72,6 +75,10 @@ public class PosSteps extends ScenarioSteps {
         posPage.tapOnSearchListItemWithTitle(title);
     }
 
+    public void tapOnProductInReceiptWithTitle(String title) {
+        posPage.tapOnReceiptListItemWithTitle(title);
+    }
+
     public void assertReceiptItemsCount(Integer count) {
         assertThat(posPage.getReceiptItemsCount(), is(count));
     }
@@ -95,11 +102,52 @@ public class PosSteps extends ScenarioSteps {
         assertThat(posPage.getReceiptTotalButtonLabel(), is(expected));
     }
 
-    public void assertClearReceiptButtonLabelText(String expectedLabel) {
+    public void clickOnButton(String name) {
+        posPage.clickOnButton(name);
+    }
+
+    public void clickOnButtonEditReceiptDialog(String name) {
+        editReceiptPage.clickOnButton(name);
+    }
+
+
+    public void assertButtonLabelText(String buttonName,String expectedLabel) {
+        assertThat(posPage.getButtonLabel(buttonName), is(expectedLabel));
+    }
+
+    /*public void assertClearReceiptButtonLabelText(String expectedLabel) {
         assertThat(posPage.getReceiptClearButtonLabel(), is(expectedLabel));
     }
 
     public void clickOnClearReceiptButton() {
         posPage.clickOnClearReceiptButton();
+    }
+
+    public void clickOnRemoveFromReceiptButton() {
+        posPage.clickOnRemoveFromReceiptButton();
+    }
+
+    public void clickOnQuantityIncrementButton() {
+        posPage.clickOnQuantityIncrementButton();
+    }
+
+    public void clickOnQuantityDecrementButton() {
+        posPage.clickOnQuantityDecrementButton();
+    }*/
+
+    public void assertEditReceiptTitle(String expected) {
+        assertThat(posPage.getEditReceiptModalTitle(), is(expected));
+    }
+
+    public void assertEditReceiptProductName(String expected) {
+        assertThat(posPage.getEditReceiptModalProductName(), is(expected));
+    }
+
+    public void assertEditReceiptSellingPrice(String expected) {
+        assertThat(posPage.getEditReceiptModalSellingPrice(), is(expected));
+    }
+
+    public void assertEditReceiptQuantity(String expected) {
+        assertThat(posPage.getEditReceiptModalQuantity(), is(expected));
     }
 }
