@@ -8,13 +8,15 @@ define(function(require, exports, module) {
         globalEvents: {
             'submit:success': function(data, block) {
 
-                if (block.el.id === 'form_supplier') {
+                var modal = block.$el.closest('.modal')[0];
+
+                if (modal && modal.id === 'modal_supplierForInvoice' + this.cid) {
 
                     this.model.set('supplier', data);
                     this.render();
                 }
 
-                if (block.el.id === 'form_store') {
+                if (modal && modal.id === 'modal_storeForInvoice' + this.cid) {
 
                     this.model.set('store', data);
                     this.render();
