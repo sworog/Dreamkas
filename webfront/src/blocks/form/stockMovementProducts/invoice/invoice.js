@@ -17,7 +17,8 @@ define(function(require, exports, module) {
 			}
 		},
 		blocks: {
-			modal_product: require('blocks/modal/product/product')
+			modal_product: require('blocks/modal/product/product'),
+			autocomplete_products: require('blocks/autocomplete/autocomplete_products/autocomplete_products')
 		}
     });
 });

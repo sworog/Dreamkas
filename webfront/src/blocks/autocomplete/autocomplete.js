@@ -1,92 +1,77 @@
-define(function(require) {
+define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        config = require('config'),
-        checkKey = require('kit/checkKey/checkKey'),
-        cookies = require('cookies');
-
-    require('typeahead');
+        Tether = require('bower_components/tether/tether');
 
     return Block.extend({
-        value: '',
-        resetLink: false,
-        autofocus: false,
         template: require('ejs!./template.ejs'),
-        events: {
-            'change input.form-control': function(e) {
-
-                if ($(e.currentTarget).val() == '') {
-                    this.trigger('input:clear');
-                }
-            },
-            'click .autocomplete__resetButton': function(e) {
-                e.preventDefault();
-
-                var block = this;
-
-                block.$el.find('input.form-control')
-                    .typeahead('val', '')
-                    .focus();
-
-                this.trigger('input:clear');
-            },
-            'keyup input.form-control': function(e) {
-
-                if (checkKey(e.keyCode, ['UP', 'DOWN', 'LEFT', 'RIGHT', 'TAB'])) {
-                    e.stopPropagation();
-                }
-
+        placeholder: '',
+        source: '',
+        data: [],
+        query: '',
+        request: null,
+        suggestionTemplate: function(){},
+        autofocus: false,
+        blocks: {
+            suggestion: function(){
+                return new Block({
+                    data: this.data,
+                    query: this.query,
+                    template: this.suggestionTemplate
+                });
             }
         },
-        remoteUrl: null,
-        render: function() {
+        initialize: function(){
             var block = this;
 
-            Block.prototype.render.apply(block, arguments);
+            var init = Block.prototype.initialize.apply(block, arguments);
 
-            block.initEngine();
-            block.initTypeahead();
+            block.source = block.get('source');
 
-            block.$el.on('typeahead:selected', function(e, item) {
-                block.$el.find('input.form-control').blur();
-            });
+            return init;
         },
-        initEngine: function() {
+        render: function(){
             var block = this;
 
-            block.engine = new Bloodhound({
-                remote: config.baseApiUrl + block.remoteUrl,
-                ajax: {
-                    dataType: 'json',
-                    headers: {
-                        Authorization: 'Bearer ' + cookies.get('token')
+            var render = Block.prototype.render.apply(block, arguments);
+
+            block.$tetherElement = block.$('.autocomplete__tether');
+            block.$input = block.$('.autocomplete__input');
+
+            block.tether = new Tether({
+                element: block.$tetherElement,
+                target: block.$input,
+                attachment: 'top left',
+                targetAttachment: 'bottom left',
+                enabled: false
+            });
+
+            return render;
+        },
+        getData: function(){
+            var block = this;
+
+            block.request && block.request.abort();
+
+            if (typeof block.source === 'string'){
+                block.request = $.ajax({
+                    url: block.source,
+                    data: {
+                        query: block.query
                     }
-                },
-                datumTokenizer: function(d) {
-                    return Bloodhound.tokenizers.whitespace(d.val);
-                },
-                queryTokenizer: Bloodhound.tokenizers.whitespace
-            });
-
-            block.engine.initialize();
-        },
-        initTypeahead: function() {
-            var block = this;
-
-            block.$el.find('input').typeahead({
-                    highlight: true,
-                    minLength: 3
-                },
-                {
-                    source: block.engine.ttAdapter()
                 });
+
+                return block.request;
+            }
         },
-        remove: function() {
+        remove: function(){
+
             var block = this;
 
-            block.$el.find('input.form-control').typeahead('destroy');
+            block.tether.destroy();
+            block.$tetherElement.remove();
 
-            Block.prototype.remove.apply(block, arguments);
+            return Block.prototype.remove.apply(block, arguments);
         }
     });
 });
