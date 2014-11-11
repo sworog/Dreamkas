@@ -7,6 +7,9 @@ define(function(require, exports, module) {
         saveData: [
             'password',
             'newPassword'
-        ]
+        ],
+        isNew: function() {
+            return true;
+        }
     });
 });
