@@ -23,10 +23,10 @@ public class Settings extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-        put("Старый пароль", new Input(this, "oldPassword"));
-        put("Новый пароль", new Input(this, "newPassword"));
-        put("Подтверждение пароля", new Input(this, "confirmPassword"));
+        put("Старый пароль", new Input(this, "password"));
+        put("Новый пароль", new Input(this, "newPassword.first"));
+        put("Подтверждение пароля", new Input(this, "newPassword.second"));
         put("кнопка сохранения нового пароля", new PrimaryBtnFacade(this, "Сохранить"));
-        put("сообщение о подтвержении смены пароля", new NonType(this, By.xpath("")));
+        put("сообщение о подтвержении смены пароля", new NonType(this, By.xpath("//*[contains(@class, 'form__successMessage')]")));
     }
 }
