@@ -1800,6 +1800,17 @@ class UserControllerTest extends WebTestCase
                     'errors.children.newPassword.children.second.errors' => null
                 )
             ),
+            'not valid new passwords are empty' => array(
+                400,
+                '',
+                '',
+                'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'Заполните это поле',
+                    'errors.children.newPassword.children.second.errors' => null
+                )
+            ),
             'not valid second new password is empty' => array(
                 400,
                 'new_password',

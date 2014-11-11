@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Form\DocumentType;
 use Lighthouse\CoreBundle\Validator\Constraints\User\CurrentUserPassword;
 use Lighthouse\CoreBundle\Validator\Constraints\User\Password;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserChangePasswordType extends DocumentType
 {
@@ -32,7 +33,8 @@ class UserChangePasswordType extends DocumentType
                     'type' => 'password',
                     'invalid_message' => 'lighthouse.validation.errors.user.password.not_equals_password',
                     'constraints' => array(
-                        new Password()
+                        new Password(),
+                        new NotBlank()
                     )
                 )
             )
