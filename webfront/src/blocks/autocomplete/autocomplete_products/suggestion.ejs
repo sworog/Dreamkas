@@ -1,7 +1,27 @@
 <div class="autocomplete__suggestion">
 
-    <% console.log(query) %>
+    <% if (query.length >= 3) { %>
 
-    <%- query %>
+    <% if (data.length) { %>
+
+    <% _.forEach(data, function(item){ %>
+        <div>
+            <%- item.name %>
+        </div>
+    <% }) %>
+
+    <% } else { %>
+
+    <div>По запросу <b><%- query %></b> товаров не найдено.</div>
+
+    <% } %>
+
+    <% } %>
+
+    <% if (query.length < 3) { %>
+
+    <div>Для поиска товаров введите 3 и более символа</div>
+
+    <% } %>
 
 </div>
