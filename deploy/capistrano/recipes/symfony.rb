@@ -140,25 +140,24 @@ namespace :symfony do
             end
         end
 
-        desc "Update workers"
+        desc "Update workers config"
         task :reread, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Update workers"
-            stream "#{sudo} supervisorctl reread"
-            #stream "#{sudo} supervisorctl update"
+            run "#{sudo} supervisorctl reread"
             capifony_puts_ok
         end
 
         desc "Restart worker"
         task :restart, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Restart worker"
-            stream "#{sudo} supervisorctl restart #{application}"
+            run "#{sudo} supervisorctl restart #{application}"
             capifony_puts_ok
         end
 
         desc "Stop worker"
         task :stop, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Stop worker"
-            stream "#{sudo} supervisorctl stop #{application}"
+            run "#{sudo} supervisorctl stop #{application}"
             capifony_puts_ok
         end
 
