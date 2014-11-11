@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.findby.By;
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.webdriver.WebDriverFacade;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ import io.appium.java_client.android.AndroidDriver;
 import ru.dreamkas.pageObjects.elements.interfaces.Elementable;
 
 public class CommonPageObject extends PageObject {
+
+    public CommonPageObject(WebDriver driver) {
+        super(driver, 10000);
+    }
 
     private Map<String,Elementable> elements = new HashMap<String, Elementable>();
 

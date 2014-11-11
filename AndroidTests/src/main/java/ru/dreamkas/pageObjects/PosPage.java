@@ -2,6 +2,8 @@ package ru.dreamkas.pageObjects;
 
 import net.thucydides.core.annotations.findby.By;
 import net.thucydides.core.annotations.findby.FindBy;
+
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -10,7 +12,10 @@ import java.util.List;
 import java.util.Map;
 
 import ru.dreamkas.pageObjects.elements.Button;
+import ru.dreamkas.pageObjects.elements.Drawer;
 import ru.dreamkas.pageObjects.elements.Input;
+import ru.dreamkas.pageObjects.elements.Spinner;
+import ru.dreamkas.pageObjects.elements.TextView;
 import ru.dreamkas.pageObjects.elements.interfaces.Elementable;
 
 public class PosPage extends CommonPageObject {
@@ -18,20 +23,8 @@ public class PosPage extends CommonPageObject {
     @FindBy(id = "android:id/home")
     private WebElement drawerIcon;
 
-    @FindBy(id = "android:id/action_bar_title")
-    private WebElement actionBarTitle;
-
     @FindBy(id = "ru.dreamkas.pos.debug:id/lstDrawer")
     private WebElement lstDrawer;
-
-    @FindBy(id = "ru.dreamkas.pos.debug:id/btnSaveStoreSettings")
-    private WebElement btnSaveStoreSettings;
-
-    @FindBy(id = "ru.dreamkas.pos.debug:id/spStores")
-    private WebElement spStores;
-
-    @FindBy(id = "android:id/text1")
-    private List<WebElement> spinnerElements;
 
     @FindBy(id = "ru.dreamkas.pos.debug:id/lblStore")
     WebElement lblStore;
@@ -55,32 +48,17 @@ public class PosPage extends CommonPageObject {
     @FindBy(id = "ru.dreamkas.pos.debug:id/btnRegisterReceipt")
     private WebElement registerReceiptButton;
 
-    public PosPage(){
-        super();
-        putElementable("Очистить чек", new Input(this, "btnReceiptClear"));
-        putElementable("Перейти к кассе",new Input(this, "btnSaveStoreSettings"));
-    }
-
-    public String getActionBarTitle() {
-        return actionBarTitle.getText();
-    }
-
-    public void chooseSpinnerItemWithValue(String value) {
-        spStores.click();
-        clickOnElementWithText(spinnerElements, value);
-    }
-
-    public void clickOnSaveStoreSettings() {
-        btnSaveStoreSettings.click();
+    public PosPage(WebDriver driver){
+        super(driver);
+        putElementable("Очистить чек", new Button(this, "btnReceiptClear"));
+        putElementable("Перейти к кассе", new Button(this, "btnSaveStoreSettings"));
+        putElementable("Магазины", new Spinner(this, "spStores"));
+        putElementable("Заголовок окна", new TextView(this, "android:id/", "action_bar_title" ));
+        putElementable("Боковое меню", new Drawer(this, "android:id/", "home" ));
     }
 
     public String getStore() {
         return lblStore.getText();
-    }
-
-    public void openDrawerAndClickOnDrawerOption(String menuOption) {
-        drawerIcon.click();
-        clickOnElementWithText(getAppiumDriver().findElements(By.xpath("//android.widget.TextView")), menuOption);
     }
 
     public void inputProductSearchQuery(String productSearchQuery) {
@@ -94,12 +72,6 @@ public class PosPage extends CommonPageObject {
 
     public List<String> getSearchProductResult() {
         return getListViewItemsTitles(lvProductsSearchResult, "android.widget.TextView");
-        /*List<WebElement> items = lvProductsSearchResult.findElements(By.className("android.widget.TextView"));
-        List<String> strs = new ArrayList<String>();
-        for (WebElement webElement : items) {
-            strs.add(webElement.getText());
-        }
-        return strs;*/
     }
 
     public String getSearchResultEmptyLabel() {
@@ -137,7 +109,6 @@ public class PosPage extends CommonPageObject {
             rows.add(cells);
         }
         return rows;
-        //return getListViewItemsTitles(lvReceipt, "android.widget.TextView");
     }
 
     public String getReceiptTotalButtonLabel() {

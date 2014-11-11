@@ -9,6 +9,10 @@ public class TextView extends ViewElement implements Gettable {
         super(commonPageObject, id);
     }
 
+    public TextView(CommonPageObject commonPageObject, String customPackage, String id) {
+        super(commonPageObject, customPackage, id);
+    }
+
     @Override
     public String getText() {
         return getCommonPageObject().getAppiumDriver().findElement(getFindBy()).getText();

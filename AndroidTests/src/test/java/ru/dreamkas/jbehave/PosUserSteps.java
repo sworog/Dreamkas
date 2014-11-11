@@ -38,24 +38,6 @@ public class PosUserSteps {
         posSteps.clickOnButtonEditReceiptDialog(buttonName);
     }
 
-    /*@When("пользователь нажимает на кнопку 'Удалить из чека'")
-    @Given("пользователь нажимает на кнопку 'Удалить из чека'")
-    public void whenTheUserClicksOnRemoveFromReceiptButton() {
-        posSteps.clickOnRemoveFromReceiptButton();
-    }
-
-    @When("пользователь нажимает на кнопку '+' контрола количества товара")
-    @Given("пользователь нажимает на кнопку '+' контрола количества товара")
-    public void whenTheUserClicksOnQuantityIncrementButton() {
-        posSteps.clickOnquantityIncrementButton();
-    }
-
-    @When("пользователь нажимает на кнопку '-' контрола количества товара")
-    @Given("пользователь нажимает на кнопку '-' контрола количества товара")
-    public void whenTheUserClicksOnQuantityIncrementButton() {
-        posSteps.clickOnquantityDecrementButton();
-    }*/
-
     @When("пользователь открывает боковое меню и нажимает на элемент '$item'")
     public void whenTheUserOpensDrawerAndClickOnItem(String item) {
         posSteps.openDrawerAndClickOnDrawerOption(item);

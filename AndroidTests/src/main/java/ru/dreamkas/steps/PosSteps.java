@@ -4,6 +4,7 @@ import ru.dreamkas.pageObjects.PosPage;
 import ru.dreamkas.pageObjects.dialogs.EditReceiptItemPage;
 
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 
 import org.jbehave.core.model.ExamplesTable;
@@ -15,25 +16,25 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class PosSteps extends ScenarioSteps {
+public class PosSteps extends GeneralSteps {
 
     PosPage posPage;
     EditReceiptItemPage editReceiptPage;
 
+    public PosSteps(Pages pages) {
+        super(pages);
+        setCurrentPageObject("экран кассы");
+    }
+
     @Step
     public void assertActionBarTitle(String expectedTitle) {
-        assertThat(posPage.getActionBarTitle(), is(expectedTitle));
+        assertText("Заголовок окна", expectedTitle);
     }
 
     @Step
     public void chooseSpinnerItemWithValue(String value) {
-        posPage.chooseSpinnerItemWithValue(value);
+        setValue("Магазины", value);
     }
-
-    /*@Step
-    public void clickOnSaveStoreSettings() {
-        posPage.clickOnSaveStoreSettings();
-    }*/
 
     @Step
     public void assertStore(String store) {
@@ -42,7 +43,7 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void openDrawerAndClickOnDrawerOption(String menuOption) {
-        posPage.openDrawerAndClickOnDrawerOption(menuOption);
+        setValue("Боковое меню", menuOption);
     }
 
     @Step
@@ -103,7 +104,7 @@ public class PosSteps extends ScenarioSteps {
     }
 
     public void clickOnButton(String name) {
-        posPage.clickOnButton(name);
+        clickOnElement(name);
     }
 
     public void clickOnButtonEditReceiptDialog(String name) {
