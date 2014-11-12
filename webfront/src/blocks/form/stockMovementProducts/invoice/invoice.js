@@ -10,7 +10,9 @@ define(function(require, exports, module) {
 		globalEvents: {
 			'submit:success': function(data, block){
 
-				if (block.el.id === 'form_product'){
+				var modal = block.$el.closest('.modal')[0];
+
+				if (modal && modal.id === 'modal_productForInvoice' + this.cid) {
 					this.selectProduct(data);
 				}
 
@@ -26,6 +28,10 @@ define(function(require, exports, module) {
 
 				autocomplete_products.on('select', function(productData) {
 					block.selectProduct(productData);
+				});
+
+				autocomplete_products.on('deselect', function(productData) {
+					block.deselectProduct();
 				});
 
 				return autocomplete_products;

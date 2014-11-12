@@ -8,6 +8,7 @@ define(function(require, exports, module) {
         placeholder: 'Наименование или артикул товара',
         source: config.baseApiUrl + '/products/search?properties[]=name&properties[]=sku',
         suggestionTemplate: require('ejs!./suggestion.ejs'),
-        valueKey: 'name'
+        valueKey: 'name',
+        inputName: 'product.name'
     });
 });

@@ -53,8 +53,10 @@ define(function(require, exports, module) {
                 }
 
                 if (checkKey(e.keyCode, ['ESC'])) {
+                    block.$input.val('');
                     block.hideSuggestion();
-                    return;
+                    block.deselect();
+                    return false;
                 }
 
                 if (checkKey(e.keyCode, ['UP'])) {
@@ -73,6 +75,7 @@ define(function(require, exports, module) {
                 }
 
                 block.query = input.value;
+                block.deselect();
 
                 if (input.value.length >= 3) {
 
@@ -222,6 +225,12 @@ define(function(require, exports, module) {
 
             block.trigger('select', itemData);
 
+        },
+        deselect: function(){
+
+            var block = this;
+
+            block.trigger('deselect');
         },
         remove: function() {
 
