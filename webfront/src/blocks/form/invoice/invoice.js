@@ -5,6 +5,7 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         id: 'form_invoice',
+        modalId: null,
         globalEvents: {
             'submit:success': function(data, block) {
 
@@ -15,13 +16,6 @@ define(function(require, exports, module) {
                     this.model.set('supplier', data);
                     this.render();
                 }
-
-                if (modal && modal.id === 'modal_storeForInvoice' + this.cid) {
-
-                    this.model.set('store', data);
-                    this.render();
-                }
-
             }
         },
         model: require('resources/invoice/model'),
@@ -32,8 +26,7 @@ define(function(require, exports, module) {
             inputDate: require('blocks/inputDate/inputDate'),
             select_store: require('blocks/select/store/store'),
             select_supplier: require('blocks/select/supplier/supplier'),
-            modal_supplier: require('blocks/modal/supplier/supplier'),
-            modal_store: require('blocks/modal/store/store')
+            modal_supplier: require('blocks/modal/supplier/supplier')
         }
     });
 });

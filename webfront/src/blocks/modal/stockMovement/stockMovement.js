@@ -48,7 +48,8 @@ define(function(require, exports, module) {
                 var Form = this.Form;
 
                 return new Form({
-                    model: this.model
+                    model: this.model,
+                    modalId: this.id
                 });
             },
             form_products: function(){

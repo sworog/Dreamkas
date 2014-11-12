@@ -1,5 +1,4 @@
 <% var supplierModalId = 'modal_supplierForInvoice' + cid %>
-<% var storeModalId = 'modal_storeForInvoice' + cid %>
 
 <form id="<%- id %>" class="form form_invoice">
     <div class="row">
@@ -20,29 +19,10 @@
 
                 <label class="control-label">Магазин *</label>
 
-                <% if (!PAGE.collections.stores.length) { %>
-
-                <a style="width: 100%"
-                   data-modal="<%- storeModalId %>"
-                   class="btn btn-transparent">
-                    Создать магазин <i style="margin-left: 10px;" class="fa fa-plus"></i>
-                </a>
-
-                <% } else { %>
-
-                <div class="input-group">
-
-                    <b block="select_store"
-                       data-selected="<%- model.get('store.id') %>"></b>
-
-                    <a class="input-group-addon"
-                       data-modal="<%- storeModalId %>">
-                        <i class="fa fa-plus"></i>
-                    </a>
-
-                </div>
-
-                <% } %>
+                <b block="select_store"
+                   data-selected="<%- model.get('store.id') %>"
+                   data-add="1"
+                   data-modal-id="<%- modalId %>"></b>
 
                 <div class="form__errorMessage" for="store"></div>
 
@@ -83,9 +63,5 @@
     <b block="modal_supplier"
        data-referrer="modal_invoice"
        data-id="<%- supplierModalId %>"></b>
-
-    <b block="modal_store"
-       data-referrer="modal_invoice"
-       data-id="<%- storeModalId %>"></b>
 
 </form>
