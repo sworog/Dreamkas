@@ -64,7 +64,7 @@ define(function(require, exports, module) {
 
                 if (checkKey(e.keyCode, ['DOWN'])) {
 
-                    if (block.$tetherElement.is(':hidden')){
+                    if (block.$tetherElement.is(':hidden')) {
                         block.showSuggestion();
                     }
 
@@ -117,11 +117,18 @@ define(function(require, exports, module) {
                 enabled: false
             });
 
-            block.$tetherElement.on('mouseover', '.autocomplete__item', function(){
-                var index = block.$tetherElement.find('.autocomplete__item').index(this);
+            block.$tetherElement
+                .on('mouseover', '.autocomplete__item', function() {
+                    var index = block.$tetherElement.find('.autocomplete__item').index(this);
 
-                block.focusItemByIndex(index);
-            });
+                    block.focusItemByIndex(index);
+                })
+                .on('mousedown', '.autocomplete__item', function() {
+                    var index = block.$tetherElement.find('.autocomplete__item').index(this);
+
+                    block.focusItemByIndex(index);
+                    block.select();
+                });
 
             return render;
         },
@@ -205,6 +212,7 @@ define(function(require, exports, module) {
             block.$input.val(itemData[block.valueKey]);
 
             block.hideSuggestion();
+            block.data = [];
 
             block.trigger('select', itemData);
 
