@@ -251,6 +251,10 @@
 		CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC4B119DD808300ED88D3 /* DPLog.m */; };
 		CEDC5F741A00DF7300991527 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDC5F731A00DF7300991527 /* ProductsViewController.m */; };
 		CEDC5F751A00DF7300991527 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDC5F731A00DF7300991527 /* ProductsViewController.m */; };
+		CEE5A2171A1112EC00640B1A /* PanelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE5A2161A1112EC00640B1A /* PanelButton.m */; };
+		CEE5A2181A1112EC00640B1A /* PanelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE5A2161A1112EC00640B1A /* PanelButton.m */; };
+		CEE5A21B1A11141E00640B1A /* PlusCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE5A21A1A11141E00640B1A /* PlusCircleButton.m */; };
+		CEE5A21C1A11141E00640B1A /* PlusCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE5A21A1A11141E00640B1A /* PlusCircleButton.m */; };
 		CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
 		CEF2645619E80E88008BE93A /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645419E80E88008BE93A /* AbstractViewController.m */; };
 		CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF2645D19E8126A008BE93A /* LogInViewController.m */; };
@@ -568,6 +572,10 @@
 		CECFC4B119DD808300ED88D3 /* DPLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLog.m; sourceTree = "<group>"; };
 		CEDC5F721A00DF7300991527 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		CEDC5F731A00DF7300991527 /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
+		CEE5A2151A1112EC00640B1A /* PanelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanelButton.h; sourceTree = "<group>"; };
+		CEE5A2161A1112EC00640B1A /* PanelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanelButton.m; sourceTree = "<group>"; };
+		CEE5A2191A11141E00640B1A /* PlusCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlusCircleButton.h; sourceTree = "<group>"; };
+		CEE5A21A1A11141E00640B1A /* PlusCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlusCircleButton.m; sourceTree = "<group>"; };
 		CEF2645319E80E88008BE93A /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractViewController.h; sourceTree = "<group>"; };
 		CEF2645419E80E88008BE93A /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractViewController.m; sourceTree = "<group>"; };
 		CEF2645C19E8126A008BE93A /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
@@ -1217,6 +1225,10 @@
 				CE39DDCD19FFED8E00150C28 /* SearchButton.m */,
 				CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */,
 				CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */,
+				CEE5A2151A1112EC00640B1A /* PanelButton.h */,
+				CEE5A2161A1112EC00640B1A /* PanelButton.m */,
+				CEE5A2191A11141E00640B1A /* PlusCircleButton.h */,
+				CEE5A21A1A11141E00640B1A /* PlusCircleButton.m */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1629,6 +1641,8 @@
 				CE946BED19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2645519E80E88008BE93A /* AbstractViewController.m in Sources */,
 				CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */,
+				CEE5A21B1A11141E00640B1A /* PlusCircleButton.m in Sources */,
+				CEE5A2171A1112EC00640B1A /* PanelButton.m in Sources */,
 				CE162A2719E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CE290FEC19EE668B005483A1 /* MagicalImportFunctions.m in Sources */,
 				CE500B8919F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */,
@@ -1807,6 +1821,7 @@
 				CE29100D19EE668B005483A1 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
+				CEE5A2181A1112EC00640B1A /* PanelButton.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CE9A7EF61A0D151F00509548 /* CartViewController.m in Sources */,
 				CE3C76401A0142C30057493E /* GroupModel.m in Sources */,
@@ -1837,6 +1852,7 @@
 				CE500B7C19F00A4F00449C34 /* AbstractTableViewController.m in Sources */,
 				CEBC439F19E8048700C0E575 /* DialogHelper.m in Sources */,
 				CE290FF119EE668B005483A1 /* NSEntityDescription+MagicalDataImport.m in Sources */,
+				CEE5A21C1A11141E00640B1A /* PlusCircleButton.m in Sources */,
 				CE29100519EE668B005483A1 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				CE290F9A19EE605C005483A1 /* AbstractModel.m in Sources */,
 			);
