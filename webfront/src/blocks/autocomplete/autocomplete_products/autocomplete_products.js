@@ -10,6 +10,29 @@ define(function(require, exports, module) {
         suggestionTemplate: require('ejs!./suggestion.ejs'),
         valueKey: 'name',
         inputName: 'product.name',
-        productCount: require('resources/product/count')
+        selectedProduct: null,
+        modalId: null,
+        productCount: require('resources/product/count'),
+        globalEvents: {
+            'submit:success': function(data, block) {
+
+                var modal = block.$el.closest('.modal')[0];
+
+                if (modal && modal.id === 'modal_productForAutocomplete' + this.cid) {
+
+                    this.productCount.data = [data];
+
+                    this.render({
+                        value: data[this.valueKey]
+                    });
+
+                    this.trigger('select', data);
+                }
+
+            }
+        },
+        blocks: {
+            modal_product: require('blocks/modal/product/product')
+        }
     });
 });

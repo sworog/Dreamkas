@@ -1,5 +1,3 @@
-<% var productModalId = 'modal_productForInvoice' + cid %>
-
 <form class="form_stockMovementProducts">
 
     <table class="table_stockMovementProducts table table-vcenter">
@@ -19,16 +17,7 @@
 
         <tr class="form_stockMovementProducts__controls">
             <td>
-                <div class="input-group">
-
-                    <b block="autocomplete_products"></b>
-
-                    <a class="input-group-addon"
-                       data-modal="<%- productModalId %>">
-                        <i class="fa fa-plus"></i>
-                    </a>
-
-                </div>
+                <b block="autocomplete_products"></b>
             </td>
             <td>
                 <input name="<%- priceField %>"
@@ -69,9 +58,5 @@
     </table>
 
     <div class="form__errorMessage form__errorMessage_global"></div>
-
-    <b block="modal_product"
-       data-referrer="modal_invoice"
-       data-id="<%- productModalId %>"></b>
 
 </form>

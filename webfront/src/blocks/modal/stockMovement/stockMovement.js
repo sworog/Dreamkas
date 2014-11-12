@@ -56,6 +56,7 @@ define(function(require, exports, module) {
                 var Form_products = this.Form_products;
 
                 return new Form_products({
+                    modalId: this.id,
                     collection: this.model.collections.products
                 });
             },
