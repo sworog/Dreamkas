@@ -25,6 +25,10 @@
     border-bottom: none;
 }
 
+.autocomplete_selected .autocomplete__input{
+    background-color: #F1FFF1;
+}
+
 .tt-dropdown-menu {
     background: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
