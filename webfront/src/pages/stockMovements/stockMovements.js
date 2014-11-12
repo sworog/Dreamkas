@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('blocks/page/page'),
         moment = require('moment'),
+        productCount = require('resources/product/count'),
         router = require('router');
 
     return Page.extend({
@@ -50,6 +51,11 @@ define(function(require, exports, module) {
             this.params.dateFrom = this.get('params.dateFrom');
 
             return Page.prototype.initialize.apply(this, arguments);
+        },
+        fetch: function(){
+            var page = this;
+
+            return $.when(Page.prototype.fetch.apply(page, arguments), productCount.fetch());
         }
     });
 });

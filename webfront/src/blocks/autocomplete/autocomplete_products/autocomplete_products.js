@@ -9,6 +9,7 @@ define(function(require, exports, module) {
         source: config.baseApiUrl + '/products/search?properties[]=name&properties[]=sku',
         suggestionTemplate: require('ejs!./suggestion.ejs'),
         valueKey: 'name',
-        inputName: 'product.name'
+        inputName: 'product.name',
+        productCount: require('resources/product/count')
     });
 });
