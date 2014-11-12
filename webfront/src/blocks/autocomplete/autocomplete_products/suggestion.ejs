@@ -5,14 +5,14 @@
     <% if (data.length) { %>
 
     <% _.forEach(data, function(item){ %>
-        <div>
+        <div class="autocomplete__item">
             <%- item.name %>
         </div>
     <% }) %>
 
     <% } else { %>
 
-    <div>По запросу <b><%- query %></b> товаров не найдено.</div>
+    <div class="autocomplete__hint">По запросу <b><%- query %></b> товаров не найдено.</div>
 
     <% } %>
 
@@ -20,7 +20,7 @@
 
     <% if (query.length < 3) { %>
 
-    <div>Для поиска товаров введите 3 и более символа</div>
+    <div class="autocomplete__hint">Для поиска товаров введите 3 и более символа</div>
 
     <% } %>
 

@@ -20,11 +20,6 @@ define(function(require, exports, module) {
 
             document.getElementById(dataset.modalToggle).block.toggle();
         })
-        .on('click', function(e) {
-            if (e.target.classList.contains('modal__wrapper_visible')) {
-                $(e.target).find('.modal:visible')[0].block.hide();
-            }
-        })
         .on('keyup', function(e) {
             var modal = $('.modal:visible')[0];
             checkKey(e.keyCode, ['ESC']) && modal && modal.block.hide();

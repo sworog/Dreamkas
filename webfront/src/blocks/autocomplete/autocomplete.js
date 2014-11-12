@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        Tether = require('bower_components/tether/tether');
+        Tether = require('bower_components/tether/tether'),
+        checkKey = require('kit/checkKey/checkKey');
 
     return Block.extend({
         template: require('ejs!./template.ejs'),
@@ -18,6 +19,26 @@ define(function(require, exports, module) {
 
                 var block = this,
                     input = e.target;
+
+                if (checkKey(e.keyCode, ['ESC'])) {
+                    block.hideSuggestion();
+                    return;
+                }
+
+                if (checkKey(e.keyCode, ['UP'])) {
+                    block.focusPrevItem();
+                    return false;
+                }
+
+                if (checkKey(e.keyCode, ['DOWN'])) {
+
+                    if (block.$tetherElement.is(':hidden')){
+                        block.showSuggestion();
+                    }
+
+                    block.focusNextItem();
+                    return false;
+                }
 
                 block.query = input.value;
 
@@ -64,7 +85,40 @@ define(function(require, exports, module) {
                 enabled: false
             });
 
+            block.$tetherElement.on('mouseover', '.autocomplete__item', function(){
+                var index = block.$tetherElement.find('.autocomplete__item').index(this);
+
+                block.focusItemByIndex(index);
+            });
+
             return render;
+        },
+        focusNextItem: function() {
+
+            var block = this,
+                $currentFocusedItem = block.$tetherElement.find('.autocomplete__item_focused'),
+                currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem);
+
+            block.focusItemByIndex(currentFocusedItemIndex + 1);
+        },
+        focusPrevItem: function() {
+
+            var block = this,
+                $currentFocusedItem = block.$tetherElement.find('.autocomplete__item_focused'),
+                currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem);
+
+            block.focusItemByIndex(currentFocusedItemIndex - 1);
+        },
+        focusItemByIndex: function(index) {
+
+            var block = this,
+                itemToFocus = block.$tetherElement.find('.autocomplete__item')[index];
+
+            $(itemToFocus)
+                .addClass('autocomplete__item_focused')
+                .siblings('.autocomplete__item')
+                .removeClass('autocomplete__item_focused');
+
         },
         showSuggestion: function() {
 

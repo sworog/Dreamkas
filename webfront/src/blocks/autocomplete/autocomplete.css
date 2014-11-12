@@ -5,6 +5,26 @@
     border-bottom: 1px solid #ccc;
 }
 
+.autocomplete__hint {
+    padding: 6px 12px;
+}
+
+.autocomplete__item {
+    padding: 6px 12px;
+    border-bottom: 1px solid #eee;
+    min-height: 34px;
+    line-height: 22px;
+    cursor: pointer;
+}
+
+.autocomplete__item_focused {
+    background-color: #f4f4f4;
+}
+
+.autocomplete__suggestion .autocomplete__item:last-child {
+    border-bottom: none;
+}
+
 .tt-dropdown-menu {
     background: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
