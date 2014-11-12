@@ -12,6 +12,7 @@ define(function(require, exports, module) {
         query: '',
         request: null,
         valueKey: 'name',
+        value: '',
         suggestionTemplate: function() {
         },
         autofocus: false,
@@ -112,13 +113,17 @@ define(function(require, exports, module) {
             block.$tetherElement = block.$('.autocomplete__tether');
             block.$input = block.$('.autocomplete__input');
 
-            block.tether = new Tether({
-                element: block.$tetherElement,
-                target: block.$input,
-                attachment: 'top left',
-                targetAttachment: 'bottom left',
-                enabled: false
-            });
+            if (block.$tetherElement.length){
+                block.tether = new Tether({
+                    element: block.$tetherElement,
+                    target: block.$input,
+                    attachment: 'top left',
+                    targetAttachment: 'bottom left',
+                    enabled: false
+                });
+            }
+
+            block.$tetherElement.off();
 
             block.$tetherElement
                 .on('mouseover', '.autocomplete__item', function() {
@@ -236,7 +241,7 @@ define(function(require, exports, module) {
 
             var block = this;
 
-            block.tether.destroy();
+            block.tether && block.tether.destroy();
             block.$tetherElement.remove();
 
             return Block.prototype.remove.apply(block, arguments);

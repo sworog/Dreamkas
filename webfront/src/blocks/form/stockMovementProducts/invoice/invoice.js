@@ -7,6 +7,7 @@ define(function(require, exports, module) {
         model: require('resources/invoiceProduct/model'),
 		collection: require('resources/invoiceProduct/collection'),
 		priceField: 'priceEntered',
+		modalId: null,
 		globalEvents: {
 			'submit:success': function(data, block){
 
@@ -24,13 +25,15 @@ define(function(require, exports, module) {
 
 				var block = this,
 					Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
-					autocomplete_products = new Autocomplete_products;
+					autocomplete_products = new Autocomplete_products({
+						modalId: this.modalId
+					});
 
 				autocomplete_products.on('select', function(productData) {
 					block.selectProduct(productData);
 				});
 
-				autocomplete_products.on('deselect', function(productData) {
+				autocomplete_products.on('deselect', function() {
 					block.deselectProduct();
 				});
 
