@@ -6,7 +6,8 @@
 
     <% _.forEach(data, function(item){ %>
         <div class="autocomplete__item">
-            <%- item.name %>
+            <div><%= highlight(item.name) %></div>
+            <div><%= highlight(item.sku) %></div>
         </div>
     <% }) %>
 
