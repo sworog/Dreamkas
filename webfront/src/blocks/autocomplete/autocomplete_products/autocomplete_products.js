@@ -26,7 +26,7 @@ define(function(require, exports, module) {
                         value: data[this.valueKey]
                     });
 
-                    this.trigger('select', data);
+                    this.select(data);
                 }
 
             }
