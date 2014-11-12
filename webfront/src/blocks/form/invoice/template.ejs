@@ -1,5 +1,3 @@
-<% var supplierModalId = 'modal_supplierForInvoice' + cid %>
-
 <form id="<%- id %>" class="form form_invoice">
     <div class="row">
         <div class="col-md-4">
@@ -33,17 +31,12 @@
 
                 <label class="control-label">Поставщик</label>
 
-                <div class="input-group">
+                <b block="select_supplier"
+                   data-selected="<%- model.get('supplier.id') %>"
+                   data-add="1"
+                   data-modal-id="<%- modalId %>"></b>
 
-                    <b block="select_supplier"
-                       data-selected="<%- model.get('supplier.id') %>"></b>
-
-                    <a class="input-group-addon"
-                       data-modal="<%- supplierModalId %>">
-                        <i class="fa fa-plus"></i>
-                    </a>
-
-                </div>
+                <div class="form__errorMessage" for="supplier"></div>
 
             </div>
         </div>
@@ -59,9 +52,4 @@
                     </span>
         </label>
     </div>
-
-    <b block="modal_supplier"
-       data-referrer="modal_invoice"
-       data-id="<%- supplierModalId %>"></b>
-
 </form>
