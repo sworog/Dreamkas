@@ -11,14 +11,46 @@ define(function(require, exports, module) {
         data: [],
         query: '',
         request: null,
+        valueKey: 'name',
         suggestionTemplate: function() {
         },
         autofocus: false,
         events: {
+            'keydown .autocomplete__input': function(e) {
+                if (e.keyCode === 13) {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    return false;
+                }
+
+                if (checkKey(e.keyCode, ['UP'])) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    return false;
+                }
+
+                if (checkKey(e.keyCode, ['DOWN'])) {
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    return false;
+                }
+            },
             'keyup .autocomplete__input': function(e) {
 
                 var block = this,
                     input = e.target;
+
+                if (e.keyCode === 13) {
+
+                    block.select();
+
+                    return false;
+                }
 
                 if (checkKey(e.keyCode, ['ESC'])) {
                     block.hideSuggestion();
@@ -163,13 +195,18 @@ define(function(require, exports, module) {
                 return block.request;
             }
         },
-        select: function(index) {
+        select: function() {
 
             var block = this,
-                itemData = block.data[index];
+                $currentFocusedItem = block.$tetherElement.find('.autocomplete__item_focused'),
+                currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem),
+                itemData = block.data[currentFocusedItemIndex];
+
+            block.$input.val(itemData[block.valueKey]);
+
+            block.hideSuggestion();
 
             block.trigger('select', itemData);
-
 
         },
         remove: function() {
