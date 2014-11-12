@@ -73,7 +73,7 @@ define(function(require, exports, module) {
         },
         blocks: {
             select_store: require('blocks/select/store/store'),
-            select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple'),
+            select_group: require('blocks/select/group/group'),
             table_stockBalance: require('blocks/table/stockBalance/stockBalance')
         },
         fetch: function() {

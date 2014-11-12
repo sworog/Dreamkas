@@ -1,12 +1,56 @@
+<% var groupModalId = 'modal_group' + cid %>
+
 <div class="select_group">
-    <select class="form-control" name="subCategory">
-        <% collection.forEach(function(groupModel){ %>
-        <option <%- groupModel.id === selectedGroupId ? 'selected' : '' %>
-                value="<%- groupModel.id %>">
-            <%- groupModel.get('name') %>
-        </option>
-        <% }) %>
-        <option value="" add-option>Создать группу </option>
-    </select>
-    <input type="hidden" name="newGroupName">
+
+<% if (add && !PAGE.collections.groups.length) { %>
+
+    <a style="width: 100%"
+       data-modal="<%- groupModalId %>"
+       data-group-id="0"
+       class="btn btn-transparent">
+        Создать группу <i style="margin-left: 10px;" class="fa fa-plus"></i>
+    </a>
+
+<% } else { %>
+
+    <div class="input-group">
+
+        <select class="form-control" name="subCategory" <%- disabled == 1 ? 'disabled' : '' %>>
+
+            <% if (all == 1) { %>
+
+            <option value="" selected>Все группы</option>
+
+            <% } else { %>
+
+            <option value="" selected disabled>Выберите группу</option>
+
+            <% } %>
+
+            <% collection.forEach(function(group){ %>
+            <option <%- group.id === selected && 'selected' %> value="<%- group.id %>">
+                <%- group.get('name') %>
+            </option>
+            <% }) %>
+
+        </select>
+
+        <% if (add == 1) { %>
+
+        <a class="input-group-addon"
+           data-modal="<%- groupModalId %>"
+           data-group-id="0">
+            <i class="fa fa-plus"></i>
+        </a>
+
+        <% } %>
+
+    </div>
+
+<% } %>
+
+<b block="modal_group"
+   data-referrer="<%- modalId %>"
+   data-id="<%- groupModalId %>"></b>
+
 </div>
