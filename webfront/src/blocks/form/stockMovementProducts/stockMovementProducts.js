@@ -11,19 +11,6 @@ define(function(require, exports, module) {
 
                 block.renderTotalSum();
             },
-            'keyup [name="product.name"]': function(e){
-                var block = this;
-
-                if (e.currentTarget.value.length){
-                    block.set('data.product', {
-                        id: 'xxx'
-                    });
-                } else {
-                    block.set('data.product', {
-                        id: null
-                    });
-                }
-            },
             'click .table_stockMovementProducts__removeProductLink': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid,
@@ -125,6 +112,27 @@ define(function(require, exports, module) {
             block.$('.product__units').html(product.units || 'шт.');
 
             block.renderTotalSum();
+        },
+        deselectProduct: function(){
+
+            var block = this;
+
+            if (block.$('input[name="product.name"]').val().length){
+                block.set('data.product', {
+                    id: 'xxx'
+                });
+            } else {
+                block.set('data.product', {
+                    id: null
+                });
+            }
+
+            block.$('input[name="' + block.priceField + '"]').val('');
+
+            block.$('.product__units').html('шт.');
+
+            block.renderTotalSum();
+
         },
 		getTotalSum: function(){
 			var block = this,
