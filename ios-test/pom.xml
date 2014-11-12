@@ -15,11 +15,11 @@
         <thucydides.version>0.9.273</thucydides.version>
         <thucydides.jbehave.version>0.9.273</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.273</thucydides.maven.version>
-        <appium.server.url>0.0.0.0:4723</appium.server.url>
-        <appium.path.to.file>/Users/user/Downloads/dreamkas.ipa</appium.path.to.file>
+        <appium.server.url>http://172.16.2.66:4723/wd/hub</appium.server.url>
+        <appium.path.to.file>/Users/admin/Documents/untitled folder/dreamkas.app</appium.path.to.file>
         <webdriver.driver>provided</webdriver.driver>
         <webdriver.provided.type>appium</webdriver.provided.type>
-        <webdriver.provided.appium>dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
+        <webdriver.provided.appium>ru.dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
         <story.timeout.in.secs>1000000</story.timeout.in.secs>
         <thucydides.only.save.failing.screenshots>true</thucydides.only.save.failing.screenshots>
     </properties>
