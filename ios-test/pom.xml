@@ -16,7 +16,7 @@
         <thucydides.jbehave.version>0.9.273</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.273</thucydides.maven.version>
         <appium.server.url>http://172.16.2.66:4723/wd/hub</appium.server.url>
-        <appium.path.to.file>/Users/admin/Documents/untitled folder/dreamkas.app</appium.path.to.file>
+        <appium.path.to.file>/Users/admin/Documents/Builds/dreamkas.app</appium.path.to.file>
         <webdriver.driver>provided</webdriver.driver>
         <webdriver.provided.type>appium</webdriver.provided.type>
         <webdriver.provided.appium>ru.dreamkas.driver.AppiumDriverSourceImpl</webdriver.provided.appium>
@@ -59,7 +59,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.googlecode.lambdaj</groupId>
