@@ -112,11 +112,7 @@ define(function(require, exports, module) {
         },
         selectProduct: function(product){
             var block = this;
-
-            setTimeout(function(){
-                block.$('input[name="' + block.priceField + '"]').focus();
-            }, 0);
-
+            
             block.set('data.product', {
                 id: product.id
             });
