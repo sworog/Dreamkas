@@ -1,10 +1,9 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var Select = require('blocks/select/select');
 
-    return Block.extend({
+    return Select.extend({
         template: require('ejs!./template.ejs'),
-        selected: null,
         modalId: null,
         disabled: false,
         all: false,

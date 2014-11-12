@@ -53,6 +53,18 @@ define(function(require) {
                 });
             }
         },
+        globalEvents: {
+            'submit:success': function(data, form) {
+
+                var modal = this.$el.closest('.modal')[0],
+                    formModal = form.$el.closest('.modal')[0];
+
+                if (formModal && modal && formModal.block.referrer === modal.id) {
+
+                    this.removeErrors();
+                }
+            }
+        },
         initialize: function() {
             var block = this;
 
@@ -199,6 +211,11 @@ define(function(require) {
             $errorElement.addClass('form__errorMessage_visible');
             $errorElement.text(getText(errorMessage));
 
+        },
+        removeGlobalError: function() {
+            var block = this;
+
+            block.$('.form__errorMessage_global').removeClass('form__errorMessage_visible');
         },
         removeErrors: function() {
             var block = this;

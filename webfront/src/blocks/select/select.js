@@ -1,8 +1,8 @@
 define(function(require, exports, module) {
     //requirements
-    var CollectionBlock = require('kit/collectionBlock/collectionBlock');
+    var Block = require('kit/block/block');
 
-    return CollectionBlock.extend({
+    return Block.extend({
         selected: null,
         select: function(value){
             var block = this;

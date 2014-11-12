@@ -1,10 +1,36 @@
-<select class="form-control" name="supplier">
+<% var supplierModalId = 'modal_supplier' + cid %>
 
-    <option value="" selected disabled>Выберите поставщика</option>
-    <% collection.forEach(function(supplierModel){ %>
-    <option <%- selected === supplierModel.id ? 'selected' : '' %>
-            value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
-    </option>
-    <% }) %>
+<div class="select_supplier">
+    <div class="input-group">
 
-</select>
+        <select class="form-control" name="supplier">
+
+            <option value="" selected disabled>Выберите поставщика</option>
+            <% collection.forEach(function(supplierModel){ %>
+            <option <%- selected === supplierModel.id ? 'selected' : '' %>
+                    value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+            </option>
+            <% }) %>
+
+        </select>
+
+        <% if (add) { %>
+
+        <a class="input-group-addon"
+           data-modal="<%- supplierModalId %>">
+            <i class="fa fa-plus"></i>
+        </a>
+
+        <% } %>
+
+    </div>
+
+    <% if (add) { %>
+
+    <b block="modal_supplier"
+       data-referrer="<%- modalId %>"
+       data-id="<%- supplierModalId %>"></b>
+
+    <% } %>
+
+</div>
