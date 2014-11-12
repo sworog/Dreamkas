@@ -45,7 +45,8 @@ define(function(require, exports, module) {
                     Form_product = require('blocks/form/product/product');
 
                 return new Form_product({
-                    model: block.models.product
+                    model: block.models.product,
+                    modalId: block.id
                 });
             }
         }

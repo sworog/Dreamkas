@@ -3,14 +3,6 @@
 
     <div class="form-group">
 
-        <label class="control-label">Группа *</label>
-
-        <b block="select_group" data-selected-group-id="<%- get('selectedGroupId') %>"></b>
-
-    </div>
-
-    <div class="form-group">
-
         <label class="control-label">Наименование *</label>
 
         <input name="name"
@@ -19,6 +11,17 @@
                autofocus
                class="form-control"
                value="<%- model.get('name') %>">
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Группа *</label>
+
+        <b block="select_group"
+           data-selected="<%- get('selectedGroupId') %>"
+           data-add="1"
+           data-modal-id="<%- modalId %>"></b>
+
     </div>
 
     <div class="form-group">
@@ -110,4 +113,5 @@
 
     </div>
     <% } %>
+
 </form>

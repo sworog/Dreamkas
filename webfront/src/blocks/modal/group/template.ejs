@@ -1,12 +1,23 @@
+<% var groupFormId = id + '__form' %>
+
 <div id="<%- id %>"
      class="modal">
 
     <% if (!deleted) { %>
 
     <div class="modal__header">
-        <a class="modal__closeLink pull-left fa fa-times"></a>
 
-        <button form="form_group"
+        <% if (referrer) { %>
+
+        <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-chevron-left"></a>
+
+        <% } else { %>
+
+        <a class="modal__closeLink fa fa-times"></a>
+
+        <% } %>
+
+        <button form="<%- groupFormId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- models.group.id ? 'Сохранить' : 'Добавить' %>
@@ -19,7 +30,7 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_group"></b>
+        <b block="form_group" data-id="<%- groupFormId %>"></b>
 
     </div>
 

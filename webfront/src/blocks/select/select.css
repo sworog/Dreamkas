@@ -1,3 +1,7 @@
 select {
     -webkit-appearance: none;
 }
+
+.select_group > .input-group {
+    width: 100%;
+}
