@@ -223,12 +223,12 @@ define(function(require, exports, module) {
 
             return _.escape(string).replace(new RegExp(block.query, 'gi'), '<b>' + block.query + '</b>');
         },
-        select: function() {
+        select: function(data) {
 
             var block = this,
                 $currentFocusedItem = block.$tetherElement.find('.autocomplete__item_focused'),
                 currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem),
-                itemData = block.data[currentFocusedItemIndex];
+                itemData = data || block.data[currentFocusedItemIndex];
 
             block.$input.val(itemData[block.valueKey]);
 
