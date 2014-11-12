@@ -18,7 +18,10 @@ define(function(require, exports, module) {
         autofocus: false,
         events: {
             'keydown .autocomplete__input': function(e) {
-                if (e.keyCode === 13) {
+
+                var block = this;
+
+                if (e.keyCode === 13 && block.$tetherElement.is(':visible')) {
 
                     e.preventDefault();
                     e.stopPropagation();
@@ -48,9 +51,13 @@ define(function(require, exports, module) {
 
                 if (e.keyCode === 13) {
 
-                    block.select();
+                    if (block.$tetherElement.is(':visible')) {
+                        block.select();
+                        return false;
+                    }
 
-                    return false;
+                    return;
+
                 }
 
                 if (checkKey(e.keyCode, ['ESC'])) {
@@ -228,12 +235,16 @@ define(function(require, exports, module) {
             block.hideSuggestion();
             block.data = [];
 
+            block.el.classList.add('autocomplete_selected');
+
             block.trigger('select', itemData);
 
         },
         deselect: function(){
 
             var block = this;
+
+            block.el.classList.remove('autocomplete_selected');
 
             block.trigger('deselect');
         },

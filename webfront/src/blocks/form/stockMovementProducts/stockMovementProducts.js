@@ -62,6 +62,7 @@ define(function(require, exports, module) {
             block.collection.push(invoice.products[0], {temp: true});
 
             block.clear();
+            block.el.querySelector('.autocomplete').block.deselect();
 
             block.$('.tt-input[name="product.name"]').focus();
         },
