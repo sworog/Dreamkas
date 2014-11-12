@@ -202,6 +202,12 @@ define(function(require, exports, module) {
                 return block.request;
             }
         },
+        highlight: function(string){
+
+            var block = this;
+
+            return _.escape(string).replace(new RegExp(block.query, 'gi'), '<b>' + block.query + '</b>');
+        },
         select: function() {
 
             var block = this,
