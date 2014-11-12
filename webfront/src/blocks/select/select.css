@@ -2,6 +2,7 @@ select {
     -webkit-appearance: none;
 }
 
-.select_group > .input-group {
+.select_group > .input-group,
+.select_store > .input-group {
     width: 100%;
 }

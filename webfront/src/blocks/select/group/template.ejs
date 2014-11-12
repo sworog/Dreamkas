@@ -2,7 +2,7 @@
 
 <div class="select_group">
 
-<% if (add && !PAGE.collections.groups.length) { %>
+    <% if (add && !PAGE.collections.groups.length) { %>
 
     <a style="width: 100%"
        data-modal="<%- groupModalId %>"
@@ -11,13 +11,13 @@
         Создать группу <i style="margin-left: 10px;" class="fa fa-plus"></i>
     </a>
 
-<% } else { %>
+    <% } else { %>
 
     <div class="input-group">
 
         <select class="form-control" name="subCategory" <%- disabled == 1 ? 'disabled' : '' %>>
 
-            <% if (all == 1) { %>
+            <% if (all) { %>
 
             <option value="" selected>Все группы</option>
 
@@ -35,7 +35,7 @@
 
         </select>
 
-        <% if (add == 1) { %>
+        <% if (add) { %>
 
         <a class="input-group-addon"
            data-modal="<%- groupModalId %>"
@@ -47,10 +47,14 @@
 
     </div>
 
-<% } %>
+    <% } %>
 
-<b block="modal_group"
-   data-referrer="<%- modalId %>"
-   data-id="<%- groupModalId %>"></b>
+    <% if (add) { %>
+
+    <b block="modal_group"
+       data-referrer="<%- modalId %>"
+       data-id="<%- groupModalId %>"></b>
+
+    <% } %>
 
 </div>
