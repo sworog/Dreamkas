@@ -1,4 +1,7 @@
-<div id="<%- id %>"
+<% var modalId = 'modal_stockMovement-' + cid %>
+<% var formId = 'form_stockMovement-' + cid %>
+
+<div id="<%- modalId %>"
      class="modal modal_stockMovement <%- deleted ? 'modal_stockMovementDeleted' : '' %>">
 
     <% if (!deleted) { %>
@@ -19,7 +22,8 @@
     </div>
     <div class="modal__body">
 
-        <b block="form"></b>
+        <b block="form"
+           id="<%- formId %>"></b>
 
         <hr style="margin: 0 -60px;"/>
 
