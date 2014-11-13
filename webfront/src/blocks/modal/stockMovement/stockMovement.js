@@ -43,13 +43,13 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            form: function(){
+            form: function(opt){
                 var Form = this.Form;
 
-                return new Form({
+                return new Form(_.extend({
                     model: this.model,
                     modalId: this.id
-                });
+                }, opt));
             },
             form_products: function(){
                 var Form_products = this.Form_products;
