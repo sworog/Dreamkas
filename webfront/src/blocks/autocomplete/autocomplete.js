@@ -204,7 +204,9 @@ define(function(require, exports, module) {
                     data: {
                         query: block.query
                     }
-                }).then(function(data) {
+                });
+
+                block.request.then(function(data) {
 
                     block.request = null;
                     block.data = data;
