@@ -18,7 +18,10 @@
         
         // инициализация модуля для работы с веб-сервисом
         #if API_USE_TEST_SERVER
-            self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_TEST_SERVER_URL]];
+            if ([API_AUTOTESTS_SERVER_URL length])
+                self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_AUTOTESTS_SERVER_URL]];
+            else
+                self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_TEST_SERVER_URL]];
         #else
             self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_SERVER_URL]];
         #endif
