@@ -3,16 +3,16 @@
     position: relative;
 }
 
-.page_outside {
+.page_auth {
     padding: 38px 0;
     background: #4A5D68;
 }
 
-.page_outside__logoWrap {
+.page_auth__logoWrap {
     text-align: center;
 }
 
-.page_outside__logo {
+.page_auth__logo {
     height: 130px;
     width: 224px;
     line-height: 0;
