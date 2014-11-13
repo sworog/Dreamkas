@@ -24,7 +24,7 @@ public class ProductCreateModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("group", new AutoComplete(this, "//*[@class='select2-choice']"));
+        put("group", new SelectByVisibleText(this, "//*[@name='subCategory']"));
         put("name", getInputWithCustomFieldErrorChecker("//*[@name='name']"));
         put("unit", new Input(this, "//*[@name='units']"));
         put("barcode", getInputWithCustomFieldErrorChecker("//*[@name='barcode']"));
