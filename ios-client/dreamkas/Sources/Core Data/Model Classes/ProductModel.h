@@ -2,7 +2,7 @@
 //  ProductModel.h
 //  dreamkas
 //
-//  Created by sig on 07.11.14.
+//  Created by sig on 13.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "AbstractModel.h"
 
-@class CartModel, GroupModel;
+@class GroupModel, PurchaseModel;
 
 @interface ProductModel : AbstractModel
 
@@ -19,15 +19,15 @@
 @property (nonatomic, retain) NSNumber * purchasePrice;
 @property (nonatomic, retain) NSNumber * sellingPrice;
 @property (nonatomic, retain) NSString * sku;
+@property (nonatomic, retain) NSSet *purchases;
 @property (nonatomic, retain) GroupModel *group;
-@property (nonatomic, retain) NSSet *carts;
 @end
 
 @interface ProductModel (CoreDataGeneratedAccessors)
 
-- (void)addCartsObject:(CartModel *)value;
-- (void)removeCartsObject:(CartModel *)value;
-- (void)addCarts:(NSSet *)values;
-- (void)removeCarts:(NSSet *)values;
+- (void)addPurchasesObject:(PurchaseModel *)value;
+- (void)removePurchasesObject:(PurchaseModel *)value;
+- (void)addPurchases:(NSSet *)values;
+- (void)removePurchases:(NSSet *)values;
 
 @end

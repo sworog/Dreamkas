@@ -1,19 +1,19 @@
 //
-//  CartViewController.m
+//  PurchaseViewController.m
 //  dreamkas
 //
-//  Created by sig on 07.11.14.
+//  Created by sig on 13.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "CartViewController.h"
+#import "PurchaseViewController.h"
 #import "MoreButton.h"
 
-@interface CartViewController ()
+@interface PurchaseViewController ()
 
 @end
 
-@implementation CartViewController
+@implementation PurchaseViewController
 
 #pragma mark - View Lifecycle
 

@@ -2,7 +2,7 @@
 //  StoreModel.h
 //  dreamkas
 //
-//  Created by sig on 07.11.14.
+//  Created by sig on 13.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -10,20 +10,20 @@
 #import <CoreData/CoreData.h>
 #import "AbstractModel.h"
 
-@class CartModel;
+@class PurchaseModel;
 
 @interface StoreModel : AbstractModel
 
 @property (nonatomic, retain) NSString * address;
 @property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSSet *carts;
+@property (nonatomic, retain) NSSet *purchases;
 @end
 
 @interface StoreModel (CoreDataGeneratedAccessors)
 
-- (void)addCartsObject:(CartModel *)value;
-- (void)removeCartsObject:(CartModel *)value;
-- (void)addCarts:(NSSet *)values;
-- (void)removeCarts:(NSSet *)values;
+- (void)addPurchasesObject:(PurchaseModel *)value;
+- (void)removePurchasesObject:(PurchaseModel *)value;
+- (void)addPurchases:(NSSet *)values;
+- (void)removePurchases:(NSSet *)values;
 
 @end

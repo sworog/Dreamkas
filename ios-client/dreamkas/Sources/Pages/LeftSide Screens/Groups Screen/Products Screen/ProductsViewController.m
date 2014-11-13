@@ -167,6 +167,8 @@
     
     ProductModel *product = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DPLogFast(@"product = %@", product);
+    
+    // ..
 }
 
 @end

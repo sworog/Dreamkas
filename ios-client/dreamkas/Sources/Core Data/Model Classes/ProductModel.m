@@ -2,13 +2,13 @@
 //  ProductModel.m
 //  dreamkas
 //
-//  Created by sig on 07.11.14.
+//  Created by sig on 13.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
 #import "ProductModel.h"
-#import "CartModel.h"
 #import "GroupModel.h"
+#import "PurchaseModel.h"
 
 
 @implementation ProductModel
@@ -18,7 +18,7 @@
 @dynamic purchasePrice;
 @dynamic sellingPrice;
 @dynamic sku;
+@dynamic purchases;
 @dynamic group;
-@dynamic carts;
 
 @end
