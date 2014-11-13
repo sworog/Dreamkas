@@ -11,7 +11,6 @@ define(function(require, exports, module) {
         valueKey: 'name',
         inputName: 'product.name',
         selectedProduct: null,
-        modalId: null,
         productCount: require('resources/product/count'),
         globalEvents: {
             'submit:success': function(data, block) {
