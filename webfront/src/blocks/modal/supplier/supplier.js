@@ -7,13 +7,12 @@ define(function(require, exports, module) {
         id: 'modal_supplier',
         template: require('ejs!./template.ejs'),
         blocks: {
-            form_supplier: function(){
-                var block = this,
-                    Form_supplier = require('blocks/form/supplier/supplier');
+            form_supplier: function(options) {
+                var Form_supplier = require('blocks/form/supplier/supplier');
 
-                return new Form_supplier({
-                    supplierId: block.supplierId
-                });
+                options.supplierId = this.supplierId;
+
+                return new Form_supplier(options);
             }
         }
     });
