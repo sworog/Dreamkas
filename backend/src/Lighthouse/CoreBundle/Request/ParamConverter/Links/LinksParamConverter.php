@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Request\ParamConverter\Links;
 
-use Lighthouse\CoreBundle\Response\DocumentResponse;
+use Lighthouse\CoreBundle\Response\DocumentViewResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -86,7 +86,7 @@ class LinksParamConverter implements ParamConverterInterface
             throw new BadRequestHttpException(sprintf('Failed to fetch resource: %s', $link->getResourceUri()));
         }
 
-        if ($response instanceof DocumentResponse) {
+        if ($response instanceof DocumentViewResponse) {
             $resource = $response->getDocument();
             $link->setResource($resource);
         }

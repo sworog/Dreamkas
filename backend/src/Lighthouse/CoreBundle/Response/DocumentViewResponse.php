@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Response;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\HttpFoundation\Response;
 
-class DocumentResponse extends Response
+class DocumentViewResponse extends Response
 {
     /**
      * @var AbstractDocument
