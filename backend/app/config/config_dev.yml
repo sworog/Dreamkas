@@ -18,9 +18,6 @@ monolog:
 assetic:
     use_controller: true
 
-ekino_new_relic:
-    application_name: Lighthouse API dev
-
 fos_rest:
     exception:
         messages:
