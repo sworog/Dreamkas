@@ -48,6 +48,8 @@
 #import "StoreModel.h"
 #import "ProductModel.h"
 #import "GroupModel.h"
+#import "PurchaseModel.h"
+#import "PurchaseModel+Helper.h"
 
 //
 // Менеджеры и хэлперы

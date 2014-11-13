@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * itemsCount;
 @property (nonatomic, retain) NSString * paymentType;
 @property (nonatomic, retain) NSNumber * sumTotal;
+@property (nonatomic, retain) NSNumber * isActive;
 @property (nonatomic, retain) NSSet *products;
 @property (nonatomic, retain) StoreModel *store;
 @end

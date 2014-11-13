@@ -886,9 +886,6 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oW-wB-Dyw" customClass="WordWrappingLabel">
                                                     <rect key="frame" x="24" y="0.0" width="516" height="64"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="64" id="Cph-bC-dBw"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.25098039220000001" green="0.66274509800000003" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -896,7 +893,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 000 000 P" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVI-Wq-3z6">
                                                     <rect key="frame" x="560" y="0.0" width="120" height="64"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="120" id="PNj-VR-IR9"/>
+                                                        <constraint firstAttribute="width" constant="120" id="CME-Rg-UVQ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -904,14 +901,14 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="gVI-Wq-3z6" secondAttribute="trailing" constant="24" id="0M8-Ia-YrJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="gVI-Wq-3z6" secondAttribute="bottom" id="DIF-zr-neU"/>
-                                                <constraint firstItem="gVI-Wq-3z6" firstAttribute="top" secondItem="Ahq-85-lNK" secondAttribute="top" id="Ma3-Bg-mft"/>
-                                                <constraint firstItem="gVI-Wq-3z6" firstAttribute="leading" secondItem="8oW-wB-Dyw" secondAttribute="trailing" constant="20" id="R1a-up-CBL"/>
-                                                <constraint firstItem="8oW-wB-Dyw" firstAttribute="top" secondItem="Ahq-85-lNK" secondAttribute="top" id="X1L-ap-pLp"/>
-                                                <constraint firstAttribute="bottom" secondItem="8oW-wB-Dyw" secondAttribute="bottom" id="heH-Cg-KJ5"/>
-                                                <constraint firstItem="8oW-wB-Dyw" firstAttribute="leading" secondItem="Ahq-85-lNK" secondAttribute="leading" constant="24" id="pjZ-zl-KJ0"/>
-                                                <constraint firstItem="gVI-Wq-3z6" firstAttribute="leading" secondItem="8oW-wB-Dyw" secondAttribute="trailing" constant="20" id="rTh-sF-INE"/>
+                                                <constraint firstAttribute="trailing" secondItem="gVI-Wq-3z6" secondAttribute="trailing" constant="24" id="1df-uG-g53"/>
+                                                <constraint firstAttribute="bottom" secondItem="8oW-wB-Dyw" secondAttribute="bottom" id="46T-cF-HKo"/>
+                                                <constraint firstItem="gVI-Wq-3z6" firstAttribute="top" secondItem="Ahq-85-lNK" secondAttribute="top" id="PUm-ip-QjO"/>
+                                                <constraint firstItem="gVI-Wq-3z6" firstAttribute="leading" secondItem="8oW-wB-Dyw" secondAttribute="trailing" constant="20" id="aPj-o5-iv2"/>
+                                                <constraint firstItem="8oW-wB-Dyw" firstAttribute="top" secondItem="Ahq-85-lNK" secondAttribute="top" id="bS8-qi-n18"/>
+                                                <constraint firstItem="gVI-Wq-3z6" firstAttribute="leading" secondItem="8oW-wB-Dyw" secondAttribute="trailing" constant="20" id="mQj-fG-Rf2"/>
+                                                <constraint firstAttribute="bottom" secondItem="gVI-Wq-3z6" secondAttribute="bottom" id="rCF-EP-iqg"/>
+                                                <constraint firstItem="8oW-wB-Dyw" firstAttribute="leading" secondItem="Ahq-85-lNK" secondAttribute="leading" constant="24" id="vw5-ck-HT3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

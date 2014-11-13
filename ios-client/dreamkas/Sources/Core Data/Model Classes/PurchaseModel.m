@@ -16,6 +16,7 @@
 @dynamic itemsCount;
 @dynamic paymentType;
 @dynamic sumTotal;
+@dynamic isActive;
 @dynamic products;
 @dynamic store;
 

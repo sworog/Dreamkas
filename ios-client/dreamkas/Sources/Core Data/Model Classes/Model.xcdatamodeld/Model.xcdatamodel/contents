@@ -17,6 +17,7 @@
         <relationship name="purchases" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PurchaseModel" inverseName="products" inverseEntity="PurchaseModel" syncable="YES"/>
     </entity>
     <entity name="PurchaseModel" representedClassName="PurchaseModel" parentEntity="AbstractModel" syncable="YES">
+        <attribute name="isActive" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="itemsCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="paymentType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sumTotal" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
@@ -30,9 +31,9 @@
     </entity>
     <elements>
         <element name="AbstractModel" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="PurchaseModel" positionX="-54" positionY="45" width="128" height="118"/>
         <element name="GroupModel" positionX="-63" positionY="27" width="128" height="73"/>
         <element name="ProductModel" positionX="-63" positionY="0" width="128" height="148"/>
+        <element name="PurchaseModel" positionX="-54" positionY="45" width="128" height="133"/>
         <element name="StoreModel" positionX="-63" positionY="-9" width="128" height="90"/>
     </elements>
 </model>
