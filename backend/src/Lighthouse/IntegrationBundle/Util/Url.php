@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Util;
+namespace Lighthouse\IntegrationBundle\Util;
 
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 
