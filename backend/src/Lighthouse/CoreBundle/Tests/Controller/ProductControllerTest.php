@@ -562,6 +562,28 @@ class ProductControllerTest extends WebTestCase
         );
     }
 
+    public function testGetProductsTotalCountHeader()
+    {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->factory()->catalog()->getProductByNames(array('a', 'b', 'c', 'd', 'e', 'f', 'g'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products',
+            null,
+            array('limit' => 5)
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(5, '*.id', $response);
+
+        $headersBag = $this->client->getResponse()->headers;
+        $this->assertTrue($headersBag->has('X-Total-Count'));
+        $this->assertEquals('7', $headersBag->get('X-Total-Count'));
+    }
+
     public function testGetProductsWithEmptyTypePropertiesReturnsArray()
     {
         $this->createProductsByNames(array('1', '2', '3', '4', '5'));

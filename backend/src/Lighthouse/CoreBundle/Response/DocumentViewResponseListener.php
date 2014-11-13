@@ -10,7 +10,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
- * @DI\Service("lighthouse.core.document_view_response_listener")
+ * @DI\Service("lighthouse.core.response.document_view_response_listener")
  */
 class DocumentViewResponseListener
 {
@@ -20,7 +20,7 @@ class DocumentViewResponseListener
      */
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
-        if (!(HttpKernelInterface::SUB_REQUEST === $event->getRequestType())) {
+        if (HttpKernelInterface::SUB_REQUEST !== $event->getRequestType()) {
             return;
         }
 
