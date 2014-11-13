@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         source: '',
         data: [],
         query: '',
-        request: {},
+        request: null,
         valueKey: 'name',
         value: '',
         suggestionTemplate: function() {
@@ -193,7 +193,7 @@ define(function(require, exports, module) {
         getData: function() {
             var block = this;
 
-            block.request.abort && block.request.abort();
+            block.request && block.request.abort();
 
             if (typeof block.source === 'string') {
 
