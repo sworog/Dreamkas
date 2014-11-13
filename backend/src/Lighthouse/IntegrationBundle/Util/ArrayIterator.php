@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Util\Iterator;
+namespace Lighthouse\IntegrationBundle\Util;
 
 class ArrayIterator extends \ArrayIterator
 {

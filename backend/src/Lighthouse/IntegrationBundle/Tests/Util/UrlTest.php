@@ -1,9 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Util;
+namespace Lighthouse\IntegrationBundle\Tests\Util;
 
 use Lighthouse\CoreBundle\Test\TestCase;
-use Lighthouse\CoreBundle\Util\Url;
+use Lighthouse\IntegrationBundle\Util\Url;
 
 class UrlTest extends TestCase
 {
