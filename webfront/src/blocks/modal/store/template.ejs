@@ -1,3 +1,5 @@
+<% var formId = id + '__form' %>
+
 <div id="<%- id %>"
      class="modal modal_store">
 
@@ -13,7 +15,7 @@
 
         <% } %>
 
-        <button form="form_store"
+        <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- storeId != 0 ? 'Сохранить' : 'Добавить' %>
@@ -25,7 +27,8 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_store"></b>
+        <b block="form_store"
+           data-id="<%- formId %>"></b>
 
     </div>
 </div>
