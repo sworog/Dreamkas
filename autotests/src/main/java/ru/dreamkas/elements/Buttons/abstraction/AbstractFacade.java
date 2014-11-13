@@ -4,6 +4,7 @@ import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.dreamkas.common.item.interfaces.Clickable;
+import ru.dreamkas.common.item.interfaces.Conditionable;
 import ru.dreamkas.common.item.interfaces.Findable;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.elements.Buttons.interfaces.Conditional;
@@ -14,7 +15,7 @@ import static org.junit.Assert.fail;
 /**
  * Abstract facade to handle facade objects
  */
-public abstract class AbstractFacade implements Conditional, Clickable, Findable {
+public abstract class AbstractFacade implements Conditional, Clickable, Findable, Conditionable{
 
     private CommonPageObject pageObject;
     private By findBy;
