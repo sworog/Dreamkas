@@ -1,4 +1,5 @@
-<% var formId = id + '__form' %>
+<% var id = id || 'modal_group-' + cid %>
+<% var formId = 'form_group-' + id %>
 
 <div id="<%- id %>"
      class="modal">
@@ -30,7 +31,8 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_group" data-id="<%- formId %>"></b>
+        <b block="form_group"
+           data-id="<%- formId %>"></b>
 
     </div>
 

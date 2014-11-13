@@ -1,4 +1,4 @@
-<form id="form_product"
+<form id="<%- id %>"
       class="form form_product">
 
     <div class="form-group">
@@ -19,8 +19,7 @@
 
         <b block="select_group"
            data-selected="<%- get('selectedGroupId') %>"
-           data-add="1"
-           data-modal-id="<%- modalId %>"></b>
+           data-add="1"></b>
 
         <div class="form__errorMessage" for="subCategory"></div>
 

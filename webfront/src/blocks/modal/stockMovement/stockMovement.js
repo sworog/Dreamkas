@@ -5,7 +5,6 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./template.ejs'),
         itemId: null,
-		formId: null,
 		Form: null,
 		Form_products: null,
 		Model: null,

@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        modalId: null,
+        id: 'form_product',
         selectedGroupId: function(){
             return PAGE.models.group && PAGE.models.group.id;
         },
