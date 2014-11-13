@@ -11,7 +11,7 @@
 
     preserveLicenseComments: false,
     optimizeCss: 'standard',
-    optimize: 'uglify2',
+    optimize: 'none',
 
     uglify2: {
         //Example of a specialized config. If you are fine
