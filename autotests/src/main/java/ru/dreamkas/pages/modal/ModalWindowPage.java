@@ -56,6 +56,6 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
 
     @Override
     public void continueButtonClick() {
-        findVisibleElement(By.name("removeContinue")).click();
+        clickInTheModalWindowByXpath("//*[@name='removeContinue']");
     }
 }
