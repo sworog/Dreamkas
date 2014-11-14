@@ -26,7 +26,6 @@ rm -rf "$BUILDPATH"
 mkdir "$BUILDPATH"
 
 /Library/xctool/xctool.sh \
-    -arch i386 \
     -sdk iphonesimulator8.1 \
     -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
@@ -37,7 +36,6 @@ mkdir "$BUILDPATH"
     CONFIGURATION_BUILD_DIR="$BUILDPATH"
 
 /Library/xctool/xctool.sh \
-    -arch i386 \
     -sdk iphonesimulator8.1 \
     -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
