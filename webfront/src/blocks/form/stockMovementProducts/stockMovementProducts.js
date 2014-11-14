@@ -64,7 +64,7 @@ define(function(require, exports, module) {
             block.clear();
             block.el.querySelector('.autocomplete').block.deselect();
 
-            block.$('.tt-input[name="product.name"]').focus();
+            block.$('input[name="product.name"]').focus();
         },
         showErrors: function(error) {
             var block = this,
