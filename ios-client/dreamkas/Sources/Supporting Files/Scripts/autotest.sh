@@ -10,6 +10,11 @@ WORKPATH=$1
 APIURL=$2
 BUILDPATH=$WORKPATH/ios-client/dreamkas/Builds
 
+if [ -z "$APIURL" ]
+then
+    APIURL="http://ios.autotests.api.lighthouse.pro"
+fi
+
 rm -rf $BUILDPATH
 mkdir $BUILDPATH
 
