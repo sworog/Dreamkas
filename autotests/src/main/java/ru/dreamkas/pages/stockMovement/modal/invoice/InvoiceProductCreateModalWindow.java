@@ -21,6 +21,6 @@ public class InvoiceProductCreateModalWindow extends ProductCreateModalWindow {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[contains(@id, 'modal_product')]";
+        return "//*[contains(@id, 'modal_product') and contains(@class, 'modal_visible')]";
     }
 }

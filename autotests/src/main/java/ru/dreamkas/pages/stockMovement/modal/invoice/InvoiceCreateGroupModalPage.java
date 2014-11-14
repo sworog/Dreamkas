@@ -12,6 +12,6 @@ public class InvoiceCreateGroupModalPage extends CreateGroupModalPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[contains(@id, 'modal_group')]";
+        return "//*[contains(@id, 'modal_group') and contains(@class, 'modal_visible')]";
     }
 }

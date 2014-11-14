@@ -74,7 +74,6 @@ Scenario: Проверка наличия кнопки создать магаз
 
 Meta:
 @smoke
-@us129_test
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/пользователь/создание_юзера.story,
@@ -93,7 +92,6 @@ Scenario: Проверка наличия кнопки создать товар
 
 Meta:
 @smoke
-@us129_test
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/пользователь/создание_юзера.story,
@@ -112,7 +110,6 @@ Scenario: Проверка отсутствия кнопки создать ма
 
 Meta:
 @smoke
-@us129_test
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/пользователь/создание_юзера.story,
@@ -131,7 +128,6 @@ Scenario: Проверка отсутствия кнопки создать то
 
 Meta:
 @smoke
-@us129_test
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/пользователь/создание_юзера.story,

@@ -1,11 +1,11 @@
-package ru.dreamkas.pages.stockMovement.modal.invoice;
+package ru.dreamkas.pages.stockMovement.modal.stockIn;
 
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.pages.store.modal.StoreCreateModalWindow;
 
-public class InvoiceStoreCreateModalWindow extends StoreCreateModalWindow {
+public class StockInStoreCreateModalWindow extends StoreCreateModalWindow {
 
-    public InvoiceStoreCreateModalWindow(WebDriver driver) {
+    public StockInStoreCreateModalWindow(WebDriver driver) {
         super(driver);
     }
 

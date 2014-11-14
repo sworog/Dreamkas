@@ -11,8 +11,7 @@ import ru.dreamkas.pages.pos.ReceiptModalPage;
 import ru.dreamkas.pages.pos.ReceiptPositionEditModalWindow;
 import ru.dreamkas.pages.pos.RefundModalWindowPage;
 import ru.dreamkas.pages.stockMovement.modal.invoice.*;
-import ru.dreamkas.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
-import ru.dreamkas.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import ru.dreamkas.pages.stockMovement.modal.stockIn.*;
 import ru.dreamkas.pages.stockMovement.modal.supplierReturn.SupplierReturnCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.supplierReturn.SupplierReturnEditModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
@@ -46,6 +45,7 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("создания магазина внутри приемки", InvoiceStoreCreateModalWindow.class);
             put("создания товара внутри приемки", InvoiceProductCreateModalWindow.class);
             put("создания группы внутри создания товара внутри приемки", InvoiceCreateGroupModalPage.class);
+            put("создания магазина внутри оприходования", StockInStoreCreateModalWindow.class);
         }};
     }
 

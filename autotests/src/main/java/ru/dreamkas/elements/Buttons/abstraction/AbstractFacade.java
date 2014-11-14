@@ -30,7 +30,6 @@ public abstract class AbstractFacade implements Conditional, Clickable, Findable
         this.pageObject = modalWindowPage;
         this.facadeText = facadeText;
         findBy = By.xpath(modalWindowPage.modalWindowXpath() + getXpathPatternWithFacadeText());
-
     }
 
     public AbstractFacade(CommonPageObject pageObject, String facadeText) {
