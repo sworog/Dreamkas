@@ -92,5 +92,5 @@
 }
 
 .modal_stockMovement:not(.modal_stockMovementDeleted) {
-    width: 70% !important;
+    width: 80% !important;
 }

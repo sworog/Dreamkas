@@ -211,6 +211,7 @@ define(function(require, exports, module) {
 
             View.prototype.trigger.apply(block, arguments);
 
+            block.$el.trigger(event, data);
             globalEvents.trigger(event, data, block);
         },
 

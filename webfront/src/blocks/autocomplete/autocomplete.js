@@ -49,6 +49,10 @@ define(function(require, exports, module) {
                 var block = this,
                     input = e.target;
 
+                if (checkKey(e.keyCode, ['LEFT', 'RIGHT'])) {
+                    return;
+                }
+
                 if (e.keyCode === 13) {
 
                     if (block.$tetherElement.is(':visible')) {
