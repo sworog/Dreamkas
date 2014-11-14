@@ -2,7 +2,7 @@ var phantomcss = require('phantomcss');
 
 phantomcss.init({
     libraryRoot: './node_modules/phantomcss',
-    screenshotRoot: '/screenshots'
+    screenshotRoot: './screenshots'
 }/*{
 
  failedComparisonsRoot: '/failures'
@@ -26,20 +26,20 @@ phantomcss.init({
  }
  }*/);
 
-casper.start( 'http://beta.dreamkas.ru' );
+casper.start( 'http://lighthouse.dev/signup' );
 
 casper.viewport(1024, 768);
 
-casper.then(function(){
-    phantomcss.screenshot('body', 'open coffee machine button');
+casper.waitForSelector('body[status="loaded"]', function() {
+    phantomcss.screenshot('body', 'full body');
 });
 
-casper.then( function now_check_the_screenshots(){
+casper.then( function(){
     // compare screenshots
     phantomcss.compareAll();
 });
 
-casper.then( function end_it(){
+casper.then( function(){
     casper.test.done();
 });
 
