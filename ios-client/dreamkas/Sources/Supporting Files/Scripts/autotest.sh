@@ -26,7 +26,7 @@ mkdir $BUILDPATH
     -scheme dreamkas \
     AUTOTESTS_SERVER=$APIURL \
     clean build-tests -only dreamkas-tests \
-    CONFIGURATION_BUILD_DIR=$BUILDPATH
+    CONFIGURATION_BUILD_DIR="$BUILDPATH"
 
 /Library/xctool/xctool.sh \
     -arch i386 \
@@ -36,7 +36,7 @@ mkdir $BUILDPATH
     -scheme dreamkas \
     AUTOTESTS_SERVER=$APIURL \
     run-tests -only dreamkas-tests -parallelize \
-    CONFIGURATION_BUILD_DIR=$BUILDPATH
+    CONFIGURATION_BUILD_DIR="$BUILDPATH"
 
 # CONFIGURATION_BUILD_DIR=$buildpath
 # may be replaced by
