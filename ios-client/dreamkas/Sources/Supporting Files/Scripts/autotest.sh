@@ -22,8 +22,8 @@ echo "WORKPATH: $WORKPATH"
 echo "APIURL: $APIURL"
 echo "BUILDPATH: $BUILDPATH"
 
-rm -rf $BUILDPATH
-mkdir $BUILDPATH
+rm -rf "$BUILDPATH"
+mkdir "$BUILDPATH"
 
 /Library/xctool/xctool.sh \
     -arch i386 \
