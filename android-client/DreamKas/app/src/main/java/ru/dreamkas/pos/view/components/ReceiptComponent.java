@@ -123,7 +123,14 @@ public class ReceiptComponent extends LinearLayout {
                     case Cancel:
                         break;
                     case RemoveReceipt:
-                        ((ReceiptAdapter) ((HeaderViewListAdapter)lvReceipt.getAdapter()).getWrappedAdapter()).remove(dialog.getReceiptItem());
+                        //((ReceiptAdapter) ((HeaderViewListAdapter)lvReceipt.getAdapter()).getWrappedAdapter()).remove(dialog.getReceiptItem());
+                        mAdapter.remove(dialog.getReceiptItem());
+                        mAdapter.notifyDataSetChanged();
+                        if(mAdapter.getCount()==0){
+                            setReceiptView(true);
+                        }
+                        changeReceiptTotal();
+
                         break;
                 }
             }

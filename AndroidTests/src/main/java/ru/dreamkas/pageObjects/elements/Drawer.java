@@ -20,8 +20,13 @@ public class Drawer extends Collection implements Settable {
     }
 
     @Override
+    public <T> List<T> getItems() {
+        return null;
+    }
+
+    @Override
     public void set(String value) {
-        WebElement drawer = getCommonPageObject().getAppiumDriver().findElement(getFindBy());
+        WebElement drawer = getElement();
         drawer.click();
         clickOnElementWithText(getCommonPageObject().getAppiumDriver().findElements(By.xpath("//android.widget.TextView")), value);
     }

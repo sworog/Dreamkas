@@ -1,11 +1,7 @@
 package ru.dreamkas.steps;
 
-import ru.dreamkas.pageObjects.PosPage;
-import ru.dreamkas.pageObjects.dialogs.EditReceiptItemPage;
-
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
-import net.thucydides.core.steps.ScenarioSteps;
 
 import org.jbehave.core.model.ExamplesTable;
 
@@ -18,12 +14,9 @@ import static org.junit.Assert.assertThat;
 
 public class PosSteps extends GeneralSteps {
 
-    PosPage posPage;
-    EditReceiptItemPage editReceiptPage;
-
     public PosSteps(Pages pages) {
         super(pages);
-        setCurrentPageObject("экран кассы");
+        setCurrentPageObject("касса");
     }
 
     @Step
@@ -38,7 +31,7 @@ public class PosSteps extends GeneralSteps {
 
     @Step
     public void assertStore(String store) {
-        assertThat(posPage.getStore(), is(store));
+        assertText("Магазин", store);
     }
 
     @Step
@@ -48,44 +41,43 @@ public class PosSteps extends GeneralSteps {
 
     @Step
     public void inputProductSearchQuery(String productSearchQuery) {
-        posPage.inputProductSearchQuery(productSearchQuery);
+        setValue("Поиск товаров", productSearchQuery);
     }
 
     @Step
     public void assertSearchProductsResult(Integer count) {
-        assertThat(posPage.getSearchProductResultCount(), is(count));
-
+        assertThat(getItems("Результаты поиска товаров").size(), is(count));
     }
 
     @Step
     public void assertSearchProductsResult(String containsProductTitle) {
-        assertThat(posPage.getSearchProductResult(), hasItem(containsProductTitle));
+        assertThat(getItems("Результаты поиска товаров"), hasItem(containsProductTitle));
     }
 
     @Step
     public void assertSearchResultEmptyLabelText(String expected) {
-        assertThat(posPage.getSearchResultEmptyLabel(), is(expected));
+        assertText("Сообщение о результатах поиска товаров", expected);
     }
 
     @Step
     public void assertReceiptEmptyLabelText(String expected) {
-        assertThat(posPage.getReceiptEmptyLabel(), is(expected));
+        assertText("Сообщение пустого чека", expected);
     }
 
     public void tapOnProductInSearchResultWithTitle(String title) {
-        posPage.tapOnSearchListItemWithTitle(title);
+        clickOnListItem("Результаты поиска товаров", title);
     }
 
     public void tapOnProductInReceiptWithTitle(String title) {
-        posPage.tapOnReceiptListItemWithTitle(title);
+        clickOnListItem("Чек продажи", title);
     }
 
     public void assertReceiptItemsCount(Integer count) {
-        assertThat(posPage.getReceiptItemsCount(), is(count));
+        assertThat(getItems("Чек продажи").size(), is(count));
     }
 
     public void assertReceiptContainsProducts(ExamplesTable examplesTable) {
-        List<List<String>> rows = posPage.getReceiptItems();
+        List<List<String>> rows = getItems("Чек продажи");
         assertThat(rows.size(), is(examplesTable.getRowCount()));
 
         for (int i = 0; i < examplesTable.getRowCount(); i++) {
@@ -100,55 +92,32 @@ public class PosSteps extends GeneralSteps {
 
     @Step
     public void assertReceiptTotalButtonText(String expected) {
-        assertThat(posPage.getReceiptTotalButtonLabel(), is(expected));
+        assertText("Продать", expected);
     }
 
     public void clickOnButton(String name) {
         clickOnElement(name);
     }
 
-    public void clickOnButtonEditReceiptDialog(String name) {
-        editReceiptPage.clickOnButton(name);
-    }
-
-
-    public void assertButtonLabelText(String buttonName,String expectedLabel) {
-        assertThat(posPage.getButtonLabel(buttonName), is(expectedLabel));
-    }
-
-    /*public void assertClearReceiptButtonLabelText(String expectedLabel) {
-        assertThat(posPage.getReceiptClearButtonLabel(), is(expectedLabel));
-    }
-
-    public void clickOnClearReceiptButton() {
-        posPage.clickOnClearReceiptButton();
-    }
-
-    public void clickOnRemoveFromReceiptButton() {
-        posPage.clickOnRemoveFromReceiptButton();
-    }
-
-    public void clickOnQuantityIncrementButton() {
-        posPage.clickOnQuantityIncrementButton();
-    }
-
-    public void clickOnQuantityDecrementButton() {
-        posPage.clickOnQuantityDecrementButton();
-    }*/
-
     public void assertEditReceiptTitle(String expected) {
-        assertThat(posPage.getEditReceiptModalTitle(), is(expected));
+        assertText("Итог", expected);
     }
 
     public void assertEditReceiptProductName(String expected) {
-        assertThat(posPage.getEditReceiptModalProductName(), is(expected));
+        assertText("Наименование", expected);
     }
 
+    public void asserButtonEnabled(String buttonName, Boolean expected) {
+        assertThat(getButtonIsEnabled(buttonName), is(expected));
+    }
+
+
+
     public void assertEditReceiptSellingPrice(String expected) {
-        assertThat(posPage.getEditReceiptModalSellingPrice(), is(expected));
+        assertText("Цена продажи", expected);
     }
 
     public void assertEditReceiptQuantity(String expected) {
-        assertThat(posPage.getEditReceiptModalQuantity(), is(expected));
+        assertText("Количество", expected);
     }
 }

@@ -20,11 +20,25 @@ public class PosUserSteps {
         posSteps.chooseSpinnerItemWithValue(storeName);
     }
 
-    /*@When("пользователь нажимает на кнопку 'Перейти к кассе'")
-    @Given("пользователь нажимает на кнопку 'Перейти к кассе'")
-    public void whenTheUserClicksOnPosNavigateButton() {
-        posSteps.clickOnSaveStoreSettings();
-    }*/
+    @When ("пользователь в поле '$elementName' вводит значение '$value'")
+    @Given("пользователь в поле '$elementName' вводит значение '$value'")
+    public void whenUserSetInputValue(String elementName, String value){
+        posSteps.setValue(elementName, value);
+    }
+
+
+    @Then("пользователь проверяет, что в поле '$elementName' значение '$value'")
+    public void whenUserCheckTextViewValue(String elementName, String value){
+        posSteps.assertText(elementName, value);
+    }
+
+    @Then("пользователь проверяет, что кнопка '$buttonName' недоступна для нажатия")
+    public void whenUserCheckButtonIsEnable(String elementNamevalue){
+        posSteps.asserButtonEnabled(elementNamevalue, false);
+    }
+
+
+
 
     @When("пользователь нажимает на кнопку '$buttonName'")
     @Given("пользователь нажимает на кнопку '$buttonName'")
@@ -32,11 +46,13 @@ public class PosUserSteps {
         posSteps.clickOnButton(buttonName);
     }
 
-    @When("пользователь нажимает на кнопку '$buttonName' в диалоге редактирования товарной позиции")
-    @Given("пользователь нажимает на кнопку '$buttonName' в диалоге редактирования товарной позиции")
-    public void whenTheUserClicksOnButtonRditReceiptItem(String buttonName) {
-        posSteps.clickOnButtonEditReceiptDialog(buttonName);
+    @Given("пользователь находится на экране '$currentPage'")
+    @When("пользователь находится на экране '$currentPage'")
+    @Alias("пользователь переходит на экран '$currentPage'")
+    public void whenTheUserSwitchPage(String currentPage) {
+        posSteps.setCurrentPageObject(currentPage);
     }
+
 
     @When("пользователь открывает боковое меню и нажимает на элемент '$item'")
     public void whenTheUserOpensDrawerAndClickOnItem(String item) {
@@ -109,7 +125,12 @@ public class PosUserSteps {
 
     @Then("пользователь видит что кнопка '$buttonName' содержит текст '$expectedLabel'")
     public void thenTheUserChecksTheCleraReceiptButtonLabel(String buttonName, String expectedLabel) {
-        posSteps.assertButtonLabelText(buttonName, expectedLabel);
+        posSteps.assertText(buttonName, expectedLabel);
+    }
+
+    @Then("пользователь видит что кнопка удаления товарной позиции вернулась в исходное состояние")
+    public void thenTheUserChecksTheCleraReceiptButtonLabel() {
+        posSteps.assertText("Удалить из чека", "УДАЛИТЬ ИЗ ЧЕКА");
     }
 
     @Then("пользователь видит модальное окно с заголовком '$expectedTitle' для товара '$expectedProductName' с ценой продажи '$expectedSellingPrice' и в количестве '$expectedQuantity'")

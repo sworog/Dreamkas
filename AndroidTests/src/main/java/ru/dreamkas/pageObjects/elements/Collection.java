@@ -10,7 +10,7 @@ import ru.dreamkas.pageObjects.CommonPageObject;
 import ru.dreamkas.pageObjects.elements.interfaces.Elementable;
 import ru.dreamkas.pageObjects.elements.interfaces.Settable;
 
-public class Collection extends ViewElement{
+public abstract class Collection extends ViewElement {
 
     public Collection(CommonPageObject commonPageObject, String id) {
         super(commonPageObject, id);
@@ -27,5 +27,12 @@ public class Collection extends ViewElement{
                 break;
             }
         }
+    }
+
+    public abstract <T> List<T> getItems();
+
+    public void click(String item) {
+        List<WebElement> textViews = getElement().findElements(By.className("android.widget.TextView"));
+        clickOnElementWithText(textViews, item);
     }
 }

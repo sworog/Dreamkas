@@ -15,6 +15,6 @@ public class TextView extends ViewElement implements Gettable {
 
     @Override
     public String getText() {
-        return getCommonPageObject().getAppiumDriver().findElement(getFindBy()).getText();
+        return getElement().getText();
     }
 }

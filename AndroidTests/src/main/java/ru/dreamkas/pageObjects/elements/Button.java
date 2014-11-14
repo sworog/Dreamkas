@@ -2,8 +2,9 @@ package ru.dreamkas.pageObjects.elements;
 
 import ru.dreamkas.pageObjects.CommonPageObject;
 import ru.dreamkas.pageObjects.elements.interfaces.Clickable;
+import ru.dreamkas.pageObjects.elements.interfaces.Gettable;
 
-public class Button extends ViewElement implements Clickable {
+public class Button extends ViewElement implements Clickable, Gettable {
 
     public Button(CommonPageObject commonPageObject, String id) {
         super(commonPageObject, id);
@@ -11,6 +12,16 @@ public class Button extends ViewElement implements Clickable {
 
     @Override
     public void click() {
-        getCommonPageObject().getAppiumDriver().findElement(getFindBy()).click();
+        getElement().click();
+    }
+
+    @Override
+    public Boolean isEnabled() {
+        return getElement().isEnabled();
+    }
+
+    @Override
+    public String getText() {
+        return getElement().getText();
     }
 }

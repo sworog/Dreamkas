@@ -1,6 +1,7 @@
 package ru.dreamkas.pageObjects.elements;
 
 import net.thucydides.core.annotations.findby.By;
+import net.thucydides.core.pages.PageObject;
 
 import org.openqa.selenium.WebElement;
 
@@ -17,11 +18,14 @@ public class Spinner extends Collection implements Settable {
 
     @Override
     public void set(String value) {
-        getCommonPageObject().waitForRenderedElements(getFindBy());
-        WebElement spinner = getCommonPageObject().getAppiumDriver().findElement(getFindBy());
+        WebElement spinner = getElement();
         spinner.click();
 
-        List<WebElement> items = getCommonPageObject().getAppiumDriver().findElements(By.id("android:id/text1"));
-        clickOnElementWithText(items, value);
+        clickOnElementWithText(getItems(), value);
+    }
+
+    @Override
+    public List<WebElement> getItems() {
+        return getCommonPageObject().getAppiumDriver().findElements(By.id("android:id/text1"));
     }
 }
