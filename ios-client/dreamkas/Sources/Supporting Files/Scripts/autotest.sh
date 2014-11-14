@@ -30,7 +30,7 @@ mkdir "$BUILDPATH"
     -sdk iphonesimulator8.1 \
     -configuration Debug \
     -project "$PROJECTPATH" \
-    -scheme dreamkas \
+    -scheme dreamkas-tests \
     AUTOTESTS_SERVER=$APIURL \
     clean build-tests -only dreamkas-tests \
     CONFIGURATION_BUILD_DIR="$BUILDPATH"
@@ -40,7 +40,7 @@ mkdir "$BUILDPATH"
     -sdk iphonesimulator8.1 \
     -configuration Debug \
     -project "$PROJECTPATH" \
-    -scheme dreamkas \
+    -scheme dreamkas-tests \
     AUTOTESTS_SERVER=$APIURL \
     run-tests -only dreamkas-tests -parallelize \
     CONFIGURATION_BUILD_DIR="$BUILDPATH"
