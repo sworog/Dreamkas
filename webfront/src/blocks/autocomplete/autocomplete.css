@@ -26,7 +26,9 @@
 }
 
 .autocomplete_selected .autocomplete__input{
-    background-color: #F1FFF1;
+    background-position: 98% center;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAMCAYAAAC9QufkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJxJREFUeNpiZiAByMhICfDx8VYA8YVPnz7/YCRFI5DaD8QGQHwBiB2ZydAIAhIgzISkwIBIjTCwkQmqYD6QOg+kz0MVE9KY+OTJsw2MQAUJQM58JAmwf6BsXBoXgBgsWFxqANXEgE8jCDADg/wCMOgV0BRKQDFOjWDNIAJowEYsBuDVCNdMwACsGlE04zAAp0Z8iSIBiB0IqQMIMABA/EDDnh+dTQAAAABJRU5ErkJggg==);
 }
 
 .tt-dropdown-menu {
