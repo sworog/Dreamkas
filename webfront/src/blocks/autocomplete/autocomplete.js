@@ -232,6 +232,10 @@ define(function(require, exports, module) {
                 currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem),
                 itemData = data || block.data[currentFocusedItemIndex];
 
+            if (!itemData){
+                return;
+            }
+
             block.$input.val(itemData[block.valueKey]);
 
             block.hideSuggestion();
