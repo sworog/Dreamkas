@@ -12,7 +12,7 @@ define(function(require, exports, module) {
 
                 var modal = block.$el.closest('.modal')[0];
 
-                if (modal && modal.id === 'modal_group' + this.cid) {
+                if (modal && modal.id === 'modal_group-' + this.cid) {
 
                     this.selected = data.id;
                     this.render();

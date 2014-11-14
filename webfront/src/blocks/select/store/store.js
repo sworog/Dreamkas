@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 
                 var modal = block.$el.closest('.modal')[0];
 
-                if (modal && modal.id === 'modal_store' + this.cid) {
+                if (modal && modal.id === 'modal_store-' + this.cid) {
 
                     this.selected = data.id;
                     this.render();

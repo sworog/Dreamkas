@@ -17,7 +17,7 @@ define(function(require, exports, module) {
 
                 var modal = block.$el.closest('.modal')[0];
 
-                if (modal && modal.id === 'modal_productForAutocomplete' + this.cid) {
+                if (modal && modal.id === 'modal_productForAutocomplete-' + this.cid) {
 
                     this.productCount.data = [data];
 
