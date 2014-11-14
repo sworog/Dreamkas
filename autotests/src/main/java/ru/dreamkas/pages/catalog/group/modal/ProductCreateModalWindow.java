@@ -3,6 +3,7 @@ package ru.dreamkas.pages.catalog.group.modal;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
+import ru.dreamkas.elements.bootstrap.buttons.TransparentBtnFacade;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
@@ -32,6 +33,9 @@ public class ProductCreateModalWindow extends ModalWindowPage {
         put("purchasePrice", new Input(this, "//*[@name='purchasePrice']"));
         put("sellingPrice", new Input(this, "//*[@name='sellingPrice']"));
         put("markUpValue", new NonType(this, "//*[contains(@class, 'product__markup')]"));
+
+        put("кнопка 'Создать группу'", new TransparentBtnFacade(this, "Создать группу"));
+        put("плюсик, чтобы создать новую группу", new NonType(this, "//*[contains(@data-modal, 'modal_group') and not(contains(@class, 'btn'))]"));
     }
 
     @Override
@@ -41,7 +45,7 @@ public class ProductCreateModalWindow extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_product']";
+        return "//*[contains(@id, 'modal_product') and contains(@class, 'modal_visible')]";
     }
 
     @Override
