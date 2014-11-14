@@ -23,31 +23,78 @@ public class NumericEditText extends EditText{
     private DecimalFormat mDecimalFormat;
     private Integer mMaximumFractionDigits = 1;
     private Integer mMinimumFractionDigits = 1;
+    private BigDecimal mMaxValue;
+
+    private static boolean[] mIsValidChar;
+    static {
+        mIsValidChar = new boolean[Character.MAX_VALUE + 1];
+        for (char c : new char[]{'0','1','2','3','4','5','6','7','8','9','.',','}) {
+            mIsValidChar[c] = true;
+        }
+    }
 
     private InputFilter mInputFilter = new InputFilter() {
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            String currentValue = dest.toString();//.substring(0, dstart) +  + getText().toString().substring(dend, getText().length());
+            String currentValue = dest.toString();
             String separator = String.valueOf(mDecimalFormat.getDecimalFormatSymbols().getDecimalSeparator());
 
-            String targetValue = currentValue.substring(0, dstart) + source.toString().substring(start, end) + currentValue.substring(dend, currentValue.length());
+            String delta = source.toString().substring(start, end);
+            String targetValue = currentValue.substring(0, dstart) + delta + currentValue.substring(dend, currentValue.length());
 
-            int commaCount = StringUtils.countMatches(targetValue, String.valueOf(Constants.COMMA));
-            int dotCount = StringUtils.countMatches(targetValue, String.valueOf(Constants.DOT));
+            String result = null;
 
-            if((dotCount > 0 && commaCount > 0) || (dotCount > 1) || (commaCount > 1)){
-                return "";
-            }
-
-            String[] valueParts = targetValue.split("\\" + separator);
-
-            if(valueParts.length > 1){
-                String lastBlock = valueParts[valueParts.length - 1];
-                if(lastBlock.length() > mMaximumFractionDigits){
-                    return "";
+            for (char c : delta.toCharArray()) {
+                if (!mIsValidChar[c]) {
+                    result = "";
                 }
             }
 
-            return null;
+            if(result == null){
+                int commaCount = StringUtils.countMatches(targetValue, String.valueOf(Constants.COMMA));
+                int dotCount = StringUtils.countMatches(targetValue, String.valueOf(Constants.DOT));
+
+                if((targetValue.length() == 1 && (dotCount > 0 || commaCount > 0) ) || (dotCount > 0 && commaCount > 0) || (dotCount > 1) || (commaCount > 1)){
+                    result = "";
+                }
+            }
+
+            if(result == null){
+                String[] valueParts = targetValue.split("\\" + separator);
+
+                if(valueParts.length > 1){
+                    String lastBlock = valueParts[valueParts.length - 1];
+                    if(lastBlock.length() > mMaximumFractionDigits){
+                        result = "";
+                    }
+                }
+            }
+
+            if(result == ""){
+                targetValue = currentValue.substring(0, dstart) + currentValue.substring(dend, currentValue.length());
+                if(targetValue.length() == 0){
+                    setError(DreamkasApp.getResourceString(R.string.msg_error_empty_value));
+                }
+            }else {
+                String str = getText().toString();
+
+                char newSeparator = getCurrentSeparator(str);
+                if(mDecimalFormat.getDecimalFormatSymbols().getDecimalSeparator() != newSeparator){
+                    changeFormat(newSeparator);
+                }
+
+                if(mMaxValue != null){
+                    try {
+                        BigDecimal bd = (BigDecimal)mDecimalFormat.parse(str);
+                        if(bd.compareTo(mMaxValue) == 1){
+                            result = "";
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            return result;
         }
     };
 
@@ -78,6 +125,13 @@ public class NumericEditText extends EditText{
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.numeric_edit_text);
         int minDigits = a.getInteger(R.styleable.numeric_edit_text_minimum_fraction_digits, -1);
         int maxDigits = a.getInteger(R.styleable.numeric_edit_text_maximum_fraction_digits, -1);
+
+        int maxValue = a.getInteger(R.styleable.numeric_edit_text_maximum_value, -1);
+
+        if (maxValue != -1) {
+            mMaxValue = new BigDecimal(maxValue);
+        }
+
         if (minDigits != -1) {
             mMinimumFractionDigits = minDigits;
         }
@@ -92,7 +146,6 @@ public class NumericEditText extends EditText{
 
         setRawInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
-        mMaximumFractionDigits = 3;
         changeFormat(Constants.COMMA);
         setFilters(new InputFilter[]{mInputFilter});
     }

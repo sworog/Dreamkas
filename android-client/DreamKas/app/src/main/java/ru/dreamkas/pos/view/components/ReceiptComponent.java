@@ -97,6 +97,10 @@ public class ReceiptComponent extends LinearLayout {
 
     @ItemClick
     void lvReceiptItemClicked(ReceiptItem item) {
+        if(mDialogInProgress){
+            return ;
+        }
+        mDialogInProgress = true;
         final ReceiptItemEditDialog dialog = new ReceiptItemEditDialog(getContext());
 
         dialog.setReceiptItem(item);
@@ -104,6 +108,7 @@ public class ReceiptComponent extends LinearLayout {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(final DialogInterface arg0) {
+                mDialogInProgress = false;
                 switch (dialog.getResult()){
                     case Save:
                         ReceiptItem item = dialog.getReceiptItem();

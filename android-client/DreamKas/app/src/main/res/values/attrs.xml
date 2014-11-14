@@ -5,5 +5,6 @@
     <declare-styleable name="numeric_edit_text">
         <attr name="minimum_fraction_digits" format="integer" />
         <attr name="maximum_fraction_digits" format="integer" />
+        <attr name="maximum_value" format="integer" />
     </declare-styleable>
 </resources>

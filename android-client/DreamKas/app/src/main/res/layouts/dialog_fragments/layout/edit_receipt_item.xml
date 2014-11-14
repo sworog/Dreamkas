@@ -133,6 +133,7 @@
                                         android:text="0"
                                         app:minimum_fraction_digits="2"
                                         app:maximum_fraction_digits="2"
+                                        app:maximum_value="10000000"
                                         android:singleLine="true"
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"

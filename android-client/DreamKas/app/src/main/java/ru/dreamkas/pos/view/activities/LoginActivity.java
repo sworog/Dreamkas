@@ -112,9 +112,10 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
 
             Toast.makeText(this, "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
 
-            txtUsername.setText("owner@lighthouse.pro");
+            txtUsername.setText("androidpos@lighthouse.pro");
             txtPassword.setText("lighthouse");
         }
+
         super.onStart();
     }
 
