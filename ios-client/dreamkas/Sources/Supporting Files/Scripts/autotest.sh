@@ -16,21 +16,21 @@ mkdir $buildpath
 -arch i386 \
 -sdk iphonesimulator8.1 \
 -configuration Debug \
--project dreamkas.xcodeproj \
+-project ./dreamkas.xcodeproj \
 -scheme dreamkas \
 AUTOTESTS_SERVER=$apiurl \
 clean build-tests -only dreamkas-tests \
-SYMROOT=$buildpath
+CONFIGURATION_BUILD_DIR=$buildpath
 
 /Library/xctool/xctool.sh \
 -arch i386 \
 -sdk iphonesimulator8.1 \
 -configuration Debug \
--project dreamkas.xcodeproj \
+-project ./dreamkas.xcodeproj \
 -scheme dreamkas \
 AUTOTESTS_SERVER=$apiurl \
 run-tests -only dreamkas-tests -parallelize \
-SYMROOT=$buildpath
+CONFIGURATION_BUILD_DIR=$buildpath
 
 # CONFIGURATION_BUILD_DIR=$buildpath
 # may be replaced by
