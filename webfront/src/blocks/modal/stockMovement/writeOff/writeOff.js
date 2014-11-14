@@ -4,7 +4,6 @@ define(function(require, exports, module) {
 
 	return Modal_stockMovement.extend({
 		id: 'modal_writeOff',
-		formId: 'form_writeOff',
 		Model: require('resources/writeOff/model'),
 		Form: require('blocks/form/writeOff/writeOff'),
 		Form_products: require('blocks/form/stockMovementProducts/writeOff/writeOff'),

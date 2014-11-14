@@ -47,15 +47,13 @@ define(function(require, exports, module) {
                 var Form = this.Form;
 
                 return new Form(_.extend({
-                    model: this.model,
-                    modalId: this.id
+                    model: this.model
                 }, opt));
             },
             form_products: function(){
                 var Form_products = this.Form_products;
 
                 return new Form_products({
-                    modalId: this.id,
                     collection: this.model.collections.products
                 });
             },

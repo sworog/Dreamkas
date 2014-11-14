@@ -1,4 +1,4 @@
-<% var supplierModalId = 'modal_supplier' + cid %>
+<% var supplierModalId = 'modal_supplier-' + cid %>
 
 <div class="select_supplier">
     <div class="input-group">
@@ -28,7 +28,6 @@
     <% if (add) { %>
 
     <b block="modal_supplier"
-       data-referrer="<%- modalId %>"
        data-id="<%- supplierModalId %>"></b>
 
     <% } %>

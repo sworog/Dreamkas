@@ -7,7 +7,6 @@ define(function(require, exports, module) {
         model: require('resources/invoiceProduct/model'),
 		collection: require('resources/invoiceProduct/collection'),
 		priceField: 'priceEntered',
-		modalId: null,
 		globalEvents: {
 			'submit:success': function(data, block){
 

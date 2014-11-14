@@ -4,7 +4,6 @@ define(function(require, exports, module) {
 
     return Select.extend({
         template: require('ejs!./template.ejs'),
-        modalId: null,
         add: false,
         globalEvents: {
             'submit:success': function(data, block) {
