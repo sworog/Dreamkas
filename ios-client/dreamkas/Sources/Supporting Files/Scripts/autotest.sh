@@ -30,9 +30,9 @@ mkdir "$BUILDPATH"
     -sdk iphonesimulator8.1 \
     -configuration Debug \
     -project "$PROJECTPATH" \
-    -scheme dreamkas \
+    -scheme "dreamkas" \
     AUTOTESTS_SERVER=$APIURL \
-    clean build-tests -only dreamkas-tests \
+    clean build-tests -only "dreamkas-tests" \
     CONFIGURATION_BUILD_DIR="$BUILDPATH"
 
 /Library/xctool/xctool.sh \
@@ -40,9 +40,9 @@ mkdir "$BUILDPATH"
     -sdk iphonesimulator8.1 \
     -configuration Debug \
     -project "$PROJECTPATH" \
-    -scheme dreamkas \
+    -scheme "dreamkas" \
     AUTOTESTS_SERVER=$APIURL \
-    run-tests -only dreamkas-tests -parallelize \
+    run-tests -only "dreamkas-tests" -parallelize \
     CONFIGURATION_BUILD_DIR="$BUILDPATH"
 
 # CONFIGURATION_BUILD_DIR=$buildpath
