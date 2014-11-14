@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var StockMovementProducts = require('blocks/form/stockMovementProducts/stockMovementProducts');
 
     return StockMovementProducts.extend({
-		template: require('ejs!./template.ejs'),
         model: require('resources/invoiceProduct/model'),
 		collection: require('resources/invoiceProduct/collection'),
 		priceField: 'priceEntered',
