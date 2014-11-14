@@ -6,31 +6,32 @@
 #  Created by sig on 14.11.2014
 #
 
-buildpath=Builds
-apiurl=http://ios.autotests.api.lighthouse.pro/
+WORKPATH=$1
+APIURL=$2
+BUILDPATH=$WORKPATH/ios-client/dreamkas/Builds
 
-rm -rf $buildpath
-mkdir $buildpath
-
-/Library/xctool/xctool.sh \
--arch i386 \
--sdk iphonesimulator8.1 \
--configuration Debug \
--project dreamkas.xcodeproj \
--scheme dreamkas \
-AUTOTESTS_SERVER=$apiurl \
-clean build-tests -only dreamkas-tests \
-CONFIGURATION_BUILD_DIR=$buildpath
+rm -rf $BUILDPATH
+mkdir $BUILDPATH
 
 /Library/xctool/xctool.sh \
--arch i386 \
--sdk iphonesimulator8.1 \
--configuration Debug \
--project dreamkas.xcodeproj \
--scheme dreamkas \
-AUTOTESTS_SERVER=$apiurl \
-run-tests -only dreamkas-tests -parallelize \
-CONFIGURATION_BUILD_DIR=$buildpath
+    -arch i386 \
+    -sdk iphonesimulator8.1 \
+    -configuration Debug \
+    -project "$WORKPATH/dreamkas.xcodeproj" \
+    -scheme dreamkas \
+    AUTOTESTS_SERVER=$APIURL \
+    clean build-tests -only dreamkas-tests \
+    CONFIGURATION_BUILD_DIR=$BUILDPATH
+
+/Library/xctool/xctool.sh \
+    -arch i386 \
+    -sdk iphonesimulator8.1 \
+    -configuration Debug \
+    -project "$WORKPATH/dreamkas.xcodeproj" \
+    -scheme dreamkas \
+    AUTOTESTS_SERVER=$APIURL \
+    run-tests -only dreamkas-tests -parallelize \
+    CONFIGURATION_BUILD_DIR=$BUILDPATH
 
 # CONFIGURATION_BUILD_DIR=$buildpath
 # may be replaced by
