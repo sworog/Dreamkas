@@ -4,7 +4,6 @@
 @import "bower_components/fontawesome/css/font-awesome.min.css";
 @import "bower_components/bootstrap/dist/css/bootstrap.min.css";
 @import "bower_components/bootstrap-datepicker/css/datepicker.css";
-
 /* blocks */
 @import "blocks/confirmLink/confirmLink.css";
 @import "blocks/checkbox/checkbox.css";
@@ -24,6 +23,7 @@
 @import "blocks/inputNumber/inputNumber.css";
 @import "blocks/table/table.css";
 @import "blocks/removeLink/removeLink.css";
+@import "blocks/select/select.css";
 
 html, body {
     height: 100%;
@@ -114,8 +114,8 @@ input.invalid,
 
 input.invalid:focus,
 .form-control.invalid:focus {
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(217,74,74,.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(217,74,74,.6);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(217, 74, 74, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(217, 74, 74, .6);
 }
 
 .select2-container .select2-choice {
@@ -191,7 +191,7 @@ select.loading, input.loading {
     background-image: none;
 }
 
-.btn{
+.btn {
     outline: none !important;
 }
 
@@ -225,5 +225,27 @@ select.loading, input.loading {
     color: #ffffff;
     background-color: #086176;
     border-color: #064a59;
+}
+
+.datepicker table tr td.selected,
+.datepicker table tr td.selected:hover,
+.datepicker table tr td.selected.disabled,
+.datepicker table tr td.selected.disabled:hover {
+    background-image: none !important;
+}
+
+.btn-transparent {
+    color: #0a819c !important;
+    border-color: #097992;
+    background-color: transparent;
+}
+
+.tether-element {
+    z-index: 1000;
+    display: none;
+}
+
+.tether-enabled {
+    display: block;
 }
 

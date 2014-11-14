@@ -14,7 +14,7 @@ class SaleControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
@@ -404,7 +404,7 @@ class SaleControllerTest extends WebTestCase
     public function testProductInventoryChangeOnSale()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $this->factory()
             ->invoice()
@@ -426,7 +426,7 @@ class SaleControllerTest extends WebTestCase
     public function testGetAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
@@ -478,7 +478,7 @@ class SaleControllerTest extends WebTestCase
     public function testCashChangeValidation($amountTendered, $expectedResponseCode, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
@@ -576,7 +576,7 @@ class SaleControllerTest extends WebTestCase
     public function testPaymentBankCard()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $productId = $this->createProductByName();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
@@ -665,7 +665,8 @@ class SaleControllerTest extends WebTestCase
     {
         $pairs = array();
         foreach ($values as $key => $value) {
-            $pairs["{{$prefix}{$key}}"] = $value;
+            $pairKey = '{' . $prefix . $key . '}';
+            $pairs[$pairKey] = $value;
         }
         return $pairs;
     }

@@ -4,26 +4,26 @@ define(function(require, exports, module) {
     var Collection = require('kit/collection/collection');
     var CollectionBlock = require('./collectionBlock');
 
-    var CustomCollection;
-    var collection;
-    var CustomCollectionBlock;
-    var collectionBlock;
-
-    beforeEach(function() {
-        CustomCollection = Collection.extend({
-            model: Model
-        });
-        collection = new CustomCollection([ { a: 1 }, { a: 2 } ]);
-        CustomCollectionBlock = CollectionBlock.extend({
-            collection: collection
-        });
-
-        collectionBlock = new CustomCollectionBlock();
-
-        spyOn(collectionBlock, 'render').and.callThrough();
-    });
-
     describe(module.id, function() {
+
+        var CustomCollection;
+        var collection;
+        var CustomCollectionBlock;
+        var collectionBlock;
+
+        beforeEach(function() {
+            CustomCollection = Collection.extend({
+                model: Model
+            });
+            collection = new CustomCollection([ { a: 1 }, { a: 2 } ]);
+            CustomCollectionBlock = CollectionBlock.extend({
+                collection: collection
+            });
+
+            collectionBlock = new CustomCollectionBlock();
+
+            spyOn(collectionBlock, 'render').and.callThrough();
+        });
 
         it('render on push to collection', function() {
             collection.push({ a: 3 });

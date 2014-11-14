@@ -1389,10 +1389,10 @@ class UserControllerTest extends WebTestCase
         $message = $collectedMessages[0];
 
         $this->assertInstanceOf('Swift_Message', $message);
-        $this->assertEquals('noreply@lighthouse.pro', key($message->getFrom()));
+        $this->assertEquals(array('noreply@dreamkas.ru' => 'Dreamkas.ru'), $message->getFrom());
         $this->assertEquals('signup@lh.com', key($message->getTo()));
-        $this->assertEquals('Добро пожаловать в Lighthouse', $message->getSubject());
-        $this->assertContains('Добро пожаловать в Lighthouse!', $message->getBody());
+        $this->assertEquals('Добро пожаловать в Dreamkas', $message->getSubject());
+        $this->assertContains('Добро пожаловать в Dreamkas!', $message->getBody());
         $this->assertContains('Ваш пароль для входа:', $message->getBody());
         $this->assertContains('Если это письмо пришло вам по ошибке, просто проигнорируйте его', $message->getBody());
 
@@ -1551,7 +1551,9 @@ class UserControllerTest extends WebTestCase
 
         $messages = $this->getSentEmailMessages();
         $this->assertCount(2, $messages);
-        $this->assertContains('Вы воспользовались формой восстановления пароля в Lighthouse.', $messages[1]->getBody());
+        $this->assertEquals(array('noreply@dreamkas.ru' => 'Dreamkas.ru'), $messages[1]->getFrom());
+        $this->assertEquals('Восстановление пароля в Dreamkas', $messages[1]->getSubject());
+        $this->assertContains('Вы воспользовались формой восстановления пароля в Dreamkas.', $messages[1]->getBody());
         $this->assertContains('Ваш новый пароль для входа:', $messages[1]->getBody());
         $newPassword = $this->getPasswordFromEmailBody($messages[1]->getBody());
 
@@ -1634,6 +1636,296 @@ class UserControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->doAuthByUsername('user@lh.com', $newPassword);
         $this->assertNotNull($accessToken->access_token);
+    }
+
+    public function testTwoUserOneProject()
+    {
+        $project = $this->factory()->user()->createProject("testProject");
+        $user1 = $this->factory()->user()
+            ->createUser("user1@test.com", 'test', User::getDefaultRoles(), "user1", "position", $project);
+        $user2 = $this->factory()->user()
+            ->createUser("user2@test.com", 'test', User::getDefaultRoles(), "user2", "position", $project);
+        $otherProjectUser = $this->factory()->user()->createUser('other@test.com', 'test', User::getDefaultRoles());
+
+        $user1AccessToken = $this->factory()->oauth()->auth($user1, 'test');
+        $user2AccessToken = $this->factory()->oauth()->auth($user2, 'test');
+        $otherProjectUserAccessToken = $this->factory()->oauth()->auth($otherProjectUser, 'test');
+
+        $storeData = array(
+            'name' => 'магазин_номер-32',
+            'address' => 'СПБ, профессора Попова пр., д. 37, пом 3А',
+            'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
+        );
+
+        $response = $this->clientJsonRequest(
+            $user1AccessToken,
+            'POST',
+            '/api/1/stores',
+            $storeData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, $name, $response);
+        }
+
+        $response = $this->clientJsonRequest(
+            $user1AccessToken,
+            'GET',
+            '/api/1/stores'
+        );
+
+        $this->assertResponseCode(200);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, "0.{$name}", $response);
+        }
+
+
+        $response = $this->clientJsonRequest(
+            $user2AccessToken,
+            'GET',
+            '/api/1/stores'
+        );
+
+        $this->assertResponseCode(200);
+        foreach ($storeData as $name => $value) {
+            Assert::assertJsonPathEquals($value, "0.{$name}", $response);
+        }
+
+
+        $response = $this->clientJsonRequest(
+            $otherProjectUserAccessToken,
+            'GET',
+            '/api/1/stores'
+        );
+
+        $this->assertResponseCode(200);
+        $this->assertEmpty($response);
+    }
+
+    /**
+     * @dataProvider userChangePasswordProvider
+     *
+     * @param int $expectedResponseCode
+     * @param string $newPasswordFirst
+     * @param string $newPasswordSecond
+     * @param string $oldPassword
+     * @param array $assertions
+     */
+    public function testUserChangePassword(
+        $expectedResponseCode,
+        $newPasswordFirst = 'new_password',
+        $newPasswordSecond = 'new_password',
+        $oldPassword = 'old_password',
+        array $assertions = array()
+    ) {
+        $email = 'password@dreamkas.ru';
+
+        $user = $this->factory()->user()->createProjectUser($email, 'old_password');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser($email, 'old_password');
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users/current/changePassword',
+            array(
+                'password' => $oldPassword,
+                'newPassword' => array(
+                    'first' => $newPasswordFirst,
+                    'second' => $newPasswordSecond
+                )
+            )
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->factory()->clear();
+
+        if (200 === $expectedResponseCode) {
+            Assert::assertJsonPathEquals($user->id, 'id', $postResponse);
+
+            $this->assertUserCanLogin($email, $newPasswordFirst);
+            $this->assertUserCanNotLogin($email, $oldPassword);
+        } else {
+            $this->performJsonAssertions($postResponse, $assertions);
+
+            $this->assertUserCanNotLogin($email, $newPasswordFirst);
+            $this->assertUserCanLogin($email, 'old_password');
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function userChangePasswordProvider()
+    {
+        return array(
+            'valid' => array(
+                200,
+            ),
+            'not valid current password' => array(
+                400,
+                'new_password',
+                'new_password',
+                'wrong_password',
+                array(
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors' => null,
+                    'errors.children.newPassword.children.second.errors' => null
+                )
+            ),
+            'empty current password' => array(
+                400,
+                'new_password',
+                'new_password',
+                '',
+                array(
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors' => null,
+                    'errors.children.newPassword.children.second.errors' => null
+                )
+            ),
+            'not valid new passwords do not match' => array(
+                400,
+                'new_password',
+                'mew_password',
+                'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются',
+                    'errors.children.newPassword.children.second.errors' => null
+                )
+            ),
+            'not valid new passwords are empty' => array(
+                400,
+                '',
+                '',
+                'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'Заполните это поле',
+                    'errors.children.newPassword.children.second.errors' => null
+                )
+            ),
+            'not valid second new password is empty' => array(
+                400,
+                'new_password',
+                '',
+                'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются',
+                    'errors.children.newPassword.children.second.errors' => null
+                )
+            ),
+            'not valid new password is less then 6 chars' => array(
+                400,
+                'pass',
+                'pass',
+                'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0'
+                    =>
+                    'Значение слишком короткое. Должно быть равно 6 символам или больше.',
+                    'errors.children.newPassword.children.second.errors' => null
+                )
+            ),
+            'not valid new password equals email' => array(
+                400,
+                'password@dreamkas.ru',
+                'password@dreamkas.ru',
+                'old_password',
+                array(
+                    'errors.children.password.errors' => null,
+                    'errors.children.newPassword.children.first.errors.0' => 'E-mail и пароль не должны совпадать',
+                    'errors.children.newPassword.children.second.errors' => null,
+                )
+            ),
+            'not valid old password and new password equals email' => array(
+                400,
+                'password@dreamkas.ru',
+                'password@dreamkas.ru',
+                'wrong_password',
+                array(
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors.0' => 'E-mail и пароль не должны совпадать',
+                    'errors.children.newPassword.children.second.errors' => null,
+                )
+            ),
+            'empty old password and new password does not match, second is less than 6 chars' => array(
+                400,
+                '123123',
+                '123',
+                '',
+                array(
+                    'errors.children.password.errors.0' => 'Неверный пароль',
+                    'errors.children.newPassword.children.first.errors.0' => 'Пароли отличаются',
+                    'errors.children.newPassword.children.second.errors' => null,
+                )
+            )
+        );
+    }
+
+    public function testUserChangePasswordNotAuthorized()
+    {
+        $this->client->setCatchException();
+        $postResponse = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/current/changePassword',
+            array(
+                'password' => 'pass',
+                'newPassword' => array(
+                    'first' => 'paw',
+                    'second' => 'pal'
+                )
+            )
+        );
+
+        $this->assertResponseCode(401);
+        Assert::assertJsonPathEquals('access_denied', 'error', $postResponse);
+        Assert::assertJsonPathEquals('OAuth2 authentication required', 'error_description', $postResponse);
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     * @param string $message
+     */
+    public function assertUserCanNotLogin($email, $password, $message = '')
+    {
+        try {
+            $this->factory()->oauth()->doAuthByUsername($email, $password);
+            $message = $message ?: sprintf(
+                "User '%s' should not be able to login with '%s' password",
+                $email,
+                $password
+            );
+            $this->fail($message);
+        } catch (OAuth2ServerException $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+     * @param string $email
+     * @param string $password
+     * @param string $message
+     */
+    public function assertUserCanLogin($email, $password, $message = '')
+    {
+        try {
+            $accessToken = $this->factory()->oauth()->doAuthByUsername($email, $password);
+            $this->assertNotNull($accessToken->access_token);
+        } catch (OAuth2ServerException $e) {
+            $message = $message ?: sprintf("User '%s' should be able to login with '%s' password", $email, $password);
+            $this->fail($message);
+        }
     }
 
     /**

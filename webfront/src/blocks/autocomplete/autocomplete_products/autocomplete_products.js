@@ -1,26 +1,37 @@
 define(function(require, exports, module) {
     //requirements
-    var Autocomplete = require('blocks/autocomplete/autocomplete');
+    var Autocomplete = require('blocks/autocomplete/autocomplete'),
+        config = require('config');
 
     return Autocomplete.extend({
-        remoteUrl: '/products/search?properties[]=name&properties[]=sku&query=%QUERY',
-        resetLink: true,
-        initTypeahead: function() {
-            var block = this;
+        template: require('ejs!./template.ejs'),
+        placeholder: 'Наименование или артикул товара',
+        source: config.baseApiUrl + '/products/search?properties[]=name&properties[]=sku',
+        suggestionTemplate: require('ejs!./suggestion.ejs'),
+        valueKey: 'name',
+        inputName: 'product.name',
+        selectedProduct: null,
+        productCount: require('resources/product/count'),
+        globalEvents: {
+            'submit:success': function(data, block) {
 
-            block.$el.find('input').typeahead({
-                    highlight: true,
-                    minLength: 3
-                },
-                {
-                    source: block.engine.ttAdapter(),
-                    displayKey: 'name',
-                    templates: {
-                        suggestion: require('ejs!./suggestion.ejs')
-                    }
-                });
+                var modal = block.$el.closest('.modal')[0];
 
-			block.$el.find('input.form-control').attr('name', 'product.name');
+                if (modal && modal.id === 'modal_productForAutocomplete-' + this.cid) {
+
+                    this.productCount.data = [data];
+
+                    this.render({
+                        value: data[this.valueKey]
+                    });
+
+                    this.select(data);
+                }
+
+            }
+        },
+        blocks: {
+            modal_product: require('blocks/modal/product/product')
         }
     });
 });

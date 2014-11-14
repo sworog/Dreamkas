@@ -447,6 +447,143 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(5, '*.subCategory.id', $response);
     }
 
+    /**
+     * @dataProvider getProductsLimitProvider
+     * @param int $limit
+     * @param int $expectedCode
+     * @param array $assertions
+     * @param int $expectedCount
+     */
+    public function testGetProductsLimit($limit, $expectedCode, array $assertions = array(), $expectedCount = 0)
+    {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3', '4', '5'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products',
+            null,
+            array('limit' => $limit)
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($response, $assertions);
+
+        if ($expectedCode == 200) {
+            Assert::assertJsonPathCount($expectedCount, '*.id', $response);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getProductsLimitProvider()
+    {
+        return array(
+            /*
+             * Positive
+             */
+            '3: should return 3 items' => array(
+                3,
+                200,
+                array(
+                    '0.sku' => '10001',
+                    '1.sku' => '10002',
+                    '2.sku' => '10003',
+                ),
+                3
+            ),
+            '1: should return only one item' => array(
+                1,
+                200,
+                array(
+                    '0.sku' => '10001',
+                ),
+                1
+            ),
+            '10' => array(
+                10,
+                200,
+                array(
+                    '0.sku' => '10001',
+                    '1.sku' => '10002',
+                    '2.sku' => '10003',
+                    '3.sku' => '10004',
+                    '4.sku' => '10005',
+                ),
+                5
+            ),
+            'null: limit should not be applied, return all available items' => array(
+                null,
+                200,
+                array(
+                    '0.sku' => '10001',
+                    '1.sku' => '10002',
+                    '2.sku' => '10003',
+                    '3.sku' => '10004',
+                    '4.sku' => '10005',
+                ),
+                5
+            ),
+            /*
+             * Negative
+             */
+            '0: limit should be greater than 0' => array(
+                0,
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение должно быть 1 или больше.'
+                )
+            ),
+            '-10: limit should be greater than 0' => array(
+                0,
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение должно быть 1 или больше.'
+                )
+            ),
+            'aaa: limit should be integer, not string' => array(
+                'aaa',
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение недопустимо.'
+                )
+            ),
+            'array' => array(
+                array(10),
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение недопустимо.'
+                )
+            )
+        );
+    }
+
+    public function testGetProductsTotalCountHeader()
+    {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->factory()->catalog()->getProductByNames(array('a', 'b', 'c', 'd', 'e', 'f', 'g'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products',
+            null,
+            array('limit' => 5)
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(5, '*.id', $response);
+
+        $headersBag = $this->client->getResponse()->headers;
+        $this->assertTrue($headersBag->has('X-Total-Count'));
+        $this->assertEquals('7', $headersBag->get('X-Total-Count'));
+    }
+
     public function testGetProductsWithEmptyTypePropertiesReturnsArray()
     {
         $this->createProductsByNames(array('1', '2', '3', '4', '5'));
@@ -2624,72 +2761,120 @@ class ProductControllerTest extends WebTestCase
 
     public function testDeleteAction()
     {
-        $productId = $this->createProduct(array('name' => 'Продукт'));
+        $productIds = $this->createProductsByNames(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/products/' . $productId
+            "/api/1/products/{$productIds['1']}"
         );
 
         $this->assertResponseCode(204);
 
         $this->assertNull($deleteResponse);
 
-        $this->client->setCatchException();
-        $this->clientJsonRequest(
+        // assert product is accessible by direct link
+        $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/' . $productId
+            "/api/1/products/{$productIds['1']}"
         );
 
-        $this->assertResponseCode(404);
-
-        $product = $this->getProductRepository()->find($productId);
-        $this->assertNull($product);
-
-        $products = $this->getProductRepository()->findAll();
-        $this->assertCount(0, $products);
-
-        $this
-            ->getProductRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
-
-        $product = $this->getProductRepository()->find($productId);
-        $this->assertInstanceOf(Product::getClassName(), $product);
-
-        $products = $this->getProductRepository()->findAll();
-        $this->assertCount(1, $products);
+        $this->assertResponseCode(200);
+        $this->assertNotEquals('1', $getResponse['name']);
+        $this->assertContains('Удалено', $getResponse['name']);
     }
 
-    public function testDeleteWithDuplicateName()
+    public function testDeleteProductIsNotVisibleInProductsList()
     {
-        $productId = $this->createProduct(array('name' => 'Хомячок'));
+        $productIds = $this->createProductsByNames(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/products/' . $productId
+            "/api/1/products/{$productIds['1']}"
         );
 
         $this->assertResponseCode(204);
 
-        $this->createProduct(array('name' => 'Хомячок'));
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/products"
+        );
 
-        $this
-            ->getProductRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-            ->disable('softdeleteable');
+        $this->assertResponseCode(200);
 
-        $deletedProduct = $this->getProductRepository()->find($productId);
-        $this->assertContains('Хомячок (Удалено', $deletedProduct->name);
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($productIds['2'], '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($productIds['1'], '*.id', $getResponse);
+    }
+
+    public function testDeleteProductIsNotVisibleInSubCategoryProductsList()
+    {
+        $productIds = $this->createProductsByNames(array('1', '2'));
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$productIds['1']}"
+        );
+
+        $this->assertResponseCode(204);
+
+        // assert product is not visible in sub category products list
+        $subCategoryId = $this->factory()->catalog()->getSubCategory()->id;
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/subcategories/{$subCategoryId}/products"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($productIds['2'], '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($productIds['1'], '*.id', $getResponse);
+    }
+
+    public function testDeleteProductIsNotVisibleInProductSearch()
+    {
+        $productIds = $this->createProductsByNames(array('Каша овсяная', 'Каша гречневая'));
+        $productId1 = $productIds['Каша овсяная'];
+        $productId2 = $productIds['Каша гречневая'];
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/products/{$productId1}"
+        );
+
+        $this->assertResponseCode(204);
+
+        $query = array(
+            'properties' => array('name'),
+            'query' => 'Каша'
+        );
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products/search?' . http_build_query($query)
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($productId2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($productId1, '*.id', $getResponse);
     }
 
     /**

@@ -1,2 +1,28 @@
-<div><%- name %></div>
-<div><%- sku %></div>
+<div class="autocomplete__suggestion">
+
+    <% if (query.length >= 3) { %>
+
+    <% if (data.length) { %>
+
+    <% _.forEach(data, function(item){ %>
+        <div class="autocomplete__item">
+            <div><%= highlight(item.name) %></div>
+            <div><%= highlight(item.sku) %></div>
+        </div>
+    <% }) %>
+
+    <% } else { %>
+
+    <div class="autocomplete__hint">По запросу <b><%- query %></b> товаров не найдено.</div>
+
+    <% } %>
+
+    <% } %>
+
+    <% if (query.length < 3) { %>
+
+    <div class="autocomplete__hint">Для поиска товаров введите 3 или более символа.</div>
+
+    <% } %>
+
+</div>

@@ -10,12 +10,14 @@ use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
+use Lighthouse\CoreBundle\Form\LimitType;
 use Lighthouse\CoreBundle\Form\Product\ProductType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use MongoDuplicateKeyException;
+use stdClass;
 
 class ProductController extends AbstractRestController
 {
@@ -72,7 +74,10 @@ class ProductController extends AbstractRestController
      *
      * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(
+     *      input="Lighthouse\CoreBundle\Form\Product\ProductType",
+     *      output="Lighthouse\CoreBundle\Document\Product\Product"
+     * )
      */
     public function putProductsAction(Request $request, Product $product)
     {
@@ -95,10 +100,11 @@ class ProductController extends AbstractRestController
     /**
      * @param ProductFilter $filter
      * @return Product[]|Cursor
-     * @ApiDoc
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     *
      * @Rest\View(serializerGroups={"Collection"})
      * @Rest\Route("products/search")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @ApiDoc
      */
     public function getProductsSearchAction(ProductFilter $filter)
     {
@@ -117,13 +123,29 @@ class ProductController extends AbstractRestController
     }
 
     /**
+     * @param Request $request
      * @return Product[]|Cursor
-     * @ApiDoc(resource=true)
+     * @ApiDoc(
+     *      resource=true,
+     *      input="Lighthouse\CoreBundle\Form\LimitType",
+     *      output="Lighthouse\CoreBundle\Document\Product\Product"
+     * )
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      */
-    public function getProductsAction()
+    public function getProductsAction(Request $request)
     {
-        return $this->documentRepository->findAll();
+        $filter = new stdClass();
+        $filter->limit = null;
+
+        $documentRepository = $this->documentRepository;
+        return $this->processFormCallback(
+            $request,
+            function ($filter) use ($documentRepository) {
+                return $documentRepository->findAllActive()->limit($filter->limit);
+            },
+            $filter,
+            new LimitType()
+        );
     }
 
     /**

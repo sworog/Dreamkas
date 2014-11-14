@@ -76,6 +76,7 @@ EOF;
 
 EOF
             ),
+            /*
             'amn' => array(
                 'AMN',
                 <<<EOF
@@ -85,6 +86,7 @@ EOF
 
 EOF
             ),
+            */
             'food' => array(
                 'Food',
                 <<<EOF

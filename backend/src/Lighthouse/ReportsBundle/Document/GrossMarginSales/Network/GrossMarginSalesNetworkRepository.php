@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSales;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesRepository;
+use DateTime;
 
 class GrossMarginSalesNetworkRepository extends GrossMarginSalesRepository
 {
@@ -25,6 +26,19 @@ class GrossMarginSalesNetworkRepository extends GrossMarginSalesRepository
             )
         );
         return $this->findBy($criteria);
+    }
+
+    /**
+     * @param DateTime $day
+     * @return GrossMarginSalesNetwork
+     */
+    public function findByDay(DateTime $day)
+    {
+        return $this->findOneBy(
+            array(
+                'day' => $day,
+            )
+        );
     }
 
     /**

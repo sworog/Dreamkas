@@ -1,0 +1,9 @@
+select {
+    -webkit-appearance: none;
+}
+
+.select_group > .input-group,
+.select_store > .input-group,
+.select_supplier > .input-group {
+    width: 100%;
+}

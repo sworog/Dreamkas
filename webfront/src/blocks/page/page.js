@@ -4,7 +4,8 @@ define(function(require, exports, module) {
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         cookies = require('cookies'),
-        _ = require('lodash');
+        _ = require('lodash'),
+        googleAnalytics = require('kit/googleAnalytics/googleAnalytics');
 
     var posWindowReference = null,
         previousPage;
@@ -38,7 +39,10 @@ define(function(require, exports, module) {
 
     return Block.extend({
 
-        el: '.page',
+        el: function(){
+            return document.querySelector('.page') || document.createElement('div');
+        },
+
         template: require('ejs!./template.ejs'),
 
         activeNavigationItem: 'main',
@@ -88,6 +92,8 @@ define(function(require, exports, module) {
             }
 
             page.setStatus('loaded');
+
+            googleAnalytics.sendPageview();
         },
 
         remove: function() {
@@ -100,7 +106,7 @@ define(function(require, exports, module) {
         setStatus: function(status) {
             var page = this;
 
-            page.trigger('status:' + status);
+            page.trigger(status);
 
             if (status === 'loading' && window.PAGE) {
                 document.body.removeAttribute('status');
@@ -126,7 +132,9 @@ define(function(require, exports, module) {
 
 			if (opt.render) {
 				page.render();
-			}
+			} else {
+                googleAnalytics.sendPageview();
+            }
         }
     });
 });

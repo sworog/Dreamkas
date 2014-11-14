@@ -1,13 +1,5 @@
-<form id="form_product"
+<form id="<%- id %>"
       class="form form_product">
-
-    <div class="form-group">
-
-        <label class="control-label">Группа *</label>
-
-        <b block="select_group" data-selected-group-id="<%- get('selectedGroupId') %>"></b>
-
-    </div>
 
     <div class="form-group">
 
@@ -19,6 +11,18 @@
                autofocus
                class="form-control"
                value="<%- model.get('name') %>">
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Группа *</label>
+
+        <b block="select_group"
+           data-selected="<%- get('selectedGroupId') %>"
+           data-add="1"></b>
+
+        <div class="form__errorMessage" for="subCategory"></div>
+
     </div>
 
     <div class="form-group">
@@ -110,4 +114,5 @@
 
     </div>
     <% } %>
+
 </form>

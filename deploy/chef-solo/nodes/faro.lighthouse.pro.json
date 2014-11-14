@@ -11,7 +11,7 @@
         "recipe[gradle]",
         "recipe[lighthouse::bundler]",
         "recipe[lighthouse::agent_keys]",
-        "recipe[phantomjs]"
+        "role[newrelic]"
     ],
     "java": {
         "oracle": {

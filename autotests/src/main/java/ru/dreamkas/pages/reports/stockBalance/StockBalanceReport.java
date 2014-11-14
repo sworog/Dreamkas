@@ -10,7 +10,7 @@ import ru.dreamkas.common.pageObjects.BootstrapPageObject;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import ru.dreamkas.exceptions.NotImplementedException;
 
 public class StockBalanceReport extends BootstrapPageObject {
 

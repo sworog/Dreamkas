@@ -5,6 +5,9 @@ framework:
     router:   { resource: "%kernel.root_dir%/config/routing_dev.yml" }
     profiler: { only_exceptions: false }
 
+web_profiler:
+    toolbar: true
+
 monolog:
     handlers:
         main:
@@ -14,9 +17,6 @@ monolog:
 
 assetic:
     use_controller: true
-
-ekino_new_relic:
-    application_name: Lighthouse API dev
 
 fos_rest:
     exception:

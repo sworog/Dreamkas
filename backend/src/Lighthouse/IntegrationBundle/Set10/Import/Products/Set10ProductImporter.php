@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\DataTransformer\QuantityTransformer;
+use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -75,6 +76,11 @@ class Set10ProductImporter
     protected $quantityTransformer;
 
     /**
+     * @var CatalogManager
+     */
+    protected $catalogManager;
+
+    /**
      * @var array
      */
     protected $productSkus = array();
@@ -113,7 +119,8 @@ class Set10ProductImporter
      *      "categoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.category"),
      *      "subCategoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.subcategory"),
      *      "moneyModelTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model"),
-     *      "quantityTransformer" = @DI\Inject("lighthouse.core.data_transformer.quantity")
+     *      "quantityTransformer" = @DI\Inject("lighthouse.core.data_transformer.quantity"),
+     *      "catalogManager" = @DI\Inject("lighthouse.core.document.catalog.manager")
      * })
      * @param ObjectManager $dm
      * @param ValidatorInterface $validator
@@ -123,6 +130,7 @@ class Set10ProductImporter
      * @param SubCategoryRepository $subCategoryRepository
      * @param MoneyModelTransformer $moneyModelTransformer
      * @param QuantityTransformer $quantityTransformer
+     * @param CatalogManager $catalogManager
      */
     public function __construct(
         ObjectManager $dm,
@@ -132,7 +140,8 @@ class Set10ProductImporter
         CategoryRepository $categoryRepository,
         SubCategoryRepository $subCategoryRepository,
         MoneyModelTransformer $moneyModelTransformer,
-        QuantityTransformer $quantityTransformer
+        QuantityTransformer $quantityTransformer,
+        CatalogManager $catalogManager
     ) {
         $this->dm = $dm;
         $this->validator = $validator;
@@ -142,6 +151,7 @@ class Set10ProductImporter
         $this->subCategoryRepository = $subCategoryRepository;
         $this->moneyModelTransformer = $moneyModelTransformer;
         $this->quantityTransformer = $quantityTransformer;
+        $this->catalogManager = $catalogManager;
     }
 
     /**
@@ -377,13 +387,16 @@ class Set10ProductImporter
         $product->name = $good->getGoodName();
         $product->sku  = $good->getMarkingOfTheGood();
         $product->vat  = $good->getVat();
-        $product->barcode = $good->getDefaultBarcode()->getCode();
+        $product->barcode = $good->getDefaultBarcode() ? $good->getDefaultBarcode()->getCode() : null;
         $product->barcodes = $this->getBarcodes($good);
         $product->vendor = $good->getManufacturerName();
-        $product->purchasePrice = $this->getPurchasePrice($good);
+        $product->purchasePrice = $this->getPurchasePrice($good, 0.8);
+        $product->sellingPrice = $this->getPurchasePrice($good, 1);
+        /*
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
         $product->retailMarkupMin = 15;
         $product->retailMarkupMax = 20;
+        */
         $product->typeProperties = $this->createType($good);
 
         $product->subCategory = $this->getCatalog($good);
@@ -469,13 +482,14 @@ class Set10ProductImporter
 
     /**
      * @param GoodElement $good
+     * @param int|float $multiplier
      * @return Money
      */
-    public function getPurchasePrice(GoodElement $good)
+    public function getPurchasePrice(GoodElement $good, $multiplier = 1)
     {
         $salePrice = $good->getPrice();
         $salePriceMoney = $this->moneyModelTransformer->reverseTransform($salePrice);
-        $purchasePrice = $salePriceMoney->mul(0.80);
+        $purchasePrice = $salePriceMoney->mul($multiplier);
         return $purchasePrice;
     }
 
@@ -487,8 +501,13 @@ class Set10ProductImporter
     {
         $groups = $this->normalizeGroups($good);
 
+        /*
         $group = $this->getGroup($groups[0]['id'], $groups[0]['name']);
         $category = $this->getCategory($groups[1]['id'], $groups[1]['name'], $group);
+        */
+
+        $category = $this->catalogManager->getDefaultCategory();
+
         $subCategory = $this->getSubCategory($groups[2]['id'], $groups[2]['name'], $category);
 
         return $subCategory;

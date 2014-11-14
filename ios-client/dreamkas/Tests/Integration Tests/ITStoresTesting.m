@@ -39,11 +39,11 @@
     
     [tester tapViewWithAccessibilityLabel:AI_LogInPage_LogInButton];
     
-    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
     [tester waitForViewWithAccessibilityLabel:AI_SelectStorePage_Table];
     
     [tester  tapViewWithAccessibilityLabel:AI_Common_CellAtIndexPath((long)0, (long)0)];
-    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
 }
 
 - (void)testStoreChangingViaSidemenu
@@ -56,11 +56,11 @@
     
     [tester tapViewWithAccessibilityLabel:AI_LogInPage_LogInButton];
     
-    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
     [tester waitForViewWithAccessibilityLabel:AI_SelectStorePage_Table];
     
     [tester  tapViewWithAccessibilityLabel:AI_Common_CellAtIndexPath((long)0, (long)0)];
-    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
     
     [tester tapViewWithAccessibilityLabel:AI_TicketWindowPage_SidemenuButton];
     
@@ -70,7 +70,7 @@
     [tester waitForViewWithAccessibilityLabel:AI_SelectStorePage_Table];
     
     [tester  tapViewWithAccessibilityLabel:AI_Common_CellAtIndexPath((long)0, (long)1)];
-    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_Table];
+    [tester waitForViewWithAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
 }
 
 @end

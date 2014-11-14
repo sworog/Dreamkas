@@ -30,7 +30,7 @@ define(function(require, exports, module) {
 		blocks: {
 			product_autocomplete: function() {
 				var block = this,
-					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
+					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products.deprecated'),
 					productAutocomplete;
 
                 productAutocomplete = new ProductAutocomplete({

@@ -83,9 +83,13 @@ lighthouse:
                 name.unique: Группа с таким названием уже существует
                 category.does_not_exists: Такой категории не существует
             user:
-                password.not_equals_email: E-mail и пароль не должны совпадать
-                email.unique: Пользователь с таким email уже существует
-                email.not_exists: Пользователь с таким e-mail не зарегистрирован в системе
+                password:
+                    not_equals_email: E-mail и пароль не должны совпадать
+                    not_equals_password: Пароли отличаются
+                    does_not_match_current: Неверный пароль
+                email:
+                    unique: Пользователь с таким email уже существует
+                    not_exists: Пользователь с таким e-mail не зарегистрирован в системе
             store:
                 name.unique: Такой магазин уже есть
                 does_not_exist: Такого магазина не существует

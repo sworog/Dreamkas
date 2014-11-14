@@ -1,0 +1,42 @@
+<% var productModalId = 'modal_productForAutocomplete-' + cid %>
+
+<div class="autocomplete autocomplete_products">
+
+    <% if (productCount.data.length || value.length) { %>
+    <div class="input-group" style="width: 100%;">
+
+        <a class="input-group-addon">
+            <i class="fa fa-search"></i>
+        </a>
+
+        <input <%- autofocus && 'autofocus' %>
+                placeholder="<%- placeholder %>"
+                type="text"
+                class="form-control autocomplete__input"
+                name="<%- inputName %>"
+                value="<%- value %>">
+
+        <a class="input-group-addon"
+           data-modal="<%- productModalId %>">
+            <i class="fa fa-plus"></i>
+        </a>
+
+    </div>
+
+    <div class="autocomplete__tether">
+
+        <%= suggestionTemplate(obj) %>
+
+    </div>
+    <% } else { %>
+    <a style="width: 100%"
+       data-modal="<%- productModalId %>"
+       class="btn btn-transparent">
+        Создать товар <i style="margin-left: 10px;" class="fa fa-plus"></i>
+    </a>
+    <% } %>
+
+    <b block="modal_product"
+       data-id="<%- productModalId %>"></b>
+
+</div>

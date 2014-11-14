@@ -41,9 +41,11 @@
     border-bottom: 1px solid #e5e5e5;
     padding: 10px 20px;
     overflow: hidden;
+    background-color: #fafafa;
 }
 
-.modal__closeLink, .modal__backLink {
+.modal__header .modal__closeLink,
+.modal__header .modal__backLink {
     cursor: pointer;
     height: 55px;
     width: 55px;
@@ -52,13 +54,11 @@
     line-height: 55px;
     float: left;
     color: #999;
+    font-size: 16px;
 }
 
-.modal__backLink {
-    font-size: 24px;
-}
-
-.modal__closeLink:hover {
+.modal__header .modal__closeLink:hover,
+.modal__header .modal__backLink:hover {
     background-color: #f4f4f4;
 }
 
@@ -68,12 +68,12 @@
 }
 
 .modal__body {
-    padding: 20px 60px;
+    padding: 20px 65px;
     position: relative;
 }
 
 .modal_receipt__successTitle {
-    margin: 0 -60px 30px;
+    margin: 0 -65px 30px;
     font-size: 25px;
     padding: 20px 60px 20px;
     border-bottom: 1px solid #eee;
@@ -91,6 +91,6 @@
     font-weight: bold;
 }
 
-.modal_stockMovement {
+.modal_stockMovement:not(.modal_stockMovementDeleted) {
     width: 70% !important;
 }

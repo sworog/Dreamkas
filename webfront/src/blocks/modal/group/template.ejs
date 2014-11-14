@@ -1,10 +1,23 @@
+<% var formId = id + '__form' %>
+
 <div id="<%- id %>"
      class="modal">
 
-    <div class="modal__header">
-        <a class="modal__closeLink pull-left fa fa-times"></a>
+    <% if (!deleted) { %>
 
-        <button form="form_group"
+    <div class="modal__header">
+
+        <% if (referrer) { %>
+
+        <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-chevron-left"></a>
+
+        <% } else { %>
+
+        <a class="modal__closeLink fa fa-times"></a>
+
+        <% } %>
+
+        <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- models.group.id ? 'Сохранить' : 'Добавить' %>
@@ -17,8 +30,29 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_group"></b>
+        <b block="form_group"
+           data-id="<%- formId %>"></b>
 
     </div>
+
+    <% } else { %>
+
+    <div class="modal__body" style="text-align: center">
+        <h3 name="successRemoveTitle" style="padding-bottom: 20px;">
+            Группа удалена
+        </h3>
+        <h4 name="removedGroupName" style="padding-bottom: 60px;">
+            <%- models.group.get('name') %>
+        </h4>
+
+        <div style="padding-bottom: 30px;">
+            <a name="removeContinue" class="btn btn-primary modal_group__closeLink"
+               style="padding: 10px 30px;">
+                Продолжить работу
+            </a>
+        </div>
+    </div>
+
+    <% } %>
 
 </div>

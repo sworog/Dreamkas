@@ -3,11 +3,28 @@ define(function(require, exports, module) {
     var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
+        template: require('ejs!./template.ejs'),
+        deleted: false,
 		productId: 0,
 		id: 'modal_product',
-		template: require('ejs!./template.ejs'),
+        selectedGroupId: function(){
+            return PAGE.models.group && PAGE.models.group.id;
+        },
 		models: {
-            product: null
+            product: null,
+            group: function(){
+                return PAGE.collections.groups.get(this.get('selectedGroupId'));
+            }
+        },
+        initialize: function(data){
+
+            data = data || {};
+
+            if (typeof data.deleted === 'undefined'){
+                this.deleted = false;
+            }
+
+            return Modal.prototype.initialize.apply(this, arguments);
         },
         render: function(){
 
@@ -20,16 +37,16 @@ define(function(require, exports, module) {
 
             block.models.product = productModel || new ProductModel;
 
-            Modal.prototype.render.apply(this, arguments);
+            return Modal.prototype.render.apply(this, arguments);
         },
         blocks: {
-            form_product: function(){
+            form_product: function(opt){
                 var block = this,
                     Form_product = require('blocks/form/product/product');
 
-                return new Form_product({
+                return new Form_product(_.extend({
                     model: block.models.product
-                });
+                }, opt));
             }
         }
     });

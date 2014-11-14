@@ -1,11 +1,10 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page');
+    var Page_auth = require('blocks/page/auth/auth');
 
-    return Page.extend({
-        template: require('ejs!./template.ejs'),
+    return Page_auth.extend({
         blocks: {
-            form_recover: require('blocks/form/pass/recover/recover')
+            form: require('blocks/form/pass/recover/recover')
         }
     });
 });

@@ -1,0 +1,53 @@
+{
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[mongodb::10gen_repo]",
+        "recipe[mongodb]",
+        "recipe[php]",
+        "recipe[composer]",
+        "recipe[composer::self_update]",
+        "recipe[beanstalkd]",
+        "recipe[java]",
+
+        "recipe[lighthouse]",
+        "recipe[lighthouse::php]",
+        "recipe[lighthouse::tests]",
+        "recipe[teamcity::agent]",
+        "recipe[lighthouse::agent]",
+        "role[newrelic]"
+    ],
+    "default_attributes": {
+        "php": {
+            "directives": {
+                "date.timezone": "Europe/Moscow"
+            },
+            "ext_conf_dir": "/etc/php5/mods-available"
+        },
+        "beanstalkd": {
+            "opts": {
+                "l": "0.0.0.0",
+                "p": "11300"
+            },
+            "start_during_boot": true
+        },
+        "java": {
+            "oracle": {
+                "accept_oracle_download_terms": true
+            },
+            "install_flavor": "oracle"
+        },
+        "teamcity": {
+            "agents": {
+                "default": {
+                    "server_url": "http://teamcity.lighthouse.pro/",
+                    "system_dir": "agent"
+                }
+            }
+        },
+        "mognodb": {
+            "smallfiles": true
+        }
+    }
+}
