@@ -97,6 +97,10 @@
 		CE29101D19EE668B005483A1 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE519EE668B005483A1 /* MagicalRecord+ShorthandSupport.m */; };
 		CE29101E19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
 		CE29101F19EE668B005483A1 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FE719EE668B005483A1 /* MagicalRecord.m */; };
+		CE388EB01A1620330020B5AF /* autobuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE388EAE1A1620330020B5AF /* autobuild.sh */; };
+		CE388EB11A1620330020B5AF /* autobuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE388EAE1A1620330020B5AF /* autobuild.sh */; };
+		CE388EB21A1620330020B5AF /* autotest.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE388EAF1A1620330020B5AF /* autotest.sh */; };
+		CE388EB31A1620330020B5AF /* autotest.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE388EAF1A1620330020B5AF /* autotest.sh */; };
 		CE39DDBE19FFD38A00150C28 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */; };
 		CE39DDBF19FFD38A00150C28 /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */; };
 		CE39DDC219FFD39900150C28 /* GroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE39DDC119FFD39900150C28 /* GroupsViewController.m */; };
@@ -413,6 +417,8 @@
 		CE290FEA19EE668B005483A1 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		CE290FEB19EE668B005483A1 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
 		CE2D1C4C19EEBCA10094F884 /* AccessibilityLabels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessibilityLabels.h; sourceTree = "<group>"; };
+		CE388EAE1A1620330020B5AF /* autobuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = autobuild.sh; sourceTree = "<group>"; };
+		CE388EAF1A1620330020B5AF /* autotest.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = autotest.sh; sourceTree = "<group>"; };
 		CE39DDBC19FFD38A00150C28 /* FavoritesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoritesViewController.h; sourceTree = "<group>"; };
 		CE39DDBD19FFD38A00150C28 /* FavoritesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoritesViewController.m; sourceTree = "<group>"; };
 		CE39DDC019FFD39900150C28 /* GroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupsViewController.h; sourceTree = "<group>"; };
@@ -767,6 +773,7 @@
 		CE1B3D9919DD40CA00A253D1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE388EAD1A1620330020B5AF /* Scripts */,
 				CE1B3DBE19DD46DD00A253D1 /* ru.lproj */,
 				CE1B3DA119DD40CA00A253D1 /* Headers */,
 				CE1B3D9A19DD40CA00A253D1 /* Certificates */,
@@ -995,6 +1002,15 @@
 				CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */,
 			);
 			path = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		CE388EAD1A1620330020B5AF /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				CE388EAE1A1620330020B5AF /* autobuild.sh */,
+				CE388EAF1A1620330020B5AF /* autotest.sh */,
+			);
+			path = Scripts;
 			sourceTree = "<group>";
 		};
 		CE39DDB619FFD28B00150C28 /* LeftSide Screens */ = {
@@ -1589,6 +1605,7 @@
 				CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */,
 				CE6CC1F019FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */,
 				CE946BC519E6A91400D270E4 /* Roboto-LightItalic.ttf in Resources */,
+				CE388EB01A1620330020B5AF /* autobuild.sh in Resources */,
 				CE946BD319E6A91400D270E4 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				CE946BCF19E6A91400D270E4 /* Roboto-ThinItalic.ttf in Resources */,
 				CE946BCD19E6A91400D270E4 /* Roboto-Thin.ttf in Resources */,
@@ -1596,6 +1613,7 @@
 				CE946BD719E6A91400D270E4 /* RobotoCondensed-Light.ttf in Resources */,
 				CE946BD119E6A91400D270E4 /* RobotoCondensed-Bold.ttf in Resources */,
 				CE946BBF19E6A91400D270E4 /* Roboto-BoldItalic.ttf in Resources */,
+				CE388EB21A1620330020B5AF /* autotest.sh in Resources */,
 				CE946BC919E6A91400D270E4 /* Roboto-MediumItalic.ttf in Resources */,
 				CE8AB39219E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */,
 			);
@@ -1610,7 +1628,9 @@
 				CE8AB39319E7D1AA00B105E0 /* DreamkasDev.p12 in Resources */,
 				CE946BD619E6A91400D270E4 /* RobotoCondensed-Italic.ttf in Resources */,
 				CE946BCC19E6A91400D270E4 /* Roboto-Regular.ttf in Resources */,
+				CE388EB31A1620330020B5AF /* autotest.sh in Resources */,
 				CE946BC219E6A91400D270E4 /* Roboto-Italic.ttf in Resources */,
+				CE388EB11A1620330020B5AF /* autobuild.sh in Resources */,
 				CE946BC619E6A91400D270E4 /* Roboto-LightItalic.ttf in Resources */,
 				CE946BD219E6A91400D270E4 /* RobotoCondensed-Bold.ttf in Resources */,
 				CE946BD419E6A91400D270E4 /* RobotoCondensed-BoldItalic.ttf in Resources */,

@@ -7,6 +7,9 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProductModel" inverseName="group" inverseEntity="ProductModel" syncable="YES"/>
     </entity>
+    <entity name="PModel" representedClassName="PModel" parentEntity="AbstractModel" syncable="YES">
+        <attribute name="count" optional="YES" syncable="YES"/>
+    </entity>
     <entity name="ProductModel" representedClassName="ProductModel" parentEntity="AbstractModel" syncable="YES">
         <attribute name="barcode" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
@@ -35,5 +38,6 @@
         <element name="ProductModel" positionX="-63" positionY="0" width="128" height="148"/>
         <element name="PurchaseModel" positionX="-54" positionY="45" width="128" height="133"/>
         <element name="StoreModel" positionX="-63" positionY="-9" width="128" height="90"/>
+        <element name="PModel" positionX="-54" positionY="63" width="128" height="58"/>
     </elements>
 </model>
