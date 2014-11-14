@@ -17,6 +17,11 @@ fi
 
 PROJECTPATH="$WORKPATH/ios-client/dreamkas/dreamkas.xcodeproj"
 
+echo "PROJECTPATH: $PROJECTPATH"
+echo "WORKPATH: $WORKPATH"
+echo "APIURL: $APIURL"
+echo "BUILDPATH: $BUILDPATH"
+
 rm -rf $BUILDPATH
 mkdir $BUILDPATH
 
