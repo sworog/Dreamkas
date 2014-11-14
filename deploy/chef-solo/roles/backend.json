@@ -1,0 +1,54 @@
+{
+  "name": "backend",
+  "description": "",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "beanstalkd": {
+      "opts": {
+        "l": "0.0.0.0",
+        "p": "11300"
+      },
+      "start_during_boot": true
+    },
+    "php": {
+      "directives": {
+        "date.timezone": "Europe/Moscow",
+        "post_max_size": "100M",
+        "realpath_cache_size": "1M"
+      },
+      "ext_conf_dir": "/etc/php5/mods-available"
+    },
+    "php-fpm": {
+      "pools": {
+        "www": {
+          "enable": false
+        },
+        "watchman": {
+          "enable": true,
+          "name": "watchman",
+          "user": "watchman",
+          "group": "www-data",
+          "max_children": 10,
+          "start_servers": 4,
+          "min_spare_servers": 2,
+          "max_spare_servers": 6,
+          "listen": "/var/run/php5-fpm.sock"
+        }
+      }
+    }
+  },
+  "run_list": [
+    "recipe[apt::default]",
+    "recipe[nginx]",
+    "recipe[mongodb::10gen_repo]",
+    "recipe[mongodb]",
+    "recipe[php]",
+    "recipe[php-fpm]",
+    "recipe[composer]",
+    "recipe[beanstalkd]",
+    "recipe[lighthouse]",
+    "recipe[lighthouse::php]",
+    "role[newrelic-php]"
+  ]
+}
