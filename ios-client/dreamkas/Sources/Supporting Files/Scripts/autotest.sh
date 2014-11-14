@@ -28,6 +28,7 @@ mkdir "$BUILDPATH"
 /Library/xctool/xctool.sh \
     -arch i386 \
     -sdk iphonesimulator8.1 \
+    -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
     -project "$PROJECTPATH" \
     -scheme dreamkas-tests \
@@ -38,6 +39,7 @@ mkdir "$BUILDPATH"
 /Library/xctool/xctool.sh \
     -arch i386 \
     -sdk iphonesimulator8.1 \
+    -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
     -project "$PROJECTPATH" \
     -scheme dreamkas-tests \
