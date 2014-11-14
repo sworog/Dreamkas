@@ -12,7 +12,9 @@ apiurl=http://ios.autotests.api.lighthouse.pro/
 rm -rf $buildpath
 mkdir $buildpath
 
-/Library/xctool/xctool.sh \
+# /Library/xctool/xctool.sh \
+
+xcodebuild \
 -arch i386 \
 -sdk iphonesimulator8.1 \
 -configuration Debug \
@@ -22,7 +24,9 @@ AUTOTESTS_SERVER=$apiurl \
 clean build-tests -only dreamkas-tests \
 CONFIGURATION_BUILD_DIR=$buildpath
 
-/Library/xctool/xctool.sh \
+# /Library/xctool/xctool.sh \
+
+xcodebuild \
 -arch i386 \
 -sdk iphonesimulator8.1 \
 -configuration Debug \
