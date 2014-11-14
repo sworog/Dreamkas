@@ -8,7 +8,7 @@
         <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ProductModel" inverseName="group" inverseEntity="ProductModel" syncable="YES"/>
     </entity>
     <entity name="PModel" representedClassName="PModel" parentEntity="AbstractModel" syncable="YES">
-        <attribute name="count" optional="YES" syncable="YES"/>
+        <attribute name="count" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="ProductModel" representedClassName="ProductModel" parentEntity="AbstractModel" syncable="YES">
         <attribute name="barcode" optional="YES" attributeType="String" minValueString="1" syncable="YES"/>
@@ -35,9 +35,9 @@
     <elements>
         <element name="AbstractModel" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="GroupModel" positionX="-63" positionY="27" width="128" height="73"/>
+        <element name="PModel" positionX="-54" positionY="63" width="128" height="60"/>
         <element name="ProductModel" positionX="-63" positionY="0" width="128" height="148"/>
         <element name="PurchaseModel" positionX="-54" positionY="45" width="128" height="133"/>
         <element name="StoreModel" positionX="-63" positionY="-9" width="128" height="90"/>
-        <element name="PModel" positionX="-54" positionY="63" width="128" height="58"/>
     </elements>
 </model>

@@ -158,13 +158,10 @@
 		CE8DA4E71A011D54007C24D8 /* BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8DA4E61A011D54007C24D8 /* BackButton.m */; };
 		CE8DA4E81A011D54007C24D8 /* BackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8DA4E61A011D54007C24D8 /* BackButton.m */; };
 		CE912E901A0BD3A1001FDACE /* UTProductsTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */; };
-		CE912E941A0BD62D001FDACE /* ITProductsTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E931A0BD62D001FDACE /* ITProductsTesting.m */; };
 		CE912E981A0BD8A0001FDACE /* PincodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E971A0BD8A0001FDACE /* PincodeViewController.m */; };
 		CE912E991A0BD8A1001FDACE /* PincodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E971A0BD8A0001FDACE /* PincodeViewController.m */; };
 		CE91B79519F4ED4700258AB0 /* UTAuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */; };
 		CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */; };
-		CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */; };
-		CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE91B79A19F4EE4100258AB0 /* ITStoresTesting.m */; };
 		CE946BB919E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBA19E6A91400D270E4 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */; };
 		CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */; };
@@ -236,7 +233,6 @@
 		CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041419E69B2500AE256F /* AuthViewController.m */; };
 		CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
 		CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
-		CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CECCA4D519E2929500B165F3 /* libKIF.a */; };
 		CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */; };
 		CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47B19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m */; };
 		CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47D19DD74C800ED88D3 /* AFHTTPSessionManager.m */; };
@@ -282,20 +278,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		CECCA4D419E2929500B165F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EABD46AA1857A0C700A5F081;
-			remoteInfo = KIF;
-		};
-		CECCA4D619E2929500B165F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EB72047C1680DDAD00278DA2;
-			remoteInfo = "KIF-OCUnit";
-		};
 		CECD93E019DEA6B200232734 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE1B3D5B19DD3CF000A253D1 /* Project object */;
@@ -476,13 +458,10 @@
 		CE8DA4E51A011D54007C24D8 /* BackButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackButton.h; sourceTree = "<group>"; };
 		CE8DA4E61A011D54007C24D8 /* BackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackButton.m; sourceTree = "<group>"; };
 		CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTProductsTesting.m; sourceTree = "<group>"; };
-		CE912E931A0BD62D001FDACE /* ITProductsTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITProductsTesting.m; sourceTree = "<group>"; };
 		CE912E961A0BD8A0001FDACE /* PincodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PincodeViewController.h; sourceTree = "<group>"; };
 		CE912E971A0BD8A0001FDACE /* PincodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PincodeViewController.m; sourceTree = "<group>"; };
 		CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTAuthTesting.m; sourceTree = "<group>"; };
 		CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTStoresTesting.m; sourceTree = "<group>"; };
-		CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITAuthTesting.m; sourceTree = "<group>"; };
-		CE91B79A19F4EE4100258AB0 /* ITStoresTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITStoresTesting.m; sourceTree = "<group>"; };
 		CE946BA719E6A91400D270E4 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		CE946BA819E6A91400D270E4 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		CE946BA919E6A91400D270E4 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -538,7 +517,6 @@
 		CEC0041419E69B2500AE256F /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
 		CEC0041719E69B3400AE256F /* TicketWindowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketWindowViewController.h; sourceTree = "<group>"; };
 		CEC0041819E69B3400AE256F /* TicketWindowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketWindowViewController.m; sourceTree = "<group>"; };
-		CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = KIF.xcodeproj; path = KIF/KIF.xcodeproj; sourceTree = "<group>"; };
 		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECD93E819DEA77700232734 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CECD93F019DEAB5B00232734 /* SwiftBridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftBridging.h; sourceTree = "<group>"; };
@@ -618,7 +596,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CECCA4DE19E293AF00B165F3 /* libKIF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,8 +803,6 @@
 			children = (
 				CECD93E819DEA77700232734 /* Info.plist */,
 				CE2D1C4619EEA8530094F884 /* Unit Tests */,
-				CE2D1C4019EEA67A0094F884 /* Integration Tests */,
-				CECCA4CA19E2927400B165F3 /* Submodules */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -982,16 +957,6 @@
 				CE290FEA19EE668B005483A1 /* MagicalRecordShorthand.h */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		CE2D1C4019EEA67A0094F884 /* Integration Tests */ = {
-			isa = PBXGroup;
-			children = (
-				CE91B79819F4EE0B00258AB0 /* ITAuthTesting.m */,
-				CE912E931A0BD62D001FDACE /* ITProductsTesting.m */,
-				CE91B79A19F4EE4100258AB0 /* ITStoresTesting.m */,
-			);
-			path = "Integration Tests";
 			sourceTree = "<group>";
 		};
 		CE2D1C4619EEA8530094F884 /* Unit Tests */ = {
@@ -1307,23 +1272,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		CECCA4CA19E2927400B165F3 /* Submodules */ = {
-			isa = PBXGroup;
-			children = (
-				CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */,
-			);
-			path = Submodules;
-			sourceTree = "<group>";
-		};
-		CECCA4CC19E2929400B165F3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CECCA4D519E2929500B165F3 /* libKIF.a */,
-				CECCA4D719E2929500B165F3 /* libKIF-OCUnit.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		CECFC47719DD74C800ED88D3 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1552,12 +1500,6 @@
 			mainGroup = CE1B3D5A19DD3CF000A253D1;
 			productRefGroup = CE1B3D6419DD3CF000A253D1 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = CECCA4CC19E2929400B165F3 /* Products */;
-					ProjectRef = CECCA4CB19E2929400B165F3 /* KIF.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				CE1B3D6219DD3CF000A253D1 /* dreamkas */,
@@ -1565,23 +1507,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		CECCA4D519E2929500B165F3 /* libKIF.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libKIF.a;
-			remoteRef = CECCA4D419E2929500B165F3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CECCA4D719E2929500B165F3 /* libKIF-OCUnit.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libKIF-OCUnit.a";
-			remoteRef = CECCA4D619E2929500B165F3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CE1B3D6119DD3CF000A253D1 /* Resources */ = {
@@ -1809,7 +1734,6 @@
 				CEF2645F19E8126A008BE93A /* LogInViewController.m in Sources */,
 				CE28F4B51A1505D5005DDDAA /* PurchaseModel+Helper.m in Sources */,
 				CE912E991A0BD8A1001FDACE /* PincodeViewController.m in Sources */,
-				CE912E941A0BD62D001FDACE /* ITProductsTesting.m in Sources */,
 				CEF2646719E81C57008BE93A /* AbstractViewController+Modal.m in Sources */,
 				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
@@ -1818,7 +1742,6 @@
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE1AF96B1A15006F00333A9F /* ProductModel.m in Sources */,
 				CE29101919EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
-				CE91B79B19F4EE4100258AB0 /* ITStoresTesting.m in Sources */,
 				CE29101719EE668B005483A1 /* MagicalRecord+iCloud.m in Sources */,
 				CE3C76481A0143080057493E /* ProductModel+Mapper.m in Sources */,
 				CEBC43A819E806F700C0E575 /* Reachability.m in Sources */,
@@ -1867,7 +1790,6 @@
 				CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
 				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,
-				CE91B79919F4EE0B00258AB0 /* ITAuthTesting.m in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
 				CE1AF95B1A14FF6700333A9F /* PurchaseViewController.m in Sources */,
@@ -2048,6 +1970,7 @@
 		CECD93E319DEA6B200232734 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AUTOTESTS_SERVER = "";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2059,6 +1982,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEBUG=1",
+					"API_AUTOTESTS_SERVER_URL=@\\\"$(AUTOTESTS_SERVER)\\\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2079,6 +2003,7 @@
 		CECD93E419DEA6B200232734 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AUTOTESTS_SERVER = "";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2087,7 +2012,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = "API_AUTOTESTS_SERVER_URL=@\\\"$(AUTOTESTS_SERVER)\\\"";
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Tests/Submodules";
