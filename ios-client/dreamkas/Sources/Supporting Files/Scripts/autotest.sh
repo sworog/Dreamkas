@@ -15,6 +15,8 @@ then
     APIURL="http://ios.autotests.api.lighthouse.pro"
 fi
 
+PROJECTPATH="$WORKPATH/ios-client/dreamkas/dreamkas.xcodeproj"
+
 rm -rf $BUILDPATH
 mkdir $BUILDPATH
 
@@ -22,7 +24,7 @@ mkdir $BUILDPATH
     -arch i386 \
     -sdk iphonesimulator8.1 \
     -configuration Debug \
-    -project "$WORKPATH/dreamkas.xcodeproj" \
+    -project "$PROJECTPATH" \
     -scheme dreamkas \
     AUTOTESTS_SERVER=$APIURL \
     clean build-tests -only dreamkas-tests \
@@ -32,7 +34,7 @@ mkdir $BUILDPATH
     -arch i386 \
     -sdk iphonesimulator8.1 \
     -configuration Debug \
-    -project "$WORKPATH/dreamkas.xcodeproj" \
+    -project "$PROJECTPATH" \
     -scheme dreamkas \
     AUTOTESTS_SERVER=$APIURL \
     run-tests -only dreamkas-tests -parallelize \
