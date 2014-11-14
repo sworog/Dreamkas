@@ -4,7 +4,6 @@
     "recipe[nodejs::npm]",
     "role[backend]",
     "role[ux-host]",
-    "role[newrelic-php]",
     "recipe[lighthouse::hosts]"
   ],
   "newrelic": {
