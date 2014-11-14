@@ -103,6 +103,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void StockInEditModalWindowChecksValues(ExamplesTable examplesTable) {
+        stockInEditModalWindow.checkValues(examplesTable);
+    }
+
+    @Step
     public void WriteOffEditModalWindowChecksValues(ExamplesTable examplesTable) {
         writeOffEditModalWindow.checkValues(examplesTable);
     }
