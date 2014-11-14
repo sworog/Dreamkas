@@ -59,7 +59,8 @@ class LighthouseCoreExtensionTest extends TestCase
             'openstack.selectel.options',
             'openstack.selectel.storage.container.metadata',
             'openstack.selectel.storage.container.name',
-            'test.client.class'
+            'test.client.class',
+            'validator.email.class'
         );
         $this->assertEquals($capturedArguments, $expectedValues, '', 0, 10, true);
     }

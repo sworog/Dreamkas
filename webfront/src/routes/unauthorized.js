@@ -3,9 +3,9 @@ define(function(require) {
 
     return {
         'logout(/)': require('kit/logout/logout'),
-        'login(/)': require('pages/outside/login/login'),
-        'signup(/)': require('pages/outside/signup/signup'),
-        'recover(/)': require('pages/outside/recover/recover'),
-        '*path': require('pages/outside/login/login')
+        'login(/)': require('pages/login/login'),
+        'signup(/)': require('pages/signup/signup'),
+        'recover(/)': require('pages/recover/recover'),
+        '*path': require('pages/login/login')
     };
 });

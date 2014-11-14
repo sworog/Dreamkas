@@ -22,7 +22,7 @@ public class ProductAutoComplete extends CommonItem {
             getVisibleWebElementFacade().type(value);
         } else {
             getVisibleWebElementFacade().type(value);
-            getPageObject().findVisibleElement(By.xpath("//*[contains(@class, 'tt-dataset')]//*[text()='" + value + "']")).click();
+            getPageObject().findVisibleElement(By.xpath("//*[@class='autocomplete__item']/div/b[ contains(text(), '" + value +"')]")).click();
         }
     }
 

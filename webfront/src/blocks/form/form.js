@@ -19,7 +19,7 @@ define(function(require) {
             return block.model && _.cloneDeep(block.model.toJSON());
         },
         events: {
-            'change :input': function() {
+            'focus :input': function() {
                 var block = this;
 
                 block.removeSuccessMessage();
@@ -226,12 +226,12 @@ define(function(require) {
         showSuccessMessage: function() {
             var block = this;
 
-            //block.elements.$submitButton.after('<span class="form__successMessage">' + getText(block.get('successMessage')) + '</span>')
+            block.$submitButton.after('<span class="form__successMessage pull-right">' + getText(block.get('successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;
 
-            //$(block.el).find('.form__successMessage').remove();
+            block.$el.find('.form__successMessage').remove();
         },
         disable: function() {
             var block = this;

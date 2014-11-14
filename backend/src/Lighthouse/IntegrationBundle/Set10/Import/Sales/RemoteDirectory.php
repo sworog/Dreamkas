@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\IntegrationBundle\Set10\Import\Products\Set10Import;
 use Lighthouse\IntegrationBundle\Util\SortableDirectoryIterator;
-use Lighthouse\CoreBundle\Util\Url;
+use Lighthouse\IntegrationBundle\Util\Url;
 use JMS\DiExtraBundle\Annotation as DI;
 use SplFileInfo;
 
