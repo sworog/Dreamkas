@@ -58,7 +58,7 @@
     text-align: center;
 }
 
-.form_stockMovementProducts{
+.form_stockMovementProducts {
     margin: 0 -8px;
 }
 
@@ -84,7 +84,7 @@
     font-size: 20px;
 }
 
-.form_refund .form_refund__position .form__errorMessage{
+.form_refund .form_refund__position .form__errorMessage {
     text-align: right;
     padding-top: 5px;
     padding-right: 15px;
@@ -108,4 +108,14 @@
 .form_stockMovementProducts td[name="totalPrice"],
 .form_stockMovementProducts__totalPrice {
     text-align: right;
+}
+
+.form__inputTransparentButton {
+    background-color: transparent;
+    color: #428bca;
+    border: none;
+}
+
+.form__inputTransparentButton:hover {
+    background-color: #f4f4f4;
 }
