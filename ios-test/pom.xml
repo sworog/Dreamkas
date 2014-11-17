@@ -97,6 +97,7 @@
                         <include>**/When*.java</include>
                         <include>**/*TestSuite.java</include>
                     </includes>
+                    <disableXmlReport>true</disableXmlReport>
                     <systemPropertyVariables>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                         <appium.server.url>${appium.server.url}</appium.server.url>
