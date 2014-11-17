@@ -1,5 +1,5 @@
 select {
-    -webkit-appearance: none;
+    /*-webkit-appearance: none;*/
 }
 
 .select_group > .input-group,
