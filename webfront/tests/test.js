@@ -27,7 +27,7 @@ phantomcss.init({
  }*/);
 
 casper
-    .start('http://borovin.lighthouse.pro/signup')
+    .start('http://borovin.lighthouse.pro/signin')
     .viewport(1024, 768)
     .waitForSelector('body[status="loaded"]', function() {
         phantomcss.screenshot('body', 'full body');
@@ -36,10 +36,4 @@ casper
         phantomcss.compareAll();
     });
 
-/*
- Casper runs tests
- */
-casper.run(function() {
-    casper.test.done();
-    phantom.exit(phantomcss.getExitStatus());
-});
+casper.run();
