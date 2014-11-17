@@ -24,12 +24,7 @@ public class ProductAutoComplete extends CommonItem {
             getVisibleWebElementFacade().type(value);
         } else {
             getVisibleWebElementFacade().type(value);
-            if (getPageObject() instanceof InvoiceCreateModalWindow ||
-                    getPageObject() instanceof InvoiceEditModalWindow) {
-                getPageObject().findVisibleElement(By.xpath("//*[@class='autocomplete__item']/div/b[ contains(text(), '" + value +"')]")).click();
-            } else {
-                getPageObject().findVisibleElement(By.xpath("//*[@class='tt-suggestions']//*[contains(text(), '" + value + "')]")).click();
-            }
+            getPageObject().findVisibleElement(By.xpath("//*[@class='autocomplete__item']/div/b[ contains(text(), '" + value +"')]")).click();
         }
     }
 
