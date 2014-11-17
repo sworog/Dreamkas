@@ -12,7 +12,8 @@ BUILDPATH=$WORKPATH/ios-client/dreamkas/Builds
 
 if [ -z "$APIURL" ]
 then
-    APIURL="http://ios.autotests.api.lighthouse.pro"
+    #APIURL="http://ios.autotests.api.lighthouse.pro"
+    APIURL="http://ios.staging.api.lighthouse.pro/"
 fi
 
 PROJECTPATH="$WORKPATH/ios-client/dreamkas/dreamkas.xcodeproj"
@@ -32,7 +33,7 @@ xcodebuild \
     -sdk iphonesimulator8.1 \
     -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
-    -project /Users/admin/Documents/BuildAgent/work/463308b5d7cc33c7/ios-client/dreamkas/dreamkas.xcodeproj \
+    -project "$PROJECTPATH" \
     -scheme dreamkas-tests \
     AUTOTESTS_SERVER=$APIURL \
     CONFIGURATION_BUILD_DIR="$BUILDPATH" \
