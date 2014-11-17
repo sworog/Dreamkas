@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f712ac20810e494cb57b47a2d8419668",
+    "hash": "fc994c0698be15d62bc04a153cfab1fd",
     "packages": [
         {
             "name": "clamidity/profiler-bundle",
@@ -2256,16 +2256,16 @@
         },
         {
             "name": "munkie/karzer",
-            "version": "dev-phpunit-4.0",
+            "version": "dev-retry",
             "source": {
                 "type": "git",
                 "url": "https://github.com/munkie/karzer.git",
-                "reference": "3611e0d1dbb731cdbdf8bdb419bbf20100611430"
+                "reference": "e8059a359d6e9d47f12d50cbfc4bf449dac8e24b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/munkie/karzer/zipball/3611e0d1dbb731cdbdf8bdb419bbf20100611430",
-                "reference": "3611e0d1dbb731cdbdf8bdb419bbf20100611430",
+                "url": "https://api.github.com/repos/munkie/karzer/zipball/e8059a359d6e9d47f12d50cbfc4bf449dac8e24b",
+                "reference": "e8059a359d6e9d47f12d50cbfc4bf449dac8e24b",
                 "shasum": ""
             },
             "require": {
@@ -2300,7 +2300,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-08-29 17:54:21"
+            "time": "2014-11-17 15:07:08"
         },
         {
             "name": "munkie/phpunit-teamcity-testlistener",
