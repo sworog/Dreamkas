@@ -2,7 +2,7 @@
 //  PurchaseModel.h
 //  dreamkas
 //
-//  Created by sig on 13.11.14.
+//  Created by sig on 17.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -10,23 +10,23 @@
 #import <CoreData/CoreData.h>
 #import "AbstractModel.h"
 
-@class ProductModel, StoreModel;
+@class PurchaseItemModel, StoreModel;
 
 @interface PurchaseModel : AbstractModel
 
+@property (nonatomic, retain) NSNumber * isActive;
 @property (nonatomic, retain) NSNumber * itemsCount;
 @property (nonatomic, retain) NSString * paymentType;
 @property (nonatomic, retain) NSNumber * sumTotal;
-@property (nonatomic, retain) NSNumber * isActive;
-@property (nonatomic, retain) NSSet *products;
 @property (nonatomic, retain) StoreModel *store;
+@property (nonatomic, retain) NSSet *items;
 @end
 
 @interface PurchaseModel (CoreDataGeneratedAccessors)
 
-- (void)addProductsObject:(ProductModel *)value;
-- (void)removeProductsObject:(ProductModel *)value;
-- (void)addProducts:(NSSet *)values;
-- (void)removeProducts:(NSSet *)values;
+- (void)addItemsObject:(PurchaseItemModel *)value;
+- (void)removeItemsObject:(PurchaseItemModel *)value;
+- (void)addItems:(NSSet *)values;
+- (void)removeItems:(NSSet *)values;
 
 @end

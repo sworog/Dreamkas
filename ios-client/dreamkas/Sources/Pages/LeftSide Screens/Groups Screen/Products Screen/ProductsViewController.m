@@ -169,7 +169,13 @@
     DPLogFast(@"product = %@", product);
     
     PurchaseModel *purchase = [PurchaseModel addProduct:product];
-    DPLogFast(@"products in purchase = %d", [[purchase products] count]);
+    DPLogFast(@"items in purchase = %d", [[purchase items] count]);
+    
+    int i = 1;
+    for (PurchaseItemModel *it in [purchase items]) {
+        DPLogFast(@"item %d count = %@", i, [it count]);
+        i++;
+    }
 }
 
 @end

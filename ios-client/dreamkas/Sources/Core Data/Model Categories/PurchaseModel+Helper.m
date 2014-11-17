@@ -26,14 +26,14 @@
         }
         
         // и создадим новую покупку
-        model = (PurchaseModel*)[PurchaseModel createByPk:[AbstractModel pkForNewEntity]];
+        model = [PurchaseModel createByPk:[PurchaseItemModel pkForNewEntity]];
         [model setIsActive:@YES];
         [model updateWithProduct:product];
     }
     else if ([active_purchases count] < 1) {
         DPLogFast(@"[active_purchases count] < 1");
         // активных покупок нет - создаём новую
-        model = (PurchaseModel*)[PurchaseModel createByPk:[AbstractModel pkForNewEntity]];
+        model = [PurchaseModel createByPk:[PurchaseItemModel pkForNewEntity]];
         [model setIsActive:@YES];
         [model updateWithProduct:product];
     }
@@ -43,6 +43,8 @@
         model = [active_purchases firstObject];
         [model updateWithProduct:product];
     }
+    
+    DPLogFast(@"purchase pk = %@", [model pk]);
     return model;
 }
 
@@ -51,7 +53,18 @@
  */
 - (void)updateWithProduct:(ProductModel *)product
 {
-    [self addProductsObject:product];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productId = %@ AND self IN %@", [product pk], self.items];
+    PurchaseItemModel *item = [PurchaseItemModel MR_findFirstWithPredicate:predicate];
+    if (item == nil) {
+        item = [PurchaseItemModel createByPk:[PurchaseItemModel pkForNewEntity]];
+        [item setCount:@(1)];
+        [item setProductId:[product pk]];
+        [self addItemsObject:item];
+    }
+    else {
+        [item setCount:@([[item count] integerValue]+1)];
+    }
+    
     [self setStore:[StoreModel findByPK:[CurrentUser lastUsedStoreID]]];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }

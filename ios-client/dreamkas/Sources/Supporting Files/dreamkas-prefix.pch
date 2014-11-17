@@ -50,6 +50,7 @@
 #import "GroupModel.h"
 #import "PurchaseModel.h"
 #import "PurchaseModel+Helper.h"
+#import "PurchaseItemModel.h"
 
 //
 // Менеджеры и хэлперы
