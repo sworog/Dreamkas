@@ -49,6 +49,10 @@ define(function(require, exports, module) {
                 var block = this,
                     input = e.target;
 
+                if (checkKey(e.keyCode, ['LEFT', 'RIGHT'])) {
+                    return;
+                }
+
                 if (e.keyCode === 13) {
 
                     if (block.$tetherElement.is(':visible')) {
@@ -231,6 +235,10 @@ define(function(require, exports, module) {
                 $currentFocusedItem = block.$tetherElement.find('.autocomplete__item_focused'),
                 currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem),
                 itemData = data || block.data[currentFocusedItemIndex];
+
+            if (!itemData){
+                return;
+            }
 
             block.$input.val(itemData[block.valueKey]);
 

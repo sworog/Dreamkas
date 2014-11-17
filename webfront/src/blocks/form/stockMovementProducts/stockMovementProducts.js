@@ -6,7 +6,12 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         ProductList: require('./stockMovementProducts__productList'),
         events: {
-            'keyup [name="quantity"], [name="price"], [name="priceEntered"]': function(e) {
+            'keyup [name="price"], [name="priceEntered"]': function(e) {
+                var block = this;
+
+                block.renderTotalSum();
+            },
+            'change .form_stockMovementProducts__controls .inputNumber': function(){
                 var block = this;
 
                 block.renderTotalSum();
@@ -35,20 +40,23 @@ define(function(require, exports, module) {
                     collection: this.collection
                 });
             },
-            autocomplete_products: function() {
+            modal_product: require('blocks/modal/product/product'),
+            inputNumber: require('blocks/inputNumber/inputNumber'),
+            autocomplete_products: function(){
+
                 var block = this,
-                    ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products.deprecated'),
-                    productAutocomplete;
+                    Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
+                    autocomplete_products = new Autocomplete_products;
 
-                productAutocomplete = new ProductAutocomplete({
-                    resetLink: false
+                autocomplete_products.on('select', function(productData) {
+                    block.selectProduct(productData);
                 });
 
-                productAutocomplete.$el.on('typeahead:selected', function(e, product) {
-                    block.selectProduct(product);
+                autocomplete_products.on('deselect', function() {
+                    block.deselectProduct();
                 });
 
-                return productAutocomplete;
+                return autocomplete_products;
             }
         },
         submit: function() {
@@ -111,7 +119,7 @@ define(function(require, exports, module) {
 
             block.$('input[name="' + block.priceField + '"]').val(product.purchasePrice ? block.formatMoney(product.purchasePrice) : '');
 
-            block.$('input[name="quantity"]').val(1);
+            block.$('input[name="quantity"]').val(block.formatAmount(1));
             block.$('.product__units').html(product.units || 'шт.');
 
             block.renderTotalSum();

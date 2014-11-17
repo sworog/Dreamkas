@@ -2,10 +2,10 @@
 <% collection.forEach(function(product) { %>
 <tr name="stockMovementProduct">
     <td name="name"><%- product.get('product.name') %></td>
-    <td name="<%- priceField %>"><%- formatMoney(product.get(priceField)) %></td>
-    <td name="quantity"><%- formatAmount(product.get('quantity')) %> <%- product.get('product.object.units') || 'шт.' %></td>
-    <td name="totalPrice"><%- formatMoney(product.get('totalPrice')) %></td>
-    <td>
+    <td style="white-space: nowrap" name="<%- priceField %>"><%- formatMoney(product.get(priceField)) %></td>
+    <td style="white-space: nowrap" name="quantity"><%- formatAmount(product.get('quantity')) %> <%- product.get('product.object.units') || 'шт.' %></td>
+    <td style="white-space: nowrap" name="totalPrice"><%- formatMoney(product.get('totalPrice')) %></td>
+    <td style="text-align: center;">
         <a data-model-cid="<%- product.cid %>"
            class="table_stockMovementProducts__removeProductLink fa fa-times"></a>
     </td>
