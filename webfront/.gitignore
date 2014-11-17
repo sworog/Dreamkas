@@ -4,6 +4,9 @@ node_modules/
 phantomjsdriver.log
 build/
 report/
+failures/
+screenshots/*.diff.*
+screenshots/*.fail.*
 xunit/
 vendor/
 web

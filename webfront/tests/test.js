@@ -26,27 +26,20 @@ phantomcss.init({
  }
  }*/);
 
-casper.start( 'http://lighthouse.dev/signup' );
-
-casper.viewport(1024, 768);
-
-casper.waitForSelector('body[status="loaded"]', function() {
-    phantomcss.screenshot('body', 'full body');
-});
-
-casper.then( function(){
-    // compare screenshots
-    phantomcss.compareAll();
-});
-
-casper.then( function(){
-    casper.test.done();
-});
+casper
+    .start('http://bo.lighthouse.pro/signup')
+    .viewport(1024, 768)
+    .waitForSelector('body[status="loaded"]', function() {
+        phantomcss.screenshot('body', 'full body');
+    })
+    .then(function() {
+        phantomcss.compareAll();
+    });
 
 /*
  Casper runs tests
  */
-casper.run(function(){
-    console.log('\nTHE END.');
+casper.run(function() {
+    casper.test.done();
     phantom.exit(phantomcss.getExitStatus());
 });
