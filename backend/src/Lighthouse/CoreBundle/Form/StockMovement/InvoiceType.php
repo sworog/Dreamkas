@@ -77,7 +77,10 @@ class InvoiceType extends DocumentType
             )
             ->add(
                 'includesVAT',
-                'checkbox'
+                'checkbox',
+                array(
+                    'empty_data' => '1'
+                )
             )
             ->add(
                 'products',
