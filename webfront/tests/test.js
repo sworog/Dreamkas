@@ -26,8 +26,10 @@ phantomcss.init({
  }
  }*/);
 
+var host = casper.cli.options || 'http://demo.lighthouse.pro';
+
 casper
-    .start('http://borovin.lighthouse.pro/signup')
+    .start(host + '/signup')
     .viewport(1024, 768)
     .waitForSelector('body[status="loaded"]', function() {
         phantomcss.screenshot('body', 'full body');
