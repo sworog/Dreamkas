@@ -5,7 +5,7 @@
 
         <select class="form-control" name="supplier">
 
-            <option value="" selected disabled>Выберите поставщика</option>
+            <option value="" selected>Не выбран</option>
             <% collection.forEach(function(supplierModel){ %>
             <option <%- selected === supplierModel.id ? 'selected' : '' %>
                     value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
