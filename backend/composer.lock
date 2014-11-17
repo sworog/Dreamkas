@@ -2260,12 +2260,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/munkie/karzer.git",
-                "reference": "e8059a359d6e9d47f12d50cbfc4bf449dac8e24b"
+                "reference": "fd15c718dda5640309327f8184b991f0a346f123"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/munkie/karzer/zipball/e8059a359d6e9d47f12d50cbfc4bf449dac8e24b",
-                "reference": "e8059a359d6e9d47f12d50cbfc4bf449dac8e24b",
+                "url": "https://api.github.com/repos/munkie/karzer/zipball/fd15c718dda5640309327f8184b991f0a346f123",
+                "reference": "fd15c718dda5640309327f8184b991f0a346f123",
                 "shasum": ""
             },
             "require": {
@@ -2300,7 +2300,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-11-17 15:07:08"
+            "time": "2014-11-17 16:41:38"
         },
         {
             "name": "munkie/phpunit-teamcity-testlistener",
