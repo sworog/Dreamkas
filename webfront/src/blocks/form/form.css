@@ -80,7 +80,7 @@
     padding-bottom: 15px;
 }
 
-.form_refund__productName {
+.form_refund__productName {form_stockMovementProducts__totalPrice
     font-size: 20px;
 }
 
@@ -105,6 +105,10 @@
     padding: 8px 50px;
 }
 
+.form_stockMovementProducts td[name="totalPrice"],
+.form_stockMovementProducts__totalPrice {
+    text-align: right;
+}
 .form__inputTransparentButton {
     background-color: transparent;
     color: #428bca;
