@@ -3,7 +3,7 @@
 #  autotest.sh
 #
 #
-#  Created by sig on 14.11.2014
+#  Created by sig on 17.11.2014
 #
 
 WORKPATH=$1
@@ -25,25 +25,19 @@ echo "BUILDPATH: $BUILDPATH"
 rm -rf "$BUILDPATH"
 mkdir "$BUILDPATH"
 
-/Library/xctool/xctool.sh \
-    -sdk iphonesimulator8.1 \
-    -destination "name=iPad Air,OS=8.1" \
-    -configuration Debug \
-    -project "$PROJECTPATH" \
-    -scheme dreamkas-tests \
-    AUTOTESTS_SERVER=$APIURL \
-    clean build-tests -only dreamkas-tests \
-    CONFIGURATION_BUILD_DIR="$BUILDPATH"
+export LC_CTYPE=en_US.UTF-8
+set -o pipefail
 
-/Library/xctool/xctool.sh \
+xcodebuild \
     -sdk iphonesimulator8.1 \
     -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
-    -project "$PROJECTPATH" \
+    -project /Users/admin/Documents/BuildAgent/work/463308b5d7cc33c7/ios-client/dreamkas/dreamkas.xcodeproj \
     -scheme dreamkas-tests \
     AUTOTESTS_SERVER=$APIURL \
-    run-tests -only dreamkas-tests -parallelize \
-    CONFIGURATION_BUILD_DIR="$BUILDPATH"
+    CONFIGURATION_BUILD_DIR="$BUILDPATH" \
+    clean test \
+    | xcpretty -tc -r junit --output "$BUILDPATH/junit.xml"
 
 # CONFIGURATION_BUILD_DIR=$buildpath
 # may be replaced by

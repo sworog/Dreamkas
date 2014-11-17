@@ -3,21 +3,38 @@
 #  autobuild.sh
 #
 #
-#  Created by sig on 14.11.2014
+#  Created by sig on 17.11.2014
 #
 
-buildpath=/Users/admin/Documents/Builds
-apiurl=http://ios.autotests.api.lighthouse.pro/
+WORKPATH=$1
+APIURL=$2
+BUILDPATH=$WORKPATH/ios-client/dreamkas/Builds
 
-rm -rf $buildpath
-mkdir $buildpath
+if [ -z "$APIURL" ]
+then
+    APIURL="http://ios.autotests.api.lighthouse.pro"
+fi
 
-/Library/xctool/xctool.sh \
--arch i386 \
--sdk iphonesimulator8.1 \
--configuration Debug \
--project /Users/admin/Documents/lighthouse/ios-client/dreamkas/dreamkas.xcodeproj \
--scheme dreamkas \
-AUTOTESTS_SERVER=$apiurl \
-clean build \
-CONFIGURATION_BUILD_DIR=$buildpath
+PROJECTPATH="$WORKPATH/ios-client/dreamkas/dreamkas.xcodeproj"
+
+echo "PROJECTPATH: $PROJECTPATH"
+echo "WORKPATH: $WORKPATH"
+echo "APIURL: $APIURL"
+echo "BUILDPATH: $BUILDPATH"
+
+rm -rf "$BUILDPATH"
+mkdir "$BUILDPATH"
+
+export LC_CTYPE=en_US.UTF-8
+set -o pipefail
+
+xcodebuild \
+    -sdk iphonesimulator8.1 \
+    -destination "name=iPad Air,OS=8.1" \
+    -configuration Debug \
+    -project /Users/admin/Documents/BuildAgent/work/463308b5d7cc33c7/ios-client/dreamkas/dreamkas.xcodeproj \
+    -scheme dreamkas-tests \
+    AUTOTESTS_SERVER=$APIURL \
+    CONFIGURATION_BUILD_DIR="$BUILDPATH" \
+    clean build \
+    | xcpretty -tc -r junit --output "$BUILDPATH/junit.xml"
