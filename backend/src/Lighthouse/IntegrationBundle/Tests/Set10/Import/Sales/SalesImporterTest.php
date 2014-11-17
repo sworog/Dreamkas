@@ -215,8 +215,8 @@ class SalesImporterTest extends WebTestCase
 
     /**
      * @dataProvider importWithDateShiftProvider
-     * @param $end
-     * @param $start
+     * @param string $end
+     * @param string $start
      * @param string $expectedFirstSaleDate
      * @param string $expectedLastSaleDate
      */
@@ -372,12 +372,14 @@ class SalesImporterTest extends WebTestCase
                 '2013-11-13T23:52:27+0000',
                 '2013-11-14T00:01:24+0000',
             ),
+            /*
             'today' => array(
                 'today',
                 '2013-11-04',
                 '{yesterday|Y-m-d}T23:52:27+0000',
                 '{today|Y-m-d}T00:01:24+0000',
             ),
+            */
             'date of first check' => array(
                 '2013-11-28 12:00:00',
                 '2013-11-03 23:52:27',
