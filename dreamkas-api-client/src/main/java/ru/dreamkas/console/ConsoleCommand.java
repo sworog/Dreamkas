@@ -30,7 +30,7 @@ public class ConsoleCommand {
     }
 
     private String cmd(String command, String host) {
-        if (isUnix()) {
+        if (isUnix() || isMac()) {
             return String.format(CONSOLE_COMMAND_TEMPLATE, command, host);
         } else {
             return String.format("cmd /c " + CONSOLE_COMMAND_TEMPLATE, command, host);
