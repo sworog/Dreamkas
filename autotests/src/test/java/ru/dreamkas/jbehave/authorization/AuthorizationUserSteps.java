@@ -46,8 +46,8 @@ public class AuthorizationUserSteps {
         authorizationSteps.openSignUpPage();
     }
 
-    @Given("the user logs in using '$userName' userName and '$password' password")
-    @Alias("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
+    @Given("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
+    @When("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
     public void givenTheUserLogsInUsingCredentials(String userName, String password) {
         authorizationSteps.authorization(userName, password);
     }
@@ -71,13 +71,14 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user logs in using '$userName' userName and '$password' password to check validation")
+    @Alias("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password' для проверки валидации")
     public void givenTheUserLogsInUsingUserNameAndPasswordToCheckValidation(String userName, String password) {
         authorizationSteps.authorizationFalse(userName, password);
     }
 
     @When("the user logs out")
+    @Alias("пользователь разлогинивается")
     public void whenTheUserLogsOut() {
-        menuNavigationSteps.userNameLinkClick();
         menuNavigationSteps.logOutButtonClick();
         DefaultStorage.getUserVariableStorage().setIsAuthorized(false);
     }

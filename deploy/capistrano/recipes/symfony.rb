@@ -89,14 +89,25 @@ namespace :symfony do
     namespace :worker do
 
         after "deploy:setup", "symfony:worker:setup"
-        after "deploy:update", "symfony:worker:symlink:create"
         after "deploy:update", "symfony:worker:update"
-        after "deploy:update", "symfony:worker:restart"
-        after "deploy:remove:go", "symfony:worker:symlink:remove"
-        after "deploy:remove:go", "symfony:worker:update"
+        after "deploy:remove:go", "symfony:worker:remove"
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
+
+        desc "Update worker"
+        task :update,:roles => :app, :except => { :no_release => true } do
+            symlink.create
+            reread
+            restart
+        end
+
+        desc "Remove worker"
+        task :remove,:roles => :app, :except => { :no_release => true } do
+            stop
+            symlink.remove
+            reread
+        end
 
         desc "Setup worker"
         task :setup, :roles => :app, :except => { :no_release => true } do
@@ -129,18 +140,24 @@ namespace :symfony do
             end
         end
 
-        desc "Update workers"
-        task :update, :roles => :app, :except => { :no_release => true } do
+        desc "Update workers config"
+        task :reread, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Update workers"
             run "#{sudo} supervisorctl reread"
-            run "#{sudo} supervisorctl update"
             capifony_puts_ok
         end
 
-        desc "Update workers"
+        desc "Restart worker"
         task :restart, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Restart worker"
             run "#{sudo} supervisorctl restart #{application}"
+            capifony_puts_ok
+        end
+
+        desc "Stop worker"
+        task :stop, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Stop worker"
+            run "#{sudo} supervisorctl stop #{application}"
             capifony_puts_ok
         end
 

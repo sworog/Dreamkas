@@ -7,9 +7,7 @@ define(function(require, exports, module) {
         var page;
 
         beforeEach(function(){
-            page = new Page({
-                el: '<div></div>'
-            });
+            page = new Page;
         });
 
         it('global PAGE variable is right', function() {
@@ -18,19 +16,11 @@ define(function(require, exports, module) {
 
         });
 
-        it('content of #page-wrapper is right', function() {
-
-            expect($('.page__contentSide', page.el).html().trim()).toBe(page.content());
-
-        });
-
-        it('page fetch', function() {
+        it('page fetch method calls on init', function() {
 
             spyOn(Page.prototype, 'fetch');
 
-            var page = new Page({
-                el: '<div></div>'
-            });
+            new Page;
 
             expect(Page.prototype.fetch).toHaveBeenCalled();
 
@@ -38,37 +28,55 @@ define(function(require, exports, module) {
 
         it('первая ссылка в меню навигации - Обзор', function() {
 
-            expect($.trim(page.el.querySelectorAll('.sideBar__item')[0].textContent)).toBe('Обзор');
+            var item = page.$('.sideBar__item')[0];
+
+            expect($.trim(item.textContent)).toBe('Обзор');
+            expect(item.getAttribute('href')).toBe('/');
 
         });
 
         it('вторая ссылка в меню навигации - Товародвижение', function() {
 
-            expect($.trim(page.el.querySelectorAll('.sideBar__item')[1].textContent)).toBe('Товародвижение');
+            var item = page.$('.sideBar__item')[1];
+
+            expect($.trim(item.textContent)).toBe('Товародвижение');
+            expect(item.getAttribute('href')).toBe('/stockMovements');
 
         });
 
         it('третья ссылка в меню навигации - Отчеты', function() {
 
-            expect($.trim(page.el.querySelectorAll('.sideBar__item')[2].textContent)).toBe('Отчеты');
+            var item = page.$('.sideBar__item')[2];
+
+            expect($.trim(item.textContent)).toBe('Отчеты');
+            expect(item.getAttribute('href')).toBe('/reports');
 
         });
 
         it('четвертая ссылка в меню навигации - Ассортимент', function() {
 
-            expect($.trim(page.el.querySelectorAll('.sideBar__item')[3].textContent)).toBe('Ассортимент');
+            var item = page.$('.sideBar__item')[3];
+
+            expect($.trim(item.textContent)).toBe('Ассортимент');
+            expect(item.getAttribute('href')).toBe('/catalog');
 
         });
 
         it('пятая ссылка в меню навигации - Поставщики', function() {
 
-            expect($.trim(page.el.querySelectorAll('.sideBar__item')[4].textContent)).toBe('Поставщики');
+            var item = page.$('.sideBar__item')[4];
+
+            expect($.trim(item.textContent)).toBe('Поставщики');
+            expect(item.getAttribute('href')).toBe('/suppliers');
 
         });
 
         it('шестая ссылка в меню навигации - Магазины', function() {
 
-            expect($.trim(page.el.querySelectorAll('.sideBar__item')[5].textContent)).toBe('Магазины');
+            var item = page.$('.sideBar__item')[5];
+
+            expect($.trim(item.textContent)).toBe('Магазины');
+            expect(item.getAttribute('href')).toBe('/stores');
 
         });
     });
