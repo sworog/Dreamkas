@@ -26,7 +26,7 @@ phantomcss.init({
  }
  }*/);
 
-var host = casper.cli.options || 'http://demo.lighthouse.pro';
+var host = casper.cli.options.host || 'http://demo.lighthouse.pro';
 
 casper
     .start(host + '/signup')
