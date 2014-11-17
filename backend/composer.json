@@ -1,6 +1,6 @@
 {
-    "name": "crystalservice/lighthouse",
-    "description": "Lighthouse",
+    "name": "dreamkas/dreamkas",
+    "description": "Dreamkas",
     "license": "proprietary",
     "autoload": {
         "psr-4": {
