@@ -1,3 +1,5 @@
+<% var formId = id + '__form' %>
+
 <div id="<%- id %>"
      class="modal modal_stockMovement <%- deleted ? 'modal_stockMovementDeleted' : '' %>">
 
@@ -19,14 +21,14 @@
     </div>
     <div class="modal__body">
 
-        <b block="form"></b>
+        <b block="form"
+           data-id="<%- formId %>"></b>
 
         <hr style="margin: 0 -60px;"/>
 
         <h3>Товары</h3>
 
-        <b block="form_products"
-           data-modal-id="<%- id %>"></b>
+        <b block="form_products"></b>
 
         <% if (model.id) { %>
         <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">

@@ -1,20 +1,22 @@
+<% var formId = id + '__form' %>
+
 <div id="<%- id %>"
      class="modal">
 
     <% if (!deleted) { %>
     <div class="modal__header">
 
-		<% if (referrer) { %>
+        <% if (referrer) { %>
 
-		<a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-chevron-left"></a>
+        <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-chevron-left"></a>
 
-		<% } else { %>
+        <% } else { %>
 
-		<a class="modal__closeLink fa fa-times"></a>
+        <a class="modal__closeLink fa fa-times"></a>
 
-		<% } %>
+        <% } %>
 
-        <button form="form_product"
+        <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- models.product.id ? 'Сохранить' : 'Добавить' %>
@@ -27,7 +29,8 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_product"></b>
+        <b block="form_product"
+           data-id="<%- formId %>"></b>
 
     </div>
 

@@ -7,11 +7,15 @@ define(function(require, exports, module) {
 
     $(document)
         .on('click', '[data-modal]', function(e) {
-            var dataset = e.currentTarget.dataset;
+            var dataset = e.currentTarget.dataset,
+                link = e.currentTarget,
+                referrerModal = $(link).closest('.modal')[0];
 
             e.preventDefault();
 
-            document.getElementById(dataset.modal).block.show(_.extend({}, dataset));
+            document.getElementById(dataset.modal).block.show(_.extend({
+                referrer: referrerModal ? referrerModal.id : null
+            }, dataset));
         })
         .on('click', '[data-modal-toggle]', function(e) {
             var dataset = e.currentTarget.dataset;

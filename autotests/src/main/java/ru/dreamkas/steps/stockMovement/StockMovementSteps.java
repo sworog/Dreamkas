@@ -15,15 +15,15 @@ import ru.dreamkas.collection.writeOffProduct.WriteOffProductCollection;
 import ru.dreamkas.collection.writeOffProduct.WriteOffProductObject;
 import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.helper.StringGenerator;
+import ru.dreamkas.pages.catalog.group.modal.ProductCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.StockMovementPage;
 import ru.dreamkas.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
-import ru.dreamkas.pages.stockMovement.modal.invoice.InvoiceProductCreateModalWindow;
-import ru.dreamkas.pages.stockMovement.modal.invoice.InvoiceSupplierCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
+import ru.dreamkas.pages.supplier.modal.SupplierCreateModalPage;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -33,8 +33,8 @@ public class StockMovementSteps extends ScenarioSteps {
     StockMovementPage stockMovementPage;
     InvoiceCreateModalWindow invoiceCreateModalWindow;
     InvoiceEditModalWindow invoiceEditModalWindow;
-    InvoiceSupplierCreateModalWindow invoiceSupplierCreateModalWindow;
-    InvoiceProductCreateModalWindow invoiceProductCreateModalWindow;
+    SupplierCreateModalPage invoiceSupplierCreateModalWindow;
+    ProductCreateModalWindow invoiceProductCreateModalWindow;
     WriteOffCreateModalWindow writeOffCreateModalWindow;
     WriteOffEditModalWindow writeOffEditModalWindow;
     StockInCreateModalWindow stockInCreateModalWindow;
@@ -100,6 +100,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void invoiceEditModalWindowChecksValues(ExamplesTable examplesTable) {
         invoiceEditModalWindow.checkValues(examplesTable);
+    }
+
+    @Step
+    public void StockInEditModalWindowChecksValues(ExamplesTable examplesTable) {
+        stockInEditModalWindow.checkValues(examplesTable);
     }
 
     @Step

@@ -1,7 +1,7 @@
 {
   "name": "dreamkas-web-client",
   "description": "dreamkas node utils",
-  "version": "0.45.128",
+  "version": "0.45.129",
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/karma/bin/karma start ./tools/karma.conf.js --single-run",

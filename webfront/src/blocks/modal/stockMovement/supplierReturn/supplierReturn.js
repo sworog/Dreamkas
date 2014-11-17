@@ -4,7 +4,6 @@ define(function(require, exports, module) {
 
     return Modal_stockMovement.extend({
 		id: 'modal_supplierReturn',
-		formId: 'form_supplierReturn',
 		Model: require('resources/supplierReturn/model'),
 		Form: require('blocks/form/supplierReturn/supplierReturn'),
 		Form_products: require('blocks/form/stockMovementProducts/supplierReturn/supplierReturn'),
