@@ -14,6 +14,7 @@
 
 @dynamic count;
 @dynamic productId;
+@dynamic measurement;
 @dynamic purchase;
 
 @end

@@ -769,6 +769,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="660"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="oxG-79-owq">
+                                <rect key="frame" x="0.0" y="20" width="320" height="640"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell_PurchaseItemModel" rowHeight="64" id="4aU-i6-Wdb" customClass="PurchaseItemCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="704" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4aU-i6-Wdb" id="T3R-1B-wvQ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gp7-Uf-baZ" customClass="WordWrappingLabel">
+                                                    <rect key="frame" x="24" y="0.0" width="152" height="64"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 000 000 P" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiV-oh-QZg">
+                                                    <rect key="frame" x="175" y="0.0" width="120" height="64"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="tiV-oh-QZg" secondAttribute="bottom" id="CGz-qX-mbN"/>
+                                                <constraint firstAttribute="trailing" secondItem="tiV-oh-QZg" secondAttribute="trailing" constant="25" id="Iur-Oj-Brs"/>
+                                                <constraint firstItem="tiV-oh-QZg" firstAttribute="leading" secondItem="T3R-1B-wvQ" secondAttribute="leading" constant="175" id="S6Q-dP-vJ5"/>
+                                                <constraint firstAttribute="bottom" secondItem="Gp7-Uf-baZ" secondAttribute="bottom" id="W1y-Lr-mrR"/>
+                                                <constraint firstItem="Gp7-Uf-baZ" firstAttribute="leading" secondItem="T3R-1B-wvQ" secondAttribute="leading" constant="24" id="Zjl-AW-xZn"/>
+                                                <constraint firstAttribute="trailing" secondItem="Gp7-Uf-baZ" secondAttribute="trailing" constant="144" id="Zup-34-wQo"/>
+                                                <constraint firstItem="tiV-oh-QZg" firstAttribute="top" secondItem="T3R-1B-wvQ" secondAttribute="top" id="utr-fh-643"/>
+                                                <constraint firstItem="Gp7-Uf-baZ" firstAttribute="top" secondItem="T3R-1B-wvQ" secondAttribute="top" id="zX8-Mv-xvN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="priceLabel" destination="tiV-oh-QZg" id="5C3-je-ndc"/>
+                                            <outlet property="titleLabel" destination="Gp7-Uf-baZ" id="7e1-vR-q9z"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="NUX-9f-cIq" id="ERI-mA-YHt"/>
+                                    <outlet property="delegate" destination="NUX-9f-cIq" id="Ge8-jL-fWC"/>
+                                </connections>
+                            </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ycf-ob-iiK" userLabel="Left Separator">
                                 <rect key="frame" x="0.0" y="0.0" width="1" height="660"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -782,6 +826,9 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="704"/>
+                    <connections>
+                        <outlet property="tableViewItem" destination="oxG-79-owq" id="ULd-e7-6qe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eB0-gZ-FwV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

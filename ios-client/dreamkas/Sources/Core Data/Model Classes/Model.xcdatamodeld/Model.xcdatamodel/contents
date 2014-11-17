@@ -16,7 +16,8 @@
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupModel" inverseName="products" inverseEntity="GroupModel" syncable="YES"/>
     </entity>
     <entity name="PurchaseItemModel" representedClassName="PurchaseItemModel" parentEntity="AbstractModel" syncable="YES">
-        <attribute name="count" attributeType="Integer 32" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="count" attributeType="Float" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="measurement" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productId" attributeType="String" minValueString="0" syncable="YES"/>
         <relationship name="purchase" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PurchaseModel" inverseName="items" inverseEntity="PurchaseModel" syncable="YES"/>
     </entity>
@@ -36,8 +37,8 @@
     <elements>
         <element name="AbstractModel" positionX="-63" positionY="-18" width="128" height="60"/>
         <element name="GroupModel" positionX="-63" positionY="27" width="128" height="73"/>
-        <element name="PurchaseItemModel" positionX="-54" positionY="63" width="128" height="88"/>
         <element name="ProductModel" positionX="-63" positionY="0" width="128" height="133"/>
+        <element name="PurchaseItemModel" positionX="-54" positionY="63" width="128" height="103"/>
         <element name="PurchaseModel" positionX="-54" positionY="45" width="128" height="133"/>
         <element name="StoreModel" positionX="-63" positionY="-9" width="128" height="90"/>
     </elements>

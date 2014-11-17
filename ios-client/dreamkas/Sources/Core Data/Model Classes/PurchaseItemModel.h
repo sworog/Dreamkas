@@ -16,6 +16,7 @@
 
 @property (nonatomic, retain) NSNumber * count;
 @property (nonatomic, retain) NSString * productId;
+@property (nonatomic, retain) NSString * measurement;
 @property (nonatomic, retain) PurchaseModel *purchase;
 
 @end

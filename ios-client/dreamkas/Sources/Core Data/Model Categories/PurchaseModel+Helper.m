@@ -59,6 +59,8 @@
         item = [PurchaseItemModel createByPk:[PurchaseItemModel pkForNewEntity]];
         [item setCount:@(1)];
         [item setProductId:[product pk]];
+        // TODO: доработать логику работы с величиной измерения
+        [item setMeasurement:@"шт."];
         [self addItemsObject:item];
     }
     else {
