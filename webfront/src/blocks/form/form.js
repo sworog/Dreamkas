@@ -72,6 +72,8 @@ define(function(require) {
 
             block.redirectUrl = block.get('redirectUrl');
 
+            block.originalData = block.getData();
+
             block.__data = block.__data || block.data;
 
             block.data = block.get('__data');
@@ -98,10 +100,16 @@ define(function(require) {
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + (block.el && block.el.id) + '"]');
         },
+        getData: function(){
+
+            var block = this;
+
+            return form2js(block.el, '.', false);
+        },
         serialize: function() {
             var block = this;
 
-            block.set('data', form2js(block.el, '.', false));
+            block.set('data', block.getData());
 
             return block.data;
         },
@@ -255,6 +263,28 @@ define(function(require) {
             var block = this;
 
             block.$(':input').val('');
+        },
+        isChanged: function(){
+
+            var block = this,
+                originalModel = block.get('__model'),
+                originalFormData = block.originalData,
+                actualFormData = block.getData(),
+                actualData = actualFormData,
+                originalData = originalFormData;
+
+            if (block.model && block.model.set){
+                block.model.set(actualFormData);
+                actualData = block.model.getData()
+            }
+
+            if (originalModel && originalModel.getData){
+                originalData = originalModel.getData();
+            }
+
+            return _.isEqual(originalData, actualData);
+
+
         }
     })
 });
