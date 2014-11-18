@@ -447,6 +447,143 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(5, '*.subCategory.id', $response);
     }
 
+    /**
+     * @dataProvider getProductsLimitProvider
+     * @param int $limit
+     * @param int $expectedCode
+     * @param array $assertions
+     * @param int $expectedCount
+     */
+    public function testGetProductsLimit($limit, $expectedCode, array $assertions = array(), $expectedCount = 0)
+    {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3', '4', '5'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products',
+            null,
+            array('limit' => $limit)
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($response, $assertions);
+
+        if ($expectedCode == 200) {
+            Assert::assertJsonPathCount($expectedCount, '*.id', $response);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getProductsLimitProvider()
+    {
+        return array(
+            /*
+             * Positive
+             */
+            '3: should return 3 items' => array(
+                3,
+                200,
+                array(
+                    '0.sku' => '10001',
+                    '1.sku' => '10002',
+                    '2.sku' => '10003',
+                ),
+                3
+            ),
+            '1: should return only one item' => array(
+                1,
+                200,
+                array(
+                    '0.sku' => '10001',
+                ),
+                1
+            ),
+            '10' => array(
+                10,
+                200,
+                array(
+                    '0.sku' => '10001',
+                    '1.sku' => '10002',
+                    '2.sku' => '10003',
+                    '3.sku' => '10004',
+                    '4.sku' => '10005',
+                ),
+                5
+            ),
+            'null: limit should not be applied, return all available items' => array(
+                null,
+                200,
+                array(
+                    '0.sku' => '10001',
+                    '1.sku' => '10002',
+                    '2.sku' => '10003',
+                    '3.sku' => '10004',
+                    '4.sku' => '10005',
+                ),
+                5
+            ),
+            /*
+             * Negative
+             */
+            '0: limit should be greater than 0' => array(
+                0,
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение должно быть 1 или больше.'
+                )
+            ),
+            '-10: limit should be greater than 0' => array(
+                0,
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение должно быть 1 или больше.'
+                )
+            ),
+            'aaa: limit should be integer, not string' => array(
+                'aaa',
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение недопустимо.'
+                )
+            ),
+            'array' => array(
+                array(10),
+                400,
+                array(
+                    'errors.children.limit.errors.0' => 'Значение недопустимо.'
+                )
+            )
+        );
+    }
+
+    public function testGetProductsTotalCountHeader()
+    {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->factory()->catalog()->getProductByNames(array('a', 'b', 'c', 'd', 'e', 'f', 'g'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products',
+            null,
+            array('limit' => 5)
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(5, '*.id', $response);
+
+        $headersBag = $this->client->getResponse()->headers;
+        $this->assertTrue($headersBag->has('X-Total-Count'));
+        $this->assertEquals('7', $headersBag->get('X-Total-Count'));
+    }
+
     public function testGetProductsWithEmptyTypePropertiesReturnsArray()
     {
         $this->createProductsByNames(array('1', '2', '3', '4', '5'));

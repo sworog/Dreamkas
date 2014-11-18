@@ -15,12 +15,12 @@
 
                 <label class="control-label">Магазин *</label>
 
-                <div class="input-icon right">
+                <b block="select_store"
+                   data-selected="<%- model.get('store.id') %>"
+                   data-add="1"></b>
 
-					<b block="select_store"
-					   data-selected="<%- model.get('store.id') %>"></b>
+                <div class="form__errorMessage" for="store"></div>
 
-                </div>
             </div>
         </div>
         <div class="col-md-4">

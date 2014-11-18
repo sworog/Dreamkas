@@ -27,7 +27,7 @@ public class CreateGroupModalPage extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_group']";
+        return "//*[contains(@id, 'modal_group') and contains(@class, 'modal_visible')]";
     }
 
     @Override

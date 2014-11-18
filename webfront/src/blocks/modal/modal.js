@@ -7,11 +7,15 @@ define(function(require, exports, module) {
 
     $(document)
         .on('click', '[data-modal]', function(e) {
-            var dataset = e.currentTarget.dataset;
+            var dataset = e.currentTarget.dataset,
+                link = e.currentTarget,
+                referrerModal = $(link).closest('.modal')[0];
 
             e.preventDefault();
 
-            document.getElementById(dataset.modal).block.show(_.extend({}, dataset));
+            document.getElementById(dataset.modal).block.show(_.extend({
+                referrer: referrerModal ? referrerModal.id : null
+            }, dataset));
         })
         .on('click', '[data-modal-toggle]', function(e) {
             var dataset = e.currentTarget.dataset;
@@ -19,11 +23,6 @@ define(function(require, exports, module) {
             e.preventDefault();
 
             document.getElementById(dataset.modalToggle).block.toggle();
-        })
-        .on('click', function(e) {
-            if (e.target.classList.contains('modal__wrapper_visible')) {
-                $(e.target).find('.modal:visible')[0].block.hide();
-            }
         })
         .on('keyup', function(e) {
             var modal = $('.modal:visible')[0];
@@ -33,6 +32,16 @@ define(function(require, exports, module) {
     return Block.extend({
         referrer: null,
         events: {
+            'click [data-modal-dialog]': function(e) {
+                var block = this,
+                    dialogSelector = e.target.dataset.modalDialog;
+
+                block.$('.modal__dialog_visible')
+                    .removeClass('modal__dialog_visible');
+
+                block.$(dialogSelector)
+                    .addClass('modal__dialog_visible');
+            },
             'click .modal__closeLink': function(e) {
                 var block = this;
 
@@ -60,7 +69,7 @@ define(function(require, exports, module) {
 
             block.trigger('shown');
         },
-        toggle: function(){
+        toggle: function() {
             var block = this;
 
             block.$el
@@ -85,8 +94,8 @@ define(function(require, exports, module) {
 
             block.trigger('hidden');
         },
-        reset: function(){
-            this.$('form').each(function(){
+        reset: function() {
+            this.$('form').each(function() {
                 this.block && this.block.reset();
             });
         }

@@ -1,11 +1,12 @@
-<div id="<%- id %>"
-     class="modal modal_supplier">
+<% var formId = id + '__form' %>
+
+<div id="<%- id %>" class="modal modal_supplier">
 
     <div class="modal__header">
 
         <% if (referrer) { %>
 
-            <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+            <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-chevron-left"></a>
 
         <% } else { %>
 
@@ -13,7 +14,7 @@
 
         <% } %>
 
-        <button form="form_supplier"
+        <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- supplierId != 0 ? 'Сохранить' : 'Добавить' %>
@@ -25,7 +26,8 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_supplier"></b>
+        <b block="form_supplier"
+           data-id="<%- formId %>"></b>
 
     </div>
 </div>

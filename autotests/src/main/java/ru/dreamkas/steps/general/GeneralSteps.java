@@ -105,6 +105,13 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     }
 
     @Step
+    public void assertCommonItemCssValue(String commonItemName, String cssValue, String value) {
+        assertThat(
+                getCurrentPageObject().getCommonItemCssValue(commonItemName, cssValue),
+                is(value));
+    }
+
+    @Step
     public void clickOnCommonItemWihName(String commonItemName) {
         getCurrentPageObject().clickOnCommonItemWihName(commonItemName);
     }

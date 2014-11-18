@@ -286,14 +286,4 @@ public class WhenStockMovementUserSteps {
     public void whenTheUserGeneratesSymbolsWithCountInCreateNewProductModalWindowField(int count, String elementName) {
         stockMovementSteps.createNewProductModalWindowFieldGenerateText(elementName, count);
     }
-
-    @When("пользователь нажимает на кнопку Применить фильтры на странице товародвижения")
-    public void whenTheUserClicksOnAcceptFiltersButton() {
-        stockMovementSteps.acceptFiltersButtonClick();
-    }
-
-    @When("пользователь нажимает на кнопку Сбросить фильтры на странице товародвижения")
-    public void whenTheUserClicksOnResetFiltersButton() {
-        stockMovementSteps.resetFiltersButtonClick();
-    }
 }

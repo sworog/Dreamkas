@@ -3,7 +3,7 @@
 namespace Lighthouse\IntegrationBundle\Util;
 
 use Lighthouse\CoreBundle\Debug\ErrorHandler;
-use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
+use Lighthouse\IntegrationBundle\Util\ArrayIterator;
 use DateTime;
 use Traversable;
 use SplFileInfo;

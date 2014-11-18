@@ -92,4 +92,9 @@ public class GeneralEndUserSteps {
     public void thenTheUserChecksCommonItemAttributeValue(String commonItemName, String attribute, String value) {
         generalSteps.assertCommonItemAttributeValue(commonItemName, attribute, value);
     }
+
+    @Then("пользователь проверяет, что у элемента с именем '$commonItemName' css '$cssValue' имеет значение '$value'")
+    public void thenTheUserChecksCommonItemCssValue(String commonItemName, String cssValue, String value) {
+        generalSteps.assertCommonItemCssValue(commonItemName, cssValue, value);
+    }
 }

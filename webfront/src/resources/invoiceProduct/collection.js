@@ -15,7 +15,8 @@ define(function(require) {
                     url: url,
                     dataType: 'json',
                     data: {
-                        products: [invoiceProductModel.getData()]
+                        products: [invoiceProductModel.getData()],
+                        includesVAT: true
                     },
                     type: 'POST',
                     headers: {

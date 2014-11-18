@@ -40,13 +40,13 @@ define(function(require, exports, module) {
             return Modal.prototype.render.apply(this, arguments);
         },
         blocks: {
-            form_product: function(){
+            form_product: function(opt){
                 var block = this,
                     Form_product = require('blocks/form/product/product');
 
-                return new Form_product({
+                return new Form_product(_.extend({
                     model: block.models.product
-                });
+                }, opt));
             }
         }
     });

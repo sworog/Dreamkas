@@ -11,7 +11,7 @@ define(function(require, exports, module) {
                 var page = this,
                     select = e.currentTarget;
 
-                page.$('select[name="group"], input[name="productFilter"], .productFinder__resetLink').removeAttr('disabled');
+                page.$('select[name="subCategory"], input[name="productFilter"], .productFinder__resetLink').removeAttr('disabled');
 
                 select.classList.add('loading');
 
@@ -21,7 +21,7 @@ define(function(require, exports, module) {
                     select.classList.remove('loading');
                 });
             },
-            'change select[name="group"]': function(e) {
+            'change select[name="subCategory"]': function(e) {
                 var page = this,
                     select = e.currentTarget;
 
@@ -73,7 +73,7 @@ define(function(require, exports, module) {
         },
         blocks: {
             select_store: require('blocks/select/store/store'),
-            select_groupsSimple: require('blocks/select/groupsSimple/groupsSimple'),
+            select_group: require('blocks/select/group/group'),
             table_stockBalance: require('blocks/table/stockBalance/stockBalance')
         },
         fetch: function() {

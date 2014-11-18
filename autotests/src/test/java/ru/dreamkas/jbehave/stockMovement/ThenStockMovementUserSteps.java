@@ -169,6 +169,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.WriteOffEditModalWindowChecksValues(examplesTable);
     }
 
+    @Then("пользователь проверяет поля в модальном окне редактирования оприходования $examplesTable")
+    public void thenTheUserChecksValuesOnTheEditStockInModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.StockInEditModalWindowChecksValues(examplesTable);
+    }
+
     @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$message' в модальном окне создания поставщика в накладной")
     public void thenTheUserChecksTheCreateNewSupplierModalWindowFieldHasErrorMessage(String elementName, String message) {
         stockMovementSteps.supplierCreateModalPageCheckErrorMessage(elementName, message);

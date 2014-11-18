@@ -1,19 +1,15 @@
-<div class="autocomplete input-group">
-	<div class="autocomplete-items-wrap">
-		<span class="input-group-addon">
-			<i class="fa fa-search"></i>
-		</span>
+<div class="autocomplete">
 
-		<input <%- autofocus && 'autofocus' %>
-		   placeholder="Наименование или артикул товара"
-		   type="text"
-		   class="form-control"
-		   value="<%- value %>">
+    <input <%- autofocus && 'autofocus' %>
+            placeholder="<%- placeholder %>"
+            type="text"
+            class="form-control autocomplete__input"
+            value="<%- query %>">
 
-		<% if (resetLink) { %>
-			<span class="autocomplete__resetButton input-group-addon">
-				<i class="fa fa-times"></i>
-			</span>
-		<% } %>
-	</div>
+    <div class="autocomplete__tether">
+
+        <%= suggestionTemplate(obj) %>
+
+    </div>
+
 </div>

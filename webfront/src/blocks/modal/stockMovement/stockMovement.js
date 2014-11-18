@@ -5,7 +5,6 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./template.ejs'),
         itemId: null,
-		formId: null,
 		Form: null,
 		Form_products: null,
 		Model: null,
@@ -44,12 +43,12 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            form: function(){
+            form: function(opt){
                 var Form = this.Form;
 
-                return new Form({
+                return new Form(_.extend({
                     model: this.model
-                });
+                }, opt));
             },
             form_products: function(){
                 var Form_products = this.Form_products;
@@ -57,7 +56,8 @@ define(function(require, exports, module) {
                 return new Form_products({
                     collection: this.model.collections.products
                 });
-            }
+            },
+            form_store: require('blocks/form/store/store')
         },
         hide: function(options) {
             options = options || {};

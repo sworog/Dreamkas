@@ -184,6 +184,11 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
     }
 
     @Override
+    public String getCommonItemCssValue(String commonItemName, String cssValue) {
+        return ((Findable) items.get(commonItemName)).getVisibleWebElement().getCssValue(cssValue);
+    }
+
+    @Override
     public void clickOnCommonItemWihName(String commonItemName) {
         ((Clickable) items.get(commonItemName)).click();
     }

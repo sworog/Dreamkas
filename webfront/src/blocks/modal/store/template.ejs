@@ -1,11 +1,21 @@
-<div id="modal_store"
+<% var formId = id + '__form' %>
+
+<div id="<%- id %>"
      class="modal modal_store">
 
     <div class="modal__header">
-        <a type="button"
-           class="modal__closeLink fa fa-times"></a>
 
-        <button form="form_store"
+        <% if (referrer) { %>
+
+        <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-chevron-left"></a>
+
+        <% } else { %>
+
+        <a class="modal__closeLink fa fa-times"></a>
+
+        <% } %>
+
+        <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- storeId != 0 ? 'Сохранить' : 'Добавить' %>
@@ -17,7 +27,8 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_store"></b>
+        <b block="form_store"
+           data-id="<%- formId %>"></b>
 
     </div>
 </div>

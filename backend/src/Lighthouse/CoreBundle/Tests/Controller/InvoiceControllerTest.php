@@ -1376,6 +1376,73 @@ class InvoiceControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider totalsCalculationOnPostWithValidationGroupDataProviderOnlyIncludesVat
+     * @param int $VAT
+     * @param bool $includesVAT
+     * @param float $quantity
+     * @param float $price
+     * @param float $expectedSumTotal
+     * @param float $expectedSumTotalWithoutVAT
+     * @param float $expectedTotalAmountVAT
+     * @param float $expectedPrice
+     * @param float $expectedPriceWithoutVAT
+     * @param float $expectedAmountVAT
+     * @throws \PHPUnit_Framework_ExpectationFailedException
+     */
+    public function testTotalsCalculationOnPostWithValidationGroupOnPostOnlyProducts(
+        $VAT,
+        $includesVAT,
+        $quantity,
+        $price,
+        $expectedSumTotal,
+        $expectedSumTotalWithoutVAT,
+        $expectedTotalAmountVAT,
+        $expectedPrice,
+        $expectedPriceWithoutVAT,
+        $expectedAmountVAT
+    ) {
+        $this->factory()->store()->getStore();
+        $this->factory()->supplier()->getSupplier();
+
+        $productId = $this->createProduct(array('vat' => $VAT));
+
+        $invoiceData = array(
+            'products' => array(
+                array(
+                    'quantity' => $quantity,
+                    'priceEntered' => $price,
+                    'product' => $productId,
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices?validate=true&validationGroups=products',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+
+        Assert::assertNotJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $response);
+
+        Assert::assertJsonPathEquals($expectedSumTotal, 'sumTotal', $response);
+        Assert::assertJsonPathEquals($expectedSumTotalWithoutVAT, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedTotalAmountVAT, 'totalAmountVAT', $response);
+
+        Assert::assertJsonPathEquals($expectedSumTotal, 'products.0.totalPrice', $response);
+        Assert::assertJsonPathEquals($expectedSumTotalWithoutVAT, 'products.0.totalPriceWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedTotalAmountVAT, 'products.0.totalAmountVAT', $response);
+
+        Assert::assertJsonPathEquals($expectedPrice, 'products.0.price', $response);
+        Assert::assertJsonPathEquals($expectedPriceWithoutVAT, 'products.0.priceWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedAmountVAT, 'products.0.amountVAT', $response);
+    }
+
+    /**
      * @dataProvider totalsCalculationOnPostWithValidationGroupDataProvider
      * @param int $VAT
      * @param bool $includesVAT
@@ -1523,6 +1590,19 @@ class InvoiceControllerTest extends WebTestCase
                 'expectedPriceWithoutVAT' => '5.99',
                 'expectedAmountVAT' => '0.00',
             ),
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function totalsCalculationOnPostWithValidationGroupDataProviderOnlyIncludesVat()
+    {
+        return array_filter(
+            $this->totalsCalculationOnPostWithValidationGroupDataProvider(),
+            function ($data) {
+                return $data['includesVAT'];
+            }
         );
     }
 

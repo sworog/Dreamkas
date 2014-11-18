@@ -26,7 +26,7 @@ public class StockBalanceReport extends BootstrapPageObject {
     @Override
     public void createElements() {
         put("фильтр магазинов", new SelectByVisibleText(this, "store"));
-        put("фильтр по группе", new SelectByVisibleText(this, "group"));
+        put("фильтр по группе", new SelectByVisibleText(this, "subCategory"));
         put("фильтр по товару", new Input(this, "productFilter"));
         put("колонка 'Наименование'", new NonType(this, By.xpath("//*[@data-sort-by='product.name']")));
         put("колонка 'Запас'", new NonType(this, By.xpath("//*[@data-sort-by='inventoryDays']")));
