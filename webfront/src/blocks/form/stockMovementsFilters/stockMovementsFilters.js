@@ -14,31 +14,19 @@ define(function(require, exports, module) {
                 var block = this,
                     select = e.target;
 
-                block.data.types = select.value;
-
                 select.classList.add('loading');
 
-                $.when(this.submit()).then(function(){
-                    select.classList.remove('loading');
-                }, function(){
-                    select.classList.remove('loading');
-                });
+                block.$el.trigger('submit');
+
             },
             'update .inputDateRange': function(e){
 
                 var block = this,
                     inputBlock = e.target;
 
-                block.data.dateFrom = inputBlock.querySelector('[name="dateFrom"]').value;
-                block.data.dateTo = inputBlock.querySelector('[name="dateTo"]').value;
-
                 inputBlock.classList.add('loading');
 
-                $.when(this.submit()).then(function(){
-                    inputBlock.classList.remove('loading');
-                }, function(){
-                    inputBlock.classList.remove('loading');
-                });
+                block.$el.trigger('submit');
             }
         },
         blocks: {
@@ -55,9 +43,9 @@ define(function(require, exports, module) {
             var block = this;
 
             PAGE.setParams(block.data);
-            block.render({
-                data: _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types')
-            });
+
+            block.$('.loading').removeClass('loading');
+
         },
         showErrors: function(error){
             var block = this,
