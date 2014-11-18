@@ -20,8 +20,4 @@ echo "WORKPATH: $WORKPATH"
 echo "BASICDEFINESPATH: $BASICDEFINESPATH"
 echo "APIURL: $APIURL"
 
-## Escape path for sed using bash find and replace
-APIURL="${APIURL//\//\\/}"
-echo "APIURL: $APIURL"
-
-sed -ie "s/API_TEST_SERVER_URL/${APIURL}/" "$BASICDEFINESPATH"
+sed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH"
