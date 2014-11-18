@@ -33,8 +33,8 @@ xcodebuild \
     -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
     -project "$PROJECTPATH" \
-    -scheme dreamkas-tests \
+    -scheme dreamkas \
     AUTOTESTS_SERVER=$APIURL \
     CONFIGURATION_BUILD_DIR="$BUILDPATH" \
     clean build \
-    | xcpretty -tc -r junit --output "$BUILDPATH/junit.xml"
+    | xcpretty -c

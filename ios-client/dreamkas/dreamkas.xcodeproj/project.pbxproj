@@ -1981,7 +1981,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "API_AUTOTESTS_SERVER_URL=$(AUTOTESTS_SERVER)";
+				GCC_PREPROCESSOR_DEFINITIONS = "API_AUTOTESTS_SERVER_URL=@\\\"$(AUTOTESTS_SERVER)\\\"";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

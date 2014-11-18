@@ -8,6 +8,9 @@
 
 #import "SaleItemCell.h"
 
+#define TitleHeight 22.f
+#define SpaceBetween 16.f
+
 @implementation SaleItemCell
 
 #pragma mark - Основная логика
@@ -38,7 +41,7 @@
     // установка наименования и прочих параметров
     
     [self.titleLabel setY:DefaultVerticalCellInsets];
-    [self.titleLabel setHeight:22.f];
+    [self.titleLabel setHeight:TitleHeight];
     NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[product name]
                                                                                    attributes:@{NSFontAttributeName:DefaultFont(14),
                                                                                                 NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.87]}];
