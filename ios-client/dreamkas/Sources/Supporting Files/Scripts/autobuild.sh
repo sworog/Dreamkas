@@ -7,12 +7,19 @@
 #
 
 WORKPATH=$1
+APIURL=$2
 BUILDPATH=$WORKPATH/ios-client/dreamkas/Builds
+
+if [ -z "$APIURL" ]
+then
+APIURL="http://ios.autotests.api.lighthouse.pro"
+fi
 
 PROJECTPATH="$WORKPATH/ios-client/dreamkas/dreamkas.xcodeproj"
 
 echo "PROJECTPATH: $PROJECTPATH"
 echo "WORKPATH: $WORKPATH"
+echo "APIURL: $APIURL"
 echo "BUILDPATH: $BUILDPATH"
 
 rm -rf "$BUILDPATH"
@@ -20,6 +27,8 @@ mkdir "$BUILDPATH"
 
 export LC_CTYPE=en_US.UTF-8
 set -o pipefail
+
+sh ./updateurl.sh $WORKPATH $APIURL
 
 xcodebuild \
     -sdk iphonesimulator8.1 \
