@@ -35,6 +35,8 @@
 		CE22CE3619ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
 		CE2613981A1B7E500040F85F /* PriceNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */; };
 		CE2613991A1B7E500040F85F /* PriceNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */; };
+		CE26139B1A1B9B5A0040F85F /* updateurl.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE26139A1A1B9B5A0040F85F /* updateurl.sh */; };
+		CE26139C1A1B9B5A0040F85F /* updateurl.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE26139A1A1B9B5A0040F85F /* updateurl.sh */; };
 		CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FEC19EE668B005483A1 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FB219EE668B005483A1 /* MagicalImportFunctions.m */; };
@@ -338,6 +340,7 @@
 		CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateStoreViewController.m; sourceTree = "<group>"; };
 		CE2613961A1B7E500040F85F /* PriceNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceNumberFormatter.h; sourceTree = "<group>"; };
 		CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceNumberFormatter.m; sourceTree = "<group>"; };
+		CE26139A1A1B9B5A0040F85F /* updateurl.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updateurl.sh; sourceTree = "<group>"; };
 		CE290FAA19EE62DB005483A1 /* RESTClient+Stores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Stores.h"; sourceTree = "<group>"; };
 		CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Stores.m"; sourceTree = "<group>"; };
 		CE290FB119EE668B005483A1 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -977,6 +980,7 @@
 		CE388EAD1A1620330020B5AF /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				CE26139A1A1B9B5A0040F85F /* updateurl.sh */,
 				CE388EAE1A1620330020B5AF /* autobuild.sh */,
 				CE388EAF1A1620330020B5AF /* autotest.sh */,
 			);
@@ -1534,6 +1538,7 @@
 				CEBC439B19E8042800C0E575 /* Localizable.strings in Resources */,
 				CE8AB39419E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */,
 				CE946BD919E6A91400D270E4 /* RobotoCondensed-LightItalic.ttf in Resources */,
+				CE26139B1A1B9B5A0040F85F /* updateurl.sh in Resources */,
 				CE946BDB19E6A91400D270E4 /* RobotoCondensed-Regular.ttf in Resources */,
 				CE946BBD19E6A91400D270E4 /* Roboto-Bold.ttf in Resources */,
 				CE946BCB19E6A91400D270E4 /* Roboto-Regular.ttf in Resources */,
@@ -1585,6 +1590,7 @@
 				CE946BCA19E6A91400D270E4 /* Roboto-MediumItalic.ttf in Resources */,
 				CE946BCE19E6A91400D270E4 /* Roboto-Thin.ttf in Resources */,
 				CE946BC019E6A91400D270E4 /* Roboto-BoldItalic.ttf in Resources */,
+				CE26139C1A1B9B5A0040F85F /* updateurl.sh in Resources */,
 				CE8AB39519E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */,
 				CE946BBA19E6A91400D270E4 /* Roboto-Black.ttf in Resources */,
 				CE946BC819E6A91400D270E4 /* Roboto-Medium.ttf in Resources */,
@@ -1953,7 +1959,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				AUTOTESTS_SERVER = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1961,7 +1966,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"API_AUTOTESTS_SERVER_URL=@\\\"$(AUTOTESTS_SERVER)\\\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1976,12 +1980,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				AUTOTESTS_SERVER = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "API_AUTOTESTS_SERVER_URL=@\\\"$(AUTOTESTS_SERVER)\\\"";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1994,7 +1997,6 @@
 		CECD93E319DEA6B200232734 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUTOTESTS_SERVER = "";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2006,7 +2008,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"DEBUG=1",
-					"API_AUTOTESTS_SERVER_URL=@\\\"$(AUTOTESTS_SERVER)\\\"",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -2027,7 +2028,6 @@
 		CECD93E419DEA6B200232734 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				AUTOTESTS_SERVER = "";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2036,7 +2036,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "API_AUTOTESTS_SERVER_URL=@\\\"$(AUTOTESTS_SERVER)\\\"";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "";

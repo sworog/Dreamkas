@@ -7,20 +7,12 @@
 #
 
 WORKPATH=$1
-APIURL=$2
 BUILDPATH=$WORKPATH/ios-client/dreamkas/Builds
-
-if [ -z "$APIURL" ]
-then
-    #APIURL="http://ios.autotests.api.lighthouse.pro"
-    APIURL="http://ios.staging.api.lighthouse.pro/"
-fi
 
 PROJECTPATH="$WORKPATH/ios-client/dreamkas/dreamkas.xcodeproj"
 
 echo "PROJECTPATH: $PROJECTPATH"
 echo "WORKPATH: $WORKPATH"
-echo "APIURL: $APIURL"
 echo "BUILDPATH: $BUILDPATH"
 
 rm -rf "$BUILDPATH"
@@ -35,7 +27,6 @@ xcodebuild \
     -configuration Debug \
     -project "$PROJECTPATH" \
     -scheme dreamkas-tests \
-    AUTOTESTS_SERVER=$APIURL \
     CONFIGURATION_BUILD_DIR="$BUILDPATH" \
     clean test \
     | xcpretty -tc -r junit --output "$BUILDPATH/junit.xml"
