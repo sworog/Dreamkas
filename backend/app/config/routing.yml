@@ -8,6 +8,11 @@ lighthouse.integration:
     resource: "@LighthouseIntegrationBundle/Resources/config/routing.yml"
     prefix: /api/1
 
+lighthouse.job:
+    type: rest
+    resource: "@LighthouseJobBundle/Resources/config/routing.yml"
+    prefix: /api/1
+
 lighthouse.reports:
     type: rest
     resource: "@LighthouseReportsBundle/Resources/config/routing.yml"

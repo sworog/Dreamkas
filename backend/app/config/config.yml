@@ -75,6 +75,7 @@ jms_di_extra:
             - LighthouseCoreBundle
             - LighthouseIntegrationBundle
             - LighthouseReportsBundle
+            - LighthouseJobBundle
         directories: ["%kernel.root_dir%/../src"]
 
 fos_rest:

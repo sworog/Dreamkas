@@ -1,8 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Job\Worker;
+namespace Lighthouse\JobBundle\Command;
 
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,7 +38,7 @@ class WorkerCommand extends Command
      *      "workerMaxRuntime" = @DI\Inject("%lighthouse.core.job.worker.max_runtime%"),
      *      "reserveTimeout" = @DI\Inject("%lighthouse.core.job.worker.reserve_timeout%")
      * })
-     * @param JobManager $jobManager
+     * @param \Lighthouse\JobBundle\Job\JobManager $jobManager
      * @param int $workerMaxRuntime
      * @param int $reserveTimeout
      */

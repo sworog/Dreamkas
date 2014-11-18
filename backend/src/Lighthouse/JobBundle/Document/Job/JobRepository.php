@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Job;
+namespace Lighthouse\JobBundle\Document\Job;
 
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 

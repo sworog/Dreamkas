@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Job;
+namespace Lighthouse\JobBundle\Document\Job;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -20,14 +20,14 @@ use DateTime;
  * @property float $duration
  *
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Job\JobRepository",
+ *      repositoryClass="Lighthouse\JobBundle\Document\Job\JobRepository",
  *      collection="Jobs"
  * )
  * @MongoDB\InheritanceType("SINGLE_COLLECTION")
  * @MongoDB\DiscriminatorField(fieldName="type")
  * @MongoDB\DiscriminatorMap({
  *      "recalcProductPrice"="Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceJob",
- *      "exportProductsJob"="Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob",
+ *      "exportProductsJob"="Lighthouse\IntegrationBundle\Document\Integration\Set10\ExportProductsJob",
  *      "costOfGoodsCalculateJob"="Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculateJob",
  * })
  */

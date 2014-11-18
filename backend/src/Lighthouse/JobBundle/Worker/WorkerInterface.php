@@ -1,19 +1,19 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Job\Worker;
+namespace Lighthouse\JobBundle\Worker;
 
-use Lighthouse\CoreBundle\Document\Job\Job;
+use Lighthouse\JobBundle\Document\Job\Job;
 
 interface WorkerInterface
 {
     /**
-     * @param Job $job
+     * @param \Lighthouse\JobBundle\Document\\Lighthouse\JobBundle\Document\Job\Job $job
      * @return boolean
      */
     public function supports(Job $job);
 
     /**
-     * @param Job $job
+     * @param \Lighthouse\JobBundle\Document\\Lighthouse\JobBundle\Document\Job\Job $job
      * @return mixed result of work
      */
     public function work(Job $job);
