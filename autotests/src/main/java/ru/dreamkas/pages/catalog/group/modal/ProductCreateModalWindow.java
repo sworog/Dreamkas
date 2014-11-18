@@ -7,7 +7,6 @@ import ru.dreamkas.elements.bootstrap.buttons.TransparentBtnFacade;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
-import ru.dreamkas.elements.items.autocomplete.AutoComplete;
 import ru.dreamkas.handler.field.FieldErrorChecker;
 import ru.dreamkas.pages.modal.ModalWindowPage;
 

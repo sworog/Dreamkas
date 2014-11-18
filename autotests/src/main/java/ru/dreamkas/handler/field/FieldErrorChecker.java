@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import ru.dreamkas.common.item.CommonItem;
 import ru.dreamkas.elements.items.DateInput;
 import ru.dreamkas.elements.items.SelectByVisibleText;
-import ru.dreamkas.elements.items.autocomplete.AutoComplete;
 
 public class FieldErrorChecker {
 
@@ -26,10 +25,8 @@ public class FieldErrorChecker {
         try {
             String actualFieldErrorMessage;
             WebElement fieldWebElement = commonItem.getVisibleWebElement();
-            if (commonItem instanceof AutoComplete) {
-                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../../*[contains(@class, 'form__errorMessage')]")).getText();
-            } else if (commonItem instanceof SelectByVisibleText) {
-                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../div[contains(@class, 'form__errorMessage')]")).getText();
+            if (commonItem instanceof SelectByVisibleText) {
+                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../../../*[contains(@class, 'form__errorMessage')]")).getText();
             } else if (commonItem instanceof DateInput) {
                 actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../../*[contains(@class, 'form__errorMessage')]")).getText();
             } else {
