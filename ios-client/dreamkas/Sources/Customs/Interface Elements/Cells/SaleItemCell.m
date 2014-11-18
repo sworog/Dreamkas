@@ -22,10 +22,13 @@
 {
     [super awakeFromNib];
     
+    // символ тега
     unichar ch = 0xf02b;
     [self.tagLabel setText:[NSString stringWithFormat:@"%C", ch]];
     [self.tagLabel setFont:DefaultAwesomeFont(14)];
     [self.tagLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.54]];
+    
+    [self.titleLabel setLineBreakMode:NSLineBreakByTruncatingMiddle];
     
     [self.priceLabel setFont:DefaultMediumFont(14)];
     [self.priceLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
@@ -42,6 +45,7 @@
     
     [self.titleLabel setY:DefaultVerticalCellInsets];
     [self.titleLabel setHeight:TitleHeight];
+    
     NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[product name]
                                                                                    attributes:@{NSFontAttributeName:DefaultFont(14),
                                                                                                 NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.87]}];

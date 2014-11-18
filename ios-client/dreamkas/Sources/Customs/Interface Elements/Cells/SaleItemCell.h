@@ -13,7 +13,7 @@
 /** Название продуктовой единицы */
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
 
-/** Поле тэга для обозначения скидки или др. */
+/** Поле тега для обозначения скидки или др. */
 @property (nonatomic, weak) IBOutlet UILabel *tagLabel;
 
 /** Стоимость продуктовой единицы */

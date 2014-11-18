@@ -322,4 +322,18 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
                                    model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
+/**
+ * Обработка нажатия по ячейке
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DPLogFast(@"");
+    
+    ProductModel *product = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DPLogFast(@"product = %@", product);
+    
+    SaleItemModel *item = [SaleItemModel saleItemForProduct:product];
+    DPLogFast(@"item = %@", item);
+}
+
 @end
