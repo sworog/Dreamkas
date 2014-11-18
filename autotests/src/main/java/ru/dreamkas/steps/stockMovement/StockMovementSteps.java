@@ -569,16 +569,4 @@ public class StockMovementSteps extends ScenarioSteps {
         invoiceProductCreateModalWindow.input(elementName, generatedString);
         this.name = generatedString;
     }
-
-    @Step
-    public void acceptFiltersButtonClick() {
-        stockMovementPage.clickOnCommonItemWihName("acceptFiltersButton");
-        new SimplePreloader(getDriver()).await();
-    }
-
-    @Step
-    public void resetFiltersButtonClick() {
-        stockMovementPage.clickOnCommonItemWihName("resetFiltersButton");
-        new SimplePreloader(getDriver()).await();
-    }
 }
