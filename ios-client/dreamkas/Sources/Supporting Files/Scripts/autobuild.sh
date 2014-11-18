@@ -36,5 +36,6 @@ xcodebuild \
     -scheme dreamkas \
     AUTOTESTS_SERVER=$APIURL \
     CONFIGURATION_BUILD_DIR="$BUILDPATH" \
-    clean build \
-    | xcpretty -c
+    clean build
+#   clean build \
+#   | xcpretty -c
