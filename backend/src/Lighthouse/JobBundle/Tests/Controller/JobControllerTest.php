@@ -1,8 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Controller;
+namespace Lighthouse\JobBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Rounding\Nearest10;
 use Lighthouse\CoreBundle\Rounding\Nearest100;
@@ -90,7 +90,7 @@ class JobControllerTest extends WebTestCase
 
         $this->getDocumentManager()->clear();
 
-        /* @var JobManager $jobManager */
+        /* @var \Lighthouse\JobBundle\Job\JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
 
         $jobManager->startWatchingTubes();
@@ -229,7 +229,7 @@ class JobControllerTest extends WebTestCase
 
         $this->getDocumentManager()->clear();
 
-        /* @var JobManager $jobManager */
+        /* @var \Lighthouse\JobBundle\Job\JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
 
         $jobManager->startWatchingTubes();
