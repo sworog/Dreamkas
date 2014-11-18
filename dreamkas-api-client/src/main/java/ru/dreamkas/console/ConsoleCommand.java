@@ -31,7 +31,11 @@ public class ConsoleCommand {
 
     private String[] cmd(String command, String host) {
         if (isUnix()) {
-            return new String[]{String.format(CONSOLE_COMMAND_TEMPLATE, command, host)};
+            return new String[]{
+                    "/bin/bash",
+                    "-c",
+                    String.format(CONSOLE_COMMAND_TEMPLATE, command, host)
+            };
         } else if (isMac()) {
             return new String[] {
                     "/bin/bash",
@@ -39,7 +43,11 @@ public class ConsoleCommand {
                     String.format("LC_ALL=en_US.UTF-8 " + CONSOLE_COMMAND_TEMPLATE, command, host)
             };
         } else {
-            return new String[] {String.format("cmd /c " + CONSOLE_COMMAND_TEMPLATE, command, host)};
+            return new String[] {
+                    "cmd",
+                    "/c",
+                    String.format(CONSOLE_COMMAND_TEMPLATE, command, host)
+            };
         }
     }
 
