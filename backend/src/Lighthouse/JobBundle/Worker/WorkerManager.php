@@ -5,10 +5,9 @@ namespace Lighthouse\JobBundle\Worker;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\JobBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
-use Lighthouse\JobBundle\Worker\WorkerInterface;
 
 /**
- * @DI\Service("lighthouse.core.job.worker.manager");
+ * @DI\Service("lighthouse.job.worker.manager");
  */
 class WorkerManager
 {

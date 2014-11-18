@@ -90,8 +90,8 @@ class JobControllerTest extends WebTestCase
 
         $this->getDocumentManager()->clear();
 
-        /* @var \Lighthouse\JobBundle\Job\JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.job.manager');
 
         $jobManager->startWatchingTubes();
         $job = $jobManager->reserveJob(0);
@@ -229,8 +229,8 @@ class JobControllerTest extends WebTestCase
 
         $this->getDocumentManager()->clear();
 
-        /* @var \Lighthouse\JobBundle\Job\JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.job.manager');
 
         $jobManager->startWatchingTubes();
         $job = $jobManager->reserveJob(0);

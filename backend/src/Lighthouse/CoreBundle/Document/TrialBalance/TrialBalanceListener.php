@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 
@@ -223,7 +224,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $oldAcceptanceDate = $changeSet['date'][0];
         $newAcceptanceDate = $changeSet['date'][1];
 
-        /* @var \Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $invoice->products;
         $trialBalances = $this->trialBalanceRepository->findByStockMovementProducts($invoiceProducts);
 

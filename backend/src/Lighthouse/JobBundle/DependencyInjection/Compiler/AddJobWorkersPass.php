@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\DependencyInjection\Compiler;
+namespace Lighthouse\JobBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -15,9 +15,9 @@ class AddJobWorkersPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ($container->hasDefinition('lighthouse.core.job.worker.manager')) {
+        if ($container->hasDefinition('lighthouse.job.worker.manager')) {
 
-            $definition = $container->getDefinition('lighthouse.core.job.worker.manager');
+            $definition = $container->getDefinition('lighthouse.job.worker.manager');
 
             foreach ($container->findTaggedServiceIds('job.worker') as $id => $tagAttributes) {
                 $definition->addMethodCall('add', array(new Reference($id)));

@@ -27,10 +27,11 @@ doctrine_mongodb:
                     is_bundle: false
 
 lighthouse_core:
-    job:
-        tube_prefix: "%database_name%_%kernel.environment%%karzer.thread%"
     selectel:
         auth:
             url: 'http://unknown.host'
             username: test
             password: password
+
+lighthouse_job:
+    tube_prefix: "%database_name%_%kernel.environment%%karzer.thread%"

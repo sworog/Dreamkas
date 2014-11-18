@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.job.worker.command")
+ * @DI\Service("lighthouse.job.worker.command")
  * @DI\Tag("console.command")
  * @DI\Tag("monolog.logger", attributes={"channel"="worker"})
  */
@@ -34,11 +34,11 @@ class WorkerCommand extends Command
 
     /**
      * @DI\InjectParams({
-     *      "jobManager" = @DI\Inject("lighthouse.core.job.manager"),
-     *      "workerMaxRuntime" = @DI\Inject("%lighthouse.core.job.worker.max_runtime%"),
-     *      "reserveTimeout" = @DI\Inject("%lighthouse.core.job.worker.reserve_timeout%")
+     *      "jobManager" = @DI\Inject("lighthouse.job.manager"),
+     *      "workerMaxRuntime" = @DI\Inject("%lighthouse.job.worker.max_runtime%"),
+     *      "reserveTimeout" = @DI\Inject("%lighthouse.job.worker.reserve_timeout%")
      * })
-     * @param \Lighthouse\JobBundle\Job\JobManager $jobManager
+     * @param JobManager $jobManager
      * @param int $workerMaxRuntime
      * @param int $reserveTimeout
      */

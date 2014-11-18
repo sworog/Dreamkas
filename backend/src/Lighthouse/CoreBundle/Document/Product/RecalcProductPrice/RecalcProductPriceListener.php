@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 
@@ -27,7 +27,7 @@ class RecalcProductPriceListener extends AbstractMongoDBListener
     /**
      * @DI\InjectParams({
      *      "factory" = @DI\Inject("lighthouse.core.job.retail_product_price.factory"),
-     *      "jobManager" = @DI\Inject("lighthouse.core.job.manager")
+     *      "jobManager" = @DI\Inject("lighthouse.job.manager")
      * })
      * @param RecalcProductPriceFactory $factory
      * @param JobManager $jobManager

@@ -12,13 +12,13 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class JobController extends FOSRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.job.repository")
+     * @DI\Inject("lighthouse.job.repository")
      * @var JobRepository
      */
     protected $documentRepository;
 
     /**
-     * @return \Lighthouse\JobBundle\Document\Job\Job[]|Cursor
+     * @return Job[]|Cursor
      * @ApiDoc(resource=true)
      */
     public function getJobsAction()

@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 use Exception;
 
 /**
- * @DI\Service("lighthouse.core.job.manager")
+ * @DI\Service("lighthouse.job.manager")
  * @DI\Tag("monolog.logger", attributes={"channel"="job"})
  */
 class JobManager
@@ -47,14 +47,14 @@ class JobManager
     /**
      * @DI\InjectParams({
      *      "pheanstalk" = @DI\Inject("leezy.pheanstalk"),
-     *      "jobRepository" = @DI\Inject("lighthouse.core.job.repository"),
-     *      "workerManager" = @DI\Inject("lighthouse.core.job.worker.manager"),
+     *      "jobRepository" = @DI\Inject("lighthouse.job.repository"),
+     *      "workerManager" = @DI\Inject("lighthouse.job.worker.manager"),
      *      "logger" = @DI\Inject("logger"),
      *      "projectContext" = @DI\Inject("project.context"),
      * })
      * @param PheanstalkInterface $pheanstalk
      * @param JobRepository $jobRepository
-     * @param \Lighthouse\JobBundle\Worker\WorkerManager $workerManager
+     * @param WorkerManager $workerManager
      * @param LoggerInterface $logger
      * @param ProjectContext $projectContext
      */
@@ -73,9 +73,9 @@ class JobManager
     }
 
     /**
-     * @param \Lighthouse\JobBundle\Document\\Lighthouse\JobBundle\Document\Job\Job $job
+     * @param Job $job
      */
-    public function addJob(Job\Job $job)
+    public function addJob(Job $job)
     {
         // save job if it was not saved before
         $this->jobRepository->save($job);
@@ -87,10 +87,10 @@ class JobManager
     }
 
     /**
-     * @param \Lighthouse\JobBundle\Document\\Lighthouse\JobBundle\Document\Job\Job $job
+     * @param Job $job
      * @return int tube job id
      */
-    protected function putJobInTube(Job\Job $job)
+    protected function putJobInTube(Job $job)
     {
         $worker = $this->workerManager->getByJob($job);
         $tubeName = $worker->getName();
@@ -194,7 +194,7 @@ class JobManager
 
     /**
      * @param int|null $timeout
-     * @return \Lighthouse\JobBundle\Document\\Lighthouse\JobBundle\Document\Job\Job|null
+     * @return Job|null
      * @throws NotFoundJobException
      */
     public function reserveJob($timeout = null)
@@ -213,7 +213,6 @@ class JobManager
             $this->projectContext->authenticateByProjectName($projectId);
         }
 
-        /* @var \Lighthouse\JobBundle\Document\\Lighthouse\JobBundle\Document\Job\Job $job */
         $job = $this->jobRepository->find($jobId);
         if (!$job) {
             $this->logger->critical(
@@ -239,9 +238,9 @@ class JobManager
     }
 
     /**
-     * @param \Lighthouse\JobBundle\Document\\Lighthouse\JobBundle\Document\Job\Job $job
+     * @param Job $job
      */
-    public function processJob(Job\Job $job)
+    public function processJob(Job $job)
     {
         try {
             $worker = $this->workerManager->getByJob($job);

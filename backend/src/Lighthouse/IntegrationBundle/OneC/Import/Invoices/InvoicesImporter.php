@@ -355,7 +355,7 @@ class InvoicesImporter
 
     /**
      * @param string $sku
-     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @throws RuntimeException
      * @return ProductVersion|null
      */
     protected function getProductVersion($sku)

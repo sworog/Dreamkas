@@ -2,12 +2,16 @@
 
 namespace Lighthouse\JobBundle\Document\Job;
 
+use Doctrine\ODM\MongoDB\LockMode;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
+/**
+ * @method Job find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ */
 class JobRepository extends DocumentRepository
 {
     /**
-     * @return array|\Doctrine\ODM\MongoDB\Cursor
+     * @return Job[]|\Doctrine\ODM\MongoDB\Cursor
      */
     public function findAll()
     {
