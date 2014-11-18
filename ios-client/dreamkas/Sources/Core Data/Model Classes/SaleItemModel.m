@@ -1,19 +1,19 @@
 //
-//  StoreModel.m
+//  SaleItemModel.m
 //  dreamkas
 //
 //  Created by sig on 18.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "StoreModel.h"
+#import "SaleItemModel.h"
 #import "SaleModel.h"
 
 
-@implementation StoreModel
+@implementation SaleItemModel
 
-@dynamic address;
-@dynamic name;
-@dynamic purchases;
+@dynamic quantity;
+@dynamic productId;
+@dynamic sale;
 
 @end

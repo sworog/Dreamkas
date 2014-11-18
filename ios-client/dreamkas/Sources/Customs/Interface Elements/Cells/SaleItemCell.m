@@ -1,14 +1,14 @@
 //
-//  PurchaseItemCell.m
+//  SaleItemCell.m
 //  dreamkas
 //
-//  Created by sig on 17.11.14.
+//  Created by sig on 18.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "PurchaseItemCell.h"
+#import "SaleItemCell.h"
 
-@implementation PurchaseItemCell
+@implementation SaleItemCell
 
 #pragma mark - Основная логика
 
@@ -26,7 +26,7 @@
 /**
  * Настройка ячейки данными модели
  */
-- (CGFloat)configureWithModel:(PurchaseItemModel *)model
+- (CGFloat)configureWithModel:(SaleItemModel *)model
 {
     ProductModel *product = [ProductModel findByPK:[model productId]];
     
@@ -36,9 +36,9 @@
     NSMutableAttributedString *m_attr_str = [[NSMutableAttributedString alloc] initWithString:[product name]
                                                                                    attributes:@{NSFontAttributeName:DefaultFont(16),
                                                                                                 NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.54]}];
-    [m_attr_str appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@" x%g", [[model count] floatValue]]
-                                                                             attributes:@{NSFontAttributeName:DefaultLightFont(14),
-                                                                                          NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.54]}]];
+    [m_attr_str appendAttributedString:[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@" x %g %@", [[model quantity] floatValue], [product units]]
+                                                                              attributes:@{NSFontAttributeName:DefaultLightFont(14),
+                                                                                           NSForegroundColorAttributeName:[DefaultBlackColor colorWithAlphaComponent:0.54]}]];
     [self.titleLabel setAttributedText:m_attr_str];
     
     // установка цены

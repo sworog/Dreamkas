@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="k6e-b6-V3j">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="k6e-b6-V3j">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -757,10 +757,10 @@
             </objects>
             <point key="canvasLocation" x="9650" y="1210"/>
         </scene>
-        <!--Purchase View Controller-->
+        <!--Sale View Controller-->
         <scene sceneID="Ro9-Z0-baL">
             <objects>
-                <viewController storyboardIdentifier="CheckViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NUX-9f-cIq" customClass="PurchaseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SaleViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NUX-9f-cIq" customClass="SaleViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sie-aE-d4O"/>
                         <viewControllerLayoutGuide type="bottom" id="A65-fl-BVr"/>
@@ -773,7 +773,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="640"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell_PurchaseItemModel" rowHeight="64" id="4aU-i6-Wdb" customClass="PurchaseItemCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell_SaleItemModel" rowHeight="64" id="4aU-i6-Wdb" customClass="SaleItemCell">
                                         <rect key="frame" x="0.0" y="0.0" width="704" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4aU-i6-Wdb" id="T3R-1B-wvQ">
@@ -828,6 +828,7 @@
                     <size key="freeformSize" width="320" height="704"/>
                     <connections>
                         <outlet property="tableViewItem" destination="oxG-79-owq" id="ULd-e7-6qe"/>
+                        <outlet property="view" destination="uOT-ev-z0m" id="ZcA-of-gJK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eB0-gZ-FwV" userLabel="First Responder" sceneMemberID="firstResponder"/>

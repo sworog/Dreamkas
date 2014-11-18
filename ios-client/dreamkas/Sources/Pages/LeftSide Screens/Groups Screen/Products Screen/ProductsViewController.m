@@ -168,14 +168,8 @@
     ProductModel *product = [self.fetchedResultsController objectAtIndexPath:indexPath];
     DPLogFast(@"product = %@", product);
     
-    PurchaseModel *purchase = [PurchaseModel addProduct:product];
-    DPLogFast(@"items in purchase = %d", [[purchase items] count]);
-    
-    int i = 1;
-    for (PurchaseItemModel *it in [purchase items]) {
-        DPLogFast(@"item %d count = %@", i, [it count]);
-        i++;
-    }
+    SaleItemModel *item = [SaleItemModel saleItemForProduct:product];
+    DPLogFast(@"item = %@", item);
 }
 
 @end

@@ -1,20 +1,20 @@
 //
-//  PurchaseViewController.m
+//  SaleViewController.m
 //  dreamkas
 //
-//  Created by sig on 13.11.14.
+//  Created by sig on 18.11.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "PurchaseViewController.h"
+#import "SaleViewController.h"
 #import "MoreButton.h"
-#import "PurchaseItemCell.h"
+#import "SaleItemCell.h"
 
-@interface PurchaseViewController ()
+@interface SaleViewController ()
 
 @end
 
-@implementation PurchaseViewController
+@implementation SaleViewController
 
 #pragma mark - Инициализация
 
@@ -86,7 +86,7 @@
  */
 - (Class)cellClass
 {
-    return [PurchaseItemCell class];
+    return [SaleItemCell class];
 }
 
 /**
@@ -94,7 +94,7 @@
  */
 - (Class)fetchClass
 {
-    return [PurchaseItemModel class];
+    return [SaleItemModel class];
 }
 
 /**
@@ -119,19 +119,19 @@
  */
 - (NSPredicate*)fetchPredicate
 {
-//    NSMutableArray *argument_array = [NSMutableArray new];
-//    NSMutableArray *format_array = [NSMutableArray new];
-//    NSPredicate *predicate = nil;
-//    
-//    [format_array addObject:@"isActive = %@"];
-//    [argument_array addObject:@YES];
-//    
-//    [format_array addObject:@"items.count > %@"];
-//    [argument_array addObject:@0];
-//    
-//    // формируем предикат по полученным данным
-//    predicate = [NSPredicate predicateWithFormat:[format_array componentsJoinedByString:@" AND "]
-//                                   argumentArray:argument_array];
+    //    NSMutableArray *argument_array = [NSMutableArray new];
+    //    NSMutableArray *format_array = [NSMutableArray new];
+    //    NSPredicate *predicate = nil;
+    //
+    //    [format_array addObject:@"isActive = %@"];
+    //    [argument_array addObject:@YES];
+    //
+    //    [format_array addObject:@"items.count > %@"];
+    //    [argument_array addObject:@0];
+    //
+    //    // формируем предикат по полученным данным
+    //    predicate = [NSPredicate predicateWithFormat:[format_array componentsJoinedByString:@" AND "]
+    //                                   argumentArray:argument_array];
     return nil;
 }
 
@@ -140,18 +140,18 @@
  */
 - (void)requestDataFromServer
 {
-//    [super requestDataFromServer];
-//    
-//    __weak typeof(self)weak_self = self;
-//    [NetworkManager requestGroups:^(NSArray *data, NSError *error) {
-//        __strong typeof(self)strong_self = weak_self;
-//        
-//        if (error != nil) {
-//            [strong_self onMappingFailure:error];
-//            return;
-//        }
-//        [strong_self onMappingCompletion:data];
-//    }];
+    //    [super requestDataFromServer];
+    //
+    //    __weak typeof(self)weak_self = self;
+    //    [NetworkManager requestGroups:^(NSArray *data, NSError *error) {
+    //        __strong typeof(self)strong_self = weak_self;
+    //
+    //        if (error != nil) {
+    //            [strong_self onMappingFailure:error];
+    //            return;
+    //        }
+    //        [strong_self onMappingCompletion:data];
+    //    }];
 }
 
 /**
@@ -160,9 +160,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *cell_identifier = [NSString stringWithFormat:@"Cell_%@", [self fetchClass]];
-    return [PurchaseItemCell cellHeight:tableView
-                         cellIdentifier:cell_identifier
-                                  model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    return [SaleItemCell cellHeight:tableView
+                     cellIdentifier:cell_identifier
+                              model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
 @end
