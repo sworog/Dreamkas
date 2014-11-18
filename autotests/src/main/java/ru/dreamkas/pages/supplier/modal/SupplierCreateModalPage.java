@@ -14,7 +14,7 @@ public class SupplierCreateModalPage extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[contains(@id, 'modal_supplier')]";
+        return "//*[contains(@id, 'modal_supplier') and contains(@class, 'modal_visible')]";
     }
 
     @Override

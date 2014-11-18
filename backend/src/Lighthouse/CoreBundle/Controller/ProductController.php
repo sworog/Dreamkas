@@ -74,10 +74,7 @@ class ProductController extends AbstractRestController
      *
      * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      input="Lighthouse\CoreBundle\Form\Product\ProductType",
-     *      output="Lighthouse\CoreBundle\Document\Product\Product"
-     * )
+     * @ApiDoc
      */
     public function putProductsAction(Request $request, Product $product)
     {
@@ -125,11 +122,7 @@ class ProductController extends AbstractRestController
     /**
      * @param Request $request
      * @return Product[]|Cursor
-     * @ApiDoc(
-     *      resource=true,
-     *      input="Lighthouse\CoreBundle\Form\LimitType",
-     *      output="Lighthouse\CoreBundle\Document\Product\Product"
-     * )
+     * @ApiDoc(resource=true)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      */
     public function getProductsAction(Request $request)

@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Form\StockMovement\Sale;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleFilter;
 use Lighthouse\CoreBundle\Form\DocumentType;
-use Lighthouse\CoreBundle\Form\FormExtraDataListener;
+use Lighthouse\CoreBundle\Form\Listener\FormExtraDataListener;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class SaleFilterType extends DocumentType

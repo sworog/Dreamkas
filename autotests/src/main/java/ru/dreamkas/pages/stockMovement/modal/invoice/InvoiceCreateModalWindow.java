@@ -48,7 +48,7 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage implements 
     }
 
     public void createSupplierButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@id='form_invoice']//*[contains(@class, 'fa fa-plus')]")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@data-modal, 'modal_supplier') and not(contains(@class, 'btn'))]/i[@class='fa fa-plus']/..")).click();
     }
 
     public void createProductButtonClick() {

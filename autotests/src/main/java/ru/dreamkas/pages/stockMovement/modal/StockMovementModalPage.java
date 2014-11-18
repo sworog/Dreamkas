@@ -1,6 +1,9 @@
 package ru.dreamkas.pages.stockMovement.modal;
 
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
@@ -11,6 +14,7 @@ import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import ru.dreamkas.elements.items.autocomplete.ProductAutoComplete;
 import ru.dreamkas.handler.field.FieldChecker;
+import ru.dreamkas.handler.field.FieldErrorChecker;
 import ru.dreamkas.pages.modal.ModalWindowPage;
 
 public abstract class StockMovementModalPage extends ModalWindowPage {
@@ -90,6 +94,22 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
                     public void assertValueEqual(String expectedValue) {
                         String convertedValue = DateTimeHelper.getDate(expectedValue);
                         super.assertValueEqual(convertedValue);
+                    }
+                };
+            }
+
+            @Override
+            public FieldErrorChecker getFieldErrorMessageChecker() {
+                return new FieldErrorChecker(this) {
+
+                    @Override
+                    public void assertFieldErrorMessage(String expectedFieldErrorMessage) {
+                        try {
+                            String actualFieldErrorMessage = getCommonItem().getVisibleWebElement().findElement(By.xpath("./../../*[contains(@class, 'form__errorMessage')]")).getText();
+                            Assert.assertThat(actualFieldErrorMessage, Matchers.is(expectedFieldErrorMessage));
+                        } catch (NoSuchElementException e) {
+                            Assert.fail("Field do not have error validation messages");
+                        }
                     }
                 };
             }
