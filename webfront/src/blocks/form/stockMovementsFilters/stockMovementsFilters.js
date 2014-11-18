@@ -9,24 +9,35 @@ define(function(require, exports, module) {
             return _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types');
         },
         events: {
-            reset: function(){
+            'change [name="types"]': function(e){
+
                 var block = this,
-                    $resetButton = block.$('[type="reset"]'),
-                    filters = {
-                        types: '',
-                        dateFrom: '',
-                        dateTo: ''
-                    };
+                    select = e.target;
 
-                $resetButton.addClass('loading');
+                block.data.types = select.value;
 
-                PAGE.collections.stockMovements.fetch({
-                    filters: filters
-                }).then(function(){
-                    PAGE.setParams(filters);
-                    block.render({
-                        data: _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types')
-                    });
+                select.classList.add('loading');
+
+                $.when(this.submit()).then(function(){
+                    select.classList.remove('loading');
+                }, function(){
+                    select.classList.remove('loading');
+                });
+            },
+            'update .inputDateRange': function(e){
+
+                var block = this,
+                    inputBlock = e.target;
+
+                block.data.dateFrom = inputBlock.querySelector('[name="dateFrom"]').value;
+                block.data.dateTo = inputBlock.querySelector('[name="dateTo"]').value;
+
+                inputBlock.classList.add('loading');
+
+                $.when(this.submit()).then(function(){
+                    inputBlock.classList.remove('loading');
+                }, function(){
+                    inputBlock.classList.remove('loading');
                 });
             }
         },
