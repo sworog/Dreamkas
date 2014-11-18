@@ -3,7 +3,7 @@
 namespace Lighthouse\JobBundle\Command;
 
 use Lighthouse\JobBundle\Job\JobManager;
-use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
+use Lighthouse\JobBundle\Exception\NotFoundJobException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

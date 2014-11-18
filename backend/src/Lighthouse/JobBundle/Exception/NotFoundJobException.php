@@ -1,6 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Exception\Job;
+namespace Lighthouse\JobBundle\Exception;
+
+use Lighthouse\JobBundle\Exception\JobException;
 
 class NotFoundJobException extends JobException
 {

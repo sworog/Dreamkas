@@ -4,7 +4,7 @@ namespace Lighthouse\JobBundle\Job;
 
 use Lighthouse\JobBundle\Document\Job\Job;
 use Lighthouse\JobBundle\Worker\WorkerManager;
-use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
+use Lighthouse\JobBundle\Exception\NotFoundJobException;
 use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\JobBundle\Document\Job\JobRepository;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
