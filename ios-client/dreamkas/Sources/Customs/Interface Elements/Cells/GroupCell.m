@@ -19,7 +19,7 @@
 {
     [super awakeFromNib];
     
-    [self.titleLabel setFont:DefaultFont(16)];
+    [self.titleLabel setFont:DefaultMediumFont(16)];
     [self.titleLabel setTextColor:DefaultLightCyanColor];
     
     unichar ch = 0xf054;

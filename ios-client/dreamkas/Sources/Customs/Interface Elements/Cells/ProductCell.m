@@ -22,7 +22,7 @@
     [self.titleLabel setFont:DefaultFont(16)];
     [self.titleLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
     
-    [self.priceLabel setFont:DefaultFont(16)];
+    [self.priceLabel setFont:DefaultMediumFont(16)];
     [self.priceLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
 }
 

@@ -38,6 +38,7 @@
 #import "NSDate+Utilities.h"
 #import "UIView+Positioning.h"
 #import "NSString+CaseMethods.h"
+#import "PriceNumberFormatter.h"
 
 //
 // Модели и их обработчики

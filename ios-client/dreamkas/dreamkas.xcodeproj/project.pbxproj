@@ -33,6 +33,8 @@
 		CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
 		CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
 		CE22CE3619ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
+		CE2613981A1B7E500040F85F /* PriceNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */; };
+		CE2613991A1B7E500040F85F /* PriceNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */; };
 		CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FEC19EE668B005483A1 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FB219EE668B005483A1 /* MagicalImportFunctions.m */; };
@@ -334,6 +336,8 @@
 		CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectStoreViewController.m; sourceTree = "<group>"; };
 		CE22CE3319ED569F00A939E6 /* CreateStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateStoreViewController.h; sourceTree = "<group>"; };
 		CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateStoreViewController.m; sourceTree = "<group>"; };
+		CE2613961A1B7E500040F85F /* PriceNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceNumberFormatter.h; sourceTree = "<group>"; };
+		CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceNumberFormatter.m; sourceTree = "<group>"; };
 		CE290FAA19EE62DB005483A1 /* RESTClient+Stores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Stores.h"; sourceTree = "<group>"; };
 		CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Stores.m"; sourceTree = "<group>"; };
 		CE290FB119EE668B005483A1 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -1439,6 +1443,8 @@
 			children = (
 				CEF2648219E82245008BE93A /* CustomModalSegue.h */,
 				CEF2648319E82245008BE93A /* CustomModalSegue.m */,
+				CE2613961A1B7E500040F85F /* PriceNumberFormatter.h */,
+				CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1706,6 +1712,7 @@
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
 				CEF2647519E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
+				CE2613981A1B7E500040F85F /* PriceNumberFormatter.m in Sources */,
 				CE39DDBE19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
 				CE915E251A1B64470077C03B /* SaleModel.m in Sources */,
 				CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */,
@@ -1750,6 +1757,7 @@
 				CEF2645F19E8126A008BE93A /* LogInViewController.m in Sources */,
 				CE912E991A0BD8A1001FDACE /* PincodeViewController.m in Sources */,
 				CEF2646719E81C57008BE93A /* AbstractViewController+Modal.m in Sources */,
+				CE2613991A1B7E500040F85F /* PriceNumberFormatter.m in Sources */,
 				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE915E1A1A1B63A30077C03B /* ProductModel.m in Sources */,

@@ -27,10 +27,7 @@
 // Символьные шрифты приложения
 //
 
-#define DefaultLiHeiProFontName             @"LiHei Pro"
 #define DefaultAwesomeFontName              @"FontAwesome"
-
-#define DefaultLiHeiProFont(fsize)          [UIFont fontWithName:(DefaultLiHeiProFontName) size:(fsize)]
 #define DefaultAwesomeFont(fsize)           [UIFont fontWithName:(DefaultAwesomeFontName) size:(fsize)]
 
 //

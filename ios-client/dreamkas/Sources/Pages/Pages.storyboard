@@ -779,31 +779,51 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4aU-i6-Wdb" id="T3R-1B-wvQ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gp7-Uf-baZ" customClass="WordWrappingLabel">
-                                                    <rect key="frame" x="24" y="0.0" width="152" height="64"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gp7-Uf-baZ">
+                                                    <rect key="frame" x="24" y="0.0" width="128" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="128" id="bot-CK-Lfi"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DjA-Sm-Wdi" userLabel="T">
+                                                    <rect key="frame" x="168" y="0.0" width="24" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="KLQ-Tx-xaK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 000 000 P" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tiV-oh-QZg">
-                                                    <rect key="frame" x="175" y="0.0" width="120" height="64"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="202" y="0.0" width="96" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="96" id="daK-KY-BhV"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="tiV-oh-QZg" secondAttribute="bottom" id="CGz-qX-mbN"/>
-                                                <constraint firstAttribute="trailing" secondItem="tiV-oh-QZg" secondAttribute="trailing" constant="25" id="Iur-Oj-Brs"/>
-                                                <constraint firstItem="tiV-oh-QZg" firstAttribute="leading" secondItem="T3R-1B-wvQ" secondAttribute="leading" constant="175" id="S6Q-dP-vJ5"/>
-                                                <constraint firstAttribute="bottom" secondItem="Gp7-Uf-baZ" secondAttribute="bottom" id="W1y-Lr-mrR"/>
-                                                <constraint firstItem="Gp7-Uf-baZ" firstAttribute="leading" secondItem="T3R-1B-wvQ" secondAttribute="leading" constant="24" id="Zjl-AW-xZn"/>
-                                                <constraint firstAttribute="trailing" secondItem="Gp7-Uf-baZ" secondAttribute="trailing" constant="144" id="Zup-34-wQo"/>
-                                                <constraint firstItem="tiV-oh-QZg" firstAttribute="top" secondItem="T3R-1B-wvQ" secondAttribute="top" id="utr-fh-643"/>
-                                                <constraint firstItem="Gp7-Uf-baZ" firstAttribute="top" secondItem="T3R-1B-wvQ" secondAttribute="top" id="zX8-Mv-xvN"/>
+                                                <constraint firstAttribute="bottom" secondItem="tiV-oh-QZg" secondAttribute="bottom" id="1rY-nJ-I0h"/>
+                                                <constraint firstItem="tiV-oh-QZg" firstAttribute="leading" secondItem="DjA-Sm-Wdi" secondAttribute="trailing" constant="10" id="4J0-sO-6Ep"/>
+                                                <constraint firstAttribute="bottom" secondItem="DjA-Sm-Wdi" secondAttribute="bottom" id="Dqr-ll-3bU"/>
+                                                <constraint firstItem="tiV-oh-QZg" firstAttribute="leading" secondItem="DjA-Sm-Wdi" secondAttribute="trailing" constant="10" id="L84-Rk-6XO"/>
+                                                <constraint firstAttribute="trailing" secondItem="tiV-oh-QZg" secondAttribute="trailing" constant="22" id="PWn-XQ-an5"/>
+                                                <constraint firstItem="DjA-Sm-Wdi" firstAttribute="leading" secondItem="Gp7-Uf-baZ" secondAttribute="trailing" constant="16" id="Qp4-NW-u5s"/>
+                                                <constraint firstItem="Gp7-Uf-baZ" firstAttribute="top" secondItem="T3R-1B-wvQ" secondAttribute="top" id="ews-ht-yB1"/>
+                                                <constraint firstAttribute="bottom" secondItem="Gp7-Uf-baZ" secondAttribute="bottom" id="g1A-0N-Zee"/>
+                                                <constraint firstItem="DjA-Sm-Wdi" firstAttribute="leading" secondItem="Gp7-Uf-baZ" secondAttribute="trailing" constant="16" id="hw6-J5-YcU"/>
+                                                <constraint firstItem="tiV-oh-QZg" firstAttribute="top" secondItem="T3R-1B-wvQ" secondAttribute="top" id="kGs-EH-PsO"/>
+                                                <constraint firstItem="Gp7-Uf-baZ" firstAttribute="leading" secondItem="T3R-1B-wvQ" secondAttribute="leading" constant="24" id="qvc-f6-qdz"/>
+                                                <constraint firstItem="DjA-Sm-Wdi" firstAttribute="top" secondItem="T3R-1B-wvQ" secondAttribute="top" id="wEk-dD-UjB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="priceLabel" destination="tiV-oh-QZg" id="5C3-je-ndc"/>
+                                            <outlet property="tagLabel" destination="DjA-Sm-Wdi" id="Q3v-h2-K7g"/>
                                             <outlet property="titleLabel" destination="Gp7-Uf-baZ" id="7e1-vR-q9z"/>
                                         </connections>
                                     </tableViewCell>

@@ -11,7 +11,10 @@
 @interface SaleItemCell : CustomTableViewCell
 
 /** Название продуктовой единицы */
-@property (nonatomic, weak) IBOutlet WordWrappingLabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+
+/** Поле тэга для обозначения скидки или др. */
+@property (nonatomic, weak) IBOutlet UILabel *tagLabel;
 
 /** Стоимость продуктовой единицы */
 @property (nonatomic, weak) IBOutlet UILabel *priceLabel;
