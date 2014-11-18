@@ -11,8 +11,18 @@
 @interface SaleItemModel (Helper)
 
 /**
- * Добавление товарной единицы в модель единицы продажи
+ * Создание единицы продажи и добавление в неё ID продуктовой единицы
  */
 + (SaleItemModel *)saleItemForProduct:(ProductModel *)product;
+
+/**
+ * Увеличение количества единицы продажи
+ */
+- (void)increaseQuantity;
+
+/**
+ * Уменьшение количества единицы продажи
+ */
+- (void)decreaseQuantity;
 
 @end

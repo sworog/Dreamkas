@@ -48,9 +48,9 @@
 #import "StoreModel.h"
 #import "ProductModel.h"
 #import "GroupModel.h"
-#import "SaleModel.h"
 #import "SaleItemModel.h"
 #import "SaleItemModel+Helper.h"
+#import "SaleModel.h"
 
 //
 // Менеджеры и хэлперы

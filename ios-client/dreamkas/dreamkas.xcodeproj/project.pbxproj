@@ -27,6 +27,8 @@
 		CE1B3DAB19DD40CA00A253D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */; };
 		CE1B3DAC19DD40CA00A253D1 /* Pages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */; };
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
+		CE1DFA2D1A1B789000F23954 /* SaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DFA2C1A1B789000F23954 /* SaleItemModel.m */; };
+		CE1DFA2E1A1B789000F23954 /* SaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DFA2C1A1B789000F23954 /* SaleItemModel.m */; };
 		CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
 		CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
 		CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
@@ -148,8 +150,6 @@
 		CE912E901A0BD3A1001FDACE /* UTProductsTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */; };
 		CE912E981A0BD8A0001FDACE /* PincodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E971A0BD8A0001FDACE /* PincodeViewController.m */; };
 		CE912E991A0BD8A1001FDACE /* PincodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE912E971A0BD8A0001FDACE /* PincodeViewController.m */; };
-		CE915E111A1B63A20077C03B /* SaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE915E101A1B63A20077C03B /* SaleItemModel.m */; };
-		CE915E121A1B63A20077C03B /* SaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE915E101A1B63A20077C03B /* SaleItemModel.m */; };
 		CE915E151A1B63A20077C03B /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE915E141A1B63A20077C03B /* GroupModel.m */; };
 		CE915E161A1B63A20077C03B /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE915E141A1B63A20077C03B /* GroupModel.m */; };
 		CE915E191A1B63A30077C03B /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE915E181A1B63A30077C03B /* ProductModel.m */; };
@@ -328,6 +328,8 @@
 		CE1B3DCA19DD4A9700A253D1 /* BasicDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicDefines.h; sourceTree = "<group>"; };
 		CE1B3DCB19DD558F00A253D1 /* BlockDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockDefines.h; sourceTree = "<group>"; };
 		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
+		CE1DFA2B1A1B789000F23954 /* SaleItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleItemModel.h; sourceTree = "<group>"; };
+		CE1DFA2C1A1B789000F23954 /* SaleItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleItemModel.m; sourceTree = "<group>"; };
 		CE22CE2F19ED568B00A939E6 /* SelectStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectStoreViewController.h; sourceTree = "<group>"; };
 		CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectStoreViewController.m; sourceTree = "<group>"; };
 		CE22CE3319ED569F00A939E6 /* CreateStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateStoreViewController.h; sourceTree = "<group>"; };
@@ -452,8 +454,6 @@
 		CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTProductsTesting.m; sourceTree = "<group>"; };
 		CE912E961A0BD8A0001FDACE /* PincodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PincodeViewController.h; sourceTree = "<group>"; };
 		CE912E971A0BD8A0001FDACE /* PincodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PincodeViewController.m; sourceTree = "<group>"; };
-		CE915E0F1A1B63A20077C03B /* SaleItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleItemModel.h; sourceTree = "<group>"; };
-		CE915E101A1B63A20077C03B /* SaleItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleItemModel.m; sourceTree = "<group>"; };
 		CE915E131A1B63A20077C03B /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
 		CE915E141A1B63A20077C03B /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
 		CE915E171A1B63A30077C03B /* ProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
@@ -637,10 +637,10 @@
 				CE915E131A1B63A20077C03B /* GroupModel.h */,
 				CE915E141A1B63A20077C03B /* GroupModel.m */,
 				CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */,
+				CE1DFA2B1A1B789000F23954 /* SaleItemModel.h */,
+				CE1DFA2C1A1B789000F23954 /* SaleItemModel.m */,
 				CE915E171A1B63A30077C03B /* ProductModel.h */,
 				CE915E181A1B63A30077C03B /* ProductModel.m */,
-				CE915E0F1A1B63A20077C03B /* SaleItemModel.h */,
-				CE915E101A1B63A20077C03B /* SaleItemModel.m */,
 				CE915E231A1B64470077C03B /* SaleModel.h */,
 				CE915E241A1B64470077C03B /* SaleModel.m */,
 				CE915E1B1A1B63A30077C03B /* StoreModel.h */,
@@ -1634,7 +1634,6 @@
 				CE82B2931A02532200CBF803 /* SearchViewController.m in Sources */,
 				CE8DA4E31A0106FD007C24D8 /* CustomNavigationBar.m in Sources */,
 				CE29101419EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
-				CE915E111A1B63A20077C03B /* SaleItemModel.m in Sources */,
 				CEA9932E1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */,
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
@@ -1656,6 +1655,7 @@
 				CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
 				CE8DA4E71A011D54007C24D8 /* BackButton.m in Sources */,
+				CE1DFA2D1A1B789000F23954 /* SaleItemModel.m in Sources */,
 				CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */,
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CE3C76371A013B4D0057493E /* ProductCell.m in Sources */,
@@ -1764,6 +1764,7 @@
 				CEBC43A319E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CE91B79519F4ED4700258AB0 /* UTAuthTesting.m in Sources */,
+				CE1DFA2E1A1B789000F23954 /* SaleItemModel.m in Sources */,
 				CE8DA4DE1A0103A3007C24D8 /* AbstractNavigationController.m in Sources */,
 				CE915E261A1B64470077C03B /* SaleModel.m in Sources */,
 				CE290FFD19EE668B005483A1 /* NSManagedObject+MagicalDataImport.m in Sources */,
@@ -1771,7 +1772,6 @@
 				CE29101519EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
 				CE29101119EE668B005483A1 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				CE3C76341A0138070057493E /* GroupCell.m in Sources */,
-				CE915E121A1B63A20077C03B /* SaleItemModel.m in Sources */,
 				CE29100119EE668B005483A1 /* NSManagedObject+MagicalRecord.m in Sources */,
 				CE290FF719EE668B005483A1 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				CE10A83119F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,

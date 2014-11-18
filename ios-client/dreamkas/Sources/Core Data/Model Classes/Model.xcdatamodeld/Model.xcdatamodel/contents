@@ -19,6 +19,7 @@
     <entity name="SaleItemModel" representedClassName="SaleItemModel" parentEntity="AbstractModel" syncable="YES">
         <attribute name="productId" attributeType="String" minValueString="0" syncable="YES"/>
         <attribute name="quantity" attributeType="Float" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="submitDate" attributeType="Date" syncable="YES"/>
         <relationship name="sale" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SaleModel" inverseName="items" inverseEntity="SaleModel" syncable="YES"/>
     </entity>
     <entity name="SaleModel" representedClassName="SaleModel" parentEntity="AbstractModel" syncable="YES">
@@ -37,7 +38,7 @@
         <element name="AbstractModel" positionX="-56" positionY="-0" width="128" height="60"/>
         <element name="GroupModel" positionX="-540" positionY="80" width="128" height="73"/>
         <element name="ProductModel" positionX="-333" positionY="180" width="128" height="148"/>
-        <element name="SaleItemModel" positionX="333" positionY="266" width="128" height="88"/>
+        <element name="SaleItemModel" positionX="333" positionY="266" width="128" height="103"/>
         <element name="SaleModel" positionX="-261" positionY="371" width="128" height="118"/>
         <element name="StoreModel" positionX="241" positionY="9" width="128" height="90"/>
     </elements>

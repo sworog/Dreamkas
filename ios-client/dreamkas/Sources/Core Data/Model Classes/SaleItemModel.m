@@ -12,8 +12,9 @@
 
 @implementation SaleItemModel
 
-@dynamic quantity;
 @dynamic productId;
+@dynamic quantity;
+@dynamic submitDate;
 @dynamic sale;
 
 @end

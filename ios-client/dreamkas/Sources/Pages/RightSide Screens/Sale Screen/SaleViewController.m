@@ -102,7 +102,7 @@
  */
 - (NSString*)fetchSortedField
 {
-    return @"pk";
+    return @"submitDate";
 }
 
 /**
@@ -163,6 +163,18 @@
     return [SaleItemCell cellHeight:tableView
                      cellIdentifier:cell_identifier
                               model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+}
+
+/**
+ * Обработка нажатия по ячейке
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DPLogFast(@"");
+    
+    SaleItemModel *model = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [model increaseQuantity];
+    DPLogFast(@"item = %@", model);
 }
 
 @end

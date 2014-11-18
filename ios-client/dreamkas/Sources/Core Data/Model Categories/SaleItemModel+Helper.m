@@ -11,23 +11,38 @@
 @implementation SaleItemModel (Helper)
 
 /**
- * Добавление товарной единицы в модель единицы продажи
+ * Создание единицы продажи и добавление в неё ID продуктовой единицы
  */
 + (SaleItemModel *)saleItemForProduct:(ProductModel *)product
 {
-    SaleItemModel *item = [SaleItemModel MR_findFirstByAttribute:@"productId" withValue:[product pk]];
-    
-    if (item == nil) {
-        item = [SaleItemModel createByPk:[SaleItemModel pkForNewEntity]];
-        [item setQuantity:@(1)];
-        [item setProductId:[product pk]];
-    }
-    else {
-        [item setQuantity:@([[item quantity] integerValue]+1)];
-    }
+    SaleItemModel *item = [SaleItemModel createByPk:[SaleItemModel pkForNewEntity]];
+    [item setQuantity:@(1)];
+    [item setProductId:[product pk]];
+    [item setSubmitDate:[NSDate date]];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     return item;
+}
+
+/**
+ * Увеличение количества единицы продажи
+ */
+- (void)increaseQuantity
+{
+    [self setQuantity:@([[self quantity] integerValue]+1)];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+/**
+ * Уменьшение количества единицы продажи
+ */
+- (void)decreaseQuantity
+{
+    if ([self.quantity isEqualToNumber:@(1.f)]) {
+        return;
+    }
+    [self setQuantity:@([[self quantity] integerValue]-1)];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 @end

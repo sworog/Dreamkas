@@ -14,8 +14,9 @@
 
 @interface SaleItemModel : AbstractModel
 
-@property (nonatomic, retain) NSNumber * quantity;
 @property (nonatomic, retain) NSString * productId;
+@property (nonatomic, retain) NSNumber * quantity;
+@property (nonatomic, retain) NSDate * submitDate;
 @property (nonatomic, retain) SaleModel *sale;
 
 @end
