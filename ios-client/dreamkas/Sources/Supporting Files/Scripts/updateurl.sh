@@ -8,6 +8,7 @@
 
 WORKPATH=$1
 APIURL=$2
+TMPFILE="/tmp/ios-build-temp-basic-defines.h.tmp"
 
 if [ -z "$APIURL" ]
 then
@@ -20,4 +21,6 @@ echo "WORKPATH: $WORKPATH"
 echo "BASICDEFINESPATH: $BASICDEFINESPATH"
 echo "APIURL: $APIURL"
 
-sed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH" > $BASICDEFINESPATH
+sed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH" > $TMPFILE
+mv "$TMPFILE" "$BASICDEFINESPATH"
+
