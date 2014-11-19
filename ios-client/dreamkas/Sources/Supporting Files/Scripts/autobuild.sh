@@ -28,7 +28,7 @@ mkdir "$BUILDPATH"
 export LC_CTYPE=en_US.UTF-8
 set -o pipefail
 
-sh ./updateurl.sh $WORKPATH $APIURL
+sh ./updateurl.sh "$WORKPATH" "$APIURL"
 
 xcodebuild \
     -sdk iphonesimulator8.1 \

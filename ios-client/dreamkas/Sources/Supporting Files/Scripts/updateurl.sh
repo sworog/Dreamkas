@@ -21,6 +21,13 @@ echo "WORKPATH: $WORKPATH"
 echo "BASICDEFINESPATH: $BASICDEFINESPATH"
 echo "APIURL: $APIURL"
 
+echo "Origin file"
+cat $BASICDEFINESPATH
+
+echo "Changed file"
+gsed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH"
+
+
 gsed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH" > $TMPFILE
 cp "$TMPFILE" "$BASICDEFINESPATH"
 
