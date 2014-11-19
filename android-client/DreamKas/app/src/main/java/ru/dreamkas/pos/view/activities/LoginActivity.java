@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -53,11 +57,38 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
     public ProgressDialog progressDialog;
     private PreferencesManager preferences;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         PreferencesManager.initializeInstance(getApplicationContext());
         context = this;
+        setListenerToRootView();
+    }
+
+    boolean isOpened = false;
+
+    public void setListenerToRootView(){
+        //final View activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
+        final View activityRootView = getWindow().getDecorView().findViewById(android.R.id.content);
+        activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
+                int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
+                if (heightDiff > 100 ) { // 99% of the time the height diff will be due to a keyboard.
+                    Toast.makeText(getApplicationContext(), "Gotcha!!! softKeyboardup", Toast.LENGTH_SHORT).show();
+
+                    if(isOpened == false){
+                        //Do two things, make the view top visible and the editText smaller
+                    }
+                    isOpened = true;
+                }else if(isOpened == true){
+                    Toast.makeText(getApplicationContext(), "softkeyborad Down!!!", Toast.LENGTH_SHORT).show();
+                    isOpened = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -70,8 +101,22 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
         addEditTextChangeListeners();
 
         if (BuildConfig.DEBUG) {
-            Toast.makeText(this, BuildConfig.ServerAddress, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, BuildConfig.ServerAddress, Toast.LENGTH_SHORT).show();
+
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+
+            this.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+
+            float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+
+            Toast.makeText(this, "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
+
+            txtUsername.setText("androidpos@lighthouse.pro");
+            txtPassword.setText("lighthouse");
         }
+
+        super.onStart();
     }
 
     @Override
@@ -97,7 +142,6 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
             //todo get secret from? get client_id from?
             AuthObject ao = new AuthObject("webfront_webfront", username, password, "secret");
             authRequest.setCredentials(ao);
-
 
             spiceManager.execute(authRequest, null, DurationInMillis.NEVER, authRequestListener);
             authRequestListener.requestStarted();
@@ -194,5 +238,41 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(true);
         progressDialog.show();
+    }
+
+
+    private Runnable decor_view_settings = new Runnable()
+    {
+        public void run()
+        {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    };
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        super.onWindowFocusChanged(hasFocus);
+
+        if(hasFocus)
+        {
+            txtPassword.post(decor_view_settings);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if(keyCode == KeyEvent.KEYCODE_BACK ||keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)
+        {
+            txtPassword.postDelayed(decor_view_settings, 500);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

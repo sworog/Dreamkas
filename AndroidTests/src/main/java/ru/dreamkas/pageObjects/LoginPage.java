@@ -1,33 +1,18 @@
 package ru.dreamkas.pageObjects;
 
-import net.thucydides.core.annotations.findby.FindBy;
+import org.openqa.selenium.WebDriver;
 
-import org.openqa.selenium.WebElement;
+import ru.dreamkas.pageObjects.elements.Button;
+import ru.dreamkas.pageObjects.elements.Input;
+import ru.dreamkas.pageObjects.elements.TextView;
 
 public class LoginPage extends CommonPageObject {
 
-    @FindBy(id = "ru.dreamkas.pos.debug:id/description")
-    private WebElement description;
-
-    @FindBy(id = "ru.dreamkas.pos.debug:id/txtUsername")
-    private WebElement txtUsernameField;
-
-    @FindBy(id = "ru.dreamkas.pos.debug:id/txtPassword")
-    private WebElement txtPasswordField;
-
-    @FindBy(id = "ru.dreamkas.pos.debug:id/btnLogin")
-    private WebElement  loginButton;
-
-    public void inputLoginCredentials(String email, String password) {
-        txtUsernameField.sendKeys(email);
-        txtPasswordField.sendKeys(password);
-    }
-
-    public void clickOnLoginButton() {
-        loginButton.click();
-    }
-
-    public String getDescription() {
-        return description.getText();
+    public LoginPage(WebDriver webDriver){
+        super(webDriver);
+        putElementable("Войти", new Button(this, "btnLogin"));
+        putElementable("описание", new TextView(this, "description"));
+        putElementable("пользователь",new Input(this, "txtUsername"));
+        putElementable("пароль",new Input(this, "txtPassword"));
     }
 }
