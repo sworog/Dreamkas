@@ -136,6 +136,18 @@
 }
 
 /**
+ *  Метод, уведомляющий об окончании работы fetch-контроллера
+ *  в связи с изменениями полей объектов БД
+ */
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [super controllerDidChangeContent:controller];
+    
+    [self.tableViewItem setContentOffset:CGPointMake(0, self.tableViewItem.contentSize.height - self.tableViewItem.height)
+                                animated:YES];
+}
+
+/**
  *  Метод, инициирующий загрузку данных с сервера
  */
 - (void)requestDataFromServer
