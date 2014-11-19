@@ -5,10 +5,16 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         id: 'form_supplier',
-        model: function() {
-            var SupplierModel = require('resources/supplier/model');
+        events: {
+            'click .form_supplier__removeLink': function(e) {
+                var block = this;
 
-            return PAGE.get('collections.suppliers').get(this.supplierId) || new SupplierModel;
+                e.target.classList.add('loading');
+
+                block.model.destroy().then(function() {
+                    e.target.classList.remove('loading');
+                });
+            }
         },
         collection: function() {
             return PAGE.get('collections.suppliers');

@@ -31,18 +31,16 @@
         <b block="form_products"></b>
 
         <% if (model.id) { %>
-        <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
+        <div style="margin-left: -10px;" class="confirmLink">
 
             <div class="confirmLink__trigger">
                 <span class="removeLink">
-                    <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                     <%- removeCaption %>
                 </span>
             </div>
 
             <div class="confirmLink__confirmation">
-                <span class="removeLink modal_stockMovement__removeLink">
-                    <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                <span class="removeLink form_stockMovement__removeLink">
                     Подтвердить удаление
                 </span>
             </div>

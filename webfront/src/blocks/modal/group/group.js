@@ -17,16 +17,6 @@ define(function(require, exports, module) {
         models: {
             group: null
         },
-        initialize: function(data){
-
-            data = data || {};
-
-            if (typeof data.deleted === 'undefined'){
-                this.deleted = false;
-            }
-
-            return Modal.prototype.initialize.apply(this, arguments);
-        },
         render: function() {
             var GroupModel = require('resources/group/model'),
                 model;
@@ -37,7 +27,7 @@ define(function(require, exports, module) {
                 this.models.group = PAGE.models.group || PAGE.collections.groups.get(this.groupId) || new GroupModel;
             }
 
-            Modal.prototype.render.apply(this, arguments);
+            return Modal.prototype.render.apply(this, arguments);
         },
         hide: function() {
 
