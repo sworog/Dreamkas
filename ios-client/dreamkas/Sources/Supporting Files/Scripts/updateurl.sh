@@ -22,10 +22,13 @@ echo "BASICDEFINESPATH: $BASICDEFINESPATH"
 echo "APIURL: $APIURL"
 
 echo "Origin file"
-cat $BASICDEFINESPATH
+cat "$BASICDEFINESPATH"
 
 echo "Changed file"
 gsed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH"
+
+echo "cat after sed"
+cat "$BASICDEFINESPATH" | gsed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#"
 
 
 gsed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH" > $TMPFILE
