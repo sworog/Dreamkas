@@ -119,6 +119,8 @@
 		CE500B8819F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8419F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m */; };
 		CE500B8919F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */; };
 		CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */; };
+		CE519BDD1A1CB21D007ED2BC /* resetsim.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE519BDC1A1CB21D007ED2BC /* resetsim.sh */; };
+		CE519BDE1A1CB21D007ED2BC /* resetsim.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE519BDC1A1CB21D007ED2BC /* resetsim.sh */; };
 		CE6CC1F019FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
 		CE6CC1F119FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
 		CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1F319FFB45F0087FE2C /* CloseButton.m */; };
@@ -429,6 +431,7 @@
 		CE500B8419F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		CE500B8519F0148500449C34 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		CE519BDC1A1CB21D007ED2BC /* resetsim.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = resetsim.sh; sourceTree = "<group>"; };
 		CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		CE6CC1F219FFB45F0087FE2C /* CloseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloseButton.h; sourceTree = "<group>"; };
 		CE6CC1F319FFB45F0087FE2C /* CloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloseButton.m; sourceTree = "<group>"; };
@@ -980,6 +983,7 @@
 		CE388EAD1A1620330020B5AF /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
+				CE519BDC1A1CB21D007ED2BC /* resetsim.sh */,
 				CE26139A1A1B9B5A0040F85F /* updateurl.sh */,
 				CE388EAE1A1620330020B5AF /* autobuild.sh */,
 				CE388EAF1A1620330020B5AF /* autotest.sh */,
@@ -1553,6 +1557,7 @@
 				CE946BBB19E6A91400D270E4 /* Roboto-BlackItalic.ttf in Resources */,
 				CE6CC1F019FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */,
 				CE946BC519E6A91400D270E4 /* Roboto-LightItalic.ttf in Resources */,
+				CE519BDD1A1CB21D007ED2BC /* resetsim.sh in Resources */,
 				CE388EB01A1620330020B5AF /* autobuild.sh in Resources */,
 				CE946BD319E6A91400D270E4 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				CE946BCF19E6A91400D270E4 /* Roboto-ThinItalic.ttf in Resources */,
@@ -1589,6 +1594,7 @@
 				CE946BC419E6A91400D270E4 /* Roboto-Light.ttf in Resources */,
 				CE946BCA19E6A91400D270E4 /* Roboto-MediumItalic.ttf in Resources */,
 				CE946BCE19E6A91400D270E4 /* Roboto-Thin.ttf in Resources */,
+				CE519BDE1A1CB21D007ED2BC /* resetsim.sh in Resources */,
 				CE946BC019E6A91400D270E4 /* Roboto-BoldItalic.ttf in Resources */,
 				CE26139C1A1B9B5A0040F85F /* updateurl.sh in Resources */,
 				CE8AB39519E7D1AA00B105E0 /* DreamkasDevelopmentProfile.mobileprovision in Resources */,
