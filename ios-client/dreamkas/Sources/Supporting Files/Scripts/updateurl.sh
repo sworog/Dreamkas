@@ -32,5 +32,5 @@ cat "$BASICDEFINESPATH" | gsed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIU
 
 
 gsed "s#\(.\+API_TEST_SERVER_URL.\+@\"\).\+\"#\1${APIURL}\"#" "$BASICDEFINESPATH" > $TMPFILE
-cp "$TMPFILE" "$BASICDEFINESPATH"
+#cp "$TMPFILE" "$BASICDEFINESPATH"
 
