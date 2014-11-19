@@ -50,6 +50,16 @@ define(function(require, exports, module) {
                 }
             }
         },
+        initialize: function(data){
+
+            data = data || {};
+
+            if (typeof data.deleted === 'undefined') {
+                this.deleted = false;
+            }
+
+            return Block.prototype.initialize.apply(this, arguments);
+        },
         render: function() {
             var block = this,
                 modal__wrapper = document.getElementById('modal__wrapper') || $('<div id="modal__wrapper"></div>').appendTo('body');

@@ -55,4 +55,23 @@
                    value="<%- model.get('contactPerson') %>">
         </div>
     </div>
+
+    <% if (model.id) { %>
+    <div class="confirmLink">
+
+        <div class="confirmLink__trigger">
+            <span class="removeLink">
+                Удалить поставщика
+            </span>
+        </div>
+
+        <div class="confirmLink__confirmation">
+            <span class="removeLink form_supplier__removeLink">
+                Подтвердить удаление
+            </span>
+        </div>
+
+    </div>
+    <% } %>
+
 </form>
