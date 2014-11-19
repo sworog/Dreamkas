@@ -6,6 +6,8 @@
 #  Created by sig on 19.11.2014
 #
 
+killall "iOS Simulator"
+
 instruments -s devices \
     | grep Simulator \
     | grep -o "[0-9A-F]\{8\}-[0-9A-F]\{4\}-[0-9A-F]\{4\}-[0-9A-F]\{4\}-[0-9A-F]\{12\}" \

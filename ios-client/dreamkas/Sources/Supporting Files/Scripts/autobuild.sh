@@ -32,9 +32,11 @@ set -o pipefail
 
 # Replacing origin URL with given URL
 sh ./updateurl.sh "$WORKPATH" "$APIURL"
+echo "Script updateurl.sh FINISHED"
 
 # Reseting all simulators
 sh ./resetsim.sh
+echo "Script resetsim.sh FINISHED"
 
 # Building application with given params
 xcodebuild \
