@@ -10,6 +10,8 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void resetApp() {
+        commonPageObject.getAppiumDriver().closeApp();
         commonPageObject.getAppiumDriver().resetApp();
+        commonPageObject.getAppiumDriver().launchApp();
     }
 }

@@ -23,6 +23,10 @@ mkdir "$BUILDPATH"
 export LC_CTYPE=en_US.UTF-8
 set -o pipefail
 
+# Reseting all simulators
+sh ./resetsim.sh
+echo "Script resetsim.sh FINISHED"
+
 # Building application with given params
 xcodebuild \
     -sdk iphonesimulator8.1 \
