@@ -22,8 +22,6 @@ define(function(require, exports, module) {
 
             deepExtend(this, params);
 
-            block.origin = _.cloneDeep(block);
-
             var initialize = this.initialize,
                 render = this.render;
 
