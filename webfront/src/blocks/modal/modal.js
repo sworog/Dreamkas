@@ -81,7 +81,17 @@ define(function(require, exports, module) {
 
             block.$('[autofocus]').focus();
         },
-        hide: function() {
+        hide: function(options) {
+            var block = this;
+
+            if (block.isChanged() && !confirm('Изменения не будут сохранены. Отменить изменения?'))
+            {
+                return;
+            }
+
+            this.close();
+        },
+        close: function(options) {
             var block = this;
 
             document.body.classList.remove('modal-open');
@@ -98,6 +108,15 @@ define(function(require, exports, module) {
             this.$('form').each(function() {
                 this.block && this.block.reset();
             });
+        },
+        isChanged: function() {
+            var isChanged = false;
+
+            this.$('form').each(function() {
+                isChanged = isChanged || (this.block && this.block.isChanged());
+            });
+
+            return isChanged;
         }
     });
 });

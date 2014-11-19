@@ -72,8 +72,6 @@ define(function(require) {
 
             block.redirectUrl = block.get('redirectUrl');
 
-            block.originalData = block.getData();
-
             block.__data = block.__data || block.data;
 
             block.data = block.get('__data');
@@ -99,6 +97,8 @@ define(function(require) {
             Block.prototype.render.apply(block, arguments);
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + (block.el && block.el.id) + '"]');
+
+            block.originalData = block.getData();
         },
         getData: function(){
 
@@ -267,24 +267,13 @@ define(function(require) {
         isChanged: function(){
 
             var block = this,
-                originalModel = block.get('__model'),
-                originalFormData = block.originalData,
-                actualFormData = block.getData(),
-                actualData = actualFormData,
-                originalData = originalFormData;
+                originalData = block.originalData,
+                actualData = block.getData(),
+                isCollectionChanged;
 
-            if (block.model && block.model.set){
-                block.model.set(actualFormData);
-                actualData = block.model.getData()
-            }
+            isCollectionChanged = block.collection && block.collection.isChanged();
 
-            if (originalModel && originalModel.getData){
-                originalData = originalModel.getData();
-            }
-
-            return _.isEqual(originalData, actualData);
-
-
+            return !_.isEqual(originalData, actualData) || isCollectionChanged;
         }
     })
 });

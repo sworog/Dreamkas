@@ -59,7 +59,7 @@ define(function(require, exports, module) {
             },
             form_store: require('blocks/form/store/store')
         },
-        hide: function(options) {
+        close: function(options) {
             options = options || {};
 
             if (options.submitSuccess) {
@@ -68,7 +68,7 @@ define(function(require, exports, module) {
                 this.model.collections.products.restore();
             }
 
-            return Modal.prototype.hide.call(this, arguments);
+            return Modal.prototype.close.call(this, arguments);
         }
     });
 });
