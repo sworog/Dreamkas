@@ -60,7 +60,6 @@ define(function(require, exports, module) {
             form_store: require('blocks/form/store/store')
         },
         close: function(options) {
-            options = options || {};
 
             if (options.submitSuccess) {
                 this.model.collections.products.applyChanges();
