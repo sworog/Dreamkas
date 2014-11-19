@@ -24,9 +24,9 @@ export LC_CTYPE=en_US.UTF-8
 set -o pipefail
 
 # Reseting all simulators
-sh ./resetsim.sh
-echo "Script resetsim.sh FINISHED"
-open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app
+# sh ./resetsim.sh
+# echo "Script resetsim.sh FINISHED"
+# open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app
 
 # Building application with given params
 xcodebuild \
