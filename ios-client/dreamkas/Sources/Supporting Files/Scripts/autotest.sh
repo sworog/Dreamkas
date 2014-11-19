@@ -36,5 +36,5 @@ xcodebuild \
     -project "$PROJECTPATH" \
     -scheme dreamkas-tests \
     CONFIGURATION_BUILD_DIR="$BUILDPATH" \
-    clean test \
+    clean build test \
     | xcpretty -tc -r junit --output "$BUILDPATH/junit.xml"
