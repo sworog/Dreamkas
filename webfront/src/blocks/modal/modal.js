@@ -89,7 +89,7 @@ define(function(require, exports, module) {
                 return;
             }
 
-            this.close();
+            this.close(options);
         },
         close: function(options) {
             var block = this;
