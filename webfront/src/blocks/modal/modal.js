@@ -84,7 +84,11 @@ define(function(require, exports, module) {
         hide: function(options) {
             var block = this;
 
-            if (block.isChanged() && !confirm('Изменения не будут сохранены. Отменить изменения?'))
+            options = options || {};
+
+            if (!options.submitSuccess &&
+                block.isChanged() &&
+                !confirm('Изменения не будут сохранены. Отменить изменения?'))
             {
                 return;
             }
