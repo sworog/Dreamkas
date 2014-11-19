@@ -26,7 +26,7 @@ set -o pipefail
 # Reseting all simulators
 sh ./resetsim.sh
 echo "Script resetsim.sh FINISHED"
-open "/Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app"
+open /Applications/Xcode.app/Contents/Developer/Applications/iOS\ Simulator.app
 
 # Building application with given params
 xcodebuild \
