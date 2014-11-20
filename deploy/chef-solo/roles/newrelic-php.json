@@ -1,0 +1,24 @@
+{
+  "name": "newrelic-php",
+  "description": "",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "newrelic": {
+      "application_monitoring": {
+        "enabled": true
+      },
+      "php_agent": {
+        "web_server": {
+          "service_name": "nginx"
+        },
+        "config_file": "/etc/php5/mods-available/newrelic.ini",
+        "execute_php5enmod": true
+      }
+    }
+  },
+  "run_list": [
+    "role[newrelic]",
+    "recipe[newrelic::php_agent]"
+  ]
+}

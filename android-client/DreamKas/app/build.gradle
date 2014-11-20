@@ -70,6 +70,7 @@ android
                     'src/main/res/layouts/activities',
                     'src/main/res/layouts/components',
                     'src/main/res/layouts/fragments',
+                    'src/main/res/layouts/dialog_fragments',
                     'src/main/res/layouts/item_templates',
                     'src/main/res/layouts/misc'
             ]
@@ -111,8 +112,6 @@ spoon
 
 dependencies
         {
-
-            //provided 'com.jakewharton.espresso:espresso:1.1-r2|'
             provided 'com.jakewharton.espresso:espresso-support-v4:1.1-r3'
             androidTestCompile('com.jakewharton.espresso:espresso-support-v4:1.1-r3') {
                 exclude group: 'com.android.support', module: 'support-v4'
@@ -127,6 +126,7 @@ dependencies
             compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
             compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
             compile 'org.androidannotations:androidannotations-api:3.0'
+            compile 'com.google.zxing:core:3.0.0'
         }
 
 

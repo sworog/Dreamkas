@@ -11,7 +11,7 @@ define(function(require, exports, module) {
                 var page = this,
                     select = e.currentTarget;
 
-                page.$('select[name="group"], input[name="productFilter"], .productFinder__resetLink').removeAttr('disabled');
+                page.$('select[name="subCategory"], input[name="productFilter"], .productFinder__resetLink').removeAttr('disabled');
 
                 select.classList.add('loading');
 
@@ -21,7 +21,7 @@ define(function(require, exports, module) {
                     select.classList.remove('loading');
                 });
             },
-            'change select[name="group"]': function(e) {
+            'change select[name="subCategory"]': function(e) {
                 var page = this,
                     select = e.currentTarget;
 
