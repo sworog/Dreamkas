@@ -14,6 +14,6 @@
 @property (nonatomic) UIView *selectedBackground;
 
 /** Разделитель ячейки */
-@property (nonatomic) IBOutlet UIView *cellSeparator;
+@property (nonatomic) UIView *cellSeparator;
 
 @end

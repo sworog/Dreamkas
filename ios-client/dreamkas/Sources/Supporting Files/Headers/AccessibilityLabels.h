@@ -21,6 +21,8 @@
 #define AI_Common_MessageAlert              @"AI_Common_MessageAlert"
 #define AI_Common_ConfirmAlert              @"AI_Common_ConfirmAlert"
 
+#define AI_Common_NavbarBackButton          @"AI_Common_NavbarBackButton"
+
 #define AI_Common_CellAtIndexPath(sid,rid)  [NSString stringWithFormat:@"AI_Common_CellAtIndexPath_s%ld_r%ld", sid, rid]
 
 //
@@ -46,11 +48,20 @@
 #define AI_SignInPage_CloseButton           @"AI_SignInPage_CloseButton"
 
 //
+// Экран входа в приложение по пин-коду
+//
+
+#define AI_PincodePage_GoAheadButton        @"AI_PincodePage_GoAheadButton"
+
+//
 // Экран кассы
 //
 
-#define AI_TicketWindowPage_Table           @"AI_TicketWindowPage_Table"
 #define AI_TicketWindowPage_SidemenuButton  @"AI_TicketWindowPage_SidemenuButton"
+#define AI_TicketWindowPage_LeftContainer   @"AI_TicketWindowPage_LeftContainer"
+#define AI_TicketWindowPage_RightContainer  @"AI_TicketWindowPage_RightContainer"
+
+#define AI_TicketWindowPage_SearchButton    @"AI_TicketWindowPage_SearchButton"
 
 //
 // Боковое меню
@@ -63,5 +74,11 @@
 //
 
 #define AI_SelectStorePage_Table            @"AI_SelectStorePage_Table"
+
+//
+// Экран поиска по наименованию, штрих-коду или SKU товара
+//
+
+#define AI_SearchPage_SearchField           @"AI_SearchPage_SearchField"
 
 #endif

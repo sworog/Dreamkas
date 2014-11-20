@@ -17,7 +17,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName1', units 'шт.', barcode 'editvalidation1', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName1'
 And the user inputs values in edit product modal window
@@ -38,7 +38,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName2', units 'шт.', barcode 'editvalidation2', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName2'
 And the user generates symbols with count '300' in the edit product modal window 'name' field
@@ -58,7 +58,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName3', units 'шт.', barcode 'editvalidation3', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName3'
 And the user generates symbols with count '301' in the edit product modal window 'name' field
@@ -76,7 +76,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName4', units 'шт.', barcode 'editvalidation4', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName4'
 And the user generates symbols with count '200' in the edit product modal window 'barcode' field
@@ -96,7 +96,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName5', units 'шт.', barcode 'editvalidation5', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName5'
 And the user generates symbols with count '201' in the edit product modal window 'barcode' field
@@ -114,7 +114,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName6', units 'шт.', barcode 'editvalidation6', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName6'
 And the user generates symbols with count '50' in the edit product modal window 'unit' field
@@ -134,7 +134,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName7', units 'шт.', barcode 'editvalidation7', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName7'
 And the user generates symbols with count '51' in the edit product modal window 'unit' field
@@ -152,7 +152,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName8', units 'шт.', barcode 'editvalidation8', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName8'
 And the user inputs values in edit product modal window
@@ -174,7 +174,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101editValidationName9', units 'шт.', barcode 'editvalidation9', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 's38u101editValidationName9'
 And the user inputs values in edit product modal window
@@ -196,7 +196,7 @@ Given the user runs the symfony:user:create command with params: email 's28u101@
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with randomly generated name in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with stored name
 And the user inputs value in edit product modal windows 'purchasePrice' field
@@ -227,7 +227,7 @@ Given the user runs the symfony:user:create command with params: email 's28u101@
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101val'
 And the user navigates to the group with name 'groups30u101val'
 And the user with email 's28u101@lighthouse.pro' creates the product with randomly generated name in the group with name 'groups30u101val'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with stored name
 And the user inputs value in edit product modal windows 'sellingPrice' field

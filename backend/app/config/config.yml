@@ -105,7 +105,7 @@ nelmio_cors:
     paths:
         '^/api/':
             allow_origin: ['*']
-            allow_headers: ['Content-Type', 'Authorization', 'Link', 'X-File-Name']
+            allow_headers: ['Content-Type', 'Authorization', 'Link', 'X-File-Name', 'X-Total-Count']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS', 'LINK', 'UNLINK']
             max_age: 3600
         '^/oauth/':
@@ -135,6 +135,7 @@ nelmio_api_doc:
 
 ekino_new_relic:
     application_name: "Dreamkas API %kernel.environment%"
+    log_exceptions: true
     api_key: 123e886f0c6641b422f9f035980c8f2966177d25
 
 leezy_pheanstalk:

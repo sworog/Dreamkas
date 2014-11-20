@@ -7,6 +7,7 @@
 //
 
 #import "AbstractViewController.h"
+#import "BackButton.h"
 
 #define LOG_ON 1
 
@@ -58,6 +59,13 @@
     [self configureAccessibilityLabels];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self configureNavbar];
+}
+
 - (void)didReceiveMemoryWarning
 {
     DPLog(LOG_ON, @"");
@@ -89,6 +97,38 @@
 - (void)configureBackground
 {
     self.view.backgroundColor = DefaultWhiteColor;
+}
+
+/**
+ * Настройка навбара
+ */
+- (void)configureNavbar
+{
+    if ([self.navigationController isNavigationBarHidden]) {
+        DPLog(LOG_ON, @"Navigation Bar is Hidden");
+        return;
+    }
+    
+    // устанавливаем (по необходимости) кнопку возврата назад
+    if ([self.navigationController.viewControllers count] != 1) {
+        [self initBackButton];
+    }
+    
+    // something else ..
+}
+
+/**
+ * Инициализация кнопки Back
+ */
+- (void)initBackButton
+{
+    BackButton *back_btn = [BackButton buttonWithType:UIButtonTypeCustom];
+    back_btn.frame = CGRectMake(0, 0, DefaultTopPanelHeight, DefaultTopPanelHeight);
+    [back_btn setAccessibilityLabel:AI_Common_NavbarBackButton];
+    [back_btn addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *left_btn = [[UIBarButtonItem alloc] initWithCustomView:back_btn];
+    self.navigationItem.leftBarButtonItem = left_btn;
 }
 
 /**

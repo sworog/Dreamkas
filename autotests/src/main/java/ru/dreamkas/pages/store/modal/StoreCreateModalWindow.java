@@ -20,7 +20,7 @@ public class StoreCreateModalWindow extends ModalWindowPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_store']";
+        return "//*[contains(@id, 'modal_store') and contains(@class, 'modal_visible')]";
     }
 
     @Override

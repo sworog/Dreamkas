@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
+        id: 'form_store',
         model: function() {
             var StoreModel = require('resources/store/model');
 

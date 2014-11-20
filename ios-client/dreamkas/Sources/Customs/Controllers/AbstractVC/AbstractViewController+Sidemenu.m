@@ -10,9 +10,7 @@
 #import <objc/runtime.h>
 #import "SidemenuViewController.h"
 
-#define SidemenuOverlayAlpha    0.6f
-#define SidemenuWidth           320.f
-#define SidemenuHeight          768.f
+#define kSidemenuStatusKey @"SidemenuStatusKey"
 
 @implementation AbstractViewController (Sidemenu)
 
@@ -61,7 +59,7 @@
     
     if (self.sidemenuOverlayView == nil) {
         self.sidemenuOverlayView = [[UIControl alloc] initWithFrame:self.view.frame];
-        [self.sidemenuOverlayView setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:SidemenuOverlayAlpha]];
+        [self.sidemenuOverlayView setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:DefaultSidemenuOverlayAlpha]];
         [self.sidemenuOverlayView addTarget:self
                                      action:@selector(sidemenuOverlayTouched)
                            forControlEvents:UIControlEventTouchUpInside];
@@ -81,26 +79,13 @@
 
 #pragma mark - Работа с боковым меню
 
-- (void)placeControllerInSidemenu:(UIViewController*)svc
-{
-    if ((svc == nil) || (self.sidemenuContainerView == nil))
-        return;
-    
-    [svc.view setWidth:SidemenuWidth];
-    [svc.view setHeight:SidemenuHeight];
-    
-    [self addChildViewController:svc];
-    [self.sidemenuContainerView addSubview:svc.view];
-    [svc didMoveToParentViewController:self];
-}
-
 - (void)showSidemenu:(VoidResponseBlock)completionBlock
 {
     DPLogFast(@"");
     
     if (self.sidemenuContainerView == nil) {
-        self.sidemenuContainerView = [[UIView alloc] initWithFrame:CGRectMake(-SidemenuWidth, 0,
-                                                                              SidemenuWidth, SidemenuHeight)];
+        self.sidemenuContainerView = [[UIView alloc] initWithFrame:CGRectMake(-DefaultSidemenuWidth, 0,
+                                                                              DefaultSidemenuWidth, DefaultSidemenuHeight)];
         [self.sidemenuContainerView setBackgroundColor:DefaultWhiteColor];
         [self.view addSubview:self.sidemenuContainerView];
         [self placeControllerInSidemenu:ControllerById(SidemenuViewControllerID)];
@@ -114,9 +99,25 @@
         [self.sidemenuOverlayView setAlpha:1.f];
         [self.sidemenuContainerView setX:0];
     } completion:^(BOOL finished) {
+        [UserDefaults setObject:@YES forKey:kSidemenuStatusKey];
+        [UserDefaults synchronize];
+        
         if (completionBlock)
             completionBlock();
     }];
+}
+
+- (void)placeControllerInSidemenu:(UIViewController*)svc
+{
+    if ((svc == nil) || (self.sidemenuContainerView == nil))
+        return;
+    
+    [svc.view setWidth:DefaultSidemenuWidth];
+    [svc.view setHeight:DefaultSidemenuHeight];
+    
+    [self addChildViewController:svc];
+    [self.sidemenuContainerView addSubview:svc.view];
+    [svc didMoveToParentViewController:self];
 }
 
 - (void)hideSidemenu:(VoidResponseBlock)completionBlock
@@ -129,12 +130,21 @@
     [self.sidemenuOverlayView setAlpha:1.f];
     [UIView animateWithDuration:KeyboardAnimationDuration animations:^(void) {
         [self.sidemenuOverlayView setAlpha:0.f];
-        [self.sidemenuContainerView setX:-SidemenuWidth];
+        [self.sidemenuContainerView setX:-DefaultSidemenuWidth];
     } completion:^(BOOL finished) {
         [self hideSidemenuOverlay];
+        
+        [UserDefaults setObject:@NO forKey:kSidemenuStatusKey];
+        [UserDefaults synchronize];
+        
         if (completionBlock)
             completionBlock();
     }];
+}
+
+- (BOOL)doesSidemenuShown
+{
+    return [[UserDefaults objectForKey:kSidemenuStatusKey] boolValue];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

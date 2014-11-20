@@ -1,5 +1,3 @@
-<% var supplierModalId = _.uniqueId('modal_supplier') %>
-
 <form id="<%- id %>" class="form form_invoice">
     <div class="row">
         <div class="col-md-4">
@@ -10,6 +8,8 @@
                 <b block="inputDate"
                    data-value="<%- model.get('date') ? formatDate(model.get('date')) : formatDate(new Date()) %>"></b>
 
+                <div class="form__errorMessage" for="date"></div>
+
             </div>
         </div>
         <div class="col-md-4">
@@ -17,12 +17,12 @@
 
                 <label class="control-label">Магазин *</label>
 
-                <div class="input-icon right">
+                <b block="select_store"
+                   data-selected="<%- model.get('store.id') %>"
+                   data-add="1"></b>
 
-                    <b block="select_store"
-                       data-selected="<%- model.get('store.id') %>"></b>
+                <div class="form__errorMessage" for="store"></div>
 
-                </div>
             </div>
         </div>
         <div class="col-md-4">
@@ -30,21 +30,11 @@
 
                 <label class="control-label">Поставщик</label>
 
-                <div class="row">
-                    <div class="col-md-10">
+                <b block="select_supplier"
+                   data-selected="<%- model.get('supplier.id') %>"
+                   data-add="1"></b>
 
-                        <b block="select_supplier"
-                           data-selected="<%- model.get('supplier.id') %>"></b>
-
-                    </div>
-
-                    <div class="col-md-2">
-                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
-                           data-modal="<%- supplierModalId %>"
-                           class="fa fa-plus"></a>
-                    </div>
-
-                </div>
+                <div class="form__errorMessage" for="supplier"></div>
 
             </div>
         </div>
@@ -60,9 +50,4 @@
                     </span>
         </label>
     </div>
-
-    <b block="modal_supplier"
-       data-referrer="modal_invoice"
-       data-id="<%- supplierModalId %>"></b>
-
 </form>

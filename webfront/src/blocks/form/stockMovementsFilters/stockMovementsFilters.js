@@ -9,25 +9,24 @@ define(function(require, exports, module) {
             return _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types');
         },
         events: {
-            reset: function(){
+            'change [name="types"]': function(e){
+
                 var block = this,
-                    $resetButton = block.$('[type="reset"]'),
-                    filters = {
-                        types: '',
-                        dateFrom: '',
-                        dateTo: ''
-                    };
+                    select = e.target;
 
-                $resetButton.addClass('loading');
+                select.classList.add('loading');
 
-                PAGE.collections.stockMovements.fetch({
-                    filters: filters
-                }).then(function(){
-                    PAGE.setParams(filters);
-                    block.render({
-                        data: _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types')
-                    });
-                });
+                block.$el.trigger('submit');
+
+            },
+            'update .inputDateRange': function(e){
+
+                var block = this,
+                    inputBlock = e.target;
+
+                inputBlock.classList.add('loading');
+
+                block.$el.trigger('submit');
             }
         },
         blocks: {
@@ -44,9 +43,9 @@ define(function(require, exports, module) {
             var block = this;
 
             PAGE.setParams(block.data);
-            block.render({
-                data: _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types')
-            });
+
+            block.$('.loading').removeClass('loading');
+
         },
         showErrors: function(error){
             var block = this,

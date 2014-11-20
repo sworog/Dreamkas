@@ -6,18 +6,18 @@ import ru.dreamkas.common.pageObjects.ModalWindowPageObject;
 import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.pages.catalog.group.modal.ProductCreateModalWindow;
 import ru.dreamkas.pages.catalog.group.modal.ProductEditModalWindow;
+import ru.dreamkas.pages.catalog.modal.CreateGroupModalPage;
 import ru.dreamkas.pages.catalog.modal.EditGroupModalPage;
 import ru.dreamkas.pages.pos.ReceiptModalPage;
 import ru.dreamkas.pages.pos.ReceiptPositionEditModalWindow;
 import ru.dreamkas.pages.pos.RefundModalWindowPage;
-import ru.dreamkas.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
-import ru.dreamkas.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
-import ru.dreamkas.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
-import ru.dreamkas.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import ru.dreamkas.pages.stockMovement.modal.invoice.*;
+import ru.dreamkas.pages.stockMovement.modal.stockIn.*;
 import ru.dreamkas.pages.stockMovement.modal.supplierReturn.SupplierReturnCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.supplierReturn.SupplierReturnEditModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
+import ru.dreamkas.pages.store.modal.StoreCreateModalWindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +44,12 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("редактирования товарной позиции", ReceiptPositionEditModalWindow.class);
             put("расчета продажи", ReceiptModalPage.class);
             put("возврата товарной позиции", RefundModalWindowPage.class);
+            put("создания магазина внутри приемки", StoreCreateModalWindow.class);
+            put("создания товара внутри приемки", ProductCreateModalWindow.class);
+            put("создания группы внутри создания товара внутри приемки", CreateGroupModalPage.class);
+            put("создания магазина внутри оприходования", StoreCreateModalWindow.class);
+            put("создания товара внутри оприходования", ProductCreateModalWindow.class);
+            put("создания группы внутри создания товара внутри оприходования", CreateGroupModalPage.class);
         }};
     }
 

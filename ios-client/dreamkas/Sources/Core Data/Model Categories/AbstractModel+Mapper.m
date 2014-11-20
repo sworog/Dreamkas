@@ -8,7 +8,7 @@
 
 #import "AbstractModel+Mapper.h"
 
-#define LOG_ON 1
+#define LOG_ON 0
 #define PK_FIELD_KEYWORD @"id"
 
 @implementation AbstractModel (Mapper)
@@ -65,13 +65,17 @@
     
     // установка базовых полей, чьи имена идентичны именам таковых в ответе сервера
     for (NSString *key in [data allKeys]) {
-        if ([self respondsToSelector:NSSelectorFromString(key)] == NO) {
+        if (([self respondsToSelector:NSSelectorFromString(key)] == NO) &&
+            (([data[key] isKindOfClass:[NSDictionary class]]) || ([data[key] isKindOfClass:[NSArray class]])) == NO) {
             DPLog(LOG_ON, @"There is no @property %@", key);
             continue;
         }
         
-        if (([data[key] isKindOfClass:[NSDictionary class]]) && ([data[key] isKindOfClass:[NSArray class]])) {
+        if (([data[key] isKindOfClass:[NSDictionary class]]) || ([data[key] isKindOfClass:[NSArray class]])) {
             DPLog(LOG_ON, @"Mapping value Class is %@", NSStringFromClass([data[key] class]));
+            if ([self respondsToSelector:@selector(thoroughMap:forModelField:)]) {
+                [self thoroughMap:data forModelField:key];
+            }
             continue;
         }
         

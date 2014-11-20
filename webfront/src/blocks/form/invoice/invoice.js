@@ -5,24 +5,25 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         id: 'form_invoice',
-        globalEvents: {
-            'submit:success': function(data, block){
-
-                if (block.el.id === 'form_supplier'){
-                    this.el.querySelector('[name="supplier"]').value = data.id;
-                }
-
-            }
-        },
         model: require('resources/invoice/model'),
-        collection: function(){
+        collection: function() {
             return PAGE.collections.stockMovements;
+        },
+        initialize: function() {
+            var block = this;
+
+            Form.prototype.initialize.apply(block, arguments);
+
+            block.listenTo(block.model.collections.products, {
+                'add': function() {
+                    block.removeErrors();
+                }
+            });
         },
         blocks: {
             inputDate: require('blocks/inputDate/inputDate'),
             select_store: require('blocks/select/store/store'),
-            select_supplier: require('blocks/select/supplier/supplier'),
-            modal_supplier: require('blocks/modal/supplier/supplier')
+            select_supplier: require('blocks/select/supplier/supplier')
         }
     });
 });

@@ -19,7 +19,7 @@ define(function(require) {
             return block.model && _.cloneDeep(block.model.toJSON());
         },
         events: {
-            'change :input': function() {
+            'focus :input': function() {
                 var block = this;
 
                 block.removeSuccessMessage();
@@ -51,6 +51,18 @@ define(function(require) {
                     block.submitComplete(response);
                     block.trigger('submit:complete', response);
                 });
+            }
+        },
+        globalEvents: {
+            'submit:success': function(data, form) {
+
+                var modal = this.$el.closest('.modal')[0],
+                    formModal = form.$el.closest('.modal')[0];
+
+                if (formModal && modal && formModal.block.referrer === modal.id) {
+
+                    this.removeErrors();
+                }
             }
         },
         initialize: function() {
@@ -200,6 +212,11 @@ define(function(require) {
             $errorElement.text(getText(errorMessage));
 
         },
+        removeGlobalError: function() {
+            var block = this;
+
+            block.$('.form__errorMessage_global').removeClass('form__errorMessage_visible');
+        },
         removeErrors: function() {
             var block = this;
 
@@ -209,12 +226,12 @@ define(function(require) {
         showSuccessMessage: function() {
             var block = this;
 
-            //block.elements.$submitButton.after('<span class="form__successMessage">' + getText(block.get('successMessage')) + '</span>')
+            block.$submitButton.after('<span class="form__successMessage pull-right">' + getText(block.get('successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;
 
-            //$(block.el).find('.form__successMessage').remove();
+            block.$el.find('.form__successMessage').remove();
         },
         disable: function() {
             var block = this;

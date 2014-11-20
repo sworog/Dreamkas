@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--memory", "1024"]
     end
 
-    HOSTS_VAGRANT_JSON = JSON.parse(Pathname(__FILE__).dirname.join('nodes', 'lighthouse.json').read)
+    HOSTS_VAGRANT_JSON = JSON.parse(Pathname(__FILE__).dirname.join('nodes', 'coquille.lighthouse.pro.json').read)
 
     hosts.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = ["site-cookbooks", "cookbooks"]

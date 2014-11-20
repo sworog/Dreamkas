@@ -1,3 +1,36 @@
+.autocomplete__suggestion{
+    background-color: #fff;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.autocomplete__hint {
+    padding: 6px 12px;
+}
+
+.autocomplete__item {
+    padding: 6px 12px;
+    border-bottom: 1px solid #eee;
+    min-height: 34px;
+    line-height: 22px;
+    cursor: pointer;
+}
+
+.autocomplete__item_focused {
+    background-color: #f4f4f4;
+}
+
+.autocomplete__suggestion .autocomplete__item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete_selected .autocomplete__input{
+    background-position: 98% center;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAMCAYAAAC9QufkAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJxJREFUeNpiZiAByMhICfDx8VYA8YVPnz7/YCRFI5DaD8QGQHwBiB2ZydAIAhIgzISkwIBIjTCwkQmqYD6QOg+kz0MVE9KY+OTJsw2MQAUJQM58JAmwf6BsXBoXgBgsWFxqANXEgE8jCDADg/wCMOgV0BRKQDFOjWDNIAJowEYsBuDVCNdMwACsGlE04zAAp0Z8iSIBiB0IqQMIMABA/EDDnh+dTQAAAABJRU5ErkJggg==);
+}
+
 .tt-dropdown-menu {
     background: white;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);

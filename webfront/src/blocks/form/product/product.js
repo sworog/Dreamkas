@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
+        id: 'form_product',
         selectedGroupId: function(){
             return PAGE.models.group && PAGE.models.group.id;
         },
@@ -45,27 +46,6 @@ define(function(require, exports, module) {
             Form.prototype.render.apply(this, arguments);
 
             this.calculateMarkup();
-        },
-        submit: function() {
-            var block = this;
-
-            if (block.data.newGroupName.length){
-
-                block.data.subCategory = {
-                    name: block.data.newGroupName
-                };
-            }
-
-            return Form.prototype.submit.apply(block, arguments);
-        },
-        submitSuccess: function(res){
-
-            if (this.data.newGroupName.length){
-                this.collections.groups.add(res.subCategory);
-            }
-
-            Form.prototype.submitSuccess.apply(this, arguments);
-
         },
         showFieldError: function(data, field) {
             var block = this;

@@ -1,3 +1,5 @@
+<% var formId = id + '__form' %>
+
 <div id="<%- id %>"
      class="modal modal_stockMovement <%- deleted ? 'modal_stockMovementDeleted' : '' %>">
 
@@ -19,7 +21,8 @@
     </div>
     <div class="modal__body">
 
-        <b block="form"></b>
+        <b block="form"
+           data-id="<%- formId %>"></b>
 
         <hr style="margin: 0 -60px;"/>
 
@@ -50,7 +53,7 @@
 
     <% } else { %>
 
-        <%= partials.deleted(obj) %>
+    <%= partials.deleted(obj) %>
 
     <% } %>
 

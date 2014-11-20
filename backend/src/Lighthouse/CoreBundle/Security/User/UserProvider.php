@@ -186,6 +186,17 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
+     * @param UserInterface $user
+     * @param string $password
+     * @return bool
+     */
+    public function validateUserPassword(UserInterface $user, $password)
+    {
+        $encodedPassword = $this->encoderFactory->getEncoder($user)->encodePassword($password, $user->getSalt());
+        return $user->getPassword() === $encodedPassword;
+    }
+
+    /**
      * @return User
      */
     public function createUser()

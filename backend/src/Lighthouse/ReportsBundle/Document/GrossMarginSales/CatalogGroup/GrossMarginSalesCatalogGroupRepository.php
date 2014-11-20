@@ -3,11 +3,11 @@
 namespace Lighthouse\ReportsBundle\Document\GrossMarginSales\CatalogGroup;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\MongoDB\ArrayIterator;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesFilter;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\GrossMarginSalesRepository;
 

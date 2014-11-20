@@ -53,7 +53,7 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * @param Request $request
      * @param callable $callback
-     * @param AbstractDocument $document
+     * @param AbstractDocument|mixed $document
      * @param FormTypeInterface $formType
      * @param bool $save
      * @param bool $clearMissing
@@ -62,7 +62,7 @@ abstract class AbstractRestController extends FOSRestController
     protected function processFormCallback(
         Request $request,
         $callback,
-        AbstractDocument $document = null,
+        $document = null,
         FormTypeInterface $formType = null,
         $save = true,
         $clearMissing = true

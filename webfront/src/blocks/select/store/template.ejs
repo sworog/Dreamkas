@@ -1,15 +1,56 @@
-<select class="form-control" name="store">
+<% var storeModalId = 'modal_store-' + cid %>
 
-    <% if (all == 1) { %>
-        <option value="" selected>По сети</option>
+<div class="select_store">
+
+    <% if (add && !PAGE.collections.stores.length) { %>
+
+    <a style="width: 100%"
+       data-modal="<%- storeModalId %>"
+       class="btn btn-transparent">
+        Создать магазин <i style="margin-left: 10px;" class="fa fa-plus"></i>
+    </a>
+
     <% } else { %>
-        <option value="" selected disabled>Выберите магазин</option>
+
+    <div class="input-group">
+        <select class="form-control" name="store">
+
+            <% if (all) { %>
+
+            <option value="" selected>По сети</option>
+
+            <% } else { %>
+
+            <option value="" selected disabled>Выберите магазин</option>
+
+            <% } %>
+
+            <% collection.forEach(function(storeModel){ %>
+            <option <%- storeModel.id === selected && 'selected' %> value="<%- storeModel.id %>">
+                <%- storeModel.get('name') %>
+            </option>
+            <% }) %>
+
+        </select>
+
+        <% if (add) { %>
+
+        <a class="input-group-addon form__inputTransparentButton"
+           data-modal="<%- storeModalId %>">
+            <i class="fa fa-plus"></i>
+        </a>
+
+        <% } %>
+
+    </div>
+
     <% } %>
 
-    <% collection.forEach(function(storeModel){ %>
-        <option <%- storeModel.id === selected && 'selected' %> value="<%- storeModel.id %>">
-            <%- storeModel.get('name') %>
-        </option>
-    <% }) %>
+    <% if (add) { %>
 
-</select>
+    <b block="modal_store"
+       data-id="<%- storeModalId %>"></b>
+
+    <% } %>
+
+</div>
