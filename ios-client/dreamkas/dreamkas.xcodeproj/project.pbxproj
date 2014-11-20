@@ -261,6 +261,8 @@
 		CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49A19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m */; };
 		CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */; };
 		CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC4B119DD808300ED88D3 /* DPLog.m */; };
+		CEDAE3181A1E401100FCB5D3 /* ActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDAE3171A1E401100FCB5D3 /* ActionButton.m */; };
+		CEDAE3191A1E401100FCB5D3 /* ActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDAE3171A1E401100FCB5D3 /* ActionButton.m */; };
 		CEDC5F741A00DF7300991527 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDC5F731A00DF7300991527 /* ProductsViewController.m */; };
 		CEDC5F751A00DF7300991527 /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDC5F731A00DF7300991527 /* ProductsViewController.m */; };
 		CEE5A2171A1112EC00640B1A /* PanelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE5A2161A1112EC00640B1A /* PanelButton.m */; };
@@ -576,6 +578,8 @@
 		CECFC49C19DD74C800ED88D3 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		CECFC4B019DD808300ED88D3 /* DPLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLog.h; sourceTree = "<group>"; };
 		CECFC4B119DD808300ED88D3 /* DPLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLog.m; sourceTree = "<group>"; };
+		CEDAE3161A1E401100FCB5D3 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
+		CEDAE3171A1E401100FCB5D3 /* ActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionButton.m; sourceTree = "<group>"; };
 		CEDC5F721A00DF7300991527 /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
 		CEDC5F731A00DF7300991527 /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
 		CEE5A2151A1112EC00640B1A /* PanelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanelButton.h; sourceTree = "<group>"; };
@@ -1220,6 +1224,8 @@
 		CEC003F119E6942E00AE256F /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				CEDAE3161A1E401100FCB5D3 /* ActionButton.h */,
+				CEDAE3171A1E401100FCB5D3 /* ActionButton.m */,
 				CE8DA4E51A011D54007C24D8 /* BackButton.h */,
 				CE8DA4E61A011D54007C24D8 /* BackButton.m */,
 				CE6CC1F219FFB45F0087FE2C /* CloseButton.h */,
@@ -1230,14 +1236,14 @@
 				CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */,
 				CE9A7EF81A0D1B0A00509548 /* MoreButton.h */,
 				CE9A7EF91A0D1B0A00509548 /* MoreButton.m */,
-				CE39DDCC19FFED8E00150C28 /* SearchButton.h */,
-				CE39DDCD19FFED8E00150C28 /* SearchButton.m */,
-				CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */,
-				CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */,
 				CEE5A2151A1112EC00640B1A /* PanelButton.h */,
 				CEE5A2161A1112EC00640B1A /* PanelButton.m */,
 				CEE5A2191A11141E00640B1A /* PlusCircleButton.h */,
 				CEE5A21A1A11141E00640B1A /* PlusCircleButton.m */,
+				CE39DDCC19FFED8E00150C28 /* SearchButton.h */,
+				CE39DDCD19FFED8E00150C28 /* SearchButton.m */,
+				CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */,
+				CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1639,6 +1645,7 @@
 				CE10A83719F655200056DF91 /* SidemenuViewController.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
 				CE9A7EFA1A0D1B0A00509548 /* MoreButton.m in Sources */,
+				CEDAE3181A1E401100FCB5D3 /* ActionButton.m in Sources */,
 				CE29100819EE668B005483A1 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				CE290FF219EE668B005483A1 /* NSNumber+MagicalDataImport.m in Sources */,
 				CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */,
@@ -1821,6 +1828,7 @@
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,
 				CE912E901A0BD3A1001FDACE /* UTProductsTesting.m in Sources */,
 				CE886A661A028B6D00587D70 /* SearchField.m in Sources */,
+				CEDAE3191A1E401100FCB5D3 /* ActionButton.m in Sources */,
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
 				CE1AF96F1A15006F00333A9F /* AbstractModel.m in Sources */,
 				CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */,

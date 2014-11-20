@@ -334,6 +334,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     
     SaleItemModel *item = [SaleItemModel saleItemForProduct:product];
     DPLogFast(@"item = %@", item);
+    
+    [self.tableViewItem deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

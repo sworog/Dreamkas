@@ -10,7 +10,13 @@
 #import "MoreButton.h"
 #import "SaleItemCell.h"
 
-@interface SaleViewController ()
+#define ControllerViewDefaultHeight 660
+
+@interface SaleViewController () <KeyboardEventsListenerProtocol>
+
+@property (nonatomic, weak) IBOutlet CustomLabel *infoMsgLabel;
+@property (nonatomic, weak) IBOutlet CustomFilledButton *saleButton;
+@property (nonatomic, weak) IBOutlet ActionButton *clearButton;
 
 @end
 
@@ -20,9 +26,12 @@
 
 - (void)initialize
 {
+    self.title = @"Чек";
+    
     // выключаем для контроллера массовое обновление и лимитированные запросы
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
+    [self becomeKeyboardEventsListener];
 }
 
 #pragma mark - View Lifecycle
@@ -31,7 +40,8 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Чек";
+    [self.infoMsgLabel setFont:DefaultFont(12)];
+    [self.infoMsgLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.54]];
     
     [self placeMoreBarButton];
 }
@@ -40,7 +50,7 @@
 {
     [super viewWillAppear:animated];
     
-    // ..
+    [self updateInfoMsgLabel];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,7 +74,9 @@
 
 - (void)configureLocalization
 {
-    // ..
+    [self.infoMsgLabel setText:@"Товаров в чеке нет"];
+    [self.clearButton setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
+    [self.saleButton setTitle:NSLocalizedString(@"make_sale_button_title", nil) forState:UIControlStateNormal];
 }
 
 - (void)configureAccessibilityLabels
@@ -72,11 +84,58 @@
     // ..
 }
 
+/**
+ * Обновление элементов слоя в зависимости от наличия контента под отображение
+ */
+- (void)updateInfoMsgLabel
+{
+    NSInteger count_of_elements = [self countOfItems];
+    
+    [self.infoMsgLabel setHidden:count_of_elements];
+    
+    [self.tableViewItem setHidden:!(count_of_elements)];
+    [self.saleButton setEnabled:count_of_elements];
+}
+
 #pragma mark - Обработка пользовательского взаимодействия
 
 - (void)moreButtonClicked
 {
     DPLogFast(@"");
+}
+
+- (IBAction)clearButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+    
+    [SaleItemModel MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+- (IBAction)saleButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+}
+
+#pragma mark - Методы KeyboardEventsListenerProtocol
+
+- (void)keyboardDidAppear:(NSNotification *)notification
+{
+    DPLogFast(@"self.tableViewItem = %@", self.tableViewItem);
+    
+    CGRect keyboard_bounds;
+    [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
+    
+    [self.view setHeight:ControllerViewDefaultHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
+    [self.tableViewItem reloadData];
+}
+
+- (void)keyboardWillDisappear:(NSNotification *)notification
+{
+    DPLogFast(@"");
+    
+    [self.view setHeight:ControllerViewDefaultHeight];
+    [self.tableViewItem reloadData];
 }
 
 #pragma mark - Методы CustomTableViewController
@@ -143,8 +202,9 @@
 {
     [super controllerDidChangeContent:controller];
     
-    [self.tableViewItem setContentOffset:CGPointMake(0, self.tableViewItem.contentSize.height - self.tableViewItem.height)
-                                animated:YES];
+    [self updateInfoMsgLabel];
+    
+    // TODO: прокрутка вниз при добавлении
 }
 
 /**
