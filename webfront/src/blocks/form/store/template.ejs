@@ -27,20 +27,29 @@
     </div>
 
     <% if (model.id) { %>
-    <div class="confirmLink" style="padding-top: 20px;">
 
-        <div class="confirmLink__trigger">
+    <div style="padding-top: 20px;">
+
+        <div class="form__errorMessage" for="delete"></div>
+
+        <div class="confirmLink" >
+
+            <div class="confirmLink__trigger">
             <span class="removeLink">
                 Удалить магазин
             </span>
-        </div>
+            </div>
 
-        <div class="confirmLink__confirmation">
+            <div class="confirmLink__confirmation">
             <span class="removeLink form_store__removeLink">
                 Подтвердить удаление
             </span>
+            </div>
+
         </div>
 
     </div>
+
+
     <% } %>
 </form>

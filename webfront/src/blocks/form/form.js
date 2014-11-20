@@ -166,6 +166,19 @@ define(function(require) {
 
             block.showErrors(JSON.parse(response.responseText), response);
         },
+        showError: function(errorMessage, field){
+
+            var block = this,
+                inputElement = block.el.querySelector('[name="' + field + '"]'),
+                errorContainer = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div for="' + field + '" class="form__errorMessage"></div>').insertAfter(inputElement)[0];
+
+            inputElement && inputElement.classList.add('invalid');
+
+            if (errorContainer){
+                errorContainer.classList.add('form__errorMessage_visible');
+                errorContainer.innerHTML = errorMessage;
+            }
+        },
         showFieldError: function(data, field) {
             var block = this,
                 errorMessage,

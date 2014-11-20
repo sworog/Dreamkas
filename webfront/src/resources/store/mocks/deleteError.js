@@ -8,6 +8,10 @@ define(function(require, exports, module) {
         type: 'DELETE',
 
         //response
-        status: 204
+        status: 409,
+        responseText: {
+            code: 409,
+            message: 'Для удаления магазина очистите все остатки товаров в нем.'
+        }
     });
 });

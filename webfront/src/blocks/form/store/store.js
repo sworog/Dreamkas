@@ -13,6 +13,9 @@ define(function(require, exports, module) {
 
                 block.model.destroy().then(function() {
                     e.target.classList.remove('loading');
+                }, function(data) {
+                    block.showError(data.responseJSON.message, 'delete');
+                    e.target.classList.remove('loading');
                 });
             }
         },
