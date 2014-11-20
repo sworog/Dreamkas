@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Modal_stockMovement.extend({
 		id: 'modal_supplierReturn',
 		Model: require('resources/supplierReturn/model'),
-		Form: require('blocks/form/supplierReturn/supplierReturn'),
+	    Form: require('blocks/form/stockMovement/supplier/supplierReturn/supplierReturn'),
 		Form_products: require('blocks/form/stockMovementProducts/supplierReturn/supplierReturn'),
 		addButtonCaption: 'Вернуть',
 		addTitle: 'Возврат поставщику',

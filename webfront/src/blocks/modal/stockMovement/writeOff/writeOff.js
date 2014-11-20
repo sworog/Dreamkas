@@ -5,7 +5,7 @@ define(function(require, exports, module) {
 	return Modal_stockMovement.extend({
 		id: 'modal_writeOff',
 		Model: require('resources/writeOff/model'),
-		Form: require('blocks/form/writeOff/writeOff'),
+		Form: require('blocks/form/stockMovement/writeOff/writeOff'),
 		Form_products: require('blocks/form/stockMovementProducts/writeOff/writeOff'),
 		addButtonCaption: 'Списать',
 		addTitle: 'Списание товаров',

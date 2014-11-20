@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Modal_stockMovement.extend({
 		id: 'modal_stockIn',
 		Model: require('resources/stockIn/model'),
-		Form: require('blocks/form/stockIn/stockIn'),
+	    Form: require('blocks/form/stockMovement/stockIn/stockIn'),
 		Form_products: require('blocks/form/stockMovementProducts/stockIn/stockIn'),
 		addButtonCaption: 'Оприходовать',
 		addTitle: 'Оприходование товаров',
