@@ -16,7 +16,9 @@
 
 @property (nonatomic, weak) IBOutlet CustomLabel *infoMsgLabel;
 @property (nonatomic, weak) IBOutlet CustomFilledButton *saleButton;
-@property (nonatomic, weak) IBOutlet ActionButton *clearButton;
+@property (nonatomic) ActionButton *clearButton;
+
+@property (nonatomic, weak) IBOutlet UIView *tableFooterView;
 
 @end
 
@@ -174,27 +176,6 @@
 }
 
 /**
- *  Метод возвращает предикат, по которому происходит фильтрация при выборке из БД
- */
-- (NSPredicate*)fetchPredicate
-{
-    //    NSMutableArray *argument_array = [NSMutableArray new];
-    //    NSMutableArray *format_array = [NSMutableArray new];
-    //    NSPredicate *predicate = nil;
-    //
-    //    [format_array addObject:@"isActive = %@"];
-    //    [argument_array addObject:@YES];
-    //
-    //    [format_array addObject:@"items.count > %@"];
-    //    [argument_array addObject:@0];
-    //
-    //    // формируем предикат по полученным данным
-    //    predicate = [NSPredicate predicateWithFormat:[format_array componentsJoinedByString:@" AND "]
-    //                                   argumentArray:argument_array];
-    return nil;
-}
-
-/**
  *  Метод, уведомляющий об окончании работы fetch-контроллера
  *  в связи с изменениями полей объектов БД
  */
@@ -204,6 +185,8 @@
     
     [self updateInfoMsgLabel];
     
+    DPLogFast(@"size = %@", NSStringFromCGSize(self.tableViewItem.contentSize));
+    
     // TODO: прокрутка вниз при добавлении
 }
 
@@ -212,18 +195,30 @@
  */
 - (void)requestDataFromServer
 {
-    //    [super requestDataFromServer];
-    //
-    //    __weak typeof(self)weak_self = self;
-    //    [NetworkManager requestGroups:^(NSArray *data, NSError *error) {
-    //        __strong typeof(self)strong_self = weak_self;
-    //
-    //        if (error != nil) {
-    //            [strong_self onMappingFailure:error];
-    //            return;
-    //        }
-    //        [strong_self onMappingCompletion:data];
-    //    }];
+    // nothing to do here..
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return DefaultSingleLineCellHeight;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    self.clearButton = [ActionButton buttonWithType:UIButtonTypeCustom];
+    [self.clearButton setFrame:CGRectMake(0, 0, 320, 52)];
+    [self.clearButton setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
+    [self.clearButton addTarget:self action:@selector(clearButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *top_line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
+    [top_line setBackgroundColor:DefaultLightGrayColor];
+    [self.clearButton addSubview:top_line];
+    
+    UIView *bot_line = [[UIView alloc] initWithFrame:CGRectMake(0, self.clearButton.height-1, 320, 1)];
+    [bot_line setBackgroundColor:DefaultLightGrayColor];
+    [self.clearButton addSubview:bot_line];
+    
+    return self.clearButton;
 }
 
 /**

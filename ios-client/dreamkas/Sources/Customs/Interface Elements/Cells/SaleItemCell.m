@@ -22,6 +22,8 @@
 {
     [super awakeFromNib];
     
+    [self.cellSeparator setBackgroundColor:[UIColor clearColor]];
+    
     // символ тега
     unichar ch = 0xf02b;
     [self.tagLabel setText:[NSString stringWithFormat:@"%C", ch]];
