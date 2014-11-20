@@ -79,20 +79,7 @@ public class ProductSearchComponent extends LinearLayout {
         }
 
         ProductsAdapter adapter = new ProductsAdapter(getContext(), R.layout.arrow_listview_item, products);
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         lvProductsSearchResult.setAdapter(adapter);
-        /*lvProductsSearchResult.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                this..getItems().get(position)
-                mAddRecepietItemCommand.execute();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
         pbSearchProduct.setVisibility(View.GONE);
     }
 

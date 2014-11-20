@@ -22,10 +22,10 @@ public class ProductAutoComplete extends CommonItem {
             value = value.substring(1);
             getVisibleWebElementFacade().type(value);
         } else {
+            getVisibleWebElementFacade().type(value);
             if (getPageObject() instanceof PosSaleHistoryPage) {
                 getPageObject().findVisibleElement(By.xpath("//*[@class='tt-suggestions']//*[contains(text(), '" + value + "')]")).click();
             } else {
-                getVisibleWebElementFacade().type(value);
                 getPageObject().findVisibleElement(By.xpath("//*[@class='autocomplete__item']/div/b[ contains(text(), '" + value + "')]")).click();
             }
         }

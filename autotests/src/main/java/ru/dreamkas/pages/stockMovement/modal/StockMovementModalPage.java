@@ -16,6 +16,7 @@ import ru.dreamkas.elements.items.autocomplete.ProductAutoComplete;
 import ru.dreamkas.handler.field.FieldChecker;
 import ru.dreamkas.handler.field.FieldErrorChecker;
 import ru.dreamkas.pages.modal.ModalWindowPage;
+import ru.dreamkas.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
 
 public abstract class StockMovementModalPage extends ModalWindowPage {
 
@@ -105,7 +106,12 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
                     @Override
                     public void assertFieldErrorMessage(String expectedFieldErrorMessage) {
                         try {
-                            String actualFieldErrorMessage = getCommonItem().getVisibleWebElement().findElement(By.xpath("./../../*[contains(@class, 'form__errorMessage')]")).getText();
+                            String actualFieldErrorMessage;
+                            if (getPageObject() instanceof InvoiceCreateModalWindow) {
+                                actualFieldErrorMessage = getCommonItem().getVisibleWebElement().findElement(By.xpath("./../../*[contains(@class, 'form__errorMessage')]")).getText();
+                            } else {
+                                actualFieldErrorMessage = getCommonItem().getVisibleWebElement().findElement(By.xpath("./../*[contains(@class, 'form__errorMessage')]")).getText();
+                            }
                             Assert.assertThat(actualFieldErrorMessage, Matchers.is(expectedFieldErrorMessage));
                         } catch (NoSuchElementException e) {
                             Assert.fail("Field do not have error validation messages");

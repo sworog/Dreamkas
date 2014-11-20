@@ -1,27 +1,32 @@
 package ru.dreamkas.pos.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import ru.dreamkas.pos.Constants;
 import ru.dreamkas.pos.model.api.Product;
 
-public class Receipt extends ArrayList<Product> {
+public class Receipt extends ArrayList<ReceiptItem> {
 
-    Integer mTotal = 0;
-    public Integer getTotal(){
-        return mTotal;
+    BigDecimal mTotal = BigDecimal.ZERO;
+    public BigDecimal getTotal(){
+        return mTotal == null ? null : mTotal.setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP);
     }
 
-    @Override
+    public void changeTo(BigDecimal delta){
+        mTotal = mTotal.add(delta);
+    }
+
     public boolean add(Product product) {
         if (product.getSellingPrice() != null){
-            mTotal += product.getSellingPrice();
+            mTotal = mTotal.add(product.getSellingPrice());
         }
-        return super.add(product);
+        return super.add(new ReceiptItem(product));
     }
 
     @Override
     public void clear() {
-        mTotal = 0;
+        mTotal = BigDecimal.ZERO;
         super.clear();
     }
 }

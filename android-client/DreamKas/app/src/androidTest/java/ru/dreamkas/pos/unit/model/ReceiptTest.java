@@ -3,6 +3,9 @@ package ru.dreamkas.pos.unit.model;
 import android.test.AndroidTestCase;
 import android.test.InstrumentationTestCase;
 
+import java.math.BigDecimal;
+
+import ru.dreamkas.pos.Constants;
 import ru.dreamkas.pos.model.Receipt;
 import ru.dreamkas.pos.model.api.Product;
 
@@ -53,25 +56,25 @@ public class ReceiptTest extends AndroidTestCase {
 
         mReceipt.clear();
 
-        assertThat("Wrong receipt total after clear", mReceipt.getTotal(), is(0));
+        assertThat("Wrong receipt total after clear", mReceipt.getTotal(), is(BigDecimal.ZERO.setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP)));
     }
 
     public void testReceiptTotal() {
 
         Product product = new Product();
-        product.setSellingPrice(150);
+        product.setSellingPrice(new BigDecimal(150));
 
         Product product2 = new Product();
-        product2.setSellingPrice(100);
+        product2.setSellingPrice(new BigDecimal(100));
 
         Product product3 = new Product();
-        product3.setSellingPrice(23);
+        product3.setSellingPrice(new BigDecimal(23));
 
         mReceipt.add(product);
         mReceipt.add(product2);
         mReceipt.add(product3);
 
-        assertThat("Wrong receipt total", mReceipt.getTotal(), is(273));
+        assertThat("Wrong receipt total", mReceipt.getTotal(), is(new BigDecimal(273).setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP)));
     }
 
 }

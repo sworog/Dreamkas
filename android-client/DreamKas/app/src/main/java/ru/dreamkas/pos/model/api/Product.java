@@ -1,8 +1,10 @@
 package ru.dreamkas.pos.model.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import java.math.BigDecimal;
 import javax.annotation.Nullable;
+
+import ru.dreamkas.pos.Constants;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Product extends NamedObject{
@@ -11,7 +13,7 @@ public class Product extends NamedObject{
     @Nullable
     private String barcode;
 
-    private Integer sellingPrice;
+    private BigDecimal sellingPrice;
     private String units;
 
     public String getSku() {
@@ -31,10 +33,19 @@ public class Product extends NamedObject{
         return barcode;
     }
 
-    public Integer getSellingPrice() {
-        return sellingPrice;
+    public BigDecimal getSellingPrice() {
+
+        return sellingPrice == null ? null : sellingPrice.setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP);
     }
-    public void setSellingPrice(Integer value) {
-        sellingPrice = value;
+    public void setSellingPrice(BigDecimal value) {
+        sellingPrice = value == null ? null : value.setScale(Constants.SCALE_MONEY, BigDecimal.ROUND_HALF_UP);
+    }
+
+    public void setBarcode(@Nullable String barcode) {
+        this.barcode = barcode;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
     }
 }

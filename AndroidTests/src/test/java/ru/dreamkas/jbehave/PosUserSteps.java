@@ -20,16 +20,37 @@ public class PosUserSteps {
         posSteps.chooseSpinnerItemWithValue(storeName);
     }
 
-    @When("пользователь нажимает на кнопку 'Перейти к кассе'")
-    @Given("пользователь нажимает на кнопку 'Перейти к кассе'")
-    public void whenTheUserClicksOnPosNavigateButton() {
-        posSteps.clickOnSaveStoreSettings();
+    @When ("пользователь в поле '$elementName' вводит значение '$value'")
+    @Given("пользователь в поле '$elementName' вводит значение '$value'")
+    public void whenUserSetInputValue(String elementName, String value){
+        posSteps.setValue(elementName, value);
     }
 
-    @When("пользователь нажимает на кнопку 'Очистить чек'")
-    @Given("пользователь нажимает на кнопку 'Очистить чек'")
-    public void whenTheUserClicksOnClearReceiptButton() {
-        posSteps.clickOnClearReceiptButton();
+
+    @Then("пользователь проверяет, что в поле '$elementName' значение '$value'")
+    public void whenUserCheckTextViewValue(String elementName, String value){
+        posSteps.assertText(elementName, value);
+    }
+
+    @Then("пользователь проверяет, что кнопка '$buttonName' недоступна для нажатия")
+    public void whenUserCheckButtonIsEnable(String elementNamevalue){
+        posSteps.asserButtonEnabled(elementNamevalue, false);
+    }
+
+
+
+
+    @When("пользователь нажимает на кнопку '$buttonName'")
+    @Given("пользователь нажимает на кнопку '$buttonName'")
+    public void whenTheUserClicksOnButton(String buttonName) {
+        posSteps.clickOnButton(buttonName);
+    }
+
+    @Given("пользователь находится на экране '$currentPage'")
+    @When("пользователь находится на экране '$currentPage'")
+    @Alias("пользователь переходит на экран '$currentPage'")
+    public void whenTheUserSwitchPage(String currentPage) {
+        posSteps.setCurrentPageObject(currentPage);
     }
 
 
@@ -81,6 +102,12 @@ public class PosUserSteps {
         posSteps.tapOnProductInSearchResultWithTitle(title);
     }
 
+    @Given("пользователь тапает по товару с названием '$title' в чеке продажи")
+    @When("пользователь тапает по товару с названием '$title' в чеке продажи")
+    public void thenTheUserTapOnProductInReceiptWithTitle(String title) {
+        posSteps.tapOnProductInReceiptWithTitle(title);
+    }
+
     @Then("пользователь видит чек продажи '$count' в котором присутствует товары в количестве")
     public void thenUserChecksReceiptItemsCount(Integer count) {
         posSteps.assertReceiptItemsCount(count);
@@ -96,9 +123,22 @@ public class PosUserSteps {
         posSteps.assertReceiptTotalButtonText(expected);
     }
 
-    @Then("пользователь видит что кнопка перешла в режим ожидания подтверждения с надписью '$expectedLabel'")
-    public void thenTheUserChecksTheCleraReceiptButtonLabel(String expectedLabel) {
-        posSteps.assertClearReceiptButtonLabelText(expectedLabel);
+    @Then("пользователь видит что кнопка '$buttonName' содержит текст '$expectedLabel'")
+    public void thenTheUserChecksTheCleraReceiptButtonLabel(String buttonName, String expectedLabel) {
+        posSteps.assertText(buttonName, expectedLabel);
+    }
+
+    @Then("пользователь видит что кнопка удаления товарной позиции вернулась в исходное состояние")
+    public void thenTheUserChecksTheCleraReceiptButtonLabel() {
+        posSteps.assertText("Удалить из чека", "УДАЛИТЬ ИЗ ЧЕКА");
+    }
+
+    @Then("пользователь видит модальное окно с заголовком '$expectedTitle' для товара '$expectedProductName' с ценой продажи '$expectedSellingPrice' и в количестве '$expectedQuantity'")
+    public void thenTheUserChecksEditReceiptModal(String expectedTitle, String expectedProductName, String expectedSellingPrice, String expectedQuantity) {
+        posSteps.assertEditReceiptTitle(expectedTitle);
+        posSteps.assertEditReceiptProductName(expectedProductName);
+        posSteps.assertEditReceiptSellingPrice(expectedSellingPrice);
+        posSteps.assertEditReceiptQuantity(expectedQuantity);
     }
 
 
