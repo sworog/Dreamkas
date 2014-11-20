@@ -2,6 +2,8 @@ package ru.dreamkas.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.Alert;
+import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.ModalWindowPageObject;
 import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.pages.catalog.group.modal.ProductCreateModalWindow;
@@ -22,6 +24,7 @@ import ru.dreamkas.pages.store.modal.StoreCreateModalWindow;
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.Assert.fail;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -104,5 +107,28 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     public void continueButtonClick() {
         getCurrentPageObject().continueButtonClick();
         new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void closeModalWindow() {
+        getCurrentPageObject().close();
+    }
+
+    @Step
+    public void closeModalWindowAndCheckAlertText(String text) {
+        getCurrentPageObject().close();
+        ((CommonPageObject)getCurrentPageObject()).getCommonActions().checkAlertText(text);
+    }
+
+    @Step
+    public void closeModalWindowAndCheckAlertIsNotExist() {
+        getCurrentPageObject().close();
+        try {
+            Alert alert = ((CommonPageObject)getCurrentPageObject()).getWaiter().getAlert();
+            fail(
+                    String.format("Alert is present! Alert text: '%s'", alert.getText())
+            );
+        } catch (Exception ignored) {
+        }
     }
 }
