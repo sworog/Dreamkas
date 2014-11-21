@@ -21,7 +21,7 @@ class ClientRequest implements ClientRequestInterface
     /**
      * @var Closure
      */
-    protected $onStatusCallback;
+    protected $onReplyCallback;
 
     /**
      * @param string $command
@@ -83,21 +83,21 @@ class ClientRequest implements ClientRequestInterface
     }
 
     /**
-     * @param Reply $status
+     * @param Reply $reply
      */
-    public function onStatus(Reply $status)
+    public function onReply(Reply $reply)
     {
-        if ($this->onStatusCallback) {
-            call_user_func($this->onStatusCallback, $status);
+        if ($this->onReplyCallback) {
+            call_user_func($this->onReplyCallback, $reply);
         }
     }
 
     /**
      * @param callable $callback
      */
-    public function setOnStatusCallback(Closure $callback)
+    public function setOnReplyCallback(Closure $callback)
     {
-        $this->onStatusCallback = $callback;
+        $this->onReplyCallback = $callback;
     }
 
     /**

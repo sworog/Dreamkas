@@ -70,7 +70,7 @@ class ClientTest extends ContainerAwareTestCase
         $replies = array();
 
         $request = new ClientRequest('lighthouse:user:create');
-        $request->setOnStatusCallback(
+        $request->setOnReplyCallback(
             function (Reply $reply) use (&$replies) {
                 $replies[] = $reply->toJson();
                 PHPUnit_Framework_Assert::assertNotNull($reply->getJobId());

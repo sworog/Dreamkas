@@ -12,9 +12,9 @@ interface ClientRequestInterface
     public function getReplyTo();
 
     /**
-     * @param Reply $status
+     * @param Reply $reply
      */
-    public function onStatus(Reply $status);
+    public function onReply(Reply $reply);
 
     /**
      * @return string

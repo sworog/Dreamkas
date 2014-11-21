@@ -52,12 +52,12 @@ class Client
             /* @var \Pheanstalk_Job $job */
             $job = $this->pheanstalk->reserveFromTube($request->getReplyTo(), $this->timeout);
             if ($job) {
-                $status = Reply::createFromJob($job);
-                $request->onStatus($status);
+                $reply = Reply::createFromJob($job);
+                $request->onReply($reply);
                 $this->pheanstalk->delete($job);
 
-                if ($status->isFinished()) {
-                    return $status->getData();
+                if ($reply->isFinished()) {
+                    return $reply->getData();
                 }
             }
 
