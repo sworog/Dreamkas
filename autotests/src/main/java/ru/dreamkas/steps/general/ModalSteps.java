@@ -34,6 +34,7 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     Map<String, Class> getPageObjectClasses() {
         return new HashMap<String, Class>() {{
             put("редактирования группы", EditGroupModalPage.class);
+            put("создания группы", CreateGroupModalPage.class);
             put("создания товара", ProductCreateModalWindow.class);
             put("редактирования товара", ProductEditModalWindow.class);
             put("создания приемки", InvoiceCreateModalWindow.class);

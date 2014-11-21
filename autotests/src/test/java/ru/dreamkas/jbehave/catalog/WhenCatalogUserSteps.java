@@ -67,6 +67,7 @@ public class WhenCatalogUserSteps {
     }
 
     @When("the user clicks on the edit group icon")
+    @Alias("пользователь нажимает на кнопку редактирования группы")
     public void whenTheUserClicksOnTheEditGroupIcon() {
         catalogSteps.editGroupIconClick();
     }
