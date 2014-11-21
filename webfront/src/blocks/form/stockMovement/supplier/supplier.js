@@ -5,7 +5,8 @@ define(function(require, exports, module) {
     return Form_stockMovement.extend({
         collections: {
             suppliers: function(){
-                return PAGE.collections.suppliers;
+                //clone, т.к. коллекция изменяется для этого блока
+                return PAGE.collections.suppliers.clone();
             }
         },
         blocks: {
