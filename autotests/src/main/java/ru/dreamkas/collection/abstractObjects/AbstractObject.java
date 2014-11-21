@@ -48,7 +48,7 @@ abstract public class AbstractObject {
     abstract public void setProperties();
 
     public String setProperty(By findBy) {
-        Waiter waiter = new Waiter(webDriver, 0);
+        Waiter waiter = Waiter.getWaiterWithCustomTimeOut(webDriver, 0);
         if (!waiter.invisibilityOfElementLocated(getElement(), findBy)) {
             return getElement().findElement(findBy).getText();
         } else {

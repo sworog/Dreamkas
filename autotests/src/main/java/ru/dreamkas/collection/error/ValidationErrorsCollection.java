@@ -25,7 +25,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
     public Waiter getWaiter() {
         Integer defaultValidationErrorTimeOut =
                 DefaultStorage.getTimeOutConfigurationVariableStorage().getTimeOutProperty("default.validation.error.timeout");
-        return new Waiter(getWebDriver(), defaultValidationErrorTimeOut);
+        return Waiter.getWaiterWithCustomTimeOut(getWebDriver(), defaultValidationErrorTimeOut);
     }
 
     @Override

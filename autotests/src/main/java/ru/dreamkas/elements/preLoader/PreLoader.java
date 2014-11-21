@@ -13,11 +13,7 @@ public class PreLoader {
     public PreLoader(WebDriver driver) {
         Integer defaultPreloaderTimeOut =
                 DefaultStorage.getTimeOutConfigurationVariableStorage().getTimeOutProperty("default.preloader.timeout");
-        waiter = new Waiter(driver, defaultPreloaderTimeOut);
-    }
-
-    public PreLoader(WebDriver driver, int seconds) {
-        waiter = new Waiter(driver, seconds);
+        waiter = Waiter.getWaiterWithCustomTimeOut(driver, defaultPreloaderTimeOut);
     }
 
     public void await() {

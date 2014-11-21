@@ -32,7 +32,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
     }
 
     protected Waiter getWaiter() {
-        return new Waiter(webDriver);
+        return Waiter.getDefaultWaiter(webDriver);
     }
 
     private List<WebElement> getWebElements(Waiter waiter, By findBy) {

@@ -25,7 +25,7 @@ public class CommonActions {
 
     public CommonActions(CommonPageObject pageObject) {
         this.pageObject = pageObject;
-        waiter = new Waiter(pageObject.getDriver());
+        waiter = Waiter.getDefaultWaiter(pageObject.getDriver());
     }
 
     public Waiter getWaiter() {
