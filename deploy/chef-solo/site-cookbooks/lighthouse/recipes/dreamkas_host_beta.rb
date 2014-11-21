@@ -14,6 +14,7 @@ directory "/var/www/nginx" do
 end
 
 cookbook_file "nginx/favicon.ico" do
+  source "nginx/favicon.ico"
   path "/var/www/nginx/favicon.ico"
   action :create
   owner "watchman"

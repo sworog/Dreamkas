@@ -13,14 +13,6 @@ directory "/var/www/nginx" do
   group "www-data"
 end
 
-cookbook_file "nginx/favicon.ico" do
-  path "/var/www/nginx/favicon.ico"
-  action :create
-  owner "watchman"
-  group "www-data"
-  mode "0644"
-end
-
 cookbook_file "nginx/dreamkas_beta_webfront.conf" do
   source "nginx/dreamkas_beta_webfront.conf"
   path "/etc/nginx/sites-available/dreamkas_beta_webfront.conf"
