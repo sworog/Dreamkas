@@ -21,6 +21,8 @@ import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 import ru.dreamkas.pages.store.modal.StoreCreateModalWindow;
 import ru.dreamkas.pages.store.modal.StoreEditModalWindow;
+import ru.dreamkas.pages.supplier.modal.SupplierCreateModalPage;
+import ru.dreamkas.pages.supplier.modal.SupplierEditModalPage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,6 +59,8 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("создания магазина внутри оприходования", StoreCreateModalWindow.class);
             put("создания товара внутри оприходования", ProductCreateModalWindow.class);
             put("создания группы внутри создания товара внутри оприходования", CreateGroupModalPage.class);
+            put("создания поставщика", SupplierCreateModalPage.class);
+            put("редактирования поставщика", SupplierEditModalPage.class);
         }};
     }
 
