@@ -90,23 +90,25 @@ namespace :symfony do
 
         after "deploy:setup", "symfony:worker:setup"
         after "deploy:update", "symfony:worker:update"
-        after "deploy:remove:go", "symfony:worker:remove"
+        after "deploy:remove:go", "symfony:worker:delete"
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
-        set(:worker_group) {"#{application}:*"}
+        set(:worker_group) {"#{application}"}
 
         desc "Update worker"
         task :update,:roles => :app, :except => { :no_release => true } do
             symlink.create
+            add
             reread
             restart
         end
 
-        desc "Remove worker"
-        task :remove,:roles => :app, :except => { :no_release => true } do
+        desc "Delete worker"
+        task :delete,:roles => :app, :except => { :no_release => true } do
             stop
             symlink.remove
+            remove
             reread
         end
 
@@ -144,21 +146,35 @@ namespace :symfony do
         desc "Update workers config"
         task :reread, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Update workers"
-            run "#{sudo} supervisorctl reread"
+            stream "#{sudo} supervisorctl reread"
             capifony_puts_ok
         end
 
         desc "Restart worker"
         task :restart, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Restart worker"
-            stream "#{sudo} supervisorctl restart #{worker_group}"
+            stream "#{sudo} supervisorctl restart #{worker_group}:*"
             capifony_puts_ok
         end
 
         desc "Stop worker"
         task :stop, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Stop worker"
-            stream "#{sudo} supervisorctl stop #{worker_group}"
+            stream "#{sudo} supervisorctl stop #{worker_group}:*"
+            capifony_puts_ok
+        end
+
+        desc "Add worker group"
+        task :add, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Add worker group"
+            stream "#{sudo} supervisorctl add #{worker_group}"
+            capifony_puts_ok
+        end
+
+        desc "Remove worker"
+        task :remove, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Remove worker group"
+            stream "#{sudo} supervisorctl remove #{worker_group}"
             capifony_puts_ok
         end
 
