@@ -20,6 +20,7 @@ import ru.dreamkas.pages.stockMovement.modal.supplierReturn.SupplierReturnEditMo
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import ru.dreamkas.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 import ru.dreamkas.pages.store.modal.StoreCreateModalWindow;
+import ru.dreamkas.pages.store.modal.StoreEditModalWindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,8 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("редактирования группы", EditGroupModalPage.class);
             put("создания группы", CreateGroupModalPage.class);
             put("создания товара", ProductCreateModalWindow.class);
+            put("создания магазина", StoreCreateModalWindow.class);
+            put("редактирования магазина", StoreEditModalWindow.class);
             put("редактирования товара", ProductEditModalWindow.class);
             put("создания приемки", InvoiceCreateModalWindow.class);
             put("редактирования приемки", InvoiceEditModalWindow.class);
