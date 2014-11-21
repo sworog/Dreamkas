@@ -11,7 +11,7 @@
 @interface SaleItemModel (Helper)
 
 /**
- * Создание единицы продажи и добавление в неё ID продуктовой единицы
+ * Локальное создание единицы продажи и добавление в неё ID продуктовой единицы
  */
 + (SaleItemModel *)saleItemForProduct:(ProductModel *)product;
 
@@ -24,5 +24,10 @@
  * Уменьшение количества единицы продажи
  */
 - (void)decreaseQuantity;
+
+/**
+ * Локальное удаление всех единиц продажи
+ */
++ (void)deleteAllSaleItems;
 
 @end

@@ -62,6 +62,7 @@
 #import "CurrentUserHelper.h"
 #import "DeviceInfoHelper.h"
 #import "DialogHelper.h"
+#import "CountSaleHelper.h"
 
 //
 // Вспомогательные протоколы

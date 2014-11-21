@@ -52,7 +52,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self updateInfoMsgLabel];
+    [self updateContentSubviews];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -89,14 +89,16 @@
 /**
  * Обновление элементов слоя в зависимости от наличия контента под отображение
  */
-- (void)updateInfoMsgLabel
+- (void)updateContentSubviews
 {
     NSInteger count_of_elements = [self countOfItems];
     
     [self.infoMsgLabel setHidden:count_of_elements];
-    
     [self.tableViewItem setHidden:!(count_of_elements)];
+    
     [self.saleButton setEnabled:count_of_elements];
+    NSString *title = [NSString stringWithFormat:@"%@ %@ ₽", NSLocalizedString(@"make_sale_button_title", nil), [CountSaleHelper countSaleItemsTotalSum]];
+    [self.saleButton setTitle:title forState:UIControlStateNormal];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
@@ -110,8 +112,7 @@
 {
     DPLogFast(@"");
     
-    [SaleItemModel MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    [SaleItemModel deleteAllSaleItems];
 }
 
 - (IBAction)saleButtonClicked:(id)sender
@@ -183,7 +184,7 @@
 {
     [super controllerDidChangeContent:controller];
     
-    [self updateInfoMsgLabel];
+    [self updateContentSubviews];
     
     DPLogFast(@"size = %@", NSStringFromCGSize(self.tableViewItem.contentSize));
     

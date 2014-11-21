@@ -11,7 +11,7 @@
 @implementation SaleItemModel (Helper)
 
 /**
- * Создание единицы продажи и добавление в неё ID продуктовой единицы
+ * Локальное создание единицы продажи и добавление в неё ID продуктовой единицы
  */
 + (SaleItemModel *)saleItemForProduct:(ProductModel *)product
 {
@@ -42,6 +42,15 @@
         return;
     }
     [self setQuantity:@([[self quantity] integerValue]-1)];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+}
+
+/**
+ * Локальное удаление всех единиц продажи
+ */
++ (void)deleteAllSaleItems
+{
+    [SaleItemModel MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 

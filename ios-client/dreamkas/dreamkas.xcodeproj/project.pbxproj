@@ -37,6 +37,8 @@
 		CE2613991A1B7E500040F85F /* PriceNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */; };
 		CE26139B1A1B9B5A0040F85F /* updateurl.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE26139A1A1B9B5A0040F85F /* updateurl.sh */; };
 		CE26139C1A1B9B5A0040F85F /* updateurl.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE26139A1A1B9B5A0040F85F /* updateurl.sh */; };
+		CE270A881A1F2FC5002E81A6 /* CountSaleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE270A871A1F2FC5002E81A6 /* CountSaleHelper.m */; };
+		CE270A891A1F2FC5002E81A6 /* CountSaleHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CE270A871A1F2FC5002E81A6 /* CountSaleHelper.m */; };
 		CE290FAC19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FAD19EE62DB005483A1 /* RESTClient+Stores.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */; };
 		CE290FEC19EE668B005483A1 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE290FB219EE668B005483A1 /* MagicalImportFunctions.m */; };
@@ -345,6 +347,8 @@
 		CE2613961A1B7E500040F85F /* PriceNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceNumberFormatter.h; sourceTree = "<group>"; };
 		CE2613971A1B7E500040F85F /* PriceNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceNumberFormatter.m; sourceTree = "<group>"; };
 		CE26139A1A1B9B5A0040F85F /* updateurl.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = updateurl.sh; sourceTree = "<group>"; };
+		CE270A861A1F2FC5002E81A6 /* CountSaleHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountSaleHelper.h; sourceTree = "<group>"; };
+		CE270A871A1F2FC5002E81A6 /* CountSaleHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountSaleHelper.m; sourceTree = "<group>"; };
 		CE290FAA19EE62DB005483A1 /* RESTClient+Stores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Stores.h"; sourceTree = "<group>"; };
 		CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Stores.m"; sourceTree = "<group>"; };
 		CE290FB119EE668B005483A1 /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -1035,6 +1039,8 @@
 		CE3B95EA19E40D7800E1D24F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				CE270A861A1F2FC5002E81A6 /* CountSaleHelper.h */,
+				CE270A871A1F2FC5002E81A6 /* CountSaleHelper.m */,
 				CE8AB38819E7C99600B105E0 /* CurrentUserHelper.h */,
 				CE8AB38919E7C99600B105E0 /* CurrentUserHelper.m */,
 				CE3B95ED19E40DA900E1D24F /* DatesHelper.h */,
@@ -1669,6 +1675,7 @@
 				CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
 				CE29100C19EE668B005483A1 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				CECFC4A219DD74C800ED88D3 /* AFURLConnectionOperation.m in Sources */,
+				CE270A881A1F2FC5002E81A6 /* CountSaleHelper.m in Sources */,
 				CECFC4A919DD74C800ED88D3 /* UIButton+AFNetworking.m in Sources */,
 				CE290FF819EE668B005483A1 /* NSString+MagicalDataImport.m in Sources */,
 				CECFC4A719DD74C800ED88D3 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -1752,6 +1759,7 @@
 				CE162A2219E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CE8AB38B19E7C99600B105E0 /* CurrentUserHelper.m in Sources */,
 				CE290FED19EE668B005483A1 /* MagicalImportFunctions.m in Sources */,
+				CE270A891A1F2FC5002E81A6 /* CountSaleHelper.m in Sources */,
 				CE290FF319EE668B005483A1 /* NSNumber+MagicalDataImport.m in Sources */,
 				CE29101B19EE668B005483A1 /* MagicalRecord+Setup.m in Sources */,
 				CEDC5F751A00DF7300991527 /* ProductsViewController.m in Sources */,

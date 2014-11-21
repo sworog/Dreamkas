@@ -67,21 +67,12 @@
     
     // установка цены
     
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [formatter setGroupingSeparator:@" "];
-    [formatter setGroupingSize:3];
-    [formatter setDecimalSeparator:@","];
-    [formatter setAlwaysShowsDecimalSeparator:YES];
-    [formatter setUsesGroupingSeparator:YES];
-    [formatter setMaximumFractionDigits:2];
-    [formatter setMinimumFractionDigits:2];
-    
     [self.priceLabel setHidden:YES];
     if ([[model sellingPrice] doubleValue] > 0.0f) {
         [self.priceLabel setHidden:NO];
     }
     
+    PriceNumberFormatter *formatter = [PriceNumberFormatter new];
     NSMutableString *str = [NSMutableString stringWithFormat:@"%@ ₽", [formatter stringFromNumber:[model sellingPrice]]];
     [self.priceLabel setText:str];
     
