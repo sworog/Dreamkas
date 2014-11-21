@@ -94,6 +94,7 @@ namespace :symfony do
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
+        set(:worker_group) {"#{application}:*"}
 
         desc "Update worker"
         task :update,:roles => :app, :except => { :no_release => true } do
@@ -150,14 +151,14 @@ namespace :symfony do
         desc "Restart worker"
         task :restart, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Restart worker"
-            run "#{sudo} supervisorctl restart #{application}"
+            stream "#{sudo} supervisorctl restart #{worker_group}"
             capifony_puts_ok
         end
 
         desc "Stop worker"
         task :stop, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Stop worker"
-            run "#{sudo} supervisorctl stop #{application}"
+            stream "#{sudo} supervisorctl stop #{worker_group}"
             capifony_puts_ok
         end
 
