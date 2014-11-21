@@ -1,10 +1,11 @@
 <?php
 
-namespace Lighthouse\JobBundle\QueueCommand;
+namespace Lighthouse\JobBundle\QueueCommand\Reply;
 
+use Lighthouse\JobBundle\QueueCommand\Reply\Reply;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 
-class StatusReplier
+class Replier
 {
     /**
      * @var PheanstalkInterface
@@ -27,23 +28,23 @@ class StatusReplier
     }
 
     /**
-     * @param Status $status
-     * @return Status
+     * @param Reply $reply
+     * @return Reply
      */
-    public function doSendStatus(Status $status)
+    public function doReply(Reply $reply)
     {
-        $jobId = $this->pheanstalk->putInTube($this->tubeName, $status);
-        $status->setJobId($jobId);
-        return $status;
+        $jobId = $this->pheanstalk->putInTube($this->tubeName, $reply);
+        $reply->setJobId($jobId);
+        return $reply;
     }
 
     /**
      * @param int $status
      * @param string $data
-     * @return Status
+     * @return Reply
      */
-    public function sendStatus($status, $data = '')
+    public function reply($status, $data = '')
     {
-        return $this->doSendStatus(new Status($status, $data));
+        return $this->doReply(new Reply($status, $data));
     }
 }

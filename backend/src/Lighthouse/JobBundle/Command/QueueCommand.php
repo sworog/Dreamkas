@@ -5,8 +5,8 @@ namespace Lighthouse\JobBundle\Command;
 use Lighthouse\JobBundle\QueueCommand\Client\ClientRequest;
 use Lighthouse\JobBundle\QueueCommand\Console\Input;
 use Lighthouse\JobBundle\QueueCommand\Console\Output;
-use Lighthouse\JobBundle\QueueCommand\Status;
-use Lighthouse\JobBundle\QueueCommand\StatusReplier;
+use Lighthouse\JobBundle\QueueCommand\Reply\Reply;
+use Lighthouse\JobBundle\QueueCommand\Reply\Replier;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -105,9 +105,9 @@ class QueueCommand extends Command
     {
         $request = ClientRequest::createFromJob($job);
 
-        $replier = new StatusReplier($this->pheanstalk, $request->getReplyTo());
+        $replier = new Replier($this->pheanstalk, $request->getReplyTo());
 
-        $replier->sendStatus(Status::STATUS_STARTED);
+        $replier->reply(Reply::STATUS_STARTED);
 
         $application = $this->createApplication();
 
@@ -116,15 +116,15 @@ class QueueCommand extends Command
 
         try {
             $data = $application->run($input, $output);
-            $statusCode = Status::STATUS_FINISHED;
+            $status = Reply::STATUS_FINISHED;
         } catch (\Exception $e) {
             $data = $e->getMessage();
-            $statusCode = Status::STATUS_FAILED;
+            $status = Reply::STATUS_FAILED;
         }
 
-        $replier->sendStatus($statusCode, $data);
+        $replier->reply($status, $data);
 
-        return $statusCode;
+        return $status;
     }
 
     /**

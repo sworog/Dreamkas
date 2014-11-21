@@ -2,26 +2,26 @@
 
 namespace Lighthouse\JobBundle\QueueCommand\Console;
 
-use Lighthouse\JobBundle\QueueCommand\StatusReplier;
-use Lighthouse\JobBundle\QueueCommand\Status;
+use Lighthouse\JobBundle\QueueCommand\Reply\Replier;
+use Lighthouse\JobBundle\QueueCommand\Reply\Reply;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Output\Output as BaseOutput;
 
 class Output extends BaseOutput
 {
     /**
-     * @var StatusReplier
+     * @var Replier
      */
     protected $replier;
 
     /**
-     * @param StatusReplier $replier
+     * @param Replier $replier
      * @param bool|int $verbosity
      * @param bool $decorated
      * @param OutputFormatterInterface $formatter
      */
     public function __construct(
-        StatusReplier $replier,
+        Replier $replier,
         $verbosity = BaseOutput::VERBOSITY_NORMAL,
         $decorated = false,
         OutputFormatterInterface $formatter = null
@@ -40,6 +40,6 @@ class Output extends BaseOutput
     protected function doWrite($message, $newline)
     {
         $message.= ($newline ? PHP_EOL : '');
-        $this->replier->sendStatus(Status::STATUS_PROCESSING, $message);
+        $this->replier->reply(Reply::STATUS_PROCESSING, $message);
     }
 }

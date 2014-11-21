@@ -2,11 +2,11 @@
 
 namespace Lighthouse\JobBundle\QueueCommand\Client;
 
-use Lighthouse\JobBundle\QueueCommand\Status;
+use Lighthouse\JobBundle\QueueCommand\Reply\Reply;
 use Pheanstalk_Job as Job;
 use Closure;
 
-class ClientRequest
+class ClientRequest implements ClientRequestInterface
 {
     /**
      * @var string
@@ -83,9 +83,9 @@ class ClientRequest
     }
 
     /**
-     * @param Status $status
+     * @param Reply $status
      */
-    public function onStatus(Status $status)
+    public function onStatus(Reply $status)
     {
         if ($this->onStatusCallback) {
             call_user_func($this->onStatusCallback, $status);

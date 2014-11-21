@@ -1,10 +1,10 @@
 <?php
 
-namespace Lighthouse\JobBundle\QueueCommand;
+namespace Lighthouse\JobBundle\QueueCommand\Reply;
 
 use Pheanstalk_Job as Job;
 
-class Status
+class Reply
 {
     const STATUS_STARTED = 1;
     const STATUS_PROCESSING = 2;
@@ -114,7 +114,7 @@ class Status
 
     /**
      * @param string $json
-     * @return Status
+     * @return Reply
      */
     public static function createFromJson($json)
     {
@@ -127,7 +127,7 @@ class Status
 
     /**
      * @param Job $job
-     * @return Status
+     * @return Reply
      */
     public static function createFromJob(Job $job)
     {

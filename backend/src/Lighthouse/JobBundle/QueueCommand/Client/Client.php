@@ -2,7 +2,7 @@
 
 namespace Lighthouse\JobBundle\QueueCommand\Client;
 
-use Lighthouse\JobBundle\QueueCommand\Status;
+use Lighthouse\JobBundle\QueueCommand\Reply\Reply;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -38,21 +38,21 @@ class Client
     }
 
     /**
-     * @param ClientRequest $request
+     * @param ClientRequestInterface $request
      * @param int $maxRuntime
      * @return int final exitCode
      */
-    public function execute(ClientRequest $request, $maxRuntime = 60)
+    public function execute(ClientRequestInterface $request, $maxRuntime = 60)
     {
-        $this->pheanstalk->putInTube($this->commandTubeName, $request->toString());
+        $this->pheanstalk->putInTube($this->commandTubeName, $request);
 
         $deadLineTime = time() + $maxRuntime;
 
         do {
             /* @var \Pheanstalk_Job $job */
-            $job = $this->pheanstalk->reserveFromTube($request->getReplyTo(), 1);
+            $job = $this->pheanstalk->reserveFromTube($request->getReplyTo(), $this->timeout);
             if ($job) {
-                $status = Status::createFromJob($job);
+                $status = Reply::createFromJob($job);
                 $request->onStatus($status);
                 $this->pheanstalk->delete($job);
 
