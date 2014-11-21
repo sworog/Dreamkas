@@ -634,4 +634,136 @@ class StoreControllerTest extends WebTestCase
         $this->factory()->store()->createStore();
         $this->factory()->flush();
     }
+
+    public function testDeleteAction()
+    {
+        $store1 = $this->factory()->store()->createStore("first");
+        $store2 = $this->factory()->store()->createStore("second");
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            "DELETE",
+            "/api/1/stores/{$store1->id}"
+        );
+
+        $this->assertResponseCode(204);
+        $this->assertEmpty($deleteResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/stores/{$store1->id}"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertNotJsonPathEquals($store1->name, 'name', $getResponse);
+        Assert::assertJsonPathContains("Удалено", 'name', $getResponse);
+    }
+
+    public function testDeleteStoreNotVisibleInList()
+    {
+
+        $store1 = $this->factory()->store()->createStore("first");
+        $store2 = $this->factory()->store()->createStore("second");
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            "DELETE",
+            "/api/1/stores/{$store1->id}"
+        );
+
+        $this->assertResponseCode(204);
+        $this->assertEmpty($deleteResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($store2->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($store1->id, '*.id', $getResponse);
+    }
+
+    public function testDeleteNotEmptyStore()
+    {
+        $store1 = $this->factory()->store()->createStore("first");
+        $store2 = $this->factory()->store()->createStore("second");
+
+        $productId = $this->createProduct();
+
+        $invoice = $this->factory()
+            ->invoice()
+            ->createInvoice(array(), $store1->id)
+            ->createInvoiceProduct($productId, 1, 1)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            "DELETE",
+            "/api/1/stores/{$store1->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Для удаления магазина очистите все остатки товаров в нем.',
+            'message',
+            $deleteResponse
+        );
+    }
+
+    public function testDeleteStoreVisibleInCreatedInvoice()
+    {
+        $store1 = $this->factory()->store()->createStore("first");
+        $store2 = $this->factory()->store()->createStore("second");
+
+        $productId = $this->createProduct();
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store1->id)
+                ->createInvoiceProduct($productId, 1, 1)
+            ->flush();
+
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale($store1)
+                ->createReceiptProduct($productId, 1, 2)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            "DELETE",
+            "/api/1/stores/{$store1->id}"
+        );
+
+        $this->assertResponseCode(204);
+        $this->assertEmpty($deleteResponse);
+
+
+        $invoiceResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/invoices/{$invoice->id}"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($store1->id, "store.id", $invoiceResponse);
+        Assert::assertJsonPathContains($store1->name, "store.name", $invoiceResponse);
+    }
 }
