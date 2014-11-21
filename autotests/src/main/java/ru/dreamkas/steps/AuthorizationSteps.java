@@ -6,6 +6,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import ru.dreamkas.common.item.interfaces.Findable;
+import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.elements.preLoader.PreLoader;
 import ru.dreamkas.pages.MenuNavigationBar;
 import ru.dreamkas.pages.authorization.AuthorizationPage;
@@ -63,7 +64,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void authorization(String email, String password, Boolean isFalse) {
         authorizationPage.input("userName", email);
         authorizationPage.input("password", password);
-        authorizationPage.clickOnCommonItemWihName("loginButton");
+        loginButtonClick();
         if (!isFalse) {
             checkUser(email);
         }
@@ -73,6 +74,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void loginButtonClick() {
         authorizationPage.clickOnCommonItemWihName("loginButton");
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step

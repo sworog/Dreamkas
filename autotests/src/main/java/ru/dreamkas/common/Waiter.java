@@ -34,7 +34,7 @@ public class Waiter {
     }
 
     private void waitPageToLoad() {
-        waitForPageLoadWaiter.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@class, 'loading')]")));
+        waitForPageLoadWaiter.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@status, 'loading')]")));
     }
 
     public WebElement getPresentWebElement(By findBy) {
