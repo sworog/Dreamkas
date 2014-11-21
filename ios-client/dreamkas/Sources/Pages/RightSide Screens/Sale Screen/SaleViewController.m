@@ -10,8 +10,6 @@
 #import "MoreButton.h"
 #import "SaleItemCell.h"
 
-#define ControllerViewDefaultHeight 660
-
 @interface SaleViewController () <KeyboardEventsListenerProtocol>
 
 @property (nonatomic, weak) IBOutlet CustomLabel *infoMsgLabel;
@@ -145,7 +143,7 @@
     CGRect keyboard_bounds;
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
     
-    [self.view setHeight:ControllerViewDefaultHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
+    [self.view setHeight:DefaultSideContainerViewHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
     [self.tableViewItem reloadData];
 }
 
@@ -153,7 +151,7 @@
 {
     DPLogFast(@"");
     
-    [self.view setHeight:ControllerViewDefaultHeight];
+    [self.view setHeight:DefaultSideContainerViewHeight];
     [self.tableViewItem reloadData];
 }
 

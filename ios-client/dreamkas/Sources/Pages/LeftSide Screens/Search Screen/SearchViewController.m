@@ -11,7 +11,6 @@
 #import "SearchField.h"
 
 #define RequiredSearchfieldValueLenght 3
-#define ControllerViewDefaultHeight 660
 
 typedef NS_ENUM(NSInteger, kInfoMessageType) {
     kInfoMessageTypeNone = 0,
@@ -132,7 +131,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     CGRect keyboard_bounds;
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
     
-    [self.view setHeight:ControllerViewDefaultHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
+    [self.view setHeight:DefaultSideContainerViewHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
     [self.tableViewItem reloadData];
 }
 
@@ -140,7 +139,7 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
 {
     DPLogFast(@"");
     
-    [self.view setHeight:ControllerViewDefaultHeight];
+    [self.view setHeight:DefaultSideContainerViewHeight];
     [self.tableViewItem reloadData];
 }
 

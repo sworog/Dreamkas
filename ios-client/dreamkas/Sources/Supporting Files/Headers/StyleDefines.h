@@ -67,6 +67,9 @@
 
 #define DefaultTopPanelHeight               64.f
 #define DefaultBottomPanelHeight            64.f
+
+#define DefaultSideHeight                   704.f
+#define DefaultSideContainerViewHeight      660.f
 #define DefaultLeftSideWidth                704.f
 #define DefaultRightSideWidth               320.f
 
