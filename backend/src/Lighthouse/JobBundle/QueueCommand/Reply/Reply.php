@@ -122,7 +122,7 @@ class Reply
         if (isset($data['status'], $data['data'])) {
             return new self($data['status'], $data['data']);
         }
-        throw new \RuntimeException('Invalid status json');
+        throw new \RuntimeException('Invalid reply json');
     }
 
     /**

@@ -44,7 +44,7 @@ class Client
      */
     public function execute(ClientRequestInterface $request, $maxRuntime = 60)
     {
-        $this->pheanstalk->putInTube($this->commandTubeName, $request);
+        $this->pheanstalk->putInTube($this->commandTubeName, (string) $request);
 
         $deadLineTime = time() + $maxRuntime;
 

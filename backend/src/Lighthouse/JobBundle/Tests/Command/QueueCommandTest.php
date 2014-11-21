@@ -271,7 +271,7 @@ EOF;
     }
 
     /**
-     * @return \Pheanstalk_PheanstalkInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @return PheanstalkInterface|MockObject
      */
     protected function getPheanstalkMock()
     {
