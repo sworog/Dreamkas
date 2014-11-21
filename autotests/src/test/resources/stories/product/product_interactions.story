@@ -63,7 +63,8 @@ And the user inputs values in create new product modal window
 | purchasePrice | 123,56 |
 | sellingPrice | 123,56 |
 
-And the user clicks on close icon in create new product modal window
+And пользователь* находится в модальном окне 'создания товара'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
@@ -249,7 +250,8 @@ And the user inputs values in edit product modal window
 | purchasePrice | 123,56 |
 | sellingPrice | 123,56 |
 
-And the user clicks on close icon in edit product modal window
+And пользователь* находится в модальном окне 'редактирования товара'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 

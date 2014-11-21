@@ -73,4 +73,24 @@ public class ModalEndUserSteps {
     public void whenUserClicksOnContinueButton() {
         modalSteps.continueButtonClick();
     }
+
+    @When("пользователь* закрывает модальное окно по кнопке крестик")
+    public void whenTheUserClosesModalWindow() {
+        modalSteps.closeModalWindow();
+    }
+
+    @Then("пользователь закрывает модальное окно по кнопке крестик и проверяет, что текст алерта гласит '$expectedText'")
+    public void whenTheUserClosesModalWindowAndCheckAlertText(String expectedText) {
+        modalSteps.closeModalWindowAndCheckAlertText(expectedText);
+    }
+
+    @Then("пользователь закрывает модальное окно по кнопке крестик и проверяет, что алерта не появилось")
+    public void whenTheUserClosesModalWindowAndCheckAlertIsNotExist() {
+        modalSteps.closeModalWindowAndCheckAlertIsNotExist();
+    }
+
+    @When("пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт")
+    public void whenTheUserClosesModalWindowAndAcceptAlert() {
+        modalSteps.closeModalWindowAndAcceptAlert();
+    }
 }
