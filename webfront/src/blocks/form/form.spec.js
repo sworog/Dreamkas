@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 
             form.el.querySelector('[name="textInput"]').value = 'newValue';
 
-            expect(form.isChanged()).toBeFalsy();
+            expect(form.isChanged()).toBeTruthy();
         });
     });
 });
