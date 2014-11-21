@@ -1,26 +1,28 @@
 <?php
 
-namespace Lighthouse\JobBundle\QueueCommand;
+namespace Lighthouse\JobBundle\QueueCommand\Console;
 
+use Lighthouse\JobBundle\QueueCommand\StatusReplier;
+use Lighthouse\JobBundle\QueueCommand\Status;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Output\Output as BaseOutput;
 
 class Output extends BaseOutput
 {
     /**
-     * @var Replier
+     * @var StatusReplier
      */
     protected $replier;
 
     /**
-     * @param Replier $replier
+     * @param StatusReplier $replier
      * @param bool|int $verbosity
      * @param bool $decorated
      * @param OutputFormatterInterface $formatter
      */
     public function __construct(
-        Replier $replier,
-        $verbosity = self::VERBOSITY_NORMAL,
+        StatusReplier $replier,
+        $verbosity = BaseOutput::VERBOSITY_NORMAL,
         $decorated = false,
         OutputFormatterInterface $formatter = null
     ) {

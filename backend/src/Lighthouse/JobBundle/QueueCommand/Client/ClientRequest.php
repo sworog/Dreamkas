@@ -3,6 +3,7 @@
 namespace Lighthouse\JobBundle\QueueCommand\Client;
 
 use Lighthouse\JobBundle\QueueCommand\Status;
+use Pheanstalk_Job as Job;
 use Closure;
 
 class ClientRequest
@@ -140,10 +141,10 @@ class ClientRequest
     }
 
     /**
-     * @param \Pheanstalk_Job $job
+     * @param Job $job
      * @return ClientRequest
      */
-    public static function createFromJob(\Pheanstalk_Job $job)
+    public static function createFromJob(Job $job)
     {
         return self::createFromJson($job->getData());
     }

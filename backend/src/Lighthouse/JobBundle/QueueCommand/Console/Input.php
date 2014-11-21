@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\JobBundle\QueueCommand;
+namespace Lighthouse\JobBundle\QueueCommand\Console;
 
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputDefinition;

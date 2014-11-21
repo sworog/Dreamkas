@@ -2,6 +2,8 @@
 
 namespace Lighthouse\JobBundle\QueueCommand;
 
+use Pheanstalk_Job as Job;
+
 class Status
 {
     const STATUS_STARTED = 1;
@@ -89,9 +91,25 @@ class Status
     public function toJson()
     {
         return array(
-            'status' => $this->status,
-            'data' => $this->data,
+            'status' => $this->getStatus(),
+            'data' => $this->getData(),
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
+        return json_encode($this->toJson());
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toString();
     }
 
     /**
@@ -108,10 +126,10 @@ class Status
     }
 
     /**
-     * @param \Pheanstalk_Job $job
+     * @param Job $job
      * @return Status
      */
-    public static function createFromJob(\Pheanstalk_Job $job)
+    public static function createFromJob(Job $job)
     {
         $status = self::createFromJson($job->getData());
         $status->setJobId($job->getId());

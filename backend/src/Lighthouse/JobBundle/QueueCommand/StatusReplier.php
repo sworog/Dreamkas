@@ -4,7 +4,7 @@ namespace Lighthouse\JobBundle\QueueCommand;
 
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 
-class Replier
+class StatusReplier
 {
     /**
      * @var PheanstalkInterface
@@ -32,8 +32,7 @@ class Replier
      */
     public function doSendStatus(Status $status)
     {
-        $statusData = json_encode($status->toJson());
-        $jobId = $this->pheanstalk->putInTube($this->tubeName, $statusData);
+        $jobId = $this->pheanstalk->putInTube($this->tubeName, $status);
         $status->setJobId($jobId);
         return $status;
     }
