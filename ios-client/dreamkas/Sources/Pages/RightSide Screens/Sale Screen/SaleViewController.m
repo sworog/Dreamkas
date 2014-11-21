@@ -16,9 +16,9 @@
 
 @property (nonatomic, weak) IBOutlet CustomLabel *infoMsgLabel;
 @property (nonatomic, weak) IBOutlet CustomFilledButton *saleButton;
-@property (nonatomic) ActionButton *clearButton;
+@property (nonatomic, weak) IBOutlet ActionButton *clearButtonOnView, *clearButtonOnFooter;
 
-@property (nonatomic, weak) IBOutlet UIView *tableFooterView;
+@property (nonatomic, weak) IBOutlet UIView *clearSaleView, *clearSaleFooterView;
 
 @end
 
@@ -77,7 +77,8 @@
 - (void)configureLocalization
 {
     [self.infoMsgLabel setText:@"Товаров в чеке нет"];
-    [self.clearButton setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
+    [self.clearButtonOnView setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
+    [self.clearButtonOnFooter setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
     [self.saleButton setTitle:NSLocalizedString(@"make_sale_button_title", nil) forState:UIControlStateNormal];
 }
 
@@ -99,6 +100,21 @@
     [self.saleButton setEnabled:count_of_elements];
     NSString *title = [NSString stringWithFormat:@"%@ %@ ₽", NSLocalizedString(@"make_sale_button_title", nil), [CountSaleHelper countSaleItemsTotalSum]];
     [self.saleButton setTitle:title forState:UIControlStateNormal];
+    
+    DPLogFast(@"size = %@", NSStringFromCGSize(self.tableViewItem.contentSize));
+    if (self.tableViewItem.isHidden) {
+        [self.clearSaleView setHidden:YES];
+    }
+    else {
+        if ((count_of_elements*DefaultSingleLineCellHeight + self.clearSaleFooterView.height) > self.tableViewItem.height) {
+            [self.clearSaleView setHidden:NO];
+            [self.clearSaleFooterView setHidden:YES];
+        }
+        else {
+            [self.clearSaleView setHidden:YES];
+            [self.clearSaleFooterView setHidden:NO];
+        }
+    }
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
@@ -173,7 +189,7 @@
  */
 - (BOOL)isFetchAscending
 {
-    return YES;
+    return NO;
 }
 
 /**
@@ -185,10 +201,6 @@
     [super controllerDidChangeContent:controller];
     
     [self updateContentSubviews];
-    
-    DPLogFast(@"size = %@", NSStringFromCGSize(self.tableViewItem.contentSize));
-    
-    // TODO: прокрутка вниз при добавлении
 }
 
 /**
@@ -197,29 +209,6 @@
 - (void)requestDataFromServer
 {
     // nothing to do here..
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return DefaultSingleLineCellHeight;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    self.clearButton = [ActionButton buttonWithType:UIButtonTypeCustom];
-    [self.clearButton setFrame:CGRectMake(0, 0, 320, 52)];
-    [self.clearButton setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
-    [self.clearButton addTarget:self action:@selector(clearButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *top_line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 1)];
-    [top_line setBackgroundColor:DefaultLightGrayColor];
-    [self.clearButton addSubview:top_line];
-    
-    UIView *bot_line = [[UIView alloc] initWithFrame:CGRectMake(0, self.clearButton.height-1, 320, 1)];
-    [bot_line setBackgroundColor:DefaultLightGrayColor];
-    [self.clearButton addSubview:bot_line];
-    
-    return self.clearButton;
 }
 
 /**

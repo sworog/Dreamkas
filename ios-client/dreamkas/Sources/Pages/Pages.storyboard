@@ -776,33 +776,34 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfW-7W-BJ9" userLabel="Footer View">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aL-qG-lUz" customClass="ActionButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="clearButtonClicked:" destination="NUX-9f-cIq" eventType="touchUpInside" id="kAc-FY-vb4"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KBG-pu-Zgb" userLabel="Top Line">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                                        <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xsh-VE-2R3" userLabel="Bottom Line">
-                                        <rect key="frame" x="0.0" y="55" width="320" height="1"/>
-                                        <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="oxG-79-owq">
                                 <rect key="frame" x="0.0" y="20" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="T84-YF-WR3" userLabel="Footer View">
+                                    <rect key="frame" x="0.0" y="532" width="320" height="56"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hG-N2-0IH" customClass="ActionButton">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                                            <state key="normal" title="Button">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="clearButtonClicked:" destination="NUX-9f-cIq" eventType="touchUpInside" id="4uk-17-RoK"/>
+                                            </connections>
+                                        </button>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcB-T3-wpv" userLabel="Top Line">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lti-vM-fQA" userLabel="Bottom Line">
+                                            <rect key="frame" x="0.0" y="55" width="320" height="1"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell_SaleItemModel" rowHeight="64" id="4aU-i6-Wdb" customClass="SaleItemCell">
                                         <rect key="frame" x="0.0" y="0.0" width="704" height="44"/>
@@ -846,6 +847,30 @@
                                     <outlet property="delegate" destination="NUX-9f-cIq" id="Ge8-jL-fWC"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfW-7W-BJ9" userLabel="Clear View">
+                                <rect key="frame" x="0.0" y="532" width="320" height="56"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6aL-qG-lUz" customClass="ActionButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clearButtonClicked:" destination="NUX-9f-cIq" eventType="touchUpInside" id="kAc-FY-vb4"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KBG-pu-Zgb" userLabel="Top Line">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                        <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xsh-VE-2R3" userLabel="Bottom Line">
+                                        <rect key="frame" x="0.0" y="55" width="320" height="1"/>
+                                        <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rV-bi-u4w" userLabel="Sale Button" customClass="CustomFilledButton">
                                 <rect key="frame" x="10" y="598" width="300" height="52"/>
                                 <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -870,10 +895,12 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="704"/>
                     <connections>
-                        <outlet property="clearButton" destination="6aL-qG-lUz" id="Ouv-60-JBz"/>
+                        <outlet property="clearButtonOnFooter" destination="9hG-N2-0IH" id="5ba-Pf-36n"/>
+                        <outlet property="clearButtonOnView" destination="6aL-qG-lUz" id="16T-Cy-4PT"/>
+                        <outlet property="clearSaleFooterView" destination="T84-YF-WR3" id="QXy-gv-gqI"/>
+                        <outlet property="clearSaleView" destination="hfW-7W-BJ9" id="tQh-Eg-1JX"/>
                         <outlet property="infoMsgLabel" destination="7dT-oB-JiR" id="ULe-Jz-FDc"/>
                         <outlet property="saleButton" destination="6rV-bi-u4w" id="xb9-Dc-kwr"/>
-                        <outlet property="tableFooterView" destination="hfW-7W-BJ9" id="9s3-0T-jBa"/>
                         <outlet property="tableViewItem" destination="oxG-79-owq" id="ULd-e7-6qe"/>
                         <outlet property="view" destination="uOT-ev-z0m" id="ZcA-of-gJK"/>
                     </connections>
