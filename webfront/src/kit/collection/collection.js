@@ -57,6 +57,9 @@ define(function(require, exports, module) {
         applyChanges: function() {
             this.original = null;
         },
+        isChanged: function() {
+            return this.original != null;
+        },
         restore: function() {
             if (this.original) {
                 this.reset(this.original.models);

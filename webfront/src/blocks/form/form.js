@@ -97,11 +97,19 @@ define(function(require) {
             Block.prototype.render.apply(block, arguments);
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + (block.el && block.el.id) + '"]');
+
+            block.originalData = block.getData();
+        },
+        getData: function(){
+
+            var block = this;
+
+            return form2js(block.el, '.', false);
         },
         serialize: function() {
             var block = this;
 
-            block.set('data', form2js(block.el, '.', false));
+            block.set('data', block.getData());
 
             return block.data;
         },
@@ -255,6 +263,17 @@ define(function(require) {
             var block = this;
 
             block.$(':input').val('');
+        },
+        isChanged: function(){
+
+            var block = this,
+                originalData = block.originalData,
+                actualData = block.getData(),
+                isCollectionChanged;
+
+            isCollectionChanged = block.collection && block.collection.isChanged();
+
+            return !_.isEqual(originalData, actualData) || isCollectionChanged;
         }
     })
 });

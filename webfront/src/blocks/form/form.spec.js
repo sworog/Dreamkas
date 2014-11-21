@@ -31,5 +31,18 @@ define(function(require, exports, module) {
 
             expect(form.serialize()).toEqual(expectedData);
         });
+
+        it('isChange method', function() {
+
+            var form = new Form({
+                template: function() {
+                    return template;
+                }
+            });
+
+            form.el.querySelector('[name="textInput"]').value = 'newValue';
+
+            expect(form.isChanged()).toBeTruthy();
+        });
     });
 });

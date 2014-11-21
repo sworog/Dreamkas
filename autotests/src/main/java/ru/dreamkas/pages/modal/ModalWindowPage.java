@@ -33,7 +33,7 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     }
 
     public void closeIconClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'close')]")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'modal__closeLink')]")).click();
     }
 
     @Override
@@ -57,5 +57,10 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     @Override
     public void continueButtonClick() {
         clickInTheModalWindowByXpath("//*[@name='removeContinue']");
+    }
+
+    @Override
+    public void close() {
+        closeIconClick();
     }
 }

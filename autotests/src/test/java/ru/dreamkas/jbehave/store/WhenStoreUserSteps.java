@@ -1,6 +1,7 @@
 package ru.dreamkas.jbehave.store;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import ru.dreamkas.steps.store.StoreSteps;
@@ -11,6 +12,7 @@ public class WhenStoreUserSteps {
     StoreSteps storeSteps;
 
     @When("the user clicks on the add new store create button")
+    @Alias("пользователь нажимает на кнопку создать магазин")
     public void whenTheUserClicksOnTheStoreCreateButton() {
         storeSteps.addStoreButtonClick();
     }
@@ -46,6 +48,7 @@ public class WhenStoreUserSteps {
     }
 
     @When("the user clicks on the store with name '$name'")
+    @Alias("пользователь нажимает на магазин с именем '$name'")
     public void whenTheUserClicksOnTheStoreWithName(String name) {
         storeSteps.storeObjectClickByName(name);
     }
