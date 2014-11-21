@@ -37,7 +37,7 @@ class QueueCommand extends Command
     /**
      * @var int
      */
-    protected $reserveTimeout = 1;
+    protected $reserveTimeout = 60;
 
     /**
      * @var string
@@ -63,7 +63,7 @@ class QueueCommand extends Command
     protected function configure()
     {
         $this->setName('lighthouse:queue:command');
-        $this->addOption('max-runtime', null, InputOption::VALUE_OPTIONAL, 'Max runtime in seconds', 60);
+        $this->addOption('max-runtime', null, InputOption::VALUE_OPTIONAL, 'Max runtime in seconds', 600);
         $this->addOption('max-tries', null, InputOption::VALUE_OPTIONAL, 'Max reserve job tries', null);
     }
 
