@@ -88,4 +88,9 @@ public class ModalEndUserSteps {
     public void whenTheUserClosesModalWindowAndCheckAlertIsNotExist() {
         modalSteps.closeModalWindowAndCheckAlertIsNotExist();
     }
+
+    @When("пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт")
+    public void whenTheUserClosesModalWindowAndAcceptAlert() {
+        modalSteps.closeModalWindowAndAcceptAlert();
+    }
 }

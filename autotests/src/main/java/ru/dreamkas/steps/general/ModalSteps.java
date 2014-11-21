@@ -139,4 +139,10 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
         } catch (Exception ignored) {
         }
     }
+
+    @Step
+    public void closeModalWindowAndAcceptAlert() {
+        getCurrentPageObject().close();
+        ((CommonPageObject)getCurrentPageObject()).getWaiter().getAlert().accept();
+    }
 }
