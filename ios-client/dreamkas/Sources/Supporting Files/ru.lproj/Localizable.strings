@@ -8,6 +8,7 @@
 "log_in_button_title" = "Войти";
 "make_sale_button_title" = "Оплатить";
 "clear_sale_button_title" = "Очистить чек";
+"clear_sale_button_confirm_title" = "Подтвердить удаление";
 
 /*
  *  ============================================================================
