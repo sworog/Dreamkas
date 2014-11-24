@@ -32,6 +32,12 @@
     
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
     
+    // Вешаем глобальный обработчик касаний
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(performWindowTap:)];
+    self.tapGestureRecognizer.numberOfTouchesRequired = 1;
+    self.tapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.window addGestureRecognizer:self.tapGestureRecognizer];
+    
     return YES;
 }
 
@@ -55,6 +61,17 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - UIGestureRecognizer Delegate Methods
+
+- (void)performWindowTap:(UITapGestureRecognizer*)recognizer
+{
+    DPLogFast(@"");
+    
+    NSNotification *notification = [NSNotification notificationWithName:WindowTapNotificationName
+                                                                 object:recognizer userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 @end

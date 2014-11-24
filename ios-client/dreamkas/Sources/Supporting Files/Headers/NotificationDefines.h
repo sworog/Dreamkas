@@ -12,4 +12,6 @@
 #define UserLoginNotificationName           @"onUserLoginNotification"
 #define UserLogoutNotificationName          @"onUserLogoutNotification"
 
+#define WindowTapNotificationName           @"onWindowTapNotificationName"
+
 #endif

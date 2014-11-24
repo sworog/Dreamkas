@@ -34,6 +34,39 @@
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
     [self becomeKeyboardEventsListener];
+    [self becomeWindowTapEventsListener];
+}
+
+/**
+ * Слушаем касания основного окна приложения
+ */
+- (void)becomeWindowTapEventsListener
+{
+    if ([self respondsToSelector:@selector(onWindowTapNotification:)]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onWindowTapNotification:)
+                                                     name:WindowTapNotificationName object:nil];
+    }
+}
+
+/**
+ * Обработчик касания экрана
+ */
+- (void)onWindowTapNotification:(NSNotification *)notification
+{
+    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer*)notification.object;
+    CGPoint touch = [recognizer locationInView:self.view];
+    
+    if (self.clearButtonOnView.isSelected == NO && self.clearButtonOnFooter.isSelected == NO) {
+        return;
+    }
+    
+    CGRect rect1 = [self.clearSaleView convertRect:self.clearButtonOnView.frame toView:self.view];
+    CGRect rect2 = [self.clearSaleFooterView convertRect:self.clearButtonOnFooter.frame toView:self.view];
+    
+    if ((CGRectContainsPoint(rect1, touch) == NO) && (CGRectContainsPoint(rect2, touch) == NO)) {
+        self.clearButtonOnView.selected = self.clearButtonOnFooter.selected = NO;
+    }
 }
 
 #pragma mark - View Lifecycle
@@ -77,8 +110,13 @@
 - (void)configureLocalization
 {
     [self.infoMsgLabel setText:@"Товаров в чеке нет"];
+    
     [self.clearButtonOnView setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
     [self.clearButtonOnFooter setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
+    [self.clearButtonOnView setTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil) forState:UIControlStateSelected];
+    [self.clearButtonOnFooter setTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil) forState:UIControlStateSelected];
+    [self.clearButtonOnFooter setTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil) forState:UIControlStateHighlighted|UIControlStateSelected];
+    
     [self.saleButton setTitle:NSLocalizedString(@"make_sale_button_title", nil) forState:UIControlStateNormal];
 }
 
