@@ -54,4 +54,17 @@
     [super setTitle:[title uppercaseString] forState:state];
 }
 
+#pragma mark - Self-defined Methods
+
+/**
+ * Установка текста кнопки для основного состояния и состояния подтверждения
+ */
+- (void)setStateNormalTitle:(NSString *)normalTitle setStateSelectedTitle:(NSString *)selectedTitle
+{
+    [self setTitle:normalTitle forState:UIControlStateNormal];
+    [self setTitle:normalTitle forState:UIControlStateHighlighted];
+    [self setTitle:selectedTitle forState:UIControlStateSelected];
+    [self setTitle:selectedTitle forState:UIControlStateHighlighted | UIControlStateSelected];
+}
+
 @end

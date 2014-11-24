@@ -10,4 +10,9 @@
 
 @interface ActionButton : UIButton
 
+/**
+ * Установка текста кнопки для основного состояния и состояния подтверждения
+ */
+- (void)setStateNormalTitle:(NSString *)normalTitle setStateSelectedTitle:(NSString *)selectedTitle;
+
 @end

@@ -28,7 +28,7 @@
 
 - (void)initialize
 {
-    self.title = @"Чек";
+    self.title = NSLocalizedString(@"sale_page_title", nil);
     
     // выключаем для контроллера массовое обновление и лимитированные запросы
     [self setPullDownActionEnabled:NO];
@@ -109,15 +109,13 @@
 
 - (void)configureLocalization
 {
-    [self.infoMsgLabel setText:@"Товаров в чеке нет"];
-    
-    [self.clearButtonOnView setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
-    [self.clearButtonOnFooter setTitle:NSLocalizedString(@"clear_sale_button_title", nil) forState:UIControlStateNormal];
-    [self.clearButtonOnView setTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil) forState:UIControlStateSelected];
-    [self.clearButtonOnFooter setTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil) forState:UIControlStateSelected];
-    [self.clearButtonOnFooter setTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil) forState:UIControlStateHighlighted|UIControlStateSelected];
-    
+    [self.infoMsgLabel setText:NSLocalizedString(@"sale_page_empty_check", nil)];
     [self.saleButton setTitle:NSLocalizedString(@"make_sale_button_title", nil) forState:UIControlStateNormal];
+    
+    [self.clearButtonOnView setStateNormalTitle:NSLocalizedString(@"clear_sale_button_title", nil)
+                          setStateSelectedTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil)];
+    [self.clearButtonOnFooter setStateNormalTitle:NSLocalizedString(@"clear_sale_button_title", nil)
+                            setStateSelectedTitle:NSLocalizedString(@"clear_sale_button_confirm_title", nil)];
 }
 
 - (void)configureAccessibilityLabels
