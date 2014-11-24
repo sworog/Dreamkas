@@ -134,7 +134,10 @@
 {
     DPLogFast(@"");
     
-    [SaleItemModel deleteAllSaleItems];
+    [self.clearButtonOnFooter setSelected:!self.clearButtonOnFooter.isSelected];
+    [self.clearButtonOnView setSelected:!self.clearButtonOnView.isSelected];
+    
+//    [SaleItemModel deleteAllSaleItems];
 }
 
 - (IBAction)saleButtonClicked:(id)sender
