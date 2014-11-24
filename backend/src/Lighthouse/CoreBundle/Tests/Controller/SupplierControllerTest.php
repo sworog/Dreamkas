@@ -617,4 +617,110 @@ class SupplierControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($supplier1->id, "supplier.id", $invoiceResponse);
         Assert::assertJsonPathContains($supplier1->name, "supplier.name", $invoiceResponse);
     }
+
+    public function testEditInvoiceWithDeleteSupplier()
+    {
+        $supplier1 = $this->factory()->supplier()
+            ->createSupplier("supplier 1");
+        $supplier2 = $this->factory()->supplier()
+            ->createSupplier("supplier 2");
+
+        $store = $this->factory()->store()->createStore();
+
+        $productId = $this->createProduct();
+
+        $invoiceData = array(
+            'supplier' => $supplier1->id,
+            'store' => $store->id,
+            'date' => '2013-03-18 12:56',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceNumber' => '1248373',
+            'includesVAT' => true,
+            'products' => array(
+                array(
+                    'quantity' => 1,
+                    'priceEntered' => 1,
+                    'product' => $productId,
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $invoicePostResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            "DELETE",
+            "/api/1/suppliers/{$supplier1->id}"
+        );
+
+        $this->assertResponseCode(204);
+        $this->assertEmpty($deleteResponse);
+
+
+        $invoiceData['supplier'] = $supplier2->id;
+
+        $invoicePutResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/invoices/{$invoicePostResponse['id']}",
+            $invoiceData
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Невозможно изменить.',
+            'message',
+            $invoicePutResponse
+        );
+    }
+
+    public function testDeleteInvoiceWithDeleteSupplier()
+    {
+        $supplier1 = $this->factory()->supplier()
+            ->createSupplier("supplier 1");
+        $supplier2 = $this->factory()->supplier()
+            ->createSupplier("supplier 2");
+
+        $productId = $this->createProduct();
+
+        $invoice = $this->factory()
+            ->invoice()
+            ->createInvoice(array(), null, $supplier1->id)
+            ->createInvoiceProduct($productId)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            "DELETE",
+            "/api/1/suppliers/{$supplier1->id}"
+        );
+
+        $this->assertResponseCode(204);
+        $this->assertEmpty($deleteResponse);
+
+        $invoiceDeleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/invoices/{$invoice->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Невозможно изменить.',
+            'message',
+            $invoiceDeleteResponse
+        );
+    }
 }
