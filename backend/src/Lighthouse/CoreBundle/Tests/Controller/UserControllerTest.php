@@ -1052,6 +1052,7 @@ class UserControllerTest extends WebTestCase
                         'PUT::{supplierReturn}',
                     ),
                     'suppliers' => array(
+                        'DELETE::{supplier}',
                         'GET',
                         'GET::{supplier}',
                         'PATCH::{supplier}',

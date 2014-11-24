@@ -119,3 +119,11 @@
 .form__inputTransparentButton:hover {
     background-color: #f4f4f4;
 }
+
+.form__errorMessage_visible[for="delete"] ~ .confirmLink {
+    display: none;
+}
+
+.form__errorMessage[for="delete"] {
+    padding: 6px 0;
+}

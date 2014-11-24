@@ -91,7 +91,7 @@ class SupplierController extends AbstractRestController
      */
     public function getSuppliersAction()
     {
-        return $this->documentRepository->findAll();
+        return $this->documentRepository->findAllActive();
     }
 
     /**
@@ -103,5 +103,17 @@ class SupplierController extends AbstractRestController
     public function getSupplierAction(Supplier $supplier)
     {
         return $supplier;
+    }
+
+    /**
+     * @param Supplier $supplier
+     *
+     * @Rest\View(statusCode=204)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteSuppliersAction(Supplier $supplier)
+    {
+        $this->processDelete($supplier);
     }
 }

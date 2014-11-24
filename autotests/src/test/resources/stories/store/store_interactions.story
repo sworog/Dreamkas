@@ -46,7 +46,8 @@ And the user inputs values on the create new store modal window
 | elementName | value |
 | name | Магазин номер 2 |
 | address | Контакты магазины номер 2 |
-And the user clicks on the close icon on the create new store modal window
+And пользователь* находится в модальном окне 'создания магазина'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
@@ -95,7 +96,8 @@ And the user inputs values on the edit store modal window
 | elementName | value |
 | name | Магазин номер 2 отредактированный |
 | address | Контакты магазины номер 2 отредактированные |
-And the user clicks on the close icon on the edit store modal window
+And пользователь* находится в модальном окне 'редактирования магазина'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 

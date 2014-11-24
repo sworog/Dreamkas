@@ -33,4 +33,15 @@ class SupplierRepository extends DocumentRepository
     {
         return $this->findOneBy(array('name' => $name));
     }
+
+    /**
+     * @return Cursor|Supplier[]
+     */
+    public function findAllActive()
+    {
+        return $this->findBy(
+            array('deletedAt' => null),
+            array('id' => self::SORT_ASC)
+        );
+    }
 }

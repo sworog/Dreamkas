@@ -37,7 +37,8 @@ And пользователь авторизуется в системе испо
 
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'Новая группа1' in group name field in create new group modal window
-And the user clicks on close icon in create new group modal window
+And пользователь* находится в модальном окне 'создания группы'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user asserts catalog title is 'Ассортимент'
 And the user asserts the groups list not contain group with name 'Новая группа1'
@@ -83,7 +84,8 @@ And пользователь авторизуется в системе испо
 When the user clicks on the group with name 'Группа до редактирования1'
 And the user clicks on the edit group icon
 And the user inputs 'Группа после редактирования1' in group name field in edit group modal window
-And the user clicks on close icon in edit group modal window
+And пользователь* находится в модальном окне 'редактирования группы'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user asserts group title is 'Группа до редактирования1'
 

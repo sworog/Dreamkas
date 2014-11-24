@@ -56,7 +56,8 @@ And the user inputs values on the create new supplier modal window
 | phone | phone |
 | email | email |
 | contactPerson | contactPerson |
-And the user clicks on close icon on the create new supplier modal window
+And пользователь* находится в модальном окне 'создания поставщика'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
@@ -115,7 +116,8 @@ And the user inputs values on the edit supplier modal window
 | phone | phone edited |
 | email | email edited |
 | contactPerson | contactPerson edited |
-And the user clicks on close icon on the edit supplier modal window
+And пользователь* находится в модальном окне 'редактирования поставщика'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
