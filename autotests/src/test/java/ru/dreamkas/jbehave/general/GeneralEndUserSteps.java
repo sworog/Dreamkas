@@ -14,9 +14,15 @@ public class GeneralEndUserSteps {
     GeneralSteps generalSteps;
 
     @Given("пользователь* находится на странице '$pageObjectName'")
+    @Alias("пользователь* взаимодействует со страницей '$pageObjectName'")
     @When("пользователь* находится на странице '$pageObjectName'")
     public void givenUserSetsPageObjectWihName(String pageObjectName) {
         generalSteps.setCurrentPageObject(pageObjectName);
+    }
+
+    @Given("пользователь* открывает страницу")
+    public void givenTheUserOpensPage() {
+        generalSteps.openPage();
     }
 
     @When("пользователь* вводит данные в поля $exampleTable")
@@ -42,6 +48,7 @@ public class GeneralEndUserSteps {
     }
 
     @Then("пользователь* проверяет, что поле с именем '$elementName' имеет значение '$value'")
+    @Alias("пользователь* проверяет, что '$elementName' имеет значение '$value'")
     public void thenUserChecksValue(String elementName, String value) {
         generalSteps.checkValue(elementName, value);
     }

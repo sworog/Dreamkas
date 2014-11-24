@@ -47,9 +47,6 @@ class LighthouseCoreExtensionTest extends TestCase
             'doctrine_mongodb.odm.metadata.annotation.class',
             'doctrine_mongodb.odm.metadata_factory.class',
             'lighthouse.core.document.repository.stock_movement_product',
-            'lighthouse.core.job.tube.prefix',
-            'lighthouse.core.job.worker.max_runtime',
-            'lighthouse.core.job.worker.reserve_timeout',
             'lighthouse.core.precision.money',
             'lighthouse.core.precision.quantity',
             'lighthouse.core.rounding.default',
@@ -59,7 +56,8 @@ class LighthouseCoreExtensionTest extends TestCase
             'openstack.selectel.options',
             'openstack.selectel.storage.container.metadata',
             'openstack.selectel.storage.container.name',
-            'test.client.class'
+            'test.client.class',
+            'validator.email.class'
         );
         $this->assertEquals($capturedArguments, $expectedValues, '', 0, 10, true);
     }

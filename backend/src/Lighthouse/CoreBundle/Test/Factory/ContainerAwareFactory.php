@@ -3,7 +3,9 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\ClassNameable;
+use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -25,9 +27,45 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
     /**
      * @return DocumentManager
      */
-    protected function getDocumentManager()
+    public function getDocumentManager()
     {
         return $this->container->get('doctrine_mongodb.odm.document_manager');
+    }
+
+    /**
+     * @return ExceptionalValidator
+     */
+    public function getValidator()
+    {
+        return $this->container->get('lighthouse.core.validator');
+    }
+
+    /**
+     * @return $this
+     */
+    public function flush()
+    {
+        $this->getDocumentManager()->flush();
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clear()
+    {
+        $this->getDocumentManager()->clear();
+        return $this;
+    }
+
+    /**
+     * @param AbstractDocument $document
+     */
+    public function save($document)
+    {
+        $this->getValidator()->validate($document);
+        $this->getDocumentManager()->persist($document);
+        $this->getDocumentManager()->flush();
     }
 
     /**

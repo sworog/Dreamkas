@@ -21,7 +21,7 @@ And the user with email 's28u101@lighthouse.pro' creates the product with name '
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName3', units 'шт.', barcode 'sorBar3', vat '0', purchasePrice '100', sellingPrice '3' in the group with name 'groups30u101sort'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName4', units 'шт.', barcode 'sorBar4', vat '0', purchasePrice '100', sellingPrice '4' in the group with name 'groups30u101sort'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName5', units 'шт.', barcode 'sorBar5', vat '0', purchasePrice '100', sellingPrice '5' in the group with name 'groups30u101sort'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
@@ -55,7 +55,7 @@ And the user with email 's28u101@lighthouse.pro' creates the product with name '
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName3', units 'шт.', barcode 'sorBar3', vat '0', purchasePrice '100', sellingPrice '3' in the group with name 'groups30u101sort'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName4', units 'шт.', barcode 'sorBar4', vat '0', purchasePrice '100', sellingPrice '4' in the group with name 'groups30u101sort'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName5', units 'шт.', barcode 'sorBar5', vat '0', purchasePrice '100', sellingPrice '5' in the group with name 'groups30u101sort'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |
@@ -89,7 +89,7 @@ And the user with email 's28u101@lighthouse.pro' creates the product with name '
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName3', units 'шт.', barcode 'sorBar3', vat '0', purchasePrice '100', sellingPrice '3' in the group with name 'groups30u101sort'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName4', units 'шт.', barcode 'sorBar4', vat '0', purchasePrice '100', sellingPrice '4' in the group with name 'groups30u101sort'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101sortName5', units 'шт.', barcode 'sorBar5', vat '0', purchasePrice '100', sellingPrice '5' in the group with name 'groups30u101sort'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user asserts the product list contain exact products with values
 | name | sellingPrice | barcode |

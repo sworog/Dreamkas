@@ -3,6 +3,7 @@
 namespace Lighthouse\IntegrationBundle\Command\Import;
 
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Symfony\Component\Console\Command\Command;
@@ -15,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @DI\Service("lighthouse.core.command.import.onec_invoices_import")
  * @DI\Tag("console.command")
  */
-class OneCInvoicesImport extends Command
+class OneCInvoicesImport extends Command implements ProjectableCommand
 {
     /**
      * @var InvoicesImporter

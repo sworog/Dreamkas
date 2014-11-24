@@ -83,10 +83,6 @@ lighthouse.core.bank_account:
     resource: Lighthouse\CoreBundle\Controller\BankAccountController
     type:     rest
 
-lighthouse.core.job:
-    resource: Lighthouse\CoreBundle\Controller\JobController
-    type:     rest
-
 lighthouse.core.log:
     resource: Lighthouse\CoreBundle\Controller\LogController
     type:     rest

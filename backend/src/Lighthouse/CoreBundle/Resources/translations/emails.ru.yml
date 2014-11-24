@@ -1,0 +1,6 @@
+lighthouse:
+    email:
+        register:
+            subject: Добро пожаловать в Dreamkas
+        restore_password:
+            subject: Восстановление пароля в Dreamkas

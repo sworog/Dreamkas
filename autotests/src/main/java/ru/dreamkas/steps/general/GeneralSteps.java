@@ -3,13 +3,18 @@ package ru.dreamkas.steps.general;
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
 import ru.dreamkas.common.pageObjects.GeneralPageObject;
+import ru.dreamkas.pages.MenuNavigationBar;
 import ru.dreamkas.pages.pos.PosLaunchPage;
 import ru.dreamkas.pages.pos.PosPage;
 import ru.dreamkas.pages.pos.PosSaleHistoryPage;
 import ru.dreamkas.pages.pos.ReceiptElement;
 import ru.dreamkas.pages.reports.ReportsMainPage;
+import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByProductsReportPage;
+import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByGroupsReportPage;
+import ru.dreamkas.pages.reports.storesGrossMarginSales.StoresGrossMarginSalesReportPage;
 import ru.dreamkas.pages.reports.stockBalance.StockBalanceReport;
 import ru.dreamkas.pages.stockMovement.StockMovementPage;
+import ru.dreamkas.pages.user.Settings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +34,11 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("чека", ReceiptElement.class);
             put("странице отчетов", ReportsMainPage.class);
             put("странице отчета остатка товаров", StockBalanceReport.class);
+            put("отчета по продажам и прибыли по товарам внутри группы", GoodsGrossMarginSalesByProductsReportPage.class);
+            put("отчета по продажам и прибыли по товарам группы", GoodsGrossMarginSalesByGroupsReportPage.class);
+            put("отчета по продажам и прибыли по сети", StoresGrossMarginSalesReportPage.class);
+            put("c боковой навигацией", MenuNavigationBar.class);
+            put("настроек пользователя", Settings.class);
         }};
     }
 
@@ -97,5 +107,10 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     @Step
     public void clickOnCommonItemWihName(String commonItemName) {
         getCurrentPageObject().clickOnCommonItemWihName(commonItemName);
+    }
+
+    @Step
+    public void openPage() {
+        getCurrentPageObject().open();
     }
 }

@@ -1693,6 +1693,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000020">
+			<name>Свитера/Кофты/Кардиганы/Бадлоны/Блуза</name>
+			<parent-group id="00000000004">
+				<name>Верхняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0004406">
 			<name>шт</name>
 		</measure-type>
@@ -39193,6 +39199,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000010">
+			<name>Брюки/Капри/Бриджи/Голифе</name>
+			<parent-group id="00000000006">
+				<name>Нижняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0003732">
 			<name>шт</name>
 		</measure-type>
@@ -39299,6 +39311,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000012">
+			<name>Юбки/Шорты</name>
+			<parent-group id="00000000006">
+				<name>Нижняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0003737">
 			<name>шт</name>
 		</measure-type>
@@ -45648,6 +45666,9 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000004">
+			<name>Верхняя одежда</name>
+		</group>
 		<measure-type id="&#x426;&#x411;0003447">
 			<name>шт</name>
 		</measure-type>
@@ -47301,6 +47322,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000014">
+			<name>Лосины</name>
+			<parent-group id="00000000006">
+				<name>Нижняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0003568">
 			<name>шт</name>
 		</measure-type>
@@ -54948,6 +54975,9 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000004">
+			<name>Верхняя одежда</name>
+		</group>
 		<measure-type id="&#x426;&#x411;0003473">
 			<name>шт</name>
 		</measure-type>
@@ -55555,6 +55585,9 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000004">
+			<name>Верхняя одежда</name>
+		</group>
 		<measure-type id="&#x426;&#x411;0003448">
 			<name>шт</name>
 		</measure-type>
@@ -61665,6 +61698,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000023">
+			<name>Куртки/Пуховики/Пальто/Плащи</name>
+			<parent-group id="00000000004">
+				<name>Верхняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0004081">
 			<name>шт</name>
 		</measure-type>
@@ -65677,6 +65716,9 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000004">
+			<name>Верхняя одежда</name>
+		</group>
 		<measure-type id="&#x426;&#x411;0003449">
 			<name>шт</name>
 		</measure-type>
@@ -82226,6 +82268,9 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000004">
+			<name>Верхняя одежда</name>
+		</group>
 		<measure-type id="&#x426;&#x411;0003466">
 			<name>шт</name>
 		</measure-type>
@@ -82746,6 +82791,9 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000004">
+			<name>Верхняя одежда</name>
+		</group>
 		<measure-type id="&#x426;&#x411;0002981">
 			<name>шт</name>
 		</measure-type>
@@ -82852,6 +82900,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000010">
+			<name>Брюки/Капри/Бриджи/Голифе</name>
+			<parent-group id="00000000006">
+				<name>Нижняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0003557">
 			<name>шт</name>
 		</measure-type>
@@ -88954,6 +89008,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000015">
+			<name>Джинсы</name>
+			<parent-group id="00000000006">
+				<name>Нижняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0003750">
 			<name>шт</name>
 		</measure-type>
@@ -103959,6 +104019,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000015">
+			<name>Джинсы</name>
+			<parent-group id="00000000006">
+				<name>Нижняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0003528">
 			<name>шт</name>
 		</measure-type>
@@ -106303,6 +106369,12 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000015">
+			<name>Джинсы</name>
+			<parent-group id="00000000006">
+				<name>Нижняя одежда</name>
+			</parent-group>
+		</group>
 		<measure-type id="&#x426;&#x411;0003532">
 			<name>шт</name>
 		</measure-type>
@@ -124024,6 +124096,9 @@
 			</department>
 		</price-entry>
 		<vat>0</vat>
+		<group id="00000000004">
+			<name>Верхняя одежда</name>
+		</group>
 		<measure-type id="&#x426;&#x411;0003450">
 			<name>шт</name>
 		</measure-type>

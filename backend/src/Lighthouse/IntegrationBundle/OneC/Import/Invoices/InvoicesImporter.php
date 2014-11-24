@@ -8,8 +8,11 @@ use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
+use Lighthouse\CoreBundle\Document\Supplier\SupplierRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
@@ -57,9 +60,24 @@ class InvoicesImporter
     protected $numericFactory;
 
     /**
+     * @var InvoiceRepository
+     */
+    protected $invoiceRepository;
+
+    /**
+     * @var SupplierRepository
+     */
+    protected $supplierRepository;
+
+    /**
      * @var Store[]
      */
     protected $stores = array();
+
+    /**
+     * @var Supplier[]
+     */
+    protected $suppliers = array();
 
     /**
      * @var Store
@@ -72,20 +90,26 @@ class InvoicesImporter
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "versionFactory" = @DI\Inject("lighthouse.core.versionable.factory"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
-     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
+     *      "invoiceRepository" = @DI\Inject("lighthouse.core.document.repository.stock_movement.invoice"),
+     *      "supplierRepository" = @DI\Inject("lighthouse.core.document.repository.supplier")
      * })
      * @param StoreRepository $storeRepository
      * @param ProductRepository $productRepository
      * @param VersionFactory $versionFactory
      * @param ExceptionalValidator $validator
      * @param NumericFactory $numericFactory
+     * @param InvoiceRepository $invoiceRepository
+     * @param SupplierRepository $supplierRepository
      */
     public function __construct(
         StoreRepository $storeRepository,
         ProductRepository $productRepository,
         VersionFactory $versionFactory,
         ExceptionalValidator $validator,
-        NumericFactory $numericFactory
+        NumericFactory $numericFactory,
+        InvoiceRepository $invoiceRepository,
+        SupplierRepository $supplierRepository
     ) {
         $this->storeRepository = $storeRepository;
         $this->productRepository = $productRepository;
@@ -93,6 +117,8 @@ class InvoicesImporter
         $this->validator = $validator;
         $this->numericFactory = $numericFactory;
         $this->documentManager = $productRepository->getDocumentManager();
+        $this->invoiceRepository = $invoiceRepository;
+        $this->supplierRepository = $supplierRepository;
     }
 
     /**
@@ -110,6 +136,7 @@ class InvoicesImporter
         $file->setCsvControl(',');
 
         $i = 0;
+        /* @var Invoice $currentInvoice */
         $currentInvoice = null;
         /* @var \Exception[] $errors */
         $errors = array();
@@ -119,7 +146,9 @@ class InvoicesImporter
                 $invoice = $this->createInvoice($row);
                 if ($invoice) {
                     $dotHelper->end(false);
-                    $output->writeln('');
+                    if ($currentInvoice) {
+                        $this->persistInvoice($currentInvoice, $output);
+                    }
                     if (++$i % $batchSize == 0) {
                         $output->writeln('<info>Flushing</info>');
                         $this->documentManager->flush();
@@ -137,34 +166,24 @@ class InvoicesImporter
                             )
                         );
                     }
-                    if ($currentInvoice) {
-                        $this->documentManager->persist($currentInvoice);
-                    }
                     $currentInvoice = $invoice;
-                    $this->validator->validate($currentInvoice);
+                } elseif ($currentInvoice) {
+                    $invoiceProduct = $this->createInvoiceProduct($row, $currentInvoice);
+                    if ($invoiceProduct) {
+                        $currentInvoice->products->add($invoiceProduct);
+                        $dotHelper->write();
+                    } else {
+                        $dotHelper->writeQuestion('?');
+                    }
                 }
             } catch (\Exception $e) {
                 $dotHelper->writeError('E');
                 $errors[] = $e;
                 $currentInvoice = null;
             }
-            if ($currentInvoice && null === $invoice) {
-                try {
-                    $invoiceProduct = $this->createInvoiceProduct($row, $currentInvoice);
-                    if ($invoiceProduct) {
-                        $this->validator->validate($invoiceProduct);
-                        $currentInvoice->products->add($invoiceProduct);
-                        $dotHelper->write();
-                    }
-                } catch (\Exception $e) {
-                    $dotHelper->writeError('E');
-                    $errors[] = $e;
-                    $currentInvoice = null;
-                }
-            }
         }
         if ($currentInvoice) {
-            $this->documentManager->persist($currentInvoice);
+            $this->persistInvoice($currentInvoice, $output);
         }
         $output->writeln('');
         $output->writeln('<info>Flushing</info>');
@@ -206,21 +225,40 @@ class InvoicesImporter
                 $store = $this->lastStore;
             }
 
-            $invoice = new Invoice();
+            $invoice = $this->invoiceRepository->createNew();
+
             $invoice->date = $date;
             $invoice->number = $number;
             $invoice->store = $store;
             $invoice->accepter = 'Накладных Импорт';
-            $invoice->legalEntity = 'Магазин';
+            $invoice->legalEntity = trim($row[5]);
+            $invoice->paid = ('Да' === trim($row[10]));
 
-            // FIXME Supplier should be auto generated on import?
-            //$supplier = trim($row[8]);
-            //$supplier = ($supplier) ?: 'Не указан';
-            //$invoice->supplier = $supplier;
+            $supplierName = trim($row[8]);
+            if ($supplierName) {
+                $invoice->supplier = $this->getSupplier($supplierName);
+            }
         } else {
             $this->checkStoreRow($row);
         }
         return $invoice;
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param OutputInterface $output
+     */
+    protected function persistInvoice(Invoice $invoice, OutputInterface $output)
+    {
+        $output->write('<info>Persist</info>');
+        try {
+            $this->validator->validate($invoice);
+            $this->documentManager->persist($invoice);
+            $output->writeln(' OK');
+        } catch (\Exception $e) {
+            $output->writeln(sprintf(' <error>Validation Failed</error>: %s', $e->getMessage()));
+        }
+        $output->writeln(str_repeat('-', 60));
     }
 
     /**
@@ -268,20 +306,20 @@ class InvoicesImporter
     /**
      * @param array $row
      * @param Invoice $invoice
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct|null
+     * @return InvoiceProduct|null
      */
     protected function createInvoiceProduct(array $row, Invoice $invoice)
     {
         $invoiceProduct = null;
-        if (isset($row[0], $row[1], $row[4])
+        if (isset($row[0], $row[2], $row[3])
             && '' != $row[0]
-            && '' != $row[1]
-            && '' != $row[4]
+            && '' != $row[2]
+            && '' != $row[3]
         ) {
             $sku = $this->getProductSku($row[0]);
             $productVersion = $this->getProductVersion($sku);
-            $quantity = $this->normalizeQuantity($row[1]);
-            $price = $this->normalizeQuantity($row[4]);
+            $quantity = $this->normalizeQuantity($row[2]);
+            $price = $this->normalizeQuantity($row[3]);
 
             $invoiceProduct = new InvoiceProduct();
             $invoiceProduct->parent = $invoice;
@@ -317,7 +355,7 @@ class InvoicesImporter
 
     /**
      * @param string $sku
-     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @throws RuntimeException
      * @return ProductVersion|null
      */
     protected function getProductVersion($sku)
@@ -328,5 +366,36 @@ class InvoicesImporter
         } else {
             throw new RuntimeException(sprintf("Product with sku '%s' not found", $sku));
         }
+    }
+
+    /**
+     * @param string $name
+     * @return Supplier
+     */
+    protected function getSupplier($name)
+    {
+        if (!isset($this->suppliers[$name])) {
+            $supplier = $this->supplierRepository->findOneByName($name);
+            if (!$supplier) {
+                $supplier = $this->createSupplier($name);
+            }
+            $supplierReference = $this->supplierRepository->getReference($supplier->id);
+            $this->suppliers[$name] = $supplierReference;
+        }
+
+        return $this->suppliers[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return Supplier
+     */
+    protected function createSupplier($name)
+    {
+        $supplier = $this->supplierRepository->createNew();
+        $supplier->name = $name;
+        $this->supplierRepository->save($supplier);
+
+        return $supplier;
     }
 }

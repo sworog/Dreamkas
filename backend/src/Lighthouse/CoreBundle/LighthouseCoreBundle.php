@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle;
 
-use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
+use Lighthouse\JobBundle\DependencyInjection\Compiler\AddJobWorkersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\MongoDBDocumentManagerPass;
@@ -45,7 +45,6 @@ class LighthouseCoreBundle extends Bundle
     {
         $container->addCompilerPass(new AddRoundingsToManagerPass());
         $container->addCompilerPass(new AddReferenceProvidersPass());
-        $container->addCompilerPass(new AddJobWorkersPass());
         $container->addCompilerPass(new MongoDBDocumentManagerPass());
     }
 }

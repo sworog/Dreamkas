@@ -2,15 +2,16 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMargin\Store;
 
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
+use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 
-class StoreDayGrossMarginTest extends WebTestCase
+class StoreDayGrossMarginTest extends DataAwareTestCase
 {
     public function prepareData()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct('1');
+        $productId = $this->createProductByName('1');
         $storeProductId = $this->factory()->getStoreProduct($store->id, $productId);
 
         $this->factory()
@@ -50,7 +51,7 @@ class StoreDayGrossMarginTest extends WebTestCase
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator
+     * @return CostOfGoodsCalculator
      */
     public function getCostOfGoodsCalculator()
     {

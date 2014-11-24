@@ -1,0 +1,92 @@
+.sideBar {
+    background-color: #4b5d67;
+    color: #fff;
+    height: 100%;
+    position: fixed;
+    width: 250px;
+    left: 0;
+    top: 0;
+    z-index: 30;
+}
+
+.sideBar__scrollPanel {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 55px;
+    bottom: 70px;
+    overflow: auto;
+}
+
+.sideBar .page__sideBarLink {
+    position: absolute;
+    z-index: 10;
+    left: 15px;
+    top: 21px;
+}
+
+.sideBar a, .sideBar .fa {
+    color: #fff !important;
+}
+
+.sideBar__logo {
+    height: 55px;
+    line-height: 0;
+    text-align: center;
+    font-size: 0;
+    display: block;
+    background: #475861 url("/img/logo.png") 15px center no-repeat;
+    background-size: auto 30px;
+}
+
+.sideBar__item {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 15px;
+    border-bottom: 1px solid #4f626d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sideBar__item:hover {
+    background-color: #0a819c;
+}
+
+.sideBar__item .fa {
+    margin-right: 10px;
+}
+
+.sideBar__item_active {
+    background-color: #0a819c;
+}
+
+.sideBar__bottom {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #475861;
+    padding: 20px 15px;
+}
+
+.sideBar__userName {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 15px;
+}
+
+.sideBar__controls{
+    float: right;
+    margin-top: 4px;
+}
+
+.sideBar__actionLink {
+    margin-left: 8px;
+}
+
+.sideBar__actionLink .fa{
+    font-size: 17px;
+}

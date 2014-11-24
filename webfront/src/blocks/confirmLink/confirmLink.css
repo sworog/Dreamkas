@@ -1,0 +1,20 @@
+.confirmLink {
+    display: inline-block;
+}
+
+.confirmLink__confirmation {
+    display: none;
+    color: #d40000;
+}
+
+.confirmLink_active .confirmLink__confirmation {
+    display: block;
+}
+
+.confirmLink_active .confirmLink__trigger {
+    display: none;
+}
+
+.confirmLink__confirmation .removeLink {
+    color: #d40000;
+}

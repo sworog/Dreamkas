@@ -29,4 +29,6 @@ public interface GeneralPageObject {
     public String getCommonItemAttributeValue(String commonItemName, String attribute);
 
     public void clickOnCommonItemWihName(String commonItemName);
+
+    public void open();
 }

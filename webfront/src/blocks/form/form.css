@@ -1,0 +1,106 @@
+.form__header {
+    margin: 0;
+    padding: 20px 0 30px 0;
+}
+
+.form__title {
+    margin: 0;
+    font-weight: bold;
+    line-height: 38px;
+}
+
+.form_login .form__header,
+.form_pass .form__header {
+    font-size: 30px;
+    padding: 15px 20px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    background: #e9e9e9;
+    color: rgb(153, 153, 153);
+}
+
+.form__successMessage {
+    font-size: 14px;
+    margin-right: 20px;
+    line-height: 38px;
+    color: #448312;
+}
+
+.form__errorMessage {
+    font-style: italic;
+    color: #db4c4a;
+    display: none;
+}
+
+.form__errorMessage_global {
+    padding-bottom: 20px;
+}
+
+.form__errorMessage_visible {
+    display: block;
+    padding-top: 5px;
+}
+
+.form__body {
+    padding: 15px 20px;
+    position: relative;
+}
+
+.form_login, .form_pass {
+    width: 500px;
+    margin: 0 auto;
+    background: #eeeeee;
+}
+
+.form_login__message:not(:empty) {
+    margin: 0 0 16px 0;
+    text-align: center;
+}
+
+.form_stockMovementProducts{
+    margin: 0 -8px;
+}
+
+.form_receipt__totalPrice, .form_receipt__totalPrice .fa {
+    font-size: 28px;
+    font-weight: bold;
+    color: #0a819c;
+}
+
+.form_receipt__totalPrice .fa {
+    font-size: 24px;
+}
+
+.form_receipt__change {
+    display: none;
+}
+
+.form_refund__position {
+    padding-bottom: 15px;
+}
+
+.form_refund__productName {
+    font-size: 20px;
+}
+
+.form_refund .form_refund__position .form__errorMessage{
+    text-align: right;
+    padding-top: 5px;
+    padding-right: 15px;
+    clear: both;
+}
+
+.form_product__markup {
+    height: 34px;
+    line-height: 34px;
+}
+
+.form_passwordChanging {
+    padding: 0 30px 30px;
+    background: #fff;
+}
+
+.form_passwordChanging .btn-primary {
+    padding: 8px 50px;
+}

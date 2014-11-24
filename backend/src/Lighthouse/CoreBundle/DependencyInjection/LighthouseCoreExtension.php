@@ -25,22 +25,9 @@ class LighthouseCoreExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        // job params
-        $container->setParameter(
-            'lighthouse.core.job.tube.prefix',
-            $config['job']['tube_prefix']
-        );
-        $container->setParameter(
-            'lighthouse.core.job.worker.max_runtime',
-            $config['job']['worker']['max_runtime']
-        );
-        $container->setParameter(
-            'lighthouse.core.job.worker.reserve_timeout',
-            $config['job']['worker']['reserve_timeout']
-        );
-
         $container->setParameter('lighthouse.core.precision.money', $config['precision']['money']);
         $container->setParameter('lighthouse.core.precision.quantity', $config['precision']['quantity']);
+
         $container->setParameter('lighthouse.core.rounding.default', $config['rounding']['default']);
 
         $container->setParameter('openstack.selectel.auth_url', $config['selectel']['auth']['url']);

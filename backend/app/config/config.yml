@@ -5,16 +5,16 @@ imports:
 doctrine_mongodb:
     connections:
         default:
-            server: mongodb://localhost:27017
+            server: mongodb://127.0.0.1:27017
             options: {}
     default_database: %database_name%_%kernel.environment%
     document_managers:
         default:
             auto_mapping: true
-            filters:
-                softdeleteable:
-                    class: Gedmo\SoftDeleteable\Filter\ODM\SoftDeleteableFilter
-                    enabled: true
+            #filters:
+            #    softdeleteable:
+            #        class: Gedmo\SoftDeleteable\Filter\ODM\SoftDeleteableFilter
+            #        enabled: true
 
 stof_doctrine_extensions:
     mongodb:
@@ -75,6 +75,7 @@ jms_di_extra:
             - LighthouseCoreBundle
             - LighthouseIntegrationBundle
             - LighthouseReportsBundle
+            - LighthouseJobBundle
         directories: ["%kernel.root_dir%/../src"]
 
 fos_rest:
@@ -134,8 +135,8 @@ nelmio_api_doc:
     name: Lighthouse API
 
 ekino_new_relic:
-    application_name: Lighthouse API
-    api_key: 60b4080090e6f23a1fd9c71c4fd25403518ec1f2
+    application_name: "Dreamkas API %kernel.environment%"
+    api_key: 123e886f0c6641b422f9f035980c8f2966177d25
 
 leezy_pheanstalk:
     enabled: true
@@ -143,7 +144,7 @@ leezy_pheanstalk:
         primary:
             server: %beanstalkd_server%
             default: true
-            proxy: lighthouse.core.job.pheanstalk
+            proxy: lighthouse.job.pheanstalk
 
 clamidity_profiler:
     enabled: false
@@ -155,10 +156,11 @@ ornicar_apc:
     mode: curl
 
 lighthouse_core:
-    job:
-        tube_prefix: "%database_name%_%kernel.environment%"
     selectel:
         auth:
-            username: 18487
-            password: 4hSmzgdljt
+            username: 36480
+            password: 1avrj2rw
         container: "%database_name%_%kernel.environment%"
+
+lighthouse_job:
+    tube_prefix: "%database_name%_%kernel.environment%"

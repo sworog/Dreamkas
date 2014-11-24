@@ -8,7 +8,7 @@ import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
 public class WriteOffProductCollection extends AbstractObjectCollection {
 
     public WriteOffProductCollection(WebDriver webDriver) {
-        super(webDriver, By.name("writeOffProduct"));
+        super(webDriver, By.name("stockMovementProduct"));
     }
 
     @Override

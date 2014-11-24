@@ -1,0 +1,66 @@
+<!--BEGIN TITLE PAGE-->
+<div class="page__head">
+
+    <div class="pull-right">
+        <span data-modal="modal_invoice"
+			  data-item-id="0"
+              class="btn btn-primary btn-md">Принять от поставщика</span>
+
+        <div class="dropdown" style="display: inline-block; position: relative">
+            <a block="dropdown"
+               href="#"
+               role="button"
+               class="btn btn-default btn-md dropdown-toggle"
+               data-toggle="dropdown">Еще...</a>
+
+            <ul style="right: 0; left: auto;" class="dropdown-menu" role="menu">
+                <li>
+                    <div class="dropdown-menu-item"
+						 data-modal="modal_writeOff"
+						 data-item-id="0">Списать</div>
+                </li>
+                <li>
+                    <div data-modal="modal_stockIn"
+						 data-item-id="0"
+						 class="dropdown-menu-item">Оприходовать</div>
+                </li>
+                <li>
+                    <div data-modal="modal_supplierReturn"
+						 data-item-id="0"
+						 class="dropdown-menu-item">Вернуть поставщику</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="page__title">Товародвижение</div>
+
+</div>
+<!--END TITLE PAGE-->
+
+<!--BEGIN CONTENT-->
+<div class="page__content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+
+                    <b block="form_stockMovementsFilters"></b>
+
+                    <b block="table_stockMovements"></b>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END CONTENT-->
+
+<!--MODALS-->
+
+<b block="modal_invoice"></b>
+<b block="modal_stockIn"></b>
+<b block="modal_supplierReturn"></b>
+<b block="modal_writeOff"></b>
+
+<!--END MODALS-->

@@ -123,7 +123,7 @@ class ProductController extends AbstractRestController
      */
     public function getProductsAction()
     {
-        return $this->documentRepository->findAll();
+        return $this->documentRepository->findAllActive();
     }
 
     /**

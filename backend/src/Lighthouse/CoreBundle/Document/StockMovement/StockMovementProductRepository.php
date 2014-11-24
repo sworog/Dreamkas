@@ -3,16 +3,18 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Query\Builder;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use DateTime;
 
 class StockMovementProductRepository extends DocumentRepository
 {
     /**
      * @param string|null $storeId
      * @param string|null $productId
-     * @param string|\DateTime|null $dateFrom
-     * @param string|\DateTime|null $dateTo
-     * @return \Doctrine\ODM\MongoDB\Query\Builder
+     * @param string|DateTime|null $dateFrom
+     * @param string|DateTime|null $dateTo
+     * @return Builder
      */
     protected function queryByStoreAndProductAndDates(
         $storeId = null,
@@ -59,8 +61,8 @@ class StockMovementProductRepository extends DocumentRepository
     /**
      * @param string $storeId
      * @param string $productId
-     * @param string|\DateTime $dateFrom
-     * @param string|\DateTime $dateTo
+     * @param string|DateTime $dateFrom
+     * @param string|DateTime $dateTo
      * @return array
      */
     public function findParentIdsByStoreAndProductAndDates($storeId, $productId, $dateFrom, $dateTo)

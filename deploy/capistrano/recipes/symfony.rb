@@ -89,14 +89,28 @@ namespace :symfony do
     namespace :worker do
 
         after "deploy:setup", "symfony:worker:setup"
-        after "deploy:update", "symfony:worker:symlink:create"
         after "deploy:update", "symfony:worker:update"
-        after "deploy:update", "symfony:worker:restart"
-        after "deploy:remove:go", "symfony:worker:symlink:remove"
-        after "deploy:remove:go", "symfony:worker:update"
+        after "deploy:remove:go", "symfony:worker:delete"
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
+        set(:worker_group) {"#{application}"}
+
+        desc "Update worker"
+        task :update,:roles => :app, :except => { :no_release => true } do
+            symlink.create
+            add
+            reread
+            restart
+        end
+
+        desc "Delete worker"
+        task :delete,:roles => :app, :except => { :no_release => true } do
+            stop
+            symlink.remove
+            remove
+            reread
+        end
 
         desc "Setup worker"
         task :setup, :roles => :app, :except => { :no_release => true } do
@@ -129,18 +143,38 @@ namespace :symfony do
             end
         end
 
-        desc "Update workers"
-        task :update, :roles => :app, :except => { :no_release => true } do
+        desc "Update workers config"
+        task :reread, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Update workers"
-            run "#{sudo} supervisorctl reread"
-            run "#{sudo} supervisorctl update"
+            stream "#{sudo} supervisorctl reread"
             capifony_puts_ok
         end
 
-        desc "Update workers"
+        desc "Restart worker"
         task :restart, :roles => :app, :except => { :no_release => true } do
             capifony_pretty_print "--> Restart worker"
-            run "#{sudo} supervisorctl restart #{application}"
+            stream "#{sudo} supervisorctl restart #{worker_group}:*"
+            capifony_puts_ok
+        end
+
+        desc "Stop worker"
+        task :stop, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Stop worker"
+            stream "#{sudo} supervisorctl stop #{worker_group}:*"
+            capifony_puts_ok
+        end
+
+        desc "Add worker group"
+        task :add, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Add worker group"
+            stream "#{sudo} supervisorctl add #{worker_group}"
+            capifony_puts_ok
+        end
+
+        desc "Remove worker"
+        task :remove, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Remove worker group"
+            stream "#{sudo} supervisorctl remove #{worker_group}"
             capifony_puts_ok
         end
 
@@ -290,6 +324,13 @@ namespace :symfony do
                 capifony_puts_ok
             end
         end
+
+        task :amn, :roles => :app, :except => { :no_release => true } do
+            check_app_deployed
+            puts "--> Import AMN".yellow
+            stream "sh -c 'cd #{latest_release} && ./import_amn.sh #{symfony_env_prod}'"
+            capifony_puts_ok
+        end
     end
 
     task :import_xml do
@@ -305,7 +346,7 @@ namespace :symfony do
     end
 
     namespace :reports do
-        desc "Recalculate reports data, required: -S projectId=<..>"
+        desc "Recalculate reports data"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
             stream console_command("lighthouse:reports:recalculate"), :once => true
         end

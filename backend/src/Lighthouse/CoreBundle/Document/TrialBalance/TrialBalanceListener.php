@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 
@@ -90,7 +91,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
      */
     protected function processSupportsRangeIndexRemove(TrialBalance $trialBalance, DocumentManager $dm)
     {
-        $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
+        $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext(
+            $trialBalance,
+            $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+        );
 
         if (null != $nextProcessedTrialBalance) {
             $oldValue = $nextProcessedTrialBalance->processingStatus;
@@ -120,9 +124,15 @@ class TrialBalanceListener extends AbstractMongoDBListener
         DocumentManager $dm
     ) {
         if ($storeProduct != $trialBalance->storeProduct) {
-            $needProcessedTrialProduct = $this->trialBalanceRepository->findOnePrevious($trialBalance);
+            $needProcessedTrialProduct = $this->trialBalanceRepository->findOnePrevious(
+                $trialBalance,
+                $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+            );
             if (null == $needProcessedTrialProduct) {
-                $needProcessedTrialProduct = $this->trialBalanceRepository->findOneNext($trialBalance);
+                $needProcessedTrialProduct = $this->trialBalanceRepository->findOneNext(
+                    $trialBalance,
+                    $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+                );
             }
             if (null != $needProcessedTrialProduct) {
                 $needProcessedTrialProduct->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
@@ -214,7 +224,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $oldAcceptanceDate = $changeSet['date'][0];
         $newAcceptanceDate = $changeSet['date'][1];
 
-        /* @var \Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $invoice->products;
         $trialBalances = $this->trialBalanceRepository->findByStockMovementProducts($invoiceProducts);
 
@@ -225,7 +234,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
         foreach ($trialBalances as $trialBalance) {
             if ($newAcceptanceDate > $oldAcceptanceDate) {
-                $nextTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
+                $nextTrialBalance = $this->trialBalanceRepository->findOneNext(
+                    $trialBalance,
+                    $this->costOfGoodsCalculator->getStockMovementTypesByTrialBalance($trialBalance)
+                );
                 if (null != $nextTrialBalance) {
                     $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
                     $this->computeChangeSet($dm, $nextTrialBalance);

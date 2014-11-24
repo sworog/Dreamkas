@@ -17,7 +17,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -51,7 +51,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -74,22 +74,30 @@ Scenario: Product deletion
 Meta:
 @smoke
 @id_s38u101s3
+@us_119.4
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт3', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 'Продукт3'
 
 And the user clicks on delete product button in edit product modal window
 And the user clicks on delete product confirm button in edit product modal window
 
+When пользователь* находится в модальном окне 'редактирования товара'
+Then пользователь* в модальном окне проверяет, что поле с именем 'заголовок успешного удаления' имеет значение 'Товар удален'
+And пользователь* в модальном окне проверяет, что поле с именем 'название удаленного товара' имеет значение 'Продукт3
+(groups30u101)'
+
+When пользователь* в модальном окне нажимает кнопку продолжить
+
 Then the user waits for modal window closing
 
-Then the user asserts the groups list not contain product with name 'Продукт2'
+Then the user asserts the groups list not contain product with name 'Продукт3'
 
 Scenario: Can't delete group with products
 
@@ -100,10 +108,10 @@ Meta:
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
-And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт4', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт31', units 'шт.', barcode '123454321', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
@@ -120,7 +128,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 
@@ -141,7 +149,7 @@ GivenStories:
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт3', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 'Продукт3'
 When пользователь* находится в модальном окне 'редактирования товара'
@@ -159,7 +167,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт3', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 'Продукт3'
 Then user checks delete button label 'Удалить товар'
@@ -175,7 +183,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u1011'
 And the user navigates to the group with name 'groups30u1011'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user checks page contains text 'В этой группе пока нет ни одного товара.'
 
@@ -191,7 +199,7 @@ Given the user with email 's28u101@lighthouse.pro' creates group with name 'grou
 And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт41', units 'шт.', barcode '123451', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 'Продукт41'
 
@@ -228,7 +236,7 @@ Given the user with email 's28u101@lighthouse.pro' creates group with name 'grou
 And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт411', units 'шт.', barcode '123452', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the product with name 'Продукт411'
 
@@ -259,7 +267,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -288,7 +296,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -316,7 +324,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -344,7 +352,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -371,7 +379,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -398,7 +406,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -424,7 +432,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -450,7 +458,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window
@@ -481,7 +489,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
-And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on create product button on group page
 And the user inputs values in create new product modal window

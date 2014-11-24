@@ -1,0 +1,78 @@
+<% var productModalId = _.uniqueId('modal_product') %>
+
+<form class="form_stockMovementProducts">
+
+	<table class="table_stockMovementProducts table table-vcenter">
+		<thead>
+		<tr>
+			<th>Наименование</th>
+			<th style="white-space: nowrap; width: 1px;">Цена, <i class="fa fa-rub"></i></th>
+			<th style="width: 1px;">Кол-во</th>
+			<th style="white-space: nowrap; width: 1px;">Сумма, <i class="fa fa-rub"></i></th>
+			<th style="width: 1px;"></th>
+		</tr>
+		</thead>
+
+		<tbody block="productList"></tbody>
+
+		<tfoot>
+
+		<tr class="form_stockMovementProducts__controls">
+			<td>
+				<div class="row">
+					<div class="col-md-11">
+
+						<b block="autocomplete_products"></b>
+
+					</div>
+					<div class="col-md-1">
+						<a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
+						   data-modal="<%- productModalId %>"
+						   class="fa fa-plus"></a>
+					</div>
+				</div>
+			</td>
+			<td>
+				<input name="<%- priceField %>"
+					   type="text"
+					   style="width: 100px;"
+					   class="form-control">
+			</td>
+			<td>
+				<div style="white-space: nowrap">
+					<input name="quantity"
+						   type="text"
+						   style="width: 80px; display: inline-block;"
+						   class="form-control">
+					<span style="position: relative; padding: 0 5px;" class="product__units">шт.</span>
+				</div>
+			</td>
+			<td>
+                <span style="white-space: nowrap; min-width: 100px; position: relative;"
+					  class="totalSum"></span>
+			</td>
+			<td>
+				<button type="submit"
+						style="margin-top: 0;"
+						class="btn btn-default fa fa-check"></button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				Итого
+			</td>
+			<td colspan="2">
+
+				<b block="totalPrice"></b>
+
+			</td>
+		</tr>
+		</tfoot>
+	</table>
+	<div class="form__errorMessage form__errorMessage_global"></div>
+
+	<b block="modal_product"
+	   data-referrer="modal_invoice"
+	   data-id="<%- productModalId %>"></b>
+
+</form>

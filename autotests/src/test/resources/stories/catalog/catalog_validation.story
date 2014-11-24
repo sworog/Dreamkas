@@ -15,7 +15,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new group button on the catalog page
 And the user generates symbols with count '100' in the create group modal window name field
@@ -31,7 +31,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new group button on the catalog page
 And the user generates symbols with count '101' in the create group modal window name field
@@ -47,7 +47,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new group button on the catalog page
 And the user confirms OK in create new group modal window
@@ -64,7 +64,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Уникальная группа'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'Уникальная группа' in group name field in create new group modal window
@@ -82,7 +82,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для валидации'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа для валидации'
 And the user clicks on the edit group icon
@@ -101,7 +101,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для валидации4'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа для валидации4'
 And the user clicks on the edit group icon
@@ -120,7 +120,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для валидации3'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа для валидации3'
 And the user clicks on the edit group icon
@@ -140,7 +140,7 @@ Given the user with email 's28u100@lighthouse.pro' creates group with name 'Гр
 And the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для валидации2'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа для валидации2'
 And the user clicks on the edit group icon

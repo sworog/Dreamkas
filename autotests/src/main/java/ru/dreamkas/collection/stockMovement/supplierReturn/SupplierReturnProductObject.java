@@ -8,9 +8,4 @@ public class SupplierReturnProductObject extends StockMovementProductObject {
     public SupplierReturnProductObject(WebElement element) {
         super(element);
     }
-
-    @Override
-    public void clickDeleteIcon() {
-        clickDeleteIcon("delSupplierReturnProduct");
-    }
 }

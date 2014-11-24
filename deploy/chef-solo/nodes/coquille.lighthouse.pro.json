@@ -1,0 +1,14 @@
+{
+  "run_list": [
+    "recipe[nodejs]",
+    "recipe[nodejs::npm]",
+    "role[backend]",
+    "role[ux-host]",
+    "recipe[lighthouse::hosts]"
+  ],
+  "newrelic": {
+    "application_monitoring": {
+      "app_name": "coquille.lighthouse.pro"
+    }
+  }
+}

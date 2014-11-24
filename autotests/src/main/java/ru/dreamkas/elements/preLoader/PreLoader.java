@@ -8,7 +8,7 @@ import ru.dreamkas.storage.DefaultStorage;
 public class PreLoader {
 
     private Waiter waiter;
-    private static final String PRE_LOADER_XPATH = "//*[*[contains(@class, 'preloader_stripes')] and *[not(@status='loading')]]";
+    private static final String PRE_LOADER_XPATH = "//*[*[contains(@class, 'loading')] and *[not(@status='loading')]]";
 
     public PreLoader(WebDriver driver) {
         Integer defaultPreloaderTimeOut =

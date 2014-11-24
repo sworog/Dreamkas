@@ -17,7 +17,7 @@ class OrderProductControllerTest extends WebTestCase
     public function testPostOrderProductValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $product = $this->createProduct();
+        $product = $this->createProductByName();
 
         $postData = $data + array(
                 'product' => $product,
@@ -156,7 +156,7 @@ class OrderProductControllerTest extends WebTestCase
     public function testPostOrderProductValidationOutput()
     {
         $store = $this->factory()->store()->getStore();
-        $product = $this->createProduct();
+        $product = $this->createProductByName();
 
         $postData = array(
                 'product' => $product,

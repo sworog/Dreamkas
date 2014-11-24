@@ -1,0 +1,59 @@
+<% if (sortedCollection.length) { %>
+<table name="report" class="table table_productsProfit table-striped">
+    <thead>
+    <tr>
+        <th data-sort-by="product.name">
+            Товар
+        </th>
+        <th data-sort-by="grossSales">
+            Продажи, <i class="fa fa-rub"></i>
+        </th>
+        <th data-sort-by="costOfGoods">
+            Себестоимость, <i class="fa fa-rub"></i>
+        </th>
+        <th data-sort-by="grossMargin">
+            Прибыль, <i class="fa fa-rub"></i>
+        </th>
+        <th data-sort-by="quantity">
+            Количество
+        </th>
+    </tr>
+    </thead>
+    <tbody name="profit">
+
+    <% sortedCollection.forEach(function(profitModel){ %>
+    <tr name="product">
+        <td name="name">
+            <%- profitModel.get('product.name') %>
+        </td>
+        <td name="grossSales">
+            <span name="grossSalesValue">
+                <%- formatMoney(profitModel.get('grossSales')) %>
+            </span>
+            <span name="grossSalesPercent" class="table_productsProfit__percent">
+                (<%- calculateGrossSalesPercent(profitModel.get('grossSales')) %>%)
+            </span>
+        </td>
+        <td name="costOfGoods">
+            <%- formatMoney(profitModel.get('costOfGoods')) %>
+        </td>
+        <td name="grossMargin">
+            <span name="grossMarginValue">
+                <%- formatMoney(profitModel.get('grossMargin')) %>
+            </span>
+            <span name="grossMarginPercent" class="table_productsProfit__percent">
+                (<%- calculateGrossMarginPercent(profitModel.get('grossMargin')) %>%)
+            </span>
+        </td>
+        <td name="quantity">
+            <%- formatAmount(profitModel.get('quantity')) %> <%- profitModel.get('product.units') %>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+<% } else { %>
+<div class="alert alert-info">
+    Ассортимент пуст. Добавьте хотя бы один товар.
+</div>
+<% } %>

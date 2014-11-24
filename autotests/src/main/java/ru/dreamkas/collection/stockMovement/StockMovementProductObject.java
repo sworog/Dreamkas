@@ -48,10 +48,9 @@ public abstract class StockMovementProductObject extends AbstractObject implemen
                 .compare("totalPrice", totalPrice, row.get("totalPrice"));
     }
 
-    public abstract void clickDeleteIcon();
-
-    protected void clickDeleteIcon(String cssClass) {
-        String xpath = String.format(".//*[@class='%s btn fa fa-times']", cssClass);
+    public void clickDeleteIcon() {
+        String xpath = (".//*[contains(@class, 'removeProductLink')]");
         getElement().findElement(org.openqa.selenium.By.xpath(xpath)).click();
+
     }
 }
