@@ -97,7 +97,7 @@ class StoreController extends AbstractRestController
      */
     public function getStoresAction()
     {
-        return $this->documentRepository->findAll();
+        return $this->documentRepository->findAllActive();
     }
 
     /**

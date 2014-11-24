@@ -666,7 +666,6 @@ class StoreControllerTest extends WebTestCase
 
     public function testDeleteStoreNotVisibleInList()
     {
-
         $store1 = $this->factory()->store()->createStore("first");
         $store2 = $this->factory()->store()->createStore("second");
 
@@ -701,15 +700,24 @@ class StoreControllerTest extends WebTestCase
         $store2 = $this->factory()->store()->createStore("second");
 
         $productId = $this->createProduct();
+        $product2Id = $this->createProduct("2");
 
         $invoice = $this->factory()
             ->invoice()
-            ->createInvoice(array(), $store1->id)
-            ->createInvoiceProduct($productId, 1, 1)
+                ->createInvoice(array(), $store1->id)
+                ->createInvoiceProduct($productId, 1, 1)
+                ->createInvoiceProduct($product2Id, 1, 1)
+            ->flush();
+
+        $sale = $this->factory()
+            ->receipt()
+            ->createSale($store1)
+            ->createReceiptProduct($productId, 1, 2)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
+        $this->client->setCatchException();
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             "DELETE",
@@ -718,7 +726,7 @@ class StoreControllerTest extends WebTestCase
 
         $this->assertResponseCode(409);
         Assert::assertJsonPathEquals(
-            'Для удаления магазина очистите все остатки товаров в нем.',
+            'Удаление невозможно, на магазине числится остаток товаров.',
             'message',
             $deleteResponse
         );
