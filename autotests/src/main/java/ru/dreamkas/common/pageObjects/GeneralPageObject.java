@@ -33,4 +33,8 @@ public interface GeneralPageObject {
     public void clickOnCommonItemWihName(String commonItemName);
 
     public void open();
+
+    public void collectionNotContainObjectWithLocator(String locator);
+
+    public void collectionContainObjectWithLocator(String locator);
 }

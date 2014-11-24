@@ -1,6 +1,7 @@
 package ru.dreamkas.elements.items;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import ru.dreamkas.common.item.CommonItem;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.pages.modal.ModalWindowPage;
@@ -31,5 +32,10 @@ public class SelectByVisibleText extends CommonItem {
     @Override
     public String getText() {
         return getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
+    }
+
+    public Boolean containsOption(String value) {
+        WebElement element = getPageObject().getWaiter().getVisibleWebElement(getFindBy());
+        return getPageObject().$(element).containsSelectOption(value);
     }
 }
