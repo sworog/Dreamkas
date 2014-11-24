@@ -10,6 +10,8 @@
 #import "MoreButton.h"
 #import "SaleItemCell.h"
 
+#define DefaultTableViewHeight 568.f
+
 @interface SaleViewController () <KeyboardEventsListenerProtocol>
 
 @property (nonatomic, weak) IBOutlet CustomLabel *infoMsgLabel;
@@ -151,7 +153,7 @@
     
     [self.view setHeight:DefaultSideContainerViewHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
     
-    [self configureVisibleOfBottomButtons:[self countOfItems] forTableHeight:(self.tableViewItem.height-CGRectGetHeight(keyboard_bounds))];
+    [self configureVisibleOfBottomButtons:[self countOfItems] forTableHeight:(DefaultTableViewHeight-CGRectGetHeight(keyboard_bounds))];
 }
 
 - (void)keyboardWillDisappear:(NSNotification *)notification
@@ -163,7 +165,7 @@
     
     [self.view setHeight:DefaultSideContainerViewHeight];
     
-    [self configureVisibleOfBottomButtons:[self countOfItems] forTableHeight:(self.tableViewItem.height+CGRectGetHeight(keyboard_bounds))];
+    [self configureVisibleOfBottomButtons:[self countOfItems] forTableHeight:DefaultTableViewHeight];
 }
 
 #pragma mark - Методы CustomTableViewController
