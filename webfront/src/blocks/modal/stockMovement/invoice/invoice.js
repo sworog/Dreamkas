@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Modal_stockMovement.extend({
 		id: 'modal_invoice',
 		Model: require('resources/invoice/model'),
-		Form: require('blocks/form/stockMovement/supplier/invoice/invoice'),
+		Form: require('blocks/form/stockMovement/invoice/invoice'),
 		Form_products: require('blocks/form/stockMovementProducts/invoice/invoice'),
 		addButtonCaption: 'Принять',
 		addTitle: 'Приёмка товаров от поставщика',
