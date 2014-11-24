@@ -132,7 +132,6 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
     
     [self.view setHeight:DefaultSideContainerViewHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
-    [self.tableViewItem reloadData];
 }
 
 - (void)keyboardWillDisappear:(NSNotification *)notification
@@ -140,7 +139,6 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     DPLogFast(@"");
     
     [self.view setHeight:DefaultSideContainerViewHeight];
-    [self.tableViewItem reloadData];
 }
 
 #pragma mark - Методы UITextfield Delegate

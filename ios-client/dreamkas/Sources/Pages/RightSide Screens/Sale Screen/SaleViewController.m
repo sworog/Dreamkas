@@ -136,7 +136,7 @@
 
 #pragma mark - Методы KeyboardEventsListenerProtocol
 
-- (void)keyboardDidAppear:(NSNotification *)notification
+- (void)keyboardWillAppear:(NSNotification *)notification
 {
     DPLogFast(@"self.tableViewItem = %@", self.tableViewItem);
     
@@ -144,7 +144,6 @@
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
     
     [self.view setHeight:DefaultSideContainerViewHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
-    [self.tableViewItem reloadData];
 }
 
 - (void)keyboardWillDisappear:(NSNotification *)notification
@@ -152,7 +151,6 @@
     DPLogFast(@"");
     
     [self.view setHeight:DefaultSideContainerViewHeight];
-    [self.tableViewItem reloadData];
 }
 
 #pragma mark - Методы CustomTableViewController
