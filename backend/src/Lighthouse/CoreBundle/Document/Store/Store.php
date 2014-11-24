@@ -4,14 +4,17 @@ namespace Lighthouse\CoreBundle\Document\Store;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Department\Department;
+use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use InvalidArgumentException;
 use JMS\Serializer\Annotation\Exclude;
+use DateTime;
 
 /**
  * @property string $id
@@ -24,8 +27,10 @@ use JMS\Serializer\Annotation\Exclude;
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\Store\StoreRepository")
  * @Unique(fields="name", message="lighthouse.validation.errors.store.name.unique")
+ *
+ * @SoftDeleteable
  */
-class Store extends AbstractDocument
+class Store extends AbstractDocument implements SoftDeleteableDocument
 {
     const REL_STORE_MANAGERS = 'storeManagers';
     const REL_DEPARTMENT_MANAGERS = 'departmentManagers';
@@ -103,6 +108,12 @@ class Store extends AbstractDocument
     protected $departmentManagers;
 
     /**
+     * @MongoDB\Date
+     * @var DateTime
+     */
+    protected $deletedAt;
+
+    /**
      *
      */
     public function __construct()
@@ -110,6 +121,22 @@ class Store extends AbstractDocument
         $this->departments = new ArrayCollection();
         $this->storeManagers = new ArrayCollection();
         $this->departmentManagers = new ArrayCollection();
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoftDeleteableName()
+    {
+        return 'name';
     }
 
     /**

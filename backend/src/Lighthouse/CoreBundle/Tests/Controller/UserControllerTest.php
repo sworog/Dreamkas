@@ -1018,6 +1018,7 @@ class UserControllerTest extends WebTestCase
                         'GET'
                     ),
                     'stores' => array(
+                        'DELETE::{store}',
                         'GET',
                         'GET::{store}',
                         'GET::{store}/departmentManagers',

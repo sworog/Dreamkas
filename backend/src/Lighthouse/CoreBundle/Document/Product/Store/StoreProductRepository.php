@@ -478,4 +478,18 @@ class StoreProductRepository extends DocumentRepository
 
         $query->getQuery()->execute();
     }
+
+    /**
+     * @param Store $store
+     * @return bool
+     */
+    public function checkStoreIsEmpty(Store $store)
+    {
+        $cursor = $this->findBy(array(
+            'store' => $store->id,
+            'inventory' => array('$ne' => 0)
+        ));
+
+        return !$cursor->count();
+    }
 }

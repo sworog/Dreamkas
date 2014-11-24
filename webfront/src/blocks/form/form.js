@@ -43,6 +43,11 @@ define(function(require) {
                 });
 
                 submitting.fail(function(response) {
+
+                    if (response.statusText === 'abort') {
+                        return;
+                    }
+
                     block.submitError(response);
                     block.trigger('submit:error', response);
                 });
@@ -79,7 +84,7 @@ define(function(require) {
             //закрытие modal при удалении сущности
             if (block.model) {
                 block.listenTo(block.model, {
-                    destroy: function () {
+                    destroy: function() {
                         var modal = block.$el.closest('.modal')[0];
 
                         if (modal) {
@@ -100,7 +105,7 @@ define(function(require) {
 
             block.originalData = block.getData();
         },
-        getData: function(){
+        getData: function() {
 
             var block = this;
 
@@ -145,7 +150,7 @@ define(function(require) {
             }
 
             if (modal && !modal.block.referrer) {
-                modal.block.hide({ submitSuccess: true });
+                modal.block.hide({submitSuccess: true});
             }
 
             if (modal && modal.block.referrer) {
@@ -166,7 +171,7 @@ define(function(require) {
 
             block.showErrors(JSON.parse(response.responseText), response);
         },
-        showError: function(errorMessage, field){
+        showError: function(errorMessage, field) {
 
             var block = this,
                 inputElement = block.el.querySelector('[name="' + field + '"]'),
@@ -174,7 +179,7 @@ define(function(require) {
 
             inputElement && inputElement.classList.add('invalid');
 
-            if (errorContainer){
+            if (errorContainer) {
                 errorContainer.classList.add('form__errorMessage_visible');
                 errorContainer.innerHTML = errorMessage;
             }
@@ -190,7 +195,7 @@ define(function(require) {
 
                 errorMessage = data.errors.map(getText).join('. ');
 
-                if (errorElement){
+                if (errorElement) {
                     errorElement.classList.add('form__errorMessage_visible');
                     errorElement.innerHTML = getText(errorMessage);
                 }
@@ -277,7 +282,7 @@ define(function(require) {
 
             block.$(':input').val('');
         },
-        isChanged: function(){
+        isChanged: function() {
 
             var block = this,
                 originalData = block.originalData,
