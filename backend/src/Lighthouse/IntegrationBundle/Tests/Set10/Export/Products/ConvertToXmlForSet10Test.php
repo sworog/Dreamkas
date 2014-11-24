@@ -2,7 +2,7 @@
 
 namespace Lighthouse\IntegrationBundle\Tests\Set10\Export\Products;
 
-use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
+use Lighthouse\IntegrationBundle\Document\Integration\Set10\ExportProductsJob;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
@@ -13,7 +13,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\IntegrationBundle\Set10\Export\Products\ExportProductsWorker;
 use Lighthouse\IntegrationBundle\Set10\Export\Products\Set10Export;
 use Lighthouse\IntegrationBundle\Set10\Export\Products\Set10ProductConverter;
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
 use Symfony\Component\Filesystem\Filesystem;
@@ -603,7 +603,7 @@ EOF;
         $this->getDocumentManager()->clear();
 
         /* @var JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager = $this->getContainer()->get('lighthouse.job.manager');
 
         $jobManager->startWatchingTubes();
         $job = $jobManager->reserveJob(0);
@@ -837,7 +837,7 @@ EOF;
      */
     protected function getJobManager()
     {
-        return $this->getContainer()->get('lighthouse.core.job.manager');
+        return $this->getContainer()->get('lighthouse.job.manager');
     }
 
     /**

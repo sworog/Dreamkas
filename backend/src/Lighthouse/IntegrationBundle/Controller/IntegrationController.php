@@ -3,24 +3,24 @@
 namespace Lighthouse\IntegrationBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
-use Lighthouse\CoreBundle\Job\JobManager;
-use Lighthouse\CoreBundle\Job\JobRepository;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Lighthouse\IntegrationBundle\Document\Integration\Set10\ExportProductsJob;
+use Lighthouse\JobBundle\Job\JobManager;
+use Lighthouse\JobBundle\Document\Job\JobRepository;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class IntegrationController extends FOSRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.job.repository")
+     * @DI\Inject("lighthouse.job.repository")
      * @var JobRepository
      */
     protected $documentRepository;
 
     /**
-     * @DI\Inject("lighthouse.core.job.manager")
+     * @DI\Inject("lighthouse.job.manager")
      * @var JobManager
      */
     protected $jobManager;

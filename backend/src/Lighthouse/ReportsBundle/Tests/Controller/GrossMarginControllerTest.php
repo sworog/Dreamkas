@@ -5,7 +5,7 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsManager;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
@@ -337,7 +337,7 @@ class GrossMarginControllerTest extends WebTestCase
                 ->flush();
 
         // Calculate CostOfGoods
-        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
         /* @var GrossMarginManager $grossMarginReportManager */
@@ -448,7 +448,7 @@ class GrossMarginControllerTest extends WebTestCase
         $costOfGoodsManager->createCalculateJobsForUnprocessed();
 
         /* @var JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager = $this->getContainer()->get('lighthouse.job.manager');
         $jobManager->startWatchingTubes();
         while (1) {
             $job = $jobManager->reserveJob(0);
