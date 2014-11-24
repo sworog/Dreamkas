@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 		Model: null,
         deleted: false,
         deletedTitle: 'Удаление прошло успешно',
+        removeButtonText: 'Удалить операцию',
         partials: {
             deleted: require('ejs!./deleted.ejs')
         },
@@ -44,7 +45,16 @@ define(function(require, exports, module) {
                     collection: this.model.collections.products
                 });
             },
-            form_store: require('blocks/form/store/store')
+            form_store: require('blocks/form/store/store'),
+            removeButton: function(options){
+
+                var block = this,
+                    RemoveButton = require('blocks/removeButton/removeButton');
+
+                return new RemoveButton(_.extend({
+                    model: block.model
+                }, options));
+            }
         },
         close: function(options) {
 

@@ -25,6 +25,7 @@
 @import "blocks/removeLink/removeLink.css";
 @import "blocks/select/select.css";
 @import "blocks/inputDateRange/inputDateRange.css";
+@import "blocks/removeButton/removeButton.css";
 
 html, body {
     height: 100%;
