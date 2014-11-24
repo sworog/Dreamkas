@@ -99,12 +99,18 @@
     NSString *title = [NSString stringWithFormat:@"%@ %@ ₽", NSLocalizedString(@"make_sale_button_title", nil), [CountSaleHelper countSaleItemsTotalSum]];
     [self.saleButton setTitle:title forState:UIControlStateNormal];
     
-    DPLogFast(@"size = %@", NSStringFromCGSize(self.tableViewItem.contentSize));
+    [self configureVisibleOfBottomButtons:count_of_elements forTableHeight:self.tableViewItem.height];
+}
+
+- (void)configureVisibleOfBottomButtons:(NSInteger)countOfElements forTableHeight:(CGFloat)tableHeight
+{
+    DPLogFast(@"content size = %@", NSStringFromCGSize(self.tableViewItem.contentSize));
+    
     if (self.tableViewItem.isHidden) {
         [self.clearSaleView setHidden:YES];
     }
     else {
-        if ((count_of_elements*DefaultSingleLineCellHeight + self.clearSaleFooterView.height) > self.tableViewItem.height) {
+        if ((countOfElements*DefaultSingleLineCellHeight + self.clearSaleFooterView.height) > tableHeight) {
             [self.clearSaleView setHidden:NO];
             [self.clearSaleFooterView setHidden:YES];
         }
@@ -138,19 +144,26 @@
 
 - (void)keyboardWillAppear:(NSNotification *)notification
 {
-    DPLogFast(@"self.tableViewItem = %@", self.tableViewItem);
+    DPLogFast(@"");
     
     CGRect keyboard_bounds;
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
     
     [self.view setHeight:DefaultSideContainerViewHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
+    
+    [self configureVisibleOfBottomButtons:[self countOfItems] forTableHeight:(self.tableViewItem.height-CGRectGetHeight(keyboard_bounds))];
 }
 
 - (void)keyboardWillDisappear:(NSNotification *)notification
 {
     DPLogFast(@"");
     
+    CGRect keyboard_bounds;
+    [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
+    
     [self.view setHeight:DefaultSideContainerViewHeight];
+    
+    [self configureVisibleOfBottomButtons:[self countOfItems] forTableHeight:(self.tableViewItem.height+CGRectGetHeight(keyboard_bounds))];
 }
 
 #pragma mark - Методы CustomTableViewController
