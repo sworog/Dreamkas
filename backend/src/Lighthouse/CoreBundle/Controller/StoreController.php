@@ -113,6 +113,18 @@ class StoreController extends AbstractRestController
 
     /**
      * @param Store $store
+     *
+     * @Rest\View(statusCode=204)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteStoreAction(Store $store)
+    {
+        $this->processDelete($store);
+    }
+
+    /**
+     * @param Store $store
      * @param Links|Link[] $links
      * @throws BadRequestHttpException
      * @throws ConflictHttpException
