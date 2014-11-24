@@ -118,6 +118,7 @@ dependencies
             }
             androidTestCompile 'com.google.guava:guava:11.0.2'
             androidTestCompile 'com.squareup.spoon:spoon-client:1.1.0'
+            androidTestCompile 'com.surftools:BeanstalkClient:1.4.6'
 
             apt "org.androidannotations:androidannotations:3.0"
             compile 'com.android.support:support-v4:19.0.0'
