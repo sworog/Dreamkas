@@ -3536,7 +3536,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('products.*.product.subCategory.category', $getResponse);
     }
 
-    public function testPostInvoiceWithDeletedSupplier()
+    public function testPostWithDeletedSupplier()
     {
         $store = $this->factory()->store()->createStore();
 
@@ -3565,7 +3565,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(0, 'errors.children.store.errors', $postResponse);
     }
 
-    public function testPostInvoiceWithDeletedStore()
+    public function testPostWithDeletedStore()
     {
         $store = $this->factory()->store()->createStore();
 
@@ -3594,7 +3594,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(0, 'errors.children.supplier.errors', $postResponse);
     }
 
-    public function testPostInvoiceWithDeletedSupplierAndStore()
+    public function testPostWithDeletedSupplierAndStore()
     {
         $store = $this->factory()->store()->createStore();
         $supplier = $this->factory()->supplier()->getSupplier();
@@ -3628,7 +3628,7 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
-    public function testPutInvoiceWithDeletedSupplier()
+    public function testPutWithDeletedSupplier()
     {
         $store = $this->factory()->store()->createStore();
 
@@ -3668,7 +3668,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(0, 'errors.children.store.errors', $putResponse);
     }
 
-    public function testPutInvoiceWithDeletedStore()
+    public function testPutWithDeletedStore()
     {
         $store = $this->factory()->store()->createStore();
         $supplier = $this->factory()->supplier()->getSupplier();
@@ -3713,7 +3713,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(0, 'errors.children.supplier.errors.0', $putResponse);
     }
 
-    public function testPutInvoiceWithDeletedSupplierAndStore()
+    public function testPutWithDeletedSupplierAndStore()
     {
         $store = $this->factory()->store()->createStore();
         $supplier = $this->factory()->supplier()->getSupplier();
@@ -3762,7 +3762,7 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
-    public function testDeleteInvoiceWithDeletedStore()
+    public function testDeleteWithDeletedStore()
     {
         $store = $this->factory()->store()->getStore();
 
@@ -3800,7 +3800,7 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
-    public function testDeleteInvoiceWithDeletedSupplier()
+    public function testDeleteWithDeletedSupplier()
     {
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -3831,7 +3831,7 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
-    public function testDeleteInvoiceWithDeletedStoreAndSupplier()
+    public function testDeleteWithDeletedStoreAndSupplier()
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
