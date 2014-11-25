@@ -7,7 +7,6 @@ import ru.dreamkas.common.item.interfaces.Clickable;
 import ru.dreamkas.common.item.interfaces.CommonItemType;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.ModalWindowPageObject;
-import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
 import ru.dreamkas.elements.items.NonType;
 
 /**
@@ -23,8 +22,6 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
         super(driver);
         put("кнопка закрытия модального окна", new NonType(this, "//*[contains(@class, 'modal__closeLink')]"));
         put("кнопка продолжить", new NonType(this, "//*[@name='removeContinue']"));
-        putDefaultConfirmationOkButton(
-                new PrimaryBtnFacade(this, "Сохранить"));
         putDefaultDeleteButton(new NonType(this, "//*[contains(@class, 'removeButton')]/a"));
         putDefaultConfirmationDeleteButton(new NonType(this, "//*[contains(@class, 'removeButton_confirm')]/a[contains(@class, 'confirm')]"));
     }
