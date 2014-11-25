@@ -13,6 +13,6 @@ public class StockInEditModalWindow extends StockInCreateModalWindow {
         super.createElements();
 
         putDefaultConfirmationOkButton(
-                confirmationOkClick("Сохранить"));
+                getConfirmationOkButton("Сохранить"));
     }
 }

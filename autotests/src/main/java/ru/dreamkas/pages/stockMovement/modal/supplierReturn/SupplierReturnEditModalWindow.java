@@ -1,7 +1,6 @@
 package ru.dreamkas.pages.stockMovement.modal.supplierReturn;
 
 import org.openqa.selenium.WebDriver;
-import ru.dreamkas.elements.items.NonType;
 
 public class SupplierReturnEditModalWindow extends SupplierReturnCreateModalWindow {
 
@@ -14,6 +13,6 @@ public class SupplierReturnEditModalWindow extends SupplierReturnCreateModalWind
         super.createElements();
 
         putDefaultConfirmationOkButton(
-                confirmationOkClick("Сохранить"));
+                getConfirmationOkButton("Сохранить"));
     }
 }

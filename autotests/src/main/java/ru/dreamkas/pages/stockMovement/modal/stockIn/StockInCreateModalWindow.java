@@ -1,6 +1,5 @@
 package ru.dreamkas.pages.stockMovement.modal.stockIn;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.collection.stockMovement.stockIn.StockInProductCollection;
 import ru.dreamkas.elements.bootstrap.buttons.TransparentBtnFacade;
@@ -29,7 +28,7 @@ public class StockInCreateModalWindow extends StockMovementModalPage {
         put("плюсик, чтобы создать новый товар", new NonType(this, "//*[contains(@data-modal, 'modal_productForAutocomplete') and not(contains(@class, 'btn'))]"));
 
         putDefaultConfirmationOkButton(
-                confirmationOkClick("Оприходовать"));
+                getConfirmationOkButton("Оприходовать"));
     }
 
     @Override

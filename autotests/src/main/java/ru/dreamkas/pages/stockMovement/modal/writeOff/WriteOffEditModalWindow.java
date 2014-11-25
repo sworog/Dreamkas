@@ -13,6 +13,6 @@ public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
         super.createElements();
 
         putDefaultConfirmationOkButton(
-                confirmationOkClick("Сохранить"));
+                getConfirmationOkButton("Сохранить"));
     }
 }

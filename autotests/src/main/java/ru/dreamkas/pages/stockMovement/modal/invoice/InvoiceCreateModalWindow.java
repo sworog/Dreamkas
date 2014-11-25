@@ -32,7 +32,7 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage implements 
         put("плюсик, чтобы создать новый товар", new NonType(this, "//*[contains(@data-modal, 'modal_productForAutocomplete') and not(contains(@class, 'btn'))]"));
 
         putDefaultConfirmationOkButton(
-                confirmationOkClick("Принять"));
+                getConfirmationOkButton("Принять"));
     }
 
     @Override

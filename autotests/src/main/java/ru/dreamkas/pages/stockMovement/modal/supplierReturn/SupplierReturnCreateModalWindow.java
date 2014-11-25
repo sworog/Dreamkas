@@ -19,7 +19,7 @@ public class SupplierReturnCreateModalWindow extends StockMovementModalPage impl
         put("supplier", new SelectByVisibleText(this, "//*[@name='supplier']"));
 
         putDefaultConfirmationOkButton(
-                confirmationOkClick("Вернуть"));
+                getConfirmationOkButton("Вернуть"));
     }
 
     @Override

@@ -13,6 +13,6 @@ public class InvoiceEditModalWindow extends InvoiceCreateModalWindow {
         super.createElements();
 
         putDefaultConfirmationOkButton(
-                confirmationOkClick("Сохранить"));
+                getConfirmationOkButton("Сохранить"));
     }
 }
