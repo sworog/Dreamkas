@@ -3786,7 +3786,7 @@ class InvoiceControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->client->setCatchException();
-        $invoiceDeleteResponse = $this->clientJsonRequest(
+        $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
             "/api/1/invoices/{$invoice->id}"
@@ -3796,7 +3796,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(
             'Удаление операции с участием удаленного магазина запрещено',
             'message',
-            $invoiceDeleteResponse
+            $deleteResponse
         );
     }
 
@@ -3817,7 +3817,7 @@ class InvoiceControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->client->setCatchException();
-        $invoiceDeleteResponse = $this->clientJsonRequest(
+        $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
             "/api/1/invoices/{$invoice->id}"
@@ -3827,7 +3827,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(
             'Удаление операции с участием удаленного поставщика запрещено',
             'message',
-            $invoiceDeleteResponse
+            $deleteResponse
         );
     }
 
@@ -3856,7 +3856,7 @@ class InvoiceControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->client->setCatchException();
-        $invoiceDeleteResponse = $this->clientJsonRequest(
+        $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
             "/api/1/invoices/{$invoice->id}"
@@ -3869,7 +3869,7 @@ class InvoiceControllerTest extends WebTestCase
 Удаление операции с участием удаленного поставщика запрещено
 EOF;
 
-        Assert::assertJsonPathEquals($expectedMessage, 'message', $invoiceDeleteResponse);
+        Assert::assertJsonPathEquals($expectedMessage, 'message', $deleteResponse);
     }
 
     /**

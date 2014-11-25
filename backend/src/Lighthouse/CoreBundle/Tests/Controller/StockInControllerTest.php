@@ -1087,6 +1087,121 @@ class StockInControllerTest extends WebTestCase
         $this->assertStockInProductDelete($stockIn->products[0]->id);
     }
 
+    public function testPostWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->store()->deleteStore($store);
+
+        $stockInData = StockInBuilder::create(null, $store->id)
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stockIns',
+            $stockInData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $postResponse
+        );
+
+        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors', $postResponse);
+    }
+
+    public function testPutWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $stockInData = StockInBuilder::create(null, $store->id)
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stockIns',
+            $stockInData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/stockIns/{$postResponse['id']}",
+            $stockInData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors.0', $putResponse);
+    }
+
+    public function testDeleteWithDeletedStore()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $stockIn = $this->factory()
+            ->stockIn()
+                ->createStockIn($store)
+                ->createStockInProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($product->id, 10, 7.49)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/stockIns/{$stockIn->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Удаление операции с участием удаленного магазина запрещено',
+            'message',
+            $deleteResponse
+        );
+    }
+
     /**
      * @param string $invoiceId
      */
