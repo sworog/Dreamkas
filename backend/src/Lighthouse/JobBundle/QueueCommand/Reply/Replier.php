@@ -2,7 +2,6 @@
 
 namespace Lighthouse\JobBundle\QueueCommand\Reply;
 
-use Lighthouse\JobBundle\QueueCommand\Reply\Reply;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 
 class Replier

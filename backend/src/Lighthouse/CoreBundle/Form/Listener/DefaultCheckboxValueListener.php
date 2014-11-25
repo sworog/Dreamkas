@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Form\Listener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use ReflectionProperty;
 
 class DefaultCheckboxValueListener implements EventSubscriberInterface
 {

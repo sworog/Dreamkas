@@ -637,8 +637,8 @@ class StoreControllerTest extends WebTestCase
 
     public function testDeleteAction()
     {
-        $store1 = $this->factory()->store()->createStore("first");
-        $store2 = $this->factory()->store()->createStore("second");
+        $store1 = $this->factory()->store()->createStore('first');
+        $this->factory()->store()->createStore('second');
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
@@ -696,23 +696,23 @@ class StoreControllerTest extends WebTestCase
 
     public function testDeleteNotEmptyStore()
     {
-        $store1 = $this->factory()->store()->createStore("first");
-        $store2 = $this->factory()->store()->createStore("second");
+        $store1 = $this->factory()->store()->createStore('first');
+        $this->factory()->store()->createStore('second');
 
         $productId = $this->createProduct();
-        $product2Id = $this->createProduct("2");
+        $product2Id = $this->createProduct('2');
 
-        $invoice = $this->factory()
+        $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store1->id)
                 ->createInvoiceProduct($productId, 1, 1)
                 ->createInvoiceProduct($product2Id, 1, 1)
             ->flush();
 
-        $sale = $this->factory()
+        $this->factory()
             ->receipt()
-            ->createSale($store1)
-            ->createReceiptProduct($productId, 1, 2)
+                ->createSale($store1)
+                ->createReceiptProduct($productId, 1, 2)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
@@ -720,7 +720,7 @@ class StoreControllerTest extends WebTestCase
         $this->client->setCatchException();
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
-            "DELETE",
+            'DELETE',
             "/api/1/stores/{$store1->id}"
         );
 
@@ -734,8 +734,8 @@ class StoreControllerTest extends WebTestCase
 
     public function testDeleteStoreVisibleInCreatedInvoice()
     {
-        $store1 = $this->factory()->store()->createStore("first");
-        $store2 = $this->factory()->store()->createStore("second");
+        $store1 = $this->factory()->store()->createStore('first');
+        $this->factory()->store()->createStore('second');
 
         $productId = $this->createProduct();
 
@@ -745,7 +745,7 @@ class StoreControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId, 1, 1)
             ->flush();
 
-        $sale = $this->factory()
+        $this->factory()
             ->receipt()
                 ->createSale($store1)
                 ->createReceiptProduct($productId, 1, 2)
@@ -755,7 +755,7 @@ class StoreControllerTest extends WebTestCase
 
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
-            "DELETE",
+            'DELETE',
             "/api/1/stores/{$store1->id}"
         );
 
@@ -765,13 +765,13 @@ class StoreControllerTest extends WebTestCase
 
         $invoiceResponse = $this->clientJsonRequest(
             $accessToken,
-            "GET",
+            'GET',
             "/api/1/invoices/{$invoice->id}"
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($store1->id, "store.id", $invoiceResponse);
-        Assert::assertJsonPathContains($store1->name, "store.name", $invoiceResponse);
+        Assert::assertJsonPathEquals($store1->id, 'store.id', $invoiceResponse);
+        Assert::assertJsonPathContains($store1->name, 'store.name', $invoiceResponse);
     }
 }
