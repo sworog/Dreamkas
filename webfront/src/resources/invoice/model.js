@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Model = require('kit/model/model'),
         cookies = require('cookies');
-    
+
     return Model.extend({
         storeId: null,
         fromOrder: null,
