@@ -47,16 +47,15 @@ class SupplierFactory extends AbstractFactory
 
     /**
      * @param string $name
+     * @param bool $validate
      * @return Supplier
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \InvalidArgumentException
      */
-    public function createSupplier($name = self::DEFAULT_SUPPLIER_NAME)
+    public function createSupplier($name = self::DEFAULT_SUPPLIER_NAME, $validate = true)
     {
         $supplier = new Supplier();
         $supplier->name = $name;
 
-        $this->doSave($supplier);
+        $this->doSave($supplier, $validate);
 
         $this->supplierNames[$supplier->name] = $supplier->id;
 

@@ -470,8 +470,8 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testDoubleCreate()
     {
-        $this->factory()->supplier()->createSupplier('1');
-        $this->factory()->supplier()->createSupplier('1');
+        $this->factory()->supplier()->createSupplier('1', true);
+        $this->factory()->supplier()->createSupplier('1', false);
     }
 
     /**
