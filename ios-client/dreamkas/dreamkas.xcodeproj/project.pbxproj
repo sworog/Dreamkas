@@ -125,6 +125,7 @@
 		CE519BDE1A1CB21D007ED2BC /* resetsim.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE519BDC1A1CB21D007ED2BC /* resetsim.sh */; };
 		CE6B866E1A24844800669D9F /* AbstractViewController+ActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B866D1A24844800669D9F /* AbstractViewController+ActionButton.m */; };
 		CE6B866F1A24844800669D9F /* AbstractViewController+ActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B866D1A24844800669D9F /* AbstractViewController+ActionButton.m */; };
+		CE6B86711A24A5DB00669D9F /* UTSaleTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6B86701A24A5DB00669D9F /* UTSaleTesting.m */; };
 		CE6CC1F019FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
 		CE6CC1F119FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
 		CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1F319FFB45F0087FE2C /* CloseButton.m */; };
@@ -442,6 +443,7 @@
 		CE519BDC1A1CB21D007ED2BC /* resetsim.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = resetsim.sh; sourceTree = "<group>"; };
 		CE6B866C1A24844800669D9F /* AbstractViewController+ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractViewController+ActionButton.h"; sourceTree = "<group>"; };
 		CE6B866D1A24844800669D9F /* AbstractViewController+ActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AbstractViewController+ActionButton.m"; sourceTree = "<group>"; };
+		CE6B86701A24A5DB00669D9F /* UTSaleTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UTSaleTesting.m; sourceTree = "<group>"; };
 		CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		CE6CC1F219FFB45F0087FE2C /* CloseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloseButton.h; sourceTree = "<group>"; };
 		CE6CC1F319FFB45F0087FE2C /* CloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloseButton.m; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 				CE91B79419F4ED4700258AB0 /* UTAuthTesting.m */,
 				CE912E8F1A0BD3A1001FDACE /* UTProductsTesting.m */,
 				CE91B79619F4ED6900258AB0 /* UTStoresTesting.m */,
+				CE6B86701A24A5DB00669D9F /* UTSaleTesting.m */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -1781,6 +1784,7 @@
 				CE39DDBF19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
 				CE39DDC319FFD39900150C28 /* GroupsViewController.m in Sources */,
 				CEF2646319E8127B008BE93A /* SignInViewController.m in Sources */,
+				CE6B86711A24A5DB00669D9F /* UTSaleTesting.m in Sources */,
 				CEF2647419E81D16008BE93A /* UIView+Positioning.m in Sources */,
 				CE915E161A1B63A20077C03B /* GroupModel.m in Sources */,
 				CE82B2941A02532200CBF803 /* SearchViewController.m in Sources */,
