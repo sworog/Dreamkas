@@ -18,6 +18,8 @@ set :git_enable_pull_requests, true
 set :repository, 'git@github.com:dreamkas/dreamkas.git'
 set :scm, :git
 
+set :npm_flag, '--production'
+
 ssh_options[:forward_agent] = true
 
 set :use_sudo, false
