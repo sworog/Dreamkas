@@ -56,12 +56,28 @@ class SupplierFactory extends AbstractFactory
         $supplier = new Supplier();
         $supplier->name = $name;
 
-        $this->getDocumentManager()->persist($supplier);
-        $this->getDocumentManager()->flush($supplier);
+        $this->doSave($supplier);
 
         $this->supplierNames[$supplier->name] = $supplier->id;
 
         return $supplier;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function deleteSupplierById($id)
+    {
+        $supplier = $this->getSupplierById($id);
+        $this->doDelete($supplier);
+    }
+
+    /**
+     * @param Supplier $supplier
+     */
+    public function deleteSupplier(Supplier $supplier)
+    {
+        $this->deleteSupplierById($supplier->id);
     }
 
     /**

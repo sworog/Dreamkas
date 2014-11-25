@@ -61,10 +61,19 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
     /**
      * @param AbstractDocument $document
      */
-    public function save($document)
+    protected function doSave($document)
     {
         $this->getValidator()->validate($document);
         $this->getDocumentManager()->persist($document);
+        $this->getDocumentManager()->flush();
+    }
+
+    /**
+     * @param AbstractDocument $document
+     */
+    protected function doDelete($document)
+    {
+        $this->getDocumentManager()->remove($document);
         $this->getDocumentManager()->flush();
     }
 

@@ -56,7 +56,7 @@ class CatalogFactory extends AbstractFactory
 
         $product->subCategory = $subCategory ?: $this->getSubCategory();
 
-        $this->save($product);
+        $this->doSave($product);
 
         $this->productNames[$name] = $product->id;
 
@@ -74,6 +74,16 @@ class CatalogFactory extends AbstractFactory
             $this->createProductByName($name, $subCategory);
         }
         return $this->getProductById($this->productNames[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function getProduct($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    {
+        return $this->getProductByName($name, $subCategory);
     }
 
     /**
@@ -122,7 +132,7 @@ class CatalogFactory extends AbstractFactory
         $group->retailMarkupMax = $retailMarkupMax;
         $group->rounding = $this->getRounding($rounding);
 
-        $this->save($group);
+        $this->doSave($group);
 
         $this->groupNames[$group->name] = $group->id;
 
