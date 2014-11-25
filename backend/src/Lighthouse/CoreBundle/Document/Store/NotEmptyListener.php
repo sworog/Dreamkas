@@ -51,7 +51,7 @@ class NotEmptyListener
                 throw new NotEmptyException(
                     $this
                         ->translator
-                        ->trans("lighthouse.messages.store.delete", array(), 'messages')
+                        ->trans('lighthouse.messages.store.delete', array(), 'messages')
                 );
             }
         }

@@ -37,6 +37,9 @@ lighthouse:
                 length:
                     not_blank: Отсутствует заголовок Content-Length
                     length: Размер файла должен быть меньше 10Мб
+            not_deleted:
+                is_deleted:
+                    Операция для удаленной сущности
 
             product:
                 sku.unique: Такой артикул уже есть

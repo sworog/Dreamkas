@@ -43,8 +43,10 @@ class NotDeleted extends Constraint
     /**
      * @return string
      */
+    /*
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
     }
+    */
 }

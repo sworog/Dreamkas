@@ -43,6 +43,21 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @param string $storeId
+     * @param string $supplierId
+     * @param string $productId
+     * @param string|float $quantity
+     * @param string|float $price
+     * @return array
+     */
+    public static function getStoreInvoiceData($storeId, $supplierId, $productId, $quantity = '10', $price = '5.99')
+    {
+        $invoiceData = self::getInvoiceData($supplierId, $productId, $quantity, $price);
+        $invoiceData['store'] = $storeId;
+        return $invoiceData;
+    }
+
     public function testStorePostInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
@@ -3519,6 +3534,141 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('products.*.product.subCategory.category.group', $getResponse);
         Assert::assertJsonPathCount(0, 'products.*.invoice.products.*.id', $getResponse);
         Assert::assertNotJsonHasPath('products.*.product.subCategory.category', $getResponse);
+    }
+
+    public function testPostInvoiceWithDeletedSupplier()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $invoiceData = self::getStoreInvoiceData($store->id, $supplier->id, $product->id);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операция для удаленной сущности',
+            'errors.children.supplier.errors.0',
+            $postResponse
+        );
+    }
+
+    public function testPutInvoiceWithDeletedSupplier()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $invoiceData = self::getStoreInvoiceData($store->id, $supplier->id, $product->id);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/invoices/{$postResponse['id']}",
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операция для удаленной сущности',
+            'errors.children.supplier.errors.0',
+            $putResponse
+        );
+    }
+
+    public function testDeleteInvoiceWithDeletedStore()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($product->id, 10, 7.49)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $invoiceDeleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/invoices/{$invoice->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Operation for deleted store is forbidden',
+            'message',
+            $invoiceDeleteResponse
+        );
+    }
+
+    public function testDeleteInvoiceWithDeletedSupplier()
+    {
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), null, $supplier->id)
+                ->createInvoiceProduct($product->id)
+            ->flush();
+
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $invoiceDeleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/invoices/{$invoice->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Operation for deleted supplier is forbidden',
+            'message',
+            $invoiceDeleteResponse
+        );
     }
 
     /**

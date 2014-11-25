@@ -9,6 +9,7 @@ use Doctrine\ODM\MongoDB\PersistentCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
+use Lighthouse\CoreBundle\Exception\HasDeletedException;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -124,6 +125,16 @@ abstract class StockMovement extends AbstractDocument implements Storeable
 
         foreach ($this->products as $product) {
             $product->parent = $this;
+        }
+    }
+
+    /**
+     * @MongoDB\PreRemove
+     */
+    public function preRemove()
+    {
+        if ($this->store->getDeletedAt()) {
+            throw new HasDeletedException('Operation for deleted store is forbidden');
         }
     }
 

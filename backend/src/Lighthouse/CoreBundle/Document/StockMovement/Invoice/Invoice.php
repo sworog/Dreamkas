@@ -9,6 +9,7 @@ use Doctrine\ODM\MongoDB\PersistentCollection;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
+use Lighthouse\CoreBundle\Exception\HasDeletedException;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,6 +30,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property Collection|InvoiceProduct[]|PersistentCollection $products
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository")
+ * @MongoDB\HasLifecycleCallbacks
  * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
  */
 class Invoice extends StockMovement
@@ -62,6 +64,7 @@ class Invoice extends StockMovement
      *     simple=true
      * )
      * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.supplier.does_not_exists")
+     * @AssertLH\NotDeleted(true)
      * @var Supplier
      */
     protected $supplier;
@@ -128,6 +131,18 @@ class Invoice extends StockMovement
      * @var InvoiceProduct[]|Collection
      */
     protected $products;
+
+    /**
+     * @MongoDB\PreRemove
+     */
+    public function preRemove()
+    {
+        parent::preRemove();
+
+        if ($this->supplier && $this->supplier->getDeletedAt()) {
+            throw new HasDeletedException('Operation for deleted supplier is forbidden');
+        }
+    }
 
     /**
      * @param Order $order

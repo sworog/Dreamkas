@@ -99,8 +99,10 @@ fos_rest:
     exception:
         codes:
             'Lighthouse\CoreBundle\Exception\NotEmptyException': 409
+            'Lighthouse\CoreBundle\Exception\HasDeletedException': 409
         messages:
             'Lighthouse\CoreBundle\Exception\NotEmptyException': true
+            'Lighthouse\CoreBundle\Exception\HasDeletedException': true
 
 nelmio_cors:
     paths:
