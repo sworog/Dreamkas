@@ -17,12 +17,12 @@ class SupplierReturnBuilder
     );
 
     /**
-     * @param string $date
      * @param string $storeId
+     * @param string $date
      * @param string $supplierId
      * @param bool $paid
      */
-    public function __construct($date = null, $storeId = null, $supplierId = null, $paid = false)
+    public function __construct($storeId = null, $date = null, $supplierId = null, $paid = false)
     {
         $this->setDate($date);
         if ($storeId) {
@@ -123,14 +123,14 @@ class SupplierReturnBuilder
     }
 
     /**
-     * @param string $date
      * @param string $storeId
+     * @param string $date
      * @param string $supplierId
      * @param bool $paid
      * @return SupplierReturnBuilder
      */
-    public static function create($date = null, $storeId = null, $supplierId = null, $paid = false)
+    public static function create($storeId = null, $date = null, $supplierId = null, $paid = false)
     {
-        return new self($date, $storeId, $supplierId, $paid);
+        return new self($storeId, $date, $supplierId, $paid);
     }
 }

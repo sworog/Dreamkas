@@ -18,7 +18,7 @@ class SupplierReturnControllerTest extends WebTestCase
         $productId = $this->createProductByName();
         $date = strtotime('-1 day');
 
-        $supplierReturnData = SupplierReturnBuilder::create(date('c', $date), $store->id, $supplier->id)
+        $supplierReturnData = SupplierReturnBuilder::create($store->id, date('c', $date), $supplier->id)
             ->addProduct($productId)
             ->toArray();
 
@@ -52,7 +52,7 @@ class SupplierReturnControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
         $productId = $this->createProductByName();
-        $supplierReturnData = SupplierReturnBuilder::create('2012-07-11', $store->id, $supplier->id)
+        $supplierReturnData = SupplierReturnBuilder::create($store->id, '2012-07-11', $supplier->id)
             ->addProduct($productId)
             ->toArray($data);
 
@@ -88,7 +88,7 @@ class SupplierReturnControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
         $productId = $this->createProductByName();
-        $postData = SupplierReturnBuilder::create('11.07.2012', $store->id, $supplier->id)
+        $postData = SupplierReturnBuilder::create($store->id, '11.07.2012', $supplier->id)
             ->addProduct($productId)
             ->toArray();
 
@@ -275,7 +275,7 @@ class SupplierReturnControllerTest extends WebTestCase
         $productId3 = $this->createProductByName('3');
 
         // Create supplier return with product#1
-        $supplierReturnData = SupplierReturnBuilder::create(null, $store->id)
+        $supplierReturnData = SupplierReturnBuilder::create($store->id)
             ->addProduct($productId1, 12, 5.99);
 
         $postResponse = $this->postSupplierReturn($supplierReturnData->toArray());
@@ -448,7 +448,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         $productId = $this->createProductByName();
 
-        $supplierReturnData = SupplierReturnBuilder::create(null, $store->id)
+        $supplierReturnData = SupplierReturnBuilder::create($store->id)
             ->addProduct($productId, 7.99, 2)
             ->toArray();
 
@@ -485,7 +485,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         $productId = $this->createProductByName();
 
-        $supplierReturnData = SupplierReturnBuilder::create(null, $store->id)
+        $supplierReturnData = SupplierReturnBuilder::create($store->id)
             ->addProduct($productId, 7.99, 2)
             ->toArray();
 
@@ -746,7 +746,7 @@ class SupplierReturnControllerTest extends WebTestCase
         $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
 
         // create product 1 write off
-        $supplierReturnData = SupplierReturnBuilder::create(null, $store->id)
+        $supplierReturnData = SupplierReturnBuilder::create($store->id)
             ->addProduct($productId1, 5, 3.49);
 
         $postResponse = $this->postSupplierReturn($supplierReturnData->toArray());
@@ -938,7 +938,7 @@ class SupplierReturnControllerTest extends WebTestCase
                 ->createSupplierReturnProduct($productId, 1, 9.99, 'Порча')
             ->flush();
 
-        $putData = SupplierReturnBuilder::create(null, $store->id)
+        $putData = SupplierReturnBuilder::create($store->id)
             ->addProduct($productId, '', 9.99)
             ->toArray();
 
@@ -1031,6 +1031,355 @@ class SupplierReturnControllerTest extends WebTestCase
 
         $this->assertSupplierReturnDelete($supplierReturn->id);
         $this->assertSupplierReturnProductDelete($supplierReturn->products[0]->id);
+    }
+
+
+    public function testPostWithDeletedSupplier()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $supplierReturnData = SupplierReturnBuilder::create($store->id, null, $supplier->id)
+            ->addProduct($product->id)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/supplierReturns',
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного поставщика запрещены',
+            'errors.children.supplier.errors.0',
+            $postResponse
+        );
+        Assert::assertJsonPathCount(0, 'errors.children.store.errors', $postResponse);
+    }
+
+    public function testPostWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->store()->deleteStore($store);
+
+        $supplierReturnData = SupplierReturnBuilder::create($store->id)
+            ->addProduct($product->id)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/supplierReturns',
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $postResponse
+        );
+
+        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors', $postResponse);
+    }
+
+    public function testPostWithDeletedSupplierAndStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->clear();
+        $this->factory()->supplier()->deleteSupplier($supplier);
+        $this->factory()->store()->deleteStore($store);
+
+        $supplierReturnData = SupplierReturnBuilder::create($store->id, null, $supplier->id)
+            ->addProduct($product->id)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/supplierReturns',
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного поставщика запрещены',
+            'errors.children.supplier.errors.0',
+            $postResponse
+        );
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $postResponse
+        );
+    }
+
+    public function testPutWithDeletedSupplier()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $supplierReturnData = SupplierReturnBuilder::create($store->id, null, $supplier->id)
+            ->addProduct($product->id)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/supplierReturns',
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/supplierReturns/{$postResponse['id']}",
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного поставщика запрещены',
+            'errors.children.supplier.errors.0',
+            $putResponse
+        );
+
+        Assert::assertJsonPathCount(0, 'errors.children.store.errors', $putResponse);
+    }
+
+    public function testPutWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id, $supplier->id)
+                ->createInvoiceProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $supplierReturnData = SupplierReturnBuilder::create($store->id, null, $supplier->id)
+            ->addProduct($product->id, 10, 6.00)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/supplierReturns',
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/supplierReturns/{$postResponse['id']}",
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors.0', $putResponse);
+    }
+
+    public function testPutWithDeletedSupplierAndStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id, $supplier->id)
+                ->createInvoiceProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $supplierReturnData = SupplierReturnBuilder::create($store->id, null, $supplier->id)
+            ->addProduct($product->id, 10, 6.00)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/supplierReturns',
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/supplierReturns/{$postResponse['id']}",
+            $supplierReturnData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного поставщика запрещены',
+            'errors.children.supplier.errors.0',
+            $putResponse
+        );
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+    }
+
+    public function testDeleteWithDeletedStore()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()
+            ->invoice()
+            ->createInvoice(array(), $store->id)
+            ->createInvoiceProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $supplierReturn = $this->factory()
+            ->supplierReturn()
+                ->createSupplierReturn($store)
+                ->createSupplierReturnProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/supplierReturns/{$supplierReturn->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Удаление операции с участием удаленного магазина запрещено',
+            'message',
+            $deleteResponse
+        );
+    }
+
+    public function testDeleteWithDeletedSupplier()
+    {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $supplierReturn = $this->factory()
+            ->supplierReturn()
+                ->createSupplierReturn($store)
+                ->createSupplierReturnProduct($product->id, 10, 7.49)
+            ->flush();
+
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/supplierReturns/{$supplierReturn->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Удаление операции с участием удаленного поставщика запрещено',
+            'message',
+            $deleteResponse
+        );
+    }
+
+    public function testDeleteWithDeletedStoreAndSupplier()
+    {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $supplierReturn = $this->factory()
+            ->supplierReturn()
+                ->createSupplierReturn($store)
+                ->createSupplierReturnProduct($product->id, 10, 7.49)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/supplierReturns/{$supplierReturn->id}"
+        );
+
+        $this->assertResponseCode(409);
+
+        $expectedMessage = <<<EOF
+Удаление операции с участием удаленного магазина запрещено
+Удаление операции с участием удаленного поставщика запрещено
+EOF;
+
+        Assert::assertJsonPathEquals($expectedMessage, 'message', $deleteResponse);
     }
 
     /**

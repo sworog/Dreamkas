@@ -47,6 +47,7 @@ class DeletedListener
             }
 
             if (($document instanceof Invoice || $document instanceof SupplierReturn)
+                && $document->supplier
                 && $document->supplier->getDeletedAt()
             ) {
                 $messages[] = $this->translator->trans(
