@@ -48,13 +48,13 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void storeCreateModalWindowCloseIconClick() {
-        storeCreateModalWindow.closeIconClick();
+        storeCreateModalWindow.close();
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void storeEditModalWindowCloseIconClick() {
-        storeEditModalWindow.closeIconClick();
+        storeEditModalWindow.close();
         new SimplePreloader(getDriver()).await();
     }
 

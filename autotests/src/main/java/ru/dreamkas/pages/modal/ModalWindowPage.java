@@ -8,6 +8,7 @@ import ru.dreamkas.common.item.interfaces.CommonItemType;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.ModalWindowPageObject;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
+import ru.dreamkas.elements.items.NonType;
 
 /**
  * Common page object representing modal window
@@ -16,6 +17,9 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
 
     public ModalWindowPage(WebDriver driver) {
         super(driver);
+
+        put("кнопка закрытия модального окна", new NonType(this, "//*[contains(@class, 'modal__closeLink')]"));
+
         putDefaultConfirmationOkButton(
                 new PrimaryBtnFacade(this, "Сохранить"));
     }
@@ -38,10 +42,6 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     public void whenPageOpens() {
         //Check that modal window is open
         findVisibleElement(By.id("modal-group"));
-    }
-
-    public void closeIconClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'modal__closeLink')]")).click();
     }
 
     @Override
@@ -69,6 +69,6 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
 
     @Override
     public void close() {
-        closeIconClick();
+        ((Clickable)getItems().get("кнопка закрытия модального окна")).click();
     }
 }

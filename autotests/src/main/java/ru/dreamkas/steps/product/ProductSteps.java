@@ -119,12 +119,12 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void createNewProductModalWindowCloseIconClick() {
-        createNewProductModalWindow.closeIconClick();
+        createNewProductModalWindow.close();
     }
 
     @Step
     public void editProductModalWindowCloseIconClick() {
-        editProductModalWindow.closeIconClick();
+        editProductModalWindow.close();
     }
 
     @Step
