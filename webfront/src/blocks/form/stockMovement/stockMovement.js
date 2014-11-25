@@ -19,11 +19,19 @@ define(function(require, exports, module) {
             select_store: function(options) {
                 var block = this,
                     StoreSelect = require('blocks/select/store/store'),
-                    stores = block.collections.stores.clone(),
+                    stores = block.collections.stores,
                     store = block.model.get('store');
 
                 if (store && !stores.findWhere({ id: store.id })) {
+
+                    stores = stores.clone();
                     stores.add(store);
+
+                    block.listenTo(block.collections.stores, {
+                        'add': function(store) {
+                            stores.add(store);
+                        }
+                    });
                 }
 
                 options.collection = stores;
@@ -33,11 +41,19 @@ define(function(require, exports, module) {
             select_supplier: function(options) {
                 var block = this,
                     SupplierSelect = require('blocks/select/supplier/supplier'),
-                    suppliers = block.collections.suppliers.clone(),
+                    suppliers = block.collections.suppliers,
                     supplier = block.model.get('supplier');
 
                 if (supplier && !suppliers.findWhere({ id: supplier.id })) {
+
+                    suppliers = suppliers.clone();
                     suppliers.add(supplier);
+
+                    block.listenTo(block.collections.suppliers, {
+                        'add': function(supplier) {
+                            suppliers.add(supplier);
+                        }
+                    });
                 }
 
                 options.collection = suppliers;
