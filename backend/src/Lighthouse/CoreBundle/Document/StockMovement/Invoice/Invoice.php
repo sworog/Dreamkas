@@ -30,7 +30,6 @@ use JMS\Serializer\Annotation as Serializer;
  * @property Collection|InvoiceProduct[]|PersistentCollection $products
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository")
- * @MongoDB\HasLifecycleCallbacks
  * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
  */
 class Invoice extends StockMovement
@@ -64,7 +63,7 @@ class Invoice extends StockMovement
      *     simple=true
      * )
      * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.supplier.does_not_exists")
-     * @AssertLH\NotDeleted(true)
+     * @AssertLH\NotDeleted(true, isDeletedMessage="lighthouse.validation.errors.deleted.supplier.forbid.edit")
      * @var Supplier
      */
     protected $supplier;
@@ -131,18 +130,6 @@ class Invoice extends StockMovement
      * @var InvoiceProduct[]|Collection
      */
     protected $products;
-
-    /**
-     * @MongoDB\PreRemove
-     */
-    public function preRemove()
-    {
-        parent::preRemove();
-
-        if ($this->supplier && $this->supplier->getDeletedAt()) {
-            throw new HasDeletedException('Operation for deleted supplier is forbidden');
-        }
-    }
 
     /**
      * @param Order $order

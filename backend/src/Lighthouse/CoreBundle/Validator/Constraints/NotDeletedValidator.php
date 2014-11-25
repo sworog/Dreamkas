@@ -36,6 +36,10 @@ class NotDeletedValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
+        if (null === $value) {
+            return;
+        }
+
         if (!$value instanceof SoftDeleteableDocument) {
             throw new UnexpectedTypeException($value, 'SoftDeleteableDocument');
         }

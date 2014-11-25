@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Exception\HasDeletedException;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use DateTime;
@@ -55,6 +56,7 @@ abstract class StockMovement extends AbstractDocument implements Storeable
      *     simple=true
      * )
      * @Assert\NotBlank
+     * @AssertLH\NotDeleted(true, isDeletedMessage="lighthouse.validation.errors.deleted.store.forbid.edit")
      * @Serializer\MaxDepth(2)
      * @var Store
      */
@@ -125,16 +127,6 @@ abstract class StockMovement extends AbstractDocument implements Storeable
 
         foreach ($this->products as $product) {
             $product->parent = $this;
-        }
-    }
-
-    /**
-     * @MongoDB\PreRemove
-     */
-    public function preRemove()
-    {
-        if ($this->store->getDeletedAt()) {
-            throw new HasDeletedException('Operation for deleted store is forbidden');
         }
     }
 

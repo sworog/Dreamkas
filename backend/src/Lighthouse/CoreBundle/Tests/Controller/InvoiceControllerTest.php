@@ -3558,8 +3558,72 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals(
-            'Операция для удаленной сущности',
+            'Операции с участием удаленного поставщика запрещены',
             'errors.children.supplier.errors.0',
+            $postResponse
+        );
+        Assert::assertJsonPathCount(0, 'errors.children.store.errors', $postResponse);
+    }
+
+    public function testPostInvoiceWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->store()->deleteStore($store);
+
+        $invoiceData = self::getStoreInvoiceData($store->id, null, $product->id);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $postResponse
+        );
+
+        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors', $postResponse);
+    }
+
+    public function testPostInvoiceWithDeletedSupplierAndStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->clear();
+        $this->factory()->supplier()->deleteSupplier($supplier);
+        $this->factory()->store()->deleteStore($store);
+
+        $invoiceData = self::getStoreInvoiceData($store->id, $supplier->id, $product->id);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного поставщика запрещены',
+            'errors.children.supplier.errors.0',
+            $postResponse
+        );
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
             $postResponse
         );
     }
@@ -3596,8 +3660,104 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals(
-            'Операция для удаленной сущности',
+            'Операции с участием удаленного поставщика запрещены',
             'errors.children.supplier.errors.0',
+            $putResponse
+        );
+
+        Assert::assertJsonPathCount(0, 'errors.children.store.errors', $putResponse);
+    }
+
+    public function testPutInvoiceWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $invoiceData = self::getStoreInvoiceData($store->id, $supplier->id, $product->id, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()
+            ->receipt()
+            ->createSale($store)
+            ->createReceiptProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/invoices/{$postResponse['id']}",
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors.0', $putResponse);
+    }
+
+    public function testPutInvoiceWithDeletedSupplierAndStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $invoiceData = self::getStoreInvoiceData($store->id, $supplier->id, $product->id, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/invoices/{$postResponse['id']}",
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного поставщика запрещены',
+            'errors.children.supplier.errors.0',
+            $putResponse
+        );
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
             $putResponse
         );
     }
@@ -3634,7 +3794,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(409);
         Assert::assertJsonPathEquals(
-            'Operation for deleted store is forbidden',
+            'Удаление операции с участием удаленного магазина запрещено',
             'message',
             $invoiceDeleteResponse
         );
@@ -3665,10 +3825,51 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(409);
         Assert::assertJsonPathEquals(
-            'Operation for deleted supplier is forbidden',
+            'Удаление операции с участием удаленного поставщика запрещено',
             'message',
             $invoiceDeleteResponse
         );
+    }
+
+    public function testDeleteInvoiceWithDeletedStoreAndSupplier()
+    {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $invoice = $this->factory()
+            ->invoice()
+            ->createInvoice(array(), $store->id)
+            ->createInvoiceProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $this->factory()
+            ->receipt()
+            ->createSale($store)
+            ->createReceiptProduct($product->id, 10, 7.49)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+        $this->factory()->supplier()->deleteSupplier($supplier);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $invoiceDeleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/invoices/{$invoice->id}"
+        );
+
+        $this->assertResponseCode(409);
+
+        $expectedMessage = <<<EOF
+Удаление операции с участием удаленного магазина запрещено
+Удаление операции с участием удаленного поставщика запрещено
+EOF;
+
+        Assert::assertJsonPathEquals($expectedMessage, 'message', $invoiceDeleteResponse);
     }
 
     /**
