@@ -4,6 +4,8 @@ define(function(require, exports, module) {
 
     return Modal_stockMovement.extend({
 		id: 'modal_supplierReturn',
+		warningForDeletedSupplier: 'Возврат для удаленного поставщика.',
+		warningForDeletedStore: 'Возврат для удаленного магазина.',
 		Model: require('resources/supplierReturn/model'),
 	    Form: require('blocks/form/stockMovement/supplierReturn/supplierReturn'),
 		Form_products: require('blocks/form/stockMovementProducts/supplierReturn/supplierReturn'),

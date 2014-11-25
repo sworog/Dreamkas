@@ -4,6 +4,8 @@ define(function(require, exports, module) {
 
     return Modal_stockMovement.extend({
 		id: 'modal_invoice',
+		warningForDeletedSupplier: 'Приемка для удаленного поставщика.',
+		warningForDeletedStore: 'Приемка для удаленного магазина.',
 		Model: require('resources/invoice/model'),
 		Form: require('blocks/form/stockMovement/invoice/invoice'),
 		Form_products: require('blocks/form/stockMovementProducts/invoice/invoice'),

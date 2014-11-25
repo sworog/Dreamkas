@@ -4,6 +4,8 @@ define(function(require, exports, module) {
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
+        warningForDeletedSupplier: 'Операция для удаленного поставщика.',
+        warningForDeletedStore: 'Операция для удаленного магазина.',
         itemId: null,
 		Form: null,
 		Form_products: null,
@@ -11,6 +13,34 @@ define(function(require, exports, module) {
         deleted: false,
         deletedTitle: 'Удаление прошло успешно',
         removeButtonText: 'Удалить операцию',
+        isStoreDeleted: false,
+        isSupplierDeleted: false,
+        isFormDisabled: false,
+        initialize: function(){
+
+            Modal.prototype.initialize.apply(this, arguments);
+
+            var block = this,
+                supplier = block.model.get('supplier'),
+                store = block.model.get('store');
+
+            block.isSupplierDeleted = false;
+            block.isStoreDeleted = false;
+            block.isFormDisabled = false;
+
+            if (supplier && supplier.deletedAt) {
+                block.isSupplierDeleted = true;
+            }
+
+            if (store && store.deletedAt) {
+                block.isStoreDeleted = true;
+            }
+
+            if (block.isStoreDeleted || block.isSupplierDeleted){
+                block.isFormDisabled = true;
+            }
+
+        },
         partials: {
             deleted: require('ejs!./deleted.ejs')
         },

@@ -4,6 +4,8 @@ define(function(require, exports, module) {
 
 	return Modal_stockMovement.extend({
 		id: 'modal_writeOff',
+		warningForDeletedSupplier: 'Списание для удаленного поставщика.',
+		warningForDeletedStore: 'Списание для удаленного магазина.',
 		Model: require('resources/writeOff/model'),
 		Form: require('blocks/form/stockMovement/writeOff/writeOff'),
 		Form_products: require('blocks/form/stockMovementProducts/writeOff/writeOff'),

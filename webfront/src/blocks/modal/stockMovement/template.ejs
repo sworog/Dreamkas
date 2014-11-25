@@ -10,6 +10,7 @@
 
         <button form="<%- formId %>"
                 type="submit"
+                <%- isFormDisabled ? 'disabled' : '' %>
                 class="btn btn-primary pull-right">
             <%- model.id ? 'Сохранить' : addButtonCaption %>
         </button>
@@ -21,6 +22,17 @@
     </div>
     <div class="modal__body">
 
+        <% if (isStoreDeleted) { %>
+        <div class="alert alert-info">
+            <%- warningForDeletedStore %> Изменения сохранить нельзя.
+        </div>
+        <% } else if (isSupplierDeleted) { %>
+        <div class="alert alert-info">
+            <%- warningForDeletedSupplier %> Изменения сохранить нельзя.
+        </div>
+        <% } %>
+
+
         <b block="form"
            data-id="<%- formId %>"></b>
 
@@ -30,7 +42,7 @@
 
         <b block="form_products"></b>
 
-        <% if (model.id) { %>
+        <% if (model.id && !isFormDisabled) { %>
         <div style="margin-left: -10px;">
 
             <b block="removeButton"

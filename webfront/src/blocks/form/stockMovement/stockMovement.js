@@ -16,7 +16,20 @@ define(function(require, exports, module) {
         },
         blocks: {
             inputDate: require('blocks/inputDate/inputDate'),
-            select_store: require('blocks/select/store/store'),
+            select_store: function(options) {
+                var block = this,
+                    StoreSelect = require('blocks/select/store/store'),
+                    stores = block.collections.stores.clone(),
+                    store = block.model.get('store');
+
+                if (store && !stores.findWhere({ id: store.id })) {
+                    stores.add(store);
+                }
+
+                options.collection = stores;
+
+                return new StoreSelect(options);
+            },
             select_supplier: function(options) {
                 var block = this,
                     SupplierSelect = require('blocks/select/supplier/supplier'),
