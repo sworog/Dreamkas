@@ -98,10 +98,10 @@ class QueueCommand extends Command
 
     /**
      * @param Job $job
-     * @param OutputInterface $output
+     * @param OutputInterface $outerOutput
      * @return int
      */
-    protected function processJob(Job $job, OutputInterface $output)
+    protected function processJob(Job $job, OutputInterface $outerOutput)
     {
         $request = ClientRequest::createFromJob($job);
 
@@ -112,7 +112,7 @@ class QueueCommand extends Command
         $application = $this->createApplication();
 
         $input = new Input($request->getCommand());
-        $output = new Output($replier);
+        $output = new Output($replier, $outerOutput);
 
         try {
             $data = $application->run($input, $output);
