@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 
-use Lighthouse\CoreBundle\Document\Job\Job;
+use Lighthouse\JobBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 

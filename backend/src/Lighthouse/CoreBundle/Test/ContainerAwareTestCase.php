@@ -3,10 +3,11 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use LighthouseKernel;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
@@ -93,7 +94,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\MongoDB\DocumentManager
+     * @return DocumentManager
      */
     protected function getDocumentManager()
     {
@@ -134,7 +135,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function clearJobs()
     {
         /* @var JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager = $this->getContainer()->get('lighthouse.job.manager');
         $jobManager->startWatchingTubes()->purgeTubes()->stopWatchingTubes();
     }
 

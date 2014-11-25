@@ -75,6 +75,7 @@ jms_di_extra:
             - LighthouseCoreBundle
             - LighthouseIntegrationBundle
             - LighthouseReportsBundle
+            - LighthouseJobBundle
         directories: ["%kernel.root_dir%/../src"]
 
 fos_rest:
@@ -144,7 +145,7 @@ leezy_pheanstalk:
         primary:
             server: %beanstalkd_server%
             default: true
-            proxy: lighthouse.core.job.pheanstalk
+            proxy: lighthouse.job.pheanstalk
 
 clamidity_profiler:
     enabled: false
@@ -156,10 +157,11 @@ ornicar_apc:
     mode: curl
 
 lighthouse_core:
-    job:
-        tube_prefix: "%database_name%_%kernel.environment%"
     selectel:
         auth:
             username: 36480
             password: 1avrj2rw
         container: "%database_name%_%kernel.environment%"
+
+lighthouse_job:
+    tube_prefix: "%database_name%_%kernel.environment%"

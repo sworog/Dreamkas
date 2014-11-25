@@ -60,7 +60,7 @@ class UserController extends AbstractRestController
     protected $permissionExtractor;
 
     /**
-     * @return \Lighthouse\CoreBundle\Form\User\UserType
+     * @return UserType
      */
     protected function getDocumentFormType()
     {
