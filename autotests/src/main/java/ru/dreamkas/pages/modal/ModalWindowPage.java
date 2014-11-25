@@ -27,7 +27,7 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     }
 
     public void putDefaultConfirmationOkButton(CommonItemType commonItemType) {
-        put("defaultConfirmationOkButton", commonItemType);
+        put("кнопка подтверждения операции", commonItemType);
     }
 
     public void confirmationOkClick() {
