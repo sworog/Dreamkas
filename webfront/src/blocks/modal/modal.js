@@ -104,11 +104,6 @@ define(function(require, exports, module) {
                 return;
             }
 
-            this.close(options);
-        },
-        close: function(options) {
-            var block = this;
-
             document.body.classList.remove('modal-open');
 
             block.el.classList.remove('modal_visible');
@@ -117,7 +112,7 @@ define(function(require, exports, module) {
 
             block.reset();
 
-            block.trigger('hidden');
+            block.trigger('hidden', options);
         },
         reset: function() {
             this.$('form').each(function() {

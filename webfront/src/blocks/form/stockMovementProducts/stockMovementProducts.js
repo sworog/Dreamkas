@@ -21,7 +21,21 @@ define(function(require, exports, module) {
                     modelCid = e.currentTarget.dataset.modelCid,
                     product;
 
-                block.collection.remove(block.collection.get(modelCid), {temp: true});
+                block.collection.remove(block.collection.get(modelCid));
+                block.collection.isChanged = true;
+            }
+        },
+        globalEvents: {
+            'hidden': function(data, modal) {
+                var block = this,
+                    formModal = this.$el.closest('.modal')[0];
+
+                if (!data.submitSuccess && formModal && modal.id == formModal.id) {
+
+                    block.collection.reset(block.originalCollection.models);
+                    block.collection.isChanged = false;
+                    block.originalCollection = null;
+                }
             }
         },
         blocks: {
@@ -59,6 +73,12 @@ define(function(require, exports, module) {
                 return autocomplete_products;
             }
         },
+        initialize: function(data){
+
+            this.originalCollection = this.collection.clone();
+
+            return Form.prototype.initialize.apply(this, arguments);
+        },
         submit: function() {
             var block = this;
 
@@ -67,7 +87,8 @@ define(function(require, exports, module) {
         submitSuccess: function(invoice) {
             var block = this;
 
-            block.collection.push(invoice.products[0], {temp: true});
+            block.collection.push(invoice.products[0]);
+            block.collection.isChanged = true;
 
             block.clear();
             block.el.querySelector('.autocomplete').block.deselect();
@@ -158,6 +179,10 @@ define(function(require, exports, module) {
                 totalPrice = block.getTotalSum();
 
             block.$('.totalSum').html(totalPrice ? block.formatMoney(totalPrice) : '');
+        },
+        isChanged: function() {
+
+            return Form.prototype.isChanged.apply(this, arguments) || this.collection.isChanged;
         }
     });
 });

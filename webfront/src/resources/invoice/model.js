@@ -27,6 +27,7 @@ define(function(require) {
                 products: this.collections.products.map(function(productModel) {
                     return productModel.getData();
                 }),
+
                 paid: this.get('paid'),
                 store: this.get('store')
             }

@@ -287,15 +287,11 @@ define(function(require) {
             block.$(':input').val('');
         },
         isChanged: function() {
-
             var block = this,
                 originalData = block.originalData,
-                actualData = block.getData(),
-                isCollectionChanged;
+                actualData = block.getData();
 
-            isCollectionChanged = block.collection && block.collection.isChanged();
-
-            return !_.isEqual(originalData, actualData) || isCollectionChanged;
+            return !_.isEqual(originalData, actualData);
         }
     })
 });

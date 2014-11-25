@@ -85,16 +85,6 @@ define(function(require, exports, module) {
                     model: block.model
                 }, options));
             }
-        },
-        close: function(options) {
-
-            if (options.submitSuccess) {
-                this.model.collections.products.applyChanges();
-            } else {
-                this.model.collections.products.restore();
-            }
-
-            return Modal.prototype.close.call(this, arguments);
         }
     });
 });
