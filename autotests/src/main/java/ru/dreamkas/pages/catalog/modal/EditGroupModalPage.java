@@ -19,6 +19,8 @@ public class EditGroupModalPage extends CreateGroupModalPage {
         super.createElements();
         put("заголовок успешного удаления", new NonType(this, "//*[@name='successRemoveTitle']"));
         put("название удаленной группы", new NonType(this, "//*[@name='removedGroupName']"));
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Сохранить"));
     }
 
     public void deleteButtonClick() {
@@ -27,10 +29,5 @@ public class EditGroupModalPage extends CreateGroupModalPage {
 
     public void deleteButtonConfirmClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']/*[contains(@class, 'removeLink')]")).click();
-    }
-
-    @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить").click();
     }
 }

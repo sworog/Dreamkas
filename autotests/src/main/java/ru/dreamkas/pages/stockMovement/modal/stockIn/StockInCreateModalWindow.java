@@ -27,11 +27,9 @@ public class StockInCreateModalWindow extends StockMovementModalPage {
         put("кнопка 'Создать товар'", new TransparentBtnFacade(this, "Создать товар"));
         put("плюсик, чтобы создать новый магазин", new NonType(this, "//*[contains(@data-modal, 'modal_store') and not(contains(@class, 'btn'))]"));
         put("плюсик, чтобы создать новый товар", new NonType(this, "//*[contains(@data-modal, 'modal_productForAutocomplete') and not(contains(@class, 'btn'))]"));
-    }
 
-    @Override
-    public void confirmationOkClick() {
-        confirmationOkClick("Оприходовать");
+        putDefaultConfirmationOkButton(
+                confirmationOkClick("Оприходовать"));
     }
 
     @Override

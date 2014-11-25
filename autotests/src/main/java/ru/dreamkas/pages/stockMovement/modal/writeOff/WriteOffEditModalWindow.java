@@ -9,7 +9,10 @@ public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
     }
 
     @Override
-    public void confirmationOkClick() {
-        confirmationOkClick("Сохранить");
+    public void createElements() {
+        super.createElements();
+
+        putDefaultConfirmationOkButton(
+                confirmationOkClick("Сохранить"));
     }
 }

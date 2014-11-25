@@ -35,11 +35,9 @@ public class ProductCreateModalWindow extends ModalWindowPage {
 
         put("кнопка 'Создать группу'", new TransparentBtnFacade(this, "Создать группу"));
         put("плюсик, чтобы создать новую группу", new NonType(this, "//*[contains(@data-modal, 'modal_group') and not(contains(@class, 'btn'))]"));
-    }
 
-    @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить").click();
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Добавить"));
     }
 
     @Override

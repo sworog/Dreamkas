@@ -54,8 +54,8 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
         findVisibleElement(By.xpath(xpath)).click();
     }
 
-    protected void confirmationOkClick(String buttonLabel) {
-        new PrimaryBtnFacade(this, buttonLabel).click();
+    protected PrimaryBtnFacade confirmationOkClick(String buttonLabel) {
+        return new PrimaryBtnFacade(this, buttonLabel);
     }
 
     protected void deleteButtonClick(String cssClass) {

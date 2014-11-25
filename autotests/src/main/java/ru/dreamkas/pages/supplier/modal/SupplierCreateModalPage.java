@@ -19,11 +19,6 @@ public class SupplierCreateModalPage extends ModalWindowPage {
     }
 
     @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить").click();
-    }
-
-    @Override
     public void createElements() {
         put("name", new Input(this, "//*[@name='name']"));
         put("address", new Input(this, "//*[@name='address']"));
@@ -32,6 +27,9 @@ public class SupplierCreateModalPage extends ModalWindowPage {
         put("contactPerson", new Input(this, "//*[@name='contactPerson']"));
         put("заголовок успешного удаления поставщика", new NonType(this, "//*[@name='successRemoveTitle']"));
         put("название удаленного поставщика", new NonType(this, "//*[@name='removedSupplierName']"));
+
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Добавить"));
     }
 
     @Override

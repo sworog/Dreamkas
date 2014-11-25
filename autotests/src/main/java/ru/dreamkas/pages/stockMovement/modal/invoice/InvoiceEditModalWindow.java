@@ -9,7 +9,10 @@ public class InvoiceEditModalWindow extends InvoiceCreateModalWindow {
     }
 
     @Override
-    public void confirmationOkClick() {
-        confirmationOkClick("Сохранить");
+    public void createElements() {
+        super.createElements();
+
+        putDefaultConfirmationOkButton(
+                confirmationOkClick("Сохранить"));
     }
 }

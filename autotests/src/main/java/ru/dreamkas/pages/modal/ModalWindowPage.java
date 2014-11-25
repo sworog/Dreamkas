@@ -3,6 +3,8 @@ package ru.dreamkas.pages.modal;
 import net.thucydides.core.annotations.WhenPageOpens;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.dreamkas.common.item.interfaces.Clickable;
+import ru.dreamkas.common.item.interfaces.CommonItemType;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.ModalWindowPageObject;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
@@ -14,6 +16,8 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
 
     public ModalWindowPage(WebDriver driver) {
         super(driver);
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Сохранить"));
     }
 
     public abstract String modalWindowXpath();
@@ -22,8 +26,12 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
         return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal-title']")).getText();
     }
 
+    public void putDefaultConfirmationOkButton(CommonItemType commonItemType) {
+        put("defaultConfirmationOkButton", commonItemType);
+    }
+
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить").click();
+        ((Clickable)getItems().get("defaultConfirmationOkButton")).click();
     }
 
     @WhenPageOpens

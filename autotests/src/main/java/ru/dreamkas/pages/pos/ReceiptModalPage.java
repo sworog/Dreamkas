@@ -28,10 +28,8 @@ public class ReceiptModalPage extends ModalWindowPage{
         put("сумма сдачи, необходимую выдать", new NonType(this, "//*[@class='modal_receipt__changeSum']"));
         put("тип оплаты по умолчанию", new NonType(this, "//label[input[@name='payment.type' and @checked='']]"));
         put("continueButton", new PrimaryBtnFacade(this, "Продолжить работу"));
-    }
 
-    @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Рассчитать").click();
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Рассчитать"));
     }
 }
