@@ -48,24 +48,8 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
 
     public abstract Integer getProductRowsCount();
 
-    @Override
-    public void deleteButtonClick() {
-        String xpath = String.format("%s//*[@class='removeLink']", modalWindowXpath());
-        findVisibleElement(By.xpath(xpath)).click();
-    }
-
     protected PrimaryBtnFacade getConfirmationOkButton(String buttonLabel) {
         return new PrimaryBtnFacade(this, buttonLabel);
-    }
-
-    protected void deleteButtonClick(String cssClass) {
-        String xpath = String.format("%s//*[@class='removeLink %s']", modalWindowXpath(), cssClass);
-        findVisibleElement(By.xpath(xpath)).click();
-    }
-
-    public void confirmDeleteButtonClick() {
-        String xpath = String.format("%s//*[@class='confirmLink__confirmation']//*[contains(@class, '__removeLink')]", modalWindowXpath());
-        findVisibleElement(By.xpath(xpath)).click();
     }
 
     protected Integer getProductRowsCount(String tableClass) {

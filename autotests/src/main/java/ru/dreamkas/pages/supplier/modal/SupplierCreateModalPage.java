@@ -36,14 +36,4 @@ public class SupplierCreateModalPage extends ModalWindowPage {
     public String getTitle() {
         return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
-
-    @Override
-    public void deleteButtonClick() {
-        clickInTheModalWindowByXpath("//*[@class='removeLink']");
-    }
-
-    @Override
-    public void confirmDeleteButtonClick() {
-        clickInTheModalWindowByXpath("//*[@class='confirmLink__confirmation']//*[@class='removeLink form_supplier__removeLink']");
-    }
 }

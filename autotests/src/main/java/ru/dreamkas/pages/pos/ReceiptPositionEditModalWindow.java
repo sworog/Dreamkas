@@ -29,16 +29,6 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
     }
 
     @Override
-    public void deleteButtonClick() {
-        clickInTheModalWindowByXpath("//*[@class='removeLink']");
-    }
-
-    @Override
-    public void confirmDeleteButtonClick() {
-        clickInTheModalWindowByXpath("//*[@class='confirmLink__confirmation']//*[@class='removeLink form_receiptProduct__removeLink']");
-    }
-
-    @Override
     public String getTitle() {
         return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }

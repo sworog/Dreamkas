@@ -134,7 +134,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void editGroupModalPageDeleteGroupConfirmButtonClick() {
-        editGroupModalPage.deleteButtonConfirmClick();
+        editGroupModalPage.confirmDeleteButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 

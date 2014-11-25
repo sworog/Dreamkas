@@ -11,7 +11,6 @@ public class StockInEditModalWindow extends StockInCreateModalWindow {
     @Override
     public void createElements() {
         super.createElements();
-
         putDefaultConfirmationOkButton(
                 getConfirmationOkButton("Сохранить"));
     }
