@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
-use Lighthouse\CoreBundle\Test\Client\Request\StockInBuilder;
+use Lighthouse\CoreBundle\Test\Client\Request\StockMovementBuilder;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StockInControllerTest extends WebTestCase
@@ -17,7 +17,7 @@ class StockInControllerTest extends WebTestCase
         $productId = $this->createProductByName();
         $date = strtotime('-1 day');
 
-        $stockInData = StockInBuilder::create(date('c', $date), $store->id)
+        $stockInData = StockMovementBuilder::create(date('c', $date), $store->id)
             ->addProduct($productId)
             ->toArray();
 
@@ -50,7 +50,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProductByName();
-        $stockInData = StockInBuilder::create('2012-07-11', $store->id)
+        $stockInData = StockMovementBuilder::create('2012-07-11', $store->id)
             ->addProduct($productId)
             ->toArray($data);
 
@@ -81,7 +81,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProductByName();
-        $postData = StockInBuilder::create('11.07.2012', $store->id)
+        $postData = StockMovementBuilder::create('11.07.2012', $store->id)
             ->addProduct($productId)
             ->toArray();
 
@@ -222,7 +222,7 @@ class StockInControllerTest extends WebTestCase
         $productId3 = $this->createProductByName('3');
 
         // Create stockin with product#1
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId1, 12, 5.99);
 
         $postResponse = $this->postStockIn($stockInData->toArray());
@@ -505,7 +505,7 @@ class StockInControllerTest extends WebTestCase
 
         $productId = $this->createProductByName();
 
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId, 7.99, 2)
             ->toArray();
 
@@ -539,7 +539,7 @@ class StockInControllerTest extends WebTestCase
 
         $productId = $this->createProductByName();
 
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId, 7.99, 2)
             ->toArray();
 
@@ -800,7 +800,7 @@ class StockInControllerTest extends WebTestCase
         $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
 
         // create product 1 stock in
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId1, 5, 3.49);
 
         $postResponse = $this->postStockIn($stockInData->toArray());
@@ -916,7 +916,7 @@ class StockInControllerTest extends WebTestCase
         $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
 
         if ($sendData) {
-            $data = StockInBuilder::create()
+            $data = StockMovementBuilder::create()
                 ->addProduct($productId)
                 ->toArray();
         } else {
@@ -992,7 +992,7 @@ class StockInControllerTest extends WebTestCase
                 ->createStockInProduct($productId, 1, 9.99, 'Порча')
             ->flush();
 
-        $putData = StockInBuilder::create(null, $store->id)
+        $putData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId, '', 9.99)
             ->toArray();
 
@@ -1095,7 +1095,7 @@ class StockInControllerTest extends WebTestCase
 
         $this->factory()->store()->deleteStore($store);
 
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($product->id, 10, 5.99)
             ->toArray();
 
@@ -1114,8 +1114,6 @@ class StockInControllerTest extends WebTestCase
             'errors.children.store.errors.0',
             $postResponse
         );
-
-        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors', $postResponse);
     }
 
     public function testPutWithDeletedStore()
@@ -1123,7 +1121,7 @@ class StockInControllerTest extends WebTestCase
         $store = $this->factory()->store()->createStore();
         $product = $this->factory()->catalog()->getProductByName();
 
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($product->id, 10, 5.99)
             ->toArray();
 
@@ -1161,7 +1159,6 @@ class StockInControllerTest extends WebTestCase
             'errors.children.store.errors.0',
             $putResponse
         );
-        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors.0', $putResponse);
     }
 
     public function testDeleteWithDeletedStore()

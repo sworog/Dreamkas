@@ -1139,8 +1139,6 @@ class WriteOffControllerTest extends WebTestCase
             'errors.children.store.errors.0',
             $postResponse
         );
-
-        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors', $postResponse);
     }
 
     public function testPutWithDeletedStore()
@@ -1186,7 +1184,6 @@ class WriteOffControllerTest extends WebTestCase
             'errors.children.store.errors.0',
             $putResponse
         );
-        Assert::assertJsonPathCount(0, 'errors.children.supplier.errors.0', $putResponse);
     }
 
     public function testDeleteWithDeletedStore()
@@ -1229,20 +1226,20 @@ class WriteOffControllerTest extends WebTestCase
 
 
     /**
-     * @param string $invoiceId
+     * @param string $writeOffId
      */
-    protected function assertWriteOffDelete($invoiceId)
+    protected function assertWriteOffDelete($writeOffId)
     {
-        $invoice = $this->getWriteOffRepository()->find($invoiceId);
+        $invoice = $this->getWriteOffRepository()->find($writeOffId);
         $this->assertNull($invoice);
     }
 
     /**
-     * @param string $invoiceProductId
+     * @param string $writeOffProductId
      */
-    protected function assertWriteOffProductDelete($invoiceProductId)
+    protected function assertWriteOffProductDelete($writeOffProductId)
     {
-        $writeOffProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
+        $writeOffProduct = $this->getWriteOffProductRepository()->find($writeOffProductId);
         $this->assertNull($writeOffProduct);
     }
 

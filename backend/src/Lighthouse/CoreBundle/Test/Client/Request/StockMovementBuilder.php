@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Test\Client\Request;
 
 use DateTime;
 
-class StockInBuilder
+class StockMovementBuilder
 {
     /**
      * @var array
@@ -28,7 +28,7 @@ class StockInBuilder
 
     /**
      * @param string $date
-     * @return StockInBuilder
+     * @return StockMovementBuilder
      */
     public function setDate($date = null)
     {
@@ -48,7 +48,7 @@ class StockInBuilder
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @return StockInBuilder
+     * @return StockMovementBuilder
      */
     public function addProduct($productId, $quantity = 1.0, $price = 5.99)
     {
@@ -99,7 +99,7 @@ class StockInBuilder
     /**
      * @param string $date
      * @param string $storeId
-     * @return StockInBuilder
+     * @return StockMovementBuilder
      */
     public static function create($date = null, $storeId = null)
     {
