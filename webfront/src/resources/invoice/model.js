@@ -2,9 +2,7 @@ define(function(require) {
     //requirements
     var Model = require('kit/model/model'),
         cookies = require('cookies');
-
-    require('./mocks/deleteError');
-
+    
     return Model.extend({
         storeId: null,
         fromOrder: null,
