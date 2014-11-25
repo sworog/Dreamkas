@@ -38,7 +38,7 @@ define(function(require, exports, module) {
 
                 return new RemoveButton({
                     model: block.model,
-                    removeText: 'Удалить продукт'
+                    removeText: 'Удалить товар'
                 });
             }
         },
