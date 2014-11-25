@@ -30,11 +30,15 @@ define(function(require, exports, module) {
                 var block = this,
                     formModal = this.$el.closest('.modal')[0];
 
-                if (!data.submitSuccess && formModal && modal.id == formModal.id) {
+                if (formModal && modal.id == formModal.id) {
 
-                    block.collection.reset(block.originalCollection.models);
                     block.collection.isChanged = false;
-                    block.originalCollection = null;
+
+                    if (!data.submitSuccess) {
+
+                        block.collection.reset(block.originalCollection.models);
+                        block.originalCollection = null;
+                    }
                 }
             }
         },
