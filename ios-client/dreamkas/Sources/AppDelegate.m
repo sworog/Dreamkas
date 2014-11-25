@@ -31,6 +31,7 @@
     // Override point for customization after application launch.
     
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
+    [self configureTapGestureRecognizer];
     
     return YES;
 }
@@ -55,6 +56,23 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - UIGestureRecognizer Methods
+
+- (void)configureTapGestureRecognizer
+{
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(performWindowTap:)];
+    self.tapGestureRecognizer.numberOfTouchesRequired = 1;
+    self.tapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.window addGestureRecognizer:self.tapGestureRecognizer];
+}
+
+- (void)performWindowTap:(UITapGestureRecognizer*)recognizer
+{
+    NSNotification *notification = [NSNotification notificationWithName:WindowTapNotificationName
+                                                                 object:recognizer userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 @end

@@ -7,12 +7,11 @@
 //
 
 #import "TicketWindowViewController.h"
-#import "GroupsViewController.h"
-#import "CheckViewController.h"
+#import "SidemenuButton.h"
 
 @interface TicketWindowViewController ()
 
-@property (nonatomic, weak) IBOutlet UIButton *sidemenuButton;
+@property (nonatomic, weak) IBOutlet SidemenuButton *sidemenuButton;
 
 @property (nonatomic, weak) IBOutlet UIView *leftSideContainerView;
 @property (nonatomic, weak) IBOutlet UIView *rightSideContainerView;
@@ -26,8 +25,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.sidemenuButton.titleLabel setFont:DefaultLiHeiProFont(22.f)];
     
     [self placeLeftAndRightSideControllers];
 }
@@ -55,12 +52,14 @@
 {
     UINavigationController *ls_nc = ControllerById(LeftSideNavigationControllerID);
     [ls_nc.view setWidth:DefaultLeftSideWidth];
+    [ls_nc.view setHeight:DefaultSideHeight];
     [self addChildViewController:ls_nc];
     [self.leftSideContainerView addSubview:ls_nc.view];
     [ls_nc didMoveToParentViewController:self];
     
     UINavigationController *rs_nc = ControllerById(RightSideNavigationControllerID);
     [rs_nc.view setWidth:DefaultRightSideWidth];
+    [rs_nc.view setHeight:DefaultSideHeight];
     [self addChildViewController:rs_nc];
     [self.rightSideContainerView addSubview:rs_nc.view];
     [rs_nc didMoveToParentViewController:self];

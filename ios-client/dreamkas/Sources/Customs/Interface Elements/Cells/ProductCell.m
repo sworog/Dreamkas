@@ -22,7 +22,7 @@
     [self.titleLabel setFont:DefaultFont(16)];
     [self.titleLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
     
-    [self.priceLabel setFont:DefaultFont(16)];
+    [self.priceLabel setFont:DefaultMediumFont(16)];
     [self.priceLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
 }
 
@@ -34,16 +34,7 @@
     [self.titleLabel setText:[model name]];
     [self.titleLabel setY:DefaultVerticalCellInsets];
     
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [formatter setGroupingSeparator:@" "];
-    [formatter setGroupingSize:3];
-    [formatter setDecimalSeparator:@","];
-    [formatter setAlwaysShowsDecimalSeparator:YES];
-    [formatter setUsesGroupingSeparator:YES];
-    [formatter setMaximumFractionDigits:2];
-    [formatter setMinimumFractionDigits:2];
-    
+    PriceNumberFormatter *formatter = [PriceNumberFormatter new];    
     NSMutableString *str = [NSMutableString stringWithFormat:@"%@ ₽", [formatter stringFromNumber:[model sellingPrice]]];
     [self.priceLabel setText:str];
     [self.priceLabel setY:DefaultVerticalCellInsets];

@@ -70,10 +70,16 @@
 {
     [super viewWillAppear:animated];
     
-    [self.tableViewItem selectRowAtIndexPath:nil animated:NO scrollPosition:UITableViewScrollPositionNone];
-    
     // делаем проверку на необходимость обновления страницы данными с сервера
     [self checkoutLocalData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    // снимаем выделение с ячейки
+    [self.tableViewItem selectRowAtIndexPath:nil animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)didReceiveMemoryWarning

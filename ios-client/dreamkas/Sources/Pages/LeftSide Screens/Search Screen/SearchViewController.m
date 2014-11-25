@@ -11,7 +11,6 @@
 #import "SearchField.h"
 
 #define RequiredSearchfieldValueLenght 3
-#define ControllerViewDefaultHeight 660
 
 typedef NS_ENUM(NSInteger, kInfoMessageType) {
     kInfoMessageTypeNone = 0,
@@ -37,6 +36,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     // выключаем для контроллера массовое обновление и лимитированные запросы
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
+    
+    // становимся слушателем уведомлений о показе клавиатуры
     [self becomeKeyboardEventsListener];
     
     searchString = [NSMutableString string];
@@ -132,16 +133,14 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     CGRect keyboard_bounds;
     [[notification.userInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] getValue:&keyboard_bounds];
     
-    [self.view setHeight:ControllerViewDefaultHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
-    [self.tableViewItem reloadData];
+    [self.view setHeight:DefaultSideContainerViewHeight - CGRectGetHeight(keyboard_bounds) + DefaultTopPanelHeight];
 }
 
 - (void)keyboardWillDisappear:(NSNotification *)notification
 {
     DPLogFast(@"");
     
-    [self.view setHeight:ControllerViewDefaultHeight];
-    [self.tableViewItem reloadData];
+    [self.view setHeight:DefaultSideContainerViewHeight];
 }
 
 #pragma mark - Методы UITextfield Delegate
@@ -320,6 +319,22 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     return [ProductSearchCell cellHeight:tableView
                           cellIdentifier:cell_identifier
                                    model:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+}
+
+/**
+ * Обработка нажатия по ячейке
+ */
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DPLogFast(@"");
+    
+    ProductModel *product = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    DPLogFast(@"product = %@", product);
+    
+    SaleItemModel *item = [SaleItemModel saleItemForProduct:product];
+    DPLogFast(@"item = %@", item);
+    
+    [self.tableViewItem deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

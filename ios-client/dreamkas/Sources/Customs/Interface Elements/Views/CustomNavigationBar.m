@@ -49,6 +49,10 @@
     // Для заголовка задается смещение по вертикали
     [[UINavigationBar appearance] setTitleVerticalPositionAdjustment:-10
                                                        forBarMetrics:UIBarMetricsDefault];
+    
+    // Убираем нижнюю тень
+//    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+//    [[UINavigationBar appearance] setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)layoutSubviews

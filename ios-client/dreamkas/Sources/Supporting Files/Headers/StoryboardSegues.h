@@ -44,6 +44,6 @@
 
 #define GroupsViewControllerID                      @"GroupsViewControllerID"
 #define SearchViewControllerID                      @"SearchViewControllerID"
-#define CheckViewControllerID                       @"CheckViewControllerID"
+#define SaleViewControllerID                        @"SaleViewControllerID"
 
 #endif
