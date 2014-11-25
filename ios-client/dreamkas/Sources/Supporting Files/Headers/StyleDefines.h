@@ -51,7 +51,7 @@
 //
 
 #define DefaultButtonHeight                 52.0f
-#define DefaultCornerRadius                 3.f
+#define DefaultCornerRadius                 2.f
 
 #define DefaultBtnShadowRadius              2.f
 #define DefaultBtnShadowOpacity             0.6f
