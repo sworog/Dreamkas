@@ -16,11 +16,9 @@ define(function(require, exports, module) {
 
     return makeClass(View, {
 
-        constructor: function(params) {
+        constructor: function() {
 
             var block = this;
-
-            deepExtend(this, params);
 
             var initialize = this.initialize,
                 render = this.render;
@@ -30,7 +28,9 @@ define(function(require, exports, module) {
                 block.stopListening();
                 block.delegateGlobalEvents();
 
-                data && block.set(data);
+                data && deepExtend(block, data);
+
+                this._ensureElement();
 
                 return $.when(initialize.apply(block, arguments)).then(function(){
                     block.render();
@@ -39,14 +39,12 @@ define(function(require, exports, module) {
 
             this.render = function(data){
 
-                data && block.set(data);
+                data && deepExtend(block, data);
 
                 return render.apply(block, arguments);
             };
 
             this.cid = _.uniqueId('block');
-
-            this._ensureElement();
 
             this.initialize.apply(this, arguments);
         },
