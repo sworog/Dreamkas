@@ -434,13 +434,14 @@ class GroupControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->client->setCatchException();
-        $this->clientJsonRequest(
+        $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
             '/api/1/groups/' . $groupId
         );
 
         $this->assertResponseCode(409);
+        Assert::assertJsonHasPath('message', $response);
     }
 
     public function testGroupWithCategories()

@@ -87,8 +87,9 @@ lighthouse:
             category:
                 name.unique: Категория с таким названием уже существует в этой группе
                 group.does_not_exists: Такой группы не существует
+            SubCategory:
+                not_empty: Чтобы удалить группу, нужно сначала удалить все товары в ней
             subCategory:
-                #name.unique: Подкатегория с таким названием уже существует в этой категории
                 name.unique: Группа с таким названием уже существует
                 category.does_not_exists: Такой категории не существует
             user:
