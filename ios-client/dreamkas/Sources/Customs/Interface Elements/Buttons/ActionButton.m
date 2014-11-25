@@ -42,7 +42,7 @@
     self.height = DefaultButtonHeight;
     [[self layer] setBackgroundColor:DefaultWhiteColor.CGColor];
     
-    self.titleLabel.font = DefaultFont(16);
+    self.titleLabel.font = DefaultMediumFont(14);
     [self setTitleColor:DefaultDarkGrayColor forState:UIControlStateNormal];
     [self setTitleColor:DefaultGrayColor forState:UIControlStateHighlighted];
     [self setTitleColor:DefaultRedColor forState:UIControlStateSelected];
