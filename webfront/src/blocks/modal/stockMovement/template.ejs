@@ -11,6 +11,7 @@
         <button form="<%- formId %>"
                 type="submit"
                 <%- isFormDisabled ? 'disabled' : '' %>
+                style="<%- isFormDisabled ? 'display: none' : '' %>"
                 class="btn btn-primary pull-right">
             <%- model.id ? 'Сохранить' : addButtonCaption %>
         </button>

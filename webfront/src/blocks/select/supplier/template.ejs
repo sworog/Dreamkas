@@ -9,7 +9,10 @@
             <% collection.forEach(function(supplierModel){ %>
             <option <%- selected === supplierModel.id && 'selected' %>
                     <%- supplierModel.get('deletedAt') && 'disabled' %>
-                    value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+                    value="<%- supplierModel.id %>">
+
+                <%- supplierModel.get('name') %>
+
             </option>
             <% }) %>
 

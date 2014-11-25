@@ -26,8 +26,12 @@
             <% } %>
 
             <% collection.forEach(function(storeModel){ %>
-            <option <%- storeModel.id === selected && 'selected' %> value="<%- storeModel.id %>">
+            <option <%- storeModel.id === selected && 'selected' %>
+                    value="<%- storeModel.id %>"
+                    <%- storeModel.get('deletedAt') && 'disabled' %>>
+
                 <%- storeModel.get('name') %>
+
             </option>
             <% }) %>
 

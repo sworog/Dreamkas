@@ -94,7 +94,3 @@
 .modal_stockMovement:not(.modal_stockMovementDeleted) {
     width: 80% !important;
 }
-
-.modal_stockMovement button[disabled] {
-    display: none;
-}
