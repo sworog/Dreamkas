@@ -36,6 +36,8 @@ typedef NS_ENUM(NSInteger, kInfoMessageType) {
     // выключаем для контроллера массовое обновление и лимитированные запросы
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
+    
+    // становимся слушателем уведомлений о показе клавиатуры
     [self becomeKeyboardEventsListener];
     
     searchString = [NSMutableString string];

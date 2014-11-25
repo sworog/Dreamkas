@@ -33,40 +33,9 @@
     // выключаем для контроллера массовое обновление и лимитированные запросы
     [self setPullDownActionEnabled:NO];
     [self setLimitedQueryEnabled:NO];
+    
+    // становимся слушателем уведомлений о показе клавиатуры
     [self becomeKeyboardEventsListener];
-    [self becomeWindowTapEventsListener];
-}
-
-/**
- * Слушаем касания основного окна приложения
- */
-- (void)becomeWindowTapEventsListener
-{
-    if ([self respondsToSelector:@selector(onWindowTapNotification:)]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onWindowTapNotification:)
-                                                     name:WindowTapNotificationName object:nil];
-    }
-}
-
-/**
- * Обработчик касания экрана
- */
-- (void)onWindowTapNotification:(NSNotification *)notification
-{
-    UITapGestureRecognizer *recognizer = (UITapGestureRecognizer*)notification.object;
-    CGPoint touch = [recognizer locationInView:self.view];
-    
-    if (self.clearButtonOnView.isSelected == NO && self.clearButtonOnFooter.isSelected == NO) {
-        return;
-    }
-    
-    CGRect rect1 = [self.clearSaleView convertRect:self.clearButtonOnView.frame toView:self.view];
-    CGRect rect2 = [self.clearSaleFooterView convertRect:self.clearButtonOnFooter.frame toView:self.view];
-    
-    if ((CGRectContainsPoint(rect1, touch) == NO) && (CGRectContainsPoint(rect2, touch) == NO)) {
-        self.clearButtonOnView.selected = self.clearButtonOnFooter.selected = NO;
-    }
 }
 
 #pragma mark - View Lifecycle
@@ -79,6 +48,10 @@
     [self.infoMsgLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.54]];
     
     [self placeMoreBarButton];
+    
+    // становимся слушателем уведомлений о касаниях экрана
+    [self becomeWindowTapEventsListener:@[@{@"buttons":@[self.clearButtonOnView, self.clearButtonOnFooter],
+                                            @"holders" : @[self.clearSaleView, self.clearSaleFooterView]}]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
