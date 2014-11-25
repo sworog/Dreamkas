@@ -19,6 +19,7 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
         super(driver);
 
         put("кнопка закрытия модального окна", new NonType(this, "//*[contains(@class, 'modal__closeLink')]"));
+        put("кнопка продолжить", new NonType(this, "//*[@name='removeContinue']"));
 
         putDefaultConfirmationOkButton(
                 new PrimaryBtnFacade(this, "Сохранить"));
@@ -64,7 +65,7 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
 
     @Override
     public void continueButtonClick() {
-        clickInTheModalWindowByXpath("//*[@name='removeContinue']");
+        ((Clickable)getItems().get("кнопка продолжить")).click();
     }
 
     @Override
