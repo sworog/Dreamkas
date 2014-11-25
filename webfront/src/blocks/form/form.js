@@ -87,10 +87,14 @@ define(function(require) {
                     destroy: function() {
                         var modal = block.$el.closest('.modal')[0];
 
-                        if (modal) {
+                        if (modal && modal.block.showDeletedMessage) {
                             modal.block.show({
                                 deleted: true
                             });
+                        }
+
+                        if (modal && !modal.block.showDeletedMessage) {
+                            modal.block.hide();
                         }
                     }
                 });

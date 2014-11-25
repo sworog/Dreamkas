@@ -5,19 +5,20 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         id: 'form_supplier',
-        events: {
-            'click .form_supplier__removeLink': function(e) {
-                var block = this;
-
-                e.target.classList.add('loading');
-
-                block.model.destroy().then(function() {
-                    e.target.classList.remove('loading');
-                });
-            }
-        },
         collection: function() {
             return PAGE.get('collections.suppliers');
+        },
+        blocks: {
+            removeButton: function(){
+
+                var block = this,
+                    RemoveButton = require('blocks/removeButton/removeButton');
+
+                return new RemoveButton({
+                    model: block.model,
+                    removeText: 'Удалить поставщика'
+                });
+            }
         }
     });
 });

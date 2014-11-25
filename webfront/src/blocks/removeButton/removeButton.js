@@ -19,7 +19,7 @@ define(function(require, exports, module) {
     $(document).on('keyup', function(e) {
         var $removeButton_confirm = $('.removeButton_confirm').not($(e.target).closest('.removeButton_confirm'));
 
-        if (checkKey(e.keyCode, ['ESC'])) {
+        if (checkKey(e.keyCode, ['ESC']) && $removeButton_confirm.length) {
             resetButton($removeButton_confirm[0]);
         }
 

@@ -31,6 +31,7 @@ define(function(require, exports, module) {
 
     return Block.extend({
         referrer: null,
+        showDeletedMessage: true,
         events: {
             'click [data-modal-dialog]': function(e) {
                 var block = this,
