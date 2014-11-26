@@ -10,8 +10,8 @@ define(function(require) {
 		//stockMovement
 		'stockMovements(/)': require('pages/stockMovements/stockMovements'),
 
-        //cashFlows
-        'cashFlows(/)': require('pages/cashFlows/cashFlows'),
+        //cashFlow
+        'cashFlow(/)': require('pages/cashFlow/cashFlow'),
 
 		//reports
 		'reports(/)': require('pages/reports/reports'),
