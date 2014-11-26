@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
+import ru.dreamkas.elements.bootstrap.buttons.TransparentBtnFacade;
 import ru.dreamkas.elements.items.DateInput;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
@@ -33,6 +34,7 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
         put("quantity", new Input(this, "//*[@name='quantity']"));
 
         put("заголовок успешного удаления", new NonType(this, "//*[@name='successRemoveTitle']"));
+        put("кнопка 'Создать магазин'", new TransparentBtnFacade(this, "Создать магазин"));
     }
 
     public abstract AbstractObjectCollection getProductCollection();
