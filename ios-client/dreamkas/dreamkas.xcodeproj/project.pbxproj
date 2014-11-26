@@ -248,6 +248,10 @@
 		CEC0041619E69B2500AE256F /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041419E69B2500AE256F /* AuthViewController.m */; };
 		CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
 		CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041819E69B3400AE256F /* TicketWindowViewController.m */; };
+		CECFB0471A2623DC005D35F3 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFB0461A2623DC005D35F3 /* PaymentViewController.m */; };
+		CECFB0481A2623DC005D35F3 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFB0461A2623DC005D35F3 /* PaymentViewController.m */; };
+		CECFB04C1A26253E005D35F3 /* FinalPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFB04B1A26253E005D35F3 /* FinalPaymentViewController.m */; };
+		CECFB04D1A26253E005D35F3 /* FinalPaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFB04B1A26253E005D35F3 /* FinalPaymentViewController.m */; };
 		CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */; };
 		CECFC49E19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47B19DD74C800ED88D3 /* AFHTTPRequestOperationManager.m */; };
 		CECFC49F19DD74C800ED88D3 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECFC47D19DD74C800ED88D3 /* AFHTTPSessionManager.m */; };
@@ -550,6 +554,10 @@
 		CECD93DA19DEA6B200232734 /* dreamkas-tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dreamkas-tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECD93E819DEA77700232734 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CECD93F019DEAB5B00232734 /* SwiftBridging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftBridging.h; sourceTree = "<group>"; };
+		CECFB0451A2623DC005D35F3 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
+		CECFB0461A2623DC005D35F3 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
+		CECFB04A1A26253E005D35F3 /* FinalPaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalPaymentViewController.h; sourceTree = "<group>"; };
+		CECFB04B1A26253E005D35F3 /* FinalPaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalPaymentViewController.m; sourceTree = "<group>"; };
 		CECFC47819DD74C800ED88D3 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		CECFC47919DD74C800ED88D3 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		CECFC47A19DD74C800ED88D3 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -1110,6 +1118,8 @@
 		CE915E2B1A1B688C0077C03B /* Sale Screen */ = {
 			isa = PBXGroup;
 			children = (
+				CECFB0491A26252A005D35F3 /* Final Payment Screen */,
+				CECFB0441A2623AF005D35F3 /* Payment Screen */,
 				CE915E2C1A1B68A40077C03B /* SaleViewController.h */,
 				CE915E2D1A1B68A40077C03B /* SaleViewController.m */,
 			);
@@ -1313,6 +1323,24 @@
 				CEA993281A0385D500B9D821 /* KeyboardEventsListenerProtocol.h */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		CECFB0441A2623AF005D35F3 /* Payment Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CECFB0451A2623DC005D35F3 /* PaymentViewController.h */,
+				CECFB0461A2623DC005D35F3 /* PaymentViewController.m */,
+			);
+			path = "Payment Screen";
+			sourceTree = "<group>";
+		};
+		CECFB0491A26252A005D35F3 /* Final Payment Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CECFB04A1A26253E005D35F3 /* FinalPaymentViewController.h */,
+				CECFB04B1A26253E005D35F3 /* FinalPaymentViewController.m */,
+			);
+			path = "Final Payment Screen";
 			sourceTree = "<group>";
 		};
 		CECFC47719DD74C800ED88D3 /* AFNetworking */ = {
@@ -1675,6 +1703,7 @@
 				CE8DA4E31A0106FD007C24D8 /* CustomNavigationBar.m in Sources */,
 				CE29101419EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
 				CEA9932E1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
+				CECFB0471A2623DC005D35F3 /* PaymentViewController.m in Sources */,
 				CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */,
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
 				CE915E321A1B691D0077C03B /* SaleItemCell.m in Sources */,
@@ -1692,6 +1721,7 @@
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CE29100219EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
 				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
+				CECFB04C1A26253E005D35F3 /* FinalPaymentViewController.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
 				CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CECFC4AD19DD74C800ED88D3 /* UIWebView+AFNetworking.m in Sources */,
@@ -1786,6 +1816,7 @@
 				CEF2646319E8127B008BE93A /* SignInViewController.m in Sources */,
 				CE6B86711A24A5DB00669D9F /* UTSaleTesting.m in Sources */,
 				CEF2647419E81D16008BE93A /* UIView+Positioning.m in Sources */,
+				CECFB04D1A26253E005D35F3 /* FinalPaymentViewController.m in Sources */,
 				CE915E161A1B63A20077C03B /* GroupModel.m in Sources */,
 				CE82B2941A02532200CBF803 /* SearchViewController.m in Sources */,
 				CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
@@ -1825,6 +1856,7 @@
 				CE290FF519EE668B005483A1 /* NSObject+MagicalDataImport.m in Sources */,
 				CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */,
 				CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */,
+				CECFB0481A2623DC005D35F3 /* PaymentViewController.m in Sources */,
 				CE3B95F019E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CE8AB37D19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CE290FF919EE668B005483A1 /* NSString+MagicalDataImport.m in Sources */,

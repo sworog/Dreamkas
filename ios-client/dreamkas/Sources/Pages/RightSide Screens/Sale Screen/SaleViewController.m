@@ -156,6 +156,9 @@
 - (IBAction)saleButtonClicked:(id)sender
 {
     DPLogFast(@"");
+    
+    [(AbstractViewController*)self.navigationController.parentViewController showViewControllerModally:ControllerById(PaymentViewControllerID)
+                                                                                               segueId:TicketWindowToPaymentScreenSegueName];
 }
 
 #pragma mark - Методы KeyboardEventsListenerProtocol

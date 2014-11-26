@@ -455,6 +455,7 @@
                         <outlet property="rightSideContainerView" destination="Uqh-Rn-6No" id="6gP-1q-ciX"/>
                         <outlet property="sidemenuButton" destination="hzx-Oy-qju" id="Aja-ps-bBR"/>
                         <segue destination="Cyi-Ge-36d" kind="custom" identifier="TicketWindowToCreateStoreSegue" customClass="CustomModalSegue" id="wc5-D0-Lxe"/>
+                        <segue destination="5zM-7o-TMv" kind="custom" identifier="TicketWindowToPaymentScreenSegue" customClass="CustomModalSegue" id="c4m-qf-ypz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4xc-Da-7Y7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -677,7 +678,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qh2-bS-TMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8742" y="1210"/>
+            <point key="canvasLocation" x="8750" y="986"/>
         </scene>
         <!--Groups View Controller-->
         <scene sceneID="GMd-Wn-lbW">
@@ -756,7 +757,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aYm-uv-xUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9650" y="1210"/>
+            <point key="canvasLocation" x="9658" y="986"/>
         </scene>
         <!--Sale View Controller-->
         <scene sceneID="Ro9-Z0-baL">
@@ -947,7 +948,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eB0-gZ-FwV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9458" y="2113"/>
+            <point key="canvasLocation" x="9466" y="2389"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="41a-lu-7QI">
@@ -974,7 +975,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7k1-U3-MB0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8550" y="2113"/>
+            <point key="canvasLocation" x="8558" y="2389"/>
         </scene>
         <!--Favorites View Controller-->
         <scene sceneID="21o-M5-ZYj">
@@ -1022,7 +1023,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRE-P4-cTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9650" y="314"/>
+            <point key="canvasLocation" x="9658" y="90"/>
         </scene>
         <!--Products View Controller-->
         <scene sceneID="cBG-c0-g9g">
@@ -1099,7 +1100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WlM-VQ-RUL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10578" y="1663"/>
+            <point key="canvasLocation" x="10586" y="1439"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="WKU-cw-N1h">
@@ -1191,7 +1192,146 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X1H-qf-8sG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10578" y="778"/>
+            <point key="canvasLocation" x="10586" y="554"/>
+        </scene>
+        <!--Payment View Controller-->
+        <scene sceneID="Ep4-I0-7c7">
+            <objects>
+                <viewController storyboardIdentifier="PaymentViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5zM-7o-TMv" customClass="PaymentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xyS-lh-2wJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hqk-7n-bhJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nIn-hv-5s7">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kPG-Uw-NMG">
+                                <rect key="frame" x="128" y="0.0" width="768" height="768"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sul-KY-aIQ" userLabel="Close Button" customClass="CloseButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="X">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeButtonClicked:" destination="5zM-7o-TMv" eventType="touchUpInside" id="J4F-pV-1Yb"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lp-zs-A0v" userLabel="Title Label" customClass="CustomLabel">
+                                        <rect key="frame" x="70" y="0.0" width="474" height="70"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x41-If-bhX" userLabel="Line View">
+                                        <rect key="frame" x="0.0" y="70" width="768" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzZ-3S-DUv">
+                                        <rect key="frame" x="568" y="146" width="150" height="62"/>
+                                        <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="nextButtonClicked:" destination="5zM-7o-TMv" eventType="touchUpInside" id="OWE-8J-VXD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="7lp-zs-A0v" id="Scf-fR-v0j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OOP-kI-QEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10746" y="2421"/>
+        </scene>
+        <!--Final Payment View Controller-->
+        <scene sceneID="c0b-o5-xwf">
+            <objects>
+                <viewController storyboardIdentifier="FinalPaymentViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RA8-qa-X4Q" customClass="FinalPaymentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rrd-Vu-abh"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Nj-Dw-1c8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dl1-Uu-Gkx">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2X3-Ff-dzi">
+                                <rect key="frame" x="128" y="0.0" width="768" height="768"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YMg-Zl-vfD" userLabel="Close Button" customClass="CloseButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <state key="normal" title="X">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeButtonClicked:" destination="RA8-qa-X4Q" eventType="touchUpInside" id="ik1-IP-zAT"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3D-Mt-KOS" userLabel="Title Label" customClass="CustomLabel">
+                                        <rect key="frame" x="70" y="0.0" width="474" height="70"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ug-mN-tM4" userLabel="Line View">
+                                        <rect key="frame" x="0.0" y="70" width="768" height="1"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7f-DS-Jz0">
+                                        <rect key="frame" x="309" y="506" width="150" height="62"/>
+                                        <color key="backgroundColor" red="0.80000001190000003" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="g3D-Mt-KOS" id="HtQ-6S-9pf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OZN-fm-dgP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12010" y="2421"/>
         </scene>
     </scenes>
     <resources>

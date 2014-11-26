@@ -24,6 +24,7 @@
 #define SignInToTicketWindowSegueName               @"SignInToTicketWindowSegue"
 
 #define TicketWindowToSelectStoreSegueName          @"TicketWindowToSelectStoreSegue"
+#define TicketWindowToPaymentScreenSegueName        @"TicketWindowToPaymentScreenSegue"
 
 #define GroupsToProductsSegueName                   @"GroupsToProductsSegue"
 #define GroupsToSearchSegueName                     @"GroupsToSearchSegue"
@@ -45,5 +46,8 @@
 #define GroupsViewControllerID                      @"GroupsViewControllerID"
 #define SearchViewControllerID                      @"SearchViewControllerID"
 #define SaleViewControllerID                        @"SaleViewControllerID"
+
+#define PaymentViewControllerID                     @"PaymentViewControllerID"
+#define FinalPaymentViewControllerID                @"FinalPaymentViewControllerID"
 
 #endif
