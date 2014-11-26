@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -64,7 +66,11 @@ public class ReceiptAdapter extends ArrayAdapter<ReceiptItem> {
             holder = (ReceiptItemHolder)row.getTag();
         }
 
-        NumberFormat quantityFormat = NumberFormat.getInstance();
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setDecimalSeparator(',');
+
+        DecimalFormat quantityFormat = new DecimalFormat("0", otherSymbols);
+        quantityFormat.setParseBigDecimal(true);
         quantityFormat.setMinimumFractionDigits(1);
         quantityFormat.setMaximumFractionDigits(Constants.SCALE_QUANTITY);
 

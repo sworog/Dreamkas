@@ -36,6 +36,8 @@ import ru.dreamkas.pos.remoteCommand.Status;
 
 
 public class ServerTuner {
+    private final String mEnv;
+    private final String mHost;
     private RemoteCommandProcessor mRemoteCommandProcessor;
     private String SECRET = "secret";
     private String WEBFRONT_API_CLIENT_NAME = "webfront";
@@ -45,7 +47,10 @@ public class ServerTuner {
     private DreamkasRestClient_ mRestClient;
 
     public ServerTuner(String serviceHost, Integer servicePort, String env, String serverHost){
+        mEnv = env;
+        mHost = serverHost;
         mRemoteCommandProcessor = new RemoteCommandProcessor(serviceHost, servicePort, env, serverHost);
+
     }
 
     private String getApiClientId(String name){
@@ -61,8 +66,8 @@ public class ServerTuner {
 
         requests.add(new DropDatabaseRequest());
         requests.add(new CreateDatabaseRequest());
-        requests.add(new CreateApiClientRequest(SECRET, "autotests"));
-        requests.add(new CreateApiClientRequest(SECRET, "android"));
+        requests.add(new CreateApiClientRequest(SECRET, mEnv));
+        requests.add(new CreateApiClientRequest(SECRET, mHost));
         requests.add(new CreateApiClientRequest(SECRET, WEBFRONT_API_CLIENT_NAME));
 
         String log = "";

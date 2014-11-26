@@ -12,6 +12,7 @@ import android.util.Pair;
 import com.google.android.apps.common.testing.testrunner.ActivityLifecycleMonitorRegistry;
 import com.google.android.apps.common.testing.testrunner.Stage;
 
+import ru.dreamkas.pos.BuildConfig;
 import ru.dreamkas.pos.ServerTuner;
 import ru.dreamkas.pos.espresso.ScreenshotFailureHandler;
 import ru.dreamkas.pos.remoteCommand.Status;
@@ -27,7 +28,11 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
     protected BaseTestSuite(String pkg, Class<T> activityClass) {
         super(pkg, activityClass);
 
-        mServerTuner = new ServerTuner("coquille.lighthouse.pro", 11300, "autotests", "android");
+        String[] parts = BuildConfig.ServerAddress.split(".");
+        String env = parts[parts.length - 4];
+        String host = parts[parts.length - 5];
+
+        mServerTuner = new ServerTuner("coquille.lighthouse.pro", 11300, env, host);
     }
 
     Activity getCurrentActivity() throws Throwable {
