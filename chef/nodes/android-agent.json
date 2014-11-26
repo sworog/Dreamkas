@@ -10,7 +10,9 @@
         "recipe[nodejs]",
         "recipe[nodejs::npm]",
         "recipe[teamcity::agent]",
-        "recipe[lighthouse::agent_keys]"
+        "recipe[lighthouse::agent_keys]",
+
+        "role[ssh]"
     ],
     "java": {
         "oracle": {
