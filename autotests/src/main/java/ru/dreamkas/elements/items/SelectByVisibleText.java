@@ -34,8 +34,18 @@ public class SelectByVisibleText extends CommonItem {
         return getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
     }
 
-    public Boolean containsOption(String value) {
+    public Boolean containsExactlyOption(String value) {
         WebElement element = getPageObject().getWaiter().getVisibleWebElement(getFindBy());
         return getPageObject().$(element).containsSelectOption(value);
+    }
+
+    public Boolean containsOption(String value) {
+        WebElement element = getPageObject().getWaiter().getVisibleWebElement(getFindBy());
+        for (String option : getPageObject().$(element).getSelectOptions()) {
+            if (option.contains(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

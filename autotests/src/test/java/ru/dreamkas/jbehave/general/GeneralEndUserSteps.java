@@ -109,7 +109,12 @@ public class GeneralEndUserSteps {
     }
 
     @Then("пользователь* проверяет, что селект с именем '$elementName' не содержит опцию '$option'")
-    public void thenUserChecksThatCollectionNotContainObjectWithLocator(String elementName, String option) {
+    public void thenUserChecksThatSelectNotContainExactlyOption(String elementName, String option) {
+        generalSteps.selectNotContainExactlyOption(elementName, option);
+    }
+
+    @Then("пользователь* проверяет, что селект с именем '$elementName' не содержит опцию like '$option'")
+    public void thenUserChecksThatSelectNotContainOption(String elementName, String option) {
         generalSteps.selectNotContainOption(elementName, option);
     }
 }

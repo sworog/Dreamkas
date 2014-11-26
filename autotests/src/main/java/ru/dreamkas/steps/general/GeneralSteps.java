@@ -139,6 +139,14 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     }
 
     @Step
+    public void selectNotContainExactlyOption(String elementName, String value) {
+        CommonItemType commonItemType = (((CommonPageObject) getCurrentPageObject()).getItems().get(elementName));
+        assertThat(
+                ((SelectByVisibleText) commonItemType).containsExactlyOption(value),
+                is(false));
+    }
+
+    @Step
     public void selectNotContainOption(String elementName, String value) {
         CommonItemType commonItemType = (((CommonPageObject) getCurrentPageObject()).getItems().get(elementName));
         assertThat(
