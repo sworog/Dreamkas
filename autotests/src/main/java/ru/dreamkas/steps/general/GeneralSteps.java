@@ -17,6 +17,7 @@ import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByPr
 import ru.dreamkas.pages.reports.stockBalance.StockBalanceReport;
 import ru.dreamkas.pages.reports.storesGrossMarginSales.StoresGrossMarginSalesReportPage;
 import ru.dreamkas.pages.stockMovement.StockMovementPage;
+import ru.dreamkas.pages.store.StoreListPage;
 import ru.dreamkas.pages.supplier.SupplierListPage;
 import ru.dreamkas.pages.user.Settings;
 
@@ -44,6 +45,7 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("c боковой навигацией", MenuNavigationBar.class);
             put("настроек пользователя", Settings.class);
             put("списка поставщиков", SupplierListPage.class);
+            put("списка магазинов", StoreListPage.class);
         }};
     }
 
