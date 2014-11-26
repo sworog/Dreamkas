@@ -22,7 +22,7 @@ class StockMovementBuilder
     {
         $this->setDate($date);
         if ($storeId) {
-            $this->setStoreId($storeId);
+            $this->setStore($storeId);
         }
     }
 
@@ -40,7 +40,7 @@ class StockMovementBuilder
      * @param string $storeId
      * @return $this
      */
-    public function setStoreId($storeId)
+    public function setStore($storeId)
     {
         $this->data['store'] = $storeId;
         return $this;

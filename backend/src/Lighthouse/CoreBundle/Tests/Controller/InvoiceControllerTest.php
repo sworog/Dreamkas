@@ -3796,7 +3796,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->factory()->clear();
         $this->factory()->store()->deleteStore($store1);
 
-        $invoiceData->setStoreId($store2->id);
+        $invoiceData->setStore($store2->id);
 
         $putResponse = $this->clientJsonRequest(
             $accessToken,
@@ -3855,6 +3855,46 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         Assert::assertJsonPathCount(0, 'errors.children.store.errors', $putResponse);
+    }
+
+    public function testPutInStoreWithOriginalSupplierDeleted()
+    {
+        $store = $this->factory()->store()->createStore();
+        $product = $this->factory()->catalog()->getProductByName();
+        $supplier1 = $this->factory()->supplier()->getSupplier('supplier 1');
+        $supplier2 = $this->factory()->supplier()->getSupplier('supplier 2');
+
+        $invoiceData = InvoiceBuilder::create(null, null, $supplier1->id)
+            ->addProduct($product->id, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/invoices",
+            $invoiceData->toArray()
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->supplier()->deleteSupplier($supplier1);
+
+        $invoiceData->setSupplier($supplier2->id);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/stores/{$store->id}/invoices/{$postResponse['id']}",
+            $invoiceData->toArray()
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного поставщика запрещены',
+            'errors.children.supplier.errors.0',
+            $putResponse
+        );
     }
 
     public function testDeleteWithDeletedStore()
