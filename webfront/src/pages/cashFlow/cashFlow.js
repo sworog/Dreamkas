@@ -9,7 +9,8 @@ define(function(require, exports, module) {
             cashFlows: require('resources/cashFlow/collection')
         },
         blocks: {
-            modal_cashFlow: require('blocks/modal/cashFlow/cashFlow')
+            modal_cashFlow: require('blocks/modal/cashFlow/cashFlow'),
+            table_cashFlows: require('blocks/table/cashFlows/cashFlows')
         }
     });
 });

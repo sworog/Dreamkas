@@ -1,0 +1,68 @@
+<% if (sortedCollection.length) { %>
+
+<div class="panel">
+    <div class="panel-body">
+        <table style="margin-bottom: 0"
+               class="table table_cashFlows table-hover table-striped">
+            <thead>
+            <tr>
+                <th>
+                    Дата
+                </th>
+                <th>
+                    Сумма, <i class="fa fa-rub"></i>
+                </th>
+                <th>
+                    Комментарий
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% _.forEach(groupedByDateList, function(cashFlows, date) { %>
+
+            <% _.forEach(cashFlows, function(cashFlow, index) { %>
+
+            <%
+                var dateRowSpan = (index === 0) ? cashFlows.length : null;
+                var isOutDirection = (cashFlow.get('direction') == 'out');
+            %>
+
+
+            <tr>
+
+                <% if (dateRowSpan) { %>
+
+                <td name="date" rowspan="<%- dateRowSpan %>">
+                    <%- formatDate(cashFlow.get('date')) %>
+                </td>
+
+                <% } %>
+
+                <td name="amount"
+                    data-modal="modal_cashFlow" data-cash-flow-id="<%- cashFlow.id %>"
+                    class="<%- isOutDirection ? 'table_cashFlows__amountOut' : '' %>">
+                    <%- (isOutDirection ? '- ' : '+ ') + formatAmount(cashFlow.get('amount')) %>
+                </td>
+                <td name="comment"
+                    data-modal="modal_cashFlow" data-cash-flow-id="<%- cashFlow.id %>">
+                    <%- cashFlow.get('comment') %>
+                </td>
+            </tr>
+
+            <% }) %>
+
+            <% }) %>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<% } else { %>
+
+<div class="alert alert-info">
+    Вы не произвели ни одной операции с деньгами
+</div>
+
+<% } %>

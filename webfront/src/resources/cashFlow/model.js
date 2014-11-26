@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 
             return {
                 direction: this.get('direction'),
-                data: this.get('date'),
+                date: this.get('date'),
                 amount: this.get('amount'),
                 comment: this.get('comment')
             }
