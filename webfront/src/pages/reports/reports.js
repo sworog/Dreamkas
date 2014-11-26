@@ -4,6 +4,9 @@ define(function(require, exports, module) {
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
-        activeNavigationItem: 'reports'
+        activeNavigationItem: 'cashFlows',
+        collections: {
+            cashFlows: require('resources/cashFlow/collection')
+        }
     });
 });
