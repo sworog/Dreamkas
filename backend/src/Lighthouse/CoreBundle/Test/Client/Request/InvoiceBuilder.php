@@ -66,4 +66,14 @@ class InvoiceBuilder extends SupplierReturnBuilder
         $this->data['legalEntity'] = $legalEntity;
         return $this;
     }
+
+    /**
+     * @param bool $flag
+     * @return $this
+     */
+    public function setIncludesVAT($flag = true)
+    {
+        $this->data['includesVAT'] = $flag;
+        return $this;
+    }
 }
