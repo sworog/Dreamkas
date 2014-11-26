@@ -4,13 +4,6 @@
   "chef_type": "role",
   "json_class": "Chef::Role",
   "default_attributes": {
-    "beanstalkd": {
-      "opts": {
-        "l": "0.0.0.0",
-        "p": "11300"
-      },
-      "start_during_boot": true
-    },
     "php": {
       "directives": {
         "date.timezone": "Europe/Moscow",
@@ -41,15 +34,15 @@
   "run_list": [
     "recipe[apt::default]",
     "recipe[nginx]",
-    "recipe[mongodb::10gen_repo]",
-    "recipe[mongodb]",
+    "role[mongodb]",
     "recipe[php]",
     "recipe[php-fpm]",
     "recipe[composer]",
-    "recipe[beanstalkd]",
     "recipe[lighthouse]",
     "recipe[lighthouse::php]",
     "recipe[lighthouse::php-fpm]",
-    "role[newrelic-php]"
+    "role[beanstalkd]",
+    "role[newrelic-php]",
+    "role[ssh]"
   ]
 }

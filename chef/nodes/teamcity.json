@@ -12,7 +12,9 @@
         "recipe[lighthouse]",
         "recipe[lighthouse::vpn]",
         "recipe[teamcity_server::server]",
-        "recipe[lighthouse::teamcity]"
+        "recipe[lighthouse::teamcity]",
+
+        "role[ssh]"
     ],
     "java": {
         "oracle": {

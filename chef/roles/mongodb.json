@@ -1,0 +1,29 @@
+{
+    "name": "mongodb",
+    "description": "",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "default_attributes": {
+        "iptables-ng": {
+            "rules": {
+                "filter": {
+                    "INPUT": {
+                        "01-mongodb-local": {
+                            "rule": "-p tcp -s 127.0.0.1 --dport 27017 -j ACCEPT",
+                            "ip_version": 4
+                        },
+                        "10-mongodb": {
+                            "rule": "-p tcp --dport 27017 -j DROP"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[mongodb::10gen_repo]",
+        "recipe[mongodb]",
+        "recipe[iptables-ng]"
+    ]
+}
