@@ -1161,6 +1161,54 @@ class StockInControllerTest extends WebTestCase
         );
     }
 
+    public function testPutWithOriginalStoreDeleted()
+    {
+        $store1 = $this->factory()->store()->createStore('Store 1');
+        $store2 = $this->factory()->store()->createStore('Store 2');
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $stockInData = StockMovementBuilder::create(null, $store1->id)
+            ->addProduct($product->id, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stockIns',
+            $stockInData->toArray()
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store1)
+                ->createReceiptProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store1);
+
+        $stockInData->setStore($store2->id);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/stockIns/{$postResponse['id']}",
+            $stockInData->toArray()
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+    }
+
     public function testDeleteWithDeletedStore()
     {
         $store = $this->factory()->store()->getStore();

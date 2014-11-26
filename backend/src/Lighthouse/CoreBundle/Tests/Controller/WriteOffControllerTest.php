@@ -1186,6 +1186,53 @@ class WriteOffControllerTest extends WebTestCase
         );
     }
 
+    public function testPutWithOriginalStoreDeleted()
+    {
+        $store1 = $this->factory()->store()->createStore('Store 1');
+        $store2 = $this->factory()->store()->createStore('Store 2');
+        $product = $this->factory()->catalog()->getProduct();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store1->id)
+                ->createInvoiceProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $writeOffData = WriteOffBuilder::create(null, $store1->id)
+            ->addProduct($product->id, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/writeOffs',
+            $writeOffData->toArray()
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store1);
+
+        $writeOffData->setStore($store2->id);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/writeOffs/{$postResponse['id']}",
+            $writeOffData->toArray()
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+    }
+
     public function testDeleteWithDeletedStore()
     {
         $store = $this->factory()->store()->getStore();
