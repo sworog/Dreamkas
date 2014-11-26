@@ -76,7 +76,7 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
         StoreSteps.selectStore("Магазин №2");
         KasSteps.search("Товар");
 
-        waitForData(withProduct("Товар1"), R.id.lvProductsSearchResult, 10000);
+        //waitForData(withProduct("Товар1"), R.id.lvProductsSearchResult, 10000);
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар1"); setSku("10001"); setBarcode("111111111");}});
@@ -93,7 +93,7 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
         StoreSteps.selectStore("Магазин №2");
         KasSteps.search("2222");
 
-        waitForData(withProduct("Вар2"), R.id.lvProductsSearchResult, 10000);
+        //waitForData(withProduct("Вар2"), R.id.lvProductsSearchResult, 10000);
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Вар2"); setSku("10002"); setBarcode("22222222");}});
