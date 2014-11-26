@@ -34,31 +34,34 @@ public class RemoteCommandProcessor {
     }
 
     public Pair<Status, String> processCommand(Request request) {
+
         Client client = new ClientImpl(mServiceHost, mServicePort);
         String replyTubeId = UUID.randomUUID().toString();
 
         request.setTube(replyTubeId);
+
+        ArrayList<String> log = new ArrayList<String>();
+        log.add(String.format("Command %s send to tube %s, listen from tube %s", request.getCommand(), request.getTube(), replyTubeId));
 
         client.useTube(getCommandTubeName());
 
         long jobId = 0;
         try{
             jobId = client.put(65335, 0, 120, request.toJson().toString().getBytes());
+            log.add("Client.put() return jobId: " + jobId);
         }catch (JSONException ex){
             return new Pair<Status, String>(Status.UNKNOWN, "Bad request. " + ex.getMessage());
         }
 
         client.watch(getTubePrefix()+replyTubeId);
 
-        ArrayList<String> log = new ArrayList<String>();
-        log.add(String.format("Command %s send to tube %s, listen from tube %s", request.getCommand(), request.getTube(), replyTubeId));
         Job job;
         final long startTime = System.currentTimeMillis();
-        final long endTime = startTime + 5000;
+        final long endTime = startTime + 10000;
 
         Status result = Status.UNKNOWN;
         do {
-            job = client.reserve(2);
+            job = client.reserve(1);
 
             if(job == null){
                 log.add("Reserved job is null.");
