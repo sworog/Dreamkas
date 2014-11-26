@@ -426,11 +426,12 @@ class InvoiceControllerTest extends WebTestCase
     public function testPutInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
+
         $product = $this->factory()->catalog()->getProduct();
         $supplier1 = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
         $supplier2 = $this->factory()->supplier()->getSupplier('ООО "Подставщик"');
 
-        $postData = InvoiceBuilder::create(null, '2013-03-18 12:56:00', $supplier1->id)
+        $postData = InvoiceBuilder::create($store->id, '2013-03-18 12:56:00', $supplier1->id)
                 ->setAccepter('Приемных Н.П.')
                 ->setSupplierInvoiceNumber('1248373')
                 ->setLegalEntity('ООО "Магазин"')
@@ -462,12 +463,12 @@ class InvoiceControllerTest extends WebTestCase
             Assert::assertJsonPathContains($expected, $jsonPath, $postJson);
         }
 
-        $postData->setSupplier($supplier1->id);
+        $postData->setSupplier($supplier2->id);
 
         $putJson = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/invoices/' . $invoiceId,
+            "/api/1/invoices/{$invoiceId}",
             $postData->toArray()
         );
 
