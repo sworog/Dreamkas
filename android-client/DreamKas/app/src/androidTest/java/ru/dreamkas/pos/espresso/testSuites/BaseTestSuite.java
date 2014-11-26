@@ -57,16 +57,23 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
     {
         super.setUp();
 
-        /*Pair<Status, String> result = mServerTuner.help();
-        checkPreconditionResult(result);*/
-
-        /*result = mServerTuner.rebuildDatabase();
-        checkPreconditionResult(result);
-*/
-
-        Pair<Status, String> result = mServerTuner.createUser("miwa_molodec1@lighthouse.pro", "lighthouse");
+        Pair<Status, String> result = mServerTuner.rebuildDatabase();
         checkPreconditionResult(result);
 
+        String username = "androidpos@lighthouse.pro";
+        String pswd = "lighthouse";
+        result = mServerTuner.createUser(username, pswd);
+        checkPreconditionResult(result);
+
+        String groupName = "Товары";
+        mServerTuner.createStoreByUserWithEmail("Магазин №1", "Москва, ул. Лесная, д. 5", username);
+        mServerTuner.createStoreByUserWithEmail("Магазин №2", "пос. Лесное, ул. Ореховая, д. 25",username);
+        mServerTuner.createGroupThroughPostByUserWithEmail(groupName, username);
+
+        mServerTuner.createProduct("Товар1", "кг.", "111111111", "10", 150d, 250d, groupName, username);
+        mServerTuner.createProduct("Вар2", "литр", "'22222222'", "0", 110d, 130d, groupName, username);
+        mServerTuner.createProduct("Товар3", "пятюни", "'33333333'", "18", 80d, 100d, groupName, username);
+        mServerTuner.createProduct("Товар без цены продажи", "пятюни", "2666666", "18", 80d, null, groupName, username);
 
         clearPreferences();
         getActivity();
