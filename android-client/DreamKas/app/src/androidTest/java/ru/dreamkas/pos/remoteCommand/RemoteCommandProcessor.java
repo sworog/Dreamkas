@@ -76,9 +76,7 @@ public class RemoteCommandProcessor {
             }
 
             if(response != null){
-                if(!log.get(log.size() - 1).equals(response.getData())){
-                    log.add(String.format("status: %d; data: %s",response.getStatus().value(), response.getData()));
-                }
+                log.add(String.format("status: %d; data: %s",response.getStatus().value(), response.getData()));
 
                 client.delete(job.getJobId());
 
