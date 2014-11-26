@@ -37,7 +37,7 @@ public class Us113_2 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Выбор магазина при первом старте
-    public void testUserWillSeeKasFragmentWithSelectedStoreWhenChooseItInSpinner() throws Exception {
+    public void testUserWillSeeKasFragmentWithSelectedStoreWhenChooseItInSpinner() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -45,7 +45,7 @@ public class Us113_2 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Смена магазина
-    public void testUserWillSeeKasFragmentWithSelectedStoreWhenUserHaveStoreAndSelectsNewStoreFromSpinner() throws InterruptedException {
+    public void testUserWillSeeKasFragmentWithSelectedStoreWhenUserHaveStoreAndSelectsNewStoreFromSpinner() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -57,7 +57,7 @@ public class Us113_2 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Магазин выбирается автоматически при старте если уже был выбран заранее
-    public void testUserWillSeeKasFragmentWithSelectedStoreWhenUserHaveStore() throws InterruptedException {
+    public void testUserWillSeeKasFragmentWithSelectedStoreWhenUserHaveStore() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");

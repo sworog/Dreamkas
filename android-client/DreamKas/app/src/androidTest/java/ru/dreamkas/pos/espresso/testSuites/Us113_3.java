@@ -52,13 +52,12 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Поиск товара по части артикулу
-    public void testUserWillSeeKasFragmentWithSelectedStoreWhenChooseItInSpinner() throws Exception {
-
+    public void testSearchBySku() throws Throwable {
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
         KasSteps.search("100");
 
-        waitForData(withProduct("Товар1"), R.id.lvProductsSearchResult, 10000);
+        //waitForData(withProduct("Товар1"), R.id.lvProductsSearchResult, 10000);
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар1"); setSku("10001"); setBarcode("111111111");}});
@@ -71,7 +70,7 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Поиск товара по названию
-    public void testSearchByTitle() throws Exception {
+    public void testSearchByTitle() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -88,7 +87,7 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Поиск товара по штрих-коду
-    public void testSearchByBarcode() throws Exception {
+    public void testSearchByBarcode() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -104,7 +103,7 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка сообщения автокомплита о том, что надо ввести 3 или более символа
-    public void testSearchResultMessageTooShortQuery() throws Exception {
+    public void testSearchResultMessageTooShortQuery() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -114,7 +113,7 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка сообщения автокомплита о том, что надо ввести 3 или более символа
-    public void testSearchResultEmpty() throws Exception {
+    public void testSearchResultEmpty() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");

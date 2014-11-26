@@ -29,7 +29,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка формирования чека
-    public void testClearReceipt() throws Exception {
+    public void testClearReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -51,7 +51,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
 
 
     //Scenario: Проверка текста кнопки подтверждения очистки чека
-    public void testClearReceiptButtonText1() throws Exception {
+    public void testClearReceiptButtonText1() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -71,7 +71,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка отказа от подтверждения очистки чека
-    public void testClearReceiptButtonCancelSubmit() throws Exception {
+    public void testClearReceiptButtonCancelSubmit() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");

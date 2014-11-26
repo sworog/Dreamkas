@@ -32,7 +32,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка модального окна редактирования товарной позиции
-    public void testClearReceipt() throws Exception {
+    public void testClearReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -48,7 +48,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Scenario: Проверка добавления товара без цены после редактирования
-    public void testAddEditedProductToReceipt() throws Exception {
+    public void testAddEditedProductToReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -68,7 +68,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Отказ пользователя от редактирования товара без цены при добавлении его в чек
-    public void testCancelEditProductWithZeroPrice() throws Exception {
+    public void testCancelEditProductWithZeroPrice() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -88,7 +88,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка изменения количества товара по нажатию на "+"
-    public void testEditReceiptItemIncrementQuantity() throws Exception {
+    public void testEditReceiptItemIncrementQuantity() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -108,7 +108,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка изменения количества товара по нажатию на "+"
-    public void testEditReceiptItemDencrementQuantity() throws Exception {
+    public void testEditReceiptItemDencrementQuantity() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -128,7 +128,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка изменения количества товара по нажатию на "+"
-    public void testModalEditReceiptItem() throws Exception {
+    public void testModalEditReceiptItem() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -146,7 +146,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка текста кнопки подтверждения удаления товарной позиции из чека
-    public void testClearReceiptButtonText1() throws Exception {
+    public void testClearReceiptButtonText1() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -162,7 +162,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка отказа от удаления товарной позиции из чека
-    public void testCancelRemoveFromReceipt() throws Exception {
+    public void testCancelRemoveFromReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");
@@ -182,7 +182,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка удаления позиции из чека
-    public void testRemoveFromReceipt() throws Exception {
+    public void testRemoveFromReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");

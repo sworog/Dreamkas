@@ -23,6 +23,8 @@ import static com.google.common.collect.Iterables.getOnlyElement;
 
 public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrumentationTestCase2<T> {
     private final ServerTuner mServerTuner;
+    private static boolean mIsFirstLaunch = true;
+    protected boolean mSholdTuneServer = false;
 
     @SuppressWarnings("deprecation")
     protected BaseTestSuite(String pkg, Class<T> activityClass) {
@@ -54,14 +56,27 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
+        if(mSholdTuneServer){
+            tuneServer();
+            mSholdTuneServer = false;
+        }
     }
-
 
     @Override
     protected void setUp() throws Exception
     {
         super.setUp();
 
+        if(mIsFirstLaunch){
+            tuneServer();
+            mIsFirstLaunch = false;
+        }
+
+        clearPreferences();
+        getActivity();
+    }
+
+    private void tuneServer() throws Exception {
         Pair<Status, String> result = mServerTuner.rebuildDatabase();
         checkPreconditionResult(result);
 
@@ -79,9 +94,6 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
         mServerTuner.createProduct("Вар2", "литр", "'22222222'", "0", 110d, 130d, groupName, username);
         mServerTuner.createProduct("Товар3", "пятюни", "'33333333'", "18", 80d, 100d, groupName, username);
         mServerTuner.createProduct("Товар без цены продажи", "пятюни", "2666666", "18", 80d, null, groupName, username);
-
-        clearPreferences();
-        getActivity();
     }
 
     private void checkPreconditionResult(Pair<Status, String> result) {

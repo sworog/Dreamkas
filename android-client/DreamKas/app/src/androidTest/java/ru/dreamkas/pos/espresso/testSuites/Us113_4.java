@@ -22,7 +22,7 @@ public class Us113_4 extends BaseTestSuite<LoginActivity_> {
     }
 
     //Scenario: Проверка формирования чека
-    public void testFillReceipt() throws Exception {
+    public void testFillReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
         StoreSteps.selectStore("Магазин №2");

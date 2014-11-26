@@ -13,10 +13,9 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static ru.dreamkas.pos.espresso.EspressoHelper.waitForView;
 
 public class StoreSteps {
-    public static void selectStore(String store)
-    {
+    public static void selectStore(String store) throws Throwable {
         CommonSteps.clickOnViewWithId(R.id.spStores);
-        onView(withText(store)).perform(click());
+        CommonSteps.clickOnViewWithText(store);
         CommonSteps.clickOnViewWithId(R.id.btnSaveStoreSettings);
     }
 
