@@ -1,10 +1,9 @@
 define(function(require, exports, module) {
     //requirements
-    var mockjax = require('kit/mockjax/mockjax'),
-        config = require('config');
+    var ajaxMock = require('kit/ajaxMock/ajaxMock');
 
-    mockjax({
-        url: config.baseApiUrl + '/users/current',
+    ajaxMock({
+        url: '/users/current',
         status: 200,
 
         responseText: {
