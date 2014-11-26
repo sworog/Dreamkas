@@ -6,8 +6,8 @@
 *.mode2v3
 *.pbxuser
 *.perspectivev3
-xcuserdata
-project.xcworkspace
+#xcuserdata
+#project.xcworkspace
 
 #Ignore textmate build errors
 *.tm_build_errors
