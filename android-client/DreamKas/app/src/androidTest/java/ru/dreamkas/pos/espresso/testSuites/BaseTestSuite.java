@@ -28,9 +28,9 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
     protected BaseTestSuite(String pkg, Class<T> activityClass) {
         super(pkg, activityClass);
 
-        String[] parts = BuildConfig.ServerAddress.split(".");
+        String[] parts = BuildConfig.ServerAddress.split("\\.");
         String env = parts[parts.length - 4];
-        String host = parts[parts.length - 5];
+        String host = parts[parts.length - 5].replace("http://","");
 
         mServerTuner = new ServerTuner("coquille.lighthouse.pro", 11300, env, host);
     }
