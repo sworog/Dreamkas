@@ -8,7 +8,11 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import ru.dreamkas.pos.BuildConfig;
 import ru.dreamkas.pos.model.api.AuthObject;
+import ru.dreamkas.pos.model.api.GroupApiObject;
 import ru.dreamkas.pos.model.api.NamedObject;
+import ru.dreamkas.pos.model.api.Product;
+import ru.dreamkas.pos.model.api.ProductApiObject;
+import ru.dreamkas.pos.model.api.StoreApiObject;
 import ru.dreamkas.pos.model.api.collections.NamedObjects;
 import ru.dreamkas.pos.model.api.Token;
 import ru.dreamkas.pos.model.api.collections.Products;
@@ -34,5 +38,17 @@ public interface DreamkasRestClient {
     @RequiresHeader("Authorization")
     Products searchProducts(CharSequence query);
 
+    @Post("/api/1/stores")
+    @RequiresHeader("Authorization")
+    NamedObject createStore(StoreApiObject store);
+
     void setHeader(String name, String value);
+
+    @Post("/api/1/catalog/groups")
+    @RequiresHeader("Authorization")
+    NamedObject createGroup(GroupApiObject group);
+
+    @Post("/api/1/products")
+    @RequiresHeader("Authorization")
+    Product createProduct(ProductApiObject product);
 }
