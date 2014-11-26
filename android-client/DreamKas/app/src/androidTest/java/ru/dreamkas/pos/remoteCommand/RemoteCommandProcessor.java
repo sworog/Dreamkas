@@ -38,10 +38,10 @@ public class RemoteCommandProcessor {
         Client client = new ClientImpl(mServiceHost, mServicePort);
         String replyTubeId = UUID.randomUUID().toString();
 
-        request.setTube(replyTubeId);
+        request.setTubeId(replyTubeId);
 
         ArrayList<String> log = new ArrayList<String>();
-        log.add(String.format("Command %s send to tube %s, listen from tube %s", request.getCommand(), request.getTube(), replyTubeId));
+        log.add(String.format("Command %s send to tube %s, listen from tube %s", request.getCommand(), getCommandTubeName(), getTubePrefix()+replyTubeId));
 
         client.useTube(getCommandTubeName());
 

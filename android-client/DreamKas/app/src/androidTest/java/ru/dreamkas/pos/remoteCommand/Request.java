@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class Request {
     private String mCommand;
-    private String mTube = "android_autotestscommand";
+    private String mTubeId = "android_autotestscommand";
 
     public Request(String mCommand) {
         this.mCommand = mCommand;
@@ -13,13 +13,13 @@ public class Request {
 
     public Request(String mCommand, String mTube) {
         this.mCommand = mCommand;
-        this.mTube = mTube;
+        this.mTubeId = mTube;
     }
 
     public JSONObject toJson() throws JSONException {
         JSONObject request = new JSONObject();
         request.put("command", getCommand());
-        request.put("replyTo", getTube());
+        request.put("replyTo", getTubeId());
 
         return request;
     }
@@ -28,16 +28,16 @@ public class Request {
         mCommand = value;
     }
 
-    public void setTube(String value) {
-        mTube = value;
+    public void setTubeId(String value) {
+        mTubeId = value;
     }
 
     public String getCommand() {
         return mCommand;
     }
 
-    public String getTube() {
-        return mTube;
+    public String getTubeId() {
+        return mTubeId;
     }
 }
 
