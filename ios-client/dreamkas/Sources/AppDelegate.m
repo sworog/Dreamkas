@@ -31,6 +31,7 @@
     // Override point for customization after application launch.
     
     [[UIApplication sharedApplication]setStatusBarHidden:YES];
+    
     [self configureTapGestureRecognizer];
     
     return YES;

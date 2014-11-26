@@ -46,7 +46,7 @@
 /**
  * Тестируем добавление товаров в чек продажи
  */
-- (void)testGettingGroups
+- (void)testAddingProductsToSale
 {
     
 #if API_USE_TEST_SERVER
@@ -89,7 +89,7 @@
 /**
  * Тестируем добавление товаров в чек продажи
  */
-- (void)testGettingGroupsAnother
+- (void)testAddingMoreProductsToSale
 {
     
 #if API_USE_TEST_SERVER
