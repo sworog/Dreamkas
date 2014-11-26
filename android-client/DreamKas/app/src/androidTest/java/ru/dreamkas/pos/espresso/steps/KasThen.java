@@ -36,6 +36,18 @@ public class KasThen {
             }
         }};
 
+    static Command checkReceiptCommand = new Command<Pair<Integer, ArrayList<Product>>>() {
+        @Override
+        public void execute(Pair<Integer, ArrayList<Product>> data){
+            Integer expectedCount = data.first;
+            ArrayList<Product> ethalonContent = data.second;
+            onView(withId(R.id.lvReceipt)).check(has(expectedCount, LinearLayout.class));
+
+            for (Product item : ethalonContent){
+                onData(withReceiptItem(item.getName())).inAdapterView(withId(R.id.lvReceipt)).check(matches(isDisplayed()));
+            }
+        }};
+
     public static void search(String searchFor) throws InterruptedException {
         onView(withId(R.id.txtProductSearchQuery)).perform(typeText(searchFor));
         waitForView(R.id.pbSearchProduct, 20000, not(isDisplayed()));
@@ -52,12 +64,8 @@ public class KasThen {
         waitForView(R.id.lvReceipt, 1000, not(isDisplayed()));
     }
 
-    public static void checkReceipt(int expectedCount, ArrayList<Product> content) {
-        onView(withId(R.id.lvReceipt)).check(has(expectedCount, LinearLayout.class));
-
-        for (Product item : content){
-            onData(withReceiptItem(item.getName())).inAdapterView(withId(R.id.lvReceipt)).check(matches(isDisplayed()));
-        }
+    public static void checkReceipt(int expectedCount, ArrayList<Product> content) throws Throwable {
+        CommonSteps.tryInTime(checkReceiptCommand, new Pair<Integer, ArrayList<Product>>(expectedCount, content));
     }
 
     public static void checkReceiptTotal(String total) {
