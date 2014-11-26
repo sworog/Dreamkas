@@ -12,7 +12,9 @@ use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\StockMovement\InvoiceType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ODM\MongoDB\Cursor;
@@ -21,6 +23,8 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use MongoDuplicateKeyException;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InvoiceController extends AbstractRestController
 {
@@ -29,6 +33,12 @@ class InvoiceController extends AbstractRestController
      * @var InvoiceRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("validator")
+     * @var ValidatorInterface
+     */
+    protected $validator;
 
     /**
      * @return InvoiceType
@@ -82,9 +92,11 @@ class InvoiceController extends AbstractRestController
      */
     public function putInvoicesAction(Invoice $invoice, Request $request)
     {
+        $preViolations = $this->validator->validate($invoice, null, array('NotDeleted'));
+
         $formType = new InvoiceType(true);
         $this->documentRepository->resetProducts($invoice);
-        return $this->processForm($request, $invoice, $formType);
+        return $this->processForm($request, $invoice, $formType, true, true, $preViolations);
     }
 
     /**

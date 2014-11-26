@@ -55,7 +55,10 @@ abstract class StockMovement extends AbstractDocument implements Storeable
      *     simple=true
      * )
      * @Assert\NotBlank
-     * @AssertLH\NotDeleted(true, isDeletedMessage="lighthouse.validation.errors.deleted.store.forbid.edit")
+     * @AssertLH\NotDeleted(
+     *      isDeletedMessage="lighthouse.validation.errors.deleted.store.forbid.edit",
+     *      groups={"Default","NotDeleted"}
+     * )
      * @Serializer\MaxDepth(2)
      * @var Store
      */
