@@ -20,17 +20,17 @@ rm -rf "$BUILDPATH"
 mkdir "$BUILDPATH"
 
 # Resolving issues with locale
-# export LC_CTYPE=en_US.UTF-8
-# set -o pipefail
+export LC_CTYPE=en_US.UTF-8
+set -o pipefail
 
 # Reseting all simulators
-# sh ./resetsim.sh
-# echo "Script resetsim.sh FINISHED"
+sh ./resetsim.sh
+echo "Script resetsim.sh FINISHED"
 
 # Building application with given params
 xcodebuild \
-    -arch i386 \
     -sdk iphonesimulator8.1 \
+    -destination "name=iPad Air,OS=8.1" \
     -configuration Debug \
     -project "$PROJECTPATH" \
     -scheme dreamkas-tests \
