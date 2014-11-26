@@ -7,6 +7,9 @@ define(function(require, exports, module) {
         activeNavigationItem: 'cashFlows',
         collections: {
             cashFlows: require('resources/cashFlow/collection')
+        },
+        blocks: {
+            modal_cashFlow: require('blocks/modal/cashFlow/cashFlow')
         }
     });
 });
