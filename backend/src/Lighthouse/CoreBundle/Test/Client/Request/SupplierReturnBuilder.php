@@ -25,7 +25,7 @@ class SupplierReturnBuilder extends StockMovementBuilder
         parent::__construct($date, $storeId);
 
         if ($supplierId) {
-            $this->setSupplierId($supplierId);
+            $this->setSupplier($supplierId);
         }
         if ($paid) {
             $this->setPaid($paid);
@@ -35,7 +35,7 @@ class SupplierReturnBuilder extends StockMovementBuilder
     /**
      * @param string $supplierId
      */
-    public function setSupplierId($supplierId)
+    public function setSupplier($supplierId)
     {
         $this->data['supplier'] = $supplierId;
     }
@@ -53,10 +53,10 @@ class SupplierReturnBuilder extends StockMovementBuilder
      * @param string $date
      * @param string $supplierId
      * @param bool $paid
-     * @return SupplierReturnBuilder
+     * @return static
      */
     public static function create($storeId = null, $date = null, $supplierId = null, $paid = false)
     {
-        return new self($storeId, $date, $supplierId, $paid);
+        return new static($storeId, $date, $supplierId, $paid);
     }
 }

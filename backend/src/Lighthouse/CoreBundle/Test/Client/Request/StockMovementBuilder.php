@@ -28,7 +28,7 @@ class StockMovementBuilder
 
     /**
      * @param string $date
-     * @return StockMovementBuilder
+     * @return $this
      */
     public function setDate($date = null)
     {
@@ -38,17 +38,19 @@ class StockMovementBuilder
 
     /**
      * @param string $storeId
+     * @return $this
      */
     public function setStoreId($storeId)
     {
         $this->data['store'] = $storeId;
+        return $this;
     }
 
     /**
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @return StockMovementBuilder
+     * @return $this
      */
     public function addProduct($productId, $quantity = 1.0, $price = 5.99)
     {
@@ -99,10 +101,10 @@ class StockMovementBuilder
     /**
      * @param string $date
      * @param string $storeId
-     * @return StockMovementBuilder
+     * @return static
      */
     public static function create($date = null, $storeId = null)
     {
-        return new self($date, $storeId);
+        return new static($date, $storeId);
     }
 }
