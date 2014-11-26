@@ -6,6 +6,15 @@ define(function(require, exports, module) {
         id: 'modal_cashFlow',
         cashFlowId: 0,
         template: require('ejs!./template.ejs'),
+        initialize: function(){
+
+            var block = this,
+                initialize = Modal.prototype.initialize.apply(block, arguments);
+
+            block.formId = block.id + '__form';
+
+            return initialize;
+        },
         models: {
             cashFlow: function(){
                 var CashFlowModel = require('resources/cashFlow/model');
@@ -18,6 +27,7 @@ define(function(require, exports, module) {
                 var Form_cashFlow = require('blocks/form/cashFlow/cashFlow');
 
                 return new Form_cashFlow({
+                    id: this.formId,
                     cashFlowId: this.cashFlowId
                 });
             }
