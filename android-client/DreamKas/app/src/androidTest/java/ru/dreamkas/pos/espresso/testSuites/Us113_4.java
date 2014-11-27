@@ -2,16 +2,12 @@ package ru.dreamkas.pos.espresso.testSuites;
 
 import java.util.ArrayList;
 
-import ru.dreamkas.pos.espresso.ScreenshotFailureHandler;
 import ru.dreamkas.pos.espresso.steps.KasSteps;
 import ru.dreamkas.pos.espresso.steps.KasThen;
 import ru.dreamkas.pos.espresso.steps.LoginSteps;
 import ru.dreamkas.pos.espresso.steps.StoreSteps;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.activities.LoginActivity_;
-
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.setFailureHandler;
-import static ru.dreamkas.pos.espresso.EspressoHelper.waitForView;
 
 public class Us113_4 extends BaseTestSuite<LoginActivity_> {
     @SuppressWarnings("deprecation")
@@ -25,7 +21,7 @@ public class Us113_4 extends BaseTestSuite<LoginActivity_> {
     public void testFillReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{

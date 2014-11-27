@@ -1,6 +1,7 @@
 package ru.dreamkas.pos.espresso.steps;
 
 import ru.dreamkas.pos.R;
+import ru.dreamkas.pos.espresso.testSuites.BaseTestSuite;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.clearText;

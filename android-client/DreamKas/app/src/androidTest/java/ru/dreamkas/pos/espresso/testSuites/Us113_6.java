@@ -35,7 +35,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testClearReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -51,7 +51,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testAddEditedProductToReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -71,7 +71,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testCancelEditProductWithZeroPrice() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -91,7 +91,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testEditReceiptItemIncrementQuantity() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -111,7 +111,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testEditReceiptItemDencrementQuantity() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -131,7 +131,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testModalEditReceiptItem() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -149,7 +149,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testClearReceiptButtonText1() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         KasSteps.clickOnProductInSearchResult("Товар1");
@@ -165,7 +165,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testCancelRemoveFromReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         KasSteps.clickOnProductInSearchResult("Товар1");
@@ -185,7 +185,7 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
     public void testRemoveFromReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         KasSteps.clickOnProductInSearchResult("Товар1");

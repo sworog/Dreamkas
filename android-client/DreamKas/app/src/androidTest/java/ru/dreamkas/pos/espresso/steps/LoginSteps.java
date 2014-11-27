@@ -37,5 +37,7 @@ public class LoginSteps {
         //click on login button
         waitForView(R.id.btnLogin, 5000, isDisplayed());
         onView(withId(R.id.btnLogin)).perform(click());
+
+
     }
 }

@@ -32,7 +32,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
     public void testClearReceipt() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -54,7 +54,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
     public void testClearReceiptButtonText1() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -74,7 +74,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
     public void testClearReceiptButtonCancelSubmit() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
