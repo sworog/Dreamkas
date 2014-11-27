@@ -39,8 +39,9 @@
 #define DefaultSuperLightCyanColor          RGB(146, 213, 251)
 
 #define DefaultDarkGrayColor                RGB(105, 105, 105)
-#define DefaultGrayColor                    RGB(158, 158, 158)
-#define DefaultLightGrayColor               RGB(236, 236, 236)
+#define DefaultGrayColor                    RGB(161, 161, 161)
+#define DefaultPreLightGrayColor            RGB(222, 222, 222)
+#define DefaultLightGrayColor               RGB(249, 249, 249)
 
 #define DefaultWhiteColor                   [UIColor whiteColor]
 #define DefaultBlackColor                   [UIColor blackColor]

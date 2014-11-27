@@ -7,6 +7,7 @@
 //
 
 #import "LogInViewController.h"
+#import "CustomNavigationBar.h"
 
 #define PasswordMinLength 6
 
@@ -14,6 +15,8 @@
 
 @property (nonatomic, weak) IBOutlet CustomTextField *loginField;
 @property (nonatomic, weak) IBOutlet CustomTextField *passwordField;
+
+@property (nonatomic) CustomFilledButton *logInButton;
 
 @end
 
@@ -26,8 +29,7 @@
     [super viewDidLoad];
     
     [self initCloseButton];
-    
-//    [self.logInButton setEnabled:NO];
+    [self initLogInButton];
 }
 
 #pragma mark - Configuration Methods
@@ -35,20 +37,37 @@
 - (void)configureLocalization
 {
     [self setTitle:NSLocalizedString(@"log_in_title_name", nil)];
-//    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
 }
 
 - (void)configureAccessibilityLabels
 {
-//    [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
-    
     [self.loginField setAccessibilityLabel:AI_LogInPage_LoginField];
     [self.passwordField setAccessibilityLabel:AI_LogInPage_PwdField];
 }
 
+/**
+ * Инициализация кнопки Close
+ */
+- (void)initLogInButton
+{
+    self.logInButton = [CustomFilledButton buttonWithType:UIButtonTypeCustom];
+    self.logInButton.frame = CGRectMake(0, 0, 100, DefaultButtonHeight);
+    
+    [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
+    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
+    [self.logInButton addTarget:self action:@selector(logInButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *right_btn = [[UIBarButtonItem alloc] initWithCustomView:self.logInButton];
+    UIBarButtonItem *right_btn_space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    right_btn_space.width = 8.f;
+    self.navigationItem.rightBarButtonItems = @[right_btn_space, right_btn];
+    
+    [self.logInButton setEnabled:NO];
+}
+
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)logInButtonClicked:(id)sender
+- (void)logInButtonClicked:(id)sender
 {
     DPLogFast(@"");
     
@@ -85,7 +104,7 @@
     
     [self.loginField setText:API_TEST_LOGIN];
     [self.passwordField setText:API_TEST_PWD];
-//    [self.logInButton setEnabled:YES];
+    [self.logInButton setEnabled:YES];
 }
 
 #pragma mark - Методы UITextField Delegate
@@ -101,20 +120,20 @@
         if (([ValidationHelper isEmailValid:new_string])
             && (self.passwordField.text.length >= PasswordMinLength))
         {
-//            [self.logInButton setEnabled:YES];
+            [self.logInButton setEnabled:YES];
         }
         else {
-//            [self.logInButton setEnabled:NO];
+            [self.logInButton setEnabled:NO];
         }
     }
     else {
         if (([ValidationHelper isEmailValid:self.loginField.text])
             && (new_string.length >= PasswordMinLength))
         {
-//            [self.logInButton setEnabled:YES];
+            [self.logInButton setEnabled:YES];
         }
         else {
-//            [self.logInButton setEnabled:NO];
+            [self.logInButton setEnabled:NO];
         }
     }
     

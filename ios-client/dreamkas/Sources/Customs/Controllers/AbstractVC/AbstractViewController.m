@@ -131,6 +131,7 @@
     
     UIBarButtonItem *left_btn = [[UIBarButtonItem alloc] initWithCustomView:back_btn];
     self.navigationItem.leftBarButtonItem = left_btn;
+    self.navigationItem.leftItemsSupplementBackButton = NO;
 }
 
 /**
