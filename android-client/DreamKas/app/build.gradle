@@ -49,7 +49,8 @@ android
         minSdkVersion 17
         targetSdkVersion 19
 
-        def host = "http://av.staging.api.lighthouse.pro"
+        //def host = "http://av.staging.api.lighthouse.pro"
+        def host = "http://android.autotests.api.lighthouse.pro"
         if(project.hasProperty("server_address")){
             host = project.getProperty("server_address");
         }
@@ -108,6 +109,9 @@ apt
 spoon
 {
     debug = true;
+    if (project.hasProperty('spoonClassName')) {
+        className = project.spoonClassName
+    }
 }
 
 dependencies
