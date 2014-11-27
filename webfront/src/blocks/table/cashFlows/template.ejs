@@ -42,7 +42,7 @@
                 <td name="amount"
                     data-modal="modal_cashFlow" data-cash-flow-id="<%- cashFlow.id %>"
                     class="<%- isOutDirection ? 'table_cashFlows__amountOut' : '' %>">
-                    <%- (isOutDirection ? '- ' : '+ ') + formatAmount(cashFlow.get('amount')) %>
+                    <%- (isOutDirection ? '- ' : '+ ') + formatMoney(cashFlow.get('amount')) %>
                 </td>
                 <td name="comment"
                     data-modal="modal_cashFlow" data-cash-flow-id="<%- cashFlow.id %>">
