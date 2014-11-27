@@ -1,5 +1,7 @@
 package ru.dreamkas.pos.espresso.testSuites;
 
+import com.squareup.spoon.Spoon;
+
 import java.util.ArrayList;
 
 import ru.dreamkas.pos.espresso.steps.KasSteps;
@@ -19,9 +21,11 @@ public class Us113_4 extends BaseTestSuite<LoginActivity_> {
 
     //Scenario: Проверка формирования чека
     public void testFillReceipt() throws Throwable {
-
+        Spoon.screenshot(getCurrentActivity(), "info");
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
+        Spoon.screenshot(getCurrentActivity(), "info");
         StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.search("100");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
@@ -30,10 +34,14 @@ public class Us113_4 extends BaseTestSuite<LoginActivity_> {
         }};
 
         KasSteps.clickOnProductInSearchResult("Товар1");
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.clickOnProductInSearchResult("Вар2");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         KasThen.checkReceipt(2, ethalon);
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasThen.checkReceiptTotal("Продать на сумму 380,00 ₽");
+        Spoon.screenshot(getCurrentActivity(), "info");
     }
 
 

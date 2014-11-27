@@ -1,6 +1,7 @@
 package ru.dreamkas.pos.espresso.testSuites;
 
 import com.google.android.apps.common.testing.ui.espresso.ViewInteraction;
+import com.squareup.spoon.Spoon;
 
 import java.util.ArrayList;
 
@@ -32,64 +33,66 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
     //Scenario: Проверка формирования чека
     public void testClearReceipt() throws Throwable {
 
-        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
+        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");Spoon.screenshot(getCurrentActivity(), "info");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.search("100");Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар1"); setSku("10001"); setBarcode("111111111");}});
             add(new Product(){{setName("Вар2"); setSku("10002"); setBarcode("22222222");}});
         }};
 
-        KasSteps.clickOnProductInSearchResult("Товар1");
-        KasSteps.clickOnProductInSearchResult("Вар2");
+        KasSteps.clickOnProductInSearchResult("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.clickOnProductInSearchResult("Вар2");Spoon.screenshot(getCurrentActivity(), "info");
 
-        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
-        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);Spoon.screenshot(getCurrentActivity(), "info");
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasThen.checkEmptyReceipt();
+        KasThen.checkEmptyReceipt();Spoon.screenshot(getCurrentActivity(), "info");
     }
 
 
     //Scenario: Проверка текста кнопки подтверждения очистки чека
     public void testClearReceiptButtonText1() throws Throwable {
-
-        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
+        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");Spoon.screenshot(getCurrentActivity(), "info");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.search("100");Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар1"); setSku("10001"); setBarcode("111111111");}});
             add(new Product(){{setName("Вар2"); setSku("10002"); setBarcode("22222222");}});
         }};
 
-        KasSteps.clickOnProductInSearchResult("Товар1");
-        KasSteps.clickOnProductInSearchResult("Вар2");
+        KasSteps.clickOnProductInSearchResult("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.clickOnProductInSearchResult("Вар2");Spoon.screenshot(getCurrentActivity(), "info");
 
-        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);Spoon.screenshot(getCurrentActivity(), "info");
 
-        onView(withId(R.id.btnReceiptClear)).check(matches(withText("Подтвердить очистку чека")));
+        onView(withId(R.id.btnReceiptClear)).check(matches(withText("Подтвердить очистку чека")));Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Проверка отказа от подтверждения очистки чека
     public void testClearReceiptButtonCancelSubmit() throws Throwable {
-
-        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
+        Spoon.screenshot(getCurrentActivity(), "info");
+        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");Spoon.screenshot(getCurrentActivity(), "info");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.search("100");
-
+        Spoon.screenshot(getCurrentActivity(), "info");
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар1"); setSku("10001"); setBarcode("111111111");}});
             add(new Product(){{setName("Вар2"); setSku("10002"); setBarcode("22222222");}});
         }};
 
-        KasSteps.clickOnProductInSearchResult("Товар1");
+        KasSteps.clickOnProductInSearchResult("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInSearchResult("Вар2");
+        KasSteps.clickOnProductInSearchResult("Вар2");Spoon.screenshot(getCurrentActivity(), "info");
 
         onView(withId(R.id.btnReceiptClear)).check(matches(withText("Очистить чек")));
+        Spoon.screenshot(getCurrentActivity(), "info");
     }
 
 

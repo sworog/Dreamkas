@@ -1,6 +1,8 @@
 package ru.dreamkas.pos.espresso.steps;
 
 
+import com.squareup.spoon.Spoon;
+
 import java.util.concurrent.Callable;
 
 import ru.dreamkas.pos.R;
@@ -39,6 +41,7 @@ public class CommonSteps {
 
     public static void clickOnViewWithId(int viewId) throws Throwable {
         //waitForView(viewId, 10000, isDisplayed());
+
         tryInTime(clickOnViewWithIdCommand, viewId);
     }
 

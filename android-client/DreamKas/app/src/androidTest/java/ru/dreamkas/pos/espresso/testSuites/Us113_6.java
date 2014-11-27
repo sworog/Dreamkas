@@ -1,5 +1,7 @@
 package ru.dreamkas.pos.espresso.testSuites;
 
+import com.squareup.spoon.Spoon;
+
 import java.util.ArrayList;
 
 import ru.dreamkas.pos.R;
@@ -33,169 +35,196 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
 
     //Scenario: Проверка модального окна редактирования товарной позиции
     public void testClearReceipt() throws Throwable {
-
+        Spoon.screenshot(getCurrentActivity(), "info");
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
+        Spoon.screenshot(getCurrentActivity(), "info");
         StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
+
             add(new Product(){{setName("Товар без цены продажи"); setSku("10004"); setBarcode("666666");}});
         }};
 
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.clickOnProductInSearchResult("Товар без цены продажи");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         KasThen.checkEditReceiptItemModal("0,00 ₽", "Товар без цены продажи", "", "1,0");
+        Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Scenario: Проверка добавления товара без цены после редактирования
     public void testAddEditedProductToReceipt() throws Throwable {
-
+        Spoon.screenshot(getCurrentActivity(), "info");
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
+        Spoon.screenshot(getCurrentActivity(), "info");
         StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар без цены продажи"); setSku("10004"); setBarcode("666666");}});
         }};
 
         KasSteps.clickOnProductInSearchResult("Товар без цены продажи");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         onView(withId(R.id.txtSellingPrice)).perform(typeText("100"));
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         CommonSteps.clickOnViewWithId(R.id.btnSave);
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         KasThen.checkReceipt(1, ethalon);
+        Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Отказ пользователя от редактирования товара без цены при добавлении его в чек
     public void testCancelEditProductWithZeroPrice() throws Throwable {
-
+        Spoon.screenshot(getCurrentActivity(), "info");
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
+        Spoon.screenshot(getCurrentActivity(), "info");
         StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар без цены продажи"); setSku("10004"); setBarcode("666666");}});
         }};
 
         KasSteps.clickOnProductInSearchResult("Товар без цены продажи");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         onView(withId(R.id.txtSellingPrice)).perform(typeText("100"));
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         CommonSteps.clickOnViewWithId(R.id.btnCloseModal);
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         KasThen.checkEmptyReceipt();
+        Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Проверка изменения количества товара по нажатию на "+"
     public void testEditReceiptItemIncrementQuantity() throws Throwable {
-
+        Spoon.screenshot(getCurrentActivity(), "info");
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
+        Spoon.screenshot(getCurrentActivity(), "info");
         StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
+        Spoon.screenshot(getCurrentActivity(), "info");
         KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар без цены продажи"); setSku("10004"); setBarcode("666666");}});
         }};
 
         KasSteps.clickOnProductInSearchResult("Товар без цены продажи");
-
+        Spoon.screenshot(getCurrentActivity(), "info");
         onView(withId(R.id.txtValue)).perform(new EspressoHelper.SetTextAction("15,351"));
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         CommonSteps.clickOnViewWithId(R.id.btnUp);
+        Spoon.screenshot(getCurrentActivity(), "info");
 
         onView(withId(R.id.txtValue)).check(matches(withText(("16,351"))));
+        Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Проверка изменения количества товара по нажатию на "+"
     public void testEditReceiptItemDencrementQuantity() throws Throwable {
-
-        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
+        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");Spoon.screenshot(getCurrentActivity(), "info");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.search("100");Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар без цены продажи"); setSku("10004"); setBarcode("666666");}});
         }};
 
-        KasSteps.clickOnProductInSearchResult("Товар без цены продажи");
+        KasSteps.clickOnProductInSearchResult("Товар без цены продажи");Spoon.screenshot(getCurrentActivity(), "info");
 
-        onView(withId(R.id.txtValue)).perform(new EspressoHelper.SetTextAction("15,351"));
+        onView(withId(R.id.txtValue)).perform(new EspressoHelper.SetTextAction("15,351"));Spoon.screenshot(getCurrentActivity(), "info");
 
-        CommonSteps.clickOnViewWithId(R.id.btnDown);
+        CommonSteps.clickOnViewWithId(R.id.btnDown);Spoon.screenshot(getCurrentActivity(), "info");
 
-        onView(withId(R.id.txtValue)).check(matches(withText(("14,351"))));
+        onView(withId(R.id.txtValue)).check(matches(withText(("14,351"))));Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Проверка изменения количества товара по нажатию на "+"
     public void testModalEditReceiptItem() throws Throwable {
-
-        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        KasSteps.search("100");
+        Spoon.screenshot(getCurrentActivity(), "info");
+        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");Spoon.screenshot(getCurrentActivity(), "info");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.search("100");Spoon.screenshot(getCurrentActivity(), "info");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар без цены продажи"); setSku("10004"); setBarcode("666666");}});
         }};
 
-        KasSteps.clickOnProductInSearchResult("Товар1");
+        KasSteps.clickOnProductInSearchResult("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInReceipt("Товар1");
+        KasSteps.clickOnProductInReceipt("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasThen.checkEditReceiptItemModal("250,00 ₽", "Товар1", "250,00", "1,0");
+        KasThen.checkEditReceiptItemModal("250,00 ₽", "Товар1", "250,00", "1,0");Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Проверка текста кнопки подтверждения удаления товарной позиции из чека
     public void testClearReceiptButtonText1() throws Throwable {
 
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        KasSteps.search("100");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.search("100");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInSearchResult("Товар1");
+        KasSteps.clickOnProductInSearchResult("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInReceipt("Товар1");
+        KasSteps.clickOnProductInReceipt("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());
+        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());Spoon.screenshot(getCurrentActivity(), "info");
 
-        onView(withId(R.id.btnRemoveFromReceipt)).check(matches(withText("Подтвердить удаление")));
+        onView(withId(R.id.btnRemoveFromReceipt)).check(matches(withText("Подтвердить удаление")));Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Проверка отказа от удаления товарной позиции из чека
     public void testCancelRemoveFromReceipt() throws Throwable {
+        Spoon.screenshot(getCurrentActivity(), "info");
+        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");Spoon.screenshot(getCurrentActivity(), "info");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.search("100");Spoon.screenshot(getCurrentActivity(), "info");
 
-        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        KasSteps.search("100");
+        KasSteps.clickOnProductInSearchResult("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInSearchResult("Товар1");
+        KasSteps.clickOnProductInReceipt("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInReceipt("Товар1");
+        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());Spoon.screenshot(getCurrentActivity(), "info");
 
-        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());
+        waitForView(R.id.btnUp, 3000, isDisplayed());Spoon.screenshot(getCurrentActivity(), "info");
+        onView(withId(R.id.btnUp)).perform(click());Spoon.screenshot(getCurrentActivity(), "info");
 
-        waitForView(R.id.btnUp, 3000, isDisplayed());
-        onView(withId(R.id.btnUp)).perform(click());
-
-        waitForView(R.id.btnRemoveFromReceipt, 10000, isDisplayed());
-        onView(withId(R.id.btnRemoveFromReceipt)).check(matches(withText("УДАЛИТЬ ИЗ ЧЕКА")));
+        waitForView(R.id.btnRemoveFromReceipt, 10000, isDisplayed());Spoon.screenshot(getCurrentActivity(), "info");
+        onView(withId(R.id.btnRemoveFromReceipt)).check(matches(withText("УДАЛИТЬ ИЗ ЧЕКА")));Spoon.screenshot(getCurrentActivity(), "info");
     }
 
     //Scenario: Проверка удаления позиции из чека
     public void testRemoveFromReceipt() throws Throwable {
+        Spoon.screenshot(getCurrentActivity(), "info");
+        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");Spoon.screenshot(getCurrentActivity(), "info");
+        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();Spoon.screenshot(getCurrentActivity(), "info");
+        KasSteps.search("100");Spoon.screenshot(getCurrentActivity(), "info");
 
-        LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        KasSteps.search("100");
+        KasSteps.clickOnProductInSearchResult("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInSearchResult("Товар1");
+        KasSteps.clickOnProductInReceipt("Товар1");Spoon.screenshot(getCurrentActivity(), "info");
 
-        KasSteps.clickOnProductInReceipt("Товар1");
+        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());Spoon.screenshot(getCurrentActivity(), "info");
+        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());Spoon.screenshot(getCurrentActivity(), "info");
 
-        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());
-        onView(withId(R.id.btnRemoveFromReceipt)).perform(click());
-
-        KasThen.checkEmptyReceipt();
+        KasThen.checkEmptyReceipt();Spoon.screenshot(getCurrentActivity(), "info");
     }
 
 }
