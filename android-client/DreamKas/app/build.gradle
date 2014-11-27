@@ -109,8 +109,10 @@ apt
 spoon
 {
     debug = true;
+    noAnimation = true;
     if (project.hasProperty('spoonClassName')) {
         className = project.spoonClassName
+
     }
 }
 
