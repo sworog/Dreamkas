@@ -12,25 +12,23 @@ class StoreGrossSalesTest extends DataAwareTestCase
     {
         $store = $this->factory()->store()->getStore('1');
 
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '-1 days 8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 9:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 10:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
             ->flush();
 
         $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
