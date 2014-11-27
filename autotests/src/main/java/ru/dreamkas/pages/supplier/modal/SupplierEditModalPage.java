@@ -10,7 +10,9 @@ public class SupplierEditModalPage extends SupplierCreateModalPage {
     }
 
     @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить").click();
+    public void createElements() {
+        super.createElements();
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Сохранить"));
     }
 }

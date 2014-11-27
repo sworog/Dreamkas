@@ -1,0 +1,55 @@
+.removeButton {
+    display: inline-block;
+}
+
+.removeButton__link {
+    display: inline-block;
+    padding: 0 10px;
+    height: 30px;
+    line-height: 27px;
+    cursor: pointer;
+    border: 1px solid #006699;
+    color: #006699;
+    background: transparent;
+    outline: none;
+    text-align: center;
+    width: 200px;
+}
+
+.removeButton__confirm {
+    display: none;
+    border: 1px solid #d40000;
+    background: #d40000;
+    color: #fff !important;
+}
+
+.removeButton__error {
+    display: none;
+    height: 30px;
+    line-height: 27px;
+    font-style: italic;
+    color: #db4c4a;
+}
+
+.removeButton_confirm .removeButton__confirm {
+    display: inline-block;
+}
+
+.removeButton_confirm .removeButton__trigger {
+    display: none;
+}
+
+.removeButton_fail .removeButton__error {
+    display: block;
+}
+
+.removeButton_fail .removeButton__link {
+    display: none;
+}
+
+.removeButton_loading .removeButton__link {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
+    animation: progress-bar-stripes 2s linear infinite;
+    background-size: 40px 40px !important;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .25) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .25) 50%, rgba(255, 255, 255, .25) 75%, transparent 75%, transparent) !important;
+}

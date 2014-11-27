@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\ClassNameable;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -41,6 +42,14 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
     }
 
     /**
+     * @return NumericFactory
+     */
+    public function getNumericFactory()
+    {
+        return $this->container->get('lighthouse.core.types.numeric.factory');
+    }
+
+    /**
      * @return $this
      */
     public function flush()
@@ -60,11 +69,23 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
 
     /**
      * @param AbstractDocument $document
+     * @param bool $validate
      */
-    public function save($document)
+    protected function doSave($document, $validate = true)
     {
-        $this->getValidator()->validate($document);
+        if ($validate) {
+            $this->getValidator()->validate($document);
+        }
         $this->getDocumentManager()->persist($document);
+        $this->getDocumentManager()->flush();
+    }
+
+    /**
+     * @param AbstractDocument $document
+     */
+    protected function doDelete($document)
+    {
+        $this->getDocumentManager()->remove($document);
         $this->getDocumentManager()->flush();
     }
 

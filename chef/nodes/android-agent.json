@@ -1,0 +1,42 @@
+{
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[java]",
+        "recipe[gradle]",
+        "recipe[android-sdk]",
+        "recipe[lighthouse]",
+        "recipe[ruby::1.9.1]",
+        "recipe[lighthouse::bundler]",
+        "recipe[nodejs]",
+        "recipe[nodejs::npm]",
+        "recipe[teamcity::agent]",
+        "recipe[lighthouse::agent_keys]",
+
+        "role[ssh]"
+    ],
+    "java": {
+        "oracle": {
+            "accept_oracle_download_terms": true
+        },
+        "jdk_version": 7,
+        "install_flavor": "oracle"
+    },
+    "gradle": {
+        "version": "1.12",
+        "url": "http://services.gradle.org/distributions/gradle-1.12-bin.zip",
+        "checksum": "8734b13a401f4311ee418173ed6ca8662d2b0a535be8ff2a43ecb1c13cd406ea"
+    },
+    "teamcity": {
+        "agents": {
+            "default": {
+                "server_url": "http://teamcity.lighthouse.pro/",
+                "user": "teamcity",
+                "name": "android-1",
+                "system_dir": "agent",
+                "system_properties": {
+                    "android.emulator.port": 5554
+                }
+            }
+        }
+    }
+}

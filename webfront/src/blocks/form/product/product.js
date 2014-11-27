@@ -26,20 +26,21 @@ define(function(require, exports, module) {
                 var block = this;
 
                 block.calculateMarkup();
-            },
-            'click .form_product__removeLink': function(e) {
-                var block = this;
-
-                e.target.classList.add('loading');
-
-                block.model.destroy().then(function() {
-                    e.target.classList.remove('loading');
-                });
             }
         },
         blocks: {
             select_group: require('blocks/select/group/group'),
-            select_vat: require('blocks/select/vat/vat')
+            select_vat: require('blocks/select/vat/vat'),
+            removeButton: function(){
+
+                var block = this,
+                    RemoveButton = require('blocks/removeButton/removeButton');
+
+                return new RemoveButton({
+                    model: block.model,
+                    removeText: 'Удалить товар'
+                });
+            }
         },
         render: function(){
 

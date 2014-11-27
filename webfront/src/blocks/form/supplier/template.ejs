@@ -55,4 +55,13 @@
                    value="<%- model.get('contactPerson') %>">
         </div>
     </div>
+
+    <% if (model.id) { %>
+    <div style="padding-top: 20px;">
+
+        <b block="removeButton"></b>
+
+    </div>
+    <% } %>
+
 </form>

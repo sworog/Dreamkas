@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
 import ru.dreamkas.elements.items.Input;
+import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.pages.modal.ModalWindowPage;
 
 public class SupplierCreateModalPage extends ModalWindowPage {
@@ -18,17 +19,17 @@ public class SupplierCreateModalPage extends ModalWindowPage {
     }
 
     @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить").click();
-    }
-
-    @Override
     public void createElements() {
         put("name", new Input(this, "//*[@name='name']"));
         put("address", new Input(this, "//*[@name='address']"));
         put("phone", new Input(this, "//*[@name='phone']"));
         put("email", new Input(this, "//*[@name='email']"));
         put("contactPerson", new Input(this, "//*[@name='contactPerson']"));
+        put("заголовок успешного удаления поставщика", new NonType(this, "//*[@name='successRemoveTitle']"));
+        put("название удаленного поставщика", new NonType(this, "//*[@name='removedSupplierName']"));
+
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Добавить"));
     }
 
     @Override

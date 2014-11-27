@@ -1112,21 +1112,181 @@ class WriteOffControllerTest extends WebTestCase
         $this->assertWriteOffProductDelete($writeOff->products[0]->id);
     }
 
-    /**
-     * @param string $invoiceId
-     */
-    protected function assertWriteOffDelete($invoiceId)
+    public function testPostWithDeletedStore()
     {
-        $invoice = $this->getWriteOffRepository()->find($invoiceId);
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->store()->deleteStore($store);
+
+        $writeOffData = WriteOffBuilder::create(null, $store->id)
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/writeOffs',
+            $writeOffData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $postResponse
+        );
+    }
+
+    public function testPutWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $writeOffData = WriteOffBuilder::create(null, $store->id)
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/writeOffs',
+            $writeOffData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/writeOffs/{$postResponse['id']}",
+            $writeOffData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+    }
+
+    public function testPutWithOriginalStoreDeleted()
+    {
+        $store1 = $this->factory()->store()->createStore('Store 1');
+        $store2 = $this->factory()->store()->createStore('Store 2');
+        $product = $this->factory()->catalog()->getProduct();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store1->id)
+                ->createInvoiceProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $writeOffData = WriteOffBuilder::create(null, $store1->id)
+            ->addProduct($product->id, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/writeOffs',
+            $writeOffData->toArray()
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store1);
+
+        $writeOffData->setStore($store2->id);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/writeOffs/{$postResponse['id']}",
+            $writeOffData->toArray()
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+    }
+
+    public function testDeleteWithDeletedStore()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()
+            ->stockIn()
+                ->createStockIn($store)
+                ->createStockInProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $writeOff = $this->factory()
+            ->writeOff()
+                ->createWriteOff($store)
+                ->createWriteOffProduct($product->id, 10, 7.49)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/writeOffs/{$writeOff->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Удаление операции с участием удаленного магазина запрещено',
+            'message',
+            $deleteResponse
+        );
+    }
+
+
+    /**
+     * @param string $writeOffId
+     */
+    protected function assertWriteOffDelete($writeOffId)
+    {
+        $invoice = $this->getWriteOffRepository()->find($writeOffId);
         $this->assertNull($invoice);
     }
 
     /**
-     * @param string $invoiceProductId
+     * @param string $writeOffProductId
      */
-    protected function assertWriteOffProductDelete($invoiceProductId)
+    protected function assertWriteOffProductDelete($writeOffProductId)
     {
-        $writeOffProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
+        $writeOffProduct = $this->getWriteOffProductRepository()->find($writeOffProductId);
         $this->assertNull($writeOffProduct);
     }
 

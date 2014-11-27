@@ -43,6 +43,11 @@ define(function(require) {
                 });
 
                 submitting.fail(function(response) {
+
+                    if (response.statusText === 'abort') {
+                        return;
+                    }
+
                     block.submitError(response);
                     block.trigger('submit:error', response);
                 });
@@ -79,13 +84,17 @@ define(function(require) {
             //закрытие modal при удалении сущности
             if (block.model) {
                 block.listenTo(block.model, {
-                    destroy: function () {
+                    destroy: function() {
                         var modal = block.$el.closest('.modal')[0];
 
-                        if (modal) {
+                        if (modal && modal.block.showDeletedMessage) {
                             modal.block.show({
                                 deleted: true
                             });
+                        }
+
+                        if (modal && !modal.block.showDeletedMessage) {
+                            modal.block.hide();
                         }
                     }
                 });
@@ -100,7 +109,7 @@ define(function(require) {
 
             block.originalData = block.getData();
         },
-        getData: function(){
+        getData: function() {
 
             var block = this;
 
@@ -145,7 +154,7 @@ define(function(require) {
             }
 
             if (modal && !modal.block.referrer) {
-                modal.block.hide({ submitSuccess: true });
+                modal.block.hide({submitSuccess: true});
             }
 
             if (modal && modal.block.referrer) {
@@ -166,6 +175,19 @@ define(function(require) {
 
             block.showErrors(JSON.parse(response.responseText), response);
         },
+        showError: function(errorMessage, field) {
+
+            var block = this,
+                inputElement = block.el.querySelector('[name="' + field + '"]'),
+                errorContainer = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div for="' + field + '" class="form__errorMessage"></div>').insertAfter(inputElement)[0];
+
+            inputElement && inputElement.classList.add('invalid');
+
+            if (errorContainer) {
+                errorContainer.classList.add('form__errorMessage_visible');
+                errorContainer.innerHTML = errorMessage;
+            }
+        },
         showFieldError: function(data, field) {
             var block = this,
                 errorMessage,
@@ -177,7 +199,7 @@ define(function(require) {
 
                 errorMessage = data.errors.map(getText).join('. ');
 
-                if (errorElement){
+                if (errorElement) {
                     errorElement.classList.add('form__errorMessage_visible');
                     errorElement.innerHTML = getText(errorMessage);
                 }
@@ -264,16 +286,12 @@ define(function(require) {
 
             block.$(':input').val('');
         },
-        isChanged: function(){
-
+        isChanged: function() {
             var block = this,
                 originalData = block.originalData,
-                actualData = block.getData(),
-                isCollectionChanged;
+                actualData = block.getData();
 
-            isCollectionChanged = block.collection && block.collection.isChanged();
-
-            return !_.isEqual(originalData, actualData) || isCollectionChanged;
+            return !_.isEqual(originalData, actualData);
         }
     })
 });

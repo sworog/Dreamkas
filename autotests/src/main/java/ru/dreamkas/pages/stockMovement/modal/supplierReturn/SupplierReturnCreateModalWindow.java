@@ -17,11 +17,9 @@ public class SupplierReturnCreateModalWindow extends StockMovementModalPage impl
     public void createElements() {
         super.createElements();
         put("supplier", new SelectByVisibleText(this, "//*[@name='supplier']"));
-    }
 
-    @Override
-    public void confirmationOkClick() {
-        confirmationOkClick("Вернуть");
+        putDefaultConfirmationOkButton(
+                getConfirmationOkButton("Вернуть"));
     }
 
     @Override

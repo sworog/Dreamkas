@@ -16,16 +16,6 @@ define(function(require, exports, module) {
                 return PAGE.collections.groups.get(this.get('selectedGroupId'));
             }
         },
-        initialize: function(data){
-
-            data = data || {};
-
-            if (typeof data.deleted === 'undefined'){
-                this.deleted = false;
-            }
-
-            return Modal.prototype.initialize.apply(this, arguments);
-        },
         render: function(){
 
             var block = this,

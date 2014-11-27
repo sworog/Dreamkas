@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
-use Lighthouse\CoreBundle\Test\Client\Request\StockInBuilder;
+use Lighthouse\CoreBundle\Test\Client\Request\StockMovementBuilder;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StockInControllerTest extends WebTestCase
@@ -17,7 +17,7 @@ class StockInControllerTest extends WebTestCase
         $productId = $this->createProductByName();
         $date = strtotime('-1 day');
 
-        $stockInData = StockInBuilder::create(date('c', $date), $store->id)
+        $stockInData = StockMovementBuilder::create(date('c', $date), $store->id)
             ->addProduct($productId)
             ->toArray();
 
@@ -50,7 +50,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProductByName();
-        $stockInData = StockInBuilder::create('2012-07-11', $store->id)
+        $stockInData = StockMovementBuilder::create('2012-07-11', $store->id)
             ->addProduct($productId)
             ->toArray($data);
 
@@ -81,7 +81,7 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProductByName();
-        $postData = StockInBuilder::create('11.07.2012', $store->id)
+        $postData = StockMovementBuilder::create('11.07.2012', $store->id)
             ->addProduct($productId)
             ->toArray();
 
@@ -222,7 +222,7 @@ class StockInControllerTest extends WebTestCase
         $productId3 = $this->createProductByName('3');
 
         // Create stockin with product#1
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId1, 12, 5.99);
 
         $postResponse = $this->postStockIn($stockInData->toArray());
@@ -505,7 +505,7 @@ class StockInControllerTest extends WebTestCase
 
         $productId = $this->createProductByName();
 
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId, 7.99, 2)
             ->toArray();
 
@@ -539,7 +539,7 @@ class StockInControllerTest extends WebTestCase
 
         $productId = $this->createProductByName();
 
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId, 7.99, 2)
             ->toArray();
 
@@ -800,7 +800,7 @@ class StockInControllerTest extends WebTestCase
         $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
 
         // create product 1 stock in
-        $stockInData = StockInBuilder::create(null, $store->id)
+        $stockInData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId1, 5, 3.49);
 
         $postResponse = $this->postStockIn($stockInData->toArray());
@@ -916,7 +916,7 @@ class StockInControllerTest extends WebTestCase
         $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
 
         if ($sendData) {
-            $data = StockInBuilder::create()
+            $data = StockMovementBuilder::create()
                 ->addProduct($productId)
                 ->toArray();
         } else {
@@ -992,7 +992,7 @@ class StockInControllerTest extends WebTestCase
                 ->createStockInProduct($productId, 1, 9.99, 'Порча')
             ->flush();
 
-        $putData = StockInBuilder::create(null, $store->id)
+        $putData = StockMovementBuilder::create(null, $store->id)
             ->addProduct($productId, '', 9.99)
             ->toArray();
 
@@ -1085,6 +1085,166 @@ class StockInControllerTest extends WebTestCase
 
         $this->assertStockInDelete($stockIn->id);
         $this->assertStockInProductDelete($stockIn->products[0]->id);
+    }
+
+    public function testPostWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->store()->deleteStore($store);
+
+        $stockInData = StockMovementBuilder::create(null, $store->id)
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stockIns',
+            $stockInData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $postResponse
+        );
+    }
+
+    public function testPutWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $stockInData = StockMovementBuilder::create(null, $store->id)
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stockIns',
+            $stockInData
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/stockIns/{$postResponse['id']}",
+            $stockInData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+    }
+
+    public function testPutWithOriginalStoreDeleted()
+    {
+        $store1 = $this->factory()->store()->createStore('Store 1');
+        $store2 = $this->factory()->store()->createStore('Store 2');
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $stockInData = StockMovementBuilder::create(null, $store1->id)
+            ->addProduct($product->id, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stockIns',
+            $stockInData->toArray()
+        );
+
+        $this->assertResponseCode(201);
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store1)
+                ->createReceiptProduct($product->id, 10, 6.00)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store1);
+
+        $stockInData->setStore($store2->id);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/stockIns/{$postResponse['id']}",
+            $stockInData->toArray()
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.children.store.errors.0',
+            $putResponse
+        );
+    }
+
+    public function testDeleteWithDeletedStore()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $stockIn = $this->factory()
+            ->stockIn()
+                ->createStockIn($store)
+                ->createStockInProduct($product->id, 10, 5.12)
+            ->flush();
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($product->id, 10, 7.49)
+            ->flush();
+
+        $this->factory()->clear();
+        $this->factory()->store()->deleteStore($store);
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/stockIns/{$stockIn->id}"
+        );
+
+        $this->assertResponseCode(409);
+        Assert::assertJsonPathEquals(
+            'Удаление операции с участием удаленного магазина запрещено',
+            'message',
+            $deleteResponse
+        );
     }
 
     /**

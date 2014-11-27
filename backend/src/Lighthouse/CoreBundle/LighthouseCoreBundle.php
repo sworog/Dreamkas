@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle;
 
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\ModifyNewRelicRequestListenerPriority;
-use Lighthouse\JobBundle\DependencyInjection\Compiler\AddJobWorkersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\MongoDBDocumentManagerPass;

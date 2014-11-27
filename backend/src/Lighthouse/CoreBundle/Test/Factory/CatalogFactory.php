@@ -46,21 +46,59 @@ class CatalogFactory extends AbstractFactory
     /**
      * @param string $name
      * @param SubCategory $subCategory
+     * @param array $extraData
      * @return Product
      */
-    public function createProductByName($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    public function createProductByName(
+        $name = self::DEFAULT_PRODUCT_NAME,
+        SubCategory $subCategory = null,
+        array $extraData = array()
+    ) {
+        $data = $extraData + array(
+            'name' => $name,
+            'vat' => 18,
+        );
+        return $this->createProduct($data, $subCategory);
+    }
+
+    /**
+     * @param array $data
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function createProduct(array $data, SubCategory $subCategory = null)
     {
         $product = new Product();
-        $product->name = $name;
-        $product->vat = 18;
+
+        $this->populate($product, $this->prepareData($data));
 
         $product->subCategory = $subCategory ?: $this->getSubCategory();
 
-        $this->save($product);
+        $this->doSave($product);
 
-        $this->productNames[$name] = $product->id;
+        $this->productNames[$product->name] = $product->id;
 
         return $product;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function prepareData(array $data)
+    {
+        foreach ($data as $key => &$value) {
+            switch ($key) {
+                case 'purchasePrice':
+                case 'sellingPrice':
+                case 'retailPriceMin':
+                case 'retailPriceMax':
+                    $value = $this->getNumericFactory()->createMoney($value);
+                    break;
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -74,6 +112,16 @@ class CatalogFactory extends AbstractFactory
             $this->createProductByName($name, $subCategory);
         }
         return $this->getProductById($this->productNames[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function getProduct($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    {
+        return $this->getProductByName($name, $subCategory);
     }
 
     /**
@@ -122,7 +170,7 @@ class CatalogFactory extends AbstractFactory
         $group->retailMarkupMax = $retailMarkupMax;
         $group->rounding = $this->getRounding($rounding);
 
-        $this->save($group);
+        $this->doSave($group);
 
         $this->groupNames[$group->name] = $group->id;
 

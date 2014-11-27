@@ -2,8 +2,6 @@
 
 namespace Lighthouse\JobBundle\Exception;
 
-use Lighthouse\JobBundle\Exception\JobException;
-
 class NotFoundJobException extends JobException
 {
     /**

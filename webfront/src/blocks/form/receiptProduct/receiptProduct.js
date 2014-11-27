@@ -16,15 +16,6 @@ define(function(require, exports, module) {
             });
         },
         model: require('resources/receiptProduct/model'),
-        events: {
-            'click .form_receiptProduct__removeLink': function(e){
-                var block = this;
-
-                block.model.destroy();
-
-                document.getElementById('modal_receiptProduct').block.hide();
-            }
-        },
         blocks: {
             inputNumber: function(){
                 var block = this,
@@ -38,6 +29,16 @@ define(function(require, exports, module) {
                 });
 
                 return inputNumber;
+            },
+            removeButton: function(){
+
+                var block = this,
+                    RemoveButton = require('blocks/removeButton/removeButton');
+
+                return new RemoveButton({
+                    model: block.model,
+                    removeText: 'Удалить продукт из чека'
+                });
             }
         },
         collection: function(){

@@ -82,4 +82,15 @@ class StoreRepository extends DocumentRepository
     {
         return $this->findOneBy(array('name' => $name));
     }
+
+    /**
+     * @return Cursor|Store[]
+     */
+    public function findAllActive()
+    {
+        return $this->findBy(
+            array('deletedAt' => null),
+            array('id' => self::SORT_ASC)
+        );
+    }
 }

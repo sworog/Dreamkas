@@ -31,6 +31,7 @@ define(function(require, exports, module) {
 
     return Block.extend({
         referrer: null,
+        showDeletedMessage: true,
         events: {
             'click [data-modal-dialog]': function(e) {
                 var block = this,
@@ -49,6 +50,16 @@ define(function(require, exports, module) {
                     block.hide();
                 }
             }
+        },
+        initialize: function(data){
+
+            data = data || {};
+
+            if (typeof data.deleted === 'undefined') {
+                this.deleted = false;
+            }
+
+            return Block.prototype.initialize.apply(this, arguments);
         },
         render: function() {
             var block = this,
@@ -93,11 +104,6 @@ define(function(require, exports, module) {
                 return;
             }
 
-            this.close(options);
-        },
-        close: function(options) {
-            var block = this;
-
             document.body.classList.remove('modal-open');
 
             block.el.classList.remove('modal_visible');
@@ -106,7 +112,7 @@ define(function(require, exports, module) {
 
             block.reset();
 
-            block.trigger('hidden');
+            block.trigger('hidden', options);
         },
         reset: function() {
             this.$('form').each(function() {

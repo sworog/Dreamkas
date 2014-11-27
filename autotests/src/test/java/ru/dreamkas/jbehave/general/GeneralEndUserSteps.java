@@ -97,4 +97,24 @@ public class GeneralEndUserSteps {
     public void thenTheUserChecksCommonItemCssValue(String commonItemName, String cssValue, String value) {
         generalSteps.assertCommonItemCssValue(commonItemName, cssValue, value);
     }
+
+    @Then("пользователь* проверяет, что список '$collectionName' не содержит элемент с именем '$locator'")
+    public void thenUserChecksThatCollectionNotContainObjectWithLocator(String locator) {
+        generalSteps.collectionNotContainObjectWithLocator(locator);
+    }
+
+    @Then("пользователь* проверяет, что список '$collectionName' содержит элемент с именем '$locator'")
+    public void thenUserChecksThatCollectionContainObjectWithLocator(String locator) {
+        generalSteps.collectionContainObjectWithLocator(locator);
+    }
+
+    @Then("пользователь* проверяет, что селект с именем '$elementName' не содержит опцию '$option'")
+    public void thenUserChecksThatSelectNotContainExactlyOption(String elementName, String option) {
+        generalSteps.selectNotContainExactlyOption(elementName, option);
+    }
+
+    @Then("пользователь* проверяет, что селект с именем '$elementName' не содержит опцию like '$option'")
+    public void thenUserChecksThatSelectNotContainOption(String elementName, String option) {
+        generalSteps.selectNotContainOption(elementName, option);
+    }
 }

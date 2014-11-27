@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\Request\StockMovementBuilder;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class ReturnControllerTest extends WebTestCase
@@ -464,6 +465,35 @@ class ReturnControllerTest extends WebTestCase
         $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:24:54+04:00', $productId, 4.555);
 
         $this->assertStoreProductTotals($store->id, $productId, 24.555, 15.00);
+    }
+
+    public function testPostWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->store()->deleteStore($store);
+
+        $saleData = StockMovementBuilder::create()
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/returns",
+            $saleData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.errors.0',
+            $postResponse
+        );
     }
 
     /**

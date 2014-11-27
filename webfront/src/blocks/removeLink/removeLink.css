@@ -1,11 +1,13 @@
 .removeLink {
-    color: #999;
     display: inline-block;
     padding: 5px 10px;
     cursor: pointer;
-    border: none;
+    border: 1px solid #006699;
+    color: #006699;
     background: transparent;
     outline: none;
+    text-align: center;
+    width: 200px;
 }
 
 .removeLink.loading {
@@ -14,5 +16,7 @@
 }
 
 .confirmLink__confirmation .removeLink {
-    color: #d40000;
+    border: 1px solid #d40000;
+    background: #d40000;
+    color: #fff;
 }

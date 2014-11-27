@@ -18,6 +18,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class StockInController extends AbstractRestController
 {
@@ -26,6 +27,12 @@ class StockInController extends AbstractRestController
      * @var StockInRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("validator")
+     * @var ValidatorInterface
+     */
+    protected $validator;
 
     /**
      * @return StockInType|FormInterface
@@ -79,9 +86,11 @@ class StockInController extends AbstractRestController
      */
     public function putStockInsAction(StockIn $stockIn, Request $request)
     {
+        $preViolations = $this->validator->validate($stockIn, null, array('NotDeleted'));
+
         $formType = new StockInType(true);
         $this->documentRepository->resetProducts($stockIn);
-        return $this->processForm($request, $stockIn, $formType);
+        return $this->processForm($request, $stockIn, $formType, true, true, $preViolations);
     }
 
     /**

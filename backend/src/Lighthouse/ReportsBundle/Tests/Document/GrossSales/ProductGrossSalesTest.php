@@ -2,11 +2,11 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossSales;
 
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Lighthouse\ReportsBundle\Document\GrossSales\Product\GrossSalesProductRepository;
 
-class ProductGrossSalesTest extends DataAwareTestCase
+class ProductGrossSalesTest extends ContainerAwareTestCase
 {
     /**
      * @return GrossSalesReportManager
@@ -26,37 +26,38 @@ class ProductGrossSalesTest extends DataAwareTestCase
 
     public function testCalculateProductGrossSalesHourSumCalculate()
     {
+        $this->clearMongoDb();
+        $this->authenticateProject();
+
         $store = $this->factory()->store()->getStore('1');
         $otherStore = $this->factory()->store()->getStore('Other');
 
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
-        $storeProductId1 = $this->factory()->getStoreProduct($store->id, $productId1);
-        $storeProductId2 = $this->factory()->getStoreProduct($store->id, $productId2);
-        $storeProductId3 = $this->factory()->getStoreProduct($store->id, $productId3);
+        $storeProductId1 = $this->factory()->getStoreProduct($store->id, $products['1']->id);
+        $storeProductId2 = $this->factory()->getStoreProduct($store->id, $products['2']->id);
+        $storeProductId3 = $this->factory()->getStoreProduct($store->id, $products['3']->id);
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '-1 days 8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 9:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 10:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
             ->persist()
                 ->createSale($otherStore, '-1 days 8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->flush();
 
         $this->getGrossSalesReportManager()->recalculateGrossSalesProductReport();

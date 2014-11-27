@@ -1,11 +1,12 @@
 load 'deploy' if respond_to?(:namespace)
 
 # add local recipes to load path
-$:.unshift(File.expand_path('../deploy/capistrano/plugins'))
+$:.unshift(File.expand_path('../deploy/plugins'))
 
 require 'capifony_symfony2'
 
-load '../deploy/capistrano/recipes/deploy'
-load '../deploy/capistrano/recipes/log'
-load '../deploy/capistrano/recipes/symfony'
+load '../deploy/recipes/deploy'
+load '../deploy/recipes/log'
+load '../deploy/recipes/symfony'
+load '../deploy/recipes/worker'
 load 'app/deploy/deploy'
