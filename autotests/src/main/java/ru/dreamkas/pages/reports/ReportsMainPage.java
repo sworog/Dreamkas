@@ -22,5 +22,6 @@ public class ReportsMainPage extends BootstrapPageObject {
     public void createElements() {
         put("stockBalanceReport", new NonType(this, By.xpath("//*[contains(text(), 'Остатки товаров')]")));
         put("grossMarginSalesReport", new NonType(this, By.xpath("//*[contains(text(), 'Продажи и прибыль по товарам')]")));
+        put("Продажи и прибыль по сети", new NonType(this, By.xpath("//*[contains(text(), 'Продажи и прибыль по сети')]")));
     }
 }
