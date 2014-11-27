@@ -1,9 +1,8 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\StockMovement;
 
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnProduct;
-use Lighthouse\CoreBundle\Form\StockMovement\StockMovementProductType;
 
 class SupplierReturnProductType extends StockMovementProductType
 {
