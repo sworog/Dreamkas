@@ -60,13 +60,13 @@ public class CommonSteps {
             try {
                 callable.execute(data);
                 return;
-                //todo replace with PerformException NoMatchingViewException???
+                //todo replace with PerformException NoMatchingViewException AssertionFailedError???
             } catch (Throwable ex) {
                 possibleException = ex;
                 Thread.yield();
             }
         } while (System.currentTimeMillis() < endTime);
 
-        throw possibleException;
+        throw new Exception("tryInTime() failed by timeout" + " currentTime: " + System.currentTimeMillis() + " endTime: " +  endTime + " with: " + possibleException.getMessage(), possibleException);
     }
 }
