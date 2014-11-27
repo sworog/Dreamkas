@@ -12,9 +12,6 @@ swiftmailer:
     disable_delivery: true
     logging: true
 
-ekino_new_relic:
-    application_name: Lighthouse API tests
-
 doctrine_mongodb:
     default_database: "%database_name%_%kernel.environment%%karzer.thread%"
     document_managers:
