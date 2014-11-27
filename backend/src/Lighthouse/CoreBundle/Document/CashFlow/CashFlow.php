@@ -8,6 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  *
@@ -16,6 +17,18 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CashFlow extends AbstractDocument
 {
+    const DIRECTION_IN = "in";
+    const DIRECTION_OUT = "out";
+
+    /**
+     * @Serializer\Exclude
+     * @var array
+     */
+    public static $directions = array(
+        self::DIRECTION_IN,
+        self::DIRECTION_OUT,
+    );
+
     /**
      * @MongoDB\Id
      * @var string

@@ -11,7 +11,7 @@ class CashFlowControllerTest extends WebTestCase
     {
         $cashFlowData = array(
             'direction' => 'in',
-            'date' => date('C'),
+            'date' => date('Y-m-d\Th:i:sO'),
             'amount' => 3344.22,
             'comment' => 'Жизнь тлен'
         );
@@ -37,7 +37,7 @@ class CashFlowControllerTest extends WebTestCase
     {
         $cashFlowData = array(
             'direction' => 'in',
-            'date' => date('C'),
+            'date' => date('Y-m-d\Th:i:sO'),
             'amount' => 3344.22,
             'comment' => 'Жизнь тлен'
         );
@@ -78,8 +78,8 @@ class CashFlowControllerTest extends WebTestCase
         for ($i = 0; $i < 5; $i++) {
             $cashFlows[$i] = array(
                 'direction' => $i%2?'in':'out',
-                'date' => date('C', strtotime("-{$i}")),
-                'amount' => 3344.22*$i,
+                'date' => date('Y-m-d\Th:i:sO', strtotime("-{$i}")),
+                'amount' => 3344.22*($i+1),
                 'comment' => 'Жизнь тлен ' . $i
             );
 

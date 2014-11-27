@@ -14,7 +14,7 @@ class CashFlowType extends DocumentType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('direction', 'choice')
+            ->add('direction')
             ->add('date', 'datetime')
             ->add('amount', 'money')
             ->add('comment', 'text');
