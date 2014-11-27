@@ -7,6 +7,18 @@ define(function(require, exports, module) {
         collection: function() {
             return PAGE.collections.cashFlows;
         },
+        events: {
+            'update .inputDateRange': function(e, data){
+
+                e.target.classList.add('loading');
+
+                this.collection.fetch({
+                    filters: data
+                }).then(function(){
+                    e.target.classList.remove('loading');
+                });
+            }
+        },
         render: function() {
             var block = this;
 
@@ -15,6 +27,9 @@ define(function(require, exports, module) {
             });
 
             return Table.prototype.render.apply(this, arguments);
+        },
+        blocks: {
+            inputDateRange: require('blocks/inputDateRange/inputDateRange')
         }
     });
 });
