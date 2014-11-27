@@ -55,6 +55,10 @@ public class CommonSteps {
     }
 
     static void tryInTime(Command callable, Object data) throws Throwable {
+       tryInTime(callable, data, 10000);
+    }
+
+    static void tryInTime(Command callable, Object data, long timeout) throws Throwable {
         final long startTime = System.currentTimeMillis();
         final long endTime = startTime + 10000;
         Throwable possibleException;

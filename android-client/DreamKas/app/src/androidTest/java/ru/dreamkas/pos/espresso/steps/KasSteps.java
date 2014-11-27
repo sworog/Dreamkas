@@ -45,14 +45,14 @@ public class KasSteps {
     static Command clickOnProductInReceiptCommand = new Command<String>() {
         @Override
         public void execute(String name){
-            waitForData(withReceiptItem(name), R.id.lvReceipt, 10000);
+            //waitForData(withReceiptItem(name), R.id.lvReceipt, 10000);
             onData(withReceiptItem(name)).inAdapterView(withId(R.id.lvReceipt)).perform(click());
         }};
 
     static Command clickOnProductInSearchResultCommand = new Command<String>() {
         @Override
         public void execute(String name){
-            waitForData(withProduct(name), R.id.lvProductsSearchResult, 10000);
+            //waitForData(withProduct(name), R.id.lvProductsSearchResult, 10000);
             onData(withProduct(name)).inAdapterView(withId(R.id.lvProductsSearchResult)).perform(click());
         }};
 
@@ -68,12 +68,11 @@ public class KasSteps {
         }*/
     }
 
-
     public static void clickOnProductInSearchResult(String name) throws Throwable {
-        CommonSteps.tryInTime(clickOnProductInSearchResultCommand, name);
+        CommonSteps.tryInTime(clickOnProductInSearchResultCommand, name, 30000);
     }
 
     public static void clickOnProductInReceipt(String name) throws Throwable {
-        CommonSteps.tryInTime(clickOnProductInReceiptCommand, name);
+        CommonSteps.tryInTime(clickOnProductInReceiptCommand, name, 30000);
     }
 }
