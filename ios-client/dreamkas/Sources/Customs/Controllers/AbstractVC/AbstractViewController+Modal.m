@@ -10,6 +10,7 @@
 #import "UIView+Screenshot.h"
 #import "UIImage+ImageEffects.h"
 #import "CustomModalSegue.h"
+#import "ModalViewController.h"
 #import <objc/runtime.h>
 
 #define LOG_ON 1
@@ -62,16 +63,28 @@
 /**
  * Отображение модального контроллера
  */
-- (void)showViewControllerModally:(AbstractViewController *)destVC segueId:(NSString *)segueId
+- (void)showViewControllerModally:(AbstractViewController *)destinationVC
 {
     DPLog(LOG_ON, @"");
     
-    if (destVC == nil)
+    if (destinationVC == nil)
         return;
     
-    CustomModalSegue *segue = [CustomModalSegue segueWithIdentifier:segueId source:self
-                                                        destination:destVC performHandler:^(void) {}];
-    [segue perform];
+    ModalViewController *modal_vc = (ModalViewController *)ControllerById(ModalViewControllerID);
+    [modal_vc placeViewController:destinationVC];
+    
+    UIView *blurred_view = [self createBlurredView];
+    modal_vc.blurredView = blurred_view;
+    [modal_vc.view insertSubview:modal_vc.blurredView atIndex:0];
+    
+    CATransition* transition = [CATransition animation];
+    transition.duration = KeyboardAnimationDuration;
+    transition.type = kCATransitionFade;
+    transition.subtype = kCATransitionFromBottom;
+    
+    [self.view.window.layer addAnimation:transition forKey:kCATransition];
+    [self.navigationController pushViewController:modal_vc animated:NO];
+    [CATransaction commit];
 }
 
 /**
@@ -84,7 +97,7 @@
     [self.view endEditing:YES];
     
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.15;
+    transition.duration = KeyboardAnimationDuration;
     transition.type = kCATransitionFade;
     transition.subtype = kCATransitionFromBottom;
     transition.removedOnCompletion = YES;
@@ -98,8 +111,6 @@
     }];
     
     [self.navigationController popViewControllerAnimated:NO];
-    //[self dismissViewControllerAnimated:NO completion:nil];
-    
     [CATransaction commit];
 }
 

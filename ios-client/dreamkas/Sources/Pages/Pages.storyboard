@@ -1244,6 +1244,7 @@
                                         </state>
                                         <connections>
                                             <action selector="nextButtonClicked:" destination="5zM-7o-TMv" eventType="touchUpInside" id="OWE-8J-VXD"/>
+                                            <segue destination="RA8-qa-X4Q" kind="show" id="OEf-fk-s5z"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1333,11 +1334,98 @@
             </objects>
             <point key="canvasLocation" x="12010" y="2421"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="kzD-Hc-H8T">
+            <objects>
+                <navigationController storyboardIdentifier="ModalNavigationControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0yk-Oy-fpt" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="768"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="HJm-Gk-rWY" customClass="CustomNavigationBar">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="8Kj-gx-fVe" kind="relationship" relationship="rootViewController" id="MmY-dd-J79"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PQa-Xc-OYl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5080" y="3546"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="yEU-gF-bjr">
+            <objects>
+                <viewController id="8Kj-gx-fVe" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WoU-30-3fQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="vPJ-4k-wHW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ydG-It-5rQ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="724"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="iUa-CJ-Hkn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rub-LB-0Xd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6027" y="3546"/>
+        </scene>
+        <!--Modal View Controller-->
+        <scene sceneID="gms-hk-Nfq">
+            <objects>
+                <viewController storyboardIdentifier="ModalViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GMc-Gi-jE9" customClass="ModalViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zgp-1d-gxN"/>
+                        <viewControllerLayoutGuide type="bottom" id="t3a-Oo-SVn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tVp-Hy-yxX">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMc-1s-RAv" userLabel="Container View">
+                                <rect key="frame" x="128" y="0.0" width="768" height="768"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="768" id="UpX-2l-ngY"/>
+                                    <constraint firstAttribute="height" constant="768" id="kOb-ws-LdN"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hMc-1s-RAv" firstAttribute="leading" secondItem="tVp-Hy-yxX" secondAttribute="leading" constant="128" id="1hZ-og-SXW"/>
+                            <constraint firstItem="t3a-Oo-SVn" firstAttribute="top" secondItem="hMc-1s-RAv" secondAttribute="bottom" id="M5l-vB-IX7"/>
+                            <constraint firstAttribute="trailing" secondItem="hMc-1s-RAv" secondAttribute="trailing" constant="128" id="rp8-5v-tZ5"/>
+                            <constraint firstItem="hMc-1s-RAv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zgp-1d-gxN" secondAttribute="bottom" id="x1p-qD-4fj"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
+                    <connections>
+                        <outlet property="containerView" destination="hMc-1s-RAv" id="X0U-yr-v7u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IwJ-hF-jYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3980" y="3546"/>
+        </scene>
     </scenes>
     <resources>
         <image name="IntroImg" width="600" height="400"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0y2-Ck-unP"/>
+        <segue reference="sQ5-tB-6hJ"/>
     </inferredMetricsTieBreakers>
 </document>

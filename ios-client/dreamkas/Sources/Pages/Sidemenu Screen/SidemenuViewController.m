@@ -56,8 +56,7 @@
 {
     DPLogFast(@"");
     
-    [(AbstractViewController*)self.parentViewController showViewControllerModally:ControllerById(SelectStoreViewControllerID)
-                                                                          segueId:TicketWindowToSelectStoreSegueName];
+    [(AbstractViewController*)self.parentViewController showViewControllerModally:ControllerById(SelectStoreViewControllerID)];
 }
 
 - (IBAction)logoutButtonClicked:(id)sender

@@ -16,10 +16,14 @@
 /** Создание слоя с размытым изображением экрана */
 - (UIView*)createBlurredView;
 
-/** Отображение модального контроллера */
-- (void)showViewControllerModally:(AbstractViewController *)abstractVC segueId:(NSString *)segueId;
+/**
+ * Отображение модального контроллера
+ */
+- (void)showViewControllerModally:(AbstractViewController *)destinationVC;
 
-/** Скрытие модального контроллера */
+/**
+ * Скрытие модального контроллера
+ */
 - (void)hideModalViewController;
 
 @end

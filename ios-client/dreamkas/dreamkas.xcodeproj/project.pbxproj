@@ -29,6 +29,8 @@
 		CE1B3DB219DD40CA00A253D1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B3DA419DD40CA00A253D1 /* main.m */; };
 		CE1DFA2D1A1B789000F23954 /* SaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DFA2C1A1B789000F23954 /* SaleItemModel.m */; };
 		CE1DFA2E1A1B789000F23954 /* SaleItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1DFA2C1A1B789000F23954 /* SaleItemModel.m */; };
+		CE1E28751A272B4B0052D0E2 /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1E28741A272B4B0052D0E2 /* ModalViewController.m */; };
+		CE1E28761A272B4B0052D0E2 /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1E28741A272B4B0052D0E2 /* ModalViewController.m */; };
 		CE22CE3119ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
 		CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */; };
 		CE22CE3519ED569F00A939E6 /* CreateStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE22CE3419ED569F00A939E6 /* CreateStoreViewController.m */; };
@@ -347,6 +349,8 @@
 		CE1B3DCC19DD55C800A253D1 /* NotificationDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDefines.h; sourceTree = "<group>"; };
 		CE1DFA2B1A1B789000F23954 /* SaleItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleItemModel.h; sourceTree = "<group>"; };
 		CE1DFA2C1A1B789000F23954 /* SaleItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleItemModel.m; sourceTree = "<group>"; };
+		CE1E28731A272B4B0052D0E2 /* ModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewController.h; sourceTree = "<group>"; };
+		CE1E28741A272B4B0052D0E2 /* ModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewController.m; sourceTree = "<group>"; };
 		CE22CE2F19ED568B00A939E6 /* SelectStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectStoreViewController.h; sourceTree = "<group>"; };
 		CE22CE3019ED568B00A939E6 /* SelectStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectStoreViewController.m; sourceTree = "<group>"; };
 		CE22CE3319ED569F00A939E6 /* CreateStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateStoreViewController.h; sourceTree = "<group>"; };
@@ -770,12 +774,13 @@
 			children = (
 				CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */,
 				CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */,
-				CEC003EC19E6909B00AE256F /* Intro Screen */,
 				CEC003EB19E6909B00AE256F /* Auth Screen */,
-				CEC003ED19E6909B00AE256F /* TicketWindow Screen */,
+				CEC003EC19E6909B00AE256F /* Intro Screen */,
 				CE39DDB619FFD28B00150C28 /* LeftSide Screens */,
+				CE1E28721A272B180052D0E2 /* Modal Screen */,
 				CE39DDB719FFD28B00150C28 /* RightSide Screens */,
 				CE10A83419F654FA0056DF91 /* Sidemenu Screen */,
+				CEC003ED19E6909B00AE256F /* TicketWindow Screen */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -847,6 +852,15 @@
 				CE1B3DC119DD46DD00A253D1 /* Localizable.strings */,
 			);
 			path = ru.lproj;
+			sourceTree = "<group>";
+		};
+		CE1E28721A272B180052D0E2 /* Modal Screen */ = {
+			isa = PBXGroup;
+			children = (
+				CE1E28731A272B4B0052D0E2 /* ModalViewController.h */,
+				CE1E28741A272B4B0052D0E2 /* ModalViewController.m */,
+			);
+			path = "Modal Screen";
 			sourceTree = "<group>";
 		};
 		CE22CE2A19ED566F00A939E6 /* Store Screens */ = {
@@ -1746,6 +1760,7 @@
 				CE500B8719F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				CE29100A19EE668B005483A1 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				CE290FFE19EE668B005483A1 /* NSManagedObject+MagicalFinders.m in Sources */,
+				CE1E28751A272B4B0052D0E2 /* ModalViewController.m in Sources */,
 				CE1AF96E1A15006F00333A9F /* AbstractModel.m in Sources */,
 				CE4C877019F10C4100221E53 /* WordWrappingLabel.m in Sources */,
 				CEBC439E19E8048700C0E575 /* DialogHelper.m in Sources */,
@@ -1874,6 +1889,7 @@
 				CE9A7EFB1A0D1B0A00509548 /* MoreButton.m in Sources */,
 				CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */,
 				CEF2648519E82245008BE93A /* CustomModalSegue.m in Sources */,
+				CE1E28761A272B4B0052D0E2 /* ModalViewController.m in Sources */,
 				CE915E331A1B691D0077C03B /* SaleItemCell.m in Sources */,
 				CE39DDCF19FFED8E00150C28 /* SearchButton.m in Sources */,
 				CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */,

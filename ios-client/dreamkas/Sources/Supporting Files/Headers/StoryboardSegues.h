@@ -34,6 +34,9 @@
 //
 
 #define MainNavigationControllerID                  @"MainNavigationControllerID"
+#define ModalViewControllerID                       @"ModalViewControllerID"
+#define ModalNavigationControllerID                 @"ModalNavigationControllerID"
+
 #define LogInViewControllerID                       @"LogInViewControllerID"
 #define SignInViewControllerID                      @"SignInViewControllerID"
 

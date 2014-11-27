@@ -157,8 +157,7 @@
 {
     DPLogFast(@"");
     
-    [(AbstractViewController*)self.navigationController.parentViewController showViewControllerModally:ControllerById(PaymentViewControllerID)
-                                                                                               segueId:TicketWindowToPaymentScreenSegueName];
+    [(AbstractViewController*)self.navigationController.parentViewController showViewControllerModally:ControllerById(PaymentViewControllerID)];
 }
 
 #pragma mark - Методы KeyboardEventsListenerProtocol
