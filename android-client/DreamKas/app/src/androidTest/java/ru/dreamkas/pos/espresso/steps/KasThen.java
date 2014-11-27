@@ -48,6 +48,23 @@ public class KasThen {
             }
         }};
 
+    static Command checkEditReceiptItemModalCommand = new Command<ArrayList<String>>() {
+        @Override
+        public void execute(ArrayList<String> args){
+            String title = args.get(0);
+            String productName = args.get(1);
+            String sellingPrice = args.get(2);
+            String quantity = args.get(3);
+
+            onView(withId(R.id.lblTotal)).check(matches(withText(title)));
+            onView(withId(R.id.lblProductName)).check(matches(withText(productName)));
+            onView(withId(R.id.txtSellingPrice)).check(matches(withText(sellingPrice)));
+            onView(withId(R.id.txtValue)).check(matches(withText(quantity)));
+        }
+    };
+
+
+
     public static void search(String searchFor) throws InterruptedException {
         onView(withId(R.id.txtProductSearchQuery)).perform(typeText(searchFor));
         waitForView(R.id.pbSearchProduct, 20000, not(isDisplayed()));
@@ -72,10 +89,15 @@ public class KasThen {
         onView(withId(R.id.btnRegisterReceipt)).check(matches(withText(total)));
     }
 
-    public static void checkEditReceiptItemModal(String title, String productName, String sellingPrice, String quantity) {
-        onView(withId(R.id.lblTotal)).check(matches(withText(title)));
-        onView(withId(R.id.lblProductName)).check(matches(withText(productName)));
-        onView(withId(R.id.txtSellingPrice)).check(matches(withText(sellingPrice)));
-        onView(withId(R.id.txtValue)).check(matches(withText(quantity)));
+    public static void checkEditReceiptItemModal(final String title, final String productName, final String sellingPrice, final String quantity) throws Throwable {
+        ArrayList<String> args = new ArrayList<String>() {
+            {
+                add(title);
+                add(productName);
+                add(sellingPrice);
+                add(quantity);
+            }
+        };
+        CommonSteps.tryInTime(checkEditReceiptItemModalCommand, args);
     }
 }

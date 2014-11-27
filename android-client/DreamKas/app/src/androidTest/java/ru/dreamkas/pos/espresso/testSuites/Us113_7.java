@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.espresso.ScreenshotFailureHandler;
+import ru.dreamkas.pos.espresso.steps.CommonSteps;
 import ru.dreamkas.pos.espresso.steps.KasSteps;
 import ru.dreamkas.pos.espresso.steps.KasThen;
 import ru.dreamkas.pos.espresso.steps.LoginSteps;
@@ -43,8 +44,8 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
         KasSteps.clickOnProductInSearchResult("Товар1");
         KasSteps.clickOnProductInSearchResult("Вар2");
 
-        onView(withId(R.id.btnReceiptClear)).perform(click());
-        onView(withId(R.id.btnReceiptClear)).perform(click());
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
 
         KasThen.checkEmptyReceipt();
     }
@@ -65,7 +66,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
         KasSteps.clickOnProductInSearchResult("Товар1");
         KasSteps.clickOnProductInSearchResult("Вар2");
 
-        onView(withId(R.id.btnReceiptClear)).perform(click());
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
 
         onView(withId(R.id.btnReceiptClear)).check(matches(withText("Подтвердить очистку чека")));
     }
@@ -84,7 +85,7 @@ public class Us113_7 extends BaseTestSuite<LoginActivity_> {
 
         KasSteps.clickOnProductInSearchResult("Товар1");
 
-        onView(withId(R.id.btnReceiptClear)).perform(click());
+        CommonSteps.clickOnViewWithId(R.id.btnReceiptClear);
 
         KasSteps.clickOnProductInSearchResult("Вар2");
 

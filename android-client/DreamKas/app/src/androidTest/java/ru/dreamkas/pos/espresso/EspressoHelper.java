@@ -100,7 +100,7 @@ public class EspressoHelper
 
     public static void waitForView(String text, int millis) {
         final long startTime = System.currentTimeMillis();
-        final long endTime = startTime + millis;
+        final long endTime = startTime + 20000;//millis;
 
         do {
             try {

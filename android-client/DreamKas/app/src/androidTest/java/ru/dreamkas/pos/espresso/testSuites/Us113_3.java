@@ -87,7 +87,7 @@ public class Us113_3 extends BaseTestSuite<LoginActivity_> {
         StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
         KasSteps.search("Такого товара нет");
 
-        waitForView("Продуктов не найдено.", 10000);
+        waitForView("Продуктов не найдено.", 20000);
     }
 
     //Scenario: Проверка представления товара без штрихкода
