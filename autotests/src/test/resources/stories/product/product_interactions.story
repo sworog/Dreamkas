@@ -115,9 +115,14 @@ And the user navigates to the group with name 'groups30u101'
 And пользователь авторизуется в системе используя адрес электронной почты 's28u101@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the edit group icon
-And the user clicks on delete group button in edit group modal window
 
-Then the user asserts pop over content is 'Чтобы удалить группу, нужно сначала удалить все товары в ней.'
+When пользователь* находится в модальном окне 'редактирования группы'
+And пользователь* нажимает на елемент с именем 'кнопка удаления'
+And пользователь* нажимает на елемент с именем 'кнопка подтверждения удаления'
+
+Then пользователь ждет пока загрузится простой прелоадер
+
+Then the user asserts pop over content is 'Чтобы удалить группу, нужно сначала удалить все товары в ней'
 
 Scenario: Create new product modal window title assert
 
