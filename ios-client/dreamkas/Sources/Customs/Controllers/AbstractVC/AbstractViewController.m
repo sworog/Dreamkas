@@ -7,7 +7,9 @@
 //
 
 #import "AbstractViewController.h"
+#import "ModalViewController.h"
 #import "BackButton.h"
+#import "CloseButton.h"
 
 #define LOG_ON 1
 
@@ -137,6 +139,32 @@
 - (void)backButtonClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+/**
+ * Инициализация кнопки Close
+ */
+- (void)initCloseButton
+{
+    CloseButton *close_btn = [CloseButton buttonWithType:UIButtonTypeCustom];
+    close_btn.frame = CGRectMake(0, 0, DefaultTopPanelHeight, DefaultTopPanelHeight);
+    [close_btn setAccessibilityLabel:AI_Common_NavbarCloseButton];
+    [close_btn addTarget:self action:@selector(closeButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *left_btn = [[UIBarButtonItem alloc] initWithCustomView:close_btn];
+    self.navigationItem.leftBarButtonItem = left_btn;
+}
+
+/**
+ * Обработка нажатия по кнопке закрытия
+ */
+- (void)closeButtonClicked
+{
+    //
+    // redefine me if needed
+    //
+    
+    [self hideModalViewController:(ModalViewController *)self.navigationController.parentViewController];
 }
 
 #pragma mark - Индикация загрузки данных

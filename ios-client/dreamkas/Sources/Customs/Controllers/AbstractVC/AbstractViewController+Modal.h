@@ -8,6 +8,8 @@
 
 #import "AbstractViewController.h"
 
+@class ModalViewController;
+
 @interface AbstractViewController (Modal)
 
 /** Дополнительный слой, который содержит размытое изображение экрана */
@@ -24,6 +26,6 @@
 /**
  * Скрытие модального контроллера
  */
-- (void)hideModalViewController;
+- (void)hideModalViewController:(ModalViewController *)modalViewController;
 
 @end

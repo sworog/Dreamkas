@@ -90,28 +90,30 @@
 /**
  * Скрытие модального контроллера
  */
-- (void)hideModalViewController
+- (void)hideModalViewController:(ModalViewController *)modalViewController
 {
     DPLog(LOG_ON, @"");
     
     [self.view endEditing:YES];
     
-    CATransition *transition = [CATransition animation];
-    transition.duration = KeyboardAnimationDuration;
-    transition.type = kCATransitionFade;
-    transition.subtype = kCATransitionFromBottom;
-    transition.removedOnCompletion = YES;
-    
-    [[UIApplication sharedApplication].keyWindow.layer addAnimation:transition forKey:@"transition"];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [CATransaction setCompletionBlock:^(void) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(transition.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^ {
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        });
+    [modalViewController hideContainerView:^(BOOL finished) {
+        CATransition *transition = [CATransition animation];
+        transition.duration = KeyboardAnimationDuration;
+        transition.type = kCATransitionFade;
+        transition.subtype = kCATransitionFromBottom;
+        transition.removedOnCompletion = YES;
+        
+        [[UIApplication sharedApplication].keyWindow.layer addAnimation:transition forKey:@"transition"];
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [CATransaction setCompletionBlock:^(void) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(transition.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^ {
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            });
+        }];
+        
+        [modalViewController.navigationController popViewControllerAnimated:NO];
+        [CATransaction commit];
     }];
-    
-    [self.navigationController popViewControllerAnimated:NO];
-    [CATransaction commit];
 }
 
 @end

@@ -15,4 +15,9 @@
  */
 - (void)placeViewController:(UIViewController *)viewController;
 
+/**
+ * Анимированное скрытие контекстного контроллера со съездом контейнера сверху вниз
+ */
+- (void)hideContainerView:(void (^)(BOOL finished))completion;
+
 @end

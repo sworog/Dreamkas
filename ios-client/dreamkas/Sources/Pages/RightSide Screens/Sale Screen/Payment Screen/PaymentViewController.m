@@ -39,13 +39,6 @@
 
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)closeButtonClicked:(id)sender
-{
-    DPLogFast(@"");
-    
-    [self hideModalViewController];
-}
-
 - (IBAction)nextButtonClicked:(id)sender
 {
     DPLogFast(@"");

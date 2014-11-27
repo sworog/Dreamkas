@@ -12,13 +12,6 @@
 
 @interface LogInViewController () <UITextFieldDelegate>
 
-@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
-@property (nonatomic, weak) IBOutlet CustomFilledButton *logInButton;
-
-@property (nonatomic, weak) IBOutlet UIButton *closeButton;
-
-@property (nonatomic, weak) IBOutlet UIView *containerView;
-
 @property (nonatomic, weak) IBOutlet CustomTextField *loginField;
 @property (nonatomic, weak) IBOutlet CustomTextField *passwordField;
 
@@ -32,34 +25,28 @@
 {
     [super viewDidLoad];
     
-    [self.logInButton setEnabled:NO];
+    [self initCloseButton];
+    
+//    [self.logInButton setEnabled:NO];
 }
 
 #pragma mark - Configuration Methods
 
 - (void)configureLocalization
 {
-    [self.titleLabel setText:NSLocalizedString(@"log_in_title_name", nil)];
-    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
+    [self setTitle:NSLocalizedString(@"log_in_title_name", nil)];
+//    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
 }
 
 - (void)configureAccessibilityLabels
 {
-    [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
-    [self.closeButton setAccessibilityLabel:AI_LogInPage_CloseButton];
+//    [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
     
     [self.loginField setAccessibilityLabel:AI_LogInPage_LoginField];
     [self.passwordField setAccessibilityLabel:AI_LogInPage_PwdField];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
-
-- (IBAction)closeButtonClicked:(id)sender
-{
-    DPLogFast(@"");
-    
-    [self hideModalViewController];
-}
 
 - (IBAction)logInButtonClicked:(id)sender
 {
@@ -98,7 +85,7 @@
     
     [self.loginField setText:API_TEST_LOGIN];
     [self.passwordField setText:API_TEST_PWD];
-    [self.logInButton setEnabled:YES];
+//    [self.logInButton setEnabled:YES];
 }
 
 #pragma mark - Методы UITextField Delegate
@@ -114,20 +101,20 @@
         if (([ValidationHelper isEmailValid:new_string])
             && (self.passwordField.text.length >= PasswordMinLength))
         {
-            [self.logInButton setEnabled:YES];
+//            [self.logInButton setEnabled:YES];
         }
         else {
-            [self.logInButton setEnabled:NO];
+//            [self.logInButton setEnabled:NO];
         }
     }
     else {
         if (([ValidationHelper isEmailValid:self.loginField.text])
             && (new_string.length >= PasswordMinLength))
         {
-            [self.logInButton setEnabled:YES];
+//            [self.logInButton setEnabled:YES];
         }
         else {
-            [self.logInButton setEnabled:NO];
+//            [self.logInButton setEnabled:NO];
         }
     }
     

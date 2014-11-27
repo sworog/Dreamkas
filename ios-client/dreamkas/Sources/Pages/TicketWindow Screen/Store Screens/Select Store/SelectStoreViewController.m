@@ -50,12 +50,12 @@
 
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)closeButtonClicked:(id)sender
+- (void)closeButtonClicked
 {
     DPLogFast(@"");
     
     if ([[CurrentUser lastUsedStoreID] length]) {
-        [self hideModalViewController];
+        [super closeButtonClicked];
     }
     else {
         [DialogHelper showError:@"Для работы необходимо выбрать магазин"];
@@ -129,7 +129,7 @@
     StoreModel *store = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [CurrentUser updateLastUsedStoreID:[store pk]];
     
-    [self hideModalViewController];
+    [self closeButtonClicked];
 }
 
 @end

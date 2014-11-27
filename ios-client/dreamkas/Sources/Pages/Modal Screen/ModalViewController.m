@@ -81,7 +81,7 @@
 /**
  * Анимированное скрытие контекстного контроллера со съездом контейнера сверху вниз
  */
-- (void)hideContainerView
+- (void)hideContainerView:(void (^)(BOOL finished))completion
 {
     DPLogFast(@"");
     
@@ -89,9 +89,8 @@
         [self.containerView setY:HiddenContainerYPosition];
     } completion:^(BOOL finished) {
         DPLogFast(@"finished hideContainerView");
+        completion(finished);
     }];
-    
-    // делаем popViewController
 }
 
 @end

@@ -39,11 +39,11 @@
 
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)closeButtonClicked:(id)sender
+- (void)foo
 {
     DPLogFast(@"");
     
-    [self hideModalViewController];
+    // ..
 }
 
 @end
