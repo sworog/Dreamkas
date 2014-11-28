@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Payment\BankCardPayment;
 use Lighthouse\CoreBundle\Document\Payment\CashPayment;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
@@ -70,7 +71,7 @@ class SaleControllerTest extends WebTestCase
      */
     public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore();
 
@@ -78,7 +79,7 @@ class SaleControllerTest extends WebTestCase
             'date' => '',
             'products' => array(
                 $data + array(
-                    'product' => $productIds['1'],
+                    'product' => $products['1']->id,
                     'quantity' => 10,
                     'price' => 17.68
                 )
@@ -315,22 +316,22 @@ class SaleControllerTest extends WebTestCase
 
     /**
      * @dataProvider totalsCalculationWithValidationGroupDataProvider
-     * @param array $products
+     * @param array $productsData
      * @param array $assertions
      */
-    public function testTotalsCalculationOnPostWithValidationGroupOnPost(array $products, array $assertions)
+    public function testTotalsCalculationOnPostWithValidationGroupOnPost(array $productsData, array $assertions)
     {
         $store = $this->factory()->store()->getStore();
 
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $receiptData = array(
             'date' => '',
-            'products' => $products,
+            'products' => $productsData,
         );
 
         foreach ($receiptData['products'] as &$product) {
-            $product['product'] = $productIds[$product['name']];
+            $product['product'] = $products[$product['name']]->id;
             unset($product['name']);
         }
 
@@ -618,28 +619,28 @@ class SaleControllerTest extends WebTestCase
     public function testGetSalesByFilter(array $query, $expectedCount, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-09-11T19:31:50+04:00')
-                ->createReceiptProduct($productIds['1'], 1, 49.79)
-                ->createReceiptProduct($productIds['2'], 2, 19.79)
-                ->createReceiptProduct($productIds['3'], 3, 9.79)
+                ->createReceiptProduct($products['1']->id, 1, 49.79)
+                ->createReceiptProduct($products['2']->id, 2, 19.79)
+                ->createReceiptProduct($products['3']->id, 3, 9.79)
             ->persist()
                 ->createSale($store, '2014-09-05T09:31:50+04:00')
-                ->createReceiptProduct($productIds['1'], 2, 49.79)
+                ->createReceiptProduct($products['1']->id, 2, 49.79)
             ->persist()
                 ->createSale($store, '2014-09-06T05:31:50+04:00')
-                ->createReceiptProduct($productIds['2'], 4, 19.79)
+                ->createReceiptProduct($products['2']->id, 4, 19.79)
             ->persist()
                 ->createSale($store, '2014-09-13T09:31:50+04:00')
-                ->createReceiptProduct($productIds['3'], 6, 9.79)
+                ->createReceiptProduct($products['3']->id, 6, 9.79)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
-        $pairs = $this->createReplacePairs($productIds, 'product-');
+        $pairs = $this->createReplacePairs($products, 'product-');
         $replacedQuery = $this->replaceValues($query, $pairs);
 
         $getResponse = $this->clientJsonRequest(
@@ -658,16 +659,16 @@ class SaleControllerTest extends WebTestCase
     }
 
     /**
-     * @param array $values
+     * @param Product[] $products
      * @param string $prefix
      * @return array
      */
-    protected function createReplacePairs(array $values, $prefix = '')
+    protected function createReplacePairs(array $products, $prefix = '')
     {
         $pairs = array();
-        foreach ($values as $key => $value) {
+        foreach ($products as $key => $product) {
             $pairKey = '{' . $prefix . $key . '}';
-            $pairs[$pairKey] = $value;
+            $pairs[$pairKey] = $product->id;
         }
         return $pairs;
     }
@@ -750,23 +751,23 @@ class SaleControllerTest extends WebTestCase
     public function testGetSalesFilterValidation(array $query, $expectedResponseCode, array $assertions)
     {
         $store = $this->factory()->store()->getStore();
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-09-11T19:31:50+04:00')
-                ->createReceiptProduct($productIds['1'], 1, 49.79)
-                ->createReceiptProduct($productIds['2'], 2, 19.79)
-                ->createReceiptProduct($productIds['3'], 3, 9.79)
+                ->createReceiptProduct($products['1']->id, 1, 49.79)
+                ->createReceiptProduct($products['2']->id, 2, 19.79)
+                ->createReceiptProduct($products['3']->id, 3, 9.79)
             ->persist()
                 ->createSale($store, '2014-09-05T09:31:50+04:00')
-                ->createReceiptProduct($productIds['1'], 2, 49.79)
+                ->createReceiptProduct($products['1']->id, 2, 49.79)
             ->persist()
                 ->createSale($store, '2014-09-06T05:31:50+04:00')
-                ->createReceiptProduct($productIds['2'], 4, 19.79)
+                ->createReceiptProduct($products['2']->id, 4, 19.79)
             ->persist()
                 ->createSale($store, '2014-09-13T09:31:50+04:00')
-                ->createReceiptProduct($productIds['3'], 6, 9.79)
+                ->createReceiptProduct($products['3']->id, 6, 9.79)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
