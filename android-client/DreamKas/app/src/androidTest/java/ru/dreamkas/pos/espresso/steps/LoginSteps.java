@@ -20,8 +20,7 @@ import static ru.dreamkas.pos.espresso.EspressoHelper.waitForView;
 import static ru.dreamkas.pos.espresso.EspressoHelper.waitKeyboard;
 
 public class LoginSteps {
-    public static void enterCredentialsAndClick(String userName, String password)
-    {
+    public static void enterCredentialsAndClick(String userName, String password) throws Throwable {
         waitForView(R.id.txtUsername, 5000, isDisplayed());
         onView(withId(R.id.txtUsername)).perform(clearText()).perform(typeText(userName), closeSoftKeyboard());
 
@@ -35,9 +34,6 @@ public class LoginSteps {
         waitKeyboard(200);
 
         //click on login button
-        waitForView(R.id.btnLogin, 5000, isDisplayed());
-        onView(withId(R.id.btnLogin)).perform(click());
-
-
+        CommonSteps.clickOnViewWithId(R.id.btnLogin);
     }
 }
