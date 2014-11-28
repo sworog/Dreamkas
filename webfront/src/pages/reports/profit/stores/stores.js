@@ -20,7 +20,25 @@ define(function(require, exports, module) {
 			}
 		},
 		blocks: {
-			total: require('./stores__total'),
+			total: function(options) {
+				var block = this,
+					TotalResults = require('blocks/totalResults/totalResults');
+
+				options.models = {
+					result: block.models.profit
+				};
+
+				options.caption1 = 'Продажи по сети';
+				options.field1 = 'grossSales';
+
+				options.caption2 = 'Себестоимость по сети';
+				options.field2 = 'costOfGoods';
+
+				options.caption3 = 'Прибыль по сети';
+				options.field3 = 'grossMargin';
+
+				return new TotalResults(options);
+			},
 			table_storesProfit: require('blocks/table/storesProfit/storesProfit')
 		},
 		inputDateRangeHandler: function(e) {

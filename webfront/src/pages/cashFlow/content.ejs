@@ -17,7 +17,31 @@
     <div class="row">
         <div class="col-md-12">
 
-            <b block="table_cashFlows"></b>
+            <% if (collections.cashFlows.length) { %>
+
+            <div class="panel">
+                <div class="panel-body">
+
+                    <div style="width: 400px; padding-bottom: 30px;">
+                        <b block="inputDateRange"
+                           data-date-from="<%- params.dateFrom %>"
+                           data-date-to="<%- params.dateTo %>"></b>
+                    </div>
+
+                    <b block="total"></b>
+
+                    <b block="table_cashFlows"></b>
+
+                </div>
+            </div>
+
+            <% } else { %>
+
+            <div class="alert alert-info">
+                Вы не произвели ни одной операции с деньгами
+            </div>
+
+            <% } %>
 
         </div>
     </div>

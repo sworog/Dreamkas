@@ -3,12 +3,12 @@ define(function(require, exports, module) {
     var Block = require('kit/block/block');
 
     return Block.extend({
-        template: require('ejs!./stores__total.ejs'),
+        template: require('ejs!./template.ejs'),
         models: {
-            profit: function() {
+            result: function() {
 
                 var block = this,
-                    model = PAGE.models.profit;
+                    model = this.models.result;
 
                 block.listenTo(model, {
                     change: function() {
