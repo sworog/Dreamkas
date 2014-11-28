@@ -20,7 +20,7 @@
     [super awakeFromNib];
     
     [self.titleLabel setFont:DefaultMediumFont(16)];
-    [self.titleLabel setTextColor:DefaultLightCyanColor];
+    [self.titleLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
     
     unichar ch = 0xf054;
     [self.arrowLabel setText:[NSString stringWithFormat:@"%C", ch]];

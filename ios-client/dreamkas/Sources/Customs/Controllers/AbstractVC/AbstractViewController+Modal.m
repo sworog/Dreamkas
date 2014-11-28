@@ -43,8 +43,16 @@
 - (UIView*)createBlurredView
 {
     UIView *blurred_view = [[UIView alloc] initWithFrame:self.view.bounds];
-    UIImageView *image_view = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
+    UIImageView *image_view = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    image_view.image = self.view.imageRepresentation;
+    [blurred_view addSubview:image_view];
+    
+    UIView *gray_color_view = [[UIView alloc] initWithFrame:self.view.bounds];
+    [gray_color_view setBackgroundColor:[DefaultBlackColor colorWithAlphaComponent:DefaultModalOverlayAlpha]];
+    [blurred_view addSubview:gray_color_view];
+    
+    /*
     // эффект blur для iOS 8
     if (NSClassFromString(@"UIVisualEffectView") != nil) {
         image_view.image = self.view.imageRepresentation;
@@ -64,7 +72,7 @@
                                                     saturationDeltaFactor:1.8
                                                                 maskImage:nil];
     
-    [blurred_view addSubview:image_view];
+    [blurred_view addSubview:image_view];*/
     return blurred_view;
 }
 
