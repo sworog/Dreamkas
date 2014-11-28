@@ -44,12 +44,39 @@
     [self.containerNavigationController setViewControllers:@[self.viewControllerForNavigationController]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // вызываем вручную (!?idk)
+    [self.containerNavigationController viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     // анимированно показываем контейнер с контроллером
     [self showContainerView];
+    
+    // вызываем вручную (!?idk)
+    [self.containerNavigationController viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // вызываем вручную (!?idk)
+    [self.containerNavigationController viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    // вызываем вручную (!?idk)
+    [self.containerNavigationController viewDidDisappear:animated];
 }
 
 #pragma mark - Работа с контейнером контроллера

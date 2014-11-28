@@ -50,7 +50,7 @@
         image_view.image = self.view.imageRepresentation;
         [blurred_view addSubview:image_view];
         
-        UIVisualEffectView *visual_effect_view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+        UIVisualEffectView *visual_effect_view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         visual_effect_view.frame = self.view.bounds;
         [blurred_view addSubview:visual_effect_view];
         return blurred_view;

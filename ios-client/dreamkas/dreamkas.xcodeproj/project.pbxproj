@@ -774,13 +774,13 @@
 			children = (
 				CE1B3D9419DD40CA00A253D1 /* LaunchScreen.xib */,
 				CE1B3D9519DD40CA00A253D1 /* Pages.storyboard */,
-				CEC003EB19E6909B00AE256F /* Auth Screen */,
 				CEC003EC19E6909B00AE256F /* Intro Screen */,
-				CE39DDB619FFD28B00150C28 /* LeftSide Screens */,
+				CEC003EB19E6909B00AE256F /* Auth Screen */,
 				CE1E28721A272B180052D0E2 /* Modal Screen */,
+				CEC003ED19E6909B00AE256F /* TicketWindow Screen */,
+				CE39DDB619FFD28B00150C28 /* LeftSide Screens */,
 				CE39DDB719FFD28B00150C28 /* RightSide Screens */,
 				CE10A83419F654FA0056DF91 /* Sidemenu Screen */,
-				CEC003ED19E6909B00AE256F /* TicketWindow Screen */,
 			);
 			path = Pages;
 			sourceTree = "<group>";

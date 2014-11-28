@@ -16,9 +16,6 @@
 #define IntroToAuthScreenSegueName                  @"IntroToAuthScreenSegue"
 #define IntroToCashierPwdScreenSegueName            @"IntroToCashierPwdScreenSegue"
 
-#define TicketWindowToSelectStoreSegueName          @"TicketWindowToSelectStoreSegue"
-#define TicketWindowToPaymentScreenSegueName        @"TicketWindowToPaymentScreenSegue"
-
 #define GroupsToProductsSegueName                   @"GroupsToProductsSegue"
 #define GroupsToSearchSegueName                     @"GroupsToSearchSegue"
 
