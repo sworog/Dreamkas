@@ -65,7 +65,7 @@
     
     [CurrentUser resetLastUsedAuthData];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

@@ -8,12 +8,6 @@
 
 #import "PaymentViewController.h"
 
-@interface PaymentViewController ()
-
-@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
-
-@end
-
 @implementation PaymentViewController
 
 #pragma mark - View Lifecycle
@@ -22,14 +16,14 @@
 {
     [super viewDidLoad];
     
-    // ..
+    [self initCloseButton];
 }
 
 #pragma mark - Configuration Methods
 
 - (void)configureLocalization
 {
-    [self.titleLabel setText:NSLocalizedString(@"payment_page_title", nil)];
+    [self setTitle:NSLocalizedString(@"payment_page_title", nil)];
 }
 
 - (void)configureAccessibilityLabels
@@ -42,8 +36,6 @@
 - (IBAction)nextButtonClicked:(id)sender
 {
     DPLogFast(@"");
-    
-    // PUSH VC FinalPayment
 }
 
 @end

@@ -29,20 +29,11 @@
 
 - (void)configureLocalization
 {
-    [self.titleLabel setText:NSLocalizedString(@"final_payment_page_title", nil)];
+    [self setTitle:NSLocalizedString(@"final_payment_page_title", nil)];
 }
 
 - (void)configureAccessibilityLabels
 {
-    // ..
-}
-
-#pragma mark - Обработка пользовательского взаимодействия
-
-- (void)foo
-{
-    DPLogFast(@"");
-    
     // ..
 }
 
