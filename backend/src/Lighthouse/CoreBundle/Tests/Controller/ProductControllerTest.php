@@ -429,7 +429,7 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3', '4', '5'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -586,7 +586,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductsWithEmptyTypePropertiesReturnsArray()
     {
-        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3', '4', '5'));
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
@@ -694,7 +694,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetSubCategoryProductsHaveCategoryField()
     {
         $subCategoryId = $this->createSubCategory();
-        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3', '4', '5'));
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
@@ -2761,14 +2761,14 @@ class ProductControllerTest extends WebTestCase
 
     public function testDeleteAction()
     {
-        $productIds = $this->createProductsByNames(array('1', '2'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            "/api/1/products/{$productIds['1']}"
+            "/api/1/products/{$products['1']->id}"
         );
 
         $this->assertResponseCode(204);
@@ -2779,7 +2779,7 @@ class ProductControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/products/{$productIds['1']}"
+            "/api/1/products/{$products['1']->id}"
         );
 
         $this->assertResponseCode(200);
@@ -2789,14 +2789,14 @@ class ProductControllerTest extends WebTestCase
 
     public function testDeleteProductIsNotVisibleInProductsList()
     {
-        $productIds = $this->createProductsByNames(array('1', '2'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            "/api/1/products/{$productIds['1']}"
+            "/api/1/products/{$products['1']->id}"
         );
 
         $this->assertResponseCode(204);
@@ -2804,57 +2804,55 @@ class ProductControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/products"
+            '/api/1/products'
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($productIds['2'], '*.id', $getResponse);
-        Assert::assertNotJsonPathEquals($productIds['1'], '*.id', $getResponse);
+        Assert::assertJsonPathEquals($products['2']->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($products['1']->id, '*.id', $getResponse);
     }
 
     public function testDeleteProductIsNotVisibleInSubCategoryProductsList()
     {
-        $productIds = $this->createProductsByNames(array('1', '2'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            "/api/1/products/{$productIds['1']}"
+            "/api/1/products/{$products['1']->id}"
         );
 
         $this->assertResponseCode(204);
 
         // assert product is not visible in sub category products list
-        $subCategoryId = $this->factory()->catalog()->getSubCategory()->id;
+        $subCategory = $this->factory()->catalog()->getSubCategory();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/subcategories/{$subCategoryId}/products"
+            "/api/1/subcategories/{$subCategory->id}/products"
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($productIds['2'], '*.id', $getResponse);
-        Assert::assertNotJsonPathEquals($productIds['1'], '*.id', $getResponse);
+        Assert::assertJsonPathEquals($products['2']->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($products['1']->id, '*.id', $getResponse);
     }
 
     public function testDeleteProductIsNotVisibleInProductSearch()
     {
-        $productIds = $this->createProductsByNames(array('Каша овсяная', 'Каша гречневая'));
-        $productId1 = $productIds['Каша овсяная'];
-        $productId2 = $productIds['Каша гречневая'];
+        $products = $this->factory()->catalog()->getProductByNames(array('Каша овсяная', 'Каша гречневая'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            "/api/1/products/{$productId1}"
+            "/api/1/products/{$products['Каша овсяная']->id}"
         );
 
         $this->assertResponseCode(204);
@@ -2867,14 +2865,16 @@ class ProductControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/search?' . http_build_query($query)
+            '/api/1/products/search',
+            array(),
+            $query
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(1, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($productId2, '*.id', $getResponse);
-        Assert::assertNotJsonPathEquals($productId1, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($products['Каша гречневая']->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($products['Каша овсяная']->id, '*.id', $getResponse);
     }
 
     /**
