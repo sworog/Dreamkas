@@ -12,7 +12,6 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
-use Lighthouse\CoreBundle\Form\Product\ProductType;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Rounding\Nearest1;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;

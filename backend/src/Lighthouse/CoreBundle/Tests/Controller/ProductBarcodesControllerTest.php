@@ -16,13 +16,13 @@ class ProductBarcodesControllerTest extends WebTestCase
      */
     public function testPutAction(array $data, $expectedCode, array $assertions, array $productAssertions = array())
     {
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/products/' . $productId . '/barcodes',
+            "/api/1/products/{$product->id}/barcodes",
             $data
         );
 
@@ -31,7 +31,7 @@ class ProductBarcodesControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions);
 
         if (!empty($productAssertions)) {
-            $this->assertProduct($productId, $productAssertions);
+            $this->assertProduct($product->id, $productAssertions);
         }
     }
 
@@ -48,13 +48,13 @@ class ProductBarcodesControllerTest extends WebTestCase
         array $assertions,
         array $productAssertions = array()
     ) {
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/products/' . $productId . '/barcodes?validate=true',
+            "/api/1/products/{$product->id}/barcodes?validate=true",
             $data
         );
 
@@ -63,7 +63,7 @@ class ProductBarcodesControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions);
 
         if (!empty($productAssertions)) {
-            $this->assertProduct($productId, array('barcodes' => array()));
+            $this->assertProduct($product->id, array('barcodes' => array()));
         }
     }
 
