@@ -15,7 +15,7 @@ public class Us113_1 extends BaseTestSuite<LoginActivity_> {
 
 
 
-    public void testUserWillGetErrorMessagesIfTryToLoginWithEmptyCredentials() throws Exception
+    public void testUserWillGetErrorMessagesIfTryToLoginWithEmptyCredentials() throws Throwable
     {
         LoginSteps.enterCredentialsAndClick("", "");
         LoginThen.checkEmptyCredentials();
@@ -29,7 +29,7 @@ public class Us113_1 extends BaseTestSuite<LoginActivity_> {
         CommonThen.checkToast("Неверный логин или пароль", getCurrentActivity());
     }
 
-    public void testUserWillAuthorizeSuccessFully() throws Exception
+    public void testUserWillAuthorizeSuccessFully() throws Throwable
     {
         //enter right credentials
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
