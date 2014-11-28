@@ -15,17 +15,23 @@
 
         <% } %>
 
+        <% if (!models.cashFlow.get('reason')) { %>
         <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- cashFlowId != 0 ? 'Сохранить' : 'Добавить' %>
         </button>
+        <% } %>
 
         <h4 class="modal__title">
             <%- cashFlowId != 0 ? 'Редактирование операции' : 'Добавить операцию' %>
         </h4>
     </div>
     <div class="modal__body">
+
+        <% if (models.cashFlow.get('reason')) { %>
+        <div class="alert alert-info">Невозможно редактировать</div>
+        <% } %>
 
         <b block="form_cashFlow"
            data-id="<%- formId %>"></b>

@@ -42,7 +42,6 @@
 
         <input type="text"
                name="amount"
-               autofocus
                class="form-control"
                value="<%- model.get('amount') ? formatMoney(model.get('amount')) : '' %>"
                style="width: 100px;">
@@ -58,7 +57,7 @@
 
     </div>
 
-    <% if (model.id) { %>
+    <% if (model.id && !!model.get('reason')) { %>
 
     <div style="padding-top: 20px;">
 
