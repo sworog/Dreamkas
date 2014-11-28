@@ -28,6 +28,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @method OrderFactory order()
  * @method SupplierFactory supplier()
  * @method OrganizationFactory organization()
+ * @method CashFlowFactory cashFlow()
  */
 class Factory extends ContainerAwareFactory
 {
@@ -72,6 +73,7 @@ class Factory extends ContainerAwareFactory
             'order' => OrderFactory::getClassName(),
             'supplier' => SupplierFactory::getClassName(),
             'organization' => OrganizationFactory::getClassName(),
+            'cashFlow' => CashFlowFactory::getClassName(),
         );
     }
 

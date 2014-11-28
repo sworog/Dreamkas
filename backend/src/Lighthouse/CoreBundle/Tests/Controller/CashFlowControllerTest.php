@@ -7,6 +7,77 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class CashFlowControllerTest extends WebTestCase
 {
+    protected function createCashFlows()
+    {
+        $cashFlow1 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'in',
+                    300,
+                    '2014-07-24 19:05:24'
+                );
+        $cashFlow2 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'in',
+                    200,
+                    '2014-07-23 11:45:03'
+                );
+        $cashFlow3 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'out',
+                    400,
+                    '2014-07-26 00:05:46'
+                );
+        $cashFlow4 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'in',
+                    500,
+                    '2014-06-06 23:45:12'
+                );
+        $cashFlow5 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'out',
+                    600,
+                    '2014-07-06 23:45:12'
+                );
+        $cashFlow6 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'out',
+                    300,
+                    '2014-07-07 20:42:32'
+                );
+        $cashFlow7 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'out',
+                    700,
+                    '2014-05-07 23:45:12'
+                );
+        $cashFlow8 = $this->factory()
+            ->cashFlow()
+                ->createCashFlow(
+                    'in',
+                    1000,
+                    '2014-05-06 3:43:12'
+                );
+
+        return array(
+            'cashFlow1' => $cashFlow1->id,
+            'cashFlow2' => $cashFlow2->id,
+            'cashFlow3' => $cashFlow3->id,
+            'cashFlow4' => $cashFlow4->id,
+            'cashFlow5' => $cashFlow5->id,
+            'cashFlow6' => $cashFlow6->id,
+            'cashFlow7' => $cashFlow7->id,
+            'cashFlow8' => $cashFlow8->id,
+        );
+    }
+
     public function testPostCashFlowAction()
     {
         $cashFlowData = array(
@@ -331,6 +402,90 @@ class CashFlowControllerTest extends WebTestCase
                         'Не более 100 символов',
                 ),
             ),
+        );
+    }
+
+    /**
+     * @dataProvider filterProvider
+     * @param array $query
+     * @param array $expected
+     */
+    public function testFilter(array $query, array $expected)
+    {
+        $ids = $this->createCashFlows();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            $query
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedIds = array();
+        foreach ($expected as $key) {
+            $expectedIds[] = $ids[$key];
+        }
+
+        $responseIds = array_map(
+            function ($item) {
+                return $item['id'];
+            },
+            $response
+        );
+
+        $this->assertEquals($expectedIds, $responseIds);
+    }
+
+    /**
+     * @return array
+     */
+    public function filterProvider()
+    {
+        return array(
+            'types, dateFrom and dateTo' => array(
+                array(
+                    'dateFrom' => '2014-07-20',
+                    'dateTo' => '2014-07-25'
+                ),
+                array('cashFlow1', 'cashFlow2')
+            ),
+            'dateTo' => array(
+                array(
+                    'dateTo' => '2014-07-01',
+                ),
+                array('cashFlow4', 'cashFlow7', 'cashFlow8')
+            ),
+            'dateFrom' => array(
+                array(
+                    'dateFrom' => '2014-07-01',
+                ),
+                array('cashFlow3', 'cashFlow1', 'cashFlow2', 'cashFlow6', 'cashFlow5')
+            ),
+            'custom dates format' => array(
+                array(
+                    'dateFrom' => '01.06.2014',
+                    'dateTo' => 'Fri, 15 Jun 2014 18:39:05 +0400'
+                ),
+                array('cashFlow4')
+            ),
+            'empty query' => array(
+                array(),
+                array(
+                    'cashFlow1',
+                    'cashFlow2',
+                    'cashFlow3',
+                    'cashFlow4',
+                    'cashFlow5',
+                    'cashFlow6',
+                    'cashFlow7',
+                    'cashFlow8'
+                )
+            )
         );
     }
 }
