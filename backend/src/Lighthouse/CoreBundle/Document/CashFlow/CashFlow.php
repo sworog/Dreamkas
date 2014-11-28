@@ -17,18 +17,6 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class CashFlow extends AbstractDocument
 {
-    const DIRECTION_IN = "in";
-    const DIRECTION_OUT = "out";
-
-    /**
-     * @Serializer\Exclude
-     * @var array
-     */
-    public static $directions = array(
-        self::DIRECTION_IN,
-        self::DIRECTION_OUT,
-    );
-
     /**
      * @MongoDB\Id
      * @var string
@@ -37,6 +25,7 @@ class CashFlow extends AbstractDocument
 
     /**
      * @MongoDB\Date
+     * @Assert\NotBlank
      * @var DateTime
      */
     protected $date;
@@ -51,7 +40,12 @@ class CashFlow extends AbstractDocument
 
     /**
      * @MongoDB\Field(type="money")
-     * @LighthouseAssert\Money
+     * @LighthouseAssert\Money(
+     *      messagePrecision="lighthouse.validation.errors.amount.precision",
+     *      messageNegative="lighthouse.validation.errors.amount.negative",
+     *      messageMax="lighthouse.validation.errors.amount.max",
+     *      messageNotBlank="lighthouse.validation.errors.amount.not_blank"
+     * )
      * @var Money
      */
     protected $amount;
