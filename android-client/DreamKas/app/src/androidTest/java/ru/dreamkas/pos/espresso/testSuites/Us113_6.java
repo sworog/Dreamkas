@@ -85,29 +85,29 @@ public class Us113_6 extends BaseTestSuite<LoginActivity_> {
 
     //Scenario: Отказ пользователя от редактирования товара без цены при добавлении его в чек
     public void testCancelEditProductWithZeroPrice() throws Throwable {
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info1");
         LoginSteps.enterCredentialsAndClick("androidpos@lighthouse.pro", "lighthouse");
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info2");
         StoreSteps.selectStore("Магазин №2"); changeCurrentActivity();
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info3");
         KasSteps.search("100");
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info4");
 
         ArrayList<Product> ethalon = new ArrayList<Product>(){{
             add(new Product(){{setName("Товар без цены продажи"); setSku("10004"); setBarcode("666666");}});
         }};
 
         KasSteps.clickOnProductInSearchResult("Товар без цены продажи");
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info5");
 
         onView(withId(R.id.txtSellingPrice)).perform(typeText("100"));
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info6");
 
         CommonSteps.clickOnViewWithId(R.id.btnCloseModal);
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info7");
 
         KasThen.checkEmptyReceipt();
-        Spoon.screenshot(getCurrentActivity(), "info");
+        Spoon.screenshot(getCurrentActivity(), "info8");
     }
 
     //Scenario: Проверка изменения количества товара по нажатию на "+"
