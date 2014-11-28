@@ -652,21 +652,21 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $subCategoryId1 = $this->createSubCategory(null, 'Пиво');
-        $subCategoryId2 = $this->createSubCategory(null, 'Водка');
+        $subCategory1 = $this->factory()->catalog()->getSubCategory('Пиво');
+        $subCategory2 = $this->factory()->catalog()->getSubCategory('Водка');
 
         $productsSubCategory1 = array();
         $productsSubCategory2 = array();
 
         for ($i = 0; $i < 5; $i++) {
-            $productsSubCategory1[] = $this->createProduct("пиво ". $i, $subCategoryId1);
-            $productsSubCategory2[] = $this->createProduct("водка ". $i, $subCategoryId2);
+            $productsSubCategory1[] = $this->factory()->catalog()->getProduct("пиво {$i}", $subCategory1)->id;
+            $productsSubCategory2[] = $this->factory()->catalog()->getProduct("водка {$i}", $subCategory2)->id;
         }
 
         $jsonResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/subcategories/' . $subCategoryId1 . '/products'
+            "/api/1/subcategories/{$subCategory1->id}/products"
         );
 
         $this->assertResponseCode(200);
@@ -675,13 +675,13 @@ class ProductControllerTest extends WebTestCase
             Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
         }
 
-        Assert::assertJsonPathEquals($subCategoryId1, '*.subCategory.id', $jsonResponse, 5);
+        Assert::assertJsonPathEquals($subCategory1->id, '*.subCategory.id', $jsonResponse, 5);
         Assert::assertNotJsonHasPath('*.subCategory.category.id', $jsonResponse);
 
         $jsonResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/subcategories/' . $subCategoryId2 . '/products'
+            "/api/1/subcategories/{$subCategory2->id}/products"
         );
 
         $this->assertResponseCode(200);
@@ -717,17 +717,28 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $this->factory()->catalog()->createProduct(array('name' => 'Кефир3', 'purchasePrice' => ''));
-        $this->factory()->catalog()->createProduct(array('name' => 'кефир веселый молочник'));
-        $this->factory()->catalog()->createProduct(array('name' => 'Батон /Россия/ .12', 'vendor' => 'Россия'));
-        $this->factory()->catalog()->createProduct(array('name' => 'Кефир грустный дойщик'));
-        $this->factory()->catalog()->createProduct(array('name' => 'кефир5', 'barcode' => '00127463212'));
-
+        $this->factory()->catalog()->createProduct(
+            array('name' => 'Кефир3', 'purchasePrice' => '')
+        );
+        $this->factory()->catalog()->createProduct(
+            array('name' => 'кефир веселый молочник', 'purchasePrice' => '30.48')
+        );
+        $this->factory()->catalog()->createProduct(
+            array('name' => 'Батон /Россия/ .12', 'vendor' => 'Россия', 'purchasePrice' => '30.48')
+        );
+        $this->factory()->catalog()->createProduct(
+            array('name' => 'Кефир грустный дойщик', 'purchasePrice' => '30.48')
+        );
+        $this->factory()->catalog()->createProduct(
+            array('name' => 'кефир5', 'barcode' => '00127463212', 'purchasePrice' => '30.48')
+        );
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/search?' . http_build_query($query)
+            '/api/1/products/search',
+            array(),
+            $query
         );
 
         Assert::assertJsonPathCount(count($expectedSkus), '*.sku', $response);
@@ -2301,18 +2312,16 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductActionSetRounding($expectedCode, array $putData, array $assertions)
     {
-        $postData = $this->getProductData();
-
-        $productId = $this->createProduct($postData);
+        $product = $this->factory()->catalog()->getProduct();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $putData += $postData;
+        $putData += $this->getProductData();
 
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/products/' . $productId,
+            "/api/1/products/{$product->id}",
             $putData
         );
 
@@ -2324,7 +2333,7 @@ class ProductControllerTest extends WebTestCase
             $getResponse = $this->clientJsonRequest(
                 $accessToken,
                 'GET',
-                '/api/1/products/' . $productId
+                "/api/1/products/{$product->id}"
             );
 
             $this->assertEquals($putResponse, $getResponse, 'PUT and GET responses should be equal');
@@ -2450,13 +2459,11 @@ class ProductControllerTest extends WebTestCase
     {
         $productData = $this->productProvider();
         if ($withSubCategory) {
-            $subCategoryId = $this->createSubCategory();
-            $productData['milkman'][0]['subCategory'] = $subCategoryId;
+            $subCategory = $this->factory()->catalog()->getSubCategory();
+            $productData['milkman'][0]['subCategory'] = $subCategory->id;
         }
         return $productData['milkman'][0];
     }
-
-
 
     /**
      * @param string    $url
@@ -2917,19 +2924,19 @@ class ProductControllerTest extends WebTestCase
     ) {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $subCategoryId = $this->createSubCategory(null, 'Пиво');
+        $subCategory = $this->factory()->catalog()->getSubCategory('Пиво');
         $postData = array(
             'name' => 'Продукт',
             'sellingPrice' => '45.89',
         );
-        $productId = $this->createProduct($postData, $subCategoryId);
+        $product = $this->factory()->catalog()->createProduct($postData, $subCategory);
 
         $productData = $putData + $this->getProductData(true);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/products/' . $productId,
+            "/api/1/products/{$product->id}",
             $productData
         );
 

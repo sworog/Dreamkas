@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Form\Product\ProductType;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Rounding\Nearest1;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;
@@ -75,6 +76,29 @@ class CatalogFactory extends AbstractFactory
         $product->subCategory = $subCategory ?: $this->getSubCategory();
 
         $this->doSave($product);
+
+        $this->productNames[$product->name] = $product->id;
+
+        return $product;
+    }
+
+    /**
+     * @param array $data
+     * @return Product
+     */
+    public function createProductByForm(array $data)
+    {
+        $product = new Product();
+
+        $formType = $this->container->get('lighthouse.core.form.product_type');
+        $formFactory = $this->container->get('form.factory');
+        $form = $formFactory->create($formType, $product);
+
+        if (!$form->submit($data, false)->isValid()) {
+            throw new \RuntimeException('Product validation failed');
+        }
+
+        $this->doSave($product, false);
 
         $this->productNames[$product->name] = $product->id;
 

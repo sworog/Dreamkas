@@ -32,7 +32,7 @@ class StockMovementBuilder
      */
     public function setDate($date = null)
     {
-        $this->data['date'] = $date ?: date(DateTime::W3C);
+        $this->data['date'] = null !== $date ? $date : date(DateTime::W3C);
         return $this;
     }
 
@@ -76,6 +76,17 @@ class StockMovementBuilder
             'quantity' => $quantity,
             'price' => $price
         );
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     * @param array $data
+     * @return $this
+     */
+    public function mergeProduct($index, array $data)
+    {
+        $this->data['products'][$index] = $data + $this->data['products'][$index];
         return $this;
     }
 

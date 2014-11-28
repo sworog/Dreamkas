@@ -76,4 +76,14 @@ class InvoiceBuilder extends SupplierReturnBuilder
         $this->data['includesVAT'] = $flag;
         return $this;
     }
+
+    /**
+     * @param string $order
+     * @return $this
+     */
+    public function setOrder($order)
+    {
+        $this->data['order'] = $order;
+        return $this;
+    }
 }
