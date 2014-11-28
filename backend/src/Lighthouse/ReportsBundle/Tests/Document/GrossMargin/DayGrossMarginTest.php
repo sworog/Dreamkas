@@ -4,7 +4,6 @@ namespace Lighthouse\ReportsBundle\Tests\Document\GrossMargin;
 
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginRepository;
 

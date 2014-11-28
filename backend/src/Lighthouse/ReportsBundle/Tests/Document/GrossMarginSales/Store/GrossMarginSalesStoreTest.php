@@ -4,7 +4,6 @@ namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Store;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Store\GrossMarginSalesStoreRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;

@@ -3,7 +3,6 @@
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Network;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Network\GrossMarginSalesNetworkRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;

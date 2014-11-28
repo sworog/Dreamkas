@@ -72,6 +72,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string|array $extra
      * @param null|string $subCategoryId
      * @param bool|string $putProductId string id of product to be updated
@@ -116,6 +117,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string $productId
      * @param array $data
      */
@@ -125,6 +127,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string $productId
      * @param array $barcodes
      */
@@ -152,28 +155,6 @@ class WebTestCase extends ContainerAwareTestCase
     {
         $subCategory = ($subCategoryId) ? $this->factory()->catalog()->getSubCategoryById($subCategoryId) : null;
         return $this->factory()->catalog()->createProductByName($name, $subCategory)->id;
-    }
-
-    /**
-     * @param array $catalog
-     * @return array
-     */
-    protected function createCatalog(array $catalog)
-    {
-        $catalogIds = array();
-        foreach ($catalog as $groupName => $categories) {
-            $groupId = $this->factory()->catalog()->createGroup($groupName)->id;
-            $catalogIds[$groupName] = $groupId;
-            foreach ($categories as $categoryName => $subCategories) {
-                $categoryId = $this->factory()->catalog()->createCategory($groupId, $categoryName)->id;
-                $catalogIds[$categoryName] = $categoryId;
-                foreach ($subCategories as $subCategoryName => $void) {
-                    $subCategoryId = $this->factory()->catalog()->createSubCategory($categoryId, $subCategoryName)->id;
-                    $catalogIds[$subCategoryName] = $subCategoryId;
-                }
-            }
-        }
-        return $catalogIds;
     }
 
     /**
@@ -260,6 +241,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string $name
      * @return string
      */
@@ -269,6 +251,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string $groupId
      * @param string $name
      * @return string
@@ -279,6 +262,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string $categoryId
      * @param string $name
      * @return string
@@ -289,6 +273,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string $storeId
      * @param string $productId
      * @param array $productData
