@@ -12,7 +12,7 @@ class StockMovementControllerTest extends WebTestCase
      */
     protected function createStockMovements()
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
@@ -20,53 +20,53 @@ class StockMovementControllerTest extends WebTestCase
         $invoice1 = $this->factory()
             ->invoice()
             ->createInvoice(array('date' => '2014-07-24 19:05:24'), $store1->id)
-                ->createInvoiceProduct($productIds['1'], 10, 14.99)
-                ->createInvoiceProduct($productIds['2'], 23.7, 13.59)
+                ->createInvoiceProduct($products['1']->id, 10, 14.99)
+                ->createInvoiceProduct($products['2']->id, 23.7, 13.59)
             ->flush();
 
         $invoice2 = $this->factory()
             ->invoice()
             ->createInvoice(array('date' => '2014-07-23 11:45:03'), $store2->id)
-                ->createInvoiceProduct($productIds['1'], 1, 16)
-                ->createInvoiceProduct($productIds['3'], 23.7, 13.59)
-                ->createInvoiceProduct($productIds['2'], 10.001, 12.54)
+                ->createInvoiceProduct($products['1']->id, 1, 16)
+                ->createInvoiceProduct($products['3']->id, 23.7, 13.59)
+                ->createInvoiceProduct($products['2']->id, 10.001, 12.54)
             ->flush();
 
         $writeOff1 = $this->factory()
             ->writeOff()
             ->createWriteOff($store1, '2014-07-26 00:05:46')
-                ->createWriteOffProduct($productIds['1'], 1, 14.95, 'Порча')
-                ->createWriteOffProduct($productIds['2'], 0.05, 15.00, 'Бой')
+                ->createWriteOffProduct($products['1']->id, 1, 14.95, 'Порча')
+                ->createWriteOffProduct($products['2']->id, 0.05, 15.00, 'Бой')
             ->flush();
 
         $writeOff2 = $this->factory()
             ->writeOff()
             ->createWriteOff($store1, '2014-06-06 23:45:12')
-                ->createWriteOffProduct($productIds['3'], 2.12, 10, 'Украли')
+                ->createWriteOffProduct($products['3']->id, 2.12, 10, 'Украли')
             ->flush();
 
         $stockIn1 = $this->factory()
             ->stockIn()
             ->createStockIn($store1, '2014-07-06 23:45:12')
-                ->createStockInProduct($productIds['1'], 3, 13.76)
+                ->createStockInProduct($products['1']->id, 3, 13.76)
             ->flush();
 
         $stockIn2 = $this->factory()
             ->stockIn()
             ->createStockIn($store1, '2014-07-07 20:42:32')
-                ->createStockInProduct($productIds['3'], 7, 12.6)
+                ->createStockInProduct($products['3']->id, 7, 12.6)
             ->flush();
 
         $supplierReturn1 = $this->factory()
             ->supplierReturn()
             ->createSupplierReturn($store1, '2014-05-07 23:45:12')
-                ->createSupplierReturnProduct($productIds['1'], 2.12, 10)
+                ->createSupplierReturnProduct($products['1']->id, 2.12, 10)
             ->flush();
 
         $supplierReturn2 = $this->factory()
             ->supplierReturn()
             ->createSupplierReturn($store2, '2014-05-06 3:43:12')
-                ->createSupplierReturnProduct($productIds['2'], 2.4, 17)
+                ->createSupplierReturnProduct($products['2']->id, 2.4, 17)
             ->flush();
 
         return array(
@@ -310,35 +310,35 @@ class StockMovementControllerTest extends WebTestCase
 
     public function testReceiptsAreNotShown()
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore();
 
         $invoice1 = $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-07-24 19:05:24'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 10, 14.99)
-                ->createInvoiceProduct($productIds['2'], 23.7, 13.59)
+                ->createInvoiceProduct($products['1']->id, 10, 14.99)
+                ->createInvoiceProduct($products['2']->id, 23.7, 13.59)
             ->flush();
 
         $invoice2 = $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-07-23 11:45:03'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 1, 16)
-                ->createInvoiceProduct($productIds['3'], 23.7, 13.59)
-                ->createInvoiceProduct($productIds['2'], 10.001, 12.54)
+                ->createInvoiceProduct($products['1']->id, 1, 16)
+                ->createInvoiceProduct($products['3']->id, 23.7, 13.59)
+                ->createInvoiceProduct($products['2']->id, 10.001, 12.54)
             ->flush();
 
         $sale1 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-07-25 12:00:01')
-                ->createReceiptProduct($productIds['1'], 1, 20.98)
+                ->createReceiptProduct($products['1']->id, 1, 20.98)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createReturn($store, '2014-07-25 12:00:02', $sale1)
-                ->createReceiptProduct($productIds['2'], 5)
+                ->createReceiptProduct($products['2']->id, 5)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();

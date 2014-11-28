@@ -69,13 +69,14 @@ class ReturnControllerTest extends WebTestCase
      */
     public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore();
 
-        $sale1 = $this->factory()->receipt()
-            ->createSale($store)
-            ->createReceiptProduct($productIds['1'], 10, 17.68)
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($products['1']->id, 10, 17.68)
             ->flush();
 
         $returnData = array(
@@ -83,7 +84,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale1->id,
             'products' => array(
                 $data + array(
-                    'product' => $productIds['1'],
+                    'product' => $products['1']->id,
                     'quantity' => 7
                 )
             ),
@@ -237,13 +238,13 @@ class ReturnControllerTest extends WebTestCase
      */
     public function testPostValidation($expectedCode, array $data, array $assertions = array())
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore();
 
         $sale1 = $this->factory()->receipt()
             ->createSale($store)
-            ->createReceiptProduct($productIds['1'], 10, 17.68)
+            ->createReceiptProduct($products['1']->id, 10, 17.68)
             ->flush();
 
         $returnData = $data + array(
@@ -251,7 +252,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale1->id,
             'products' => array(
                 array(
-                    'product' => $productIds['1'],
+                    'product' => $products['1']->id,
                     'quantity' => 7
                 )
             ),
