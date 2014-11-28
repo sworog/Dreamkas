@@ -7,6 +7,7 @@ import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.GeneralPageObject;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import ru.dreamkas.pages.MenuNavigationBar;
+import ru.dreamkas.pages.cashFlow.CashFlowListPage;
 import ru.dreamkas.pages.pos.PosLaunchPage;
 import ru.dreamkas.pages.pos.PosPage;
 import ru.dreamkas.pages.pos.PosSaleHistoryPage;
@@ -46,6 +47,7 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("настроек пользователя", Settings.class);
             put("списка поставщиков", SupplierListPage.class);
             put("списка магазинов", StoreListPage.class);
+            put("списка денежных операций", CashFlowListPage.class);
         }};
     }
 
