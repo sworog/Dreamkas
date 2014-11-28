@@ -179,12 +179,8 @@ class OrderProductControllerTest extends WebTestCase
 
     public function testSearchStoreProductsActionWithRangeMarkup()
     {
-        $storeId = $this->factory()->store()->getStoreId('123');
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $store = $this->factory()->store()->getStore('123');
 
-        $group = $this->createGroup('123');
-        $category = $this->createCategory($group, '123');
-        $subCategory = $this->createSubCategory($category, '123');
         $productData = array(
             'name' => '123',
             'barcode' => '123',
@@ -195,21 +191,22 @@ class OrderProductControllerTest extends WebTestCase
             'info' => '',
             'retailMarkupMin' => 0,
             'retailMarkupMax' => 10,
-            'subCategory' => $subCategory,
         );
-        $product = $this->createProduct($productData, $subCategory);
+        $product = $this->factory()->catalog()->createProduct($productData);
 
         $this->factory()->supplier()->getSupplier('123');
 
         $postData = array(
-            'product' => $product,
+            'product' => $product->id,
             'quantity' => 1.11,
         );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders/products?validate=true',
+            "/api/1/stores/{$store->id}/orders/products?validate=true",
             $postData
         );
 

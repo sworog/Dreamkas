@@ -435,14 +435,14 @@ class ProductBarcodesControllerTest extends WebTestCase
      */
     public function testExtraBarcodeUniqueAnotherProduct(array $barcodes, array $assertions)
     {
-        $productId1 = $this->createProduct(array('name' => 'Кефир', 'barcode' => '11111'));
-        $productId2 = $this->createProduct(array('name' => 'Молоко', 'barcode' => '11112'));
+        $product1 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир', 'barcode' => '11111'));
+        $product2 = $this->factory()->catalog()->createProduct(array('name' => 'Молоко', 'barcode' => '11112'));
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/products/' . $productId1 . '/barcodes',
+            "/api/1/products/{$product1->id}/barcodes",
             array(
                 'barcodes' => array(
                     array('barcode' => '54492653', 'quantity' => '1'),
@@ -455,7 +455,7 @@ class ProductBarcodesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/products/' . $productId2 . '/barcodes',
+            "/api/1/products/{$product2->id}/barcodes",
             array(
                 'barcodes' => $barcodes,
             )

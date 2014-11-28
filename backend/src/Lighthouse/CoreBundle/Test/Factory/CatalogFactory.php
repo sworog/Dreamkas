@@ -55,10 +55,7 @@ class CatalogFactory extends AbstractFactory
         SubCategory $subCategory = null,
         array $extraData = array()
     ) {
-        $data = $extraData + array(
-            'name' => $name,
-            'vat' => 18,
-        );
+        $data = $extraData + array('name' => $name);
         return $this->createProduct($data, $subCategory);
     }
 
@@ -70,6 +67,8 @@ class CatalogFactory extends AbstractFactory
     public function createProduct(array $data, SubCategory $subCategory = null)
     {
         $product = new Product();
+
+        $data = $data + array('vat' => 18, 'name' => self::DEFAULT_PRODUCT_NAME);
 
         $this->populate($product, $this->prepareData($data));
 

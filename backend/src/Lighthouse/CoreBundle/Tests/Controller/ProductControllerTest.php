@@ -717,11 +717,11 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $this->createProduct(array('name' => 'Кефир3', 'purchasePrice' => ''));
-        $this->createProduct(array('name' => 'кефир веселый молочник'));
-        $this->createProduct(array('name' => 'Батон /Россия/ .12', 'vendor' => 'Россия'));
-        $this->createProduct(array('name' => 'Кефир грустный дойщик'));
-        $this->createProduct(array('name' => 'кефир5', 'barcode' => '00127463212'));
+        $this->factory()->catalog()->createProduct(array('name' => 'Кефир3', 'purchasePrice' => ''));
+        $this->factory()->catalog()->createProduct(array('name' => 'кефир веселый молочник'));
+        $this->factory()->catalog()->createProduct(array('name' => 'Батон /Россия/ .12', 'vendor' => 'Россия'));
+        $this->factory()->catalog()->createProduct(array('name' => 'Кефир грустный дойщик'));
+        $this->factory()->catalog()->createProduct(array('name' => 'кефир5', 'barcode' => '00127463212'));
 
 
         $response = $this->clientJsonRequest(
@@ -2469,8 +2469,8 @@ class ProductControllerTest extends WebTestCase
      */
     public function testAccessProduct($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $subCategoryId = $this->factory()->catalog()->getSubCategory('Пиво')->id;
-        $productId = $this->createProduct('Старый мельник', $subCategoryId);
+        $subCategory = $this->factory()->catalog()->getSubCategory('Пиво');
+        $product = $this->factory()->catalog()->getProduct('Старый мельник', $subCategory);
 
         $url = str_replace(
             array(
@@ -2478,8 +2478,8 @@ class ProductControllerTest extends WebTestCase
                 '__SUBCATEGORY_ID__',
             ),
             array(
-                $productId,
-                $subCategoryId,
+                $product->id,
+                $subCategory->id,
             ),
             $url
         );
