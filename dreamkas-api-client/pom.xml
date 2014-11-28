@@ -17,6 +17,7 @@
         <testSourceDirectory>${sourceDirectory}}</testSourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
         <testOutputDirectory>${outputDirectory}}</testOutputDirectory>
+        <api.staging>autotests</api.staging>
     </properties>
 
     <dependencies>
@@ -103,6 +104,7 @@
                         <testSourceDirectory>${testSourceDirectory}}</testSourceDirectory>
                         <outputDirectory>${outputDirectory}}</outputDirectory>
                         <testOutputDirectory>${testSourceDirectory}}</testOutputDirectory>
+                        <api.staging>${api.staging}</api.staging>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

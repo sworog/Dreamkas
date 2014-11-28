@@ -2,6 +2,7 @@ package ru.dreamkas.pages.pos;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
 import ru.dreamkas.pages.modal.ModalWindowPage;
@@ -21,6 +22,8 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
         put("barcode", new NonType(this, "//*[@name='barcode']"));
         put("plusButton", new NonType(this, "//*[contains(@class, 'inputNumber__countUp')]"));
         put("minusButton", new NonType(this, "//*[contains(@class, 'inputNumber__countDown')]"));
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Сохранить"));
     }
 
     @Override

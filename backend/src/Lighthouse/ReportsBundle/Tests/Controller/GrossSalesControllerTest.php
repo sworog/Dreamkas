@@ -33,63 +33,63 @@ class GrossSalesControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '8:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '9:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '10:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '11:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 8:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 9:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 10:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-7 days 8:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-7 days 9:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
-                ->createReceiptProduct($productIds['3'], 3, 34.00)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
+                ->createReceiptProduct($products['3']->id, 3, 34.00)
             ->persist()
                 ->createSale($store, '-7 days 10:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->flush();
 
-        return array($store, $productIds);
+        return array($store, $products);
     }
 
     public function testGetStoreGrossSalesReportsByTime()
@@ -257,26 +257,24 @@ class GrossSalesControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '7:25')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 8:01')
-                ->createReceiptProduct($productId1, 5, 34.77)
-                ->createReceiptProduct($productId2, 1, 64.79)
-                ->createReceiptProduct($productId3, 2, 43.55)
+                ->createReceiptProduct($products['1']->id, 5, 34.77)
+                ->createReceiptProduct($products['2']->id, 1, 64.79)
+                ->createReceiptProduct($products['3']->id, 2, 43.55)
             ->persist()
                 ->createSale($store, '-1 week 9:01')
-                ->createReceiptProduct($productId1, 10, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 10, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->flush();
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
@@ -386,16 +384,16 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHour()
     {
-        list($store, $productIds) = $this->createSalesForTodayYesterdayWeekAgo();
+        list($store, $products) = $this->createSalesForTodayYesterdayWeekAgo();
 
         $storeOther = $this->factory()->store()->getStore('other');
 
         $this->factory()
             ->receipt()
                 ->createSale($storeOther, '8:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->flush();
 
         $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
@@ -509,7 +507,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $storeManagerToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+            "/api/1/stores/{$storeId}/reports/grossSalesByHours"
         );
         $this->assertResponseCode(200);
 
@@ -517,7 +515,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $departmentManagerToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+            "/api/1/stores/{$storeId}/reports/grossSalesByHours"
         );
         $this->assertResponseCode(403);
 
@@ -525,7 +523,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $storeManagerOtherStoreToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+            "/api/1/stores/{$storeId}/reports/grossSalesByHours"
         );
         $this->assertResponseCode(403);
 
@@ -533,7 +531,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $commercialManagerToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+            "/api/1/stores/{$storeId}/reports/grossSalesByHours"
         );
         $this->assertResponseCode(403);
 
@@ -541,7 +539,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $departmentManagerOtherStoreToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+            "/api/1/stores/{$storeId}/reports/grossSalesByHours"
         );
         $this->assertResponseCode(403);
 
@@ -549,7 +547,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $administratorToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours'
+            "/api/1/stores/{$storeId}/reports/grossSalesByHours"
         );
         $this->assertResponseCode(403);
     }
@@ -558,45 +556,45 @@ class GrossSalesControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '8:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '9:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '10:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '11:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-7 days 8:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-7 days 9:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
-                ->createReceiptProduct($productIds['3'], 3, 34.00)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
+                ->createReceiptProduct($products['3']->id, 3, 34.00)
             ->persist()
                 ->createSale($store, '-7 days 10:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->flush();
 
         $otherStore = $this->factory()->store()->getStore('other');
@@ -604,9 +602,9 @@ class GrossSalesControllerTest extends WebTestCase
         $this->factory()
             ->receipt()
                 ->createSale($otherStore, '8:01')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 64.79)
-                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->flush();
 
         $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
@@ -713,16 +711,14 @@ class GrossSalesControllerTest extends WebTestCase
 
         $otherStore = $this->factory()->store()->getStore('other');
 
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->receipt()
                 ->createSale($otherStore, '8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 64.79)
+                ->createReceiptProduct($products['3']->id, 7, 43.55)
             ->flush();
 
         $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
@@ -1041,7 +1037,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->factory()->store()->getStoreManager($stores['1']->id);
         $this->factory()->store()->getDepartmentManager($stores['1']->id);
 
-        $catalogIds = $this->createCatalog(
+        $catalog = $this->factory()->catalog()->createCatalog(
             array(
                 '1' => array(
                     '1.1' => array(
@@ -1060,14 +1056,15 @@ class GrossSalesControllerTest extends WebTestCase
             )
         );
 
-        $productIds = array();
-        $productIds['1'] = $this->createProductByName('1', $catalogIds['1.1.1']);
-        $productIds['2'] = $this->createProductByName('2', $catalogIds['1.1.1']);
-        $productIds['3'] = $this->createProductByName('3', $catalogIds['1.1.2']);
-        $productIds['4'] = $this->createProductByName('4', $catalogIds['2.1.1']);
-        $productIds['5'] = $this->createProductByName('5', $catalogIds['1.2.1']);
+        $products = array(
+            '1' => $this->factory()->catalog()->getProduct('1', $catalog['1.1.1']),
+            '2' => $this->factory()->catalog()->getProduct('2', $catalog['1.1.1']),
+            '3' => $this->factory()->catalog()->getProduct('3', $catalog['1.1.2']),
+            '4' => $this->factory()->catalog()->getProduct('4', $catalog['2.1.1']),
+            '5' => $this->factory()->catalog()->getProduct('5', $catalog['1.2.1'])
+        );
 
-        return array($stores, $productIds, $catalogIds);
+        return array($stores, $catalog, $products);
     }
 
     /**
@@ -1075,174 +1072,175 @@ class GrossSalesControllerTest extends WebTestCase
      */
     protected function createSales()
     {
-        list($stores, $productIds, $catalogIds) = $this->createSalesProducts();
+        list($stores, $catalog, $products) = $this->createSalesProducts();
 
         // today, should not be counted
         $this->factory()
             ->receipt()
                 ->createSale($stores['1'], '8:01')
-                ->createReceiptProduct($productIds['1'], 34.77, 3)
-                ->createReceiptProduct($productIds['2'], 4, 43.55)
-                ->createReceiptProduct($productIds['3'], 2, 64.79)
+                ->createReceiptProduct($products['1']->id, 34.77, 3)
+                ->createReceiptProduct($products['2']->id, 4, 43.55)
+                ->createReceiptProduct($products['3']->id, 2, 64.79)
             ->persist()
                 ->createSale($stores['2'], '8:12')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 4, 43.55)
-                ->createReceiptProduct($productIds['3'], 2, 64.79)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 4, 43.55)
+                ->createReceiptProduct($products['3']->id, 2, 64.79)
             ->persist()
                 ->createSale($stores['3'], '8:03')
-                ->createReceiptProduct($productIds['1'], 3, 34.77)
-                ->createReceiptProduct($productIds['2'], 4, 43.55)
-                ->createReceiptProduct($productIds['3'], 2, 64.79)
+                ->createReceiptProduct($products['1']->id, 3, 34.77)
+                ->createReceiptProduct($products['2']->id, 4, 43.55)
+                ->createReceiptProduct($products['3']->id, 2, 64.79)
             ->persist()
             // yesterday, 3rd store has no sales
                 ->createSale($stores['1'], '-1 day 8:01')
-                ->createReceiptProduct($productIds['1'], 6, 34.77)
-                ->createReceiptProduct($productIds['2'], 10, 43.55)
-                ->createReceiptProduct($productIds['3'], 1, 64.79)
+                ->createReceiptProduct($products['1']->id, 6, 34.77)
+                ->createReceiptProduct($products['2']->id, 10, 43.55)
+                ->createReceiptProduct($products['3']->id, 1, 64.79)
             ->persist()
                 ->createSale($stores['2'], '-1 day 8:12')
-                ->createReceiptProduct($productIds['1'], 5, 34.77)
-                ->createReceiptProduct($productIds['2'], 3, 43.55)
-                ->createReceiptProduct($productIds['3'], 19, 64.79)
+                ->createReceiptProduct($products['1']->id, 5, 34.77)
+                ->createReceiptProduct($products['2']->id, 3, 43.55)
+                ->createReceiptProduct($products['3']->id, 19, 64.79)
             ->persist()
             // 2 days ago,
                 ->createSale($stores['1'], '-2 days 8:01')
-                ->createReceiptProduct($productIds['1'], 5, 34.77)
-                ->createReceiptProduct($productIds['2'], 5, 43.55)
-                ->createReceiptProduct($productIds['3'], 5, 64.79)
+                ->createReceiptProduct($products['1']->id, 5, 34.77)
+                ->createReceiptProduct($products['2']->id, 5, 43.55)
+                ->createReceiptProduct($products['3']->id, 5, 64.79)
             ->persist()
                 ->createSale($stores['2'], '-2 days 8:12')
-                ->createReceiptProduct($productIds['1'], 4, 34.77)
-                ->createReceiptProduct($productIds['2'], 6, 43.55)
-                ->createReceiptProduct($productIds['3'], 3, 64.79)
+                ->createReceiptProduct($products['1']->id, 4, 34.77)
+                ->createReceiptProduct($products['2']->id, 6, 43.55)
+                ->createReceiptProduct($products['3']->id, 3, 64.79)
             ->persist()
                 ->createSale($stores['3'], '-2 days 8:03')
-                ->createReceiptProduct($productIds['1'], 1, 34.77)
-                ->createReceiptProduct($productIds['2'], 14, 43.55)
-                ->createReceiptProduct($productIds['3'], 3, 64.79)
+                ->createReceiptProduct($products['1']->id, 1, 34.77)
+                ->createReceiptProduct($products['2']->id, 14, 43.55)
+                ->createReceiptProduct($products['3']->id, 3, 64.79)
             ->persist()
             // 7 days ago, should not be counted
                 ->createSale($stores['1'], '-7 days 8:01')
-                ->createReceiptProduct($productIds['1'], 4, 34.77)
-                ->createReceiptProduct($productIds['2'], 7, 43.55)
-                ->createReceiptProduct($productIds['3'], 13, 64.79)
+                ->createReceiptProduct($products['1']->id, 4, 34.77)
+                ->createReceiptProduct($products['2']->id, 7, 43.55)
+                ->createReceiptProduct($products['3']->id, 13, 64.79)
             ->persist()
                 ->createSale($stores['2'], '-7 days 8:12')
-                ->createReceiptProduct($productIds['1'], 23, 34.77)
-                ->createReceiptProduct($productIds['2'], 1, 43.55)
-                ->createReceiptProduct($productIds['3'], 12, 64.79)
+                ->createReceiptProduct($products['1']->id, 23, 34.77)
+                ->createReceiptProduct($products['2']->id, 1, 43.55)
+                ->createReceiptProduct($products['3']->id, 12, 64.79)
             ->persist()
                 ->createSale($stores['3'], '-7 days 8:03')
-                ->createReceiptProduct($productIds['1'], 7, 34.77)
-                ->createReceiptProduct($productIds['2'], 5, 43.55)
-                ->createReceiptProduct($productIds['3'], 3, 64.79)
+                ->createReceiptProduct($products['1']->id, 7, 34.77)
+                ->createReceiptProduct($products['2']->id, 5, 43.55)
+                ->createReceiptProduct($products['3']->id, 3, 64.79)
             ->persist()
             // 8 days ago
                 ->createSale($stores['1'], '-8 days 8:01')
-                ->createReceiptProduct($productIds['1'], 1, 34.77)
-                ->createReceiptProduct($productIds['2'], 6, 43.55)
-                ->createReceiptProduct($productIds['3'], 1, 64.79)
+                ->createReceiptProduct($products['1']->id, 1, 34.77)
+                ->createReceiptProduct($products['2']->id, 6, 43.55)
+                ->createReceiptProduct($products['3']->id, 1, 64.79)
             ->persist()
                 ->createSale($stores['2'], '-8 days 8:12')
-                ->createReceiptProduct($productIds['1'], 8, 34.77)
-                ->createReceiptProduct($productIds['2'], 10, 43.55)
-                ->createReceiptProduct($productIds['1'], 1, 34.77)
+                ->createReceiptProduct($products['1']->id, 8, 34.77)
+                ->createReceiptProduct($products['2']->id, 10, 43.55)
+                ->createReceiptProduct($products['1']->id, 1, 34.77)
             ->persist()
                 ->createSale($stores['3'], '-8 days 8:03')
-                ->createReceiptProduct($productIds['1'], 11, 34.77)
-                ->createReceiptProduct($productIds['3'], 9, 64.79)
+                ->createReceiptProduct($products['1']->id, 11, 34.77)
+                ->createReceiptProduct($products['3']->id, 9, 64.79)
             ->persist()
             // 9 days ago, should not be counted
                 ->createSale($stores['1'], '-9 days 10:01')
-                ->createReceiptProduct($productIds['1'], 1, 34.77)
-                ->createReceiptProduct($productIds['2'], 8, 43.55)
-                ->createReceiptProduct($productIds['3'], 3, 64.79)
+                ->createReceiptProduct($products['1']->id, 1, 34.77)
+                ->createReceiptProduct($products['2']->id, 8, 43.55)
+                ->createReceiptProduct($products['3']->id, 3, 64.79)
             ->persist()
                 ->createSale($stores['2'], '-9 days 14:12')
-                ->createReceiptProduct($productIds['1'], 4, 34.77)
-                ->createReceiptProduct($productIds['2'], 5, 43.55)
-                ->createReceiptProduct($productIds['3'], 6, 64.79)
+                ->createReceiptProduct($products['1']->id, 4, 34.77)
+                ->createReceiptProduct($products['2']->id, 5, 43.55)
+                ->createReceiptProduct($products['3']->id, 6, 64.79)
             ->persist()
                 ->createSale($stores['3'], '-9 days 16:03')
-                ->createReceiptProduct($productIds['1'], 1, 34.77)
-                ->createReceiptProduct($productIds['2'], 1, 43.55)
-                ->createReceiptProduct($productIds['3'], 1, 64.79)
+                ->createReceiptProduct($products['1']->id, 1, 34.77)
+                ->createReceiptProduct($products['2']->id, 1, 43.55)
+                ->createReceiptProduct($products['3']->id, 1, 64.79)
             ->flush();
 
-        return array($stores, $productIds, $catalogIds);
+        return array($stores, $catalog);
     }
 
     public function testGrossSalesByProducts()
     {
         $store = $this->factory()->store()->getStore('1');
         $otherStore = $this->factory()->store()->getStore('Other');
-        $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
-        $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
-        $productId1 = $this->createProductByName('1', $subCategoryId);
-        $productId2 = $this->createProductByName('2', $subCategoryId);
-        $productId3 = $this->createProductByName('3', $subCategoryOtherId);
+        $subCategory = $this->factory()->catalog()->createSubCategory();
+        $subCategoryOther = $this->factory()->catalog()->createSubCategory(null, 'Other');
+
+        $product1 = $this->factory()->catalog()->getProduct('1', $subCategory);
+        $product2 = $this->factory()->catalog()->getProduct('2', $subCategory);
+        $product3 = $this->factory()->catalog()->getProduct('3', $subCategoryOther);
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '9:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '10:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '11:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 9:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-1 days 10:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-7 days 8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->persist()
                 ->createSale($store, '-7 days 9:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
-                ->createReceiptProduct($productId1, 3, 34)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34)
             ->persist()
                 ->createSale($store, '-7 days 10:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($otherStore, '8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->flush();
 
         $grossSalesReportManager = $this->getGrossSalesReportService();
@@ -1252,15 +1250,15 @@ class GrossSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
+            "/api/1/stores/{$store->id}/subcategories/{$subCategory->id}/reports/grossSalesByProducts",
             null,
             array('time' => $this->createDate('11:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($productId1, '0.storeProduct.product.id', $response);
-        Assert::assertJsonPathEquals($productId2, '1.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($product1->id, '0.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($product2->id, '1.storeProduct.product.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['storeProduct'] = array(
@@ -1290,7 +1288,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'storeProduct' => array(
                     'product' => array(
-                        'id' => $productId1,
+                        'id' => $product1->id,
                     )
                 )
             ),
@@ -1309,7 +1307,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'storeProduct' => array(
                     'product' => array(
-                        'id' => $productId2,
+                        'id' => $product2->id,
                     )
                 )
             ),
@@ -1323,19 +1321,19 @@ class GrossSalesControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore('1');
         $otherStore = $this->factory()->store()->getStore('Other');
 
-        $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
-        $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
+        $subCategory = $this->factory()->catalog()->createSubCategory();
+        $subCategoryOther = $this->factory()->catalog()->createSubCategory(null, 'Other');
 
-        $productId1 = $this->createProductByName('1', $subCategoryId);
-        $productId2 = $this->createProductByName('2', $subCategoryId);
-        $productId3 = $this->createProductByName('3', $subCategoryOtherId);
+        $product1 = $this->factory()->catalog()->getProduct('1', $subCategory);
+        $product2 = $this->factory()->catalog()->getProduct('2', $subCategory);
+        $product3 = $this->factory()->catalog()->getProduct('3', $subCategoryOther);
 
         $this->factory()
             ->receipt()
                 ->createSale($otherStore, '8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 3, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 3, 43.55)
             ->flush();
 
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
@@ -1344,7 +1342,7 @@ class GrossSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
+            "/api/1/stores/{$store->id}/subcategories/{$subCategory->id}/reports/grossSalesByProducts",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
@@ -1379,12 +1377,12 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->assertCount(2, $response);
 
-        Assert::assertJsonPathEquals($productId1, '*.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($product1->id, '*.storeProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct1Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct1Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct1WeekAgo, '*.weekAgo', $response);
 
-        Assert::assertJsonPathEquals($productId2, '*.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($product2->id, '*.storeProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct2Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
@@ -1395,19 +1393,19 @@ class GrossSalesControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore('1');
         $otherStore = $this->factory()->store()->getStore('Other');
 
-        $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
-        $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
+        $subCategory = $this->factory()->catalog()->createSubCategory();
+        $subCategoryOther = $this->factory()->catalog()->createSubCategory(null, 'Other');
 
-        $productId1 = $this->createProductByName('1', $subCategoryId);
-        $productId2 = $this->createProductByName('2', $subCategoryId);
-        $productId3 = $this->createProductByName('3', $subCategoryOtherId);
+        $product1 = $this->factory()->catalog()->getProduct('1', $subCategory);
+        $product2 = $this->factory()->catalog()->getProduct('2', $subCategory);
+        $product3 = $this->factory()->catalog()->getProduct('3', $subCategoryOther);
 
         $this->factory()
             ->receipt()
                 ->createSale($otherStore, '8:01')
-                ->createReceiptProduct($productId1, 3, 34.77)
-                ->createReceiptProduct($productId2, 3, 64.79)
-                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($product1->id, 3, 34.77)
+                ->createReceiptProduct($product2->id, 3, 64.79)
+                ->createReceiptProduct($product3->id, 7, 43.55)
             ->flush();
 
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
@@ -1416,7 +1414,7 @@ class GrossSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
+            "/api/1/stores/{$store->id}/subcategories/{$subCategory->id}/reports/grossSalesByProducts",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
@@ -1491,7 +1489,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesBySubCategoriesReport()
     {
-        list($stores,, $catalogIds) = $this->createSales();
+        list($stores, $catalog) = $this->createSales();
 
         $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport(1);
@@ -1501,15 +1499,15 @@ class GrossSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            "/api/1/stores/{$stores['1']->id}/categories/{$catalog['1.1']->id}/reports/grossSalesBySubCategories",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1.1.1'], '0.subCategory.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['1.1.2'], '1.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1.1']->id, '0.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1.2']->id, '1.subCategory.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['subCategory'] = array('id' => $filteredResponse[0]['subCategory']['id']);
@@ -1530,7 +1528,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'runningSum' => 443.93,
                 ),
                 'subCategory' => array(
-                    'id' => $catalogIds['1.1.1'],
+                    'id' => $catalog['1.1.1']->id,
                 )
             ),
             1 => array(
@@ -1547,7 +1545,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'runningSum' => 842.27,
                 ),
                 'subCategory' => array(
-                    'id' => $catalogIds['1.1.2'],
+                    'id' => $catalog['1.1.2']->id,
                 )
             )
         );
@@ -1557,21 +1555,21 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesBySubCategoriesEmpty()
     {
-        list($stores,, $catalogIds) = $this->createSalesProducts();
+        list($stores, $catalog) = $this->createSalesProducts();
 
         $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            "/api/1/stores/{$stores['1']->id}/categories/{$catalog['1.1']->id}/reports/grossSalesBySubCategories",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1.1.1'], '0.subCategory.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['1.1.2'], '1.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1.1']->id, '0.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1.2']->id, '1.subCategory.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['subCategory'] = array('id' => $filteredResponse[0]['subCategory']['id']);
@@ -1592,29 +1590,29 @@ class GrossSalesControllerTest extends WebTestCase
             )
         );
         $expectedResponse = array(
-            0 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.1'])),
-            1 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.2']))
+            0 => $emptyDayReport + array('subCategory' => array('id' => $catalog['1.1.1']->id)),
+            1 => $emptyDayReport + array('subCategory' => array('id' => $catalog['1.1.2']->id))
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
     }
 
     public function testGrossSalesBySubCategoriesMaxDepth()
     {
-        list($stores,, $catalogIds) = $this->createSalesProducts();
+        list($stores, $catalog) = $this->createSalesProducts();
 
         $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            "/api/1/stores/{$stores['1']->id}/categories/{$catalog['1.1']->id}/reports/grossSalesBySubCategories",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1.1.1'], '0.subCategory.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['1.1.2'], '1.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1.1']->id, '0.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1.2']->id, '1.subCategory.id', $response);
 
         Assert::assertNotJsonHasPath('0.subCategory.category', $response);
         Assert::assertNotJsonHasPath('1.subCategory.category', $response);
@@ -1622,7 +1620,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByCategoriesReport()
     {
-        list($stores,, $catalogIds) = $this->createSales();
+        list($stores, $catalogs) = $this->createSales();
 
         $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
@@ -1634,15 +1632,15 @@ class GrossSalesControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            "/api/1/stores/{$stores['1']->id}/groups/{$catalogs['1']->id}/reports/grossSalesByCategories",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1.1'], '0.category.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['1.2'], '1.category.id', $response);
+        Assert::assertJsonPathEquals($catalogs['1.1']->id, '0.category.id', $response);
+        Assert::assertJsonPathEquals($catalogs['1.2']->id, '1.category.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['category'] = array('id' => $filteredResponse[0]['category']['id']);
@@ -1662,7 +1660,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 1286.2,
                 ),
-                'category' => array('id' => $catalogIds['1.1']),
+                'category' => array('id' => $catalogs['1.1']->id),
             ),
             1 => array(
                 'today' => array(
@@ -1677,7 +1675,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
-                'category' => array('id' => $catalogIds['1.2'])
+                'category' => array('id' => $catalogs['1.2']->id)
             ),
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
@@ -1686,41 +1684,41 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByCategoriesCategoryMaxDepth()
     {
-        list($stores,, $catalogIds) = $this->createSalesProducts();
+        list($stores, $catalog) = $this->createSalesProducts();
 
         $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            "/api/1/stores/{$stores['1']->id}/groups/{$catalog['1']->id}/reports/grossSalesByCategories",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1.1'], '0.category.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1']->id, '0.category.id', $response);
         Assert::assertNotJsonHasPath('0.category.group', $response);
         Assert::assertJsonPathCount(0, '0.category.subCategories.*', $response);
     }
 
     public function testGrossSalesByCategoriesEmpty()
     {
-        list($stores,, $catalogIds) = $this->createSalesProducts();
+        list($stores, $catalog) = $this->createSalesProducts();
 
         $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            "/api/1/stores/{$stores['1']->id}/groups/{$catalog['1']->id}/reports/grossSalesByCategories",
             null,
             array('time' => $this->createDate('10:35:47', 'c') )
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1.1'], '0.category.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['1.2'], '1.category.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.1']->id, '0.category.id', $response);
+        Assert::assertJsonPathEquals($catalog['1.2']->id, '1.category.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['category'] = array('id' => $filteredResponse[0]['category']['id']);
@@ -1741,15 +1739,15 @@ class GrossSalesControllerTest extends WebTestCase
             )
         );
         $expectedResponse = array(
-            0 => $emptyDayReport + array('category' => array('id' => $catalogIds['1.1'])),
-            1 => $emptyDayReport + array('category' => array('id' => $catalogIds['1.2']))
+            0 => $emptyDayReport + array('category' => array('id' => $catalog['1.1']->id)),
+            1 => $emptyDayReport + array('category' => array('id' => $catalog['1.2']->id))
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
     }
 
     public function testGrossSalesByGroupsReport()
     {
-        list($stores,, $catalogIds) = $this->createSales();
+        list($stores, $catalogs) = $this->createSales();
 
         $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
@@ -1768,8 +1766,8 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1'], '0.group.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['2'], '1.group.id', $response);
+        Assert::assertJsonPathEquals($catalogs['1']->id, '0.group.id', $response);
+        Assert::assertJsonPathEquals($catalogs['2']->id, '1.group.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['group'] = array('id' => $filteredResponse[0]['group']['id']);
@@ -1789,7 +1787,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 1286.2,
                 ),
-                'group' => array('id' => $catalogIds['1'])
+                'group' => array('id' => $catalogs['1']->id)
             ),
             1 => array(
                 'today' => array(
@@ -1804,7 +1802,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
-                'group' => array('id' => $catalogIds['2']),
+                'group' => array('id' => $catalogs['2']->id),
             )
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
@@ -1813,7 +1811,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByGroupsEmpty()
     {
-        list($stores,, $catalogIds) = $this->createSalesProducts();
+        list($stores, $catalog) = $this->createSalesProducts();
 
         $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
@@ -1826,8 +1824,8 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1'], '0.group.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['2'], '1.group.id', $response);
+        Assert::assertJsonPathEquals($catalog['1']->id, '0.group.id', $response);
+        Assert::assertJsonPathEquals($catalog['2']->id, '1.group.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['group'] = array('id' => $filteredResponse[0]['group']['id']);
@@ -1847,7 +1845,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
-                'group' => array('id' => $catalogIds['1'])
+                'group' => array('id' => $catalog['1']->id)
             ),
             1 => array(
                 'today' => array(
@@ -1862,7 +1860,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'dayHour' => $this->createDate('-7 day 09:00'),
                     'runningSum' => 0,
                 ),
-                'group' => array('id' => $catalogIds['2'])
+                'group' => array('id' => $catalog['2']->id)
             )
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
@@ -1870,7 +1868,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByGroupsMaxDepth()
     {
-        list($stores,, $catalogIds) = $this->createSalesProducts();
+        list($stores, $catalog) = $this->createSalesProducts();
 
         $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
@@ -1883,8 +1881,8 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($catalogIds['1'], '0.group.id', $response);
-        Assert::assertJsonPathEquals($catalogIds['2'], '1.group.id', $response);
+        Assert::assertJsonPathEquals($catalog['1']->id, '0.group.id', $response);
+        Assert::assertJsonPathEquals($catalog['2']->id, '1.group.id', $response);
 
         Assert::assertJsonPathCount(0, '0.group.categories.*', $response);
         Assert::assertJsonPathCount(0, '1.group.categories.*', $response);

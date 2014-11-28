@@ -36,4 +36,10 @@
  */
 + (id)findByPK:(NSString*)pk;
 
+/** 
+ * @name Методы создания моделей 
+ */
++ (instancetype)createByPk:(NSString*)pk;
++ (NSString*)pkForNewEntity;
+
 @end

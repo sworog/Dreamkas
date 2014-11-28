@@ -27,18 +27,16 @@
 // Символьные шрифты приложения
 //
 
-#define DefaultLiHeiProFontName             @"LiHei Pro"
 #define DefaultAwesomeFontName              @"FontAwesome"
-
-#define DefaultLiHeiProFont(fsize)          [UIFont fontWithName:(DefaultLiHeiProFontName) size:(fsize)]
 #define DefaultAwesomeFont(fsize)           [UIFont fontWithName:(DefaultAwesomeFontName) size:(fsize)]
 
 //
 // Цвета приложения
 //
 
-#define DefaultCyanColor                    RGB(64, 169, 244)
-#define DefaultLightCyanColor               RGB(89, 189, 246)
+#define DefaultCyanColor                    RGB(66, 173, 248)
+#define DefaultLightCyanColor               RGB(79, 182, 248)
+#define DefaultSuperLightCyanColor          RGB(146, 213, 251)
 
 #define DefaultDarkGrayColor                RGB(105, 105, 105)
 #define DefaultGrayColor                    RGB(158, 158, 158)
@@ -46,13 +44,14 @@
 
 #define DefaultWhiteColor                   [UIColor whiteColor]
 #define DefaultBlackColor                   [UIColor blackColor]
+#define DefaultRedColor                     RGB(244, 67, 55)
 
 //
 // Размеры приложения
 //
 
 #define DefaultButtonHeight                 52.0f
-#define DefaultCornerRadius                 3.f
+#define DefaultCornerRadius                 2.f
 
 #define DefaultBtnShadowRadius              2.f
 #define DefaultBtnShadowOpacity             0.6f
@@ -69,6 +68,9 @@
 
 #define DefaultTopPanelHeight               64.f
 #define DefaultBottomPanelHeight            64.f
+
+#define DefaultSideHeight                   704.f
+#define DefaultSideContainerViewHeight      660.f
 #define DefaultLeftSideWidth                704.f
 #define DefaultRightSideWidth               320.f
 

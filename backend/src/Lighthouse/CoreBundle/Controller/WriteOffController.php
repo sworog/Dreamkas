@@ -18,6 +18,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WriteOffController extends AbstractRestController
 {
@@ -26,6 +27,12 @@ class WriteOffController extends AbstractRestController
      * @var WriteOffRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("validator")
+     * @var ValidatorInterface
+     */
+    protected $validator;
 
     /**
      * @return WriteOffType|FormInterface
@@ -79,9 +86,11 @@ class WriteOffController extends AbstractRestController
      */
     public function putWriteoffsAction(WriteOff $writeOff, Request $request)
     {
+        $preViolations = $this->validator->validate($writeOff, null, array('NotDeleted'));
+
         $formType = new WriteOffType(true);
         $this->documentRepository->resetProducts($writeOff);
-        return $this->processForm($request, $writeOff, $formType);
+        return $this->processForm($request, $writeOff, $formType, true, true, $preViolations);
     }
 
     /**

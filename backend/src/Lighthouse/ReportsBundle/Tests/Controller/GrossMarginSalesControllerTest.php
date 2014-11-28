@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
@@ -30,68 +31,72 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
     /**
      * @param Store $store
-     * @param array $productIds
-     * @param $productOtherSubCategoryId
+     * @param Product[] $products
+     * @param $productOtherSubCategory
      * @param Store $otherStore
      * @return array
      */
-    protected function initInvoiceAndSales(Store $store, $productIds, $productOtherSubCategoryId, Store $otherStore)
-    {
+    protected function initInvoiceAndSales(
+        Store $store,
+        $products,
+        Product $productOtherSubCategory,
+        Store $otherStore
+    ) {
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('-10 days'))), $store->id)
-                ->createInvoiceProduct($productIds['1'], 80, 90)
-                ->createInvoiceProduct($productIds['2'], 100, 50)
-                ->createInvoiceProduct($productIds['3'], 100, 100)
-                ->createInvoiceProduct($productOtherSubCategoryId, 99, 77)
+                ->createInvoiceProduct($products['1']->id, 80, 90)
+                ->createInvoiceProduct($products['2']->id, 100, 50)
+                ->createInvoiceProduct($products['3']->id, 100, 100)
+                ->createInvoiceProduct($productOtherSubCategory->id, 99, 77)
             ->persist()
                 ->createInvoice(array('date' => date('c', strtotime('-4 days'))), $otherStore->id)
-                ->createInvoiceProduct($productIds['1'], 20, 80)
+                ->createInvoiceProduct($products['1']->id, 20, 80)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '0:00:01')
-                ->createReceiptProduct($productIds['1'], 5, 150)
-                ->createReceiptProduct($productIds['2'], 7, 100)
-                ->createReceiptProduct($productIds['3'], 10, 130)
-                ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+                ->createReceiptProduct($products['1']->id, 5, 150)
+                ->createReceiptProduct($products['2']->id, 7, 100)
+                ->createReceiptProduct($products['3']->id, 10, 130)
+                ->createReceiptProduct($productOtherSubCategory->id, 23, 100)
             ->persist()
                 ->createSale($store, '-1 days 10:01')
-                ->createReceiptProduct($productIds['1'], 7, 150)
-                ->createReceiptProduct($productIds['2'], 5, 100)
-                ->createReceiptProduct($productIds['3'], 10, 130)
-                ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+                ->createReceiptProduct($products['1']->id, 7, 150)
+                ->createReceiptProduct($products['2']->id, 5, 100)
+                ->createReceiptProduct($products['3']->id, 10, 130)
+                ->createReceiptProduct($productOtherSubCategory->id, 23, 100)
             ->persist()
                 ->createSale($store, '-2 days 8:01')
-                ->createReceiptProduct($productIds['1'], 3, 150)
-                ->createReceiptProduct($productIds['2'], 5, 100)
-                ->createReceiptProduct($productIds['3'], 10, 130)
-                ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+                ->createReceiptProduct($products['1']->id, 3, 150)
+                ->createReceiptProduct($products['2']->id, 5, 100)
+                ->createReceiptProduct($products['3']->id, 10, 130)
+                ->createReceiptProduct($productOtherSubCategory->id, 23, 100)
             ->persist()
                 ->createSale($store, '-3 days 10:01')
-                ->createReceiptProduct($productIds['1'], 5, 150)
-                ->createReceiptProduct($productIds['2'], 7, 100)
-                ->createReceiptProduct($productIds['3'], 8, 130)
-                ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+                ->createReceiptProduct($products['1']->id, 5, 150)
+                ->createReceiptProduct($products['2']->id, 7, 100)
+                ->createReceiptProduct($products['3']->id, 8, 130)
+                ->createReceiptProduct($productOtherSubCategory->id, 23, 100)
             ->persist()
                 ->createSale($otherStore, '-3 days 12:56')
-                ->createReceiptProduct($productIds['1'], 6, 140)
+                ->createReceiptProduct($products['1']->id, 6, 140)
             ->persist()
                 ->createSale($store, '-4 days 9:01')
-                ->createReceiptProduct($productIds['1'], 5, 150)
-                ->createReceiptProduct($productIds['2'], 9, 100)
-                ->createReceiptProduct($productIds['3'], 10, 130)
-                ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+                ->createReceiptProduct($products['1']->id, 5, 150)
+                ->createReceiptProduct($products['2']->id, 9, 100)
+                ->createReceiptProduct($products['3']->id, 10, 130)
+                ->createReceiptProduct($productOtherSubCategory->id, 23, 100)
             ->persist()
                 ->createSale($store, '-5 days 10:01')
-                ->createReceiptProduct($productIds['1'], 5, 150)
-                ->createReceiptProduct($productIds['2'], 3, 100)
-                ->createReceiptProduct($productIds['3'], 10, 130)
-                ->createReceiptProduct($productOtherSubCategoryId, 23, 100)
+                ->createReceiptProduct($products['1']->id, 5, 150)
+                ->createReceiptProduct($products['2']->id, 3, 100)
+                ->createReceiptProduct($products['3']->id, 10, 130)
+                ->createReceiptProduct($productOtherSubCategory->id, 23, 100)
             ->flush();
 
-        return $productIds;
+        return $products;
     }
 
     /**
@@ -128,11 +133,11 @@ class GrossMarginSalesControllerTest extends WebTestCase
     {
         $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
         $subCategory = $this->factory()->catalog()->getSubCategory();
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
         $otherSubCategory = $this->factory()->catalog()->getSubCategory('other sub category');
-        $productOtherSubCategoryId = $this->createProductByName('33', $otherSubCategory->id);
+        $productOtherSubCategory = $this->factory()->catalog()->getProduct('33', $otherSubCategory);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productOtherSubCategoryId, $stores['2']);
+        $this->initInvoiceAndSales($stores['1'], $products, $productOtherSubCategory, $stores['2']);
 
         $this->runRecalculateCommand();
 
@@ -150,8 +155,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         foreach ($assertions as $productName => $expectedValues) {
-            $productId = $productIds[$productName];
-            $this->assertProductGrossReport($response, $productId, $expectedValues);
+            $this->assertProductGrossReport($response, $products[$productName], $expectedValues);
         }
     }
 
@@ -224,7 +228,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     public function testProductGrossReportEmpty($storeName, $dateFrom, $dateTo)
     {
         $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
         $subCategory = $this->factory()->catalog()->getSubCategory();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo, $storeName, $stores);
@@ -240,9 +244,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        $this->assertProductGrossReport($response, $productIds['1'], array(0, 0, 0, 0));
-        $this->assertProductGrossReport($response, $productIds['2'], array(0, 0, 0, 0));
-        $this->assertProductGrossReport($response, $productIds['3'], array(0, 0, 0, 0));
+        $this->assertProductGrossReport($response, $products['1'], array(0, 0, 0, 0));
+        $this->assertProductGrossReport($response, $products['2'], array(0, 0, 0, 0));
+        $this->assertProductGrossReport($response, $products['3'], array(0, 0, 0, 0));
     }
 
     /**
@@ -306,9 +310,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
 
-        $this->createProductByName('1.1', $catalogGroups['1']->id);
-        $this->createProductByName('1.2', $catalogGroups['1']->id);
-        $this->createProductByName('2.0', $catalogGroups['2']->id);
+        $this->factory()->catalog()->getProduct('1.1', $catalogGroups['1']);
+        $this->factory()->catalog()->getProduct('1.2', $catalogGroups['1']);
+        $this->factory()->catalog()->getProduct('2.0', $catalogGroups['2']);
         // catalog group 3 does not have products
 
         $query = $this->getFilterQuery($dateFrom, $dateTo, $storeName, $stores);
@@ -344,13 +348,13 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
 
-        $productIds = array();
-        $productIds['1'] = $this->factory()->catalog()->createProductByName('1.1', $catalogGroups['1'])->id;
-        $productIds['2'] = $this->factory()->catalog()->createProductByName('1.2', $catalogGroups['1'])->id;
-        $productIds['3'] = $this->factory()->catalog()->createProductByName('1.3', $catalogGroups['1'])->id;
-        $productIds['4'] = $this->factory()->catalog()->createProductByName('2.0', $catalogGroups['2'])->id;
+        $products = array();
+        $products['1'] = $this->factory()->catalog()->createProductByName('1.1', $catalogGroups['1']);
+        $products['2'] = $this->factory()->catalog()->createProductByName('1.2', $catalogGroups['1']);
+        $products['3'] = $this->factory()->catalog()->createProductByName('1.3', $catalogGroups['1']);
+        $products['4'] = $this->factory()->catalog()->createProductByName('2.0', $catalogGroups['2']);
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
+        $this->initInvoiceAndSales($stores['1'], $products, $products['4'], $stores['2']);
 
         $this->runRecalculateCommand();
 
@@ -433,9 +437,9 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
 
-        $this->createProductByName('1.1', $catalogGroups['1']->id);
-        $this->createProductByName('1.2', $catalogGroups['1']->id);
-        $this->createProductByName('2.0', $catalogGroups['2']->id);
+        $this->factory()->catalog()->getProduct('1.1', $catalogGroups['1']);
+        $this->factory()->catalog()->getProduct('1.2', $catalogGroups['1']);
+        $this->factory()->catalog()->getProduct('2.0', $catalogGroups['2']);
         // catalog group 3 does not have products
 
         $query = $this->getFilterQuery($dateFrom, $dateTo);
@@ -470,13 +474,14 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
 
-        $productIds = array();
-        $productIds['1'] = $this->createProductByName('1.1', $catalogGroups['1']->id);
-        $productIds['2'] = $this->createProductByName('1.2', $catalogGroups['1']->id);
-        $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
-        $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
+        $products = array(
+            '1' => $this->factory()->catalog()->getProduct('1.1', $catalogGroups['1']),
+            '2' => $this->factory()->catalog()->getProduct('1.2', $catalogGroups['1']),
+            '3' => $this->factory()->catalog()->getProduct('1.3', $catalogGroups['1']),
+            '4' => $this->factory()->catalog()->getProduct('2.0', $catalogGroups['2'])
+        );
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
+        $this->initInvoiceAndSales($stores['1'], $products, $products['4'], $stores['2']);
 
         $this->runRecalculateCommand();
 
@@ -584,13 +589,14 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
         $catalogGroups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
 
-        $productIds = array();
-        $productIds['1'] = $this->createProductByName('1.1', $catalogGroups['1']->id);
-        $productIds['2'] = $this->createProductByName('1.2', $catalogGroups['1']->id);
-        $productIds['3'] = $this->createProductByName('1.3', $catalogGroups['1']->id);
-        $productIds['4'] = $this->createProductByName('2.0', $catalogGroups['2']->id);
+        $products = array(
+            '1' => $this->factory()->catalog()->getProduct('1.1', $catalogGroups['1']),
+            '2' => $this->factory()->catalog()->getProduct('1.2', $catalogGroups['1']),
+            '3' => $this->factory()->catalog()->getProduct('1.3', $catalogGroups['1']),
+            '4' => $this->factory()->catalog()->getProduct('2.0', $catalogGroups['2'])
+        );
 
-        $this->initInvoiceAndSales($stores['1'], $productIds, $productIds['4'], $stores['2']);
+        $this->initInvoiceAndSales($stores['1'], $products, $products['4'], $stores['2']);
 
         $this->runRecalculateCommand();
 
@@ -663,7 +669,7 @@ class GrossMarginSalesControllerTest extends WebTestCase
     public function testNetworkGrossReportEmpty($dateFrom, $dateTo)
     {
         $this->factory()->store()->getStores(array('1', '2', '3'));
-        $this->createProductsByNames(array('1', '2', '3'));
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
         $this->factory()->catalog()->getSubCategory();
 
         $query = $this->getFilterQuery($dateFrom, $dateTo);
@@ -684,22 +690,22 @@ class GrossMarginSalesControllerTest extends WebTestCase
 
     /**
      * @param array $response
-     * @param string $productId
+     * @param Product $product
      * @param array $expectedValues
      */
     public function assertProductGrossReport(
         array $response,
-        $productId,
+        Product $product,
         array $expectedValues
     ) {
         foreach ($response as $reportElement) {
-            if ($reportElement['product']['id'] == $productId) {
+            if ($reportElement['product']['id'] == $product->id) {
                 $this->assertReportValues($expectedValues, $reportElement);
                 return;
             }
         }
 
-        $this->fail(sprintf('Report for product %s, not found', $productId));
+        $this->fail(sprintf('Report for product %s, not found', $product->id));
     }
 
     /**

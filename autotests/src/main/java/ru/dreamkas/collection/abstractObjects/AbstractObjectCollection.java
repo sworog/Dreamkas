@@ -156,7 +156,7 @@ abstract public class AbstractObjectCollection<E extends AbstractObject> extends
         }
     }
 
-    private Boolean locateObject(E abstractObject, String objectLocator) {
+    protected Boolean locateObject(E abstractObject, String objectLocator) {
         return ((ObjectLocatable) abstractObject).getObjectLocator().equals(objectLocator);
     }
 

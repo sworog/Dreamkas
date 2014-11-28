@@ -64,7 +64,7 @@
 // Клиент-серверное взаимодействие
 //
 
-#define API_SERVER_URL                      @"http://demo.dreamkas.ru/"
+#define API_SERVER_URL                      @"http://beta.dreamkas.ru/"
 #define API_SERVER_PATH                     @"api/1/"
 
 #define API_TEST_SERVER_URL                 @"http://ios.staging.api.lighthouse.pro/"

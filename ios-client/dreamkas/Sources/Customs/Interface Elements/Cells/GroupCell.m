@@ -19,11 +19,12 @@
 {
     [super awakeFromNib];
     
-    [self.titleLabel setFont:DefaultFont(16)];
-    [self.titleLabel setTextColor:[DefaultCyanColor colorWithAlphaComponent:0.87]];
+    [self.titleLabel setFont:DefaultMediumFont(16)];
+    [self.titleLabel setTextColor:DefaultLightCyanColor];
     
-    [self.arrowLabel setText:@"❯"];
-    [self.arrowLabel setFont:DefaultFont(18)];
+    unichar ch = 0xf054;
+    [self.arrowLabel setText:[NSString stringWithFormat:@"%C", ch]];
+    [self.arrowLabel setFont:DefaultAwesomeFont(16)];
     [self.arrowLabel setTextColor:DefaultDarkGrayColor];
 }
 

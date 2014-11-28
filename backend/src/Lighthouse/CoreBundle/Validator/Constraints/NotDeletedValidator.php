@@ -47,20 +47,8 @@ class NotDeletedValidator extends ConstraintValidator
         if (null !== $value->getDeletedAt()) {
             $this
                 ->context
-                ->buildViolation($constraint->isDeletedMessage)
+                ->buildViolation($constraint->message)
                 ->addViolation();
-            return;
-        }
-
-        if ($constraint->checkOriginal) {
-            $originalData = $this->documentManager->getUnitOfWork()->getOriginalDocumentData($value);
-            if (isset($originalData['deletedAt'])) {
-                $this
-                    ->context
-                    ->buildViolation($constraint->originalIsDeletedMessage)
-                    ->addViolation();
-                return;
-            }
         }
     }
 }

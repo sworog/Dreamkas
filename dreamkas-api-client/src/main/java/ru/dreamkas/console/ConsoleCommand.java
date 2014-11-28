@@ -22,18 +22,32 @@ public class ConsoleCommand {
     }
 
     public ConsoleCommandResult exec(String command) throws IOException, InterruptedException {
-        String cmd = cmd(command, host);
+        String[] cmd = cmd(command, host);
         File dir = new File(folder);
         Process process = Runtime.getRuntime().exec(cmd, null, dir);
         int resultValue = process.waitFor();
         return new ConsoleCommandResult(resultValue, readOutput(process));
     }
 
-    private String cmd(String command, String host) {
+    private String[] cmd(String command, String host) {
         if (isUnix()) {
-            return String.format(CONSOLE_COMMAND_TEMPLATE, command, host);
+            return new String[]{
+                    "/bin/bash",
+                    "-c",
+                    String.format(CONSOLE_COMMAND_TEMPLATE, command, host)
+            };
+        } else if (isMac()) {
+            return new String[] {
+                    "/bin/bash",
+                    "-c",
+                    String.format("LC_ALL=en_US.UTF-8 " + CONSOLE_COMMAND_TEMPLATE, command, host)
+            };
         } else {
-            return String.format("cmd /c " + CONSOLE_COMMAND_TEMPLATE, command, host);
+            return new String[] {
+                    "cmd",
+                    "/c",
+                    String.format(CONSOLE_COMMAND_TEMPLATE, command, host)
+            };
         }
     }
 

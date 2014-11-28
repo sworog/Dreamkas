@@ -11,7 +11,9 @@
         "recipe[gradle]",
         "recipe[lighthouse::bundler]",
         "recipe[lighthouse::agent_keys]",
-        "role[newrelic]"
+        "role[newrelic]",
+
+        "role[ssh]"
     ],
     "java": {
         "oracle": {

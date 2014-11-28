@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
@@ -46,21 +47,59 @@ class CatalogFactory extends AbstractFactory
     /**
      * @param string $name
      * @param SubCategory $subCategory
+     * @param array $extraData
      * @return Product
      */
-    public function createProductByName($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    public function createProductByName(
+        $name = self::DEFAULT_PRODUCT_NAME,
+        SubCategory $subCategory = null,
+        array $extraData = array()
+    ) {
+        $data = $extraData + array(
+            'name' => $name,
+            'vat' => 18,
+        );
+        return $this->createProduct($data, $subCategory);
+    }
+
+    /**
+     * @param array $data
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function createProduct(array $data, SubCategory $subCategory = null)
     {
         $product = new Product();
-        $product->name = $name;
-        $product->vat = 18;
+
+        $this->populate($product, $this->prepareData($data));
 
         $product->subCategory = $subCategory ?: $this->getSubCategory();
 
         $this->doSave($product);
 
-        $this->productNames[$name] = $product->id;
+        $this->productNames[$product->name] = $product->id;
 
         return $product;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function prepareData(array $data)
+    {
+        foreach ($data as $key => &$value) {
+            switch ($key) {
+                case 'purchasePrice':
+                case 'sellingPrice':
+                case 'retailPriceMin':
+                case 'retailPriceMax':
+                    $value = $this->getNumericFactory()->createMoney($value);
+                    break;
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -293,6 +332,28 @@ class CatalogFactory extends AbstractFactory
             $subCategories[$name] = $this->getSubCategory($name);
         }
         return $subCategories;
+    }
+
+    /**
+     * @param array $catalogData
+     * @return AbstractNode[]|SubCategory[]
+     */
+    public function createCatalog(array $catalogData)
+    {
+        $catalog = array();
+        foreach ($catalogData as $groupName => $categories) {
+            $group = $this->createGroup($groupName);
+            $catalog[$groupName] = $group;
+            foreach ($categories as $categoryName => $subCategories) {
+                $category = $this->createCategory($group->id, $categoryName);
+                $catalog[$categoryName] = $category;
+                foreach ($subCategories as $subCategoryName => $void) {
+                    $subCategory = $this->createSubCategory($category->id, $subCategoryName);
+                    $catalog[$subCategoryName] = $subCategory;
+                }
+            }
+        }
+        return $catalog;
     }
 
     /**

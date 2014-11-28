@@ -34,18 +34,22 @@ class SupplierReturnBuilder extends StockMovementBuilder
 
     /**
      * @param string $supplierId
+     * @return $this;
      */
     public function setSupplier($supplierId)
     {
         $this->data['supplier'] = $supplierId;
+        return $this;
     }
 
     /**
      * @param bool $paid
+     * @return $this
      */
     public function setPaid($paid)
     {
         $this->data['paid'] = $paid;
+        return $this;
     }
 
     /**

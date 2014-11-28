@@ -18,7 +18,7 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
 
     public ValidationErrorsCollection(WebDriver webDriver) {
         //TODO investigate with BO about empty data-error attribute in invoice validation
-        super(webDriver, By.xpath("//*[contains(@class, 'form__errorMessage_visible') or @class='removeButton__error']"));
+        super(webDriver, By.xpath("//*[contains(@class, 'form__errorMessage_visible')]"));
     }
 
     @Override

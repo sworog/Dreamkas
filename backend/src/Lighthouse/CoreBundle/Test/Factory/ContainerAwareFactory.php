@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\ClassNameable;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -38,6 +39,14 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
     public function getValidator()
     {
         return $this->container->get('lighthouse.core.validator');
+    }
+
+    /**
+     * @return NumericFactory
+     */
+    public function getNumericFactory()
+    {
+        return $this->container->get('lighthouse.core.types.numeric.factory');
     }
 
     /**

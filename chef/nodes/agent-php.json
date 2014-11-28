@@ -14,7 +14,9 @@
         "recipe[lighthouse::tests]",
         "recipe[teamcity::agent]",
         "recipe[lighthouse::agent]",
-        "role[newrelic]"
+        "role[newrelic]",
+
+        "role[ssh]"
     ],
     "php": {
         "directives": {

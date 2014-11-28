@@ -1,6 +1,12 @@
 #############################################
 # users
 #############################################
+directory "/var/www" do
+  action :create
+  owner "watchman"
+  group "watchman"
+end
+
 user "ux" do
   :create
   shell "/bin/sh"
