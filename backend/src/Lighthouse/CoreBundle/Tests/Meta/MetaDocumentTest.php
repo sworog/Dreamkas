@@ -6,10 +6,16 @@ use JMS\Serializer\SerializerInterface;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Test\Assert;
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
-class MetaDocumentTest extends DataAwareTestCase
+class MetaDocumentTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+    }
+
     /**
      * @return SerializerInterface
      */

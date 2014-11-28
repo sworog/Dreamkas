@@ -2,12 +2,19 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossSales;
 
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreRepository;
 
-class StoreGrossSalesTest extends DataAwareTestCase
+class StoreGrossSalesTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+        $this->authenticateProject();
+    }
+
     public function testCalculateGrossSales()
     {
         $store = $this->factory()->store()->getStore('1');

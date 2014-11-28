@@ -13,7 +13,7 @@ use PHPUnit_Framework_ExpectationFailedException;
 /**
  * @codeCoverageIgnore
  */
-class WebTestCase extends DataAwareTestCase
+class WebTestCase extends ContainerAwareTestCase
 {
     /**
      * @var Client
@@ -140,6 +140,18 @@ class WebTestCase extends DataAwareTestCase
             )
         );
         $this->assertResponseCode(200);
+    }
+
+    /**
+     * @deprecated
+     * @param string $name
+     * @param string $subCategoryId
+     * @return string
+     */
+    protected function createProductByName($name = CatalogFactory::DEFAULT_PRODUCT_NAME, $subCategoryId = null)
+    {
+        $subCategory = ($subCategoryId) ? $this->factory()->catalog()->getSubCategoryById($subCategoryId) : null;
+        return $this->factory()->catalog()->createProductByName($name, $subCategory)->id;
     }
 
     /**
