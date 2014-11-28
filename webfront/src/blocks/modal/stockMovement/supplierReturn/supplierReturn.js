@@ -4,14 +4,16 @@ define(function(require, exports, module) {
 
     return Modal_stockMovement.extend({
 		id: 'modal_supplierReturn',
-		formId: 'form_supplierReturn',
+		warningForDeletedSupplier: 'Возврат для удаленного поставщика.',
+		warningForDeletedStore: 'Возврат для удаленного магазина.',
 		Model: require('resources/supplierReturn/model'),
-		Form: require('blocks/form/supplierReturn/supplierReturn'),
+	    Form: require('blocks/form/stockMovement/supplierReturn/supplierReturn'),
 		Form_products: require('blocks/form/stockMovementProducts/supplierReturn/supplierReturn'),
 		addButtonCaption: 'Вернуть',
 		addTitle: 'Возврат поставщику',
 		editTitle: 'Редактирование возврата',
 		removeCaption: 'Удалить возврат',
-		deletedTitle: 'Возврат поставщику удален'
+		deletedTitle: 'Возврат поставщику удален',
+		removeButtonText: 'Удалить возврат'
     });
 });

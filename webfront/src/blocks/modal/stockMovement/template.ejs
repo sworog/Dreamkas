@@ -1,3 +1,5 @@
+<% var formId = id + '__form' %>
+
 <div id="<%- id %>"
      class="modal modal_stockMovement <%- deleted ? 'modal_stockMovementDeleted' : '' %>">
 
@@ -8,6 +10,8 @@
 
         <button form="<%- formId %>"
                 type="submit"
+                <%- isFormDisabled ? 'disabled' : '' %>
+                style="<%- isFormDisabled ? 'display: none' : '' %>"
                 class="btn btn-primary pull-right">
             <%- model.id ? 'Сохранить' : addButtonCaption %>
         </button>
@@ -19,7 +23,19 @@
     </div>
     <div class="modal__body">
 
-        <b block="form"></b>
+        <% if (isStoreDeleted) { %>
+        <div class="alert alert-info">
+            <%- warningForDeletedStore %> Изменения сохранить нельзя.
+        </div>
+        <% } else if (isSupplierDeleted) { %>
+        <div class="alert alert-info">
+            <%- warningForDeletedSupplier %> Изменения сохранить нельзя.
+        </div>
+        <% } %>
+
+
+        <b block="form"
+           data-id="<%- formId %>"></b>
 
         <hr style="margin: 0 -60px;"/>
 
@@ -27,22 +43,11 @@
 
         <b block="form_products"></b>
 
-        <% if (model.id) { %>
-        <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
+        <% if (model.id && !isFormDisabled) { %>
+        <div style="margin-left: -10px;">
 
-            <div class="confirmLink__trigger">
-                <span class="removeLink">
-                    <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
-                    <%- removeCaption %>
-                </span>
-            </div>
-
-            <div class="confirmLink__confirmation">
-                <span class="removeLink modal_stockMovement__removeLink">
-                    <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
-                    Подтвердить удаление
-                </span>
-            </div>
+            <b block="removeButton"
+               data-remove-text="<%- removeButtonText %>"></b>
 
         </div>
         <% } %>
@@ -50,7 +55,7 @@
 
     <% } else { %>
 
-        <%= partials.deleted(obj) %>
+    <%= partials.deleted(obj) %>
 
     <% } %>
 

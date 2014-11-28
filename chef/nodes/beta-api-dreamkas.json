@@ -1,0 +1,11 @@
+{
+    "run_list": [
+        "role[backend]",
+        "recipe[lighthouse::dreamkas_host_beta]"
+    ],
+    "newrelic": {
+        "application_monitoring": {
+            "app_name": "beta.dreamkas.ru"
+        }
+    }
+}

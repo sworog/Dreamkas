@@ -1,0 +1,3 @@
+lighthouse.core.job:
+    resource: Lighthouse\JobBundle\Controller\JobController
+    type:     rest

@@ -1,0 +1,12 @@
+{
+    "run_list": [
+        "role[agent-php]"
+    ],
+    "teamcity": {
+        "agents": {
+            "default": {
+                "name": "php-agent-2"
+            }
+        }
+    }
+}

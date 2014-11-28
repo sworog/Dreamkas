@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
-use Lighthouse\CoreBundle\Document\Job\Job;
+use Lighthouse\JobBundle\Document\Job\Job;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**

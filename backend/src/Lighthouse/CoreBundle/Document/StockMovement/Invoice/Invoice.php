@@ -62,6 +62,10 @@ class Invoice extends StockMovement
      *     simple=true
      * )
      * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.supplier.does_not_exists")
+     * @AssertLH\NotDeleted(
+     *      message="lighthouse.validation.errors.deleted.supplier.forbid.edit",
+     *      groups={"Default", "NotDeleted"}
+     * )
      * @var Supplier
      */
     protected $supplier;

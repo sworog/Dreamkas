@@ -176,11 +176,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertPageText(String text) {
-        restorePasswordPage.checkValue("pageText", text);
-    }
-
-    @Step
     public void restorePasswordPageEmailInput(String value) {
         restorePasswordPage.input("email", value);
     }

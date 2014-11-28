@@ -1,9 +1,9 @@
 package ru.dreamkas.elements.items;
 
 import org.openqa.selenium.By;
+import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.common.item.CommonItem;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
-import ru.dreamkas.helper.DateTimeHelper;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -14,6 +14,7 @@ import java.util.Locale;
 
 import static junit.framework.Assert.fail;
 
+@Deprecated
 public class DateTime extends CommonItem {
 
     public static final String DATE_PATTERN = "dd.MM.yyyy";

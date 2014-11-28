@@ -52,6 +52,44 @@ define(function(require, exports, module) {
             expect(extendedClass.testValue).toBe('test extend field');
         });
 
+        it('pass mixins into extend function', function(){
+
+            var object1 = {
+                a: {
+                    b: {
+                        c: 1,
+                        d: 2
+                    }
+                },
+                b: 1
+            };
+
+            var object2 = {
+                a: {
+                    b: {
+                        d: 3,
+                        e: 4
+                    }
+                },
+                c: 2
+            };
+
+            var NewClass = makeClass(BaseClass, {
+                testValue: 'test extend field'
+            });
+
+            var ExtendedClass = NewClass.extend(object1, object2);
+
+            var extendedClass = new ExtendedClass;
+
+            expect(extendedClass.a.b.c).toEqual(1);
+            expect(extendedClass.a.b.d).toEqual(3);
+            expect(extendedClass.b).toEqual(1);
+            expect(extendedClass.c).toEqual(2);
+
+
+        });
+
         it('base class deep extend', function() {
             
             var object1 = {

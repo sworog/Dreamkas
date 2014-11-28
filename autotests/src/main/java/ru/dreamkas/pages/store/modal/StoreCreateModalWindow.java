@@ -16,16 +16,14 @@ public class StoreCreateModalWindow extends ModalWindowPage {
     public void createElements() {
         put("name", new Input(this, "//*[@name='name']"));
         put("address", new Input(this, "//*[@name='address']"));
+
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Добавить"));
     }
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_store']";
-    }
-
-    @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить").click();
+        return "//*[contains(@id, 'modal_store') and contains(@class, 'modal_visible')]";
     }
 
     @Override

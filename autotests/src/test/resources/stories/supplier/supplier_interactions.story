@@ -16,7 +16,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new supplier create button
 And the user inputs values on the create new supplier modal window
@@ -46,7 +46,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new supplier create button
 And the user inputs values on the create new supplier modal window
@@ -56,7 +56,8 @@ And the user inputs values on the create new supplier modal window
 | phone | phone |
 | email | email |
 | contactPerson | contactPerson |
-And the user clicks on close icon on the create new supplier modal window
+And пользователь* находится в модальном окне 'создания поставщика'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
@@ -73,7 +74,7 @@ GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplier3', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplier3'
 And the user inputs values on the edit supplier modal window
@@ -105,7 +106,7 @@ GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplier4', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplier4'
 And the user inputs values on the edit supplier modal window
@@ -115,7 +116,8 @@ And the user inputs values on the edit supplier modal window
 | phone | phone edited |
 | email | email edited |
 | contactPerson | contactPerson edited |
-And the user clicks on close icon on the edit supplier modal window
+And пользователь* находится в модальном окне 'редактирования поставщика'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
@@ -134,7 +136,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user checks page contains text 'У вас ещё нет ни одного поставщика'
 
@@ -146,7 +148,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new supplier create button
 
@@ -162,7 +164,7 @@ GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 Given the user with email 's39u108@lighthouse.pro' creates supplier with name 's39u108supplier5', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
 
 Given the user opens the supplier list page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the supplier with name 's39u108supplier5'
 
@@ -177,7 +179,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-108/aPreconditionToUserCreation.story
 
 Given the user opens the authorization page
-And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u108@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks the menu suppliers item
 

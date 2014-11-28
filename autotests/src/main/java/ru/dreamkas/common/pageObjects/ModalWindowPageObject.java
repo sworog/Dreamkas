@@ -11,4 +11,6 @@ public interface ModalWindowPageObject extends GeneralPageObject {
     public void confirmDeleteButtonClick();
 
     public void continueButtonClick();
+
+    public void close();
 }

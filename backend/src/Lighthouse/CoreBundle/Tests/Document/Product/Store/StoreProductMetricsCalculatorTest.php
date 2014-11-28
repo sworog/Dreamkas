@@ -70,18 +70,18 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
     }
 
     /**
-     * @param array $products
+     * @param array $productsData
      * @return array
      */
-    protected function createProducts(array $products)
+    protected function createProducts(array $productsData)
     {
-        $productIds = $this->createProductsByNames(array_keys($products));
-        foreach ($productIds as $name => $productId) {
-            $products[$name]['id'] = $productId;
-            $products[$name]['name'] = $name;
-            $products[$name]['message'] = sprintf("Product '%s' assertions failed", $name);
+        $products = $this->factory()->catalog()->getProductByNames(array_keys($productsData));
+        foreach ($products as $name => $product) {
+            $productsData[$name]['id'] = $product->id;
+            $productsData[$name]['name'] = $name;
+            $productsData[$name]['message'] = sprintf("Product '%s' assertions failed", $name);
         }
-        return $products;
+        return $productsData;
     }
 
     public function testInventoryRatioCalculation()

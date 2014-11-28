@@ -4,10 +4,14 @@ define(function(require) {
     return {
         //common
         '(/)': require('pages/main/main'),
+        'settings(/)': require('pages/settings/settings'),
         'logout(/)': require('kit/logout/logout'),
 
 		//stockMovement
 		'stockMovements(/)': require('pages/stockMovements/stockMovements'),
+
+        //cashFlow
+        'cashFlow(/)': require('pages/cashFlow/cashFlow'),
 
 		//reports
 		'reports(/)': require('pages/reports/reports'),

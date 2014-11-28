@@ -3,9 +3,9 @@ load 'deploy' if respond_to?(:namespace)
 require 'colored'
 
 # add local recipes to load path
-$:.unshift(File.expand_path('../deploy/capistrano/plugins'))
+$:.unshift(File.expand_path('../deploy/plugins'))
 
-load '../deploy/capistrano/recipes/deploy'
-load '../deploy/capistrano/recipes/log'
-load '../deploy/capistrano/recipes/webfront'
-load 'config/deploy'
+load '../deploy/recipes/deploy'
+load '../deploy/recipes/log'
+load '../deploy/recipes/webfront'
+load 'deploy/deploy'

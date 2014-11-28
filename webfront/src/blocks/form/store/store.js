@@ -4,6 +4,19 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
+        id: 'form_store',
+        blocks: {
+            removeButton: function(){
+
+                var block = this,
+                    RemoveButton = require('blocks/removeButton/removeButton');
+
+                return new RemoveButton({
+                    model: block.model,
+                    removeText: 'Удалить магазин'
+                });
+            }
+        },
         model: function() {
             var StoreModel = require('resources/store/model');
 

@@ -25,6 +25,9 @@
 
 #define TicketWindowToSelectStoreSegueName          @"TicketWindowToSelectStoreSegue"
 
+#define GroupsToProductsSegueName                   @"GroupsToProductsSegue"
+#define GroupsToSearchSegueName                     @"GroupsToSearchSegue"
+
 //
 // Идентификаторы экранов
 //
@@ -32,7 +35,15 @@
 #define MainNavigationControllerID                  @"MainNavigationControllerID"
 #define LogInViewControllerID                       @"LogInViewControllerID"
 #define SignInViewControllerID                      @"SignInViewControllerID"
+
 #define SelectStoreViewControllerID                 @"SelectStoreViewControllerID"
 #define SidemenuViewControllerID                    @"SidemenuViewControllerID"
+
+#define LeftSideNavigationControllerID              @"LeftSideNavigationControllerID"
+#define RightSideNavigationControllerID             @"RightSideNavigationControllerID"
+
+#define GroupsViewControllerID                      @"GroupsViewControllerID"
+#define SearchViewControllerID                      @"SearchViewControllerID"
+#define SaleViewControllerID                        @"SaleViewControllerID"
 
 #endif

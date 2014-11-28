@@ -2,17 +2,17 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Network;
 
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Test\DataAwareTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Network\GrossMarginSalesNetworkRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 
-class GrossMarginSalesNetworkTest extends WebTestCase
+class GrossMarginSalesNetworkTest extends DataAwareTestCase
 {
     /**
      * @return GrossMarginSalesNetworkRepository
      */
-    public function getGrossMarginSalesNetworkRepository()
+    protected function getGrossMarginSalesNetworkRepository()
     {
         return $this->getContainer()->get('lighthouse.reports.document.gross_margin_sales.network.repository');
     }
@@ -31,47 +31,47 @@ class GrossMarginSalesNetworkTest extends WebTestCase
 
         $groups = $this->factory()->catalog()->getSubCategories(array('1', '2', '3'));
 
-        $productId1 = $this->createProductByName('1.1', $groups['1']->id);
-        $productId2 = $this->createProductByName('1.2', $groups['1']->id);
-        $productId3 = $this->createProductByName('2.3', $groups['2']->id);
+        $product1 = $this->factory()->catalog()->getProductByName('1.1', $groups['1']);
+        $product2 = $this->factory()->catalog()->getProductByName('1.2', $groups['1']);
+        $product3 = $this->factory()->catalog()->getProductByName('2.3', $groups['2']);
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '-7 days'), $stores['1']->id)
-                ->createInvoiceProduct($productId1, 10, 20)
-                ->createInvoiceProduct($productId2, 5, 25)
-                ->createInvoiceProduct($productId3, 7, 14)
+                ->createInvoiceProduct($product1->id, 10, 20)
+                ->createInvoiceProduct($product2->id, 5, 25)
+                ->createInvoiceProduct($product3->id, 7, 14)
             ->persist()
                 ->createInvoice(array('date' => '-7 days'), $stores['2']->id)
-                ->createInvoiceProduct($productId1, 11, 21)
-                ->createInvoiceProduct($productId2, 6, 26)
+                ->createInvoiceProduct($product1->id, 11, 21)
+                ->createInvoiceProduct($product2->id, 6, 26)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($stores['1'], '-1 days 11:23')
-                ->createReceiptProduct($productId1, 1, 30)
-                ->createReceiptProduct($productId2, 2.5, 31.09)
+                ->createReceiptProduct($product1->id, 1, 30)
+                ->createReceiptProduct($product2->id, 2.5, 31.09)
             ->persist()
                 ->createSale($stores['1'], '-1 days 19:30')
-                ->createReceiptProduct($productId1, 2, 30)
-                ->createReceiptProduct($productId3, 5, 15)
+                ->createReceiptProduct($product1->id, 2, 30)
+                ->createReceiptProduct($product3->id, 5, 15)
             ->persist()
                 ->createSale($stores['2'], '-1 days 09:56')
-                ->createReceiptProduct($productId1, 6, 36)
-                ->createReceiptProduct($productId2, 3.5, 33.39)
+                ->createReceiptProduct($product1->id, 6, 36)
+                ->createReceiptProduct($product2->id, 3.5, 33.39)
             ->persist()
                 ->createSale($stores['1'], '-2 days 19:13')
-                ->createReceiptProduct($productId1, 2, 31)
-                ->createReceiptProduct($productId2, 2.5, 31.09)
+                ->createReceiptProduct($product1->id, 2, 31)
+                ->createReceiptProduct($product2->id, 2.5, 31.09)
             ->persist()
                 ->createSale($stores['2'], '-3 days 23:56')
-                ->createReceiptProduct($productId1, 3, 29)
-                ->createReceiptProduct($productId2, 1, 30.09)
+                ->createReceiptProduct($product1->id, 3, 29)
+                ->createReceiptProduct($product2->id, 1, 30.09)
             ->persist()
                 ->createSale($stores['1'], '-5 days 00:11')
-                ->createReceiptProduct($productId1, 1, 30)
-                ->createReceiptProduct($productId2, 1, 30)
+                ->createReceiptProduct($product1->id, 1, 30)
+                ->createReceiptProduct($product2->id, 1, 30)
             ->flush();
 
         $trialBalanceCount = $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();

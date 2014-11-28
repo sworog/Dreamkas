@@ -70,10 +70,16 @@
 {
     [super viewWillAppear:animated];
     
-    [self.tableViewItem selectRowAtIndexPath:nil animated:NO scrollPosition:UITableViewScrollPositionNone];
-    
     // делаем проверку на необходимость обновления страницы данными с сервера
     [self checkoutLocalData];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    // снимаем выделение с ячейки
+    [self.tableViewItem selectRowAtIndexPath:nil animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)didReceiveMemoryWarning
@@ -326,8 +332,14 @@
         // сброс параметров лимитирования
         [self resetQueryParams];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, (unsigned long)NULL), ^(void) {
-            [self requestDataFromServer];
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, (unsigned long)NULL), ^(void) {
+//            [self requestDataFromServer];
+//        });
+        
+        __weak typeof(self)weak_self = self;
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            __strong typeof(self)strong_self = weak_self;
+            [strong_self requestDataFromServer];
         });
     }
     

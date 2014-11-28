@@ -6,6 +6,9 @@
 
 "sign_up_button_title" = "Создать аккаунт";
 "log_in_button_title" = "Войти";
+"make_sale_button_title" = "Оплатить";
+"clear_sale_button_title" = "Очистить чек";
+"clear_sale_button_confirm_title" = "Подтвердить удаление";
 
 /*
  *  ============================================================================
@@ -18,6 +21,13 @@
 "sign_in_button_title" = "Создать";
 "sign_in_title_name" = "Новый аккаунт";
 "select_store_title_name" = "Выбор магазина";
+
+"product_search_empty_message" = "Для поиска товара введите 3 или более символа";
+"product_search_no_results_message" = "Товаров не найдено";
+"product_search_field_placeholder" = "Наименование, штрих-код или артикул";
+
+"sale_page_title" = "Чек";
+"sale_page_empty_check" = "Товаров в чеке нет";
 
 /*
  *  ============================================================================

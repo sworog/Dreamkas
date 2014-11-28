@@ -2,9 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Client\Request;
 
-use DateTime;
-
-class SupplierReturnBuilder
+class SupplierReturnBuilder extends StockMovementBuilder
 {
     /**
      * @var array
@@ -17,19 +15,17 @@ class SupplierReturnBuilder
     );
 
     /**
-     * @param string $date
      * @param string $storeId
+     * @param string $date
      * @param string $supplierId
      * @param bool $paid
      */
-    public function __construct($date = null, $storeId = null, $supplierId = null, $paid = false)
+    public function __construct($storeId = null, $date = null, $supplierId = null, $paid = false)
     {
-        $this->setDate($date);
-        if ($storeId) {
-            $this->setStoreId($storeId);
-        }
+        parent::__construct($date, $storeId);
+
         if ($supplierId) {
-            $this->setSupplierId($supplierId);
+            $this->setSupplier($supplierId);
         }
         if ($paid) {
             $this->setPaid($paid);
@@ -37,100 +33,34 @@ class SupplierReturnBuilder
     }
 
     /**
-     * @param string $date
-     * @return SupplierReturnBuilder
+     * @param string $supplierId
+     * @return $this;
      */
-    public function setDate($date = null)
+    public function setSupplier($supplierId)
     {
-        $this->data['date'] = $date ?: date(DateTime::W3C);
+        $this->data['supplier'] = $supplierId;
         return $this;
     }
 
     /**
-     * @param string $storeId
-     */
-    public function setStoreId($storeId)
-    {
-        $this->data['store'] = $storeId;
-    }
-
-    /**
-     * @param string $supplierId
-     */
-    public function setSupplierId($supplierId)
-    {
-        $this->data['supplier'] = $supplierId;
-    }
-
-    /**
      * @param bool $paid
+     * @return $this
      */
     public function setPaid($paid)
     {
         $this->data['paid'] = $paid;
-    }
-
-    /**
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @return SupplierReturnBuilder
-     */
-    public function addProduct($productId, $quantity = 1.0, $price = 5.99)
-    {
-        $this->data['products'][] = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'price' => $price
-        );
         return $this;
     }
 
     /**
-     * @param int $index
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @return $this
-     */
-    public function setProduct($index, $productId, $quantity = 1.0, $price = 5.99)
-    {
-        $this->data['products'][$index] = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'price' => $price
-        );
-        return $this;
-    }
-
-    /**
-     * @param int $index
-     * @return $this
-     */
-    public function removeProduct($index)
-    {
-        unset($this->data['products'][$index]);
-        return $this;
-    }
-
-    /**
-     * @param array $mergeData
-     * @return array
-     */
-    public function toArray($mergeData = array())
-    {
-        return $mergeData + $this->data;
-    }
-
-    /**
-     * @param string $date
      * @param string $storeId
+     * @param string $date
      * @param string $supplierId
      * @param bool $paid
-     * @return SupplierReturnBuilder
+     * @return static
      */
-    public static function create($date = null, $storeId = null, $supplierId = null, $paid = false)
+    public static function create($storeId = null, $date = null, $supplierId = null, $paid = false)
     {
-        return new self($date, $storeId, $supplierId, $paid);
+        return new static($storeId, $date, $supplierId, $paid);
     }
 }

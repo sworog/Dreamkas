@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 			options: {
 				//webdriverio options (https://github.com/webdriverio/webdriverio#options)
 				desiredCapabilities: {
-					browserName: 'phantomjs'
+					browserName: 'chrome'
 				},
 				//logLevel: 'verbose',
 				screenshotPath: 'tests/screenshots/',

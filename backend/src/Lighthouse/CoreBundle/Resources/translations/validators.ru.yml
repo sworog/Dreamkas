@@ -8,6 +8,12 @@ lighthouse:
                 invalid: Значение должно быть числом
                 max: Цена не должна быть больше {{ limit }}
                 not_blank: Заполните это поле
+            amount:
+                precision: Сумма не должна содержать больше {{ precision }} цифр после запятой
+                negative: Сумма не должна быть меньше или равна нулю
+                invalid: Значение должно быть числом
+                max: Сумма не должна быть больше {{ limit }}
+                not_blank: Заполните это поле
             quantity:
                 negative: Значение должно быть числом
             float:
@@ -37,6 +43,15 @@ lighthouse:
                 length:
                     not_blank: Отсутствует заголовок Content-Length
                     length: Размер файла должен быть меньше 10Мб
+            deleted:
+                supplier:
+                    forbid:
+                        edit: Операции с участием удаленного поставщика запрещены
+                        delete: Удаление операции с участием удаленного поставщика запрещено
+                store:
+                    forbid:
+                        edit: Операции с участием удаленного магазина запрещены
+                        delete: Удаление операции с участием удаленного магазина запрещено
 
             product:
                 sku.unique: Такой артикул уже есть
@@ -78,14 +93,19 @@ lighthouse:
             category:
                 name.unique: Категория с таким названием уже существует в этой группе
                 group.does_not_exists: Такой группы не существует
+            SubCategory:
+                not_empty: Чтобы удалить группу, нужно сначала удалить все товары в ней
             subCategory:
-                #name.unique: Подкатегория с таким названием уже существует в этой категории
                 name.unique: Группа с таким названием уже существует
                 category.does_not_exists: Такой категории не существует
             user:
-                password.not_equals_email: E-mail и пароль не должны совпадать
-                email.unique: Пользователь с таким email уже существует
-                email.not_exists: Пользователь с таким e-mail не зарегистрирован в системе
+                password:
+                    not_equals_email: E-mail и пароль не должны совпадать
+                    not_equals_password: Пароли отличаются
+                    does_not_match_current: Неверный пароль
+                email:
+                    unique: Пользователь с таким email уже существует
+                    not_exists: Пользователь с таким e-mail не зарегистрирован в системе
             store:
                 name.unique: Такой магазин уже есть
                 does_not_exist: Такого магазина не существует

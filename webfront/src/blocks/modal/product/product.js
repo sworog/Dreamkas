@@ -16,16 +16,6 @@ define(function(require, exports, module) {
                 return PAGE.collections.groups.get(this.get('selectedGroupId'));
             }
         },
-        initialize: function(data){
-
-            data = data || {};
-
-            if (typeof data.deleted === 'undefined'){
-                this.deleted = false;
-            }
-
-            return Modal.prototype.initialize.apply(this, arguments);
-        },
         render: function(){
 
             var block = this,
@@ -40,13 +30,13 @@ define(function(require, exports, module) {
             return Modal.prototype.render.apply(this, arguments);
         },
         blocks: {
-            form_product: function(){
+            form_product: function(opt){
                 var block = this,
                     Form_product = require('blocks/form/product/product');
 
-                return new Form_product({
+                return new Form_product(_.extend({
                     model: block.models.product
-                });
+                }, opt));
             }
         }
     });

@@ -46,8 +46,8 @@ public class AuthorizationUserSteps {
         authorizationSteps.openSignUpPage();
     }
 
-    @Given("the user logs in using '$userName' userName and '$password' password")
-    @Alias("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
+    @Given("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
+    @When("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
     public void givenTheUserLogsInUsingCredentials(String userName, String password) {
         authorizationSteps.authorization(userName, password);
     }
@@ -59,6 +59,7 @@ public class AuthorizationUserSteps {
     }
 
     @Given("the user opens lighthouse restore password page")
+    @Alias("пользователь открывает страницу восстановления пароля")
     public void givenTheUserOpensRestorePasswordPage() {
         authorizationSteps.restorePasswordPageOpen();
     }
@@ -70,13 +71,14 @@ public class AuthorizationUserSteps {
     }
 
     @When("the user logs in using '$userName' userName and '$password' password to check validation")
+    @Alias("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password' для проверки валидации")
     public void givenTheUserLogsInUsingUserNameAndPasswordToCheckValidation(String userName, String password) {
         authorizationSteps.authorizationFalse(userName, password);
     }
 
     @When("the user logs out")
+    @Alias("пользователь разлогинивается")
     public void whenTheUserLogsOut() {
-        menuNavigationSteps.userNameLinkClick();
         menuNavigationSteps.logOutButtonClick();
         DefaultStorage.getUserVariableStorage().setIsAuthorized(false);
     }
@@ -171,12 +173,8 @@ public class AuthorizationUserSteps {
     }
 
     @Then("the user asserts the restore password page title text is '$text'")
+    @Alias("пользователь проверяет, что заголовок страницы восстановления пароля равен '$text'")
     public void thenTheUserAssertsTheRestorePasswordPageTitle(String text) {
         authorizationSteps.assertPageTitleText(text);
-    }
-
-    @Then("the user asserts the restore password page text is '$text'")
-    public void thenTheUserAssertsTheRestorePasswordPageText(String text) {
-        authorizationSteps.assertPageText(text);
     }
 }

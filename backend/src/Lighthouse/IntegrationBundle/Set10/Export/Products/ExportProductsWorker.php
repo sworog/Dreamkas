@@ -3,10 +3,10 @@
 namespace Lighthouse\IntegrationBundle\Set10\Export\Products;
 
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
-use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
+use Lighthouse\IntegrationBundle\Document\Integration\Set10\ExportProductsJob;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
-use Lighthouse\CoreBundle\Document\Job\Job;
-use Lighthouse\CoreBundle\Job\Worker\WorkerInterface;
+use Lighthouse\JobBundle\Document\Job\Job;
+use Lighthouse\JobBundle\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**

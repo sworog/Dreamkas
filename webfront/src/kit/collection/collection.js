@@ -9,6 +9,7 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     var Collection = makeClass(Backbone.Collection, {
+        original: null,
         filters: {},
         model: require('kit/model/model'),
         initialize: function(data, options){

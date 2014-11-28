@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 
 /**
  * @DI\Service("lighthouse.core.document.trial_balance.cost_of_goods.manager")
@@ -28,15 +28,9 @@ class CostOfGoodsManager
 
     /**
      * @DI\InjectParams({
-     *      "jobManager" = @DI\Inject(
-     *          "lighthouse.core.job.manager"
-     *      ),
-     *      "trialBalanceRepository" = @DI\Inject(
-     *          "lighthouse.core.document.repository.trial_balance"
-     *      ),
-     *      "costOfGoodsCalculator" = @DI\Inject(
-     *          "lighthouse.core.document.trial_balance.calculator"
-     *      )
+     *      "jobManager" = @DI\Inject("lighthouse.job.manager"),
+     *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
+     *      "costOfGoodsCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator")
      * })
      *
      * @param JobManager $jobManager
@@ -70,6 +64,9 @@ class CostOfGoodsManager
         return $count;
     }
 
+    /**
+     * @param string $storeProductId
+     */
     protected function createJobByStoreProductId($storeProductId)
     {
         $job = new CostOfGoodsCalculateJob();

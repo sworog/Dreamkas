@@ -19,6 +19,12 @@
                 Товародвижение
             </a>
 
+            <a href="/cashFlow"
+               class="sideBar__item <%- activeNavigationItem === 'cashFlow' ? 'sideBar__item_active' : '' %>">
+                <i class="fa fa-rouble fa-fw"></i>
+                Деньги
+            </a>
+
             <a href="/reports"
                class="sideBar__item <%- activeNavigationItem === 'reports' ? 'sideBar__item_active' : '' %>">
                 <i class="fa fa-bar-chart-o fa-fw"></i>
@@ -49,7 +55,10 @@
         <div class="sideBar__bottom">
 
             <div class="sideBar__controls">
-                <a href="/logout" class="sideBar__logoutLink">
+                <a href="/settings" class="sideBar__actionLink">
+                    <i class="fa fa-cog"></i>
+                </a>
+                <a href="/logout" class="sideBar__actionLink">
                     <i class="fa fa-sign-out"></i>
                 </a>
             </div>

@@ -61,7 +61,8 @@
     color: #c6c6c6;
 }
 
-.table_stockMovements td[name="date"] {
+.table_stockMovements td[name="date"],
+.table_cashFlows td[name="date"] {
     background-color: #fff !important;
     border-right: 1px solid #efefef;
 }
@@ -73,4 +74,13 @@
 .table_stockMovementProducts__removeProductLink {
     padding: 7px 13px;
     font-size: 17px;
+}
+
+.table_cashFlows__amountOut {
+    color: #DB5154;
+}
+
+.table_cashFlows td[name="date"],
+.table_cashFlows td[name="amount"] {
+    width: 16%;
 }

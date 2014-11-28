@@ -16,7 +16,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'Новая группа' in group name field in create new group modal window
@@ -33,11 +33,12 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'Новая группа1' in group name field in create new group modal window
-And the user clicks on close icon in create new group modal window
+And пользователь* находится в модальном окне 'создания группы'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user asserts catalog title is 'Ассортимент'
 And the user asserts the groups list not contain group with name 'Новая группа1'
@@ -53,7 +54,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа до редактирования'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа до редактирования'
 And the user clicks on the edit group icon
@@ -78,12 +79,13 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа до редактирования1'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа до редактирования1'
 And the user clicks on the edit group icon
 And the user inputs 'Группа после редактирования1' in group name field in edit group modal window
-And the user clicks on close icon in edit group modal window
+And пользователь* находится в модальном окне 'редактирования группы'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user asserts group title is 'Группа до редактирования1'
 
@@ -103,12 +105,14 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для удаления'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа для удаления'
 And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
+When пользователь* находится в модальном окне 'редактирования группы'
+And пользователь* в модальном окне нажимает кнопку продолжить
 
 Then the user waits for modal window closing
 And the user waits for page finishing loading
@@ -125,7 +129,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens the authorization page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks the menu catalog item
 
@@ -139,7 +143,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user asserts catalog title is 'Ассортимент'
 
@@ -153,7 +157,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для выбора'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Группа для выбора'
 
@@ -167,7 +171,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new group button on the catalog page
 
@@ -183,7 +187,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'Тест группа'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'Тест группа'
 And the user clicks on the edit group icon
@@ -199,7 +203,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user checks page contains text 'У вас пока нет ни одной группы товаров.'
 
@@ -215,7 +219,7 @@ GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 Given the user with email 's28u100@lighthouse.pro' creates group with name 'GroupDeletion'
 
 Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's28u100@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the group with name 'GroupDeletion'
 And the user clicks on the edit group icon

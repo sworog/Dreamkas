@@ -2,6 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rlLogin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -22,8 +23,7 @@
         android:layout_centerInParent="true"
         android:padding="10dp"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        >
+        android:focusableInTouchMode="true">
 
         <EditText
             android:id="@+id/txtUsername"
@@ -37,7 +37,6 @@
             android:drawableLeft="@drawable/email"
             android:inputType="textEmailAddress"
             />
-
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
@@ -49,8 +48,7 @@
             android:maxLines="1"
             android:lines="1"
             android:password="true"
-            android:drawableLeft="@drawable/password"
-            />
+            android:drawableLeft="@drawable/password"/>
 
         <Button
             android:id="@+id/btnLogin"
@@ -59,9 +57,6 @@
             android:padding="10dp"
             android:layout_margin="4dp"
             android:text="Войти"
-            android:background="@color/DarkCyan"
-
-            />
+            style="@style/dk_button"/>
     </LinearLayout>
-
 </RelativeLayout>

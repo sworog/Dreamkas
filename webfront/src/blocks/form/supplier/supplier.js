@@ -4,13 +4,21 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        model: function() {
-            var SupplierModel = require('resources/supplier/model');
-
-            return PAGE.get('collections.suppliers').get(this.supplierId) || new SupplierModel;
-        },
+        id: 'form_supplier',
         collection: function() {
             return PAGE.get('collections.suppliers');
+        },
+        blocks: {
+            removeButton: function(){
+
+                var block = this,
+                    RemoveButton = require('blocks/removeButton/removeButton');
+
+                return new RemoveButton({
+                    model: block.model,
+                    removeText: 'Удалить поставщика'
+                });
+            }
         }
     });
 });

@@ -52,7 +52,7 @@ public class StockMovementPage extends BootstrapPageObject {
         return new JSInput(this, name) {
             @Override
             public void evaluateUpdatingQueryScript() {
-                //Do nothing
+                getPageObject().evaluateJavascript("document.querySelector('.inputDateRange').block.trigger('update')");
             }
         };
     }

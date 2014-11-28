@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.findby.By;
 import ru.dreamkas.common.item.CommonItem;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.pages.modal.ModalWindowPage;
+import ru.dreamkas.pages.pos.PosSaleHistoryPage;
 
 public class ProductAutoComplete extends CommonItem {
 
@@ -22,7 +23,11 @@ public class ProductAutoComplete extends CommonItem {
             getVisibleWebElementFacade().type(value);
         } else {
             getVisibleWebElementFacade().type(value);
-            getPageObject().findVisibleElement(By.xpath("//*[contains(@class, 'tt-dataset')]//*[text()='" + value + "']")).click();
+            if (getPageObject() instanceof PosSaleHistoryPage) {
+                getPageObject().findVisibleElement(By.xpath("//*[@class='tt-suggestions']//*[contains(text(), '" + value + "')]")).click();
+            } else {
+                getPageObject().findVisibleElement(By.xpath("//*[@class='autocomplete__item']/div/b[ contains(text(), '" + value + "')]")).click();
+            }
         }
     }
 

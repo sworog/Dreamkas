@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
@@ -9,16 +10,24 @@ use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Rounding\Nearest1;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;
 
 class CatalogFactory extends AbstractFactory
 {
+    const DEFAULT_PRODUCT_NAME = 'product';
     const DEFAULT_GROUP_NAME = CatalogManager::DEFAULT_NAME;
     const DEFAULT_CATEGORY_NAME = CatalogManager::DEFAULT_NAME;
     const DEFAULT_SUBCATEGORY_NAME = CatalogManager::DEFAULT_NAME;
     const DEFAULT_ROUNDING_NAME = Nearest1::NAME;
+
+    /**
+     * @var array
+     */
+    protected $productNames = array();
 
     /**
      * @var array name => id
@@ -34,6 +43,114 @@ class CatalogFactory extends AbstractFactory
      * @var array name => id
      */
     protected $subCategoryNames = array();
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @param array $extraData
+     * @return Product
+     */
+    public function createProductByName(
+        $name = self::DEFAULT_PRODUCT_NAME,
+        SubCategory $subCategory = null,
+        array $extraData = array()
+    ) {
+        $data = $extraData + array(
+            'name' => $name,
+            'vat' => 18,
+        );
+        return $this->createProduct($data, $subCategory);
+    }
+
+    /**
+     * @param array $data
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function createProduct(array $data, SubCategory $subCategory = null)
+    {
+        $product = new Product();
+
+        $this->populate($product, $this->prepareData($data));
+
+        $product->subCategory = $subCategory ?: $this->getSubCategory();
+
+        $this->doSave($product);
+
+        $this->productNames[$product->name] = $product->id;
+
+        return $product;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function prepareData(array $data)
+    {
+        foreach ($data as $key => &$value) {
+            switch ($key) {
+                case 'purchasePrice':
+                case 'sellingPrice':
+                case 'retailPriceMin':
+                case 'retailPriceMax':
+                    $value = $this->getNumericFactory()->createMoney($value);
+                    break;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function getProductByName($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    {
+        if (!isset($this->productNames[$name])) {
+            $this->createProductByName($name, $subCategory);
+        }
+        return $this->getProductById($this->productNames[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function getProduct($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    {
+        return $this->getProductByName($name, $subCategory);
+    }
+
+    /**
+     * @param array $names
+     * @param SubCategory $subCategory
+     * @return Product[]
+     */
+    public function getProductByNames(array $names, SubCategory $subCategory = null)
+    {
+        $products = array();
+        foreach ($names as $name) {
+            $products[$name] = $this->getProductByName($name, $subCategory);
+        }
+        return $products;
+    }
+
+    /**
+     * @param string $id
+     * @return Product
+     */
+    public function getProductById($id)
+    {
+        $product = $this->getProductRepository()->find($id);
+        if (null === $product) {
+            throw new \RuntimeException(sprintf('Product id#%s not found', $id));
+        }
+        return $product;
+    }
 
     /**
      * @param string $name
@@ -54,8 +171,7 @@ class CatalogFactory extends AbstractFactory
         $group->retailMarkupMax = $retailMarkupMax;
         $group->rounding = $this->getRounding($rounding);
 
-        $this->getDocumentManager()->persist($group);
-        $this->getDocumentManager()->flush();
+        $this->doSave($group);
 
         $this->groupNames[$group->name] = $group->id;
 
@@ -219,6 +335,28 @@ class CatalogFactory extends AbstractFactory
     }
 
     /**
+     * @param array $catalogData
+     * @return AbstractNode[]|SubCategory[]
+     */
+    public function createCatalog(array $catalogData)
+    {
+        $catalog = array();
+        foreach ($catalogData as $groupName => $categories) {
+            $group = $this->createGroup($groupName);
+            $catalog[$groupName] = $group;
+            foreach ($categories as $categoryName => $subCategories) {
+                $category = $this->createCategory($group->id, $categoryName);
+                $catalog[$categoryName] = $category;
+                foreach ($subCategories as $subCategoryName => $void) {
+                    $subCategory = $this->createSubCategory($category->id, $subCategoryName);
+                    $catalog[$subCategoryName] = $subCategory;
+                }
+            }
+        }
+        return $catalog;
+    }
+
+    /**
      * @param string $name
      * @return AbstractRounding
      */
@@ -258,5 +396,13 @@ class CatalogFactory extends AbstractFactory
     protected function getSubCategoryRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.classifier.subcategory');
+    }
+
+    /**
+     * @return ProductRepository
+     */
+    protected function getProductRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.product');
     }
 }

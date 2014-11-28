@@ -136,6 +136,23 @@ class StoreFactory extends AbstractFactory
     }
 
     /**
+     * @param Store $store
+     */
+    public function deleteStore(Store $store)
+    {
+        $this->deleteStoreById($store->id);
+    }
+
+    /**
+     * @param string $storeId
+     */
+    public function deleteStoreById($storeId)
+    {
+        $store = $this->getStoreById($storeId);
+        $this->doDelete($store);
+    }
+
+    /**
      * @return StoreRepository
      */
     protected function getStoreRepository()

@@ -16,7 +16,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 And the user inputs values on the create new store modal window
@@ -39,14 +39,15 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 And the user inputs values on the create new store modal window
 | elementName | value |
 | name | Магазин номер 2 |
 | address | Контакты магазины номер 2 |
-And the user clicks on the close icon on the create new store modal window
+And пользователь* находится в модальном окне 'создания магазина'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
@@ -63,7 +64,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107store1' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107store1'
 And the user inputs values on the edit store modal window
@@ -88,14 +89,15 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107store2' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107store2'
 And the user inputs values on the edit store modal window
 | elementName | value |
 | name | Магазин номер 2 отредактированный |
 | address | Контакты магазины номер 2 отредактированные |
-And the user clicks on the close icon on the edit store modal window
+And пользователь* находится в модальном окне 'редактирования магазина'
+And пользователь* закрывает модальное окно по кнопке крестик и подтверждает алерт
 
 Then the user waits for modal window closing
 
@@ -113,7 +115,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 Then the user checks page contains text 'У вас ещё нет ни одного магазина'
 
@@ -125,7 +127,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the add new store create button
 
@@ -141,7 +143,7 @@ GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 Given the user with email 's39u107@lighthouse.pro' creates the store with name 's39u107store2' and address 'Address'
 
 Given the user opens the stores list page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks on the store with name 's39u107store2'
 
@@ -156,7 +158,7 @@ Meta:
 GivenStories: precondition/sprint-39/us-107/aPreconditionToUserCreation.story
 
 Given the user opens the authorization page
-And the user logs in using 's39u107@lighthouse.pro' userName and 'lighthouse' password
+And пользователь авторизуется в системе используя адрес электронной почты 's39u107@lighthouse.pro' и пароль 'lighthouse'
 
 When the user clicks the menu stores item
 

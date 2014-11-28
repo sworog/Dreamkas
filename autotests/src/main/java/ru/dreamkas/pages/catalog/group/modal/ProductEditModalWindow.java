@@ -1,10 +1,10 @@
 package ru.dreamkas.pages.catalog.group.modal;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import ru.dreamkas.common.item.CommonItem;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
 import ru.dreamkas.elements.items.NonType;
+import ru.dreamkas.pages.modal.ModalWindowPage;
 
 /**
  * Edit product modal window
@@ -22,26 +22,12 @@ public class ProductEditModalWindow extends ProductCreateModalWindow {
         put("заголовок успешного удаления", new NonType(this, "//*[@name='successRemoveTitle']"));
         put("название удаленного товара", new NonType(this, "//*[@name='removedProductName']"));
         put("кнопка продолжения работы", new NonType(this, "//*[@name='removeContinue']"));
-    }
 
-    protected WebElement findDeleteButton() {
-        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink']"));
-    }
-
-    public void deleteButtonClick() {
-        findDeleteButton().click();
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Сохранить"));
     }
 
     public String getDeleteButtonText() {
-        return findDeleteButton().getText();
-    }
-
-    public void confirmDeleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink form_product__removeLink']")).click();
-    }
-
-    @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить").click();
+        return ((CommonItem)getItems().get(ModalWindowPage.DEFAULT_DELETE_BUTTON)).getText();
     }
 }

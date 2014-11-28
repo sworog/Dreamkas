@@ -12,6 +12,7 @@ public class WhenProductSteps {
     ProductSteps productSteps;
 
     @When("the user clicks on create product button on group page")
+    @Alias("пользователь нажимает на кнопку создать товар")
     public void whenTheUserClicksOnCreateProductButtonOnGroupPage() {
         productSteps.createNewProductButtonClick();
     }

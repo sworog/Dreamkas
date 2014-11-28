@@ -7,11 +7,14 @@
 //
 
 #import "TicketWindowViewController.h"
+#import "SidemenuButton.h"
 
 @interface TicketWindowViewController ()
 
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIButton *sidemenuButton;
+@property (nonatomic, weak) IBOutlet SidemenuButton *sidemenuButton;
+
+@property (nonatomic, weak) IBOutlet UIView *leftSideContainerView;
+@property (nonatomic, weak) IBOutlet UIView *rightSideContainerView;
 
 @end
 
@@ -23,7 +26,7 @@
 {
     [super viewDidLoad];
     
-    // ..
+    [self placeLeftAndRightSideControllers];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -45,6 +48,23 @@
 
 #pragma mark - Configuration Methods
 
+- (void)placeLeftAndRightSideControllers
+{
+    UINavigationController *ls_nc = ControllerById(LeftSideNavigationControllerID);
+    [ls_nc.view setWidth:DefaultLeftSideWidth];
+    [ls_nc.view setHeight:DefaultSideHeight];
+    [self addChildViewController:ls_nc];
+    [self.leftSideContainerView addSubview:ls_nc.view];
+    [ls_nc didMoveToParentViewController:self];
+    
+    UINavigationController *rs_nc = ControllerById(RightSideNavigationControllerID);
+    [rs_nc.view setWidth:DefaultRightSideWidth];
+    [rs_nc.view setHeight:DefaultSideHeight];
+    [self addChildViewController:rs_nc];
+    [self.rightSideContainerView addSubview:rs_nc.view];
+    [rs_nc didMoveToParentViewController:self];
+}
+
 - (void)configureLocalization
 {
     // ..
@@ -52,8 +72,10 @@
 
 - (void)configureAccessibilityLabels
 {
-    [self.tableView setAccessibilityLabel:AI_TicketWindowPage_Table];
     [self.sidemenuButton setAccessibilityLabel:AI_TicketWindowPage_SidemenuButton];
+    
+    [self.leftSideContainerView setAccessibilityLabel:AI_TicketWindowPage_LeftContainer];
+    [self.rightSideContainerView setAccessibilityLabel:AI_TicketWindowPage_RightContainer];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия

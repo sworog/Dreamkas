@@ -2,14 +2,17 @@
 
 namespace Lighthouse\CoreBundle\Document\Supplier;
 
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
 use Lighthouse\CoreBundle\Document\Organization\Organizationable;
+use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -28,8 +31,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      repositoryClass="Lighthouse\CoreBundle\Document\Supplier\SupplierRepository"
  * )
  * @Unique(fields="name", message="lighthouse.validation.errors.supplier.name.unique")
+ *
+ * @SoftDeleteable
  */
-class Supplier extends AbstractDocument implements Organizationable
+class Supplier extends AbstractDocument implements Organizationable, SoftDeleteableDocument
 {
     const TYPE = 'Supplier';
 
@@ -110,6 +115,28 @@ class Supplier extends AbstractDocument implements Organizationable
      * @var BankAccount[]|Collection
      */
     protected $bankAccounts;
+
+    /**
+     * @MongoDB\Date
+     * @var DateTime
+     */
+    protected $deletedAt;
+
+    /**
+     * @return DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoftDeleteableName()
+    {
+        return 'name';
+    }
 
     /**
      * @return LegalDetails

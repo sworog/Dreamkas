@@ -1,11 +1,14 @@
-<div id="<%- id %>"
-     class="modal modal_supplier">
+<% var formId = id + '__form' %>
+
+<div id="<%- id %>" class="modal modal_supplier">
+
+    <% if (!deleted) { %>
 
     <div class="modal__header">
 
         <% if (referrer) { %>
 
-            <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+            <a data-modal-toggle="<%- referrer %>" class="modal__backLink fa fa-chevron-left"></a>
 
         <% } else { %>
 
@@ -13,7 +16,7 @@
 
         <% } %>
 
-        <button form="form_supplier"
+        <button form="<%- formId %>"
                 type="submit"
                 class="btn btn-primary pull-right">
             <%- supplierId != 0 ? 'Сохранить' : 'Добавить' %>
@@ -25,7 +28,29 @@
     </div>
     <div class="modal__body">
 
-        <b block="form_supplier"></b>
+        <b block="form_supplier"
+           data-id="<%- formId %>"></b>
 
     </div>
+
+    <% } else { %>
+
+    <div class="modal__body" style="text-align: center">
+        <h3 name="successRemoveTitle" style="padding-bottom: 20px;">
+            Поставщик удален
+        </h3>
+        <h4 name="removedSupplierName" style="padding-bottom: 60px;">
+            <%- models.supplier.get('name') %>
+        </h4>
+
+        <div style="padding-bottom: 30px;">
+            <a name="removeContinue" class="btn btn-primary modal__closeLink"
+               style="padding: 10px 30px;">
+                Продолжить работу
+            </a>
+        </div>
+    </div>
+
+    <% } %>
+
 </div>

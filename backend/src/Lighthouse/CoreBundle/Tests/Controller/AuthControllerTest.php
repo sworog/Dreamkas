@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use stdClass;
 
 class AuthControllerTest extends WebTestCase
 {
@@ -150,5 +152,38 @@ class AuthControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+    }
+
+    public function testNewRelicTransactionStartedOnRequestWithWrongToken()
+    {
+        $accessToken = new stdClass();
+        $accessToken->access_token = 'invalid';
+
+        $interactorMock = $this->getMockBuilder('Ekino\Bundle\NewRelicBundle\NewRelic\NewRelicInteractorInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $interactorMock
+            ->expects($this->once())
+            ->method('setApplicationName')
+            ->with('Dreamkas API test');
+
+        $interactorMock
+            ->expects($this->once())
+            ->method('setTransactionName')
+            ->with('get_products');
+
+        $this->client->addTweaker(function (ContainerInterface $container) use ($interactorMock) {
+            $container->set('ekino.new_relic.interactor', $interactorMock);
+        });
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products'
+        );
+
+        $this->assertResponseCode(401);
+        Assert::assertJsonPathEquals('The access token provided is invalid.', 'error_description', $response);
     }
 }

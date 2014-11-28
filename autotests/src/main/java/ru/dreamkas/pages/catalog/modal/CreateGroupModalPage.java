@@ -18,16 +18,13 @@ public class CreateGroupModalPage extends ModalWindowPage {
     @Override
     public void createElements() {
         put("name", new Input(this, "//*[@name='name']"));
-    }
-
-    @Override
-    public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить").click();
+        putDefaultConfirmationOkButton(
+                new PrimaryBtnFacade(this, "Добавить"));
     }
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_group']";
+        return "//*[contains(@id, 'modal_group') and contains(@class, 'modal_visible')]";
     }
 
     @Override

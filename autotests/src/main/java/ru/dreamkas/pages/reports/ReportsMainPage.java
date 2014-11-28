@@ -1,10 +1,12 @@
 package ru.dreamkas.pages.reports;
 
+import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.dreamkas.common.pageObjects.BootstrapPageObject;
 import ru.dreamkas.elements.items.NonType;
 
+@DefaultUrl("/reports")
 public class ReportsMainPage extends BootstrapPageObject {
 
     public ReportsMainPage(WebDriver driver) {
@@ -18,7 +20,8 @@ public class ReportsMainPage extends BootstrapPageObject {
 
     @Override
     public void createElements() {
-        put("stockBalanceReport", new NonType(this, By.xpath("//*[contains(text(), 'Остатки товаров')]/..")));
-        put("grossMarginSalesReport", new NonType(this, By.xpath("//*[contains(text(), 'Продажи и прибыль по товарам')]/..")));
+        put("stockBalanceReport", new NonType(this, By.xpath("//*[contains(text(), 'Остатки товаров')]")));
+        put("grossMarginSalesReport", new NonType(this, By.xpath("//*[contains(text(), 'Продажи и прибыль по товарам')]")));
+        put("Продажи и прибыль по сети", new NonType(this, By.xpath("//*[contains(text(), 'Продажи и прибыль по сети')]")));
     }
 }

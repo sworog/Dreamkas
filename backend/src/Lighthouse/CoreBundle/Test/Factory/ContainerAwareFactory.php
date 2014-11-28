@@ -3,7 +3,10 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\ClassNameable;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -25,9 +28,65 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNa
     /**
      * @return DocumentManager
      */
-    protected function getDocumentManager()
+    public function getDocumentManager()
     {
         return $this->container->get('doctrine_mongodb.odm.document_manager');
+    }
+
+    /**
+     * @return ExceptionalValidator
+     */
+    public function getValidator()
+    {
+        return $this->container->get('lighthouse.core.validator');
+    }
+
+    /**
+     * @return NumericFactory
+     */
+    public function getNumericFactory()
+    {
+        return $this->container->get('lighthouse.core.types.numeric.factory');
+    }
+
+    /**
+     * @return $this
+     */
+    public function flush()
+    {
+        $this->getDocumentManager()->flush();
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function clear()
+    {
+        $this->getDocumentManager()->clear();
+        return $this;
+    }
+
+    /**
+     * @param AbstractDocument $document
+     * @param bool $validate
+     */
+    protected function doSave($document, $validate = true)
+    {
+        if ($validate) {
+            $this->getValidator()->validate($document);
+        }
+        $this->getDocumentManager()->persist($document);
+        $this->getDocumentManager()->flush();
+    }
+
+    /**
+     * @param AbstractDocument $document
+     */
+    protected function doDelete($document)
+    {
+        $this->getDocumentManager()->remove($document);
+        $this->getDocumentManager()->flush();
     }
 
     /**

@@ -26,7 +26,7 @@ class SubCategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -51,7 +51,7 @@ class SubCategoryControllerTest extends WebTestCase
         $categoryId = $this->createCategory($groupId, 'Водка');
         $subCategoryId = $this->createSubCategory($categoryId, 'Безалкогольная водка');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -119,7 +119,7 @@ class SubCategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -293,7 +293,7 @@ class SubCategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         // Create first category
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -367,7 +367,7 @@ class SubCategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -403,7 +403,7 @@ class SubCategoryControllerTest extends WebTestCase
         $categoryId = $this->createCategory($groupId);
         $subCategoryId = $this->createSubCategory($categoryId);
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -423,7 +423,7 @@ class SubCategoryControllerTest extends WebTestCase
         $categoryId = $this->createCategory($groupId1, '1.1');
         $this->createSubCategory($categoryId, '1.1.1');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->client->setCatchException();
         $this->clientJsonRequest(
@@ -450,7 +450,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryId4 = $this->createSubCategory($categoryId2, '2.1.4');
         $subCategoryId5 = $this->createSubCategory($categoryId2, '2.1.5');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -485,7 +485,7 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesNotFound()
     {
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->client->setCatchException();
         $this->clientJsonRequest(
@@ -502,7 +502,7 @@ class SubCategoryControllerTest extends WebTestCase
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -521,7 +521,7 @@ class SubCategoryControllerTest extends WebTestCase
         $categoryId = $this->createCategory($groupId);
         $subCategoryId = $this->createSubCategory($categoryId);
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -591,38 +591,42 @@ class SubCategoryControllerTest extends WebTestCase
 
     public function testDeleteNotEmptySubCategory()
     {
-        $subCategoryId = $this->createSubCategory();
+        $subCategory = $this->factory()->catalog()->createSubCategory();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/subcategories/' . $subCategoryId
+            "/api/1/subcategories/{$subCategory->id}"
         );
 
         $this->assertResponseCode(200);
 
-        $productId = $this->createProduct('', $subCategoryId);
+        $product = $this->factory()->catalog()->createProductByName('1', $subCategory);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/subcategories/' . $subCategoryId . '/products'
+            "/api/1/subcategories/{$subCategory->id}/products"
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals($productId, '0.id', $response);
+        Assert::assertJsonPathEquals($product->id, '0.id', $response);
 
         $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/subcategories/' . $subCategoryId
+            "/api/1/subcategories/{$subCategory->id}"
         );
 
         $this->assertResponseCode(409);
-        Assert::assertJsonHasPath('message', $response);
+        Assert::assertJsonPathEquals(
+            'Чтобы удалить группу, нужно сначала удалить все товары в ней',
+            'message',
+            $response
+        );
     }
 
     /**

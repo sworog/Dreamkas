@@ -17,22 +17,17 @@ define(function(require, exports, module) {
         models: {
             group: null
         },
-        initialize: function(data){
+        render: function() {
+            var GroupModel = require('resources/group/model'),
+                model;
 
-            data = data || {};
-
-            if (typeof data.deleted === 'undefined'){
-                this.deleted = false;
+            if (this.groupId == 0) {
+                this.models.group = new GroupModel;
+            } else {
+                this.models.group = PAGE.models.group || PAGE.collections.groups.get(this.groupId) || new GroupModel;
             }
 
-            return Modal.prototype.initialize.apply(this, arguments);
-        },
-        render: function() {
-            var GroupModel = require('resources/group/model');
-
-            this.models.group = PAGE.models.group || PAGE.collections.groups.get(this.groupId) || new GroupModel;
-
-            Modal.prototype.render.apply(this, arguments);
+            return Modal.prototype.render.apply(this, arguments);
         },
         hide: function() {
 
@@ -46,12 +41,12 @@ define(function(require, exports, module) {
             router.navigate('/catalog', { replace: true });
         },
         blocks: {
-            form_group: function() {
+            form_group: function(options) {
                 var Form_group = require('blocks/form/group/group');
 
-                return new Form_group({
-                    model: this.models.group
-                });
+                options.model = this.models.group;
+
+                return new Form_group(options);
             }
         }
     });

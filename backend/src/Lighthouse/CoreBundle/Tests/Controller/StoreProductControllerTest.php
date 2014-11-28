@@ -38,7 +38,7 @@ class StoreProductControllerTest extends WebTestCase
             User::ROLE_STORE_MANAGER
         );
 
-        $this->productId = $this->createProduct();
+        $this->productId = $this->createProductByName();
         $this->storeId = $this->factory()->store()->getStoreId();
 
         $this->factory()->store()->linkStoreManagers($this->storeManager->id, $this->storeId);

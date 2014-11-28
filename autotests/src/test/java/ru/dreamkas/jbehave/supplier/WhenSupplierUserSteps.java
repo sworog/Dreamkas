@@ -1,6 +1,7 @@
 package ru.dreamkas.jbehave.supplier;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import ru.dreamkas.steps.supplier.SupplierSteps;
@@ -11,6 +12,7 @@ public class WhenSupplierUserSteps {
     SupplierSteps supplierSteps;
 
     @When("the user clicks on the add new supplier create button")
+    @Alias("пользователь нажимает на кнопку создать поставщика")
     public void whenTheUserClicksOnTheAddNewSupplierCreateButton() {
         supplierSteps.addNewSupplierButtonClick();
     }
@@ -46,6 +48,7 @@ public class WhenSupplierUserSteps {
     }
 
     @When("the user clicks on the supplier with name '$name'")
+    @Alias("пользователь нажимает на поставщика с именем '$name'")
     public void whenTheUserClicksOnTheSupplierWithName(String name) {
         supplierSteps.clickOnTheSupplierWithName(name);
     }

@@ -3,16 +3,23 @@ define(function(require, exports, module) {
     var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
+        id: 'modal_store',
         storeId: 0,
         template: require('ejs!./template.ejs'),
-        blocks: {
-            form_store: function(){
-                var block = this,
-                    Form_store = require('blocks/form/store/store');
+        models: {
+            store: function(){
+                var StoreModel = require('resources/store/model');
 
-                return new Form_store({
-                    storeId: block.storeId
-                });
+                return PAGE.get('collections.stores').get(this.storeId) || new StoreModel;
+            }
+        },
+        blocks: {
+            form_store: function(options) {
+                var Form_store = require('blocks/form/store/store');
+
+                options.storeId = this.storeId;
+
+                return new Form_store(options);
             }
         }
     });

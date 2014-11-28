@@ -2,17 +2,24 @@ package ru.dreamkas.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
+import ru.dreamkas.common.item.interfaces.CommonItemType;
+import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.GeneralPageObject;
+import ru.dreamkas.elements.items.SelectByVisibleText;
+import ru.dreamkas.pages.MenuNavigationBar;
 import ru.dreamkas.pages.pos.PosLaunchPage;
 import ru.dreamkas.pages.pos.PosPage;
 import ru.dreamkas.pages.pos.PosSaleHistoryPage;
 import ru.dreamkas.pages.pos.ReceiptElement;
 import ru.dreamkas.pages.reports.ReportsMainPage;
-import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByProductsReportPage;
 import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByGroupsReportPage;
-import ru.dreamkas.pages.reports.storesGrossMarginSales.StoresGrossMarginSalesReportPage;
+import ru.dreamkas.pages.reports.goodsGrossMarginSales.GoodsGrossMarginSalesByProductsReportPage;
 import ru.dreamkas.pages.reports.stockBalance.StockBalanceReport;
+import ru.dreamkas.pages.reports.storesGrossMarginSales.StoresGrossMarginSalesReportPage;
 import ru.dreamkas.pages.stockMovement.StockMovementPage;
+import ru.dreamkas.pages.store.StoreListPage;
+import ru.dreamkas.pages.supplier.SupplierListPage;
+import ru.dreamkas.pages.user.Settings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +42,10 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("отчета по продажам и прибыли по товарам внутри группы", GoodsGrossMarginSalesByProductsReportPage.class);
             put("отчета по продажам и прибыли по товарам группы", GoodsGrossMarginSalesByGroupsReportPage.class);
             put("отчета по продажам и прибыли по сети", StoresGrossMarginSalesReportPage.class);
+            put("c боковой навигацией", MenuNavigationBar.class);
+            put("настроек пользователя", Settings.class);
+            put("списка поставщиков", SupplierListPage.class);
+            put("списка магазинов", StoreListPage.class);
         }};
     }
 
@@ -101,7 +112,45 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     }
 
     @Step
+    public void assertCommonItemCssValue(String commonItemName, String cssValue, String value) {
+        assertThat(
+                getCurrentPageObject().getCommonItemCssValue(commonItemName, cssValue),
+                is(value));
+    }
+
+    @Step
     public void clickOnCommonItemWihName(String commonItemName) {
         getCurrentPageObject().clickOnCommonItemWihName(commonItemName);
+    }
+
+    @Step
+    public void openPage() {
+        getCurrentPageObject().open();
+    }
+
+    @Step
+    public void collectionNotContainObjectWithLocator(String locator) {
+        getCurrentPageObject().collectionNotContainObjectWithLocator(locator);
+    }
+
+    @Step
+    public void collectionContainObjectWithLocator(String locator) {
+        getCurrentPageObject().collectionContainObjectWithLocator(locator);
+    }
+
+    @Step
+    public void selectNotContainExactlyOption(String elementName, String value) {
+        CommonItemType commonItemType = (((CommonPageObject) getCurrentPageObject()).getItems().get(elementName));
+        assertThat(
+                ((SelectByVisibleText) commonItemType).containsExactlyOption(value),
+                is(false));
+    }
+
+    @Step
+    public void selectNotContainOption(String elementName, String value) {
+        CommonItemType commonItemType = (((CommonPageObject) getCurrentPageObject()).getItems().get(elementName));
+        assertThat(
+                ((SelectByVisibleText) commonItemType).containsOption(value),
+                is(false));
     }
 }

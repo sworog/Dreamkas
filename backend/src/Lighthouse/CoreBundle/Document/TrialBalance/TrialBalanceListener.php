@@ -223,7 +223,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $oldAcceptanceDate = $changeSet['date'][0];
         $newAcceptanceDate = $changeSet['date'][1];
 
-        /* @var \Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $invoice->products;
         $trialBalances = $this->trialBalanceRepository->findByStockMovementProducts($invoiceProducts);
 

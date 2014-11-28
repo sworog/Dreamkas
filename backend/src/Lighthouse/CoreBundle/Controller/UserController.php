@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use JMS\SecurityExtraBundle\Annotation\PreAuthorize;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
@@ -11,6 +12,8 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\User\CurrentUserType;
+use Lighthouse\CoreBundle\Form\User\UserChangePasswordModel;
+use Lighthouse\CoreBundle\Form\User\UserChangePasswordType;
 use Lighthouse\CoreBundle\Form\User\UserRestorePasswordType;
 use Lighthouse\CoreBundle\Form\User\UserType;
 use Lighthouse\CoreBundle\Security\PermissionExtractor;
@@ -57,7 +60,7 @@ class UserController extends AbstractRestController
     protected $permissionExtractor;
 
     /**
-     * @return \Lighthouse\CoreBundle\Form\User\UserType
+     * @return UserType
      */
     protected function getDocumentFormType()
     {
@@ -217,6 +220,30 @@ class UserController extends AbstractRestController
             return array('email' => $email);
         }
         return $form;
+    }
+
+    /**
+     * @Rest\Route("users/current/changePassword")
+     * @Rest\View
+     * @PreAuthorize("isFullyAuthenticated()")
+     * @param Request $request
+     * @return FormInterface|User
+     */
+    public function postUsersCurrentChangePasswordAction(Request $request)
+    {
+        $userProvider = $this->userProvider;
+        $user = $this->securityContext->getToken()->getUser();
+        return $this->processFormCallback(
+            $request,
+            function (UserChangePasswordModel $formModel) use ($userProvider, $user) {
+                $userProvider->updateUserWithPassword($user, $formModel->newPassword);
+                return $user;
+            },
+            new UserChangePasswordModel($user),
+            new UserChangePasswordType(),
+            true,
+            false
+        );
     }
 
     /**

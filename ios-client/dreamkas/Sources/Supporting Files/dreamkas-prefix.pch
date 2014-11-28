@@ -37,6 +37,8 @@
 
 #import "NSDate+Utilities.h"
 #import "UIView+Positioning.h"
+#import "NSString+CaseMethods.h"
+#import "PriceNumberFormatter.h"
 
 //
 // Модели и их обработчики
@@ -45,6 +47,11 @@
 #import "AbstractModel.h"
 #import "AbstractModel+Mapper.h"
 #import "StoreModel.h"
+#import "ProductModel.h"
+#import "GroupModel.h"
+#import "SaleItemModel.h"
+#import "SaleItemModel+Helper.h"
+#import "SaleModel.h"
 
 //
 // Менеджеры и хэлперы
@@ -55,12 +62,14 @@
 #import "CurrentUserHelper.h"
 #import "DeviceInfoHelper.h"
 #import "DialogHelper.h"
+#import "CountSaleHelper.h"
 
 //
 // Вспомогательные протоколы
 //
 
 #import "CustomDataCellDelegate.h"
+#import "KeyboardEventsListenerProtocol.h"
 
 //
 // Сетевой обмен
@@ -74,11 +83,13 @@
 // Кастомные компоненты
 //
 
-#import "CustomNavigationController.h"
+#import "AbstractNavigationController.h"
 
 #import "AbstractViewController.h"
 #import "AbstractViewController+Modal.h"
 #import "AbstractViewController+Sidemenu.h"
+#import "AbstractViewController+Keyboard.h"
+#import "AbstractViewController+ActionButton.h"
 
 #import "AbstractTableViewController.h"
 
@@ -88,5 +99,6 @@
 #import "CustomEmptyButton.h"
 #import "CustomTextField.h"
 #import "CustomTableViewCell.h"
+#import "ActionButton.h"
 
 #endif
