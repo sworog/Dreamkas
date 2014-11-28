@@ -7,11 +7,14 @@ define(function(require, exports, module) {
         collection: function() {
             return PAGE.collections.cashFlows;
         },
+        filtered: false,
         events: {
             'update .inputDateRange': function(e, data){
 
                 e.target.classList.add('loading');
                 PAGE.setParams(data);
+
+                this.filtered = true;
 
                 this.collection.fetch({
                     filters: data
