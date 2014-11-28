@@ -8,6 +8,7 @@
 
 #import "LogInViewController.h"
 #import "CustomNavigationBar.h"
+#import "ModalViewController.h"
 
 #define PasswordMinLength 6
 
@@ -89,8 +90,11 @@
              // если авторизация прошла успешно - запоминаем данные пользователя
              [CurrentUser updateLastUsedLogin:self.loginField.text
                              lastUsedPassword:self.passwordField.text];
-             
-             [strong_self performSegueWithIdentifier:LogInToTicketWindowSegueName sender:self];
+
+             ModalViewController *modal_vc = (ModalViewController *)self.navigationController.parentViewController;
+             [modal_vc hideContainerView:^(BOOL finished) {
+                 [modal_vc.navigationController pushViewController:ControllerById(TicketWindowViewControllerID) animated:YES];
+             }];
          }
          else {
              [DialogHelper showRequestError];

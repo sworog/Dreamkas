@@ -246,7 +246,7 @@
         <!--Ticket Window View Controller-->
         <scene sceneID="rvi-NM-cK3">
             <objects>
-                <viewController id="5OE-V6-ayr" customClass="TicketWindowViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TicketWindowViewControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5OE-V6-ayr" customClass="TicketWindowViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bFc-hP-10v"/>
                         <viewControllerLayoutGuide type="bottom" id="Nbr-SD-UcX"/>

@@ -89,7 +89,8 @@
         [self.containerView setY:HiddenContainerYPosition];
     } completion:^(BOOL finished) {
         DPLogFast(@"finished hideContainerView");
-        completion(finished);
+        if (completion)
+            completion(finished);
     }];
 }
 
