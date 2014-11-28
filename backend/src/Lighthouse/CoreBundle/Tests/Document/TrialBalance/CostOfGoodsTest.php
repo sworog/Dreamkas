@@ -24,32 +24,32 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testIndexRangeCreatedOnInvoiceConsecutiveInsert()
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore('701');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-12 12:23:13'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 105.678, 16.36)
-                ->createInvoiceProduct($productIds['3'], 320, 178.34)
+                ->createInvoiceProduct($products['1']->id, 105.678, 16.36)
+                ->createInvoiceProduct($products['3']->id, 320, 178.34)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-13 19:56:04'), $store->id)
-                ->createInvoiceProduct($productIds['2'], 45.04, 189.67)
-                ->createInvoiceProduct($productIds['3'], 115.12, 176.51)
+                ->createInvoiceProduct($products['2']->id, 45.04, 189.67)
+                ->createInvoiceProduct($products['3']->id, 115.12, 176.51)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-13 20:03:14'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 111.67, 201.15)
-                ->createInvoiceProduct($productIds['3'], 115, 176.51)
+                ->createInvoiceProduct($products['1']->id, 111.67, 201.15)
+                ->createInvoiceProduct($products['3']->id, 115, 176.51)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-14 08:15:31'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 300.01, 201.15)
+                ->createInvoiceProduct($products['1']->id, 300.01, 201.15)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        foreach ($productIds as $productId) {
-            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        foreach ($products as $product) {
+            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $product->id);
             $prevEndIndex = '0.000';
             $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
@@ -66,56 +66,56 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testIndexRangeCreatedOnSaleConsecutiveInsert()
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore('701');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-10 12:23:13'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 16.36, 10.09)
-                ->createInvoiceProduct($productIds['2'], 10.067, 29.56)
-                ->createInvoiceProduct($productIds['3'], 20, 30.05)
+                ->createInvoiceProduct($products['1']->id, 16.36, 10.09)
+                ->createInvoiceProduct($products['2']->id, 10.067, 29.56)
+                ->createInvoiceProduct($products['3']->id, 20, 30.05)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-11 13:45:09')
-                ->createReceiptProduct($productIds['1'], 9.102, 12.11)
-                ->createReceiptProduct($productIds['3'], 7, 34.12)
-                ->createReceiptProduct($productIds['3'], 1, 34.12)
+                ->createReceiptProduct($products['1']->id, 9.102, 12.11)
+                ->createReceiptProduct($products['3']->id, 7, 34.12)
+                ->createReceiptProduct($products['3']->id, 1, 34.12)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-12 15:45:09')
-                ->createReceiptProduct($productIds['2'], 2.056, 34.99)
-                ->createReceiptProduct($productIds['3'], 6, 35.15)
+                ->createReceiptProduct($products['2']->id, 2.056, 34.99)
+                ->createReceiptProduct($products['3']->id, 6, 35.15)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-12 15:45:10', 110.23)
-                ->createReceiptProduct($productIds['1'], 4.56, 11.49)
-                ->createReceiptProduct($productIds['3'], 2, 35.15)
+                ->createReceiptProduct($products['1']->id, 4.56, 11.49)
+                ->createReceiptProduct($products['3']->id, 2, 35.15)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $countAssertions = array(
-            $productIds['1'] => 2,
-            $productIds['2'] => 1,
-            $productIds['3'] => 4,
+            '1' => 2,
+            '2' => 1,
+            '3' => 4,
         );
 
-        foreach ($productIds as $productId) {
-            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        foreach ($products as $name => $product) {
+            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $product->id);
             $prevEndIndex = '0.000';
             $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
                 SaleProduct::TYPE
             );
-            $this->assertEquals($countAssertions[$productId], $trailBalances->count(true));
+            $this->assertEquals($countAssertions[$name], $trailBalances->count(true));
             foreach ($trailBalances as $trailBalance) {
                 $this->assertInstanceOf(Quantity::getClassName(), $trailBalance->startIndex);
                 $this->assertSame($prevEndIndex, $trailBalance->startIndex->toString());

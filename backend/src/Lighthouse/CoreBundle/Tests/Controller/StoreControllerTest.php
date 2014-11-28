@@ -41,7 +41,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $this->factory()->store()->getStoreId("42");
+        $this->factory()->store()->getStore('42');
 
         $storeData = array(
             'name' => '42',

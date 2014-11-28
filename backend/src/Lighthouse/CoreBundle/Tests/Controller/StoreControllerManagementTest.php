@@ -555,7 +555,7 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStoreNotFound()
     {
-        $this->factory()->store()->getStoreId();
+        $this->factory()->store()->getStore();
         $storeUser1 = $this->factory()->user()->getUser('storeUser1@lh.pro', 'password', User::ROLE_STORE_MANAGER);
 
         $accessToken = $this->factory()->oauth()->auth($storeUser1);
@@ -577,7 +577,7 @@ class StoreControllerManagementTest extends WebTestCase
      */
     public function testGetUserStoreForbidden($role)
     {
-        $this->factory()->store()->getStoreId();
+        $this->factory()->store()->getStore();
         $storeUser1 = $this->factory()->user()->getUser('user1@lh.pro', 'password', $role);
 
         $accessToken = $this->factory()->oauth()->auth($storeUser1);

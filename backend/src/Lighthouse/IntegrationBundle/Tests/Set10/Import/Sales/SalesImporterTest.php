@@ -52,7 +52,7 @@ class SalesImporterTest extends WebTestCase
     {
         $this->markTestSkipped("Return required sale, but set10 not required");
 
-        $this->factory()->store()->getStoreId('197');
+        $this->factory()->store()->getStore('197');
         $this->factory()->catalog()->getProductByNames(
             array(
                 '10001',
@@ -83,7 +83,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportWithNotFoundShops()
     {
-        $this->factory()->store()->getStoreId('777');
+        $this->factory()->store()->getStore('777');
         $this->factory()->catalog()->getProductByNames(
             array(
                 'Кит-Кат-343424',
