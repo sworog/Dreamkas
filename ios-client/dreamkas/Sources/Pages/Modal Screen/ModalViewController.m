@@ -49,7 +49,7 @@
     [super viewWillAppear:animated];
     
     // вызываем вручную (!?idk)
-    [self.containerNavigationController viewWillAppear:animated];
+    [self.viewControllerForNavigationController viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -60,7 +60,7 @@
     [self showContainerView];
     
     // вызываем вручную (!?idk)
-    [self.containerNavigationController viewDidAppear:animated];
+    [self.viewControllerForNavigationController viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -68,7 +68,7 @@
     [super viewWillDisappear:animated];
     
     // вызываем вручную (!?idk)
-    [self.containerNavigationController viewWillDisappear:animated];
+    [self.viewControllerForNavigationController viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -76,7 +76,7 @@
     [super viewDidDisappear:animated];
     
     // вызываем вручную (!?idk)
-    [self.containerNavigationController viewDidDisappear:animated];
+    [self.viewControllerForNavigationController viewDidDisappear:animated];
 }
 
 #pragma mark - Работа с контейнером контроллера

@@ -111,8 +111,8 @@
         return;
     }
     
-    // устанавливаем (по необходимости) кнопку возврата назад
-    if ([self.navigationController.viewControllers count] != 1) {
+    // устанавливаем по необходимости кнопку возврата назад
+    if ([self.navigationController.viewControllers count] > 1) {
         [self initBackButton];
     }
     
