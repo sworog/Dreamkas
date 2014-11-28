@@ -476,12 +476,12 @@ class CashFlowControllerTest extends WebTestCase
             'empty query' => array(
                 array(),
                 array(
+                    'cashFlow3',
                     'cashFlow1',
                     'cashFlow2',
-                    'cashFlow3',
-                    'cashFlow4',
-                    'cashFlow5',
                     'cashFlow6',
+                    'cashFlow5',
+                    'cashFlow4',
                     'cashFlow7',
                     'cashFlow8'
                 )
