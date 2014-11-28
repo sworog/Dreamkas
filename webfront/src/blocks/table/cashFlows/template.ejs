@@ -1,5 +1,3 @@
-<% if (sortedCollection.length) { %>
-
 <div class="panel">
     <div class="panel-body">
 
@@ -8,6 +6,12 @@
                data-date-from="<%- PAGE.params.dateFrom %>"
                data-date-to="<%- PAGE.params.dateTo %>"></b>
         </div>
+
+        <% if (!sortedCollection.length) { %>
+        <div class="alert alert-info">
+            Вы не произвели ни одной операции с деньгами за выбранный период.
+        </div>
+        <% } else { %>
 
         <table style="margin-bottom: 0"
                class="table table_cashFlows table-hover table-striped">
@@ -35,8 +39,7 @@
                 var isOutDirection = (cashFlow.get('direction') == 'out');
             %>
 
-
-            <tr>
+            <tr data-date="<%- formatDate(cashFlow.get('date')) %>">
 
                 <% if (dateRowSpan) { %>
 
@@ -63,13 +66,7 @@
 
             </tbody>
         </table>
+
+        <% } %>
     </div>
 </div>
-
-<% } else { %>
-
-<div class="alert alert-info">
-    Вы не произвели ни одной операции с деньгами
-</div>
-
-<% } %>
