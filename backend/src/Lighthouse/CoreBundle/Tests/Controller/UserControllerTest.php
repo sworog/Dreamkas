@@ -724,6 +724,7 @@ class UserControllerTest extends WebTestCase
             User::ROLE_DEPARTMENT_MANAGER => array(
                 User::ROLE_DEPARTMENT_MANAGER,
                 array(
+                    'cashFlows' => array(),
                     'catalog/groups' => array(),
                     'categories' => array(),
                     'categories/{category}/subcategories' => array(),
@@ -838,6 +839,7 @@ class UserControllerTest extends WebTestCase
             User::ROLE_STORE_MANAGER => array(
                 User::ROLE_STORE_MANAGER,
                 array(
+                    'cashFlows' => array(),
                     'catalog/groups' => array(),
                     'categories' => array(),
                     'categories/{category}/subcategories' => array(),
@@ -924,6 +926,12 @@ class UserControllerTest extends WebTestCase
             User::ROLE_COMMERCIAL_MANAGER => array(
                 User::ROLE_COMMERCIAL_MANAGER,
                 array(
+                    'cashFlows' => array(
+                        'GET',
+                        'GET::{cashFlow}',
+                        'POST',
+                        'PUT::{cashFlow}',
+                    ),
                     'catalog/groups' => array(
                         'DELETE::{catalogGroup}',
                         'GET',
@@ -1086,6 +1094,7 @@ class UserControllerTest extends WebTestCase
             User::ROLE_ADMINISTRATOR => array(
                 User::ROLE_ADMINISTRATOR,
                 array(
+                    'cashFlows' => array(),
                     'catalog/groups' => array(),
                     'categories' => array(),
                     'categories/{category}/subcategories' => array(),
