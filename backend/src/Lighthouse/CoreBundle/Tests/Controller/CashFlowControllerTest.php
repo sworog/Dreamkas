@@ -150,8 +150,8 @@ class CashFlowControllerTest extends WebTestCase
             $cashFlows[$i] = array(
                 'direction' => $i%2?'in':'out',
                 'date' => date('Y-m-d\Th:i:sO', strtotime("-{$i}")),
-                'amount' => 3344.22*($i+1),
-                'comment' => 'Жизнь тлен ' . $i
+                'amount' => 3344*($i+1),
+                'comment' => 'Comment for cash flow item ' . $i
             );
 
             $postResponse = $this->clientJsonRequest(
@@ -176,7 +176,7 @@ class CashFlowControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(5, '*.id', $getResponse);
         for ($i = 0; $i < 5; $i++) {
-            Assert::assertJsonPathEquals($cashFlows[$i], $i, $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i], 4-$i, $getResponse);
         }
     }
 
