@@ -38,23 +38,33 @@
 }
 
 /*
- * Создание слоя с размытым изображением экрана.
+ * Создание слоя с размытым изображением экрана
  */
 - (UIView*)createBlurredView
 {
     UIView *blurred_view = [[UIView alloc] initWithFrame:self.view.bounds];
+    UIImageView *image_view = [[UIImageView alloc] initWithFrame:self.view.bounds];
     
-    UIImageView *blurred_image_view = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    // эффект blur для iOS 8
+    if (NSClassFromString(@"UIVisualEffectView") != nil) {
+        image_view.image = self.view.imageRepresentation;
+        [blurred_view addSubview:image_view];
+        
+        UIVisualEffectView *visual_effect_view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+        visual_effect_view.frame = self.view.bounds;
+        [blurred_view addSubview:visual_effect_view];
+        return blurred_view;
+    }
     
+    // эффект blur для iOS 7
     UIColor *tintColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     //blurred_image_view.image = self.view.imageRepresentation;
-    blurred_image_view.image = [self.view.imageRepresentation applyBlurWithRadius:8
-                                                                        tintColor:tintColor
-                                                            saturationDeltaFactor:1.8
-                                                                        maskImage:nil];
+    image_view.image = [self.view.imageRepresentation applyBlurWithRadius:8
+                                                                tintColor:tintColor
+                                                    saturationDeltaFactor:1.8
+                                                                maskImage:nil];
     
-    [blurred_view addSubview:blurred_image_view];
-    
+    [blurred_view addSubview:image_view];
     return blurred_view;
 }
 
