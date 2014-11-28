@@ -14,6 +14,7 @@ class DataAwareTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param array $names
      * @param bool $unique
      * @throws \PHPUnit_Framework_AssertionFailedError

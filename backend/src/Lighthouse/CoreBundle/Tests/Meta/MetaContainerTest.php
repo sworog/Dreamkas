@@ -112,7 +112,7 @@ class MetaContainerTest extends WebTestCase
     
     public function testCollectionWithMultiMetaGenerators()
     {
-        $this->createProductsByNames(array('1', '2', '3'));
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
             '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
