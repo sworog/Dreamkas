@@ -45,6 +45,7 @@ class CashFlow extends AbstractDocument
     /**
      * @MongoDB\Field(type="money")
      * @LighthouseAssert\Money(
+     *      notBlank=true,
      *      messagePrecision="lighthouse.validation.errors.amount.precision",
      *      messageNegative="lighthouse.validation.errors.amount.negative",
      *      messageMax="lighthouse.validation.errors.amount.max",

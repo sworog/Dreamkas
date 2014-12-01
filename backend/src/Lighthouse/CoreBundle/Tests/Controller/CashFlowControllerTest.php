@@ -213,7 +213,7 @@ class CashFlowControllerTest extends WebTestCase
     {
         return array(
             /***********************************************************************************************
-             * 'amount'
+             * 'direction'
              ***********************************************************************************************/
             'valid direction in' => array(
                 201,
@@ -301,13 +301,14 @@ class CashFlowControllerTest extends WebTestCase
                 201,
                 array('amount' => '10,89'),
             ),
-            'empty amount' => array(
-                201,
+            'not valid empty amount' => array(
+                400,
+                array('amount' => '',),
                 array(
-                    'amount' => '',
-
+                    'errors.children.amount.errors.0'
+                    =>
+                        'Заполните это поле'
                 ),
-                array('amount' => null),
             ),
             'not valid amount very float' => array(
                 400,
