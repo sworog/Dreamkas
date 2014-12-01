@@ -489,4 +489,29 @@ class CashFlowControllerTest extends WebTestCase
             )
         );
     }
+
+    public function testDeleteCashFlowAction()
+    {
+        $cashFlow = $this->factory()->cashFlow()->createCashFlow();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/cashFlows/{$cashFlow->id}"
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertEmpty($deleteResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/cashFlows/{$cashFlow->id}"
+        );
+
+        $this->assertResponseCode(404);
+    }
 }
