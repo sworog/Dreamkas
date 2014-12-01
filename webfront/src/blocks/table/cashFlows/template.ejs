@@ -1,5 +1,11 @@
+<div class="table_cashFlows">
+
+<% if (sortedCollection.length) { %>
+
+<b block="total"></b>
+
 <table style="margin-bottom: 0"
-       class="table table_cashFlows table-hover table-striped">
+       class="table table-hover table-striped">
     <thead>
     <tr>
         <th>
@@ -23,7 +29,6 @@
         var dateRowSpan = (index === 0) ? cashFlows.length : null;
         var isOutDirection = (cashFlow.get('direction') == 'out');
     %>
-
 
     <tr>
 
@@ -52,3 +57,13 @@
 
     </tbody>
 </table>
+
+<% } else { %>
+
+<div class="alert alert-info">
+    Вы не произвели ни одной операции с деньгами
+</div>
+
+<% } %>
+
+</div>

@@ -16,9 +16,6 @@
 <div class="page__content">
     <div class="row">
         <div class="col-md-12">
-
-            <% if (collections.cashFlows.length) { %>
-
             <div class="panel">
                 <div class="panel-body">
 
@@ -28,21 +25,10 @@
                            data-date-to="<%- params.dateTo %>"></b>
                     </div>
 
-                    <b block="total"></b>
-
                     <b block="table_cashFlows"></b>
 
                 </div>
             </div>
-
-            <% } else { %>
-
-            <div class="alert alert-info">
-                Вы не произвели ни одной операции с деньгами
-            </div>
-
-            <% } %>
-
         </div>
     </div>
 </div>
