@@ -11,7 +11,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- *
+ * @property string $id
+ * @property DateTime $date
+ * @property string $direction
+ * @property Money $amount
+ * @property string $comment
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\CashFlow\CashFlowRepository")
  */
@@ -41,6 +45,7 @@ class CashFlow extends AbstractDocument
     /**
      * @MongoDB\Field(type="money")
      * @LighthouseAssert\Money(
+     *      notBlank=true,
      *      messagePrecision="lighthouse.validation.errors.amount.precision",
      *      messageNegative="lighthouse.validation.errors.amount.negative",
      *      messageMax="lighthouse.validation.errors.amount.max",
