@@ -1,5 +1,5 @@
 require.config({
-
+    
     paths: {
         'moment': 'bower_components/momentjs/moment',
         'jquery': 'bower_components/jquery/dist/jquery',

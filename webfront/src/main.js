@@ -1,5 +1,7 @@
 require({
     baseUrl: '/'
 }, ['require.config'], function() {
-    require(['app']);
+    setTimeout(function(){
+        require(['app']);
+    }, 0);
 });
