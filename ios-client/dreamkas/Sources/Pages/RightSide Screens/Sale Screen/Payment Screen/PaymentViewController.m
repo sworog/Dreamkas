@@ -30,6 +30,8 @@
     self.secondLabel.font = DefaultFont(12);
     self.firstLabel.textColor =
     self.secondLabel.textColor = [DefaultBlackColor colorWithAlphaComponent:0.54];
+    
+    [self.payButton setEnabled:NO];
 }
 
 #pragma mark - Configuration Methods
@@ -51,9 +53,56 @@
     // ..
 }
 
+#pragma mark - Методы UITextfield Delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    DPLogFast(@"");
+    DPLogFast(@"string = %@", string);
+    
+    NSMutableString *new_string = [NSMutableString stringWithString:textField.text];
+    
+//    // запрещаем ввод не разрешенных символов
+//    NSCharacterSet *not_allowed_charactes = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789.,"] invertedSet];
+//    if ([string rangeOfCharacterFromSet:not_allowed_charactes].location != NSNotFound) {
+//        return NO;
+//    }
+    
+    [new_string replaceCharactersInRange:range withString:string];
+    if ([ValidationHelper isPriceValid:new_string] == NO) {
+//        return NO;
+    }
+    
+    DPLogFast(@"new_string = %@", new_string);
+    [self.payButton setEnabled:YES];
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    DPLogFast(@"");
+    
+    [self.payButton setEnabled:NO];
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    DPLogFast(@"");
+    
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)nextButtonClicked:(id)sender
+- (IBAction)payButtonClicked:(id)sender
+{
+    DPLogFast(@"");
+}
+
+- (IBAction)payByUsingCardClicked:(id)sender
 {
     DPLogFast(@"");
 }

@@ -73,13 +73,40 @@
     NSRegularExpression *emailRegex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{1,9})$"
                                                                                 options:NSRegularExpressionCaseInsensitive
                                                                                   error:&myError];
-    NSUInteger number_of_matches = [emailRegex numberOfMatchesInString: email
+    NSUInteger number_of_matches = [emailRegex numberOfMatchesInString:email
                                                                options:0
                                                                  range:NSMakeRange(0, [email length]-1)];
     if (myError)
         NSLog(@"email regex error: %@", [myError description]);
     
     //NSLog(@"numberOfMatchesEmails = %d", number_of_matches);
+    return (number_of_matches > 0);
+}
+
++ (BOOL)isPriceValid:(NSString*)price
+{
+    //
+    // PRICE FORMAT: 99000000,00 or 6.35 or .075
+    //
+    
+    if ([price length] < 1)
+        return NO;
+    
+    NSError *myError = nil;
+    NSString *regex = [NSString stringWithFormat:@"^(\\d{1,%d}([.]\\d{1,%d})?|[.]\\d{1,%d})$", DigitsBeforeDotInPrices, DigitsAfterDotInPrices, DigitsAfterDotInPrices];
+    NSLog(@"regex = %@", regex);
+    NSLog(@"price = %@<=", price);
+    
+    NSRegularExpression *priceRegex = [NSRegularExpression regularExpressionWithPattern:@"\\d*[.]?\\d+"
+                                                                                options:NSRegularExpressionCaseInsensitive
+                                                                                  error:&myError];
+    NSUInteger number_of_matches = [priceRegex numberOfMatchesInString:price
+                                                               options:0
+                                                                 range:NSMakeRange(0, [price length])];
+    if (myError)
+        NSLog(@"price regex error: %@", [myError description]);
+    
+    NSLog(@"number of matches for price = %d", number_of_matches);
     return (number_of_matches > 0);
 }
 
