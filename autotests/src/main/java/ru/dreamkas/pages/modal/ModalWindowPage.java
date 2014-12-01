@@ -29,7 +29,7 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     public abstract String modalWindowXpath();
 
     public String getTitle() {
-        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal-title']")).getText();
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal__title']")).getText();
     }
 
     protected void putDefaultConfirmationOkButton(CommonItemType commonItemType) {
