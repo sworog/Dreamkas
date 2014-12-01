@@ -57,7 +57,6 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
     public ProgressDialog progressDialog;
     private PreferencesManager preferences;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
