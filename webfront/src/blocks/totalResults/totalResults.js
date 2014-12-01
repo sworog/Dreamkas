@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             result: function() {
 
                 var block = this,
-                    model = this.models.result;
+                    model = this.model;
 
                 block.listenTo(model, {
                     change: function() {

@@ -6,6 +6,10 @@ define(function(require, exports, module) {
 
     return Model.extend({
         url: Model.baseApiUrl + '/reports/cashFlows',
-        id: 'id'
+        defaults: {
+            in: 0,
+            out: 0,
+            balance: 0
+        }
     });
 });

@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 				profitModel.filters = {
 					dateFrom: page.params.dateFrom,
 					dateTo: page.formatDate(moment(page.params.dateTo, 'DD.MM.YYYY').add(1, 'days'))
-				}
+				};
 
 				return profitModel;
 			}
@@ -24,9 +24,7 @@ define(function(require, exports, module) {
 				var block = this,
 					TotalResults = require('blocks/totalResults/totalResults');
 
-				options.models = {
-					result: block.models.profit
-				};
+				options.model = block.models.profit;
 
 				options.caption1 = 'Продажи по сети';
 				options.field1 = 'grossSales';

@@ -38,11 +38,20 @@ define(function(require, exports, module) {
         collections: {
             cashFlows: function() {
                 var page = this,
-                    CashFlowsCollection = require('resources/cashFlow/collection');
+                    CashFlowsCollection = require('resources/cashFlow/collection'),
+                    cashFlows;
 
-                return new CashFlowsCollection([], {
-                    filters: _.pick(page.params, 'dateFrom', 'dateTo', 'types')
+                cashFlows = new CashFlowsCollection([], {
+                    filters: _.pick(page.params, 'dateFrom', 'dateTo')
                 });
+
+                page.listenTo(cashFlows, {
+                    'change add remove reset': function() {
+                        page.calculateTotal();
+                    }
+                });
+
+                return cashFlows;
             }
         },
         blocks: {
@@ -53,9 +62,7 @@ define(function(require, exports, module) {
                 var block = this,
                     TotalResults = require('blocks/totalResults/totalResults');
 
-                options.models = {
-                    result: block.models.total
-                };
+                options.model = block.models.total;
 
                 options.caption1 = 'Приход';
                 options.field1 = 'in';
@@ -69,12 +76,37 @@ define(function(require, exports, module) {
                 return new TotalResults(options);
             }
         },
-        initialize: function(){
+        initialize: function() {
+            var page = this;
 
-            this.params.dateTo = this.get('params.dateTo');
-            this.params.dateFrom = this.get('params.dateFrom');
+            page.params.dateTo = page.get('params.dateTo');
+            page.params.dateFrom = page.get('params.dateFrom');
 
-            return Page.prototype.initialize.apply(this, arguments);
+            return Page.prototype.initialize.apply(page, arguments);
+        },
+        calculateTotal: function() {
+            var page = this,
+                total;
+
+            total = {
+                in: 0,
+                out: 0
+            };
+
+            page.collections.cashFlows.forEach(function(cashFlow) {
+
+                var amount = cashFlow.get('amount');
+
+                if (cashFlow.get('direction') == 'in') {
+                    total.in += amount;
+                } else {
+                    total.out += amount;
+                }
+            });
+
+            total.balance = total.in - total.out;
+
+            page.models.total.set(total);
         }
     });
 });
