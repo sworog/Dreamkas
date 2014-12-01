@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Model = require('kit/model/model');
+
     var CashFlowsCollection = require('resources/cashFlow/collection');
     var CashFlowsTable = require('./cashFlows');
 
