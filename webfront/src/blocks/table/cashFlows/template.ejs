@@ -39,7 +39,7 @@
                 var isOutDirection = (cashFlow.get('direction') == 'out');
             %>
 
-            <tr data-date="<%- formatDate(cashFlow.get('date')) %>">
+            <tr name="cashFlow" data-date="<%- formatDate(cashFlow.get('date')) %>">
 
                 <% if (dateRowSpan) { %>
 
