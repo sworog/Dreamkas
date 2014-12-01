@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.JSInput;
-import ru.dreamkas.elements.items.SelectByLabel;
+import ru.dreamkas.elements.items.RadioButton;
 import ru.dreamkas.pages.modal.ModalWindowPage;
 
 public class CashFlowCreateModalPage extends ModalWindowPage{
@@ -20,10 +20,10 @@ public class CashFlowCreateModalPage extends ModalWindowPage{
 
     @Override
     public void createElements() {
-        put("Тип", new SelectByLabel(this, "type"));
+        put("Тип", new RadioButton(this, "//*[@name='direction' and @checked]/.."));
         put("Дата", getCustomJsInput());
-        put("Сумма", new Input(this, "amount"));
-        put("Комментарий", new Input(this, "comment"));
+        put("Сумма", new Input(this, "//*[@name='amount']"));
+        put("Комментарий", new Input(this, "//*[@name='comment']"));
         putDefaultConfirmationOkButton(
                 new PrimaryBtnFacade(this, "Добавить"));
     }
@@ -33,6 +33,11 @@ public class CashFlowCreateModalPage extends ModalWindowPage{
 
             @Override
             public void evaluateUpdatingQueryScript() {
+            }
+
+            @Override
+            public String getText() {
+                return getVisibleWebElementFacade().getText();
             }
         };
     }
