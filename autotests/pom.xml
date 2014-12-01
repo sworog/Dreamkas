@@ -44,6 +44,7 @@
         <email.password>A1234567a</email.password>
         <!--other-->
         <init>test</init>
+        <api.staging>autotests</api.staging>
     </properties>
 
     <dependencies>
@@ -184,6 +185,7 @@
                         <parallel.agent.total>${project.parallel.agent.total}</parallel.agent.total>
                         <email.username>${email.username}</email.username>
                         <email.password>${email.password}</email.password>
+                        <api.staging>${api.staging}</api.staging>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
