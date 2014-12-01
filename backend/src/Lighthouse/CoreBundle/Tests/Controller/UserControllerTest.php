@@ -927,6 +927,7 @@ class UserControllerTest extends WebTestCase
                 User::ROLE_COMMERCIAL_MANAGER,
                 array(
                     'cashFlows' => array(
+                        'DELETE::{cashFlow}',
                         'GET',
                         'GET::{cashFlow}',
                         'POST',
