@@ -155,4 +155,9 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
                 ((SelectByVisibleText) commonItemType).containsOption(value),
                 is(false));
     }
+
+    @Step
+    public void clickOnDefaultAddObjectButton() {
+        getCurrentPageObject().addObjectButtonClick();
+    }
 }

@@ -37,4 +37,6 @@ public interface GeneralPageObject {
     public void collectionNotContainObjectWithLocator(String locator);
 
     public void collectionContainObjectWithLocator(String locator);
+
+    public void addObjectButtonClick();
 }
