@@ -81,4 +81,9 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     public void close() {
         ((Clickable)getItems().get("кнопка закрытия модального окна")).click();
     }
+
+    @Override
+    public void addObjectButtonClick() {
+        confirmationOkClick();
+    }
 }
