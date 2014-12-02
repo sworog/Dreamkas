@@ -5,6 +5,7 @@ import org.jbehave.core.model.ExamplesTable;
 import ru.dreamkas.common.item.interfaces.CommonItemType;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.GeneralPageObject;
+import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import ru.dreamkas.pages.MenuNavigationBar;
 import ru.dreamkas.pages.cashFlow.CashFlowListPage;
@@ -159,5 +160,6 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
     @Step
     public void clickOnDefaultAddObjectButton() {
         getCurrentPageObject().addObjectButtonClick();
+        new SimplePreloader(getDriver()).await();
     }
 }

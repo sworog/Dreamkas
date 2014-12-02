@@ -176,7 +176,11 @@ class CashFlowControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(5, '*.id', $getResponse);
         for ($i = 0; $i < 5; $i++) {
-            Assert::assertJsonPathEquals($cashFlows[$i], 4-$i, $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['id'], '*.id', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['direction'], '*.direction', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['comment'], '*.comment', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['amount'], '*.amount', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['date'], '*.date', $getResponse);
         }
     }
 
@@ -488,5 +492,31 @@ class CashFlowControllerTest extends WebTestCase
                 )
             )
         );
+    }
+
+    public function testDeleteCashFlowAction()
+    {
+        $cashFlow = $this->factory()->cashFlow()->createCashFlow();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/cashFlows/{$cashFlow->id}"
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertEmpty($deleteResponse);
+
+        $this->client->setCatchException(true);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/cashFlows/{$cashFlow->id}"
+        );
+
+        $this->assertResponseCode(404);
     }
 }

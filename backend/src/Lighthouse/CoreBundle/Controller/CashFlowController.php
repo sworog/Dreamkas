@@ -95,4 +95,16 @@ class CashFlowController extends AbstractRestController
     {
         return $cashFlow;
     }
+
+    /**
+     * @Rest\Route("cashFlows/{cashFlow}")
+     *
+     * @param CashFlow $cashFlow
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteCashFlowAction(CashFlow $cashFlow)
+    {
+        $this->processDelete($cashFlow);
+    }
 }

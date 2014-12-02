@@ -27,8 +27,8 @@
                             "rule": "-p tcp -s 95.213.151.58 --dport 11300 -j ACCEPT",
                             "ip_version": 4
                         },
-                        "01-beanstalkd-remote-vpn": {
-                            "rule": "-p tcp -s 192.168.0.0/24 --dport 11300 -j ACCEPT",
+                        "01-beanstalkd-guia": {
+                            "rule": "-p tcp -s 37.200.69.192 --dport 11300 -j ACCEPT",
                             "ip_version": 4
                         },
                         "10-beanstalkd-deny": {
