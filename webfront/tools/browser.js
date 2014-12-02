@@ -1,12 +1,17 @@
 var webdriverio = require('webdriverio'),
-    options = {desiredCapabilities: {browserName: 'chrome'}},
-    expect = require('chai').expect;
+    options = {
+        host: 'selenium.lighthouse.pro',
+        port: 80,
+        desiredCapabilities: {
+            browserName: 'chrome'
+        }
+    };
 
 var browser = webdriverio
     .remote(options)
     .init();
 
-after(function(done){
+after(function(done) {
     browser.end(done);
 });
 

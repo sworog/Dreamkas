@@ -7,7 +7,7 @@
     stubModules: ['ejs', 'amd-loader'],
     skipDirOptimize: true,
     optimizeAllPluginResources: true,
-    removeCombined: true,
+    removeCombined: false,
 
     preserveLicenseComments: false,
     optimizeCss: 'standard',
@@ -37,11 +37,11 @@
         },
         {
             name: "routes/unauthorized",
-            exclude: ['jquery']
+            exclude: ['app', 'jquery']
         },
         {
             name: "routes/authorized",
-            exclude: ['jquery']
+            exclude: ['app', 'jquery']
         }
     ]
 

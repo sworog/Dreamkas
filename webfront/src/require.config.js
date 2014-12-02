@@ -4,7 +4,7 @@ require.config({
     
     paths: {
         'moment': 'bower_components/momentjs/moment',
-        'jquery': 'bower_components/jquery/dist/jquery',
+        'jquery': 'bower_components/jquery/dist/jquery.min',
         'mockjax': 'bower_components/jquery-mockjax/jquery.mockjax',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
 
