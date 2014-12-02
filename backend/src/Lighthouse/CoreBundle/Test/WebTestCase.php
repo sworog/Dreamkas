@@ -73,18 +73,14 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @deprecated
-     * @param string|array $extra
-     * @param null|string $subCategoryId
-     * @param bool|string $putProductId string id of product to be updated
-     * @return string product id
+     * @param string $productId
+     * @param array $data
      */
-    protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
+    protected function updateProduct($productId, array $data)
     {
-        if ($subCategoryId == null) {
-            $subCategoryId = $this->factory()->catalog()->getSubCategory()->id;
-        }
+        $subCategory = $this->factory()->catalog()->getSubCategory();
 
-        $productData = array(
+        $productData = $data + array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
             'type' => UnitType::TYPE,
             'barcode' => uniqid('', true),
@@ -93,37 +89,22 @@ class WebTestCase extends ContainerAwareTestCase
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
-            'subCategory' => $subCategoryId,
+            'subCategory' => $subCategory->id,
         );
 
-        if (is_array($extra)) {
-            $productData = $extra + $productData;
-        } else {
-            $productData['name'].= $extra;
-            $productData['barcode'].= $extra;
-        }
-
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $method = ($putProductId) ? 'PUT' : 'POST';
-        $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
-        $request = new JsonRequest($url, $method, $productData);
-        $postResponse = $this->client->jsonRequest($request, $accessToken);
 
-        $responseCode = ($putProductId) ? 200 : 201;
-        $this->assertResponseCode($responseCode);
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/products/{$productId}",
+            $productData
+        );
+
+        $this->assertResponseCode(200);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
-    }
-
-    /**
-     * @deprecated
-     * @param string $productId
-     * @param array $data
-     */
-    protected function updateProduct($productId, array $data)
-    {
-        $this->createProduct($data, null, $productId);
     }
 
     /**
@@ -242,38 +223,6 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @deprecated
-     * @param string $name
-     * @return string
-     */
-    protected function createGroup($name = CatalogFactory::DEFAULT_GROUP_NAME)
-    {
-        return $this->factory()->catalog()->createGroup($name)->id;
-    }
-
-    /**
-     * @deprecated
-     * @param string $groupId
-     * @param string $name
-     * @return string
-     */
-    protected function createCategory($groupId = null, $name = CatalogFactory::DEFAULT_CATEGORY_NAME)
-    {
-        return $this->factory()->catalog()->createCategory($groupId, $name)->id;
-    }
-
-    /**
-     * @deprecated
-     * @param string $categoryId
-     * @param string $name
-     * @return string
-     */
-    protected function createSubCategory($categoryId = null, $name = CatalogFactory::DEFAULT_SUBCATEGORY_NAME)
-    {
-        return $this->factory()->catalog()->createSubCategory($categoryId, $name)->id;
-    }
-
-    /**
-     * @deprecated
      * @param string $storeId
      * @param string $productId
      * @param array $productData
@@ -320,8 +269,8 @@ class WebTestCase extends ContainerAwareTestCase
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
-            "POST",
-            "/api/1/configs",
+            'POST',
+            '/api/1/configs',
             $configData
         );
 
