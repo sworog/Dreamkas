@@ -221,6 +221,20 @@
 		CE946BEE19E6BB1E00D270E4 /* CustomFilledButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */; };
 		CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
 		CE946BF219E6BB5700D270E4 /* CustomEmptyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */; };
+		CE9481BF1A2DD52D003E0C06 /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481B81A2DD52D003E0C06 /* MKButton.swift */; };
+		CE9481C01A2DD52D003E0C06 /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481B81A2DD52D003E0C06 /* MKButton.swift */; };
+		CE9481C11A2DD52D003E0C06 /* MKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481B91A2DD52D003E0C06 /* MKColor.swift */; };
+		CE9481C21A2DD52D003E0C06 /* MKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481B91A2DD52D003E0C06 /* MKColor.swift */; };
+		CE9481C31A2DD52D003E0C06 /* MKImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BA1A2DD52D003E0C06 /* MKImageView.swift */; };
+		CE9481C41A2DD52D003E0C06 /* MKImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BA1A2DD52D003E0C06 /* MKImageView.swift */; };
+		CE9481C51A2DD52D003E0C06 /* MKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BB1A2DD52D003E0C06 /* MKLabel.swift */; };
+		CE9481C61A2DD52D003E0C06 /* MKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BB1A2DD52D003E0C06 /* MKLabel.swift */; };
+		CE9481C71A2DD52D003E0C06 /* MKLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BC1A2DD52D003E0C06 /* MKLayer.swift */; };
+		CE9481C81A2DD52D003E0C06 /* MKLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BC1A2DD52D003E0C06 /* MKLayer.swift */; };
+		CE9481C91A2DD52D003E0C06 /* MKTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BD1A2DD52D003E0C06 /* MKTableViewCell.swift */; };
+		CE9481CA1A2DD52D003E0C06 /* MKTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BD1A2DD52D003E0C06 /* MKTableViewCell.swift */; };
+		CE9481CB1A2DD52D003E0C06 /* MKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BE1A2DD52D003E0C06 /* MKTextField.swift */; };
+		CE9481CC1A2DD52D003E0C06 /* MKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9481BE1A2DD52D003E0C06 /* MKTextField.swift */; };
 		CE9A7EFA1A0D1B0A00509548 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF91A0D1B0A00509548 /* MoreButton.m */; };
 		CE9A7EFB1A0D1B0A00509548 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF91A0D1B0A00509548 /* MoreButton.m */; };
 		CE9A7F001A0D1E0F00509548 /* SidemenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */; };
@@ -525,6 +539,13 @@
 		CE946BEF19E6BB5700D270E4 /* CustomEmptyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomEmptyButton.h; sourceTree = "<group>"; };
 		CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomEmptyButton.m; sourceTree = "<group>"; };
 		CE946BF319E6BE6600D270E4 /* StoryboardSegues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardSegues.h; sourceTree = "<group>"; };
+		CE9481B81A2DD52D003E0C06 /* MKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKButton.swift; sourceTree = "<group>"; };
+		CE9481B91A2DD52D003E0C06 /* MKColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKColor.swift; sourceTree = "<group>"; };
+		CE9481BA1A2DD52D003E0C06 /* MKImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKImageView.swift; sourceTree = "<group>"; };
+		CE9481BB1A2DD52D003E0C06 /* MKLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKLabel.swift; sourceTree = "<group>"; };
+		CE9481BC1A2DD52D003E0C06 /* MKLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKLayer.swift; sourceTree = "<group>"; };
+		CE9481BD1A2DD52D003E0C06 /* MKTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKTableViewCell.swift; sourceTree = "<group>"; };
+		CE9481BE1A2DD52D003E0C06 /* MKTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKTextField.swift; sourceTree = "<group>"; };
 		CE9A7EF81A0D1B0A00509548 /* MoreButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreButton.h; sourceTree = "<group>"; };
 		CE9A7EF91A0D1B0A00509548 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
 		CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidemenuButton.h; sourceTree = "<group>"; };
@@ -829,6 +850,7 @@
 				CECFC4AE19DD806C00ED88D3 /* DPLibrary */,
 				CE8AB37119E7C8D000B105E0 /* Encryption */,
 				CE290FAE19EE668B005483A1 /* MagicalRecord */,
+				CE9481B71A2DD52D003E0C06 /* MaterialKit */,
 				CEBC439419E7FB9D00C0E575 /* MBProgressHUD */,
 				CEBC43A419E806F700C0E575 /* Reachability */,
 				CE500B8119F0148500449C34 /* SVPullToRefresh */,
@@ -1164,6 +1186,20 @@
 				CE946BB819E6A91400D270E4 /* RobotoCondensed-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		CE9481B71A2DD52D003E0C06 /* MaterialKit */ = {
+			isa = PBXGroup;
+			children = (
+				CE9481B81A2DD52D003E0C06 /* MKButton.swift */,
+				CE9481B91A2DD52D003E0C06 /* MKColor.swift */,
+				CE9481BA1A2DD52D003E0C06 /* MKImageView.swift */,
+				CE9481BB1A2DD52D003E0C06 /* MKLabel.swift */,
+				CE9481BC1A2DD52D003E0C06 /* MKLayer.swift */,
+				CE9481BD1A2DD52D003E0C06 /* MKTableViewCell.swift */,
+				CE9481BE1A2DD52D003E0C06 /* MKTextField.swift */,
+			);
+			path = MaterialKit;
 			sourceTree = "<group>";
 		};
 		CE9E0DE51A0BAFB600D6F92B /* NSString */ = {
@@ -1676,6 +1712,7 @@
 			files = (
 				CECFC49D19DD74C800ED88D3 /* AFHTTPRequestOperation.m in Sources */,
 				CE29101019EE668B005483A1 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
+				CE9481C31A2DD52D003E0C06 /* MKImageView.swift in Sources */,
 				CE8AB37A19E7C8D000B105E0 /* AESCrypt.m in Sources */,
 				CE29100019EE668B005483A1 /* NSManagedObject+MagicalRecord.m in Sources */,
 				CE946BF119E6BB5700D270E4 /* CustomEmptyButton.m in Sources */,
@@ -1696,6 +1733,7 @@
 				CE39DDC219FFD39900150C28 /* GroupsViewController.m in Sources */,
 				CE8DA4DD1A0103A3007C24D8 /* AbstractNavigationController.m in Sources */,
 				CE290FFC19EE668B005483A1 /* NSManagedObject+MagicalDataImport.m in Sources */,
+				CE9481C91A2DD52D003E0C06 /* MKTableViewCell.swift in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE82B2971A0254D900CBF803 /* ProductSearchCell.m in Sources */,
 				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
@@ -1718,6 +1756,7 @@
 				CE29101419EE668B005483A1 /* MagicalRecord+ErrorHandling.m in Sources */,
 				CEA9932E1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CECFB0471A2623DC005D35F3 /* PaymentViewController.m in Sources */,
+				CE9481BF1A2DD52D003E0C06 /* MKButton.swift in Sources */,
 				CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */,
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
 				CE915E321A1B691D0077C03B /* SaleItemCell.m in Sources */,
@@ -1745,6 +1784,7 @@
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CE3C76371A013B4D0057493E /* ProductCell.m in Sources */,
 				CEF2647119E81D16008BE93A /* NSDate+Utilities.m in Sources */,
+				CE9481C71A2DD52D003E0C06 /* MKLayer.swift in Sources */,
 				CE10A83019F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
 				CE39DDCE19FFED8E00150C28 /* SearchButton.m in Sources */,
 				CE290FF019EE668B005483A1 /* NSEntityDescription+MagicalDataImport.m in Sources */,
@@ -1784,6 +1824,7 @@
 				CEF2646619E81C57008BE93A /* AbstractViewController+Modal.m in Sources */,
 				CE1B3DB219DD40CA00A253D1 /* main.m in Sources */,
 				CEF2648419E82245008BE93A /* CustomModalSegue.m in Sources */,
+				CE9481CB1A2DD52D003E0C06 /* MKTextField.swift in Sources */,
 				CEDC5F741A00DF7300991527 /* ProductsViewController.m in Sources */,
 				CE915E1D1A1B63A30077C03B /* StoreModel.m in Sources */,
 				CE915E2E1A1B68A40077C03B /* SaleViewController.m in Sources */,
@@ -1796,10 +1837,12 @@
 				CE2613981A1B7E500040F85F /* PriceNumberFormatter.m in Sources */,
 				CE39DDBE19FFD38A00150C28 /* FavoritesViewController.m in Sources */,
 				CE915E251A1B64470077C03B /* SaleModel.m in Sources */,
+				CE9481C51A2DD52D003E0C06 /* MKLabel.swift in Sources */,
 				CEC0041919E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CEBC43A219E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
 				CE29100E19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CE29101619EE668B005483A1 /* MagicalRecord+iCloud.m in Sources */,
+				CE9481C11A2DD52D003E0C06 /* MKColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1843,17 +1886,20 @@
 				CEF2646719E81C57008BE93A /* AbstractViewController+Modal.m in Sources */,
 				CE2613991A1B7E500040F85F /* PriceNumberFormatter.m in Sources */,
 				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
+				CE9481CC1A2DD52D003E0C06 /* MKTextField.swift in Sources */,
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE915E1A1A1B63A30077C03B /* ProductModel.m in Sources */,
 				CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				CE8AB37F19E7C8D000B105E0 /* NSData+CommonCrypto.m in Sources */,
 				CE8AB38119E7C8D000B105E0 /* NSString+Base64.m in Sources */,
 				CE29101919EE668B005483A1 /* MagicalRecord+Options.m in Sources */,
+				CE9481C61A2DD52D003E0C06 /* MKLabel.swift in Sources */,
 				CE29101719EE668B005483A1 /* MagicalRecord+iCloud.m in Sources */,
 				CE3C76481A0143080057493E /* ProductModel+Mapper.m in Sources */,
 				CEBC43A819E806F700C0E575 /* Reachability.m in Sources */,
 				CE500B8819F0148500449C34 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				CEBC43A319E8060C00C0E575 /* DeviceInfoHelper.m in Sources */,
+				CE9481C21A2DD52D003E0C06 /* MKColor.swift in Sources */,
 				CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */,
 				CE91B79519F4ED4700258AB0 /* UTAuthTesting.m in Sources */,
 				CE1DFA2E1A1B789000F23954 /* SaleItemModel.m in Sources */,
@@ -1867,6 +1913,7 @@
 				CE29100119EE668B005483A1 /* NSManagedObject+MagicalRecord.m in Sources */,
 				CE290FF719EE668B005483A1 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				CE10A83119F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
+				CE9481C41A2DD52D003E0C06 /* MKImageView.swift in Sources */,
 				CE290FFF19EE668B005483A1 /* NSManagedObject+MagicalFinders.m in Sources */,
 				CE290FF519EE668B005483A1 /* NSObject+MagicalDataImport.m in Sources */,
 				CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */,
@@ -1880,8 +1927,10 @@
 				CEF2647619E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE29100D19EE668B005483A1 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
+				CE9481C81A2DD52D003E0C06 /* MKLayer.swift in Sources */,
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CEE5A2181A1112EC00640B1A /* PanelButton.m in Sources */,
+				CE9481CA1A2DD52D003E0C06 /* MKTableViewCell.swift in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CEA9932F1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CE915E1E1A1B63A30077C03B /* StoreModel.m in Sources */,
@@ -1900,6 +1949,7 @@
 				CEF2647C19E81D72008BE93A /* UIImage+ImageEffects.m in Sources */,
 				CE1AF96F1A15006F00333A9F /* AbstractModel.m in Sources */,
 				CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */,
+				CE9481C01A2DD52D003E0C06 /* MKButton.swift in Sources */,
 				CE915E2F1A1B68A40077C03B /* SaleViewController.m in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
 				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,
