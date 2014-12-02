@@ -11,6 +11,7 @@ define(function(require, exports, module) {
             return PAGE.collections.cashFlows;
         },
         blocks: {
+            inputDateRange: require('blocks/inputDateRange/inputDateRange'),
             total: function(options) {
                 var block = this,
                     TotalResults = require('blocks/totalResults/totalResults');

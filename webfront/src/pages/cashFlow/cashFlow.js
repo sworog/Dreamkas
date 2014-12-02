@@ -47,8 +47,7 @@ define(function(require, exports, module) {
         },
         blocks: {
             modal_cashFlow: require('blocks/modal/cashFlow/cashFlow'),
-            table_cashFlows: require('blocks/table/cashFlows/cashFlows'),
-            inputDateRange: require('blocks/inputDateRange/inputDateRange')
+            table_cashFlows: require('blocks/table/cashFlows/cashFlows')
         },
         initialize: function() {
             var page = this;
