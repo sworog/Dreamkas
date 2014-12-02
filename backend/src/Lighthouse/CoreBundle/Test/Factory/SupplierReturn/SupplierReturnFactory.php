@@ -53,6 +53,20 @@ class SupplierReturnFactory extends AbstractFactory
     }
 
     /**
+     * @param string $supplierReturnId
+     */
+    public function removeSupplierReturn($supplierReturnId)
+    {
+        $builder = new SupplierReturnBuilder(
+            $this->factory,
+            $this->getSupplierReturnRepository(),
+            $this->factory->getValidator(),
+            $this->factory->getNumericFactory()
+        );
+        $builder->removeSupplierReturn($supplierReturnId);
+    }
+
+    /**
      * @param $id
      * @return SupplierReturn
      */

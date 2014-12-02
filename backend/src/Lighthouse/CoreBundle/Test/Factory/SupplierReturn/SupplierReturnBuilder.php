@@ -115,6 +115,16 @@ class SupplierReturnBuilder
     }
 
     /**
+     * @param string $supplierReturnId
+     */
+    public function removeSupplierReturn($supplierReturnId)
+    {
+        $this->supplierReturn = $this->factory->supplierReturn()->getSupplierReturnById($supplierReturnId);
+        $this->repository->getDocumentManager()->remove($this->supplierReturn);
+        $this->repository->getDocumentManager()->flush();
+    }
+
+    /**
      * @param string $productId
      * @param float $quantity
      * @param float $price

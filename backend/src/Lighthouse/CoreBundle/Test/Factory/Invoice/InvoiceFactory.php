@@ -48,6 +48,21 @@ class InvoiceFactory extends AbstractFactory
     }
 
     /**
+     * @param string $invoiceId
+     */
+    public function removeInvoice($invoiceId)
+    {
+        $builder = new InvoiceBuilder(
+            $this->factory,
+            $this->getInvoiceRepository(),
+            $this->factory->getValidator(),
+            $this->factory->getNumericFactory()
+        );
+
+        $builder->removeInvoice($invoiceId);
+    }
+
+    /**
      * @param string $id
      * @throws \RuntimeException
      * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
