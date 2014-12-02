@@ -14,20 +14,20 @@ class ReturnControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
-        $sale = $this->factory()->receipt()
-            ->createSale($store, '2014-09-11T19:31:50+0400')
-                ->createReceiptProduct($productId, 10, 13.33)
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+0400')
+                ->createReceiptProduct($product->id, 10, 13.33)
             ->flush();
-
 
         $returnData = array(
             'date' => '2014-09-11T20:31:50+0400',
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 7
                 )
             )
@@ -52,7 +52,7 @@ class ReturnControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('7.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
         Assert::assertJsonPathEquals('93.31', 'products.0.totalPrice', $response);
@@ -294,11 +294,12 @@ class ReturnControllerTest extends WebTestCase
     public function testTwoReturnForOneSaleQuantityValidation()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
-        $sale = $this->factory()->receipt()
-            ->createSale($store, '2014-09-11T19:31:50+0400')
-            ->createReceiptProduct($productId, 10, 13.33)
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+0400')
+                ->createReceiptProduct($product->id, 10, 13.33)
             ->flush();
 
 
@@ -307,7 +308,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 7
                 )
             )
@@ -332,7 +333,7 @@ class ReturnControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product->id, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('7.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
         Assert::assertJsonPathEquals('93.31', 'products.0.totalPrice', $response);
@@ -346,7 +347,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 6
                 )
             )
@@ -375,7 +376,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 3
                 )
             )
@@ -400,7 +401,7 @@ class ReturnControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product->id, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('3.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
         Assert::assertJsonPathEquals('39.99', 'products.0.totalPrice', $response);
@@ -414,7 +415,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 6
                 )
             )
@@ -441,31 +442,31 @@ class ReturnControllerTest extends WebTestCase
     public function testProductInventoryChangeOnReturn()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $this->factory()
             ->invoice()
-            ->createInvoice(array(), $store->id)
-            ->createInvoiceProduct($productId, 100, 15.00)
+               ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 100, 15.00)
             ->flush();
 
-        $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 100, 15.00);
 
         $sale = $this->factory()
             ->receipt()
-            ->createSale($store, '2014-09-07T08:23:12+04:00')
-            ->createReceiptProduct($productId, 90, 15)
+                ->createSale($store, '2014-09-07T08:23:12+04:00')
+                ->createReceiptProduct($product->id, 90, 15)
             ->flush();
 
-        $this->assertStoreProductTotals($store->id, $productId, 10, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 10, 15.00);
 
-        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:23:12+04:00', $productId, 10);
+        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:23:12+04:00', $product->id, 10);
 
-        $this->assertStoreProductTotals($store->id, $productId, 20, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 20, 15.00);
 
-        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:24:54+04:00', $productId, 4.555);
+        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:24:54+04:00', $product->id, 4.555);
 
-        $this->assertStoreProductTotals($store->id, $productId, 24.555, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 24.555, 15.00);
     }
 
     public function testPostWithDeletedStore()

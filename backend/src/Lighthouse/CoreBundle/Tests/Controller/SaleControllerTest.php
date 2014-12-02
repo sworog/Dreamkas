@@ -16,13 +16,13 @@ class SaleControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 10,
                     'price' => 17.68
                 )
@@ -50,7 +50,7 @@ class SaleControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($store->id, 'store.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product->id, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('10.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('17.68', 'products.0.price', $response);
         Assert::assertJsonPathEquals('176.80', 'products.0.totalPrice', $response);
@@ -406,35 +406,35 @@ class SaleControllerTest extends WebTestCase
     public function testProductInventoryChangeOnSale()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId, 100, 15.00)
+                ->createInvoiceProduct($product->id, 100, 15.00)
             ->flush();
 
-        $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 100, 15.00);
 
-        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $productId, 10, 17.68);
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $product->id, 10, 17.68);
 
-        $this->assertStoreProductTotals($store->id, $productId, 90, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 90, 15.00);
 
-        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $productId, 4.555, 17.68);
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $product->id, 4.555, 17.68);
 
-        $this->assertStoreProductTotals($store->id, $productId, 85.445, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 85.445, 15.00);
     }
 
     public function testGetAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 10,
                     'price' => 17.68
                 )
@@ -480,13 +480,13 @@ class SaleControllerTest extends WebTestCase
     public function testCashChangeValidation($amountTendered, $expectedResponseCode, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 10,
                     'price' => 17.68
                 )
@@ -578,13 +578,13 @@ class SaleControllerTest extends WebTestCase
     public function testPaymentBankCard()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $saleData = array(
             'date' => '2014-09-09T16:23:12+04:00',
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 10,
                     'price' => 17.68
                 )
