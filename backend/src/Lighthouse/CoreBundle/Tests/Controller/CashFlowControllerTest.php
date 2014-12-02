@@ -176,7 +176,11 @@ class CashFlowControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(5, '*.id', $getResponse);
         for ($i = 0; $i < 5; $i++) {
-            Assert::assertJsonPathEquals($cashFlows[$i], 4-$i, $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['id'], '*.id', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['direction'], '*.direction', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['comment'], '*.comment', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['amount'], '*.amount', $getResponse);
+            Assert::assertJsonPathEquals($cashFlows[$i]['date'], '*.date', $getResponse);
         }
     }
 
