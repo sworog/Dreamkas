@@ -29,7 +29,7 @@ describe('Store page with stores', function() {
             .click('.store__link')
             .waitForVisible('.modal_store')
             .isVisible('.modal_store', function(err, isVisible){
-                expect(isVisible).to.be.false;
+                expect(isVisible).to.be.true;
             })
             .call(done);
 
