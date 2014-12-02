@@ -44,12 +44,21 @@ public class CashFlowListPage extends BootstrapPageObject{
         });
     }
 
-    private JSInput getCustomJsInput(String name) {
+    private JSInput getCustomJsInput(final String name) {
         return new JSInput(this, name) {
 
             @Override
+            public void setValue(String value) {
+                getVisibleWebElementFacade();
+                String jsScript = String.format(
+                        "document.querySelector('.inputDateRange').block.trigger('update', {%s: '%s'})",
+                        name,
+                        DateTimeHelper.getDate(value));
+                getPageObject().evaluateJavascript(jsScript);
+            }
+
+            @Override
             public void evaluateUpdatingQueryScript() {
-                getPageObject().evaluateJavascript("document.querySelector('.inputDateRange').block.trigger('update')");
             }
         };
     }
