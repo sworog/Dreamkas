@@ -14,12 +14,11 @@ class StockInControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $date = strtotime('-1 day');
 
         $stockInData = StockMovementBuilder::create(date('c', $date), $store->id)
-            ->addProduct($productId)
-            ->toArray();
+            ->addProduct($product->id);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -27,7 +26,7 @@ class StockInControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/stockIns',
-            $stockInData
+            $stockInData->toArray()
         );
 
         $this->assertResponseCode(201);
@@ -49,10 +48,9 @@ class StockInControllerTest extends WebTestCase
     public function testPostStockInValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $stockInData = StockMovementBuilder::create('2012-07-11', $store->id)
-            ->addProduct($productId)
-            ->toArray($data);
+            ->addProduct($product->id);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -60,7 +58,7 @@ class StockInControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/stockIns',
-            $stockInData
+            $stockInData->toArray($data)
         );
 
         $this->assertResponseCode($expectedCode);
@@ -80,10 +78,9 @@ class StockInControllerTest extends WebTestCase
     public function testPutStockInValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $postData = StockMovementBuilder::create('11.07.2012', $store->id)
-            ->addProduct($productId)
-            ->toArray();
+            ->addProduct($product->id);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -91,7 +88,7 @@ class StockInControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/stockIns',
-            $postData
+            $postData->toArray()
         );
 
         $this->assertResponseCode(201);
@@ -100,13 +97,11 @@ class StockInControllerTest extends WebTestCase
 
         $stockInId = $postResponse['id'];
 
-        $putData = $data + $postData;
-
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
             "/api/1/stockIns/{$stockInId}",
-            $putData
+            $postData->toArray($data)
         );
 
         $expectedCode = ($expectedCode == 201) ? 200 : $expectedCode;
@@ -164,12 +159,12 @@ class StockInControllerTest extends WebTestCase
     public function testGetAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $stockIn = $this->factory()
             ->stockIn()
                 ->createStockIn($store, '2012-05-23T15:12:05+0400')
-                ->createStockInProduct($productId)
+                ->createStockInProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -189,11 +184,11 @@ class StockInControllerTest extends WebTestCase
 
     public function testGetActionNotFound()
     {
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $this->factory()
             ->stockIn()
                 ->createStockIn()
-                ->createStockInProduct($productId)
+                ->createStockInProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -217,13 +212,11 @@ class StockInControllerTest extends WebTestCase
     public function testStockInTotals()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         // Create stockin with product#1
         $stockInData = StockMovementBuilder::create(null, $store->id)
-            ->addProduct($productId1, 12, 5.99);
+            ->addProduct($products['1']->id, 12, 5.99);
 
         $postResponse = $this->postStockIn($stockInData->toArray());
         $stockInId = $postResponse['id'];
@@ -231,14 +224,14 @@ class StockInControllerTest extends WebTestCase
         $this->assertStockIn($store->id, $stockInId, array('itemsCount' => 1, 'sumTotal' => 71.88));
 
         // Add product#2
-        $stockInData->addProduct($productId2, 3, 6.49);
+        $stockInData->addProduct($products['2']->id, 3, 6.49);
 
         $this->putStockIn($stockInId, $stockInData->toArray());
 
         $this->assertStockIn($store->id, $stockInId, array('itemsCount' => 2, 'sumTotal' => 91.35));
 
         // Add product#3
-        $stockInData->addProduct($productId3, 1, 11.12);
+        $stockInData->addProduct($products['3']->id, 1, 11.12);
 
         $this->putStockIn($stockInId, $stockInData->toArray());
 
@@ -246,7 +239,7 @@ class StockInControllerTest extends WebTestCase
 
         // update 1st stock in product quantity and price
 
-        $stockInData->setProduct(0, $productId1, 10, 6.99);
+        $stockInData->setProduct(0, $products['1']->id, 10, 6.99);
 
         $this->putStockIn($stockInId, $stockInData->toArray());
 
@@ -254,7 +247,7 @@ class StockInControllerTest extends WebTestCase
 
         // update 2nd stock in product product id
 
-        $stockInData->setProduct(1, $productId3, 3, 6.49);
+        $stockInData->setProduct(1, $products['3']->id, 3, 6.49);
 
         $this->putStockIn($stockInId, $stockInData->toArray());
 
@@ -295,23 +288,21 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $stockIn1 = $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId1, 12, 5.99, 'Порча')
-                ->createStockInProduct($productId2, 3, 6.49, 'Порча')
-                ->createStockInProduct($productId3, 1, 11.12, 'Порча')
+                ->createStockInProduct($products['1']->id, 12, 5.99, 'Порча')
+                ->createStockInProduct($products['2']->id, 3, 6.49, 'Порча')
+                ->createStockInProduct($products['3']->id, 1, 11.12, 'Порча')
             ->flush();
 
         $stockIn2 = $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId1, 1, 6.92, 'Порча')
-                ->createStockInProduct($productId2, 2, 3.49, 'Порча')
+                ->createStockInProduct($products['1']->id, 1, 6.92, 'Порча')
+                ->createStockInProduct($products['2']->id, 2, 3.49, 'Порча')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -334,18 +325,18 @@ class StockInControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $stockIn1 = $this->factory()
             ->stockIn()
                 ->createStockIn($store1)
-                ->createStockInProduct($productId)
+                ->createStockInProduct($product->id)
             ->flush();
 
         $stockIn2 = $this->factory()
             ->stockIn()
                 ->createStockIn($store2)
-                ->createStockInProduct($productId)
+                ->createStockInProduct($product->id)
             ->flush();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
@@ -390,14 +381,14 @@ class StockInControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
         $stockIn = $this->factory()
             ->stockIn()
                 ->createStockIn($store1)
-                ->createStockInProduct($productId)
+                ->createStockInProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
@@ -431,26 +422,24 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProductByName('111');
-        $productId2 = $this->createProductByName('222');
-        $productId3 = $this->createProductByName('333');
+        $products = $this->factory()->catalog()->getProductByNames(array('111', '222', '333'));
 
         $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId1, 10, 6.98, 'Бой')
+                ->createStockInProduct($products['111']->id, 10, 6.98, 'Бой')
             ->flush();
 
         $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId2, 5, 10.12, 'Бой')
+                ->createStockInProduct($products['222']->id, 5, 10.12, 'Бой')
             ->flush();
 
         $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId3, 7, 67.32, 'Бой')
+                ->createStockInProduct($products['333']->id, 7, 67.32, 'Бой')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -503,14 +492,11 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $stockInData = StockMovementBuilder::create(null, $store->id)
-            ->addProduct($productId, 7.99, 2)
-            ->toArray();
-
-        $stockInData['products'][0] = $data + $stockInData['products'][0];
-
+            ->addProduct($product->id, 7.99, 2)
+            ->mergeProduct(0, $data);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -518,7 +504,7 @@ class StockInControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/stockIns',
-            $stockInData
+            $stockInData->toArray()
         );
 
         $this->assertResponseCode($expectedCode);
@@ -537,14 +523,11 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $stockInData = StockMovementBuilder::create(null, $store->id)
-            ->addProduct($productId, 7.99, 2)
-            ->toArray();
-
-        $stockInData['products'][0] = $data + $stockInData['products'][0];
-
+            ->addProduct($product->id, 7.99, 2)
+            ->mergeProduct(0, $data);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -552,7 +535,7 @@ class StockInControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/stockIns?validate=true&validationGroups=products',
-            $stockInData
+            $stockInData->toArray()
         );
 
         $this->assertResponseCode($expectedCode);
@@ -784,76 +767,76 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProductByName(1);
-        $productId2 = $this->createProductByName(2);
+        $product1 = $this->factory()->catalog()->getProduct(1);
+        $product2 = $this->factory()->catalog()->getProduct(2);
 
-        $this->assertStoreProductTotals($store->id, $productId1, 0);
+        $this->assertStoreProductTotals($store->id, $product1->id, 0);
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId1, 10, 4.99)
-                ->createInvoiceProduct($productId2, 20, 6.99)
+                ->createInvoiceProduct($product1->id, 10, 4.99)
+                ->createInvoiceProduct($product2->id, 20, 6.99)
             ->flush();
 
-        $this->assertStoreProductTotals($store->id, $productId1, 10, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 10, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // create product 1 stock in
         $stockInData = StockMovementBuilder::create(null, $store->id)
-            ->addProduct($productId1, 5, 3.49);
+            ->addProduct($product1->id, 5, 3.49);
 
         $postResponse = $this->postStockIn($stockInData->toArray());
         $stockInId = $postResponse['id'];
 
-        $this->assertStoreProductTotals($store->id, $productId1, 15, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 15, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // change 1st product stock in quantity
-        $stockInData->setProduct(0, $productId1, 7, 4.49);
+        $stockInData->setProduct(0, $product1->id, 7, 4.49);
         $putResponse1 = $this->putStockIn($stockInId, $stockInData->toArray());
 
-        $this->assertStoreProductTotals($store->id, $productId1, 17, 4.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 17, 4.99);
 
         Assert::assertNotJsonPathEquals($postResponse['products'][0]['id'], 'products.0.id', $putResponse1);
 
         // add 2nd stock in product
-        $stockInData->addProduct($productId2, 4, 20.99);
+        $stockInData->addProduct($product2->id, 4, 20.99);
         $this->putStockIn($stockInId, $stockInData->toArray());
 
-        $this->assertStoreProductTotals($store->id, $productId2, 24, 6.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 24, 6.99);
 
         // change 2nd product id
-        $stockInData->setProduct(1, $productId1, 4, 20.99);
+        $stockInData->setProduct(1, $product1->id, 4, 20.99);
         $putResponse3 = $this->putStockIn($stockInId, $stockInData->toArray());
 
-        Assert::assertJsonPathEquals($productId1, 'products.1.product.id', $putResponse3);
+        Assert::assertJsonPathEquals($product1->id, 'products.1.product.id', $putResponse3);
 
-        $this->assertStoreProductTotals($store->id, $productId1, 21, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 21, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // remove 2nd stock in product
         $stockInData->removeProduct(1);
         $this->putStockIn($stockInId, $stockInData->toArray());
 
-        $this->assertStoreProductTotals($store->id, $productId1, 17, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 17, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // remove stock in
         $this->deleteStockIn($stockInId);
 
-        $this->assertStoreProductTotals($store->id, $productId1, 10, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 10, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
     }
 
     public function testProductDataDoesNotChangeInStockInAfterProductUpdate()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName('Кефир 1%');
+        $product = $this->factory()->catalog()->getProduct('Кефир 1%');
         $stockIn = $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId, 10, 5.99, 'Бой')
+                ->createStockInProduct($product->id, 10, 5.99, 'Бой')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -868,7 +851,7 @@ class StockInControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $stockinResponse1, 1);
 
-        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
+        $this->updateProduct($product->id, array('name' => 'Кефир 5%'));
 
         $stockinResponse2 = $this->clientJsonRequest(
             $accessToken,
@@ -880,7 +863,7 @@ class StockInControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $stockinResponse2, 1);
 
-        $this->assertProduct($productId, array('name' => 'Кефир 5%'));
+        $this->assertProduct($product->id, array('name' => 'Кефир 5%'));
     }
 
     /**
@@ -899,17 +882,17 @@ class StockInControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $stockIn1 = $this->factory()
             ->stockIn()
                 ->createStockIn($store1)
-                ->createStockInProduct($productId, 2, 20, 'Бой')
+                ->createStockInProduct($product->id, 2, 20, 'Бой')
             ->flush();
         $stockIn2 = $this->factory()
             ->stockIn()
                 ->createStockIn($store2)
-                ->createStockInProduct($productId, 1, 10, 'Порча')
+                ->createStockInProduct($product->id, 1, 10, 'Порча')
             ->flush();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
@@ -917,7 +900,7 @@ class StockInControllerTest extends WebTestCase
 
         if ($sendData) {
             $data = StockMovementBuilder::create()
-                ->addProduct($productId)
+                ->addProduct($product->id)
                 ->toArray();
         } else {
             $data = null;
@@ -984,17 +967,16 @@ class StockInControllerTest extends WebTestCase
     public function testPutWithEmptyQuantity()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $stockIn = $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId, 1, 9.99, 'Порча')
+                ->createStockInProduct($product->id, 1, 9.99, 'Порча')
             ->flush();
 
         $putData = StockMovementBuilder::create(null, $store->id)
-            ->addProduct($productId, '', 9.99)
-            ->toArray();
+            ->addProduct($product->id, '', 9.99);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -1002,7 +984,7 @@ class StockInControllerTest extends WebTestCase
             $accessToken,
             'PUT',
             "/api/1/stockIns/{$stockIn->id}",
-            $putData
+            $putData->toArray()
         );
 
         $this->assertResponseCode(400);
@@ -1016,16 +998,14 @@ class StockInControllerTest extends WebTestCase
     public function testProductCategoryIsNotExposed()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $stockIn = $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId1, 2, 5.99, 'Порча')
-                ->createStockInProduct($productId2, 1, 6.99, 'Порча')
-                ->createStockInProduct($productId3, 3, 2.59, 'Порча')
+                ->createStockInProduct($products['1']->id, 2, 5.99, 'Порча')
+                ->createStockInProduct($products['2']->id, 1, 6.99, 'Порча')
+                ->createStockInProduct($products['3']->id, 3, 2.59, 'Порча')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1054,12 +1034,12 @@ class StockInControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProductByName('Продукт');
+        $product = $this->factory()->catalog()->getProduct('Продукт');
 
         $stockIn = $this->factory()
             ->stockIn()
                 ->createStockIn($store)
-                ->createStockInProduct($productId)
+                ->createStockInProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
