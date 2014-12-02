@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 				reporter: '<%= grunt.option("reporter") %>'
 			},
 			test: {
-				tests: './tests/*.js'
+				tests: '<%= grunt.option("tests") || "./tests/*.js" %>'
 			}
 		}
 	});

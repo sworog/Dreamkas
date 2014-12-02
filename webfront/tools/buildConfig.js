@@ -31,22 +31,17 @@
 
     modules: [
         {
-            name: "main",
-            exclude: ['jquery', 'require.config'],
+            name: "app",
+            exclude: ['jquery'],
             include: ['require.config.prod']
         },
         {
-            name: "require.config",
-            exclude: ['jquery'],
-            include: ['app']
-        },
-        {
             name: "routes/unauthorized",
-            exclude: ['app', 'jquery']
+            exclude: ['jquery']
         },
         {
             name: "routes/authorized",
-            exclude: ['app', 'jquery']
+            exclude: ['jquery']
         }
     ]
 

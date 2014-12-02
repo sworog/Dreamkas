@@ -30,6 +30,7 @@
     "karma-jasmine": "^0.2.0",
     "karma-phantomjs-launcher": "^0.1",
     "karma-requirejs": "^0.2",
-    "karma-teamcity-reporter": "^0.1"
+    "karma-teamcity-reporter": "^0.1",
+    "node-resemble-js": "^0.0.4"
   }
 }

@@ -25,8 +25,12 @@
 <script src="/require.config.js"></script>
 
 <script>
-    require(['app'], function(app){
-        app.start();
+    require([
+        'app',
+        'resources/currentUser/mocks/get',
+        'resources/store/mocks/get_3'
+    ], function(app){
+        app.start('/stores');
     });
 </script>
 
