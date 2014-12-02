@@ -29,6 +29,30 @@ class SupplierReturnFactory extends AbstractFactory
     }
 
     /**
+     * @param string $supplierReturnId
+     * @param Store $store
+     * @param string $date
+     * @param Supplier $supplier
+     * @param bool $paid
+     * @return SupplierReturnBuilder
+     */
+    public function editSupplierReturn(
+        $supplierReturnId,
+        Store $store = null,
+        $date = null,
+        $supplier = null,
+        $paid = false
+    ) {
+        $builder = new SupplierReturnBuilder(
+            $this->factory,
+            $this->getSupplierReturnRepository(),
+            $this->factory->getValidator(),
+            $this->factory->getNumericFactory()
+        );
+        return $builder->editSupplierReturn($supplierReturnId, $store, $date, $supplier, $paid);
+    }
+
+    /**
      * @param $id
      * @return SupplierReturn
      */
