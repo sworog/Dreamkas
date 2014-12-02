@@ -5,6 +5,8 @@ describe('Store page with stores', function() {
 
     this.timeout(10000);
 
+    console.log(process.env.host);
+
     beforeEach(function(done) {
 
         browser
@@ -27,7 +29,7 @@ describe('Store page with stores', function() {
             .click('.store__link')
             .waitForVisible('.modal_store')
             .isVisible('.modal_store', function(err, isVisible){
-                expect(isVisible).to.be.true;
+                expect(isVisible).to.be.false;
             })
             .call(done);
 

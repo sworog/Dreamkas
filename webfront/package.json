@@ -32,7 +32,6 @@
     "karma-teamcity-reporter": "^0.1",
     "mocha": "^2.0.1",
     "mocha-teamcity-reporter": "0.0.4",
-    "selenium-standalone": "^2.44.0-1",
     "webdriverio": "^2.3.0"
   }
 }
