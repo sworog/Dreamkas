@@ -190,13 +190,13 @@ class StoreControllerManagementTest extends WebTestCase
     {
         $commUser = $this->factory()->user()->getUser('commUser1@lh.pro', 'password', User::ROLE_COMMERCIAL_MANAGER);
         $this->factory()->user()->getUser('storeUser1@lh.pro', 'password', User::ROLE_STORE_MANAGER);
-        $groupId = $this->createGroup();
-        $storeId = $this->factory()->store()->getStoreId();
+        $group = $this->factory()->catalog()->getGroup();
+        $store = $this->factory()->store()->getStore();
 
         $accessToken = $this->factory()->oauth()->auth($commUser, 'password');
 
-        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader('http://localhost/api/1/groups/' . $groupId, Store::REL_STORE_MANAGERS);
+        $request = new JsonRequest("/api/1/stores/{$store->id}", 'LINK');
+        $request->addLinkHeader("http://localhost/api/1/groups/{$group->id}", Store::REL_STORE_MANAGERS);
 
         $this->client->setCatchException();
         $linkResponse = $this->client->jsonRequest($request, $accessToken);
