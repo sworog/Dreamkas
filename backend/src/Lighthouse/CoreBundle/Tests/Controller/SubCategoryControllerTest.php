@@ -39,9 +39,9 @@ class SubCategoryControllerTest extends WebTestCase
 
         Assert::assertJsonHasPath('id', $postResponse);
         Assert::assertJsonPathEquals('Водка', 'name', $postResponse);
-        Assert::assertJsonPathEquals($category, 'category.id', $postResponse);
+        Assert::assertJsonPathEquals($category->id, 'category.id', $postResponse);
         Assert::assertJsonPathEquals('Крепкий алкоголь', 'category.name', $postResponse);
-        Assert::assertJsonPathEquals($group, 'category.group.id', $postResponse);
+        Assert::assertJsonPathEquals($group->id, 'category.group.id', $postResponse);
         Assert::assertJsonPathEquals('Алкоголь', 'category.group.name', $postResponse);
     }
 

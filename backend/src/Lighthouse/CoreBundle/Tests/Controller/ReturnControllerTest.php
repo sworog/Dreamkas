@@ -52,7 +52,7 @@ class ReturnControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($product, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product->id, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('7.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
         Assert::assertJsonPathEquals('93.31', 'products.0.totalPrice', $response);
