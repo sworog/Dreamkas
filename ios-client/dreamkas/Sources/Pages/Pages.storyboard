@@ -39,7 +39,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IntroImg" translatesAutoresizingMaskIntoConstraints="NO" id="aT8-NC-Gk7">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo1" translatesAutoresizingMaskIntoConstraints="NO" id="aT8-NC-Gk7">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dreamkas" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVM-vt-Wta" customClass="CustomLabel">
@@ -663,24 +663,8 @@
                         <rect key="frame" x="0.0" y="44" width="768" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Электронная почта" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wco-tA-wK8" userLabel="Email Text Field" customClass="CustomTextField">
-                                <rect key="frame" x="70" y="30" width="628" height="52"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
-                                <connections>
-                                    <outlet property="delegate" destination="B8e-oX-mkK" id="m9W-ac-2WR"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6km-YR-b2J" userLabel="Password Text Field" customClass="CustomTextField">
-                                <rect key="frame" x="70" y="100" width="628" height="52"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="B8e-oX-mkK" id="faI-EQ-iGN"/>
-                                </connections>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NPl-Kt-QqR">
-                                <rect key="frame" x="548" y="170" width="170" height="57"/>
+                                <rect key="frame" x="548" y="190" width="170" height="57"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="Я забыл пароль">
                                     <color key="titleColor" red="0.25098039220000001" green="0.66274509800000003" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -690,6 +674,22 @@
                                     <action selector="forgetButtonClicked:" destination="B8e-oX-mkK" eventType="touchUpInside" id="zep-ZN-kRN"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="fzf-Y4-JRp" userLabel="Login Field" customClass="CustomTextField" customModule="dreamkas">
+                                <rect key="frame" x="64" y="50" width="640" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="B8e-oX-mkK" id="fPe-b8-bV7"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aaQ-Y5-RBB" userLabel="Passward Field" customClass="CustomTextField" customModule="dreamkas">
+                                <rect key="frame" x="64" y="130" width="640" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="B8e-oX-mkK" id="bSU-lI-xrE"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -700,8 +700,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="768" height="768"/>
                     <connections>
-                        <outlet property="loginField" destination="wco-tA-wK8" id="1Yu-TD-04X"/>
-                        <outlet property="passwordField" destination="6km-YR-b2J" id="eDU-vr-l4x"/>
+                        <outlet property="loginField" destination="fzf-Y4-JRp" id="ZvF-kT-TuX"/>
+                        <outlet property="passwordField" destination="aaQ-Y5-RBB" id="rLK-Us-r2A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnP-IM-gie" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1277,6 +1277,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IntroImg" width="600" height="400"/>
+        <image name="Logo1" width="1024" height="676"/>
     </resources>
 </document>

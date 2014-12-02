@@ -38,6 +38,9 @@
  *  ============================================================================
  */
 
+"login_page_login_field_placeholder" = "Электронная почта";
+"login_page_passward_field_placeholder" = "Пароль";
+
 "product_search_empty_message" = "Для поиска товара введите 3 или более символа";
 "product_search_no_results_message" = "Товаров не найдено";
 "product_search_field_placeholder" = "Наименование, штрих-код или артикул";

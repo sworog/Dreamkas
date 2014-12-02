@@ -239,6 +239,10 @@
 		CE9A7EFB1A0D1B0A00509548 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF91A0D1B0A00509548 /* MoreButton.m */; };
 		CE9A7F001A0D1E0F00509548 /* SidemenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */; };
 		CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */; };
+		CE9C3EAC1A2E097D003FA587 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */; };
+		CE9C3EAD1A2E097D003FA587 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */; };
+		CE9C3EB01A2E09AA003FA587 /* OldCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */; };
+		CE9C3EB11A2E09AA003FA587 /* OldCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */; };
 		CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
 		CE9E0DEB1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
 		CEA66B391A0239D100BBECD1 /* StoreSelectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA66B381A0239D100BBECD1 /* StoreSelectionCell.m */; };
@@ -256,8 +260,6 @@
 		CEBC43A819E806F700C0E575 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBC43A619E806F700C0E575 /* Reachability.m */; };
 		CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */; };
 		CEC003FC19E694BE00AE256F /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */; };
-		CEC0040519E6960400AE256F /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040419E6960400AE256F /* CustomTextField.m */; };
-		CEC0040619E6960400AE256F /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0040419E6960400AE256F /* CustomTextField.m */; };
 		CEC0041119E69B1700AE256F /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041019E69B1700AE256F /* IntroViewController.m */; };
 		CEC0041219E69B1700AE256F /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041019E69B1700AE256F /* IntroViewController.m */; };
 		CEC0041519E69B2500AE256F /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC0041419E69B2500AE256F /* AuthViewController.m */; };
@@ -550,6 +552,9 @@
 		CE9A7EF91A0D1B0A00509548 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
 		CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidemenuButton.h; sourceTree = "<group>"; };
 		CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidemenuButton.m; sourceTree = "<group>"; };
+		CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		CE9C3EAE1A2E09AA003FA587 /* OldCustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldCustomTextField.h; sourceTree = "<group>"; };
+		CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldCustomTextField.m; sourceTree = "<group>"; };
 		CE9E0DE81A0BAFEB00D6F92B /* NSString+CaseMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CaseMethods.h"; sourceTree = "<group>"; };
 		CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CaseMethods.m"; sourceTree = "<group>"; };
 		CEA66B371A0239D100BBECD1 /* StoreSelectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreSelectionCell.h; sourceTree = "<group>"; };
@@ -568,8 +573,6 @@
 		CEC003F919E694BE00AE256F /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
 		CEC003FA19E694BE00AE256F /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		CEC003FE19E694F900AE256F /* CustomDataCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDataCellDelegate.h; sourceTree = "<group>"; };
-		CEC0040319E6960400AE256F /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
-		CEC0040419E6960400AE256F /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
 		CEC0040F19E69B1700AE256F /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		CEC0041019E69B1700AE256F /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		CEC0041319E69B2500AE256F /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
@@ -1343,8 +1346,9 @@
 		CEC003F319E6942E00AE256F /* Inputs */ = {
 			isa = PBXGroup;
 			children = (
-				CEC0040319E6960400AE256F /* CustomTextField.h */,
-				CEC0040419E6960400AE256F /* CustomTextField.m */,
+				CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */,
+				CE9C3EAE1A2E09AA003FA587 /* OldCustomTextField.h */,
+				CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */,
 				CE886A631A028B6D00587D70 /* SearchField.h */,
 				CE886A641A028B6D00587D70 /* SearchField.m */,
 			);
@@ -1760,7 +1764,6 @@
 				CEF2645E19E8126A008BE93A /* LogInViewController.m in Sources */,
 				CECFC4A019DD74C800ED88D3 /* AFNetworkReachabilityManager.m in Sources */,
 				CE915E321A1B691D0077C03B /* SaleItemCell.m in Sources */,
-				CEC0040519E6960400AE256F /* CustomTextField.m in Sources */,
 				CECFC4A419DD74C800ED88D3 /* AFURLResponseSerialization.m in Sources */,
 				CE00D11A19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CEC003FB19E694BE00AE256F /* CustomTableViewCell.m in Sources */,
@@ -1773,6 +1776,7 @@
 				CE946BE119E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CECFC4A119DD74C800ED88D3 /* AFSecurityPolicy.m in Sources */,
 				CE29100219EE668B005483A1 /* NSManagedObject+MagicalRequests.m in Sources */,
+				CE9C3EB01A2E09AA003FA587 /* OldCustomTextField.m in Sources */,
 				CEBC439719E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
 				CECFB04C1A26253E005D35F3 /* FinalPaymentViewController.m in Sources */,
 				CECFC4AC19DD74C800ED88D3 /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -1832,6 +1836,7 @@
 				CE290FEE19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				CE886A651A028B6D00587D70 /* SearchField.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
+				CE9C3EAC1A2E097D003FA587 /* CustomTextField.swift in Sources */,
 				CEF2647519E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CE2613981A1B7E500040F85F /* PriceNumberFormatter.m in Sources */,
@@ -1885,7 +1890,6 @@
 				CE912E991A0BD8A1001FDACE /* PincodeViewController.m in Sources */,
 				CEF2646719E81C57008BE93A /* AbstractViewController+Modal.m in Sources */,
 				CE2613991A1B7E500040F85F /* PriceNumberFormatter.m in Sources */,
-				CEC0040619E6960400AE256F /* CustomTextField.m in Sources */,
 				CE9481CC1A2DD52D003E0C06 /* MKTextField.swift in Sources */,
 				CEC0041A19E69B3400AE256F /* TicketWindowViewController.m in Sources */,
 				CE915E1A1A1B63A30077C03B /* ProductModel.m in Sources */,
@@ -1931,6 +1935,7 @@
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
 				CEE5A2181A1112EC00640B1A /* PanelButton.m in Sources */,
 				CE9481CA1A2DD52D003E0C06 /* MKTableViewCell.swift in Sources */,
+				CE9C3EB11A2E09AA003FA587 /* OldCustomTextField.m in Sources */,
 				CE29100F19EE668B005483A1 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				CEA9932F1A038A8C00B9D821 /* AbstractViewController+Keyboard.m in Sources */,
 				CE915E1E1A1B63A30077C03B /* StoreModel.m in Sources */,
@@ -1951,6 +1956,7 @@
 				CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */,
 				CE9481C01A2DD52D003E0C06 /* MKButton.swift in Sources */,
 				CE915E2F1A1B68A40077C03B /* SaleViewController.m in Sources */,
+				CE9C3EAD1A2E097D003FA587 /* CustomTextField.swift in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
 				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
@@ -2091,8 +2097,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
+				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2104,6 +2112,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/Supporting Files/Headers/SwiftBridging.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -2112,8 +2123,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
+				DEFINES_MODULE = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -2122,6 +2135,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Sources/Supporting Files/Headers/SwiftBridging.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;

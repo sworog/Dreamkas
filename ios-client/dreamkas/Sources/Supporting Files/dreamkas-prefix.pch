@@ -83,6 +83,8 @@
 // Кастомные компоненты
 //
 
+#import "dreamkas-Swift.h"
+
 #import "AbstractNavigationController.h"
 
 #import "AbstractViewController.h"
@@ -97,7 +99,7 @@
 #import "WordWrappingLabel.h"
 #import "CustomFilledButton.h"
 #import "CustomEmptyButton.h"
-#import "CustomTextField.h"
+#import "OldCustomTextField.h"
 #import "CustomTableViewCell.h"
 #import "ActionButton.h"
 

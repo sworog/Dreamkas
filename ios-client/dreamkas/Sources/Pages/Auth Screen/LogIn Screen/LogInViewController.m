@@ -38,6 +38,9 @@
 - (void)configureLocalization
 {
     [self setTitle:NSLocalizedString(@"log_in_title_name", nil)];
+    
+    [self.loginField setPlaceholder:NSLocalizedString(@"login_page_login_field_placeholder", nil)];
+    [self.passwordField setPlaceholder:NSLocalizedString(@"login_page_passward_field_placeholder", nil)];
 }
 
 - (void)configureAccessibilityLabels
@@ -140,6 +143,20 @@
         else {
             [self.logInButton setEnabled:NO];
         }
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    DPLogFast(@"");
+    
+    if ([textField isEqual:self.loginField]) {
+        [self.passwordField becomeFirstResponder];
+    }
+    else {
+        [self.view endEditing:YES];
     }
     
     return YES;
