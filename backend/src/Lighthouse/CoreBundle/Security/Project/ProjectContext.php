@@ -145,7 +145,8 @@ class ProjectContext implements ClassNameable
             $kernel->boot();
 
             $container = $kernel->getContainer();
-            $container->get('project.context')->authenticateByProjectName($project->getName());
+            $projectContext = $container->get('project.context');
+            $projectContext->authenticateByProjectName($project->getName());
 
             call_user_func($callback, $project, $container);
 

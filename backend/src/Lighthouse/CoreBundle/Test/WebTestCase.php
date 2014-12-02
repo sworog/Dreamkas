@@ -7,7 +7,6 @@ use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
-use Lighthouse\CoreBundle\Test\Factory\CatalogFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
@@ -124,18 +123,6 @@ class WebTestCase extends ContainerAwareTestCase
             )
         );
         $this->assertResponseCode(200);
-    }
-
-    /**
-     * @deprecated
-     * @param string $name
-     * @param string $subCategoryId
-     * @return string
-     */
-    protected function createProductByName($name = CatalogFactory::DEFAULT_PRODUCT_NAME, $subCategoryId = null)
-    {
-        $subCategory = ($subCategoryId) ? $this->factory()->catalog()->getSubCategoryById($subCategoryId) : null;
-        return $this->factory()->catalog()->createProductByName($name, $subCategory)->id;
     }
 
     /**
