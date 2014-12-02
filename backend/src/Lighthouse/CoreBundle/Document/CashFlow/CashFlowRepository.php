@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\CashFlow;
 
 use Doctrine\ODM\MongoDB\MongoDBException;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use MongoId;
 
 class CashFlowRepository extends DocumentRepository
 {
@@ -25,5 +26,28 @@ class CashFlowRepository extends DocumentRepository
         $qb->sort('date', self::SORT_DESC);
 
         return $qb->getQuery()->execute();
+    }
+
+    /**
+     * @param CashFlowable $reason
+     * @return CashFlow|null
+     */
+    public function findOneByReason(CashFlowable $reason)
+    {
+        return $this->findOneByReasonTypeReasonId($reason->id, $reason->getCashFlowReasonType());
+    }
+
+    /**
+     * @param string $reasonId
+     * @param string $reasonType
+     * @return null|CashFlow
+     */
+    public function findOneByReasonTypeReasonId($reasonId, $reasonType)
+    {
+        $criteria = array(
+            'reason.$id' => new MongoId($reasonId),
+            'reason.$ref' => $reasonType,
+        );
+        return $this->findOneBy($criteria);
     }
 }

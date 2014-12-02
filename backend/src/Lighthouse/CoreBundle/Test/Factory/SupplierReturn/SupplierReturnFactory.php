@@ -41,7 +41,7 @@ class SupplierReturnFactory extends AbstractFactory
         Store $store = null,
         $date = null,
         $supplier = null,
-        $paid = false
+        $paid = null
     ) {
         $builder = new SupplierReturnBuilder(
             $this->factory,

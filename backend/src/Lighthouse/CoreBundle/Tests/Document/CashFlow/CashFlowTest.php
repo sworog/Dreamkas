@@ -155,6 +155,7 @@ class CashFlowTest extends WebTestCase
             ->editSupplierReturn($supplierReturn->id, null, null, null, true)
             ->flush();
 
+        $this->getCashFlowRepository()->getDocumentManager()->clear();
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
         $this->assertCount(1, $cashFlowsCursor);
 

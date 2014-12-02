@@ -94,7 +94,7 @@ class SupplierReturnBuilder
         Store $store = null,
         $date = null,
         Supplier $supplier = null,
-        $paid = false
+        $paid = null
     ) {
         $this->supplierReturn = $this->factory->supplierReturn()->getSupplierReturnById($supplierReturnId);
 
@@ -104,7 +104,7 @@ class SupplierReturnBuilder
         if ($supplier) {
             $this->supplierReturn->supplier = $supplier;
         }
-        if ($paid) {
+        if (null !== $paid) {
             $this->supplierReturn->paid = $paid;
         }
         if ($date) {
