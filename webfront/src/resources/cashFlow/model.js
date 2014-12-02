@@ -13,7 +13,7 @@ define(function(require, exports, module) {
             return {
                 direction: this.get('direction'),
                 date: this.get('date'),
-                amount: normalizeNumber(this.get('amount')),
+                amount: normalizeNumber(this.get('amount')) || this.get('amount'),
                 comment: this.get('comment')
             }
         }
