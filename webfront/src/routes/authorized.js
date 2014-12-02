@@ -10,6 +10,9 @@ define(function(require) {
 		//stockMovement
 		'stockMovements(/)': require('pages/stockMovements/stockMovements'),
 
+        //cashFlow
+        'cashFlow(/)': require('pages/cashFlow/cashFlow'),
+
 		//reports
 		'reports(/)': require('pages/reports/reports'),
 		'reports/stockBalance(/)': require('pages/reports/stockBalance/stockBalance'),

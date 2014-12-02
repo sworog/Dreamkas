@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>project.lighthouse</groupId>
     <artifactId>autotests</artifactId>
-    <version>0.46.119.3</version>
+    <version>0.46.132</version>
     <packaging>jar</packaging>
 
     <name>Lighthouse autotests</name>
@@ -44,6 +44,7 @@
         <email.password>A1234567a</email.password>
         <!--other-->
         <init>test</init>
+        <api.staging>autotests</api.staging>
     </properties>
 
     <dependencies>
@@ -184,6 +185,7 @@
                         <parallel.agent.total>${project.parallel.agent.total}</parallel.agent.total>
                         <email.username>${email.username}</email.username>
                         <email.password>${email.password}</email.password>
+                        <api.staging>${api.staging}</api.staging>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

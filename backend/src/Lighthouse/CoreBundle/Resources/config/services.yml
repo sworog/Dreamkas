@@ -253,3 +253,8 @@ services:
         class: Lighthouse\CoreBundle\Document\Order\Product\OrderProductRepository
         arguments:
             - LighthouseCoreBundle:Order\Product\OrderProduct
+
+    lighthouse.core.document.repository.cash_flow:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:CashFlow\CashFlow

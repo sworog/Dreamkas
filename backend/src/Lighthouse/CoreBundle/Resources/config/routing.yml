@@ -112,3 +112,7 @@ lighthouse.core.order_product:
     resource: Lighthouse\CoreBundle\Controller\OrderProductController
     parent:   lighthouse.core.order
     type:     rest
+
+lighthouse.core.cash_flow:
+    resource: Lighthouse\CoreBundle\Controller\CashFlowController
+    type:     rest

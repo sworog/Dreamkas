@@ -6,6 +6,8 @@ import org.openqa.selenium.Alert;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.ModalWindowPageObject;
 import ru.dreamkas.elements.bootstrap.SimplePreloader;
+import ru.dreamkas.pages.cashFlow.modal.CashFlowCreateModalPage;
+import ru.dreamkas.pages.cashFlow.modal.CashFlowEditModalPage;
 import ru.dreamkas.pages.catalog.group.modal.ProductCreateModalWindow;
 import ru.dreamkas.pages.catalog.group.modal.ProductEditModalWindow;
 import ru.dreamkas.pages.catalog.modal.CreateGroupModalPage;
@@ -61,6 +63,8 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("создания группы внутри создания товара внутри оприходования", CreateGroupModalPage.class);
             put("создания поставщика", SupplierCreateModalPage.class);
             put("редактирования поставщика", SupplierEditModalPage.class);
+            put("редактирования денежной операции", CashFlowEditModalPage.class);
+            put("создания денежной операции", CashFlowCreateModalPage.class);
         }};
     }
 

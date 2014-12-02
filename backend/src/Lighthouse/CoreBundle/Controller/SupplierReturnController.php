@@ -5,16 +5,16 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn;
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnRepository;
-use Lighthouse\CoreBundle\Form\SupplierReturnType;
+use Lighthouse\CoreBundle\Form\StockMovement\SupplierReturnType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class SupplierReturnController extends AbstractRestController
 {
