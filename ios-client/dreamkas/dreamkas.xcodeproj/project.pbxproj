@@ -19,6 +19,10 @@
 		CE162A2819E3CF89009BCC3C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2519E3CF89009BCC3C /* Model.xcdatamodeld */; };
 		CE162A2B19E3CFE4009BCC3C /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2A19E3CFE4009BCC3C /* RESTClient.m */; };
 		CE162A2C19E3CFE4009BCC3C /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CE162A2A19E3CFE4009BCC3C /* RESTClient.m */; };
+		CE184BA41A2E171C00D16E42 /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE184BA31A2E171C00D16E42 /* RaisedButton.swift */; };
+		CE184BA51A2E171C00D16E42 /* RaisedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE184BA31A2E171C00D16E42 /* RaisedButton.swift */; };
+		CE184BA71A2E172B00D16E42 /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE184BA61A2E172B00D16E42 /* FlatButton.swift */; };
+		CE184BA81A2E172B00D16E42 /* FlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE184BA61A2E172B00D16E42 /* FlatButton.swift */; };
 		CE1AF96E1A15006F00333A9F /* AbstractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1AF96D1A15006F00333A9F /* AbstractModel.m */; };
 		CE1AF96F1A15006F00333A9F /* AbstractModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1AF96D1A15006F00333A9F /* AbstractModel.m */; };
 		CE1B3DA819DD40CA00A253D1 /* text.txt in Resources */ = {isa = PBXBuildFile; fileRef = CE1B3D8E19DD40CA00A253D1 /* text.txt */; };
@@ -345,6 +349,8 @@
 		CE162A2619E3CF89009BCC3C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CE162A2919E3CFE4009BCC3C /* RESTClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTClient.h; sourceTree = "<group>"; };
 		CE162A2A19E3CFE4009BCC3C /* RESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTClient.m; sourceTree = "<group>"; };
+		CE184BA31A2E171C00D16E42 /* RaisedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RaisedButton.swift; sourceTree = "<group>"; };
+		CE184BA61A2E172B00D16E42 /* FlatButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatButton.swift; sourceTree = "<group>"; };
 		CE1AF96C1A15006F00333A9F /* AbstractModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractModel.h; sourceTree = "<group>"; };
 		CE1AF96D1A15006F00333A9F /* AbstractModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractModel.m; sourceTree = "<group>"; };
 		CE1B3D6319DD3CF000A253D1 /* dreamkas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dreamkas.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1310,12 +1316,14 @@
 				CE946BF019E6BB5700D270E4 /* CustomEmptyButton.m */,
 				CE946BEB19E6BB1E00D270E4 /* CustomFilledButton.h */,
 				CE946BEC19E6BB1E00D270E4 /* CustomFilledButton.m */,
+				CE184BA61A2E172B00D16E42 /* FlatButton.swift */,
 				CE9A7EF81A0D1B0A00509548 /* MoreButton.h */,
 				CE9A7EF91A0D1B0A00509548 /* MoreButton.m */,
 				CEE5A2151A1112EC00640B1A /* PanelButton.h */,
 				CEE5A2161A1112EC00640B1A /* PanelButton.m */,
 				CEE5A2191A11141E00640B1A /* PlusCircleButton.h */,
 				CEE5A21A1A11141E00640B1A /* PlusCircleButton.m */,
+				CE184BA31A2E171C00D16E42 /* RaisedButton.swift */,
 				CE39DDCC19FFED8E00150C28 /* SearchButton.h */,
 				CE39DDCD19FFED8E00150C28 /* SearchButton.m */,
 				CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */,
@@ -1740,6 +1748,7 @@
 				CE9481C91A2DD52D003E0C06 /* MKTableViewCell.swift in Sources */,
 				CECFC4AA19DD74C800ED88D3 /* UIImageView+AFNetworking.m in Sources */,
 				CE82B2971A0254D900CBF803 /* ProductSearchCell.m in Sources */,
+				CE184BA41A2E171C00D16E42 /* RaisedButton.swift in Sources */,
 				CE3B95EF19E40DA900E1D24F /* DatesHelper.m in Sources */,
 				CE10A83719F655200056DF91 /* SidemenuViewController.m in Sources */,
 				CECFC4B219DD808300ED88D3 /* DPLog.m in Sources */,
@@ -1807,6 +1816,7 @@
 				CE1E28751A272B4B0052D0E2 /* ModalViewController.m in Sources */,
 				CE1AF96E1A15006F00333A9F /* AbstractModel.m in Sources */,
 				CE4C877019F10C4100221E53 /* WordWrappingLabel.m in Sources */,
+				CE184BA71A2E172B00D16E42 /* FlatButton.swift in Sources */,
 				CEBC439E19E8048700C0E575 /* DialogHelper.m in Sources */,
 				CE8AB38619E7C92700B105E0 /* ValidationHelper.m in Sources */,
 				CEA66B391A0239D100BBECD1 /* StoreSelectionCell.m in Sources */,
@@ -1933,6 +1943,7 @@
 				CE00D11B19EFF3C800B600EB /* AbstractModel+Mapper.m in Sources */,
 				CE9481C81A2DD52D003E0C06 /* MKLayer.swift in Sources */,
 				CE22CE3219ED568B00A939E6 /* SelectStoreViewController.m in Sources */,
+				CE184BA51A2E171C00D16E42 /* RaisedButton.swift in Sources */,
 				CEE5A2181A1112EC00640B1A /* PanelButton.m in Sources */,
 				CE9481CA1A2DD52D003E0C06 /* MKTableViewCell.swift in Sources */,
 				CE9C3EB11A2E09AA003FA587 /* OldCustomTextField.m in Sources */,
@@ -1956,6 +1967,7 @@
 				CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */,
 				CE9481C01A2DD52D003E0C06 /* MKButton.swift in Sources */,
 				CE915E2F1A1B68A40077C03B /* SaleViewController.m in Sources */,
+				CE184BA81A2E172B00D16E42 /* FlatButton.swift in Sources */,
 				CE9C3EAD1A2E097D003FA587 /* CustomTextField.swift in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
 				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,

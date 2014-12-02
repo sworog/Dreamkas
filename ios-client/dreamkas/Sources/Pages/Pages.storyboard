@@ -690,6 +690,12 @@
                                     <outlet property="delegate" destination="B8e-oX-mkK" id="bSU-lI-xrE"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJk-vP-dZF" customClass="RaisedButton" customModule="dreamkas">
+                                <rect key="frame" x="309" y="260" width="146" height="57"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1186,14 +1192,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mDl-Lc-0ft" userLabel="Email Text Field" customClass="CustomTextField">
-                                <rect key="frame" x="64" y="72" width="470" height="52"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
-                                <connections>
-                                    <outlet property="delegate" destination="MfI-V1-mC1" id="SVM-BN-wsG"/>
-                                </connections>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPD-eG-ctF" customClass="CustomLabel">
                                 <rect key="frame" x="64" y="152" width="640" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1220,6 +1218,14 @@
                                     <action selector="payButtonClicked:" destination="MfI-V1-mC1" eventType="touchUpInside" id="EzR-6X-ViY"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZK1-Ft-WYf" customClass="CustomTextField" customModule="dreamkas">
+                                <rect key="frame" x="64" y="72" width="470" height="50"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="MfI-V1-mC1" id="sTr-TM-kZX"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1233,7 +1239,7 @@
                         <outlet property="firstLabel" destination="2Ov-t1-QBi" id="gyU-86-YQX"/>
                         <outlet property="payButton" destination="BeA-zD-DLS" id="9y1-ho-yTA"/>
                         <outlet property="payByUsingCard" destination="Fxq-TK-ys3" id="qix-M8-u8M"/>
-                        <outlet property="paymentSumField" destination="mDl-Lc-0ft" id="VRy-Lq-lX9"/>
+                        <outlet property="paymentSumField" destination="ZK1-Ft-WYf" id="u5G-Uh-omg"/>
                         <outlet property="secondLabel" destination="xPD-eG-ctF" id="a4D-tb-7cB"/>
                     </connections>
                 </viewController>
