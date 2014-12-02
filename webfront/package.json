@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "chai": "^1.9.2",
+    "cucumber": "^0.4.4",
     "karma": "^0.12",
     "karma-coverage": "^0.2",
     "karma-jasmine": "^0.2.0",
