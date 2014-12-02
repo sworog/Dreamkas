@@ -9,7 +9,7 @@
     android:paddingTop="5dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip">
-    <TextView
+    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
         android:id="@+id/txtReceiptItemTitle"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
@@ -19,14 +19,14 @@
         android:layout_weight="0.1"
         />
 
-    <TextView android:id="@+id/txtReceiptItemQuantity"
+    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced android:id="@+id/txtReceiptItemQuantity"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.25"
         android:text="end"
         />
 
-    <TextView android:id="@+id/txtReceiptItemCost"
+    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced android:id="@+id/txtReceiptItemCost"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.25"

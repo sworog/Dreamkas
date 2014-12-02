@@ -1,8 +1,15 @@
 <resources>
+
+    parent="android:Theme.Material.Light.NoActionBar"
     <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:activatedBackgroundIndicator">@drawable/list_activated_background</item>
         <item name="android:buttonStyle">@style/dk_button</item>
     </style>
+
+    <!--<style name="AppTheme" parent="android:Theme.Holo.Light">
+        <item name="android:activatedBackgroundIndicator">@drawable/list_activated_background</item>
+        <item name="android:buttonStyle">@style/dk_button</item>
+    </style>-->
 
     <style name="dialog_theme" parent="android:Theme.Dialog">
         <item name="android:windowBackground">@drawable/dialog_bg</item>
@@ -10,10 +17,17 @@
 
     <style name="dk_button" parent="@android:style/Widget.Button">
         <item name="android:textColor">@drawable/dk_button_text_color</item>
+        <item name="android:background">@drawable/regular_btn_bg</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <!--<style name="dk_button" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@drawable/dk_button_text_color</item>
         <item name="android:background">@drawable/dk_button_bg</item>
         <item name="android:textSize">20dp</item>
         <item name="android:padding">5dp</item>
-    </style>
+    </style>-->
 
     <style name="dialog_slide_anim" parent="@android:style/Theme.Holo.Light.Dialog">
         <item name="android:windowAnimationStyle">@style/dialog_animation</item>
@@ -21,5 +35,6 @@
 
     <style name="dialog_animation">
         <item name="android:windowEnterAnimation">@anim/bottom_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
     </style>
 </resources>

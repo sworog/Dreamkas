@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
-    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+    <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,20 +50,13 @@
             android:password="true"
             android:drawableLeft="@drawable/password"/>
 
-        <!--<Button
+        <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_margin="4dp"
             android:text="Войти"
-            style="@style/dk_button"/>-->
-
-        <com.gc.materialdesign.views.ButtonRectangle
-            android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#1E88E5"
-            android:text="Buttondsadsd" />
+            style="@style/dk_button"/>
     </LinearLayout>
 </RelativeLayout>

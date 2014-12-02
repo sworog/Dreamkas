@@ -125,7 +125,6 @@ dependencies
             androidTestCompile 'com.google.guava:guava:11.0.2'
             androidTestCompile 'com.squareup.spoon:spoon-client:1.1.0'
             androidTestCompile 'com.surftools:BeanstalkClient:1.4.6'
-
             apt "org.androidannotations:androidannotations:3.0"
             compile 'com.android.support:support-v4:19.0.0'
             compile 'com.octo.android.robospice:robospice:1.4.12'
@@ -134,6 +133,11 @@ dependencies
             compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
             compile 'org.androidannotations:androidannotations-api:3.0'
             compile 'com.google.zxing:core:3.0.0'
+            compile project(':materialDesign')
+            compile (project(':materialEditText')){
+                exclude group: 'com.nineoldandroids', module: 'library'
+            }
         }
+
 
 

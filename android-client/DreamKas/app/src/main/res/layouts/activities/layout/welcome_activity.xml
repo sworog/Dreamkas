@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ru.dreamkas.pos.view.components.HorizontalPager
+        android:id="@+id/pagerWelcome"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/slider1"/>
+        <ImageView
+            android:scaleType="centerCrop"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/slider2"/>
+    </ru.dreamkas.pos.view.components.HorizontalPager>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_weight="2">
+        <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:text="Касса нового поколения"
+            android:layout_marginTop="15dp"
+            android:textSize="35sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            />
+        <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:text="Для защиты кассы мы сгенерируем пин-код и
+вышлем его на ваш мобильный телефон."
+            android:textSize="14sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+
+            >
+            <RadioButton
+                android:id="@+id/radio_btn_0"
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:background="@drawable/solid_radio_bg"
+                android:button="@null"
+                android:checked="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+            <RadioButton
+                android:id="@+id/radio_btn_1"
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:background="@drawable/solid_radio_bg"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:button="@null"/>
+            <RadioButton
+                android:id="@+id/radio_btn_2"
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:background="@drawable/solid_radio_bg"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:button="@null"/>
+            <RadioButton
+                android:id="@+id/radio_btn_3"
+                android:layout_height="10dp"
+                android:layout_width="10dp"
+                android:background="@drawable/solid_radio_bg"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:button="@null"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:layout_marginTop="30dp">
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:id="@+id/btnCreateAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@color/ActiveMain"
+                android:text="СОЗДАТЬ АККАУНТ" />
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:background="@color/White"
+                android:textColor="@color/White"
+                android:text="ВОЙТИ" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
