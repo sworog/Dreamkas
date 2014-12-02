@@ -62,7 +62,7 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
     private TextWatcher mValidateTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            validate(false);
+
         }
 
         @Override
@@ -72,6 +72,7 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
 
         @Override
         public void afterTextChanged(Editable s) {
+            validate(false);
         }
     };
 

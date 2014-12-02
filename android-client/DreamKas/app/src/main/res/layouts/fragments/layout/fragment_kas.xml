@@ -15,8 +15,8 @@
         android:layout_width="fill_parent"
         android:background="@drawable/layout_border">
 
-        <ru.dreamkas.pos.view.components.ProductSearchComponent_
-            android:id="@+id/scProducts"
+        <ru.dreamkas.pos.view.components.KasMainBlockComponent_
+            android:id="@+id/cKasMainBlock"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
 

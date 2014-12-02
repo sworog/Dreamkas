@@ -21,6 +21,7 @@ import ru.dreamkas.pos.controller.requests.SearchProductsRequest;
 import ru.dreamkas.pos.model.api.NamedObject;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.model.api.collections.Products;
+import ru.dreamkas.pos.view.components.KasMainBlockComponent;
 import ru.dreamkas.pos.view.components.ProductSearchComponent;
 import ru.dreamkas.pos.view.components.ReceiptComponent;
 
@@ -35,7 +36,7 @@ public class KasFragment extends AuthRequestsContainingFragment{
     protected AuthorisedRequestWrapper getStoreRequestWrapped;
 
     @ViewById
-    ProductSearchComponent scProducts;
+    KasMainBlockComponent cKasMainBlock;
 
     @ViewById
     ReceiptComponent ccReceipt;
@@ -51,7 +52,8 @@ public class KasFragment extends AuthRequestsContainingFragment{
     public void onStart(){
         super.onStart();
         loadStoreInfo();
-        scProducts.init(new SearchProductsCommand(), new AddProductToReceiptCommand());
+
+        cKasMainBlock.init(new SearchProductsCommand(), new AddProductToReceiptCommand());
     }
 
     public class AddProductToReceiptCommand implements Command<Product>{
@@ -79,26 +81,26 @@ public class KasFragment extends AuthRequestsContainingFragment{
     public class SearchProductsRequestSuccessFinishCommand implements Command<Products>{
         public void execute(Products data)
         {
-            scProducts.setSearchResultToListView(data);
+            cKasMainBlock.getSearchProductComponent().setSearchResultToListView(data);
         }
     }
 
     public class SearchProductsRequestFailureFinishCommand implements Command<SpiceException>{
         public void execute(SpiceException spiceException){
-            scProducts.setSearchResultToListView(null);
+            cKasMainBlock.getSearchProductComponent().setSearchResultToListView(null);
             showRequestErrorToast(spiceException);
         }
     }
 
     public class GetStoreRequestSuccessFinishCommand implements Command<NamedObject>{
         public void execute(NamedObject data){
-            getActivity().getActionBar().setTitle(data.getName());
+            //getActivity().getActionBar().setTitle(data.getName());
         }
     }
 
     public class GetStoreRequestFailureFinishCommand implements Command<SpiceException>{
         public void execute(SpiceException spiceException){
-            scProducts.setSearchResultToListView(null);
+            cKasMainBlock.getSearchProductComponent().setSearchResultToListView(null);
             showRequestErrorToast(spiceException);
         }
     }

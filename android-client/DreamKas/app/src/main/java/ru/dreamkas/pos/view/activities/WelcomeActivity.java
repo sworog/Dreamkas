@@ -74,6 +74,7 @@ public class WelcomeActivity extends Activity {
     public void onStart(){
         super.onStart();
         pagerWelcome.setOnScreenSwitchListener(onScreenSwitchListener);
+
         radioGroup.setOnCheckedChangeListener(onCheckedChangedListener);
 
         btnLogin.setTextColor(getResources().getColor(R.color.ActiveMain));

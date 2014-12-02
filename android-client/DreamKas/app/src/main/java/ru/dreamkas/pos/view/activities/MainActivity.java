@@ -7,9 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,7 +34,7 @@ import ru.dreamkas.pos.view.fragments.KasFragment_;
 import ru.dreamkas.pos.view.fragments.StoreFragment_;
 
 @EActivity(R.layout.main_activity)
-public class MainActivity extends Activity implements RestFragmentContainer{
+public class MainActivity extends ActionBarActivity implements RestFragmentContainer{
     @ViewById
     DrawerLayout drawer_layout;
 
@@ -60,31 +62,45 @@ public class MainActivity extends Activity implements RestFragmentContainer{
 
     @AfterViews
     void initDrawer(){
-        drawer_layout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        setSupportActionBar(toolbar);
+
+
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
+                this,  drawer_layout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+        );
+        drawer_layout.setDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerToggle.syncState();
+
+        //drawer_layout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         lstDrawer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, DrawerMenu.getMenuItems().values().toArray(new String[DrawerMenu.getMenuItems().size()])));
         lstDrawer.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         lstDrawer.setSelection(0);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setTitle(getResources().getString(R.string.dream_kas_title));
-        drawerToggle = new ActionBarDrawerToggle(this, drawer_layout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close){
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setHomeButtonEnabled(true);
+        //getActionBar().setTitle(getResources().getString(R.string.dream_kas_title));
+        /*drawerToggle = new ActionBarDrawerToggle(this, drawer_layout, R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close){
             private CharSequence mPrevTitle;
             public void onDrawerClosed(View view){
-                getActionBar().setTitle(mPrevTitle);
+                //getActionBar().setTitle(mPrevTitle);
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView){
-                mPrevTitle = getActionBar().getTitle();
-                getActionBar().setTitle(getResources().getString(R.string.drawer_title));
+                //mPrevTitle = getActionBar().getTitle();
+                //getActionBar().setTitle(getResources().getString(R.string.drawer_title));
                 invalidateOptionsMenu();
             }
         };
         drawer_layout.setDrawerListener(drawerToggle);
 
-        drawerToggle.syncState();
+        drawerToggle.syncState();*/
 
         changeState(DrawerMenu.AppStates.Kas);
 
@@ -127,7 +143,7 @@ public class MainActivity extends Activity implements RestFragmentContainer{
                 mCurrentFragment = new StoreFragment_();
                 putTokenToFragment(mCurrentFragment);
                 displayCurrentFragment(mCurrentFragment,String.valueOf(state.getValue()));
-                getActionBar().setTitle(getResources().getString(R.string.title_change_current_store));
+                //getActionBar().setTitle(getResources().getString(R.string.title_change_current_store));
                 break;
             case Exit:
                 exitConfirmation();

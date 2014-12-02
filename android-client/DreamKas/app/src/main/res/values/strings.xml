@@ -46,5 +46,9 @@
     <string name="msg_error_empty_value">Поле должно быть заполнено</string>
     <string name="msg_error_wrong_format">Неверный формат</string>
 
+    <string name="navigation_drawer_open">OPEN</string>
+    <string name="navigation_drawer_close">CLOSE</string>
+
+
 
 </resources>
