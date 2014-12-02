@@ -20,7 +20,7 @@ define(function(require, exports, module) {
                 options.caption1 = 'Приход';
                 options.field1 = 'in';
 
-                options.caption2 = 'Уход';
+                options.caption2 = 'Расход';
                 options.field2 = 'out';
 
                 options.caption3 = 'Баланс';
