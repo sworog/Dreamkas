@@ -19,12 +19,15 @@ class CashFlowTest extends WebTestCase
 
     public function testAutoCreateCashFlowOnCreateAndEditInvoice()
     {
-        $product = $this->createProduct();
+        $user = $this->factory()->user()->getProjectUser();
+        $this->getContainer()->get('project.context')->authenticateByUser($user);
+
+        $product = $this->factory()->catalog()->getProduct();
 
         $invoice = $this->factory()
             ->invoice()
                 ->createInvoice(array('paid' => true))
-                ->createInvoiceProduct($product, 100, 7)
+                ->createInvoiceProduct($product->id, 100, 7)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -61,12 +64,15 @@ class CashFlowTest extends WebTestCase
 
     public function testAutoChangeAmountCashFlowOnEditInvoice()
     {
-        $product = $this->createProduct();
+        $user = $this->factory()->user()->getProjectUser();
+        $this->getContainer()->get('project.context')->authenticateByUser($user);
+
+        $product = $this->factory()->catalog()->getProduct();
 
         $invoice = $this->factory()
             ->invoice()
                 ->createInvoice(array('paid' => true))
-                ->createInvoiceProduct($product, 100, 7)
+                ->createInvoiceProduct($product->id, 100, 7)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -83,7 +89,7 @@ class CashFlowTest extends WebTestCase
         $editedInvoice = $this->factory()
             ->invoice()
                 ->editInvoice($invoice->id)
-                ->editInvoiceProduct(0, $product, 50, 5)
+                ->editInvoiceProduct(0, $product->id, 50, 5)
             ->flush();
 
         $this->getCashFlowRepository()->getDocumentManager()->clear();
@@ -100,12 +106,15 @@ class CashFlowTest extends WebTestCase
 
     public function testDeleteCashFromAfterDeleteInvoice()
     {
-        $product = $this->createProduct();
+        $user = $this->factory()->user()->getProjectUser();
+        $this->getContainer()->get('project.context')->authenticateByUser($user);
+
+        $product = $this->factory()->catalog()->getProduct();
 
         $invoice = $this->factory()
             ->invoice()
             ->createInvoice(array('paid' => true))
-            ->createInvoiceProduct($product, 100, 7)
+            ->createInvoiceProduct($product->id, 100, 7)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -126,12 +135,15 @@ class CashFlowTest extends WebTestCase
 
     public function testAutoCreateCashFlowOnCreateAndEditSupplierReturn()
     {
-        $product = $this->createProduct();
+        $user = $this->factory()->user()->getProjectUser();
+        $this->getContainer()->get('project.context')->authenticateByUser($user);
+
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
             ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product, 100, 7)
+            ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -169,12 +181,15 @@ class CashFlowTest extends WebTestCase
 
     public function testAutoChangeAmountCashFlowOnEditSupplierReturn()
     {
-        $product = $this->createProduct();
+        $user = $this->factory()->user()->getProjectUser();
+        $this->getContainer()->get('project.context')->authenticateByUser($user);
+
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
             ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product, 100, 7)
+            ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -191,7 +206,7 @@ class CashFlowTest extends WebTestCase
         $editedSupplierReturn = $this->factory()
             ->supplierReturn()
             ->editSupplierReturn($supplierReturn->id)
-            ->editSupplierReturnProduct(0, $product, 50, 5)
+            ->editSupplierReturnProduct(0, $product->id, 50, 5)
             ->flush();
 
         $this->getCashFlowRepository()->getDocumentManager()->clear();
@@ -208,12 +223,15 @@ class CashFlowTest extends WebTestCase
 
     public function testDeleteCashFromAfterDeleteSupplierReturn()
     {
-        $product = $this->createProduct();
+        $user = $this->factory()->user()->getProjectUser();
+        $this->getContainer()->get('project.context')->authenticateByUser($user);
+
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
             ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product, 100, 7)
+            ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();

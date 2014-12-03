@@ -76,4 +76,12 @@ class CashFlow extends AbstractDocument
      * @var CashFlowable
      */
     protected $reason;
+
+    /**
+     * @return bool
+     */
+    public function isEditable()
+    {
+        return null === $this->reason;
+    }
 }

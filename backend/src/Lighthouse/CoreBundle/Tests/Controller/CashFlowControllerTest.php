@@ -522,12 +522,12 @@ class CashFlowControllerTest extends WebTestCase
 
     public function testAutoCreatedCashFlowEdit()
     {
-        $product = $this->createProduct();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
             ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product, 100, 7)
+            ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
@@ -555,17 +555,24 @@ class CashFlowControllerTest extends WebTestCase
 
         $this->assertResponseCode(409);
 
-        Assert::assertJsonPathEquals('Невозможно изменить автоматическу созданную запись', 'message', $deleteResponse);
+        Assert::assertJsonPathEquals(
+            'Невозможно изменить/удалить автоматически созданную запись',
+            'message',
+            $deleteResponse
+        );
     }
 
     public function testAutoCreatedCashFlowDelete()
     {
-        $product = $this->createProduct();
+        $user = $this->factory()->user()->getProjectUser();
+        $this->getContainer()->get('project.context')->authenticateByUser($user);
+
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
             ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product, 100, 7)
+            ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
@@ -589,6 +596,10 @@ class CashFlowControllerTest extends WebTestCase
 
         $this->assertResponseCode(409);
 
-        Assert::assertJsonPathEquals('Удаление созданной автоматически записи невозможно', 'message', $deleteResponse);
+        Assert::assertJsonPathEquals(
+            'Невозможно изменить/удалить автоматически созданную запись',
+            'message',
+            $deleteResponse
+        );
     }
 }
