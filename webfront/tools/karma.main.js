@@ -8,8 +8,8 @@ var specModules = specFiles.map(function(moduleUrl){
         .replace(/.js/g, '');
 });
 
-require({
+require.config({
     baseUrl: '/base/'
-}, function(){
-    require(specModules, window.__karma__.start);
 });
+
+require(specModules, window.__karma__.start);

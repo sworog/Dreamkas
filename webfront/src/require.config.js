@@ -1,7 +1,5 @@
 require.config({
 
-    baseUrl: '/',
-
     paths: {
         'moment': 'bower_components/momentjs/moment',
         'mockjax': 'bower_components/jquery-mockjax/jquery.mockjax',
