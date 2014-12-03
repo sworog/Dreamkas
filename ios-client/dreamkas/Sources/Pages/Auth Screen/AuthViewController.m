@@ -10,8 +10,8 @@
 
 @interface AuthViewController ()
 
-@property (nonatomic, weak) IBOutlet CustomEmptyButton *logInButton;
-@property (nonatomic, weak) IBOutlet CustomFilledButton *signUpButton;
+@property (nonatomic, weak) IBOutlet RaisedFilledButton *signUpButton;
+@property (nonatomic, weak) IBOutlet RaisedEmptyButton *logInButton;
 
 @end
 

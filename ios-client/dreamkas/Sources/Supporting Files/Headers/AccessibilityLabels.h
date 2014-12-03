@@ -39,6 +39,7 @@
 
 #define AI_LogInPage_LoginField             @"AI_LogInPage_LoginField"
 #define AI_LogInPage_PwdField               @"AI_LogInPage_PwdField"
+#define AI_LogInPage_ForgetButton           @"AI_LogInPage_ForgetButton"
 #define AI_LogInPage_LogInButton            @"AI_LogInPage_LogInButton"
 
 //

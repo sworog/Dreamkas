@@ -23,6 +23,7 @@
 "sign_up_button_title" = "Создать аккаунт";
 "log_in_button_title" = "Войти";
 "sign_in_button_title" = "Создать";
+"login_page_forget_button" = "Я забыл пароль";
 
 "make_sale_button_title" = "Оплатить";
 

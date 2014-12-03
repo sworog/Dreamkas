@@ -48,7 +48,7 @@
 
 #define DefaultWhiteColor                   [UIColor whiteColor]
 #define DefaultBlackColor                   [UIColor blackColor]
-#define DefaultRedColor                     RGB(244, 67, 55)
+#define DefaultRedColor                     RGB(244, 67, 54)
 
 //
 // Размеры приложения

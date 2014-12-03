@@ -17,7 +17,9 @@
 @property (nonatomic, weak) IBOutlet CustomTextField *loginField;
 @property (nonatomic, weak) IBOutlet CustomTextField *passwordField;
 
-@property (nonatomic) CustomFilledButton *logInButton;
+@property (nonatomic, weak) IBOutlet FlatButton *forgetButton;
+
+@property (nonatomic) RaisedFilledButton *logInButton;
 
 @end
 
@@ -41,12 +43,16 @@
     
     [self.loginField setPlaceholder:NSLocalizedString(@"login_page_login_field_placeholder", nil)];
     [self.passwordField setPlaceholder:NSLocalizedString(@"login_page_passward_field_placeholder", nil)];
+    
+    [self.forgetButton setTitle:NSLocalizedString(@"login_page_forget_button", nil) forState:UIControlStateNormal];
 }
 
 - (void)configureAccessibilityLabels
 {
     [self.loginField setAccessibilityLabel:AI_LogInPage_LoginField];
     [self.passwordField setAccessibilityLabel:AI_LogInPage_PwdField];
+    
+    [self.forgetButton setAccessibilityLabel:AI_LogInPage_ForgetButton];
 }
 
 /**
@@ -54,7 +60,7 @@
  */
 - (void)initLogInButton
 {
-    self.logInButton = [CustomFilledButton buttonWithType:UIButtonTypeCustom];
+    self.logInButton = [RaisedFilledButton buttonWithType:UIButtonTypeCustom];
     self.logInButton.frame = CGRectMake(0, 0, 100, DefaultButtonHeight);
     
     [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
