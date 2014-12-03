@@ -519,4 +519,76 @@ class CashFlowControllerTest extends WebTestCase
 
         $this->assertResponseCode(404);
     }
+
+    public function testAutoCreatedCashFlowEdit()
+    {
+        $product = $this->createProduct();
+
+        $supplierReturn = $this->factory()
+            ->supplierReturn()
+            ->createSupplierReturn(null, null, null, true)
+            ->createSupplierReturnProduct($product, 100, 7)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows'
+        );
+
+        $this->assertResponseCode(200);
+
+        $cashFlow = $getResponse[0];
+        $cashFlowData = $cashFlow;
+        unset($cashFlowData['id'], $cashFlowData['reason']);
+        $cashFlowData['amount'] = 3333.3;
+
+        $this->client->setCatchException(true);
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/cashFlows/{$cashFlow['id']}",
+            $cashFlowData
+        );
+
+        $this->assertResponseCode(409);
+
+        Assert::assertJsonPathEquals('Невозможно изменить автоматическу созданную запись', 'message', $deleteResponse);
+    }
+
+    public function testAutoCreatedCashFlowDelete()
+    {
+        $product = $this->createProduct();
+
+        $supplierReturn = $this->factory()
+            ->supplierReturn()
+            ->createSupplierReturn(null, null, null, true)
+            ->createSupplierReturnProduct($product, 100, 7)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows'
+        );
+
+        $this->assertResponseCode(200);
+
+        $cashFlow = $getResponse[0];
+
+        $this->client->setCatchException(true);
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/cashFlows/{$cashFlow['id']}"
+        );
+
+        $this->assertResponseCode(409);
+
+        Assert::assertJsonPathEquals('Удаление созданной автоматически записи невозможно', 'message', $deleteResponse);
+    }
 }

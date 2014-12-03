@@ -2,90 +2,58 @@
 
 namespace Lighthouse\CoreBundle\Document\CashFlow;
 
-use DateTime;
-use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
-use JMS\DiExtraBundle\Annotation as DI;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
+use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Exception\NotEditableException;
+use Symfony\Component\Translation\Translator;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"onFlush"})
+ * @DI\DoctrineMongoDBListener(events={"preRemove", "preUpdate"})
  */
 class CashFlowListener extends AbstractMongoDBListener
 {
     /**
-     * @var CashFlowRepository
+     * @var Translator
      */
-    protected $cashFlowRepository;
+    protected $translator;
 
     /**
      * @DI\InjectParams({
-     *      "cashFlowRepository" = @DI\Inject("lighthouse.core.document.repository.cash_flow"),
+     *      "translator" = @DI\Inject("translator"),
      * })
-     *
-     * @param CashFlowRepository $cashFlowRepository
+     * @param Translator $translator
      */
-    public function __construct(CashFlowRepository $cashFlowRepository)
-    {
-        $this->cashFlowRepository = $cashFlowRepository;
+    public function __construct(
+        Translator $translator
+    ) {
+        $this->translator = $translator;
     }
 
-    /**
-     * @param OnFlushEventArgs $eventArgs
-     */
-    public function onFlush(OnFlushEventArgs $eventArgs)
+    public function preRemove(LifecycleEventArgs $eventArgs)
     {
-        $dm = $eventArgs->getDocumentManager();
-        $uow = $dm->getUnitOfWork();
-
-        foreach ($uow->getScheduledDocumentInsertions() as $document) {
-            if ($document instanceof CashFlowable) {
-                if ($document->cashFlowNeeded()) {
-                    /** @var CashFlow $cashFlow */
-                    $cashFlow = $this->cashFlowRepository->createNew();
-                    $cashFlow->amount = $document->getCashFlowAmount();
-                    $cashFlow->date = new DateTime();
-                    $cashFlow->direction = $document->getCashFlowDirection();
-                    $cashFlow->reason = $document;
-
-                    $dm->persist($cashFlow);
-                    $this->computeChangeSet($dm, $cashFlow);
-                }
+        $document = $eventArgs->getDocument();
+        if ($document instanceof CashFlow) {
+            if (null !== $document->reason) {
+                throw new NotEditableException(
+                    $this
+                        ->translator
+                        ->trans('lighthouse.messages.cash_flow.delete', array(), 'messages')
+                );
             }
         }
+    }
 
-        foreach ($uow->getScheduledDocumentUpdates() as $document) {
-            if ($document instanceof CashFlowable) {
-                if ($document->cashFlowNeeded()) {
-                    $cashFlow = $this->cashFlowRepository->findOneByReason($document);
-                    if (null === $cashFlow) {
-                        $cashFlow = $this->cashFlowRepository->createNew();
-                        $cashFlow->amount = $document->getCashFlowAmount();
-                        $cashFlow->date = new DateTime();
-                        $cashFlow->direction = $document->getCashFlowDirection();
-                        $cashFlow->reason = $document;
-                    } else {
-                        $cashFlow->amount = $document->getCashFlowAmount();
-                        $cashFlow->direction = $document->getCashFlowDirection();
-                    }
-
-                    $dm->persist($cashFlow);
-                    $this->computeChangeSet($dm, $cashFlow);
-                } else {
-                    $cashFlow = $this->cashFlowRepository->findOneByReason($document);
-                    if (null !== $cashFlow) {
-                        $dm->remove($cashFlow);
-                    }
-                }
-            }
-        }
-
-
-        foreach ($uow->getScheduledDocumentDeletions() as $document) {
-            if ($document instanceof CashFlowable) {
-                $cashFlow = $this->cashFlowRepository->findOneByReason($document);
-                if (null !== $cashFlow) {
-                    $dm->remove($cashFlow);
-                }
+    public function preUpdate(LifecycleEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+        if ($document instanceof CashFlow) {
+            if (null !== $document->reason) {
+                throw new NotEditableException(
+                    $this
+                        ->translator
+                        ->trans('lighthouse.messages.cash_flow.edit', array(), 'messages')
+                );
             }
         }
     }
