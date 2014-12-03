@@ -1,8 +1,8 @@
 .autocomplete__suggestion{
     background-color: #fff;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border: 1px solid #ccc;
+    overflow: auto;
+    max-height: 228px;
 }
 
 .autocomplete__hint {

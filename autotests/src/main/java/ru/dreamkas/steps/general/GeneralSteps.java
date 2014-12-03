@@ -5,8 +5,10 @@ import org.jbehave.core.model.ExamplesTable;
 import ru.dreamkas.common.item.interfaces.CommonItemType;
 import ru.dreamkas.common.pageObjects.CommonPageObject;
 import ru.dreamkas.common.pageObjects.GeneralPageObject;
+import ru.dreamkas.elements.bootstrap.SimplePreloader;
 import ru.dreamkas.elements.items.SelectByVisibleText;
 import ru.dreamkas.pages.MenuNavigationBar;
+import ru.dreamkas.pages.cashFlow.CashFlowListPage;
 import ru.dreamkas.pages.pos.PosLaunchPage;
 import ru.dreamkas.pages.pos.PosPage;
 import ru.dreamkas.pages.pos.PosSaleHistoryPage;
@@ -46,6 +48,7 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
             put("настроек пользователя", Settings.class);
             put("списка поставщиков", SupplierListPage.class);
             put("списка магазинов", StoreListPage.class);
+            put("списка денежных операций", CashFlowListPage.class);
         }};
     }
 
@@ -152,5 +155,11 @@ public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSt
         assertThat(
                 ((SelectByVisibleText) commonItemType).containsOption(value),
                 is(false));
+    }
+
+    @Step
+    public void clickOnDefaultAddObjectButton() {
+        getCurrentPageObject().addObjectButtonClick();
+        new SimplePreloader(getDriver()).await();
     }
 }

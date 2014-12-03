@@ -17,15 +17,15 @@ class CategoryControllerTest extends WebTestCase
 {
     public function testPostCategoriesAction()
     {
-        $groupId = $this->createGroup('Продовольственные товары');
+        $group = $this->factory()->catalog()->getGroup('Продовольственные товары');
 
         $categoryData = array(
             'name' => 'Винно-водочные изделия',
-            'group' => $groupId,
+            'group' => $group->id,
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -38,22 +38,22 @@ class CategoryControllerTest extends WebTestCase
 
         Assert::assertJsonHasPath('id', $postResponse);
         Assert::assertJsonPathEquals('Винно-водочные изделия', 'name', $postResponse);
-        Assert::assertJsonPathEquals($groupId, 'group.id', $postResponse);
+        Assert::assertJsonPathEquals($group->id, 'group.id', $postResponse);
         Assert::assertJsonPathEquals('Продовольственные товары', 'group.name', $postResponse);
     }
 
     public function testUniqueCategoryName()
     {
-        $groupId1 = $this->createGroup('Алкоголь');
-        $groupId2 = $this->createGroup('Продовольственные товары');
+        $group1 = $this->factory()->catalog()->getGroup('Алкоголь');
+        $group2 = $this->factory()->catalog()->getGroup('Продовольственные товары');
 
         $categoryData = array(
             'name' => 'Винно-водочные изделия',
-            'group' => $groupId1,
+            'group' => $group1->id,
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         // Create first category
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -80,7 +80,7 @@ class CategoryControllerTest extends WebTestCase
             $postResponse
         );
 
-        $categoryData2 = array('group' => $groupId2) + $categoryData;
+        $categoryData2 = array('group' => $group2->id) + $categoryData;
 
         // Create category with same name but in group 2
         $postResponse = $this->clientJsonRequest(
@@ -111,15 +111,15 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPutCategoryActionRoundingUpdated()
     {
-        $groupId = $this->createGroup('Алкоголь');
-        $categoryId = $this->createCategory($groupId, 'Водка');
+        $group = $this->factory()->catalog()->createGroup('Алкоголь');
+        $category = $this->factory()->catalog()->createCategory($group->id, 'Водка');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/categories/' . $categoryId
+            "/api/1/categories/{$category->id}"
         );
 
         $this->assertResponseCode(200);
@@ -128,14 +128,14 @@ class CategoryControllerTest extends WebTestCase
 
         $categoryData = array(
             'name' => 'Водка',
-            'group' => $groupId,
+            'group' => $group->id,
             'rounding' => 'nearest50',
         );
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/categories/' . $categoryId,
+            "/api/1/categories/{$category->id}",
             $categoryData
         );
 
@@ -146,7 +146,7 @@ class CategoryControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/categories/' . $categoryId
+            "/api/1/categories/{$category->id}"
         );
 
         $this->assertResponseCode(200);
@@ -156,7 +156,7 @@ class CategoryControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId . '/categories'
+            "/api/1/groups/{$group->id}/categories"
         );
 
         $this->assertResponseCode(200);
@@ -173,15 +173,15 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testPostCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
-        $groupId = $this->createGroup('Продовольственные товары');
+        $group = $this->factory()->catalog()->getGroup('Продовольственные товары');
 
         $categoryData = $data + array(
             'name' => 'Винно-водочные изделия',
-            'group' => $groupId,
+            'group' => $group->id,
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -203,29 +203,17 @@ class CategoryControllerTest extends WebTestCase
             'not valid empty name' => array(
                 400,
                 array('name' => ''),
-                array(
-                    'errors.children.name.errors.0'
-                    =>
-                    'Заполните это поле'
-                )
+                array('errors.children.name.errors.0' => 'Заполните это поле')
             ),
             'not valid long 101 name' => array(
                 400,
                 array('name' => str_repeat('z', 101)),
-                array(
-                    'errors.children.name.errors.0'
-                    =>
-                    'Не более 100 символов'
-                )
+                array('errors.children.name.errors.0' => 'Не более 100 символов')
             ),
             'not valid group' => array(
                 400,
                 array('group' => '1234'),
-                array(
-                    'errors.children.group.errors.0'
-                    =>
-                    'Такой группы не существует'
-                )
+                array('errors.children.group.errors.0' => 'Такой группы не существует')
             ),
             'valid long 100 name' => array(
                 201,
@@ -303,23 +291,17 @@ class CategoryControllerTest extends WebTestCase
             'invalid rounding aaaa' => array(
                 400,
                 array('rounding' => 'aaaa'),
-                array(
-                    'errors.children.rounding.errors.0' => 'Значение недопустимо.',
-                )
+                array('errors.children.rounding.errors.0' => 'Значение недопустимо.',)
             ),
             'valid rounding no value, should inherit group value' => array(
                 201,
                 array('rounding' => null),
-                array(
-                    'rounding.name' => 'nearest1',
-                )
+                array('rounding.name' => 'nearest1',)
             ),
             'valid rounding empty value, should inherit group value' => array(
                 201,
                 array('rounding' => ''),
-                array(
-                    'rounding.name' => 'nearest1',
-                )
+                array('rounding.name' => 'nearest1',)
             ),
         );
     }
@@ -333,21 +315,20 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testPutCategoriesValidation($expectedCode, array $data, array $assertions = array())
     {
-        $groupId = $this->createGroup('Продовольственные товары');
-
-        $categoryId = $this->createCategory($groupId);
+        $group = $this->factory()->catalog()->getGroup('Продовольственные товары');
+        $category = $this->factory()->catalog()->createCategory($group->id);
 
         $putData = $data + array(
             'name' => 'Винно-водочные изделия',
-            'group' => $groupId,
+            'group' => $group->id,
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/categories/' . $categoryId,
+            "/api/1/categories/{$category->id}",
             $putData
         );
 
@@ -360,26 +341,31 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategory()
     {
-        $groupId = $this->createGroup();
-        $categoryId = $this->createCategory($groupId);
+        $group = $this->factory()->catalog()->getGroup();
+        $category = $this->factory()->catalog()->createCategory($group->id);
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/categories/' . $categoryId
+            "/api/1/categories/{$category->id}"
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
-        Assert::assertJsonPathEquals($groupId, 'group.id', $getResponse);
+        Assert::assertJsonPathEquals($category->id, 'id', $getResponse);
+        Assert::assertJsonPathEquals($group->id, 'group.id', $getResponse);
     }
 
     public function testGetCategoryNotFound()
     {
-        $groupId1 = $this->createGroup('1');
-        $this->createCategory($groupId1, '1.1');
+        $this->factory()->catalog()->createCatalog(
+            array(
+                '1' => array(
+                    '1.1' => array()
+                )
+            )
+        );
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -395,17 +381,16 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoryWithSubcategories()
     {
-        $categoryId = $this->createCategory();
-        $this->createSubCategory($categoryId, '1');
-        $this->createSubCategory($categoryId, '2');
-        $this->client->shutdownKernelBeforeRequest();
+        $category = $this->factory()->catalog()->getCategory();
+        $this->factory()->catalog()->createSubCategory($category->id, '1');
+        $this->factory()->catalog()->createSubCategory($category->id, '2');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/categories/' . $categoryId
+            "/api/1/categories/{$category->id}"
         );
 
         $this->assertResponseCode(200);
@@ -418,47 +403,51 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategories()
     {
-        $groupId1 = $this->createGroup('1');
-        $groupId2 = $this->createGroup('2');
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                '1' => array(
+                    '1.1' => array(),
+                    '1.2' => array(),
+                    '1.3' => array(),
+                ),
+                '2' => array(
+                    '2.4' => array(),
+                    '2.5' => array(),
+                )
+            )
+        );
 
-        $categoryId1 = $this->createCategory($groupId1, '1.1');
-        $categoryId2 = $this->createCategory($groupId1, '1.2');
-        $categoryId3 = $this->createCategory($groupId1, '1.3');
-
-        $categoryId4 = $this->createCategory($groupId2, '2.4');
-        $categoryId5 = $this->createCategory($groupId2, '2.5');
-
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId1 . '/categories'
+            "/api/1/groups/{$catalog['1']->id}/categories"
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(3, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId2, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId3, '*.id', $getResponse, 1);
-        Assert::assertNotJsonPathEquals($categoryId4, '*.id', $getResponse);
-        Assert::assertNotJsonPathEquals($categoryId5, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($catalog['1.1']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1.2']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1.3']->id, '*.id', $getResponse, 1);
+        Assert::assertNotJsonPathEquals($catalog['2.4']->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($catalog['2.5']->id, '*.id', $getResponse);
 
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId2 . '/categories'
+            "/api/1/groups/{$catalog['2']->id}/categories"
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, 1);
-        Assert::assertNotJsonPathEquals($categoryId1, '*.id', $getResponse);
-        Assert::assertNotJsonPathEquals($categoryId2, '*.id', $getResponse);
-        Assert::assertNotJsonPathEquals($categoryId3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($catalog['2.4']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['2.5']->id, '*.id', $getResponse, 1);
+        Assert::assertNotJsonPathEquals($catalog['1.1']->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($catalog['1.2']->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($catalog['1.3']->id, '*.id', $getResponse);
     }
 
     public function testGetCategoriesNotFound()
@@ -477,13 +466,13 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesEmptyCollection()
     {
-        $groupId = $this->createGroup();
+        $group = $this->factory()->catalog()->getGroup();
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId . '/categories'
+            "/api/1/groups/{$group->id}/categories"
         );
 
         $this->assertResponseCode(200);
@@ -493,14 +482,14 @@ class CategoryControllerTest extends WebTestCase
 
     public function testDeleteCategory()
     {
-        $groupId = $this->createGroup();
-        $categoryId = $this->createCategory($groupId);
+        $group = $this->factory()->catalog()->getGroup();
+        $category = $this->factory()->catalog()->getCategory($group->id);
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/categories/' . $categoryId
+            "/api/1/categories/{$category->id}"
         );
 
         $this->assertResponseCode(200);
@@ -508,7 +497,7 @@ class CategoryControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/categories/' . $categoryId
+            "/api/1/categories/{$category->id}"
         );
 
         $this->assertResponseCode(204);
@@ -516,24 +505,23 @@ class CategoryControllerTest extends WebTestCase
 
     public function testDeleteCategoryWithSubcategories()
     {
-        $groupId = $this->createGroup();
-        $categoryId = $this->createCategory($groupId);
+        $category = $this->factory()->catalog()->getCategory();
 
-        $this->createSubCategory($categoryId, '1');
-        $this->createSubCategory($categoryId, '2');
+        $this->factory()->catalog()->createSubCategory($category->id, '1');
+        $this->factory()->catalog()->createSubCategory($category->id, '2');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/categories/' . $categoryId
+            "/api/1/categories/{$category->id}"
         );
 
         $this->assertResponseCode(409);
 
-        $request = new JsonRequest('/api/1/categories/' . $categoryId, 'DELETE');
+        $request = new JsonRequest("/api/1/categories/{$category->id}", 'DELETE');
         $request->setAccessToken($accessToken);
         $request->addHttpHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
 
@@ -555,8 +543,8 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testAccessCategory($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $groupId = $this->createGroup();
-        $categoryId = $this->createCategory($groupId);
+        $group = $this->factory()->catalog()->getGroup();
+        $category = $this->factory()->catalog()->createCategory($group->id);
 
         $url = str_replace(
             array(
@@ -564,8 +552,8 @@ class CategoryControllerTest extends WebTestCase
                 '__GROUP_ID__'
             ),
             array(
-                $categoryId,
-                $groupId,
+                $category->id,
+                $group->id,
             ),
             $url
         );
@@ -574,7 +562,7 @@ class CategoryControllerTest extends WebTestCase
 
         $requestData += array(
             'name' => 'Пиво',
-            'group' => $groupId,
+            'group' => $group->id,
             'rounding' => 'nearest1',
         );
 
@@ -907,21 +895,21 @@ class CategoryControllerTest extends WebTestCase
     {
         $storeManager = $this->factory()->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
-        $categoryId = $this->createCategory();
-        $storeId = $this->factory()->store()->getStoreId();
+        $category = $this->factory()->catalog()->getCategory();
+        $store = $this->factory()->store()->getStore();
 
-        $this->factory()->store()->linkManagers($storeId, $storeManager->id, $rel);
+        $this->factory()->store()->linkManagers($store->id, $storeManager->id, $rel);
 
         $accessToken = $this->factory()->oauth()->auth($storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/categories/' . $categoryId
+            "/api/1/stores/{$store->id}/categories/{$category->id}"
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals($categoryId, 'id', $getResponse);
+        Assert::assertJsonPathEquals($category->id, 'id', $getResponse);
     }
 
     /**
@@ -933,19 +921,19 @@ class CategoryControllerTest extends WebTestCase
     {
         $storeManager = $this->factory()->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
-        $categoryId = $this->createCategory();
-        $storeId1 = $this->factory()->store()->getStoreId('42');
-        $storeId2 = $this->factory()->store()->getStoreId('43');
+        $category = $this->factory()->catalog()->getCategory();
+        $store1 = $this->factory()->store()->getStore('42');
+        $store2 = $this->factory()->store()->getStore('43');
 
-        $this->factory()->store()->linkManagers($storeId1, $storeManager->id, $rel);
+        $this->factory()->store()->linkManagers($store1->id, $storeManager->id, $rel);
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId1);
+        $accessToken = $this->factory()->oauth()->auth($storeManager, 'password');
 
         $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/categories/' . $categoryId
+            "/api/1/stores/{$store2->id}/categories/{$category->id}"
         );
 
         $this->assertResponseCode(403);
@@ -961,8 +949,8 @@ class CategoryControllerTest extends WebTestCase
     {
         $storeManager = $this->factory()->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
-        $categoryId = $this->createCategory();
-        $storeId = $this->factory()->store()->getStoreId();
+        $category = $this->factory()->catalog()->getCategory();
+        $store = $this->factory()->store()->getStore();
 
         $accessToken = $this->factory()->oauth()->auth($storeManager, 'password');
 
@@ -970,7 +958,7 @@ class CategoryControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/categories/' . $categoryId
+            "/api/1/stores/{$store->id}/categories/{$category->id}"
         );
 
         $this->assertResponseCode(403);
@@ -987,49 +975,54 @@ class CategoryControllerTest extends WebTestCase
     {
         $manager = $this->factory()->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
-        $storeId = $this->factory()->store()->getStoreId();
+        $store = $this->factory()->store()->getStore();
 
-        $this->factory()->store()->linkManagers($storeId, $manager->id, $rel);
+        $this->factory()->store()->linkManagers($store->id, $manager->id, $rel);
 
-        $groupId1 = $this->createGroup('1');
-        $groupId2 = $this->createGroup('2');
-
-        $categoryId1 = $this->createCategory($groupId1, '1.1');
-        $categoryId2 = $this->createCategory($groupId1, '1.2');
-        $categoryId3 = $this->createCategory($groupId1, '1.3');
-        $categoryId4 = $this->createCategory($groupId1, '1.4');
-        $categoryId5 = $this->createCategory($groupId2, '2.1');
-        $categoryId6 = $this->createCategory($groupId2, '2.2');
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                '1' => array(
+                    '1.1' => array(),
+                    '1.2' => array(),
+                    '1.3' => array(),
+                    '1.4' => array(),
+                ),
+                '2' => array(
+                    '2.1' => array(),
+                    '2.2' => array(),
+                )
+            )
+        );
 
         $accessToken = $this->factory()->oauth()->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/groups/' .  $groupId1 . '/categories'
+            "/api/1/stores/{$store->id}/groups/{$catalog['1']->id}/categories"
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(4, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($categoryId1, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId2, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId3, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId4, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId1, '*.group.id', $getResponse, 4);
+        Assert::assertJsonPathEquals($catalog['1.1']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1.2']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1.3']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1.4']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1']->id, '*.group.id', $getResponse, 4);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/groups/' .  $groupId2 . '/categories'
+            "/api/1/stores/{$store->id}/groups/{$catalog['2']->id}/categories"
         );
 
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(2, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($categoryId5, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId6, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId2, '*.group.id', $getResponse, 2);
+        Assert::assertJsonPathEquals($catalog['2.1']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['2.2']->id, '*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['2']->id, '*.group.id', $getResponse, 2);
     }
 
     /**

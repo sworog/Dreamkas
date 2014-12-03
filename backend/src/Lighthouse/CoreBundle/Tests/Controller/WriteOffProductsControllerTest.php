@@ -11,30 +11,30 @@ class WriteOffProductsControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
-        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
-        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
+        $product1 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
+        $product2 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
+        $product3 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
 
         $writeOff1 = $this->factory()
             ->writeOff()
                 ->createWriteOff($store, '2013-10-18T09:39:47+0400')
-                ->createWriteOffProduct($productId1, 100, 36.70, 'Бой')
-                ->createWriteOffProduct($productId2, 1, 12)
-                ->createWriteOffProduct($productId3, 20, 42.90, 'Бой')
+                ->createWriteOffProduct($product1->id, 100, 36.70, 'Бой')
+                ->createWriteOffProduct($product2->id, 1, 12)
+                ->createWriteOffProduct($product3->id, 20, 42.90, 'Бой')
             ->flush();
 
         $writeOff2 = $this->factory()
             ->writeOff()
                 ->createWriteOff($store, '2013-10-18T12:22:00+0400')
-                ->createWriteOffProduct($productId1, 120, 37.20, 'Бой')
-                ->createWriteOffProduct($productId3, 200, 35.80, 'Бой')
+                ->createWriteOffProduct($product1->id, 120, 37.20, 'Бой')
+                ->createWriteOffProduct($product3->id, 200, 35.80, 'Бой')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/products/{$productId1}/writeOffProducts"
+            "/api/1/stores/{$store->id}/products/{$product1->id}/writeOffProducts"
         );
 
         $this->assertResponseCode(200);
@@ -54,23 +54,23 @@ class WriteOffProductsControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
-        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
-        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
+        $product1 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
+        $product2 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
+        $product3 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
 
         $writeOff1 = $this->factory()
             ->writeOff()
                 ->createWriteOff($store, '2013-10-18T09:39:47+0400')
-                ->createWriteOffProduct($productId1, 99.99, 36.78, 'Порча')
-                ->createWriteOffProduct($productId2, 0.4, 21.77, 'Порча')
-                ->createWriteOffProduct($productId3, 7.77, 42.99, 'Порча')
+                ->createWriteOffProduct($product1->id, 99.99, 36.78, 'Порча')
+                ->createWriteOffProduct($product2->id, 0.4, 21.77, 'Порча')
+                ->createWriteOffProduct($product3->id, 7.77, 42.99, 'Порча')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/products/{$productId1}/writeOffProducts"
+            "/api/1/stores/{$store->id}/products/{$product1->id}/writeOffProducts"
         );
 
         $this->assertResponseCode(200);
@@ -83,7 +83,7 @@ class WriteOffProductsControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/products/{$productId2}/writeOffProducts"
+            "/api/1/stores/{$store->id}/products/{$product2->id}/writeOffProducts"
         );
 
         $this->assertResponseCode(200);
@@ -96,7 +96,7 @@ class WriteOffProductsControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/products/{$productId3}/writeOffProducts"
+            "/api/1/stores/{$store->id}/products/{$product3->id}/writeOffProducts"
         );
 
         $this->assertResponseCode(200);

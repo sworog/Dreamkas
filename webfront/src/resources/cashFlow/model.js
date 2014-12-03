@@ -1,8 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Model = require('kit/model/model');
-
-    require('./mocks/delete');
+    var Model = require('kit/model/model'),
+        normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Model.extend({
         urlRoot: Model.baseApiUrl + '/cashFlows',
@@ -14,7 +13,7 @@ define(function(require, exports, module) {
             return {
                 direction: this.get('direction'),
                 date: this.get('date'),
-                amount: this.get('amount'),
+                amount: normalizeNumber(this.get('amount')) || this.get('amount'),
                 comment: this.get('comment')
             }
         }

@@ -45,28 +45,28 @@ class JobControllerTest extends WebTestCase
             'retailPricePreference' => 'retailMarkup',
         );
 
-        $productId = $this->createProduct($productData);
+        $product = $this->factory()->catalog()->createProduct($productData);
 
         $storeProductData1 = array(
             'retailPrice' => 22,
             'retailPricePreference' => 'retailPrice',
         );
 
-        $this->updateStoreProduct($storeId1, $productId, $storeProductData1);
+        $this->updateStoreProduct($storeId1, $product->id, $storeProductData1);
 
         $storeProductData2 = array(
             'retailPrice' => 26,
             'retailPricePreference' => 'retailPrice',
         );
 
-        $this->updateStoreProduct($storeId2, $productId, $storeProductData2);
+        $this->updateStoreProduct($storeId2, $product->id, $storeProductData2);
 
         $storeProductData3 = array(
             'retailPrice' => 23,
             'retailPricePreference' => 'retailPrice',
         );
 
-        $this->updateStoreProduct($storeId3, $productId, $storeProductData3);
+        $this->updateStoreProduct($storeId3, $product->id, $storeProductData3);
 
         $updateProductData = array(
             'retailPriceMin' => 23,
@@ -74,7 +74,7 @@ class JobControllerTest extends WebTestCase
             'retailPricePreference' => 'retailPrice',
         ) + $productData;
 
-        $this->updateProduct($productId, $updateProductData);
+        $this->updateProduct($product->id, $updateProductData);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,
@@ -127,7 +127,7 @@ class JobControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $storeId1,
-            $productId,
+            $product->id,
             array(
                 'retailPrice' => '23.00',
             )
@@ -135,7 +135,7 @@ class JobControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $storeId2,
-            $productId,
+            $product->id,
             array(
                 'retailPrice' => '24.00',
             )
@@ -143,7 +143,7 @@ class JobControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $storeId3,
-            $productId,
+            $product->id,
             array(
                 'retailPrice' => '23.00',
             )
@@ -182,38 +182,39 @@ class JobControllerTest extends WebTestCase
             'retailPriceMin' => '21.08',
             'retailPriceMax' => '27.74',
             'retailPricePreference' => 'retailPrice',
+            'vat' => 18
         );
 
-        $productId = $this->createProduct($productData);
+        $product = $this->factory()->catalog()->createProduct($productData);
 
         $storeProductData1 = array(
             'retailPrice' => '22.13',
             'retailPricePreference' => 'retailPrice',
         );
 
-        $this->updateStoreProduct($storeId1, $productId, $storeProductData1);
+        $this->updateStoreProduct($storeId1, $product->id, $storeProductData1);
 
         $storeProductData2 = array(
             'retailPrice' => '26.07',
             'retailPricePreference' => 'retailPrice',
         );
 
-        $this->updateStoreProduct($storeId2, $productId, $storeProductData2);
+        $this->updateStoreProduct($storeId2, $product->id, $storeProductData2);
 
         $storeProductData3 = array(
             'retailPrice' => '23.46',
             'retailPricePreference' => 'retailPrice',
         );
 
-        $this->updateStoreProduct($storeId3, $productId, $storeProductData3);
+        $this->updateStoreProduct($storeId3, $product->id, $storeProductData3);
 
         $updateProductData = array(
             'rounding' => $rounding
         ) + $productData;
 
-        $this->updateProduct($productId, $updateProductData);
+        $this->updateProduct($product->id, $updateProductData);
 
-        $this->assertProduct($productId, array('rounding.name' => $rounding));
+        $this->assertProduct($product->id, array('rounding.name' => $rounding));
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,
@@ -266,7 +267,7 @@ class JobControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $storeId1,
-            $productId,
+            $product->id,
             array(
                 'roundedRetailPrice' => $retailPrice1,
             )
@@ -274,7 +275,7 @@ class JobControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $storeId2,
-            $productId,
+            $product->id,
             array(
                 'roundedRetailPrice' => $retailPrice2,
             )
@@ -282,7 +283,7 @@ class JobControllerTest extends WebTestCase
 
         $this->assertStoreProduct(
             $storeId3,
-            $productId,
+            $product->id,
             array(
                 'roundedRetailPrice' => $retailPrice3,
             )
@@ -345,22 +346,23 @@ class JobControllerTest extends WebTestCase
             'retailPriceMin' => '21.08',
             'retailPriceMax' => '27.74',
             'retailPricePreference' => 'retailPrice',
+            'vat' => 18
         );
 
-        $productId = $this->createProduct($productData);
+        $product = $this->factory()->catalog()->createProduct($productData);
 
         $storeProductData = array(
             'retailPrice' => '22.13',
             'retailPricePreference' => 'retailPrice',
         );
 
-        $this->updateStoreProduct($storeId, $productId, $storeProductData);
+        $this->updateStoreProduct($storeId, $product->id, $storeProductData);
 
         $updateProductData = array(
             'name' => 'Печенье Юбелейное 200гр'
         ) + $productData;
 
-        $this->updateProduct($productId, $updateProductData);
+        $this->updateProduct($product->id, $updateProductData);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,

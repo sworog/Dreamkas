@@ -25,6 +25,12 @@ public class GeneralEndUserSteps {
         generalSteps.openPage();
     }
 
+    @Given("пользователь* открывает страницу '$pageObjectName'")
+    public void givenTheUserOpensPageByPageObjectName(String pageObjectName) {
+        generalSteps.setCurrentPageObject(pageObjectName);
+        generalSteps.openPage();
+    }
+
     @When("пользователь* вводит данные в поля $exampleTable")
     public void userInputsField(ExamplesTable exampleTable) {
         generalSteps.input(exampleTable);
@@ -45,6 +51,11 @@ public class GeneralEndUserSteps {
     @When("пользователь* нажимает на елемент с именем '$name'")
     public void whenTheUserClicksOnElementWithName(String name) {
         generalSteps.clickOnCommonItemWihName(name);
+    }
+
+    @When("пользователь* нажимает на кнопку создания '$button'")
+    public void whenTheUserClicksOnCreateButton() {
+        generalSteps.clickOnDefaultAddObjectButton();
     }
 
     @Then("пользователь* проверяет, что поле с именем '$elementName' имеет значение '$value'")

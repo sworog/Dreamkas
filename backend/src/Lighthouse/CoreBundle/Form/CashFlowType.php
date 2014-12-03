@@ -28,5 +28,4 @@ class CashFlowType extends DocumentType
     {
         return CashFlow::getClassName();
     }
-
 }

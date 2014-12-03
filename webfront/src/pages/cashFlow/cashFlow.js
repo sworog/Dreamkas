@@ -5,6 +5,19 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'cashFlows',
+        events: {
+            'update .inputDateRange': function(e, data){
+
+                e.target.classList.add('loading');
+                this.setParams(data);
+
+                this.collections.cashFlows.fetch({
+                    filters: data
+                }).then(function(){
+                    e.target.classList.remove('loading');
+                });
+            }
+        },
         params: {
             dateTo: function() {
                 var page = this,
@@ -22,23 +35,27 @@ define(function(require, exports, module) {
         collections: {
             cashFlows: function() {
                 var page = this,
-                    CashFlowsCollection = require('resources/cashFlow/collection');
+                    CashFlowsCollection = require('resources/cashFlow/collection'),
+                    cashFlows;
 
-                return new CashFlowsCollection([], {
-                    filters: _.pick(page.params, 'dateFrom', 'dateTo', 'types')
+                cashFlows = new CashFlowsCollection([], {
+                    filters: _.pick(page.params, 'dateFrom', 'dateTo')
                 });
+
+                return cashFlows;
             }
         },
         blocks: {
             modal_cashFlow: require('blocks/modal/cashFlow/cashFlow'),
             table_cashFlows: require('blocks/table/cashFlows/cashFlows')
         },
-        initialize: function(){
+        initialize: function() {
+            var page = this;
 
-            this.params.dateTo = this.get('params.dateTo');
-            this.params.dateFrom = this.get('params.dateFrom');
+            page.params.dateTo = page.get('params.dateTo');
+            page.params.dateFrom = page.get('params.dateFrom');
 
-            return Page.prototype.initialize.apply(this, arguments);
+            return Page.prototype.initialize.apply(page, arguments);
         }
     });
 });

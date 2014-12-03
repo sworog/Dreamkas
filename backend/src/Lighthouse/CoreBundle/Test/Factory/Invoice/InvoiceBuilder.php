@@ -140,6 +140,16 @@ class InvoiceBuilder
     }
 
     /**
+     * @param string $invoiceId
+     */
+    public function removeInvoice($invoiceId)
+    {
+        $this->invoice = $this->factory->invoice()->getInvoiceById($invoiceId);
+        $this->invoiceRepository->getDocumentManager()->remove($this->invoice);
+        $this->invoiceRepository->getDocumentManager()->flush();
+    }
+
+    /**
      * @param $productId
      * @param $quantity
      * @param $price

@@ -1,9 +1,13 @@
 <?php
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Karzer\Karzer;
 
+/**
+ * @method Container getContainer()
+ */
 class LighthouseKernel extends Kernel
 {
     /**

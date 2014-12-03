@@ -96,7 +96,7 @@ class InvoicesImporterTest extends WebTestCase
         $storeId2 = $this->factory()->store()->getStoreId(2, 'Есенина 1');
         $storeId3 = $this->factory()->store()->getStoreId(3, 'Металлистов, 116 (МЕ)');
 
-        $this->createProductsByNames(
+        $this->factory()->catalog()->getProductByNames(
             array(
                 'Ц0000001371',
                 'Ц0000001313',

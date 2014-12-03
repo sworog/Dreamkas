@@ -33,6 +33,7 @@ class MetaContainerTest extends WebTestCase
     public function testCollectionWithMetaData()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $productsData = $this->getProductsData();
 
@@ -112,7 +113,7 @@ class MetaContainerTest extends WebTestCase
     
     public function testCollectionWithMultiMetaGenerators()
     {
-        $this->createProductsByNames(array('1', '2', '3'));
+        $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
             '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
@@ -171,21 +172,19 @@ class MetaContainerTest extends WebTestCase
         $this->assertEquals($expectedMeta, $document->getMeta());
     }
 
+    /**
+     * @return array
+     */
     public function getProductsData()
     {
-        $groupData = array(
-            'name' => 'Группа',
-            'id' => $this->createGroup('Группа'),
-        );
-
-        $categoryData = array(
-            'name' => 'Категория',
-            'id' => $this->createCategory($groupData['id'], 'Категория'),
-        );
-
-        $subCategoryData = array(
-            'name' => 'Подкатегория',
-            'id' => $this->createSubCategory($categoryData['id'], 'Подкатегория'),
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                'Группа' => array(
+                    'Категория' => array(
+                        'Подкатегория' => array()
+                    )
+                )
+            )
         );
 
         $productsData = array(
@@ -199,7 +198,6 @@ class MetaContainerTest extends WebTestCase
                 'retailMarkupMin' => '40',
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
-                'subCategory' => $subCategoryData['id'],
             ),
             2 => array(
                 'name' => 'Продукт 2 без диапозонов',
@@ -208,7 +206,6 @@ class MetaContainerTest extends WebTestCase
                 'vendor' => 'Петмол',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '55',
-                'subCategory' => $subCategoryData['id'],
             ),
             3 => array(
                 'name' => 'Продукт 3',
@@ -220,7 +217,6 @@ class MetaContainerTest extends WebTestCase
                 'retailPriceMin' => '67.33',
                 'retailPriceMax' => '117.54',
                 'retailPricePreference' => 'retailPrice',
-                'subCategory' => $subCategoryData['id'],
             ),
             4 => array(
                 'name' => 'Продукт 4 без цены',
@@ -232,7 +228,6 @@ class MetaContainerTest extends WebTestCase
                 'retailPriceMin' => '',
                 'retailPriceMax' => '',
                 'retailPricePreference' => 'retailPrice',
-                'subCategory' => $subCategoryData['id'],
             ),
             5 => array(
                 'name' => 'Продукт 5',
@@ -244,12 +239,13 @@ class MetaContainerTest extends WebTestCase
                 'retailMarkupMin' => '40',
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
-                'subCategory' => $subCategoryData['id'],
             ),
         );
 
-        for ($key = 1; $key < count($productsData) + 1; $key++) {
-            $productsData[$key]['id'] = $this->createProduct($productsData[$key], $productsData[$key]['subCategory']);
+        foreach ($productsData as &$productData) {
+            $product = $this->factory()->catalog()->createProduct($productData, $catalog['Подкатегория']);
+            $productData['id'] = $product->id;
+            $productData['subCategory'] = $catalog['Подкатегория']->id;
         }
 
         return $productsData;

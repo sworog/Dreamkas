@@ -4,6 +4,7 @@ import ru.dreamkas.api.objects.Product;
 import ru.dreamkas.api.objects.Store;
 import ru.dreamkas.api.objects.SubCategory;
 import ru.dreamkas.api.objects.Supplier;
+import ru.dreamkas.api.objects.cashFlow.CashFlow;
 import ru.dreamkas.apiStorage.ApiStorage;
 import ru.dreamkas.apiStorage.StorageClearable;
 
@@ -78,6 +79,12 @@ public class CustomVariableStorage implements StorageClearable {
         return salesMap;
     }
 
+    private HashMap<String, CashFlow> cashFlowHashMap = new HashMap<>();
+
+    public HashMap<String, CashFlow> getCashFlowHashMap() {
+        return cashFlowHashMap;
+    }
+
     public void clear() {
         ApiStorage.getUserVariableStorage().getUserContainers().clear();
         ApiStorage.getUserVariableStorage().getUserTokens().clear();
@@ -87,5 +94,6 @@ public class CustomVariableStorage implements StorageClearable {
         subCategories.clear();
         subCategoryProducts.clear();
         salesMap.clear();
+        cashFlowHashMap.clear();
     }
 }

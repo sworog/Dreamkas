@@ -4,7 +4,10 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlowFilter;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlowRepository;
+use Lighthouse\CoreBundle\Exception\NotEditableException;
+use Lighthouse\CoreBundle\Form\CashFlowFilterType;
 use Lighthouse\CoreBundle\Form\CashFlowType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -56,19 +59,30 @@ class CashFlowController extends AbstractRestController
      */
     public function putCashFlowsAction(Request $request, CashFlow $cashFlow)
     {
+        $this->checkCashFlowIsEditable($cashFlow);
         return $this->processForm($request, $cashFlow);
     }
 
     /**
      * @Rest\Route("cashFlows")
      *
+     * @param Request $request
      * @return CashFlow[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(resource=true)
      */
-    public function getCashFlowsAction()
+    public function getCashFlowsAction(Request $request)
     {
-        return $this->documentRepository->findAll();
+        $repository = $this->documentRepository;
+
+        return $this->processFormCallback(
+            $request,
+            function (CashFlowFilter $filter) use ($repository) {
+                return $repository->findCashFlowsByFilter($filter);
+            },
+            new CashFlowFilter(),
+            new CashFlowFilterType()
+        );
     }
 
     /**
@@ -82,5 +96,31 @@ class CashFlowController extends AbstractRestController
     public function getCashFlowAction(CashFlow $cashFlow)
     {
         return $cashFlow;
+    }
+
+    /**
+     * @Rest\Route("cashFlows/{cashFlow}")
+     *
+     * @param CashFlow $cashFlow
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteCashFlowAction(CashFlow $cashFlow)
+    {
+        $this->checkCashFlowIsEditable($cashFlow);
+        $this->processDelete($cashFlow);
+    }
+
+    /**
+     * @param CashFlow $cashFlow
+     */
+    protected function checkCashFlowIsEditable(CashFlow $cashFlow)
+    {
+        if (!$cashFlow->isEditable()) {
+            throw new NotEditableException(
+                $this->container->get('translator')
+                    ->trans('lighthouse.messages.cash_flow.edit', array(), 'messages')
+            );
+        }
     }
 }
