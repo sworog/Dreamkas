@@ -4,13 +4,20 @@ namespace Lighthouse\ReportsBundle\Tests\Document\GrossMarginSales\Product;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Document\GrossMarginSales\Product\GrossMarginSalesProductRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 
-class GrossMarginSalesProductTest extends DataAwareTestCase
+class GrossMarginSalesProductTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+        $this->authenticateProject();
+    }
+
     /**
      * @return GrossMarginSalesProductRepository
      */

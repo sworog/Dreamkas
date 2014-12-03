@@ -2,10 +2,17 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Command;
 
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
-class RecalculateReportsCommandTest extends DataAwareTestCase
+class RecalculateReportsCommandTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+        $this->authenticateProject();
+    }
+    
     protected function prepareDataForProject2()
     {
         $factory = $this->factory('project2');

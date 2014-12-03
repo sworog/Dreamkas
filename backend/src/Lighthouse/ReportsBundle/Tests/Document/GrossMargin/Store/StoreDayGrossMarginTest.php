@@ -3,11 +3,18 @@
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMargin\Store;
 
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 
-class StoreDayGrossMarginTest extends DataAwareTestCase
+class StoreDayGrossMarginTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+        $this->authenticateProject();
+    }
+
     public function prepareData()
     {
         $store = $this->factory()->store()->getStore('1');
