@@ -11,6 +11,7 @@ import ru.dreamkas.collection.cashFlow.CashFlowObject;
 import ru.dreamkas.common.pageObjects.BootstrapPageObject;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
 import ru.dreamkas.elements.items.JSInput;
+import ru.dreamkas.elements.items.NonType;
 
 @DefaultUrl("/cashFlow")
 public class CashFlowListPage extends BootstrapPageObject{
@@ -42,6 +43,9 @@ public class CashFlowListPage extends BootstrapPageObject{
                 super.clickByLocator(convertedDate + ":" + locators[1]);
             }
         });
+        put("Приход", new NonType(this, "in"));
+        put("Расход", new NonType(this, "out"));
+        put("Баланс", new NonType(this, "balance"));
     }
 
     private JSInput getCustomJsInput(final String name) {

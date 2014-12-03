@@ -79,6 +79,12 @@ public class CustomVariableStorage implements StorageClearable {
         return salesMap;
     }
 
+    private HashMap<String, CashFlow> cashFlowHashMap = new HashMap<>();
+
+    public HashMap<String, CashFlow> getCashFlowHashMap() {
+        return cashFlowHashMap;
+    }
+
     public void clear() {
         ApiStorage.getUserVariableStorage().getUserContainers().clear();
         ApiStorage.getUserVariableStorage().getUserTokens().clear();
@@ -88,11 +94,6 @@ public class CustomVariableStorage implements StorageClearable {
         subCategories.clear();
         subCategoryProducts.clear();
         salesMap.clear();
-    }
-
-    private HashMap<String, CashFlow> cashFlowHashMap = new HashMap<>();
-
-    public HashMap<String, CashFlow> getCashFlowHashMap() {
-        return cashFlowHashMap;
+        cashFlowHashMap.clear();
     }
 }
