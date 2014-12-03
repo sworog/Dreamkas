@@ -12,7 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet CustomEmptyButton *payButton, *payByUsingCard;
 @property (nonatomic, weak) IBOutlet CustomLabel *firstLabel, *secondLabel;
-@property (nonatomic, weak) IBOutlet CustomTextField *paymentSumField;
+@property (nonatomic, weak) IBOutlet StaticTextField *paymentSumField;
 
 @end
 

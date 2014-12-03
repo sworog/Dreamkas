@@ -80,6 +80,14 @@ class MKTextField : UITextField {
         }
     }
     
+    override var attributedPlaceholder: NSAttributedString! {
+        didSet {
+            floatingLabel.text = attributedPlaceholder.string
+            floatingLabel.sizeToFit()
+            setFloatingLabelOverlapTextField()
+        }
+    }
+    
     private lazy var mkLayer: MKLayer = MKLayer(superLayer: self.layer)
     private var floatingLabel: UILabel!
     private var bottomBorderLayer: CALayer?

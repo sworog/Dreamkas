@@ -14,8 +14,8 @@
 
 @interface LogInViewController () <UITextFieldDelegate>
 
-@property (nonatomic, weak) IBOutlet CustomTextField *loginField;
-@property (nonatomic, weak) IBOutlet CustomTextField *passwordField;
+@property (nonatomic, weak) IBOutlet DynamicTextField *loginField;
+@property (nonatomic, weak) IBOutlet DynamicTextField *passwordField;
 
 @property (nonatomic, weak) IBOutlet FlatButton *forgetButton;
 
@@ -41,8 +41,8 @@
 {
     [self setTitle:NSLocalizedString(@"log_in_title_name", nil)];
     
-    [self.loginField setPlaceholder:NSLocalizedString(@"login_page_login_field_placeholder", nil)];
-    [self.passwordField setPlaceholder:NSLocalizedString(@"login_page_passward_field_placeholder", nil)];
+    [self.loginField setAttributedPlaceholder:NSLocalizedString(@"login_page_login_field_placeholder", nil)];
+    [self.passwordField setAttributedPlaceholder:NSLocalizedString(@"login_page_passward_field_placeholder", nil)];
     
     [self.forgetButton setTitle:NSLocalizedString(@"login_page_forget_button", nil) forState:UIControlStateNormal];
 }

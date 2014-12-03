@@ -23,9 +23,7 @@ import Foundation
     
     func initialize() {
         self.cornerRadius = CGFloat(DefaultCornerRadius)
-        
-        self.titleLabel!.font = UIFont (name: DefaultMediumFontName, size: 14)
-        
+        self.titleLabel!.font = UIFont (name: DefaultMediumFontName, size: 14)        
         self.enableShadows()
     }
     

@@ -125,6 +125,8 @@
 		CE500B8A19F0148500449C34 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */; };
 		CE519BDD1A1CB21D007ED2BC /* resetsim.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE519BDC1A1CB21D007ED2BC /* resetsim.sh */; };
 		CE519BDE1A1CB21D007ED2BC /* resetsim.sh in Resources */ = {isa = PBXBuildFile; fileRef = CE519BDC1A1CB21D007ED2BC /* resetsim.sh */; };
+		CE5AF86A1A2F4F9600CA404C /* CustomTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5AF8691A2F4F9600CA404C /* CustomTextFields.swift */; };
+		CE5AF86B1A2F4F9600CA404C /* CustomTextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5AF8691A2F4F9600CA404C /* CustomTextFields.swift */; };
 		CE6701E41A2F0E7800A19B22 /* SwiftDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6701E31A2F0E7800A19B22 /* SwiftDefines.swift */; };
 		CE6701E51A2F0E7800A19B22 /* SwiftDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6701E31A2F0E7800A19B22 /* SwiftDefines.swift */; };
 		CE6701E71A2F116E00A19B22 /* CustomButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6701E61A2F116E00A19B22 /* CustomButtons.swift */; };
@@ -243,8 +245,6 @@
 		CE9A7EFB1A0D1B0A00509548 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EF91A0D1B0A00509548 /* MoreButton.m */; };
 		CE9A7F001A0D1E0F00509548 /* SidemenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */; };
 		CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */; };
-		CE9C3EAC1A2E097D003FA587 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */; };
-		CE9C3EAD1A2E097D003FA587 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */; };
 		CE9C3EB01A2E09AA003FA587 /* OldCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */; };
 		CE9C3EB11A2E09AA003FA587 /* OldCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */; };
 		CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E0DE91A0BAFEB00D6F92B /* NSString+CaseMethods.m */; };
@@ -469,6 +469,7 @@
 		CE500B8519F0148500449C34 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		CE500B8619F0148500449C34 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
 		CE519BDC1A1CB21D007ED2BC /* resetsim.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = resetsim.sh; sourceTree = "<group>"; };
+		CE5AF8691A2F4F9600CA404C /* CustomTextFields.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextFields.swift; sourceTree = "<group>"; };
 		CE6701E31A2F0E7800A19B22 /* SwiftDefines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDefines.swift; sourceTree = "<group>"; };
 		CE6701E61A2F116E00A19B22 /* CustomButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtons.swift; sourceTree = "<group>"; };
 		CE6B866C1A24844800669D9F /* AbstractViewController+ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractViewController+ActionButton.h"; sourceTree = "<group>"; };
@@ -558,7 +559,6 @@
 		CE9A7EF91A0D1B0A00509548 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
 		CE9A7EFE1A0D1E0F00509548 /* SidemenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidemenuButton.h; sourceTree = "<group>"; };
 		CE9A7EFF1A0D1E0F00509548 /* SidemenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidemenuButton.m; sourceTree = "<group>"; };
-		CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		CE9C3EAE1A2E09AA003FA587 /* OldCustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldCustomTextField.h; sourceTree = "<group>"; };
 		CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldCustomTextField.m; sourceTree = "<group>"; };
 		CE9E0DE81A0BAFEB00D6F92B /* NSString+CaseMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CaseMethods.h"; sourceTree = "<group>"; };
@@ -1354,7 +1354,7 @@
 		CEC003F319E6942E00AE256F /* Inputs */ = {
 			isa = PBXGroup;
 			children = (
-				CE9C3EA91A2E097D003FA587 /* CustomTextField.swift */,
+				CE5AF8691A2F4F9600CA404C /* CustomTextFields.swift */,
 				CE9C3EAE1A2E09AA003FA587 /* OldCustomTextField.h */,
 				CE9C3EAF1A2E09AA003FA587 /* OldCustomTextField.m */,
 				CE886A631A028B6D00587D70 /* SearchField.h */,
@@ -1758,6 +1758,7 @@
 				CE9E0DEA1A0BAFEB00D6F92B /* NSString+CaseMethods.m in Sources */,
 				CE29101A19EE668B005483A1 /* MagicalRecord+Setup.m in Sources */,
 				CE29100619EE668B005483A1 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				CE5AF86A1A2F4F9600CA404C /* CustomTextFields.swift in Sources */,
 				CE915E191A1B63A30077C03B /* ProductModel.m in Sources */,
 				CE3C76471A0143080057493E /* ProductModel+Mapper.m in Sources */,
 				CEBC43A719E806F700C0E575 /* Reachability.m in Sources */,
@@ -1846,7 +1847,6 @@
 				CE290FEE19EE668B005483A1 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				CE886A651A028B6D00587D70 /* SearchField.m in Sources */,
 				CE1B3DAA19DD40CA00A253D1 /* AppDelegate.m in Sources */,
-				CE9C3EAC1A2E097D003FA587 /* CustomTextField.swift in Sources */,
 				CEF2647519E81D16008BE93A /* UIView+Screenshot.m in Sources */,
 				CE8AB37C19E7C8D000B105E0 /* NSData+Base64.m in Sources */,
 				CE2613981A1B7E500040F85F /* PriceNumberFormatter.m in Sources */,
@@ -1930,6 +1930,7 @@
 				CE10A83119F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
 				CE9481C41A2DD52D003E0C06 /* MKImageView.swift in Sources */,
 				CE290FFF19EE668B005483A1 /* NSManagedObject+MagicalFinders.m in Sources */,
+				CE5AF86B1A2F4F9600CA404C /* CustomTextFields.swift in Sources */,
 				CE290FF519EE668B005483A1 /* NSObject+MagicalDataImport.m in Sources */,
 				CE8AB37B19E7C8D000B105E0 /* AESCrypt.m in Sources */,
 				CE8AB38719E7C92700B105E0 /* ValidationHelper.m in Sources */,
@@ -1968,7 +1969,6 @@
 				CE9A7F011A0D1E0F00509548 /* SidemenuButton.m in Sources */,
 				CE9481C01A2DD52D003E0C06 /* MKButton.swift in Sources */,
 				CE915E2F1A1B68A40077C03B /* SaleViewController.m in Sources */,
-				CE9C3EAD1A2E097D003FA587 /* CustomTextField.swift in Sources */,
 				CE91B79719F4ED6900258AB0 /* UTStoresTesting.m in Sources */,
 				CE3C76381A013B4D0057493E /* ProductCell.m in Sources */,
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
