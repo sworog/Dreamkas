@@ -115,6 +115,13 @@
     [self.logInButton setEnabled:YES];
 }
 
+- (IBAction)viewTouched:(id)sender
+{
+    DPLogFast(@"");
+    
+    [self.view endEditing:YES];
+}
+
 #pragma mark - Методы UITextField Delegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
