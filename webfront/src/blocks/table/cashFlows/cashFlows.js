@@ -64,6 +64,9 @@ define(function(require, exports, module) {
             total.balance = total.in - total.out;
 
             block.models.total.set(total);
+        },
+        params: function() {
+            return PAGE.params;
         }
     });
 });

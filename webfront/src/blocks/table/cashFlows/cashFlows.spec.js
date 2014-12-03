@@ -27,10 +27,11 @@ define(function(require, exports, module) {
             ]);
 
             cashFlowsTable = new CashFlowsTable({
-                collection: cashFlowsCollection
+                collection: cashFlowsCollection,
+                params: function() {
+                    return {};
+                }
             });
-
-            cashFlowsTable.render();
         });
 
         it('total calculation', function() {
