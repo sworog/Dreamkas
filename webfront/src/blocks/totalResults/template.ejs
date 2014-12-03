@@ -1,0 +1,20 @@
+<div class="totalResults row">
+	<div class="totalResults__cell col-md-3">
+		<div class="totalResults__cellCaption"><%- caption1 %>, <i class="fa fa-rub"></i></div>
+		<div name="<%- field1 %>" class="totalResults__cellValueBig">
+			<%- formatMoney(models.result.get(field1)) %>
+		</div>
+	</div>
+	<div class="totalResults__cell col-md-3">
+		<div class="totalResults__cellCaption"><%- caption2 %>, <i class="fa fa-rub"></i></div>
+		<div name="<%- field2 %>" class="totalResults__cellValue">
+			<%- formatMoney(models.result.get(field2)) %>
+		</div>
+	</div>
+	<div class="totalResults__cell col-md-3">
+		<div class="totalResults__cellCaption"><%- caption3 %>, <i class="fa fa-rub"></i></div>
+		<div name="<%- field3 %>" class="totalResults__cellValue">
+			<%- formatMoney(models.result.get(field3)) %>
+		</div>
+	</div>
+</div>
