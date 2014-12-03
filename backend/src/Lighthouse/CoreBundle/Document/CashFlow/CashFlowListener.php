@@ -83,7 +83,9 @@ class CashFlowListener extends AbstractMongoDBListener
         foreach ($uow->getScheduledDocumentDeletions() as $document) {
             if ($document instanceof CashFlowable) {
                 $cashFlow = $this->cashFlowRepository->findOneByReason($document);
-                $dm->remove($cashFlow);
+                if (null !== $cashFlow) {
+                    $dm->remove($cashFlow);
+                }
             }
         }
     }
