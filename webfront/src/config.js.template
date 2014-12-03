@@ -1,4 +1,4 @@
-define({
+var CONFIG = {
     version: 1,
     baseUrl: 'http://<%= api_url %>',
     baseApiUrl: 'http://<%= api_url %>/api/1',
@@ -6,4 +6,4 @@ define({
     clientSecret: 'secret',
     debugLevel: 2,
     googleAnalyticsId: '<%= google_analytics_id %>'
-});
+};

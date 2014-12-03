@@ -31,6 +31,10 @@
 
     modules: [
         {
+            name: "require.config",
+            include: ['require.config.production']
+        },
+        {
             name: "app",
             exclude: ['jquery']
         },
