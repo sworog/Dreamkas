@@ -7,13 +7,12 @@ use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
-use Lighthouse\CoreBundle\Test\Factory\CatalogFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
  * @codeCoverageIgnore
  */
-class WebTestCase extends DataAwareTestCase
+class WebTestCase extends ContainerAwareTestCase
 {
     /**
      * @var Client
@@ -72,18 +71,15 @@ class WebTestCase extends DataAwareTestCase
     }
 
     /**
-     * @param string|array $extra
-     * @param null|string $subCategoryId
-     * @param bool|string $putProductId string id of product to be updated
-     * @return string product id
+     * @deprecated
+     * @param string $productId
+     * @param array $data
      */
-    protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
+    protected function updateProduct($productId, array $data)
     {
-        if ($subCategoryId == null) {
-            $subCategoryId = $this->factory()->catalog()->getSubCategory()->id;
-        }
+        $subCategory = $this->factory()->catalog()->getSubCategory();
 
-        $productData = array(
+        $productData = $data + array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
             'type' => UnitType::TYPE,
             'barcode' => uniqid('', true),
@@ -92,39 +88,26 @@ class WebTestCase extends DataAwareTestCase
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
             'info' => 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса',
-            'subCategory' => $subCategoryId,
+            'subCategory' => $subCategory->id,
         );
 
-        if (is_array($extra)) {
-            $productData = $extra + $productData;
-        } else {
-            $productData['name'].= $extra;
-            $productData['barcode'].= $extra;
-        }
-
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $method = ($putProductId) ? 'PUT' : 'POST';
-        $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
-        $request = new JsonRequest($url, $method, $productData);
-        $postResponse = $this->client->jsonRequest($request, $accessToken);
 
-        $responseCode = ($putProductId) ? 200 : 201;
-        $this->assertResponseCode($responseCode);
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/products/{$productId}",
+            $productData
+        );
+
+        $this->assertResponseCode(200);
         Assert::assertJsonHasPath('id', $postResponse);
 
         return $postResponse['id'];
     }
 
     /**
-     * @param string $productId
-     * @param array $data
-     */
-    protected function updateProduct($productId, array $data)
-    {
-        $this->createProduct($data, null, $productId);
-    }
-
-    /**
+     * @deprecated
      * @param string $productId
      * @param array $barcodes
      */
@@ -140,28 +123,6 @@ class WebTestCase extends DataAwareTestCase
             )
         );
         $this->assertResponseCode(200);
-    }
-
-    /**
-     * @param array $catalog
-     * @return array
-     */
-    protected function createCatalog(array $catalog)
-    {
-        $catalogIds = array();
-        foreach ($catalog as $groupName => $categories) {
-            $groupId = $this->factory()->catalog()->createGroup($groupName)->id;
-            $catalogIds[$groupName] = $groupId;
-            foreach ($categories as $categoryName => $subCategories) {
-                $categoryId = $this->factory()->catalog()->createCategory($groupId, $categoryName)->id;
-                $catalogIds[$categoryName] = $categoryId;
-                foreach ($subCategories as $subCategoryName => $void) {
-                    $subCategoryId = $this->factory()->catalog()->createSubCategory($categoryId, $subCategoryName)->id;
-                    $catalogIds[$subCategoryName] = $subCategoryId;
-                }
-            }
-        }
-        return $catalogIds;
     }
 
     /**
@@ -248,35 +209,7 @@ class WebTestCase extends DataAwareTestCase
     }
 
     /**
-     * @param string $name
-     * @return string
-     */
-    protected function createGroup($name = CatalogFactory::DEFAULT_GROUP_NAME)
-    {
-        return $this->factory()->catalog()->createGroup($name)->id;
-    }
-
-    /**
-     * @param string $groupId
-     * @param string $name
-     * @return string
-     */
-    protected function createCategory($groupId = null, $name = CatalogFactory::DEFAULT_CATEGORY_NAME)
-    {
-        return $this->factory()->catalog()->createCategory($groupId, $name)->id;
-    }
-
-    /**
-     * @param string $categoryId
-     * @param string $name
-     * @return string
-     */
-    protected function createSubCategory($categoryId = null, $name = CatalogFactory::DEFAULT_SUBCATEGORY_NAME)
-    {
-        return $this->factory()->catalog()->createSubCategory($categoryId, $name)->id;
-    }
-
-    /**
+     * @deprecated
      * @param string $storeId
      * @param string $productId
      * @param array $productData
@@ -323,8 +256,8 @@ class WebTestCase extends DataAwareTestCase
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
-            "POST",
-            "/api/1/configs",
+            'POST',
+            '/api/1/configs',
             $configData
         );
 

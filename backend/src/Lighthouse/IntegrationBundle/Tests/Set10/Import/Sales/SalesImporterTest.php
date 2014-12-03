@@ -31,7 +31,7 @@ class SalesImporterTest extends WebTestCase
             '10009' => '-1',
             '10010' => '-1',
         );
-        $productIds = $this->createProductsByNames(array_keys($skuAmounts));
+        $products = $this->factory()->catalog()->getProductByName(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-14-05-2012_9-18-29.xml', $output);
@@ -41,7 +41,7 @@ class SalesImporterTest extends WebTestCase
         foreach ($skuAmounts as $sku => $inventory) {
             $this->assertStoreProduct(
                 $storeId,
-                $productIds[$sku],
+                $products[$sku]->id,
                 array('inventory' => $inventory),
                 sprintf('Product #%s inventory assertion failed', $sku)
             );
@@ -52,8 +52,8 @@ class SalesImporterTest extends WebTestCase
     {
         $this->markTestSkipped("Return required sale, but set10 not required");
 
-        $this->factory()->store()->getStoreId('197');
-        $this->createProductsByNames(
+        $this->factory()->store()->getStore('197');
+        $this->factory()->catalog()->getProductByNames(
             array(
                 '10001',
                 '10002',
@@ -83,8 +83,8 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportWithNotFoundShops()
     {
-        $this->factory()->store()->getStoreId('777');
-        $this->createProductsByNames(
+        $this->factory()->store()->getStore('777');
+        $this->factory()->catalog()->getProductByNames(
             array(
                 'Кит-Кат-343424',
                 'Мит-Мат',
@@ -104,19 +104,15 @@ class SalesImporterTest extends WebTestCase
     public function testImportDoubleSales()
     {
         $storeIds = $this->factory()->store()->getStoreIds(array('777', '666'));
-        $productIds = $this->createProductsByNames(
-            array(
-                'Кит-Кат-343424',
-            )
-        );
+        $product = $this->factory()->catalog()->getProduct('Кит-Кат-343424');
 
         $output = new TestOutput();
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
         $this->assertStringStartsWith('...', $output->getDisplay());
 
-        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
-        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
+        $this->assertStoreProductTotals($storeIds['666'], $product->id, -1);
+        $this->assertStoreProductTotals($storeIds['777'], $product->id, -2);
 
         $output = new TestOutput();
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
@@ -124,18 +120,14 @@ class SalesImporterTest extends WebTestCase
         $display = $output->getDisplay();
         $this->assertStringStartsWith(".R.R.R                                               6\nFlushing", $display);
 
-        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
-        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
+        $this->assertStoreProductTotals($storeIds['666'], $product->id, -1);
+        $this->assertStoreProductTotals($storeIds['777'], $product->id, -2);
     }
 
     public function testImportDoubleSalesWithDifferentAmount()
     {
         $storeIds = $this->factory()->store()->getStoreIds(array('777', '666'));
-        $productIds = $this->createProductsByNames(
-            array(
-                'Кит-Кат-343424',
-            )
-        );
+        $product = $this->factory()->catalog()->getProduct('Кит-Кат-343424');
 
         $this->authenticateProject();
 
@@ -144,8 +136,8 @@ class SalesImporterTest extends WebTestCase
 
         $this->assertStringStartsWith('...', $output->getDisplay());
 
-        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
-        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
+        $this->assertStoreProductTotals($storeIds['666'], $product->id, -1);
+        $this->assertStoreProductTotals($storeIds['777'], $product->id, -2);
 
         static::rebootKernel();
 
@@ -155,10 +147,15 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-13-09-2013_15-09-26-double.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith(".R.R.R                                               6\nFlushing", $display);
+        $expectedDisplayStart = <<<EOF
+.R.R.R                                               6
+Flushing
+EOF;
 
-        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
-        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
+        $this->assertStringStartsWith($expectedDisplayStart, $display);
+
+        $this->assertStoreProductTotals($storeIds['666'], $product->id, -1);
+        $this->assertStoreProductTotals($storeIds['777'], $product->id, -2);
     }
 
     public function testReturnsImport()
@@ -174,25 +171,30 @@ class SalesImporterTest extends WebTestCase
             '4' => -23,
         );
 
-        $productIds = $this->createProductsByNames(array_keys($skuAmounts));
+        $products = $this->factory()->catalog()->getProductByNames(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-with-returns.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith("........                                             8\nFlushing", $display);
+        $expectedDisplayStart = <<<EOF
+"........                                             8
+Flushing"
+EOF;
+
+        $this->assertStringStartsWith($expectedDisplayStart, $display);
         $lines = $output->getLines();
         $this->assertCount(3, $lines);
 
         foreach ($skuAmounts as $sku => $inventory) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
+            $this->assertStoreProductTotals($storeId, $products[$sku]->id, $inventory);
         }
     }
 
     public function testImportSamePurchaseWithDifferentStoreNumber()
     {
         $this->factory()->store()->getStoreIds(array('25573', '255731'));
-        $this->createProductsByNames(array('10001', '10002'));
+        $this->factory()->catalog()->getProductByNames(array('10001', '10002'));
 
         $output = new TestOutput();
         $this->import('SameSame/s25u574-shop1-product2-today-1.xml', $output);
@@ -311,7 +313,7 @@ class SalesImporterTest extends WebTestCase
             10085 => 4100013097,
         );
         $storeId = $this->factory()->store()->getStoreId('701');
-        $this->createProductsByNames($skus);
+        $this->factory()->catalog()->getProductByNames($skus);
 
         $importer = $this->import('Kesko/purchases-success-2013.11.04-00.03.09.514.xml', null, null, $datePeriod);
 
@@ -432,7 +434,7 @@ class SalesImporterTest extends WebTestCase
             '10006' => -1,
         );
 
-        $productIds = $this->createProductsByNames(array_keys($nameAmounts));
+        $products = $this->factory()->catalog()->getProductByNames(array_keys($nameAmounts));
 
         $output = new TestOutput();
         $this->import('Duplicate/purchase-first.xml', $output);
@@ -443,7 +445,7 @@ class SalesImporterTest extends WebTestCase
         $this->assertCount(3, $lines);
 
         foreach ($nameAmounts as $name => $inventory) {
-            $this->assertStoreProductTotals($storeId, $productIds[$name], $inventory);
+            $this->assertStoreProductTotals($storeId, $products[$name]->id, $inventory);
         }
 
         $nameAmounts = array(
@@ -464,7 +466,7 @@ class SalesImporterTest extends WebTestCase
         $this->assertCount(3, $lines);
 
         foreach ($nameAmounts as $name => $inventory) {
-            $this->assertStoreProductTotals($storeId, $productIds[$name], $inventory);
+            $this->assertStoreProductTotals($storeId, $products[$name]->id, $inventory);
         }
     }
 }

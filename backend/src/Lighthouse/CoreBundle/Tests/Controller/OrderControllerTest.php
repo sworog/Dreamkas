@@ -12,31 +12,25 @@ class OrderControllerTest extends WebTestCase
 {
     public function testPostOrderAction()
     {
-        $storeId = $this->factory()->store()->getStoreId();
-
-        $product1 = $this->createProductByName('1');
-        $product2 = $this->createProductByName('2');
-        $product3 = $this->createProductByName('3');
-
+        $store = $this->factory()->store()->getStore();
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
         $supplier = $this->factory()->supplier()->getSupplier();
-
-        $this->factory()->flush();
 
         $orderProducts = array(
             array(
-                'product' => $product1,
+                'product' => $products['1']->id,
                 'quantity' => 3,
             ),
             array(
-                'product' => $product2,
+                'product' => $products['2']->id,
                 'quantity' => 2,
             ),
             array(
-                'product' => $product3,
+                'product' => $products['3']->id,
                 'quantity' => 5,
             ),
             array(
-                'product' => $product1,
+                'product' => $products['1']->id,
                 'quantity' => 1,
             ),
         );
@@ -46,11 +40,11 @@ class OrderControllerTest extends WebTestCase
             'products' => $orderProducts,
         );
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders',
+            "/api/1/stores/{$store->id}/orders",
             $orderData
         );
 
@@ -63,13 +57,13 @@ class OrderControllerTest extends WebTestCase
             Assert::assertJsonPathEquals($orderProduct['product'], 'products.*.product.product.id', $response);
         }
 
-        $this->assertOrder($accessToken, $storeId, $response['id'], $supplier->id, $orderProducts);
+        $this->assertOrder($accessToken, $store->id, $response['id'], $supplier->id, $orderProducts);
     }
 
     public function testPostOrderEmptyProductsValidation()
     {
         $storeId = $this->factory()->store()->getStoreId();
-        $this->createProductByName();
+        $this->factory()->catalog()->getProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory()->flush();
 
@@ -99,8 +93,8 @@ class OrderControllerTest extends WebTestCase
      */
     public function testPostOrderValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory()->store()->getStoreId();
-        $product = $this->createProductByName();
+        $store = $this->factory()->store()->getStore();
+        $product = $this->factory()->catalog()->getProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory()->flush();
 
@@ -108,7 +102,7 @@ class OrderControllerTest extends WebTestCase
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'product' => $product,
+                    'product' => $product->id,
                     'quantity' => 1.11,
                 )
             ),
@@ -121,11 +115,11 @@ class OrderControllerTest extends WebTestCase
 
         $postData = $data + $postData;
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders',
+            "/api/1/stores/{$store->id}/orders",
             $postData
         );
 
@@ -149,37 +143,27 @@ class OrderControllerTest extends WebTestCase
             'empty quantity' => array(
                 400,
                 array('products' => array(array('quantity' => ''))),
-                array(
-                    'errors.children.products.children.0.children.quantity.errors.0'
-                    =>
-                    'Заполните это поле'
-                )
+                array('errors.children.products.children.0.children.quantity.errors.0' => 'Заполните это поле')
             ),
             'negative quantity -10' => array(
                 400,
                 array('products' => array(array('quantity' => -10))),
                 array(
-                    'errors.children.products.children.0.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть больше 0'
+                    'errors.children.products.children.0.children.quantity.errors.0' => 'Значение должно быть больше 0'
                 )
             ),
             'negative quantity -1' => array(
                 400,
                 array('products' => array(array('quantity' => -1))),
                 array(
-                    'errors.children.products.children.0.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть больше 0'
+                    'errors.children.products.children.0.children.quantity.errors.0' => 'Значение должно быть больше 0'
                 )
             ),
             'zero quantity' => array(
                 400,
                 array('products' => array(array('quantity' => 0))),
                 array(
-                    'errors.children.products.children.0.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть больше 0'
+                    'errors.children.products.children.0.children.quantity.errors.0' => 'Значение должно быть больше 0'
                 )
             ),
             'float quantity' => array(
@@ -223,11 +207,7 @@ class OrderControllerTest extends WebTestCase
             'not numeric quantity' => array(
                 400,
                 array('products' => array(array('quantity' => 'abc'))),
-                array(
-                    'errors.children.products.children.0.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть числом'
-                )
+                array('errors.children.products.children.0.children.quantity.errors.0' => 'Значение должно быть числом')
             ),
             /***********************************************************************************************
              * 'product'
@@ -235,20 +215,12 @@ class OrderControllerTest extends WebTestCase
             'not valid product' => array(
                 400,
                 array('products' => array(array('product' => 'not_valid_product_id'))),
-                array(
-                    'errors.children.products.children.0.children.product.errors.0'
-                    =>
-                    'Такого товара не существует'
-                ),
+                array('errors.children.products.children.0.children.product.errors.0' => 'Такого товара не существует'),
             ),
             'empty product' => array(
                 400,
                 array('products' => array(array('product' => ''))),
-                array(
-                    'errors.children.products.children.0.children.product.errors.0'
-                    =>
-                    'Заполните это поле'
-                ),
+                array('errors.children.products.children.0.children.product.errors.0' => 'Заполните это поле'),
             ),
             /***********************************************************************************************
              * 'supplier'
@@ -256,20 +228,12 @@ class OrderControllerTest extends WebTestCase
             'not valid supplier' => array(
                 400,
                 array('supplier' => 'notExists'),
-                array(
-                    'errors.children.supplier.errors.0'
-                    =>
-                    'Такого поставщика не существует'
-                ),
+                array('errors.children.supplier.errors.0' => 'Такого поставщика не существует'),
             ),
             'empty supplier' => array(
                 400,
                 array('supplier' => ''),
-                array(
-                    'errors.children.supplier.errors.0'
-                    =>
-                    'Выберите поставщика'
-                ),
+                array('errors.children.supplier.errors.0' => 'Выберите поставщика'),
             ),
         );
     }
@@ -279,7 +243,7 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplier1 = $this->factory()->supplier()->getSupplier('Перевоз1');
         $supplier2 = $this->factory()->supplier()->getSupplier('Перевоз2');
@@ -288,26 +252,26 @@ class OrderControllerTest extends WebTestCase
         $this->factory()
             ->order()
                 ->createOrder($store1, $supplier1, '2014-02-14 04:05:06')
-                ->createOrderProduct($productId)
+                ->createOrderProduct($product->id)
             ->persist()
                 ->createOrder($store1, $supplier2, '2014-02-13 04:05:06')
-                ->createOrderProduct($productId)
+                ->createOrderProduct($product->id)
             ->persist()
                 ->createOrder($store1, $supplier3, '2014-02-13 14:05:06')
-                ->createOrderProduct($productId)
+                ->createOrderProduct($product->id)
             ->persist()
                 ->createOrder($store2, $supplier1)
-                ->createOrderProduct($productId)
+                ->createOrderProduct($product->id)
             ->persist()
                 ->createOrder($store2, $supplier3, date('r', time() + 120))
-                ->createOrderProduct($productId)
+                ->createOrderProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store1->id . '/orders'
+            "/api/1/stores/{$store1->id}/orders"
         );
 
         $this->assertResponseCode(200);
@@ -415,19 +379,19 @@ class OrderControllerTest extends WebTestCase
      */
     public function testPostOrderProductValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory()->store()->getStoreId();
-        $product = $this->createProductByName();
+        $store = $this->factory()->store()->getStore();
+        $product = $this->factory()->catalog()->getProduct();
 
         $postData = $data + array(
-            'product' => $product,
+            'product' => $product->id,
             'quantity' => 1.11,
         );
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders/products?validate=true',
+            "/api/1/stores/{$store->id}/orders/products?validate=true",
             $postData
         );
 
@@ -448,38 +412,22 @@ class OrderControllerTest extends WebTestCase
             'empty quantity' => array(
                 400,
                 array('quantity' => ''),
-                array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                    'Заполните это поле'
-                )
+                array('errors.children.quantity.errors.0' => 'Заполните это поле')
             ),
             'negative quantity -10' => array(
                 400,
                 array('quantity' => -10),
-                array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть больше 0'
-                )
+                array('errors.children.quantity.errors.0' => 'Значение должно быть больше 0')
             ),
             'negative quantity -1' => array(
                 400,
                 array('quantity' => -1),
-                array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть больше 0'
-                )
+                array('errors.children.quantity.errors.0' => 'Значение должно быть больше 0')
             ),
             'zero quantity' => array(
                 400,
                 array('quantity' => 0),
-                array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть больше 0'
-                )
+                array('errors.children.quantity.errors.0' => 'Значение должно быть больше 0')
             ),
             'float quantity' => array(
                 200,
@@ -518,11 +466,7 @@ class OrderControllerTest extends WebTestCase
             'not numeric quantity' => array(
                 400,
                 array('quantity' => 'abc'),
-                array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                    'Значение должно быть числом'
-                )
+                array('errors.children.quantity.errors.0' => 'Значение должно быть числом')
             ),
             /***********************************************************************************************
              * 'product'
@@ -530,27 +474,19 @@ class OrderControllerTest extends WebTestCase
             'not valid product' => array(
                 400,
                 array('product' => 'not_valid_product_id'),
-                array(
-                    'errors.children.product.errors.0'
-                    =>
-                        'Такого товара не существует'
-                ),
+                array('errors.children.product.errors.0' => 'Такого товара не существует'),
             ),
             'empty product' => array(
                 400,
                 array('product' => ''),
-                array(
-                    'errors.children.product.errors.0'
-                    =>
-                        'Заполните это поле'
-                ),
+                array('errors.children.product.errors.0' => 'Заполните это поле'),
             ),
         );
     }
 
     public function testOrderProductVersion()
     {
-        $productId = $this->createProductByName('original');
+        $product = $this->factory()->catalog()->getProduct('original');
         $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory()->flush();
 
@@ -558,17 +494,17 @@ class OrderControllerTest extends WebTestCase
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 1.11,
                 )
             ),
         );
-        $storeId = $this->factory()->store()->getStoreId();
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $store = $this->factory()->store()->getStore();
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$storeId}/orders",
+            "/api/1/stores/{$store->id}/orders",
             $postData
         );
 
@@ -581,18 +517,18 @@ class OrderControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeId}/orders/{$orderId}"
+            "/api/1/stores/{$store->id}/orders/{$orderId}"
         );
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals('original', 'products.0.product.product.name', $getResponse);
 
-        $this->updateProduct($productId, array('name' => 'modified'));
+        $this->updateProduct($product->id, array('name' => 'modified'));
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeId}/orders/{$orderId}"
+            "/api/1/stores/{$store->id}/orders/{$orderId}"
         );
 
         $this->assertResponseCode(200);
@@ -601,31 +537,25 @@ class OrderControllerTest extends WebTestCase
 
     public function testOrderNumberCreation()
     {
-        $storeId = $this->factory()->store()->getStoreId();
-
-        $product1 = $this->createProductByName('1');
-        $product2 = $this->createProductByName('2');
-        $product3 = $this->createProductByName('3');
-
+        $store = $this->factory()->store()->getStore();
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
         $supplier = $this->factory()->supplier()->getSupplier();
-
-        $this->factory()->flush();
 
         $orderProducts = array(
             array(
-                'product' => $product1,
+                'product' => $products['1']->id,
                 'quantity' => 3,
             ),
             array(
-                'product' => $product2,
+                'product' => $products['2']->id,
                 'quantity' => 2,
             ),
             array(
-                'product' => $product3,
+                'product' => $products['3']->id,
                 'quantity' => 5,
             ),
             array(
-                'product' => $product1,
+                'product' => $products['1']->id,
                 'quantity' => 1,
             ),
         );
@@ -635,11 +565,11 @@ class OrderControllerTest extends WebTestCase
             'products' => $orderProducts,
         );
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders',
+            "/api/1/stores/{$store->id}/orders",
             $orderData
         );
 
@@ -650,7 +580,7 @@ class OrderControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders',
+            "/api/1/stores/{$store->id}/orders",
             $orderData
         );
 
@@ -660,9 +590,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderAction()
     {
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
@@ -670,9 +598,9 @@ class OrderControllerTest extends WebTestCase
         $order = $this->factory()
             ->order()
                 ->createOrder($store, $supplier)
-                ->createOrderProduct($productId1, 10)
-                ->createOrderProduct($productId2, 20)
-                ->createOrderProduct($productId3, 30)
+                ->createOrderProduct($products['1']->id, 10)
+                ->createOrderProduct($products['2']->id, 20)
+                ->createOrderProduct($products['3']->id, 30)
             ->flush();
 
         $this->assertEquals(10001, $order->number);
@@ -682,11 +610,11 @@ class OrderControllerTest extends WebTestCase
             'products' => array(
                 array(
                     'id' => $order->products[0]->id,
-                    'product' => $productId1,
+                    'product' => $products['1']->id,
                     'quantity' => 20,
                 ),
                 array(
-                    'product' => $productId2,
+                    'product' => $products['2']->id,
                     'quantity' => 35,
                 ),
             )
@@ -696,7 +624,7 @@ class OrderControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            "/api/1/stores/{$store->id}/orders/{$order->id}",
             $orderData
         );
 
@@ -708,10 +636,10 @@ class OrderControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($order->products[1]->id, 'products.1.id', $putResponse);
         Assert::assertNotJsonPathEquals($order->products[2]->id, 'products.*.id', $putResponse, 0);
 
-        Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals($products['1']->id, 'products.0.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(20, 'products.0.quantity', $putResponse);
 
-        Assert::assertJsonPathEquals($productId2, 'products.1.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals($products['2']->id, 'products.1.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
 
 
@@ -723,13 +651,13 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProductByName('1');
+        $product = $this->factory()->catalog()->getProduct('1');
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $order = $this->factory()
             ->order()
                 ->createOrder($store1, $supplier)
-                ->createOrderProduct($productId, 10)
+                ->createOrderProduct($product->id, 10)
             ->flush();
 
         $orderData = array(
@@ -737,7 +665,7 @@ class OrderControllerTest extends WebTestCase
             'products' => array(
                 array(
                     'id' => $order->products[0]->id,
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 20,
                 ),
             )
@@ -752,7 +680,7 @@ class OrderControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store2->id . '/orders/' . $order->id,
+            "/api/1/stores/{$store2->id}/orders/{$order->id}",
             $orderData
         );
 
@@ -765,12 +693,12 @@ class OrderControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId = $this->createProductByName('1');
+        $product = $this->factory()->catalog()->getProduct('1');
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
                 ->createOrder($store1, $supplier)
-                ->createOrderProduct($productId, 10)
+                ->createOrderProduct($product->id, 10)
             ->flush();
 
         $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
@@ -782,7 +710,7 @@ class OrderControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store2->id . '/orders/' . $order->id
+            "/api/1/stores/{$store2->id}/orders/{$order->id}"
         );
 
         $this->assertResponseCode(404);
@@ -795,13 +723,13 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProductByName('1');
+        $product = $this->factory()->catalog()->getProduct('1');
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $order = $this->factory()
             ->order()
                 ->createOrder($store1, $supplier)
-                ->createOrderProduct($productId, 10)
+                ->createOrderProduct($product->id, 10)
             ->flush();
 
         $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
@@ -813,7 +741,7 @@ class OrderControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/stores/' . $store2->id . '/orders/' . $order->id
+            "/api/1/stores/{$store2->id}/orders/{$order->id}"
         );
 
         $this->assertResponseCode(404);
@@ -824,12 +752,12 @@ class OrderControllerTest extends WebTestCase
     public function testDeleteAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
                 ->createOrder($store, $supplier)
-                ->createOrderProduct($productId, 10)
+                ->createOrderProduct($product->id, 10)
             ->flush();
 
         $this->authenticateProject();
@@ -840,7 +768,7 @@ class OrderControllerTest extends WebTestCase
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id
+            "/api/1/stores/{$store->id}/orders/{$order->id}"
         );
 
         $this->assertResponseCode(204);
@@ -853,18 +781,18 @@ class OrderControllerTest extends WebTestCase
     public function testDeleteWithInvoice()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
                 ->createOrder($store, $supplier)
-                ->createOrderProduct($productId, 10)
+                ->createOrderProduct($product->id, 10)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id, $supplier->id, $order->id)
-                ->createInvoiceProduct($productId, 10, 5.99)
+                ->createInvoiceProduct($product->id, 10, 5.99)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -873,7 +801,7 @@ class OrderControllerTest extends WebTestCase
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id
+            "/api/1/stores/{$store->id}/orders/{$order->id}"
         );
 
         $this->assertResponseCode(409);
@@ -885,16 +813,16 @@ class OrderControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId1 = $this->createProductByName('Кефир1Назв');
-        $productId2 = $this->createProductByName('Кефир2Назв');
-        $productId3 = $this->createProductByName('Кефир3Назв');
+        $product1 = $this->factory()->catalog()->getProduct('Кефир1Назв');
+        $product2 = $this->factory()->catalog()->getProduct('Кефир2Назв');
+        $product3 = $this->factory()->catalog()->getProduct('Кефир3Назв');
 
         $order = $this->factory()
             ->order()
                 ->createOrder($store, $supplier)
-                ->createOrderProduct($productId1, 3.11)
-                ->createOrderProduct($productId2, 2)
-                ->createOrderProduct($productId3, 7.77)
+                ->createOrderProduct($product1->id, 3.11)
+                ->createOrderProduct($product2->id, 2)
+                ->createOrderProduct($product3->id, 7.77)
             ->flush();
 
         $mockPlugin = new MockPlugin();
@@ -922,27 +850,25 @@ class OrderControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id . '/download'
+            "/api/1/stores/{$store->id}/orders/{$order->id}/download"
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('order' . $order->number . '.xlsx', 'name', $response);
+        Assert::assertJsonPathEquals("order{$order->number}.xlsx", 'name', $response);
         Assert::assertJsonHasPath('url', $response);
     }
 
     public function testPutOrderActionChangeProduct()
     {
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
                 ->createOrder($store, $supplier)
-                ->createOrderProduct($productId1, 10)
-                ->createOrderProduct($productId2, 20)
+                ->createOrderProduct($products['1']->id, 10)
+                ->createOrderProduct($products['2']->id, 20)
             ->flush();
 
         $this->assertEquals(10001, $order->number);
@@ -951,11 +877,11 @@ class OrderControllerTest extends WebTestCase
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'product' => $productId1,
+                    'product' => $products['1']->id,
                     'quantity' => 20,
                 ),
                 array(
-                    'product' => $productId3,
+                    'product' => $products['3']->id,
                     'quantity' => 35,
                 ),
             )
@@ -965,7 +891,7 @@ class OrderControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            "/api/1/stores/{$store->id}/orders/{$order->id}",
             $orderData
         );
 
@@ -975,12 +901,12 @@ class OrderControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
         Assert::assertJsonPathEquals($order->products[0]->id, 'products.0.id', $putResponse);
         Assert::assertJsonPathEquals($order->products[1]->id, 'products.1.id', $putResponse);
-        Assert::assertNotJsonPathEquals($productId2, 'products.*.product.product.id', $putResponse);
+        Assert::assertNotJsonPathEquals($products['2']->id, 'products.*.product.product.id', $putResponse);
 
-        Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals($products['1']->id, 'products.0.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(20, 'products.0.quantity', $putResponse);
 
-        Assert::assertJsonPathEquals($productId3, 'products.1.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals($products['3']->id, 'products.1.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
 
 
@@ -989,23 +915,23 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderRemoveProduct()
     {
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
+        $product1 = $this->factory()->catalog()->getProduct('1');
+        $product2 = $this->factory()->catalog()->getProduct('2');
 
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
                 ->createOrder($store, $supplier)
-                ->createOrderProduct($productId1, 10)
-                ->createOrderProduct($productId2, 20)
+                ->createOrderProduct($product1->id, 10)
+                ->createOrderProduct($product2->id, 20)
             ->flush();
 
         $orderData = array(
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'product' => $productId2,
+                    'product' => $product2->id,
                     'quantity' => 20,
                 ),
             )
@@ -1015,7 +941,7 @@ class OrderControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            "/api/1/stores/{$store->id}/orders/{$order->id}",
             $orderData
         );
 
@@ -1024,33 +950,33 @@ class OrderControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
         Assert::assertJsonPathCount(1, 'products.*.id', $putResponse);
         Assert::assertJsonPathEquals($order->products[0]->id, 'products.*.id', $putResponse);
-        Assert::assertNotJsonPathEquals($productId1, 'products.*.product.product.id', $putResponse);
+        Assert::assertNotJsonPathEquals($product1->id, 'products.*.product.product.id', $putResponse);
 
         $this->assertOrder($accessToken, $store->id, $order->id, $supplier->id, $orderData['products']);
     }
 
     public function testPutOrderAddProduct()
     {
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
+        $product1 = $this->factory()->catalog()->getProduct('1');
+        $product2 = $this->factory()->catalog()->getProduct('2');
 
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory()
             ->order()
                 ->createOrder($store, $supplier)
-                ->createOrderProduct($productId1, 10)
+                ->createOrderProduct($product1->id, 10)
             ->flush();
 
         $orderData = array(
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'product' => $productId1,
+                    'product' => $product1->id,
                     'quantity' => 10,
                 ),
                 array(
-                    'product' => $productId2,
+                    'product' => $product2->id,
                     'quantity' => 15,
                 ),
             )
@@ -1060,7 +986,7 @@ class OrderControllerTest extends WebTestCase
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            "/api/1/stores/{$store->id}/orders/{$order->id}",
             $orderData
         );
 
@@ -1068,9 +994,9 @@ class OrderControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
         Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($productId1, 'products.*.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals($product1->id, 'products.*.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(10, 'products.*.quantity', $putResponse);
-        Assert::assertJsonPathEquals($productId2, 'products.*.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals($product2->id, 'products.*.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(15, 'products.*.quantity', $putResponse);
 
         $this->assertOrder($accessToken, $store->id, $order->id, $supplier->id, $orderData['products']);
