@@ -1,4 +1,4 @@
-var CONFIG = {
+window.CONFIG = {
     version: 1,
     baseUrl: 'http://<%= api_url %>',
     baseApiUrl: 'http://<%= api_url %>/api/1',
