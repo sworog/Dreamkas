@@ -1,30 +1,22 @@
-var webdriverjs = require('webdriverio'),
-    expect = require('chai').expect;
+var expect = require('chai').expect;
 
-var myStepDefinitionsWrapper = function() {
+module.exports = function() {
 
-    var browser = webdriverjs.remote({
-        desiredCapabilities: {
-            browserName: 'chrome'
-        }
+    this.Given(/^Я захожу на сайт$/, function(callback) {
+
+        this.browser
+            .url('http://lighthouse.dev')
+            .call(callback);
     });
 
-    var tmpResult = null;
+    this.Then(/^Я вижу заголовок страницы: "([^"]*)"$/, function(arg1, callback) {
 
-    browser.init();
+        this.browser
+            .waitFor('body[status="loaded"]', 5000)
+            .getTitle(function(err, title){
+                expect(title).to.equal(arg1);
+                callback();
+            })
 
-
-    this.When(/^Я вызываю getTitle\(\)$/, function(next) {
-        browser
-            .getTitle(function(err, title) {
-                tmpResult = title;
-                next();
-            });
-    });
-
-    this.Then(/^Команда должна вернуть "([^"]*)"$/, function(title, next) {
-        expect(tmpResult).to.equal(title);
-        next();
     });
 };
-module.exports = myStepDefinitionsWrapper;

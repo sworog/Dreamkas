@@ -1,7 +1,9 @@
-Feature: Example feature
-  As a user of webdriverjs
-  I should be able to use different commands
-  to get informations about elements on the page
+Feature: US 136: Авто добавление продаж, платежей и возвратов по поставкам
+  Как владелец магазина,
+  я хочу чтобы оплаты поставок, возвраты от поставщиков и продажи по кассам автоматически добавлялись в список операций с деньгами,
+  чтобы учёт этих операций не требовал моего участия
 
-  Scenario: Get title of website
-    Given Я захожу на тестовый сайт
+  Scenario: Просмотр страницы
+    Given Я захожу на сайт
+    Then Я вижу заголовок страницы: "Dreamkas"
+
