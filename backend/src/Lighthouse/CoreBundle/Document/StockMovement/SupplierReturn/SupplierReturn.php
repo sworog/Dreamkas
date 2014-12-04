@@ -80,7 +80,7 @@ class SupplierReturn extends StockMovement implements CashFlowable
      */
     public function getCashFlowReasonType()
     {
-        return 'StockMovement';
+        return self::TYPE;
     }
 
     /**

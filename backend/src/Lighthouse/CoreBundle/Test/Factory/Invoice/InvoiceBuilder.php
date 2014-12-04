@@ -59,10 +59,10 @@ class InvoiceBuilder
      * @param string $storeId
      * @param string $supplierId
      * @param string $orderId
-     * @throws \RuntimeException
+     * @param bool $paid
      * @return InvoiceBuilder
      */
-    public function createInvoice(array $data, $storeId = null, $supplierId = null, $orderId = null)
+    public function createInvoice(array $data, $storeId = null, $supplierId = null, $orderId = null, $paid = false)
     {
         $this->invoice = $this->invoiceRepository->createNew();
 
@@ -72,6 +72,7 @@ class InvoiceBuilder
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceNumber' => '1248373',
             'includesVAT' => true,
+            'paid' => $paid,
         );
 
         $this->populateInvoice($this->invoice, $invoiceData);

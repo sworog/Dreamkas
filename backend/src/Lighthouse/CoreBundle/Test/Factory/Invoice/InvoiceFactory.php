@@ -14,10 +14,11 @@ class InvoiceFactory extends AbstractFactory
      * @param array $data
      * @param string $storeId
      * @param string $supplierId
-     * @param null $orderId
+     * @param string $orderId
+     * @param bool $paid
      * @return InvoiceBuilder
      */
-    public function createInvoice(array $data, $storeId = null, $supplierId = null, $orderId = null)
+    public function createInvoice(array $data, $storeId = null, $supplierId = null, $orderId = null, $paid = false)
     {
         $builder = new InvoiceBuilder(
             $this->factory,
@@ -25,7 +26,7 @@ class InvoiceFactory extends AbstractFactory
             $this->factory->getValidator(),
             $this->factory->getNumericFactory()
         );
-        return $builder->createInvoice($data, $storeId, $supplierId, $orderId);
+        return $builder->createInvoice($data, $storeId, $supplierId, $orderId, $paid);
     }
 
     /**

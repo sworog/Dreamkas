@@ -22,6 +22,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class CashFlow extends AbstractDocument
 {
+    const TYPE = 'Manual';
+
     const DIRECTION_IN = 'in';
     const DIRECTION_OUT = 'out';
 
@@ -83,5 +85,15 @@ class CashFlow extends AbstractDocument
     public function isEditable()
     {
         return null === $this->reason;
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("type")
+     * @return string
+     */
+    public function getType()
+    {
+        return null === $this->reason ? self::TYPE : $this->reason->getCashFlowReasonType();
     }
 }
