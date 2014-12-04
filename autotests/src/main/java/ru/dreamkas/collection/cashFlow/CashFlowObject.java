@@ -10,6 +10,8 @@ import ru.dreamkas.collection.abstractObjects.objectInterfaces.ResultComparable;
 import ru.dreamkas.collection.compare.CompareResults;
 
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CashFlowObject extends AbstractObject implements ObjectClickable, ObjectLocatable, ResultComparable {
 
@@ -41,10 +43,22 @@ public class CashFlowObject extends AbstractObject implements ObjectClickable, O
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         String convertedDate = DateTimeHelper.getDate(row.get("Дата"));
-
+        String commentWithConvertedDate = getCommentWithConvertedDate(row.get("Комментарий"));
         return new CompareResults()
                 .compare("Дата", date, convertedDate)
                 .compare("Сумма", amount, row.get("Сумма"))
-                .compare("Комментарий", comment, row.get("Комментарий"));
+                .compare("Комментарий", comment, commentWithConvertedDate);
+    }
+
+    private String getCommentWithConvertedDate(String originalComment) {
+        String regexPattern = "(todayDate-([0-3]?[0-9])|todayDate)";
+        Pattern pattern = Pattern.compile(regexPattern);
+        Matcher matcher = pattern.matcher(originalComment);
+        if (matcher.find()) {
+            String convertedDate = DateTimeHelper.getDate(originalComment.split("от ")[1].replaceFirst(regexPattern, "$1"));
+            return matcher.replaceFirst(convertedDate);
+        } else {
+            return originalComment;
+        }
     }
 }
