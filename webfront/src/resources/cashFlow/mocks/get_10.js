@@ -27,7 +27,7 @@ define(function(require, exports, module) {
                         "storeManagers": [],
                         "departmentManagers": []
                     },
-                    "date": "2014-11-24T11:10:56+0300",
+                    "date": "2014-10-24T11:10:56+0300",
                     "sumTotal": 3500,
                     "itemsCount": 1,
                     "products": [{
