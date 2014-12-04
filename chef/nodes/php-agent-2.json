@@ -10,6 +10,6 @@
         }
     },
     "php": {
-        "ext_conf_dir": null
+        "ext_conf_dir": "/etc/php5/conf.d"
     }
 }

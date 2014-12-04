@@ -29,8 +29,5 @@ if platform?('ubuntu')
     package "php5-apcu"
   else
     package "php-apc"
-    #php_pear "apc" do
-    #  action :install
-    #end
   end
 end
