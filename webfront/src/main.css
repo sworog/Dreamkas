@@ -169,14 +169,6 @@ select.loading, input.loading {
     background-color: #f4f4f4;
 }
 
-.twitter-typeahead {
-    width: 100%;
-}
-
-.tt-input {
-    background-color: #fff !important;
-}
-
 .btn,
 .form-control,
 .input-group-addon,
