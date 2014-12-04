@@ -24,8 +24,9 @@ define(function(require, exports, module) {
             if (data.reason){
                 switch (data.reason.type){
                     case 'Invoice':
-                        comment = 'Приемка';
+                        comment = 'Оплата приёмки';
                         break;
+
                     case 'WriteOff':
                         comment = 'Списание';
                         break;
