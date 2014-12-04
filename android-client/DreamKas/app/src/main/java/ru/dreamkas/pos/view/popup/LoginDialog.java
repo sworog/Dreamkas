@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
+import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
+
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -40,7 +42,7 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
     private final Activity mOwnerActivity;
     private DialogResult result = DialogResult.Cancel;
     private ImageButton btnClose;
-    private ButtonRectangle btnLogin;
+    private ButtonRectangleExt btnLogin;
     private EditText txtUsername;
     private EditText txtPassword;
 
@@ -138,7 +140,7 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
     }
 
     private void init() {
-        btnLogin = (ButtonRectangle) findViewById(R.id.btnLogin);
+        btnLogin = (ButtonRectangleExt) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

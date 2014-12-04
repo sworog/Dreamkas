@@ -104,12 +104,15 @@ public class ProductSearchComponent extends LinearLayout {
         if(products == null){
             products = new Products();
             lblSearchResultEmpty.setText(getResources().getString(R.string.msgSearchReq));
+            lblSearchResultEmpty.setVisibility(View.VISIBLE);
         }else if(products.size() == 0){
             lblSearchResultEmpty.setText(getResources().getString(R.string.msgSearchEmptyResult));
+            lblSearchResultEmpty.setVisibility(View.VISIBLE);
         }
 
         ProductsAdapter adapter = new ProductsAdapter(getContext(), R.layout.product_search_listview_item, products, txtProductSearchQuery.getText().toString());
         lvProductsSearchResult.setAdapter(adapter);
+
         pbSearchProduct.setVisibility(View.GONE);
     }
 
@@ -146,6 +149,7 @@ public class ProductSearchComponent extends LinearLayout {
                                         @Override
                                         public void run() {
                                             pbSearchProduct.setVisibility(View.VISIBLE);
+                                            lblSearchResultEmpty.setVisibility(View.GONE);
                                         }
                                     });
 

@@ -54,10 +54,6 @@ public class MainActivity extends ActionBarActivity implements RestFragmentConta
         Intent intent = getIntent();
         mToken = intent.getStringExtra("access_token");
 
-
-
-
-
     }
 
     @AfterViews
@@ -65,6 +61,7 @@ public class MainActivity extends ActionBarActivity implements RestFragmentConta
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("");
 
 
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(

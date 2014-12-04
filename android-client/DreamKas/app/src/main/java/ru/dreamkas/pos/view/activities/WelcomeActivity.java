@@ -5,48 +5,19 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.gc.materialdesign.views.ButtonRectangle;
-import com.octo.android.robospice.SpiceManager;
-import com.octo.android.robospice.exception.RequestCancelledException;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-
-import org.androidannotations.annotations.Bean;
+import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
-import org.springframework.web.client.HttpClientErrorException;
-
-import java.math.BigDecimal;
-
-import ru.dreamkas.pos.BuildConfig;
 import ru.dreamkas.pos.R;
-import ru.dreamkas.pos.controller.DreamkasSpiceService;
 import ru.dreamkas.pos.controller.PreferencesManager;
-import ru.dreamkas.pos.controller.listeners.request.AuthRequestListener;
-import ru.dreamkas.pos.controller.listeners.request.IAuthRequestHandler;
-import ru.dreamkas.pos.controller.requests.AuthRequest;
-import ru.dreamkas.pos.model.ReceiptItem;
-import ru.dreamkas.pos.model.api.AuthObject;
-import ru.dreamkas.pos.model.api.Token;
 import ru.dreamkas.pos.view.components.HorizontalPager;
 import ru.dreamkas.pos.view.popup.LoginDialog;
-import ru.dreamkas.pos.view.popup.ReceiptItemEditDialog;
 
 @EActivity(R.layout.welcome_activity)
 public class WelcomeActivity extends Activity {
@@ -61,7 +32,7 @@ public class WelcomeActivity extends Activity {
     RadioGroup radioGroup;
 
     @ViewById
-    ButtonRectangle btnLogin;
+    ButtonRectangleExt btnLogin;
     private boolean mDialogInProgress;
 
     @Override

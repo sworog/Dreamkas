@@ -1,37 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:orientation="horizontal"
-    android:layout_height="wrap_content"
+    android:layout_height="48dp"
     android:gravity="center_vertical|left"
-    android:paddingBottom="5dip"
-    android:paddingTop="5dip"
-    android:paddingLeft="4dip"
-    android:paddingRight="4dip">
+    android:paddingBottom="8dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:background="@color/White"
+    android:layout_gravity="center_vertical">
+
     <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
         android:id="@+id/txtReceiptItemTitle"
+        android:textSize="14sp"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:text="end"
-        android:layout_weight="0.1"
+        android:layout_width="wrap_content"
+        android:singleLine="false"
+        android:ellipsize="none"
+        android:textColor="@color/Black"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        app:font_opacity="0.87"
+        android:text="Макароны Макфа, 500г"
         />
-
-    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced android:id="@+id/txtReceiptItemQuantity"
-        android:layout_width="fill_parent"
+    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+        android:id="@+id/txtReceiptItemQuantity"
+        android:textSize="12sp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.25"
-        android:text="end"
-        />
-
-    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced android:id="@+id/txtReceiptItemCost"
+        android:textColor="@color/Black"
         android:layout_width="fill_parent"
+        android:layout_weight="1"
+        android:singleLine="false"
+        android:ellipsize="none"
+        app:font_opacity="0.54"
+        android:text="x2" />
+    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+        android:id="@+id/txtReceiptItemCost"
+        android:gravity="top|right"
+        android:layout_gravity="top"
+        android:textSize="14sp"
+        android:textColor="@color/Black"
         android:layout_height="wrap_content"
-        android:layout_weight="0.25"
-        android:text="1000Р"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="right"
-        />
+        android:layout_width="96dp"
+        android:layout_marginTop="5dp"
+        android:singleLine="false"
+        android:ellipsize="none"
+        app:font_style="medium"
+        app:font_opacity="0.87"
+        android:text="1000P" />
 </LinearLayout>

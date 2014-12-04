@@ -6,12 +6,24 @@ import android.content.DialogInterface;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
+
+import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
@@ -34,7 +46,7 @@ public class ReceiptComponent extends LinearLayout {
     ListView lvReceipt;
 
     @ViewById
-    Button btnRegisterReceipt;
+    ButtonRectangleExt btnRegisterReceipt;
 
     @ViewById
     TextView lblReceiptEmpty;
@@ -66,6 +78,11 @@ public class ReceiptComponent extends LinearLayout {
     void receiptInit() {
         mReceipt = new Receipt();
         mAdapter = new ReceiptAdapter(mContext, R.layout.receipt_listview_item, mReceipt);
+
+        //AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mAdapter);
+        //animationAdapter.setAbsListView(lvReceipt);
+        //lvReceipt.setAdapter(animationAdapter);
+
         lvReceipt.setAdapter(mAdapter);
 
         addFooterClearButton();
@@ -89,9 +106,18 @@ public class ReceiptComponent extends LinearLayout {
 
     private void addFooterClearButton() {
         btnClearReceipt = (ConfirmButtonComponent)View.inflate(mContext,R.layout.clear_button, null);
+
+        int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, getResources().getDisplayMetrics());
+        AbsListView.LayoutParams params = new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT,height);
+        //params.topMargin = 15;
+
+        btnClearReceipt.setLayoutParams(params);
+
         btnClearReceipt.setConfirmationText(DreamkasApp.getResourceString(R.string.msgClearReceiptConfitmationText));
-        btnClearReceipt.setTouchOwner((Activity)mContext);
+        btnClearReceipt.setTouchOwner((Activity) mContext);
         lvReceipt.addFooterView(btnClearReceipt);
+
+        btnClearReceipt.setRippleSpeed(30);
     }
 
     public void clearReceipt(){
@@ -153,6 +179,12 @@ public class ReceiptComponent extends LinearLayout {
     }
 
     private void scrollToBottom() {
+       /* postDelayed(new Runnable() {
+            public void run() {
+                lvReceipt.setSelection(mReceipt.size() - 1);
+            }
+        }, 200L);*/
+
         lvReceipt.post(new Runnable() {
             @Override
             public void run() {
@@ -163,7 +195,7 @@ public class ReceiptComponent extends LinearLayout {
 
     private void changeReceiptTotal() {
         SpannableStringBuilder msgSellInTheAmountOff = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msgSellInTheAmountOff), DreamkasApp.getMoneyFormat().format(mReceipt.getTotal()), StringDecorator.RUBLE_CODE);
-        btnRegisterReceipt.setText(msgSellInTheAmountOff);
+        btnRegisterReceipt.getTextView().setText(msgSellInTheAmountOff);
     }
 
     public void add(Product product) {
@@ -211,8 +243,22 @@ public class ReceiptComponent extends LinearLayout {
 
     private void addReceiptItem(ReceiptItem item){
         setReceiptView(false);
-        mReceipt.add(item);
+
+        Animation animation = new TranslateAnimation(0, 0, -48, 0);
+        animation.setDuration(200);
+
+        btnClearReceipt.startAnimation(animation);
+
+
         mAdapter.notifyDataSetChanged();
+
+        mReceipt.add(item);
+
+        mAdapter.notifyDataSetChanged();
+
+        if(lvReceipt.getChildCount() > 1){
+            lvReceipt.getChildAt(lvReceipt.getChildCount()-2).bringToFront();
+        }
 
         BigDecimal delta = item.getTotal();
         mReceipt.changeTo(delta);
@@ -221,7 +267,10 @@ public class ReceiptComponent extends LinearLayout {
         changeReceiptTotal();
         btnClearReceipt.changeState(ConfirmButtonComponent.State.REGULAR);
 
-        scrollToBottom();
+
+       // scrollToBottom();
+
+
     }
 
     private void setReceiptView(boolean isEmpty) {

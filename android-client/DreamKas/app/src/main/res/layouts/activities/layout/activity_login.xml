@@ -59,7 +59,7 @@
             android:text="Войти"
             style="@style/dk_button"/>-->
 
-        <com.gc.materialdesign.views.ButtonRectangle
+        <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

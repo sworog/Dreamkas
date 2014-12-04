@@ -16,9 +16,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.PopupWindow;
-import ru.dreamkas.pos.R;
 
-public class ConfirmButtonComponent extends Button implements View.OnClickListener {
+import com.gc.materialdesign.views.ButtonFlat;
+
+import ru.dreamkas.pos.R;
+import ru.dreamkas.pos.view.components.regular.ButtonFlatExt;
+
+public class ConfirmButtonComponent extends ButtonFlatExt implements View.OnClickListener {
     private String mConfirmText = "Подтвердить очистку чека";
     private CharSequence mRegularText;
     private OnClickListener mExternalOnClickListener;
@@ -30,10 +34,10 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
         REGULAR, WAIT_FOR_CONFIRM, CONFIRMED;
     }
 
-    public ConfirmButtonComponent(Context context) {
+    /*public ConfirmButtonComponent(Context context) {
         super(context);
         init();
-    }
+    }*/
 
     public ConfirmButtonComponent(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -41,11 +45,11 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
         init();
     }
 
-    public ConfirmButtonComponent(Context context, AttributeSet attrs, int defStyle) {
+    /*public ConfirmButtonComponent(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setAttributes(context, attrs);
         init();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -90,13 +94,13 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
 
         switch (state){
             case REGULAR:
-                setTextColor(Color.DKGRAY);
-                setText(mRegularText);
+                getTextView().setTextColor(Color.BLACK);
+                getTextView().setText(mRegularText);
                 mCurrentState = state;
 
                 break;
             case WAIT_FOR_CONFIRM:
-                setTextColor(Color.RED);
+                getTextView().setTextColor(Color.RED);
                 mRegularText = getText();
                 setText(mConfirmText);
 
@@ -137,9 +141,9 @@ public class ConfirmButtonComponent extends Button implements View.OnClickListen
                                 if(pw != null){
                                     pw.dismiss();
 
-                                    if(state != State.CONFIRMED){
+                                    /*if(state != State.CONFIRMED){
                                         changeState(State.REGULAR);
-                                    }
+                                    }*/
                                 }
                             }
                         }, 200);

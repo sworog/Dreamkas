@@ -37,7 +37,7 @@
     <string name="msgSearchEmptyResult">Продуктов не найдено.</string>
     <string name="ClearReceipt">Очистить чек</string>
     <string name="msgClearReceiptConfitmationText">Подтвердить очистку чека</string>
-    <string name="msgSellInTheAmountOff">Продать на сумму %1$s %2$c</string>
+    <string name="msgSellInTheAmountOff">ОПЛАТИТЬ %1$s %2$c</string>
     <string name="msg_info_ruble_value">%1$s %2$c</string>
     <string name="msgSelectedNullStore">\u003CМагазин не выбран\u003E</string>
 

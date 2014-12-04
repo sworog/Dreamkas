@@ -66,7 +66,7 @@
                                     />
                             </LinearLayout>
 
-                            <com.gc.materialdesign.views.ButtonRectangle
+                            <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
                                 android:id="@+id/btnLogin"
                                 android:layout_width="120dp"
                                 android:layout_height="48dp"
@@ -121,6 +121,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="21sp"
+                                android:textColor="@color/Black"
                                 android:text="Я забыл пароль"
                                 android:layout_marginRight="0dp"/>
 

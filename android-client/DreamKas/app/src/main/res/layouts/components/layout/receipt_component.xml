@@ -6,10 +6,11 @@
         android:orientation="vertical"
         >
     <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:foreground="@drawable/drawer_shadow"
+        android:background="@color/White"
         >
         <android.support.v7.widget.Toolbar
             android:id="@+id/tbReceipt"
@@ -37,17 +38,19 @@
             android:foreground="@drawable/drawer_shadow"
             >
 
-            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced xmlns:android="http://schemas.android.com/apk/res/android"
+            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/lblReceiptEmpty"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:layout_margin="10dp"
-                android:textColor="#31708f"
-                android:background="@drawable/layout_color_border"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                app:font_opacity="0.54"
+                android:textColor="@color/Black"
                 android:text="@string/msgEmptyReceipt"
-                android:padding="10dp"
-                android:visibility="visible"/>
+                android:padding="10dp"/>
+
             <LinearLayout
                 android:id="@+id/llReceipt"
                 android:layout_weight="3"
@@ -59,17 +62,24 @@
                 <ListView
                     android:id="@+id/lvReceipt"
                     android:layout_weight="1"
+                    android:divider="@null"
+                    android:transcriptMode="alwaysScroll"
+                    android:dividerHeight="0dp"
                     android:layout_height="match_parent"
                     android:layout_width="fill_parent">
                 </ListView>
-                <Button xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:text="Продать"
+                <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
                     android:id="@+id/btnRegisterReceipt"
-                    android:background="@color/DarkCyan"
-                    android:textColor="@color/White"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"/>
+                    android:layout_height="78dp"
+                    android:textSize="21sp"
+                    android:background="@color/ActiveMain"
+                    android:textColor="@color/White"
+                    android:text="ПРОДАТЬ"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="20dp"
+                    />
+
             </LinearLayout>
 
         </RelativeLayout>
