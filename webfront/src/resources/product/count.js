@@ -1,10 +1,9 @@
 define(function(require, exports, module) {
     //requirements
-    var Resource = require('kit/resource/resource'),
-        config = require('config');
+    var Resource = require('kit/resource/resource');
 
     return new Resource({
-        url: config.baseApiUrl + '/products',
+        url: CONFIG.baseApiUrl + '/products',
         params: {
             limit: 1
         }

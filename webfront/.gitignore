@@ -8,3 +8,4 @@ xunit/
 vendor/
 web
 npm-debug.log
+artifacts/

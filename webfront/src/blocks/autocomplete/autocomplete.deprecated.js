@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block/block'),
-        config = require('config'),
         checkKey = require('kit/checkKey/checkKey'),
         cookies = require('cookies');
 
@@ -54,7 +53,7 @@ define(function(require) {
             var block = this;
 
             block.engine = new Bloodhound({
-                remote: config.baseApiUrl + block.remoteUrl,
+                remote: CONFIG.baseApiUrl + block.remoteUrl,
                 ajax: {
                     dataType: 'json',
                     headers: {

@@ -55,10 +55,7 @@ class CatalogFactory extends AbstractFactory
         SubCategory $subCategory = null,
         array $extraData = array()
     ) {
-        $data = $extraData + array(
-            'name' => $name,
-            'vat' => 18,
-        );
+        $data = $extraData + array('name' => $name);
         return $this->createProduct($data, $subCategory);
     }
 
@@ -71,11 +68,36 @@ class CatalogFactory extends AbstractFactory
     {
         $product = new Product();
 
+        $data = $data + array('vat' => 18, 'name' => self::DEFAULT_PRODUCT_NAME);
+
         $this->populate($product, $this->prepareData($data));
 
         $product->subCategory = $subCategory ?: $this->getSubCategory();
 
         $this->doSave($product);
+
+        $this->productNames[$product->name] = $product->id;
+
+        return $product;
+    }
+
+    /**
+     * @param array $data
+     * @return Product
+     */
+    public function createProductByForm(array $data)
+    {
+        $product = new Product();
+
+        $formType = $this->container->get('lighthouse.core.form.product_type');
+        $formFactory = $this->container->get('form.factory');
+        $form = $formFactory->create($formType, $product);
+
+        if (!$form->submit($data, false)->isValid()) {
+            throw new \RuntimeException('Product validation failed');
+        }
+
+        $this->doSave($product, false);
 
         $this->productNames[$product->name] = $product->id;
 

@@ -11,12 +11,20 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- *
+ * @property string $id
+ * @property DateTime $date
+ * @property string $direction
+ * @property Money $amount
+ * @property string $comment
+ * @property CashFlowable $reason
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\CashFlow\CashFlowRepository")
  */
 class CashFlow extends AbstractDocument
 {
+    const DIRECTION_IN = 'in';
+    const DIRECTION_OUT = 'out';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -41,6 +49,7 @@ class CashFlow extends AbstractDocument
     /**
      * @MongoDB\Field(type="money")
      * @LighthouseAssert\Money(
+     *      notBlank=true,
      *      messagePrecision="lighthouse.validation.errors.amount.precision",
      *      messageNegative="lighthouse.validation.errors.amount.negative",
      *      messageMax="lighthouse.validation.errors.amount.max",
@@ -56,4 +65,23 @@ class CashFlow extends AbstractDocument
      * @var string
      */
     protected $comment;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *      discriminatorField="reasonType",
+     *      discriminatorMap={
+     *          "invoice"="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
+     *      }
+     * )
+     * @var CashFlowable
+     */
+    protected $reason;
+
+    /**
+     * @return bool
+     */
+    public function isEditable()
+    {
+        return null === $this->reason;
+    }
 }

@@ -31,9 +31,12 @@
 
     modules: [
         {
+            name: "require.config",
+            include: ['require.config.production']
+        },
+        {
             name: "app",
-            exclude: ['jquery'],
-            include: ['require.config.prod']
+            exclude: ['jquery']
         },
         {
             name: "routes/unauthorized",

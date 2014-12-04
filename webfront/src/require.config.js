@@ -1,12 +1,12 @@
 require.config({
 
-    baseUrl: '/',
-    
+    //baseUrl: '/',
+
     paths: {
         'moment': 'bower_components/momentjs/moment',
-        'jquery': 'bower_components/jquery/dist/jquery.min',
         'mockjax': 'bower_components/jquery-mockjax/jquery.mockjax',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
+        'jquery': 'bower_components/jquery/dist/jquery.min',
 
         //plugins
         'i18n': 'bower_components/requirejs-i18n/i18n',
@@ -32,9 +32,8 @@ require.config({
     },
 
     shim: {
-        'mockjax': ['jquery'],
-        'datepicker': ['bootstrap'],
-        'bootstrap': ['jquery']
+        'datepicker': ['bootstrap']
     }
 
 });
+

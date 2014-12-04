@@ -41,7 +41,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $this->factory()->store()->getStoreId("42");
+        $this->factory()->store()->getStore('42');
 
         $storeData = array(
             'name' => '42',
@@ -699,20 +699,20 @@ class StoreControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->createStore('first');
         $this->factory()->store()->createStore('second');
 
-        $productId = $this->createProduct();
-        $product2Id = $this->createProduct('2');
+        $product1 = $this->factory()->catalog()->getProduct('1');
+        $product2 = $this->factory()->catalog()->getProduct('2');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store1->id)
-                ->createInvoiceProduct($productId, 1, 1)
-                ->createInvoiceProduct($product2Id, 1, 1)
+                ->createInvoiceProduct($product1->id, 1, 1)
+                ->createInvoiceProduct($product2->id, 1, 1)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store1)
-                ->createReceiptProduct($productId, 1, 2)
+                ->createReceiptProduct($product1->id, 1, 2)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
@@ -737,18 +737,18 @@ class StoreControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->createStore('first');
         $this->factory()->store()->createStore('second');
 
-        $productId = $this->createProduct();
+        $product = $this->factory()->catalog()->getProduct();
 
         $invoice = $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store1->id)
-                ->createInvoiceProduct($productId, 1, 1)
+                ->createInvoiceProduct($product->id, 1, 1)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store1)
-                ->createReceiptProduct($productId, 1, 2)
+                ->createReceiptProduct($product->id, 1, 2)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();

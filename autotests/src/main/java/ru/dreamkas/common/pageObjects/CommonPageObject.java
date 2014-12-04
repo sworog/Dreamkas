@@ -10,6 +10,7 @@ import ru.dreamkas.common.Waiter;
 import ru.dreamkas.common.item.CommonItemMap;
 import ru.dreamkas.common.item.interfaces.*;
 import ru.dreamkas.elements.items.NonType;
+import ru.dreamkas.exceptions.NotImplementedException;
 
 import java.util.Map;
 
@@ -199,5 +200,10 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
                         String.format("//*[contains(normalize-space(text()), '%s')]", textValue)
                 )
         );
+    }
+
+    @Override
+    public void addObjectButtonClick() {
+        throw new NotImplementedException();
     }
 }

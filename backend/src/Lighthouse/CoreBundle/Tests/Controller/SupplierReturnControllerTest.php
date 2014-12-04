@@ -15,11 +15,11 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $date = strtotime('-1 day');
 
         $supplierReturnData = SupplierReturnBuilder::create($store->id, date('c', $date), $supplier->id)
-            ->addProduct($productId)
+            ->addProduct($product->id)
             ->toArray();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -51,9 +51,9 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $supplierReturnData = SupplierReturnBuilder::create($store->id, '2012-07-11', $supplier->id)
-            ->addProduct($productId)
+            ->addProduct($product->id)
             ->toArray($data);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -87,9 +87,9 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $postData = SupplierReturnBuilder::create($store->id, '11.07.2012', $supplier->id)
-            ->addProduct($productId)
+            ->addProduct($product->id)
             ->toArray();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -217,12 +217,12 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store, '2012-05-23T15:12:05+0400', $supplier)
-                ->createSupplierReturnProduct($productId)
+                ->createSupplierReturnProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -242,11 +242,11 @@ class SupplierReturnControllerTest extends WebTestCase
 
     public function testGetActionNotFound()
     {
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn()
-                ->createSupplierReturnProduct($productId)
+                ->createSupplierReturnProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -270,13 +270,11 @@ class SupplierReturnControllerTest extends WebTestCase
     public function testSupplierReturnTotals()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         // Create supplier return with product#1
         $supplierReturnData = SupplierReturnBuilder::create($store->id)
-            ->addProduct($productId1, 12, 5.99);
+            ->addProduct($products['1']->id, 12, 5.99);
 
         $postResponse = $this->postSupplierReturn($supplierReturnData->toArray());
         $supplierReturnId = $postResponse['id'];
@@ -284,14 +282,14 @@ class SupplierReturnControllerTest extends WebTestCase
         $this->assertSupplierReturn($store->id, $supplierReturnId, array('itemsCount' => 1, 'sumTotal' => 71.88));
 
         // Add product#2
-        $supplierReturnData->addProduct($productId2, 3, 6.49);
+        $supplierReturnData->addProduct($products['2']->id, 3, 6.49);
 
         $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
         $this->assertSupplierReturn($store->id, $supplierReturnId, array('itemsCount' => 2, 'sumTotal' => 91.35));
 
         // Add product#3
-        $supplierReturnData->addProduct($productId3, 1, 11.12);
+        $supplierReturnData->addProduct($products['3']->id, 1, 11.12);
 
         $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
@@ -299,7 +297,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         // update 1st write off product quantity and price
 
-        $supplierReturnData->setProduct(0, $productId1, 10, 6.99);
+        $supplierReturnData->setProduct(0, $products['1']->id, 10, 6.99);
 
         $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
@@ -307,7 +305,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         // update 2nd write off product product id
 
-        $supplierReturnData->setProduct(1, $productId3, 3, 6.49);
+        $supplierReturnData->setProduct(1, $products['3']->id, 3, 6.49);
 
         $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
@@ -349,18 +347,18 @@ class SupplierReturnControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn1 = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store1)
-                ->createSupplierReturnProduct($productId)
+                ->createSupplierReturnProduct($product->id)
             ->flush();
 
         $supplierReturn2 = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store2)
-                ->createSupplierReturnProduct($productId)
+                ->createSupplierReturnProduct($product->id)
             ->flush();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
@@ -405,14 +403,14 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
         $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store1)
-                ->createSupplierReturnProduct($productId)
+                ->createSupplierReturnProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
@@ -438,7 +436,7 @@ class SupplierReturnControllerTest extends WebTestCase
     /**
      * @dataProvider validationSupplierReturnProductProvider
      *
-     * @param $expectedCode
+     * @param int $expectedCode
      * @param array $data
      * @param array $assertions
      */
@@ -446,14 +444,11 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturnData = SupplierReturnBuilder::create($store->id)
-            ->addProduct($productId, 7.99, 2)
-            ->toArray();
-
-        $supplierReturnData['products'][0] = $data + $supplierReturnData['products'][0];
-
+            ->addProduct($product->id, 7.99, 2)
+            ->mergeProduct(0, $data);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -461,7 +456,7 @@ class SupplierReturnControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/supplierReturns',
-            $supplierReturnData
+            $supplierReturnData->toArray()
         );
 
         $this->assertResponseCode($expectedCode);
@@ -483,14 +478,11 @@ class SupplierReturnControllerTest extends WebTestCase
     ) {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturnData = SupplierReturnBuilder::create($store->id)
-            ->addProduct($productId, 7.99, 2)
-            ->toArray();
-
-        $supplierReturnData['products'][0] = $data + $supplierReturnData['products'][0];
-
+            ->addProduct($product->id, 7.99, 2)
+            ->mergeProduct(0, $data);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -498,7 +490,7 @@ class SupplierReturnControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/supplierReturns?validate=true&validationGroups=products',
-            $supplierReturnData
+            $supplierReturnData->toArray()
         );
 
         $this->assertResponseCode($expectedCode);
@@ -730,76 +722,76 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProductByName(1);
-        $productId2 = $this->createProductByName(2);
+        $product1 = $this->factory()->catalog()->getProduct(1);
+        $product2 = $this->factory()->catalog()->getProduct(2);
 
-        $this->assertStoreProductTotals($store->id, $productId1, 0);
+        $this->assertStoreProductTotals($store->id, $product1->id, 0);
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId1, 10, 4.99)
-                ->createInvoiceProduct($productId2, 20, 6.99)
+                ->createInvoiceProduct($product1->id, 10, 4.99)
+                ->createInvoiceProduct($product2->id, 20, 6.99)
             ->flush();
 
-        $this->assertStoreProductTotals($store->id, $productId1, 10, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 10, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // create product 1 write off
         $supplierReturnData = SupplierReturnBuilder::create($store->id)
-            ->addProduct($productId1, 5, 3.49);
+            ->addProduct($product1->id, 5, 3.49);
 
         $postResponse = $this->postSupplierReturn($supplierReturnData->toArray());
         $supplierReturnId = $postResponse['id'];
 
-        $this->assertStoreProductTotals($store->id, $productId1, 5, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 5, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // change 1st product write off quantity
-        $supplierReturnData->setProduct(0, $productId1, 7, 4.49);
+        $supplierReturnData->setProduct(0, $product1->id, 7, 4.49);
         $putResponse1 = $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
-        $this->assertStoreProductTotals($store->id, $productId1, 3, 4.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 3, 4.99);
 
         Assert::assertNotJsonPathEquals($postResponse['products'][0]['id'], 'products.0.id', $putResponse1);
 
         // add 2nd write off product
-        $supplierReturnData->addProduct($productId2, 4, 20.99);
+        $supplierReturnData->addProduct($product2->id, 4, 20.99);
         $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
-        $this->assertStoreProductTotals($store->id, $productId2, 16, 6.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 16, 6.99);
 
         // change 2nd product id
-        $supplierReturnData->setProduct(1, $productId1, 4, 20.99);
+        $supplierReturnData->setProduct(1, $product1->id, 4, 20.99);
         $putResponse3 = $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
-        Assert::assertJsonPathEquals($productId1, 'products.1.product.id', $putResponse3);
+        Assert::assertJsonPathEquals($product1->id, 'products.1.product.id', $putResponse3);
 
-        $this->assertStoreProductTotals($store->id, $productId1, -1, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, -1, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // remove 2nd write off product
         $supplierReturnData->removeProduct(1);
         $this->putSupplierReturn($supplierReturnId, $supplierReturnData->toArray());
 
-        $this->assertStoreProductTotals($store->id, $productId1, 3, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 3, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
 
         // remove write off
         $this->deleteSupplierReturn($supplierReturnId);
 
-        $this->assertStoreProductTotals($store->id, $productId1, 10, 4.99);
-        $this->assertStoreProductTotals($store->id, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($store->id, $product1->id, 10, 4.99);
+        $this->assertStoreProductTotals($store->id, $product2->id, 20, 6.99);
     }
 
     public function testProductDataDoesNotChangeInSupplierReturnAfterProductUpdate()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName('Кефир 1%');
+        $product = $this->factory()->catalog()->getProduct('Кефир 1%');
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store)
-                ->createSupplierReturnProduct($productId, 10, 5.99, 'Бой')
+                ->createSupplierReturnProduct($product->id, 10, 5.99, 'Бой')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -814,7 +806,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $supplierReturnResponse1, 1);
 
-        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
+        $this->updateProduct($product->id, array('name' => 'Кефир 5%'));
 
         $supplierReturnResponse2 = $this->clientJsonRequest(
             $accessToken,
@@ -826,7 +818,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $supplierReturnResponse2, 1);
 
-        $this->assertProduct($productId, array('name' => 'Кефир 5%'));
+        $this->assertProduct($product->id, array('name' => 'Кефир 5%'));
     }
 
     /**
@@ -845,17 +837,17 @@ class SupplierReturnControllerTest extends WebTestCase
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
 
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn1 = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store1)
-                ->createSupplierReturnProduct($productId, 2, 20, 'Бой')
+                ->createSupplierReturnProduct($product->id, 2, 20, 'Бой')
             ->flush();
         $supplierReturn2 = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store2)
-                ->createSupplierReturnProduct($productId, 1, 10, 'Порча')
+                ->createSupplierReturnProduct($product->id, 1, 10, 'Порча')
             ->flush();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
@@ -863,7 +855,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         if ($sendData) {
             $data = SupplierReturnBuilder::create()
-                ->addProduct($productId)
+                ->addProduct($product->id)
                 ->toArray();
         } else {
             $data = null;
@@ -930,17 +922,16 @@ class SupplierReturnControllerTest extends WebTestCase
     public function testPutWithEmptyQuantity()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store)
-                ->createSupplierReturnProduct($productId, 1, 9.99, 'Порча')
+                ->createSupplierReturnProduct($product->id, 1, 9.99, 'Порча')
             ->flush();
 
         $putData = SupplierReturnBuilder::create($store->id)
-            ->addProduct($productId, '', 9.99)
-            ->toArray();
+            ->addProduct($product->id, '', 9.99);
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -948,7 +939,7 @@ class SupplierReturnControllerTest extends WebTestCase
             $accessToken,
             'PUT',
             "/api/1/supplierReturns/{$supplierReturn->id}",
-            $putData
+            $putData->toArray()
         );
 
         $this->assertResponseCode(400);
@@ -962,16 +953,14 @@ class SupplierReturnControllerTest extends WebTestCase
     public function testProductCategoryIsNotExposed()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store)
-                ->createSupplierReturnProduct($productId1, 2, 5.99, 'Порча')
-                ->createSupplierReturnProduct($productId2, 1, 6.99, 'Порча')
-                ->createSupplierReturnProduct($productId3, 3, 2.59, 'Порча')
+                ->createSupplierReturnProduct($products['1']->id, 2, 5.99, 'Порча')
+                ->createSupplierReturnProduct($products['2']->id, 1, 6.99, 'Порча')
+                ->createSupplierReturnProduct($products['3']->id, 3, 2.59, 'Порча')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1000,12 +989,12 @@ class SupplierReturnControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId = $this->createProductByName('Продукт');
+        $product = $this->factory()->catalog()->getProduct('Продукт');
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store)
-                ->createSupplierReturnProduct($productId)
+                ->createSupplierReturnProduct($product->id)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);

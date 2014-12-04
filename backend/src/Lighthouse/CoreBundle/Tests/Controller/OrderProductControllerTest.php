@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 class OrderProductControllerTest extends WebTestCase
 {
     /**
-     * @param $expectedCode
+     * @param int $expectedCode
      * @param array $data
      * @param array $assertions
      *
@@ -17,18 +17,18 @@ class OrderProductControllerTest extends WebTestCase
     public function testPostOrderProductValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $product = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $postData = $data + array(
-                'product' => $product,
-                'quantity' => 1.11,
-            );
+            'product' => $product->id,
+            'quantity' => 1.11,
+        );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/orders/products?validate=true',
+            "/api/1/stores/{$store->id}/orders/products?validate=true",
             $postData
         );
 
@@ -50,36 +50,28 @@ class OrderProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => ''),
                 array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Заполните это поле'
+                    'errors.children.quantity.errors.0' => 'Заполните это поле'
                 )
             ),
             'negative quantity -10' => array(
                 400,
                 array('quantity' => -10),
                 array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Значение должно быть больше 0'
+                    'errors.children.quantity.errors.0' => 'Значение должно быть больше 0'
                 )
             ),
             'negative quantity -1' => array(
                 400,
                 array('quantity' => -1),
                 array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Значение должно быть больше 0'
+                    'errors.children.quantity.errors.0' => 'Значение должно быть больше 0'
                 )
             ),
             'zero quantity' => array(
                 400,
                 array('quantity' => 0),
                 array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Значение должно быть больше 0'
+                    'errors.children.quantity.errors.0' => 'Значение должно быть больше 0'
                 )
             ),
             'float quantity' => array(
@@ -94,40 +86,28 @@ class OrderProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => 2.5555),
                 array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Значение не должно содержать больше 3 цифр после запятой'
+                    'errors.children.quantity.errors.0' => 'Значение не должно содержать больше 3 цифр после запятой'
                 )
             ),
             'float quantity very float with coma' => array(
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Значение не должно содержать больше 3 цифр после запятой',
+                    'errors.children.quantity.errors.0' => 'Значение не должно содержать больше 3 цифр после запятой',
                 )
             ),
             'float quantity very float only one message' => array(
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Значение не должно содержать больше 3 цифр после запятой',
-                    'errors.children.quantity.errors.1'
-                    =>
-                        null
+                    'errors.children.quantity.errors.0' => 'Значение не должно содержать больше 3 цифр после запятой',
+                    'errors.children.quantity.errors.1' => null
                 )
             ),
             'not numeric quantity' => array(
                 400,
                 array('quantity' => 'abc'),
-                array(
-                    'errors.children.quantity.errors.0'
-                    =>
-                        'Значение должно быть числом'
-                )
+                array('errors.children.quantity.errors.0' => 'Значение должно быть числом')
             ),
             /***********************************************************************************************
              * 'product'
@@ -135,20 +115,12 @@ class OrderProductControllerTest extends WebTestCase
             'not valid product' => array(
                 400,
                 array('product' => 'not_valid_product_id'),
-                array(
-                    'errors.children.product.errors.0'
-                    =>
-                        'Такого товара не существует'
-                ),
+                array('errors.children.product.errors.0' => 'Такого товара не существует'),
             ),
             'empty product' => array(
                 400,
                 array('product' => ''),
-                array(
-                    'errors.children.product.errors.0'
-                    =>
-                        'Заполните это поле'
-                ),
+                array('errors.children.product.errors.0' => 'Заполните это поле'),
             ),
         );
     }
@@ -156,18 +128,18 @@ class OrderProductControllerTest extends WebTestCase
     public function testPostOrderProductValidationOutput()
     {
         $store = $this->factory()->store()->getStore();
-        $product = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $postData = array(
-                'product' => $product,
-                'quantity' => 1.11,
-            );
+            'product' => $product->id,
+            'quantity' => 1.11,
+        );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/orders/products?validate=true',
+            "/api/1/stores/{$store->id}/orders/products?validate=true",
             $postData
         );
 
@@ -179,12 +151,8 @@ class OrderProductControllerTest extends WebTestCase
 
     public function testSearchStoreProductsActionWithRangeMarkup()
     {
-        $storeId = $this->factory()->store()->getStoreId('123');
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $store = $this->factory()->store()->getStore('123');
 
-        $group = $this->createGroup('123');
-        $category = $this->createCategory($group, '123');
-        $subCategory = $this->createSubCategory($category, '123');
         $productData = array(
             'name' => '123',
             'barcode' => '123',
@@ -195,21 +163,22 @@ class OrderProductControllerTest extends WebTestCase
             'info' => '',
             'retailMarkupMin' => 0,
             'retailMarkupMax' => 10,
-            'subCategory' => $subCategory,
         );
-        $product = $this->createProduct($productData, $subCategory);
+        $product = $this->factory()->catalog()->createProduct($productData);
 
         $this->factory()->supplier()->getSupplier('123');
 
         $postData = array(
-            'product' => $product,
+            'product' => $product->id,
             'quantity' => 1.11,
         );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $storeId . '/orders/products?validate=true',
+            "/api/1/stores/{$store->id}/orders/products?validate=true",
             $postData
         );
 

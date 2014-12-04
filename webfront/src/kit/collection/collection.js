@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var config = require('config'),
-        makeClass = require('kit/makeClass/makeClass'),
+    var makeClass = require('kit/makeClass/makeClass'),
         deepExtend = require('kit/deepExtend/deepExtend'),
 		get = require('kit/get/get'),
         set = require('kit/set/set'),
@@ -38,8 +37,8 @@ define(function(require, exports, module) {
         }
     });
 
-    Collection.baseApiUrl = config.baseApiUrl;
-    Collection.mockApiUrl = config.mockApiUrl;
+    Collection.baseApiUrl = CONFIG.baseApiUrl;
+    Collection.mockApiUrl = CONFIG.mockApiUrl;
 
     return Collection;
 });
