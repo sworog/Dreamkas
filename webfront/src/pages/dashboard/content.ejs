@@ -15,7 +15,7 @@
 
         <% _.forEach(steps, function(step, index) {
             step.number = index + 1;
-            step.active = (step.number == activeStep);
+            step.active = (step.number == activeStep());
             step.buttonAttrs = step.buttonAttrs || {};
         %>
 
@@ -23,6 +23,27 @@
 
         <% }); %>
 
+    </div>
+
+    <div class="page__dashboard__info row">
+        <div class="page__dashboard__infoCell col-md-4">
+
+            <% if (collections.stores.length != 0) { %>
+
+            <div class="page__dashboard__infoTitle">
+                Магазин:
+            </div>
+            <div class="page__dashboard__infoValue">
+                <%- collections.stores.at(0).get('name') %>
+            </div>
+
+            <% } %>
+
+        </div>
+        <div class="page__dashboard__infoCell col-md-4">
+        </div>
+        <div class="page__dashboard__infoCell col-md-4">
+        </div>
     </div>
 </div>
 <!--END CONTENT-->

@@ -257,3 +257,22 @@
     visibility: visible;
 }
 
+.page__dashboard__info {
+    background-color: #fff;
+    margin: 20px 0;
+}
+
+.page__dashboard__infoCell {
+    color: #000;
+    padding: 28px 36px;
+}
+
+.page__dashboard__infoTitle {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+}
+
+.page__dashboard__infoValue {
+    font-size: 21px;
+    font-weight: bold;
+}

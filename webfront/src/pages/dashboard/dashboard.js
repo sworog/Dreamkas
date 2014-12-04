@@ -32,7 +32,11 @@ define(function(require, exports, module) {
                 buttonCaption: 'ЗАПУСТИТЬ КАССУ'
             }
         ],
-        activeStep: 1,
+        activeStep: function() {
+            return 1;
+
+            //this.collections.stores.length != 0 ? 2 : 1;
+        },
         blocks: {
             modal_store: require('blocks/modal/store/store')
         }
