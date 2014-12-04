@@ -3,15 +3,13 @@
 
         <label class="control-label">Наименование</label>
 
-        <div class="input-icon right">
-            <input
-                    name="name"
-                    type="text"
-                    placeholder="Наименование группы"
-                    class="form-control"
-                    autofocus
-                    value="<%- model.get('name') %>">
-        </div>
+        <input
+                name="name"
+                type="text"
+                placeholder="Наименование группы"
+                class="form-control"
+                autofocus
+                value="<%- model.get('name') %>">
     </div>
 
     <% if (model.id) { %>
