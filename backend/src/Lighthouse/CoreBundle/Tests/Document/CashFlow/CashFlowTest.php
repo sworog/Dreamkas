@@ -38,7 +38,8 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime(), $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
 
         $this->factory()->invoice()
             ->editInvoice($invoice->id, array('paid' => false))
@@ -59,7 +60,8 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime(), $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
     }
 
     public function testAutoChangeAmountCashFlowOnEditInvoice()
@@ -83,8 +85,9 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $cashFlowCreateDate = new DateTime();
-        $this->assertEquals($cashFlowCreateDate, $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
+        $cashFlowFirstDate = clone $cashFlow->date;
 
         $editedInvoice = $this->factory()
             ->invoice()
@@ -101,7 +104,7 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('250.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals($cashFlowCreateDate, $cashFlow->date);
+        $this->assertEquals($cashFlowFirstDate, $cashFlow->date);
     }
 
     public function testDeleteCashFromAfterDeleteInvoice()
@@ -125,7 +128,8 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime(), $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
 
         $this->factory()->invoice()->removeInvoice($invoice->id);
 
@@ -154,7 +158,8 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime(), $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
 
         $this->factory()->supplierReturn()
             ->editSupplierReturn($supplierReturn->id, null, null, null, false)
@@ -176,7 +181,8 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime(), $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
     }
 
     public function testAutoChangeAmountCashFlowOnEditSupplierReturn()
@@ -200,8 +206,9 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $cashFlowCreateDate = new DateTime();
-        $this->assertEquals($cashFlowCreateDate, $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
+        $cashFlowFirstDate = clone $cashFlow->date;
 
         $editedSupplierReturn = $this->factory()
             ->supplierReturn()
@@ -218,7 +225,7 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('250.00'), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals($cashFlowCreateDate, $cashFlow->date);
+        $this->assertEquals($cashFlowFirstDate, $cashFlow->date);
     }
 
     public function testDeleteCashFromAfterDeleteSupplierReturn()
@@ -242,7 +249,8 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime(), $cashFlow->date);
+        $this->assertGreaterThan(new DateTime("-1 minute"), $cashFlow->date);
+        $this->assertLessThan(new DateTime("+1 minute"), $cashFlow->date);
 
         $this->factory()->supplierReturn()->removeSupplierReturn($supplierReturn->id);
 
