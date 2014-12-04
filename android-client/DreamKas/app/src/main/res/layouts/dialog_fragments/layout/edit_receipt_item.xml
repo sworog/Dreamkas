@@ -59,6 +59,7 @@
                                     android:gravity="center"
                                     android:layout_marginLeft="10dp"
                                     android:text="103 Р"
+                                    app:font_style="medium"
                                     android:textSize="20sp"
                                     android:textColor="@color/Black"
                                     />

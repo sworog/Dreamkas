@@ -7,22 +7,24 @@ import android.text.style.MetricAffectingSpan;
 
 public class TypefaceSpan2 extends MetricAffectingSpan {
     private final Typeface mTypeface;
+    private final int mTypefaceStyle;
 
-    public TypefaceSpan2(Typeface typeface) {
+    public TypefaceSpan2(Typeface typeface, int typefaceStyle) {
+        mTypefaceStyle = typefaceStyle;
         mTypeface = typeface;
     }
 
     @Override
     public void updateDrawState(TextPaint ds) {
-        apply(ds, mTypeface);
+        apply(ds, mTypeface, mTypefaceStyle);
     }
 
     @Override
     public void updateMeasureState(TextPaint paint) {
-        apply(paint, mTypeface);
+        apply(paint, mTypeface, mTypefaceStyle);
     }
 
-    private static void apply(Paint paint, Typeface tf) {
+    private static void apply(Paint paint, Typeface tf, int mTypefaceStyle) {
         int oldStyle;
 
         Typeface old = paint.getTypeface();
@@ -40,6 +42,10 @@ public class TypefaceSpan2 extends MetricAffectingSpan {
 
         if ((fake & Typeface.ITALIC) != 0) {
             paint.setTextSkewX(-0.25f);
+        }
+
+        if(mTypefaceStyle == Typeface.BOLD){
+            paint.setFakeBoldText(true);
         }
 
         paint.setTypeface(tf);

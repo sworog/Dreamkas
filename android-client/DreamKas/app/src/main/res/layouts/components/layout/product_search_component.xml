@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:foreground="@drawable/right_pane_shadow"
+        >
 
 <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent">
@@ -13,7 +20,6 @@
         android:minHeight="?attr/actionBarSize"
         android:background="@color/InactiveFirst"
         >
-
         <LinearLayout
             android:id="@+id/llToolbarChilds"
             android:layout_width="fill_parent"
@@ -38,41 +44,46 @@
                 android:layout_gravity="right|center_vertical"
                 android:background="@drawable/ic_remove" />
         </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
-
-        </android.support.v7.widget.Toolbar>
-
-
-
-    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/lblSearchResultEmpty"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_margin="10dp"
-        android:textColor="#31708f"
-        android:background="@drawable/layout_color_border"
-        android:text="@string/msgSearchReq"
-        android:padding="10dp"
-        />
     <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-        <ListView
-            android:id="@+id/lvProductsSearchResult"
+        <!--android:foreground="@drawable/header_shadow"-->
+        <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/lblSearchResultEmpty"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            app:font_opacity="0.54"
+            android:textColor="@color/Black"
+            android:text="@string/msgSearchReq"
+            android:padding="10dp"
             />
-        <ProgressBar
-            android:id="@+id/pbSearchProduct"
+        <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            >
-        </ProgressBar>
-    </FrameLayout>
+            android:layout_height="fill_parent">
+            <ListView
+                android:id="@+id/lvProductsSearchResult"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
+            <ProgressBar
+                android:id="@+id/pbSearchProduct"
+                android:layout_width="fill_parent"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                >
+            </ProgressBar>
+        </FrameLayout>
+    </FrameLayout >
 </LinearLayout>
+</FrameLayout >
 </merge>

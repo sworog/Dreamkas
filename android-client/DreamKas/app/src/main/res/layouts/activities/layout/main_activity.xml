@@ -16,8 +16,6 @@
             android:id="@+id/mainLyt"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-            <!-- Some layout things -->
-
             <FrameLayout
                 android:id="@+id/content_frame"
                 android:layout_width="match_parent"
@@ -38,21 +36,8 @@
                     android:minHeight="?attr/actionBarSize"
                     android:background="@color/White" />
             </LinearLayout>
-
         </RelativeLayout>
-
-
-
-
-
     </LinearLayout>
-
-    <!--<RelativeLayout
-        android:id="@+id/llFragmentContainer"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </RelativeLayout>-->
 
     <ListView android:id="@+id/lstDrawer"
         android:focusable="false"

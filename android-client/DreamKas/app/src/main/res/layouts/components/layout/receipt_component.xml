@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:foreground="@drawable/drawer_shadow"
+        >
         <android.support.v7.widget.Toolbar
-            android:id="@+id/my_awesome_toolbar2"
+            android:id="@+id/tbReceipt"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:minHeight="?attr/actionBarSize"
-            android:background="@color/InactiveSecond" >
+            android:background="@color/InactiveSecond"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            >
 
             <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Чек"
-                android:textColor="@color/White"
+                android:textColor="@color/InactiveFirst"
                 android:textSize="20sp"
                 android:layout_gravity="left"
                 android:id="@+id/toolbar_title" />
@@ -23,7 +33,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:foreground="@drawable/drawer_shadow"
+            >
 
             <ru.dreamkas.pos.view.components.regular.TextViewTypefaced xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/lblReceiptEmpty"
@@ -62,5 +74,5 @@
 
         </RelativeLayout>
     </LinearLayout>
-
+</FrameLayout>
 </merge>

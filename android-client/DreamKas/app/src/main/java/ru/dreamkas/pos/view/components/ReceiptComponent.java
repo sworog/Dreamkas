@@ -9,7 +9,6 @@ import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -77,17 +76,14 @@ public class ReceiptComponent extends LinearLayout {
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar2);
-        // Set an OnMenuItemClickListener to handle menu item clicks
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tbReceipt);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                // Handle the menu item
                 return true;
             }
         });
 
-        // Inflate a menu to be displayed in the toolbar
         toolbar.inflateMenu(R.menu.receipt_menu);
     }
 
@@ -143,7 +139,6 @@ public class ReceiptComponent extends LinearLayout {
                     case Cancel:
                         break;
                     case RemoveReceipt:
-                        //((ReceiptAdapter) ((HeaderViewListAdapter)lvReceipt.getAdapter()).getWrappedAdapter()).remove(dialog.getReceiptItem());
                         mAdapter.remove(dialog.getReceiptItem());
                         mAdapter.notifyDataSetChanged();
                         if(mAdapter.getCount()==0){

@@ -51,10 +51,6 @@ public class ProductSearchComponent extends LinearLayout {
     @ViewById
     Toolbar tbSearch;
 
-    /*@ViewById
-    LinearLayout llToolbarChilds;*/
-
-
     Command<String> mSearchCommand;
     Command<Product> mAddRecepietItemCommand;
     private Command<String> mNavigateToCommand;
@@ -96,12 +92,6 @@ public class ProductSearchComponent extends LinearLayout {
         mSearchCommand = searchCommand;
         mAddRecepietItemCommand = addReceiptItemCommand;
         mNavigateToCommand = navigateToCommand;
-
-        //tbSearch.find
-        //
-        //tbSearch.setlo
-
-        //((ActionBarActivity)activity).setSupportActionBar();
     }
 
     @Click(R.id.btnSearchEditTextClear)
@@ -118,7 +108,7 @@ public class ProductSearchComponent extends LinearLayout {
             lblSearchResultEmpty.setText(getResources().getString(R.string.msgSearchEmptyResult));
         }
 
-        ProductsAdapter adapter = new ProductsAdapter(getContext(), R.layout.arrow_listview_item, products);
+        ProductsAdapter adapter = new ProductsAdapter(getContext(), R.layout.product_search_listview_item, products, txtProductSearchQuery.getText().toString());
         lvProductsSearchResult.setAdapter(adapter);
         pbSearchProduct.setVisibility(View.GONE);
     }
