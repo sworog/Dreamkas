@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/karma/bin/karma start ./tools/karma.conf.js --single-run",
-    "test-remote": "node ./node_modules/karma/bin/karma start tools/karma.remote.js --single-run",
+    "cucumber": "./node_modules/cucumber/bin/cucumber.js",
     "build": "node ./node_modules/grunt-cli/bin/grunt build"
   },
   "repository": {

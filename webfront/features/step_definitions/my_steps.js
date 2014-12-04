@@ -5,7 +5,16 @@ module.exports = function() {
     this.Given(/^Я захожу на сайт$/, function(callback) {
 
         this.browser
-            .url('http://lighthouse.dev')
+            .url(process.env.host + '/test.html')
+            .execute(function(){
+                require([
+                    'app',
+                    'resources/currentUser/mocks/get',
+                    'resources/store/mocks/get_3'
+                ], function(app){
+                    app.start('/stores');
+                });
+            })
             .call(callback);
     });
 
