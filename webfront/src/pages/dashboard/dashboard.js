@@ -5,6 +5,9 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'dashboard',
+        collections: {
+            stores: require('resources/store/collection')
+        },
         partials: {
             step: require('ejs!./step.ejs')
         },
@@ -12,7 +15,11 @@ define(function(require, exports, module) {
             {
                 title: 'Магазины',
                 description: 'В этом разделе можно редактировать и создавать новые магазины',
-                buttonCaption: 'ДОБАВИТЬ МАГАЗИН'
+                buttonCaption: 'ДОБАВИТЬ МАГАЗИН',
+                buttonAttrs: {
+                    'data-modal': 'modal_store',
+                    'data-store-id': 0
+                }
             },
             {
                 title: 'Товары',
@@ -25,6 +32,9 @@ define(function(require, exports, module) {
                 buttonCaption: 'ЗАПУСТИТЬ КАССУ'
             }
         ],
-        activeStep: 1
+        activeStep: 1,
+        blocks: {
+            modal_store: require('blocks/modal/store/store')
+        }
     });
 });

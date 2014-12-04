@@ -9,7 +9,16 @@
         <div class="page_dashboard__stepDescription">
             <%- description %>
         </div>
-        <span role="button" class="page_dashboard__stepButton btn btn-primary btn-md">
+        <span role="button"
+              class="page_dashboard__stepButton btn btn-primary btn-md"
+
+                <% _.forEach(buttonAttrs, function(attr, index) {%>
+
+                <%- index + '=' + attr %>
+
+                <% }); %>
+
+                >
             <%- buttonCaption %>
         </span>
     </div>
