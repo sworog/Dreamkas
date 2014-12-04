@@ -97,6 +97,13 @@
 
 #pragma mark - Обработка пользовательского взаимодействия
 
+- (IBAction)viewTouched:(id)sender
+{
+    DPLogFast(@"");
+    
+    [self.view endEditing:YES];
+}
+
 - (IBAction)payButtonClicked:(id)sender
 {
     DPLogFast(@"");
