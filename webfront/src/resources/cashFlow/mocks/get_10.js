@@ -15,7 +15,6 @@ define(function(require, exports, module) {
                 direction: 'out',
                 date: "2014-11-24T12:10:56+0300",
                 amount: 23000,
-                comment: 'Приемка',
                 reason: {
                     "type": "Invoice",
                     "id": "54759e382cde6efb1a8b505a",
