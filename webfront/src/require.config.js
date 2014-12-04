@@ -1,6 +1,6 @@
 require.config({
 
-    //baseUrl: '/',
+    baseUrl: '/',
 
     paths: {
         'moment': 'bower_components/momentjs/moment',
