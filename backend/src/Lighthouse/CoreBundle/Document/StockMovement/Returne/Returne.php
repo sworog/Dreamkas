@@ -65,7 +65,7 @@ class Returne extends Receipt implements CashFlowable
      */
     public function getCashFlowReasonType()
     {
-        return self::TYPE;
+        return 'StockMovement';
     }
 
     /**

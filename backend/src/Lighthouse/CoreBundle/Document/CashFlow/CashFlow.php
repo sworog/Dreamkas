@@ -72,7 +72,9 @@ class CashFlow extends AbstractDocument
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
      *      discriminatorMap={
-     *          "invoice"="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
+     *          "Invoice"="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
+     *          "SupplierReturn"="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn",
+     *          "Return"="Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
      *      }
      * )
      * @var CashFlowable
