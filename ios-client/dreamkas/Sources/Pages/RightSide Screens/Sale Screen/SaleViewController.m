@@ -15,7 +15,7 @@
 @interface SaleViewController () <KeyboardEventsListenerProtocol>
 
 @property (nonatomic, weak) IBOutlet CustomLabel *infoMsgLabel;
-@property (nonatomic, weak) IBOutlet CustomFilledButton *saleButton;
+@property (nonatomic, weak) IBOutlet RaisedFilledButton *saleButton;
 @property (nonatomic, weak) IBOutlet ActionButton *clearButtonOnView, *clearButtonOnFooter;
 
 @property (nonatomic, weak) IBOutlet UIView *clearSaleView, *clearSaleFooterView;
@@ -43,6 +43,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.saleButton.titleLabel setFont:DefaultMediumFont(21.f)];
     
     [self.infoMsgLabel setFont:DefaultFont(12)];
     [self.infoMsgLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.54]];
@@ -107,7 +109,7 @@
     [self.tableViewItem setHidden:!(count_of_elements)];
     
     [self.saleButton setEnabled:count_of_elements];
-    NSString *title = [NSString stringWithFormat:@"%@ %@ ₽", NSLocalizedString(@"make_sale_button_title", nil), [CountSaleHelper countSaleItemsTotalSum]];
+    NSString *title = [NSString stringWithFormat:@"%@  %@ ₽", NSLocalizedString(@"make_sale_button_title", nil), [CountSaleHelper countSaleItemsTotalSum]];
     [self.saleButton setTitle:title forState:UIControlStateNormal];
     
     [self configureVisibleOfBottomButtons:count_of_elements forTableHeight:self.tableViewItem.height];
