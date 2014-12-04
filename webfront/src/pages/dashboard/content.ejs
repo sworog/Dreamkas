@@ -12,9 +12,15 @@
 <!--BEGIN CONTENT-->
 <div class="page__content">
     <div class="row">
-        <div class="col-md-12">
 
-        </div>
+        <% _.forEach(steps, function(step, index) {
+            step.number = index + 1;
+        %>
+
+        <%= partials.step(step) %>
+
+        <% }); %>
+
     </div>
 </div>
 <!--END CONTENT-->

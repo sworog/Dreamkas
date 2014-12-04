@@ -203,4 +203,39 @@
     position: relative;
 }
 
+/*------------------- dashboard ----------------------------*/
+
+.page_dashboard__step {
+    background-color: #fff;
+    text-align: center;
+    padding: 30px 40px;
+    margin: 40px 0 0 0;
+}
+
+.page_dashboard__stepNumber {
+    width: 64px;
+    height: 64px;
+    font-size: 26px;
+    color: #fff;
+    background-color: #1ABDB5;
+    border-radius: 64px;
+    line-height: 64px;
+    margin: -64px auto;
+}
+
+.page_dashboard__stepTitle {
+    margin: 92px 0 20px 0;
+    font-size: 19px;
+    color: #000;
+}
+
+.page_dashboard__stepDescription {
+    font-size: 15px;
+    line-height: 20px;
+    margin: 0 0 40px 0;
+}
+
+.page_dashboard__stepButton {
+    padding: 9px 24px;
+}
 
