@@ -16,6 +16,7 @@ module.exports = function(config) {
             'polyfills.js',
             'config.js',
             'require.config.js',
+            'require.config.test.js',
             'bower_components/jquery/dist/jquery.min.js',
             {pattern: '**/*.js', included: false},
             {pattern: '**/*.ejs', included: false}
