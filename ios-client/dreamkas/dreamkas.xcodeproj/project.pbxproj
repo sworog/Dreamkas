@@ -2113,7 +2113,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2121,7 +2121,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2140,12 +2140,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Vitaly Korol (VY468XS9UG)";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Sources/Supporting Files/dreamkas-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Sources/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -61,16 +61,11 @@
     DPLogFast(@"string = %@", string);
     
     NSMutableString *new_string = [NSMutableString stringWithString:textField.text];
-    
-//    // запрещаем ввод не разрешенных символов
-//    NSCharacterSet *not_allowed_charactes = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789.,"] invertedSet];
-//    if ([string rangeOfCharacterFromSet:not_allowed_charactes].location != NSNotFound) {
-//        return NO;
-//    }
-    
     [new_string replaceCharactersInRange:range withString:string];
+    
+    // запрещаем ввод не разрешенных символов
     if ([ValidationHelper isPriceValid:new_string] == NO) {
-//        return NO;
+        return ([new_string length] == 0);
     }
     
     DPLogFast(@"new_string = %@", new_string);
