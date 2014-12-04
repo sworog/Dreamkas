@@ -13,10 +13,17 @@ define(function(require, exports, module) {
         request: null,
         valueKey: 'name',
         value: '',
+        clearLink: 0,
         suggestionTemplate: function() {
         },
         autofocus: false,
         events: {
+            'click .autocomplete__clearLink': function(e){
+
+                var block = this;
+
+                block.clear();
+            },
             'keydown .autocomplete__input': function(e) {
 
                 var block = this;
@@ -268,7 +275,7 @@ define(function(require, exports, module) {
 
             if (typeof block.source === 'string') {
 
-                block.$input.addClass('loading');
+                block.el.classList.add('loading');
 
                 block.request = $.ajax({
                     url: block.source,
@@ -284,7 +291,7 @@ define(function(require, exports, module) {
 
                     block.showSuggestion();
 
-                    block.$input.removeClass('loading');
+                    block.el.classList.remove('loading');
                 });
 
                 return block.request;
@@ -324,6 +331,17 @@ define(function(require, exports, module) {
             block.el.classList.remove('autocomplete_selected');
 
             block.trigger('deselect');
+        },
+        clear: function(){
+
+            var block = this;
+
+            block.deselect();
+            block.hideSuggestion();
+
+            block.el.querySelector('.autocomplete__input').value = '';
+
+            block.trigger('clear');
         },
         remove: function() {
 
