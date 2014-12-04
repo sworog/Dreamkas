@@ -109,7 +109,7 @@
     [self.tableViewItem setHidden:!(count_of_elements)];
     
     [self.saleButton setEnabled:count_of_elements];
-    NSString *title = [NSString stringWithFormat:@"%@  %@ ₽", NSLocalizedString(@"make_sale_button_title", nil), [CountSaleHelper countSaleItemsTotalSum]];
+    NSString *title = [NSString stringWithFormat:@"%@  %@ ₽", NSLocalizedString(@"make_sale_button_title", nil), [CountSaleHelper calculateFinalPriceStringValue]];
     [self.saleButton setTitle:title forState:UIControlStateNormal];
     
     [self configureVisibleOfBottomButtons:count_of_elements forTableHeight:self.tableViewItem.height];

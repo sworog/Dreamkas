@@ -38,7 +38,7 @@
 
 - (void)configureLocalization
 {
-    NSString *title = [NSString stringWithFormat:@"%@ ₽", [CountSaleHelper countSaleItemsTotalSum]];
+    NSString *title = [NSString stringWithFormat:@"%@ ₽", [CountSaleHelper calculateFinalPriceStringValue]];
     [self setTitle:title];
     
     [self.payButton setTitle:NSLocalizedString(@"payment_page_pay_button", nil) forState:UIControlStateNormal];
@@ -58,18 +58,16 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     DPLogFast(@"");
-    DPLogFast(@"string = %@", string);
     
     NSMutableString *new_string = [NSMutableString stringWithString:textField.text];
     [new_string replaceCharactersInRange:range withString:string];
     
-    // запрещаем ввод не разрешенных символов
+    // валидируем ввод
     if ([ValidationHelper isPriceValid:new_string] == NO) {
         return ([new_string length] == 0);
     }
     
-    DPLogFast(@"new_string = %@", new_string);
-    [self.payButton setEnabled:YES];
+    [self.payButton setEnabled:[CountSaleHelper isThereIsEnoughProvidedPayment:new_string]];
     return YES;
 }
 
@@ -102,11 +100,15 @@
 - (IBAction)payButtonClicked:(id)sender
 {
     DPLogFast(@"");
+    
+    [self viewTouched:nil];
 }
 
 - (IBAction)payByUsingCardClicked:(id)sender
 {
     DPLogFast(@"");
+    
+    [self viewTouched:nil];
 }
 
 @end

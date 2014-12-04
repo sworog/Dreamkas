@@ -81,7 +81,7 @@
     [SaleItemModel saleItemForProduct:product4];
     
     NSString *pre_defined_total_sum = @"5800800,00";
-    NSString *total_sum = [CountSaleHelper countSaleItemsTotalSum];
+    NSString *total_sum = [CountSaleHelper calculateFinalPriceStringValue];
     
     XCTAssertNotEqual(pre_defined_total_sum, total_sum, @"Predefined Total Sum not equal recieved Total Sum");
 }
@@ -134,7 +134,7 @@
     [SaleItemModel saleItemForProduct:product3];
     
     NSString *pre_defined_total_sum = @"300,00";
-    NSString *total_sum = [CountSaleHelper countSaleItemsTotalSum];
+    NSString *total_sum = [CountSaleHelper calculateFinalPriceStringValue];
     
     XCTAssertNotEqual(pre_defined_total_sum, total_sum, @"Predefined Total Sum not equal recieved Total Sum");
 }
