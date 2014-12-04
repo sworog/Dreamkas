@@ -12,7 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
 
-@property (nonatomic, weak) IBOutlet CustomFilledButton *changeStoreButton;
+@property (nonatomic, weak) IBOutlet RaisedEmptyButton *changeStoreButton;
 
 @end
 
