@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
 	//requirements
-	var Collection = require('./collection'),
-		config = require('config');
+	var Collection = require('./collection');
 
 	describe(module.id, function() {
 
@@ -12,8 +11,8 @@ define(function(require, exports, module) {
 		});
 
 		it('Collection links are equal config links', function() {
-			expect(Collection.baseApiUrl).toBe(config.baseApiUrl);
-			expect(Collection.mockApiUrl).toBe(config.mockApiUrl);
+			expect(Collection.baseApiUrl).toBe(CONFIG.baseApiUrl);
+			expect(Collection.mockApiUrl).toBe(CONFIG.mockApiUrl);
 		});
 
 	});

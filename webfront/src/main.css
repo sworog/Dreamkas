@@ -1,3 +1,5 @@
+/* fonts */
+@import "fonts/googleRoboto.css";
 /* bower_components */
 @import "bower_components/select2/select2.css";
 @import "bower_components/select2/select2-bootstrap.css";

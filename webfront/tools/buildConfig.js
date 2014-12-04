@@ -7,7 +7,7 @@
     stubModules: ['ejs', 'amd-loader'],
     skipDirOptimize: true,
     optimizeAllPluginResources: true,
-    removeCombined: true,
+    removeCombined: false,
 
     preserveLicenseComments: false,
     optimizeCss: 'standard',
@@ -31,14 +31,12 @@
 
     modules: [
         {
-            name: "main",
-            exclude: ['jquery', 'require.config'],
-            include: ['require.config.prod']
+            name: "require.config",
+            include: ['require.config.production']
         },
         {
-            name: "require.config",
-            exclude: ['jquery'],
-            include: ['app']
+            name: "app",
+            exclude: ['jquery']
         },
         {
             name: "routes/unauthorized",

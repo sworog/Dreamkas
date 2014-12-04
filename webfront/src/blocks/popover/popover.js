@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block');
 
-    require('bower_components/bootstrap/dist/js/bootstrap');
+    require('bootstrap');
 
     return Block.extend({
         render: function(){

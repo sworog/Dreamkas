@@ -1,7 +1,5 @@
 define(function(require, exports, module) {
     //requirements
-    var config = require('config');
-
     require('mockjax');
 
     $.mockjaxSettings.contentType = "application/json";
@@ -9,7 +7,7 @@ define(function(require, exports, module) {
     var mock = function(opt){
         opt = opt || {};
 
-        opt.url = config.baseApiUrl + opt.url;
+        opt.url = CONFIG.baseApiUrl + opt.url;
 
         return $.mockjax(opt);
     };

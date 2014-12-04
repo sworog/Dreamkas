@@ -1,11 +1,10 @@
 {
   "name": "dreamkas-web-client",
   "description": "dreamkas node utils",
-  "version": "0.46.136",
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/karma/bin/karma start ./tools/karma.conf.js --single-run",
-    "test-remote": "node ./node_modules/karma/bin/karma start tools/karma.remote.js --single-run",
+    "mocha": "node_modules/mocha/bin/mocha",
     "build": "node ./node_modules/grunt-cli/bin/grunt build"
   },
   "repository": {
@@ -24,11 +23,15 @@
     "grunt-shell": "^1.1.1"
   },
   "devDependencies": {
+    "chai": "^1.9.2",
     "karma": "^0.12",
     "karma-coverage": "^0.2",
     "karma-jasmine": "^0.2.0",
     "karma-phantomjs-launcher": "^0.1",
     "karma-requirejs": "^0.2",
-    "karma-teamcity-reporter": "^0.1"
+    "karma-teamcity-reporter": "^0.1",
+    "mocha": "^2.0.1",
+    "mocha-teamcity-reporter": "0.0.4",
+    "webdriverio": "^2.3.0"
   }
 }

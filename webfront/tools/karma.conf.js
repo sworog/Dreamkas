@@ -14,6 +14,8 @@ module.exports = function(config) {
         files: [
             '../tools/karma.main.js',
             'polyfills.js',
+            'config.js',
+            'require.config.js',
             'bower_components/jquery/dist/jquery.min.js',
             {pattern: '**/*.js', included: false},
             {pattern: '**/*.ejs', included: false}

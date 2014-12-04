@@ -39,7 +39,7 @@ define(function(require, exports, module) {
 
     return Block.extend({
 
-        el: function(){
+        el: function() {
             return document.querySelector('.page') || document.createElement('div');
         },
 
@@ -124,15 +124,15 @@ define(function(require, exports, module) {
                 render: false
             }, opt);
 
-			deepExtend(page.params, params);
+            deepExtend(page.params, params);
 
             router.save(_.transform(page.params, function(result, value, key) {
                 result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
             }));
 
-			if (opt.render) {
-				page.render();
-			} else {
+            if (opt.render) {
+                page.render();
+            } else {
                 googleAnalytics.sendPageview();
             }
         }
