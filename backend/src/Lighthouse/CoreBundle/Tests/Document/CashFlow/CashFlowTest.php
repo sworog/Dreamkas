@@ -38,10 +38,11 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
 
-        $this->factory()->invoice()
-            ->editInvoice($invoice->id, array('paid' => false))
+        $this->factory()
+            ->invoice()
+                ->editInvoice($invoice->id, array('paid' => false))
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -59,7 +60,7 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
     }
 
     public function testAutoChangeAmountCashFlowOnEditInvoice()
@@ -83,9 +84,9 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
 
-        $editedInvoice = $this->factory()
+        $this->factory()
             ->invoice()
                 ->editInvoice($invoice->id)
                 ->editInvoiceProduct(0, $product->id, 50, 5)
@@ -100,7 +101,7 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('250.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
     }
 
     public function testDeleteCashFromAfterDeleteInvoice()
@@ -124,7 +125,7 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
 
         $this->factory()->invoice()->removeInvoice($invoice->id);
 
@@ -153,10 +154,11 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
 
-        $this->factory()->supplierReturn()
-            ->editSupplierReturn($supplierReturn->id, null, null, null, false)
+        $this->factory()
+            ->supplierReturn()
+                ->editSupplierReturn($supplierReturn->id, null, null, null, false)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -199,12 +201,12 @@ class CashFlowTest extends WebTestCase
 
         $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
 
-        $editedSupplierReturn = $this->factory()
+        $this->factory()
             ->supplierReturn()
-            ->editSupplierReturn($supplierReturn->id)
-            ->editSupplierReturnProduct(0, $product->id, 50, 5)
+                ->editSupplierReturn($supplierReturn->id)
+                ->editSupplierReturnProduct(0, $product->id, 50, 5)
             ->flush();
 
         $this->getCashFlowRepository()->getDocumentManager()->clear();
@@ -214,22 +216,21 @@ class CashFlowTest extends WebTestCase
         /** @var CashFlow $cashFlow */
         $cashFlow = $cashFlowsCursor->getNext();
 
-        $this->assertTrue($cashFlow->amount->equals('250.00'), 'Amount not equals expected');
+        $this->assertSame('250.00', $cashFlow->amount->toString(), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
     }
 
     public function testDeleteCashFromAfterDeleteSupplierReturn()
     {
-        $user = $this->factory()->user()->getProjectUser();
-        $this->getContainer()->get('project.context')->authenticateByUser($user);
+        $this->authenticateProject();
 
         $product = $this->factory()->catalog()->getProduct();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
-            ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product->id, 100, 7)
+                ->createSupplierReturn(null, null, null, true)
+                ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
@@ -238,12 +239,12 @@ class CashFlowTest extends WebTestCase
         /** @var CashFlow $cashFlow */
         $cashFlow = $cashFlowsCursor->getNext();
 
-        $this->assertTrue($cashFlow->amount->equals('700.00'), 'Amount not equals expected');
+        $this->assertSame('700.00', $cashFlow->amount->toString(), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);;
+        $this->assertEquals(new DateTime("00:00:00"), $cashFlow->date);
 
         $this->factory()->supplierReturn()->removeSupplierReturn($supplierReturn->id);
-
+        
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
         $this->assertCount(0, $cashFlowsCursor);
     }
