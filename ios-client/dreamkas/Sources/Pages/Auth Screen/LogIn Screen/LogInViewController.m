@@ -35,6 +35,13 @@
     [self initLogInButton];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.loginField becomeFirstResponder];
+}
+
 #pragma mark - Configuration Methods
 
 - (void)configureLocalization
