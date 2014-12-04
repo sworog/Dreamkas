@@ -78,6 +78,7 @@
 #import "RESTClient.h"
 #import "RESTClient+Auth.h"
 #import "RESTClient+Stores.h"
+#import "RESTClient+Sales.h"
 
 //
 // Кастомные компоненты

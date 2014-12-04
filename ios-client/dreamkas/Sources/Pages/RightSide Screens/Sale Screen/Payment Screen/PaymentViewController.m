@@ -102,6 +102,10 @@
     DPLogFast(@"");
     
     [self viewTouched:nil];
+    
+    [NetworkManager sendPayment:^(NSArray *data, NSError *error) {
+        //..
+    }];
 }
 
 - (IBAction)payByUsingCardClicked:(id)sender

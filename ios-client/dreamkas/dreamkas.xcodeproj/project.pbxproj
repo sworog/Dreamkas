@@ -138,6 +138,8 @@
 		CE6CC1F119FFB1E10087FE2C /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */; };
 		CE6CC1F419FFB45F0087FE2C /* CloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1F319FFB45F0087FE2C /* CloseButton.m */; };
 		CE6CC1F519FFB45F0087FE2C /* CloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6CC1F319FFB45F0087FE2C /* CloseButton.m */; };
+		CE7F491C1A30C7B7001C3197 /* RESTClient+Sales.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F491B1A30C7B7001C3197 /* RESTClient+Sales.m */; };
+		CE7F491D1A30C7B7001C3197 /* RESTClient+Sales.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7F491B1A30C7B7001C3197 /* RESTClient+Sales.m */; };
 		CE82B2931A02532200CBF803 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE82B2921A02532200CBF803 /* SearchViewController.m */; };
 		CE82B2941A02532200CBF803 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE82B2921A02532200CBF803 /* SearchViewController.m */; };
 		CE82B2971A0254D900CBF803 /* ProductSearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE82B2961A0254D900CBF803 /* ProductSearchCell.m */; };
@@ -478,6 +480,8 @@
 		CE6CC1EF19FFB1E10087FE2C /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		CE6CC1F219FFB45F0087FE2C /* CloseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloseButton.h; sourceTree = "<group>"; };
 		CE6CC1F319FFB45F0087FE2C /* CloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloseButton.m; sourceTree = "<group>"; };
+		CE7F491A1A30C7B7001C3197 /* RESTClient+Sales.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RESTClient+Sales.h"; sourceTree = "<group>"; };
+		CE7F491B1A30C7B7001C3197 /* RESTClient+Sales.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RESTClient+Sales.m"; sourceTree = "<group>"; };
 		CE82B2911A02532200CBF803 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		CE82B2921A02532200CBF803 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		CE82B2951A0254D900CBF803 /* ProductSearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSearchCell.h; sourceTree = "<group>"; };
@@ -739,6 +743,8 @@
 			children = (
 				CE3B95F219E4189100E1D24F /* RESTClient+Auth.h */,
 				CE3B95F319E4189100E1D24F /* RESTClient+Auth.m */,
+				CE7F491A1A30C7B7001C3197 /* RESTClient+Sales.h */,
+				CE7F491B1A30C7B7001C3197 /* RESTClient+Sales.m */,
 				CE290FAA19EE62DB005483A1 /* RESTClient+Stores.h */,
 				CE290FAB19EE62DB005483A1 /* RESTClient+Stores.m */,
 			);
@@ -1799,6 +1805,7 @@
 				CE162A2119E3CF3D009BCC3C /* ImageToDataTransformer.m in Sources */,
 				CE3C76371A013B4D0057493E /* ProductCell.m in Sources */,
 				CEF2647119E81D16008BE93A /* NSDate+Utilities.m in Sources */,
+				CE7F491C1A30C7B7001C3197 /* RESTClient+Sales.m in Sources */,
 				CE9481C71A2DD52D003E0C06 /* MKLayer.swift in Sources */,
 				CE10A83019F6546B0056DF91 /* AbstractViewController+Sidemenu.m in Sources */,
 				CE39DDCE19FFED8E00150C28 /* SearchButton.m in Sources */,
@@ -1974,6 +1981,7 @@
 				CE946BE219E6AB2800D270E4 /* CustomLabel.m in Sources */,
 				CE290FFB19EE668B005483A1 /* NSManagedObject+MagicalAggregation.m in Sources */,
 				CEBC439819E7FB9D00C0E575 /* MBProgressHUD.m in Sources */,
+				CE7F491D1A30C7B7001C3197 /* RESTClient+Sales.m in Sources */,
 				CE10A83819F655200056DF91 /* SidemenuViewController.m in Sources */,
 				CE6CC1F519FFB45F0087FE2C /* CloseButton.m in Sources */,
 				CE8DA4E41A0106FD007C24D8 /* CustomNavigationBar.m in Sources */,
