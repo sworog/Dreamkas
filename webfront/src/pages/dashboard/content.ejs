@@ -15,6 +15,7 @@
 
         <% _.forEach(steps, function(step, index) {
             step.number = index + 1;
+            step.active = (step.number == activeStep);
         %>
 
         <%= partials.step(step) %>

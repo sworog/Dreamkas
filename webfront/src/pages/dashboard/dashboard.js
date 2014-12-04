@@ -24,6 +24,7 @@ define(function(require, exports, module) {
                 description: 'В этом разделе можно оформить приёмку, оприходование, списание товара',
                 buttonCaption: 'ЗАПУСТИТЬ КАССУ'
             }
-        ]
+        ],
+        activeStep: 1
     });
 });
