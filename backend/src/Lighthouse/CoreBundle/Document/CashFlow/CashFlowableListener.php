@@ -43,7 +43,7 @@ class CashFlowableListener extends AbstractMongoDBListener
                     /** @var CashFlow $cashFlow */
                     $cashFlow = $this->cashFlowRepository->createNew();
                     $cashFlow->amount = $document->getCashFlowAmount();
-                    $cashFlow->date = new DateTime();
+                    $cashFlow->date = new DateTime("00:00:00");
                     $cashFlow->direction = $document->getCashFlowDirection();
                     $cashFlow->reason = $document;
 
@@ -60,7 +60,7 @@ class CashFlowableListener extends AbstractMongoDBListener
                     if (null === $cashFlow) {
                         $cashFlow = $this->cashFlowRepository->createNew();
                         $cashFlow->amount = $document->getCashFlowAmount();
-                        $cashFlow->date = new DateTime();
+                        $cashFlow->date = new DateTime("00:00:00");
                         $cashFlow->direction = $document->getCashFlowDirection();
                         $cashFlow->reason = $document;
                     } else {
