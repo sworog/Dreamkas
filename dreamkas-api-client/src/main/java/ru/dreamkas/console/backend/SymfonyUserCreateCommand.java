@@ -1,6 +1,6 @@
 package ru.dreamkas.console.backend;
 
-import org.eclipse.jetty.util.security.UnixCrypt;
+import org.openqa.jetty.util.UnixCrypt;
 import ru.dreamkas.apiStorage.ApiStorage;
 
 /**

@@ -11,8 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.266</thucydides.version>
-        <thucydides.jbehave.version>0.9.264</thucydides.jbehave.version>
+        <serenity.version>1.0.6</serenity.version>
+        <serenity.maven.version>1.0.6</serenity.maven.version>
+        <serenity.jbehave.version>1.0.6</serenity.jbehave.version>
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>${sourceDirectory}}</testSourceDirectory>
         <outputDirectory>target/classes</outputDirectory>
@@ -20,21 +21,38 @@
         <api.staging>autotests</api.staging>
     </properties>
 
+    <!-- Define the Bintray repos for convenience -->
+    <repositories>
+        <repository>
+            <id>serenity</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/serenity/maven</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>serenity</id>
+            <name>bintray-plugins</name>
+            <url>http://dl.bintray.com/serenity/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <dependency>
-            <groupId>net.thucydides</groupId>
-            <artifactId>thucydides-core</artifactId>
-            <version>${thucydides.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>core</artifactId>
+            <version>${serenity.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.thucydides</groupId>
-            <artifactId>thucydides-junit</artifactId>
-            <version>${thucydides.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+            <version>${serenity.version}</version>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
-            <groupId>net.thucydides</groupId>
-            <artifactId>thucydides-jbehave-plugin</artifactId>
-            <version>${thucydides.jbehave.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-jbehave</artifactId>
+            <version>${serenity.jbehave.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -126,12 +144,19 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>net.thucydides.maven.plugins</groupId>
-                <artifactId>maven-thucydides-plugin</artifactId>
-                <version>${thucydides.version}</version>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.serenity-bdd</groupId>
+                        <artifactId>core</artifactId>
+                        <version>1.0.6</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
-                        <id>thucydides-reports</id>
+                        <id>serenity-reports</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>aggregate</goal>
