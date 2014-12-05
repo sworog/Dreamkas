@@ -1,0 +1,34 @@
+<div class="page__dashboard__info">
+
+    <% _.forEach(resources.firstStart.data, function(data){ %>
+
+    <div class="page__dashboard__infoRow row">
+        <div class="page__dashboard__infoCell col-md-4">
+
+            <div class="page__dashboard__infoTitle">
+                Магазин:
+            </div>
+            <div class="page__dashboard__infoValue">
+                <%- data.store.name %>
+            </div>
+
+        </div>
+        <div class="page__dashboard__infoCell col-md-4">
+        </div>
+        <div class="page__dashboard__infoCell col-md-4">
+        </div>
+    </div>
+
+    <% }) %>
+
+    <% if (isUserReady()) { %>
+
+    <div style="text-align: center">
+        <a class="btn btn-primary btn-md">
+            ПРОДОЛЖИТЬ РАБОТУ
+        </a>
+    </div>
+
+    <% } %>
+</div>
+

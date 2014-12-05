@@ -28,7 +28,7 @@ define(function(require, exports, module) {
                 block.stopListening();
                 block.delegateGlobalEvents();
 
-                data && deepExtend(block, block.defaults, data);
+                data && deepExtend(block, data);
 
                 this._ensureElement();
 
@@ -50,7 +50,6 @@ define(function(require, exports, module) {
         },
 
         bindings: null,
-        defaults: {},
 
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),

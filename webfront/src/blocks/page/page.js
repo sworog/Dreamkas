@@ -43,11 +43,17 @@ define(function(require, exports, module) {
             return document.querySelector('.page') || document.createElement('div');
         },
 
+        params: {},
+
         template: require('ejs!./template.ejs'),
 
         activeNavigationItem: 'main',
 
         currentUserModel: require('resources/currentUser/model.inst'),
+
+        test: {
+            model: require('resources/currentUser/model.inst')
+        },
 
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';

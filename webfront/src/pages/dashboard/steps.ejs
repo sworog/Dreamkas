@@ -1,0 +1,62 @@
+<div class="row page_dashboard__steps">
+
+    <div class="col-md-4">
+        <div class="page_dashboard__step <%- activeStep == 1 ? 'page_dashboard__stepActive' : '' %>">
+            <div class="page_dashboard__stepNumber">
+                1
+            </div>
+            <div class="page_dashboard__stepTitle">
+                Магазины
+            </div>
+            <div class="page_dashboard__stepDescription">
+                В разделе «Магазины» можно редатировать и создать новые магазины
+            </div>
+
+            <button data-modal="modal_store" class="page_dashboard__stepButton btn btn-primary btn-md">
+                ДОБАВИТЬ МАГАЗИН
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="page_dashboard__step <%- activeStep == 2 ? 'page_dashboard__stepActive' : '' %>">
+            <div class="page_dashboard__stepNumber">
+                2
+            </div>
+            <div class="page_dashboard__stepTitle">
+                Товары
+            </div>
+            <div class="page_dashboard__stepDescription">
+                В этом разделе можно оформить приёмку, оприходование, списание товара.
+            </div>
+
+            <button class="page_dashboard__stepButton btn btn-primary btn-md">
+                ПРИНЯТЬ ТОВАР
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="page_dashboard__step <%- activeStep == 3 ? 'page_dashboard__stepActive' : '' %>">
+            <div class="page_dashboard__stepNumber">
+                3
+            </div>
+            <div class="page_dashboard__stepTitle">
+                Продажа
+            </div>
+            <div class="page_dashboard__stepDescription">
+                В этом разделе можно оформить приёмку, оприходование, списание товара.
+            </div>
+
+            <button class="page_dashboard__stepButton btn btn-primary btn-md">
+                ЗАПУСТИТЬ КАССУ
+            </button>
+        </div>
+    </div>
+
+    <!--MODALS-->
+    <b block="modal_store"></b>
+    <!--END MODALS-->
+
+</div>
+

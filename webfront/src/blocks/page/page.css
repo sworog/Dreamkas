@@ -205,11 +205,15 @@
 
 /*------------------- dashboard ----------------------------*/
 
+.page_dashboard__steps {
+    padding: 40px 0 0;
+}
+
 .page_dashboard__step {
     background-color: #fff;
     text-align: center;
-    padding: 30px 40px;
-    margin: 40px 0 0 0;
+    padding: 50px 40px 30px;
+    position: relative;
 }
 
 .page_dashboard__stepNumber {
@@ -220,7 +224,11 @@
     background-color: #AEAEAE;
     border-radius: 64px;
     line-height: 64px;
-    margin: -64px auto;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-top: -32px;
+    margin-left: -32px;
 }
 
 .page_dashboard__stepActive .page_dashboard__stepNumber {
@@ -228,7 +236,7 @@
 }
 
 .page_dashboard__stepTitle {
-    margin: 92px 0 20px 0;
+    padding-bottom: 20px;
     font-size: 19px;
     color: #9C9C9C;
 }
@@ -240,7 +248,7 @@
 .page_dashboard__stepDescription {
     font-size: 15px;
     line-height: 20px;
-    margin: 0 0 40px 0;
+    padding-bottom: 40px;
     color: #AEAEAE;
 }
 
@@ -249,7 +257,6 @@
 }
 
 .page_dashboard__stepButton {
-    padding: 9px 24px;
     visibility: hidden;
 }
 
@@ -257,7 +264,7 @@
     visibility: visible;
 }
 
-.page__dashboard__info {
+.page__dashboard__infoRow {
     background-color: #fff;
     margin: 20px 0;
 }
