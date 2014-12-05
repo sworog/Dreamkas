@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return new Resource({
         url: CONFIG.baseApiUrl + '/products',
+        data: [],
         params: {
             limit: 1
         }

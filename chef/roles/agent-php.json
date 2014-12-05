@@ -48,8 +48,9 @@
                 }
             }
         },
-        "mognodb": {
-            "smallfiles": true
+        "mongodb": {
+            "smallfiles": true,
+            "nojournal": true
         }
     }
 }

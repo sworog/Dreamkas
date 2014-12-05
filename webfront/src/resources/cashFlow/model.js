@@ -27,12 +27,12 @@ define(function(require, exports, module) {
                         comment = 'Оплата приёмки';
                         break;
 
-                    case 'WriteOff':
-                        comment = 'Списание';
+                    case 'Return':
+                        comment = 'Возвраты';
                         break;
 
-                    case 'StockIn':
-                        comment = 'Оприходование';
+                    case 'Sale':
+                        comment = 'Продажи';
                         break;
 
                     case 'SupplierReturn':
@@ -40,7 +40,7 @@ define(function(require, exports, module) {
                         break;
                 }
 
-                comment += ' от ' + formatDate(data.reason.date);
+                comment += ' от ' + formatDate(data.reason.date || data.date);
             }
 
             data.comment = comment;

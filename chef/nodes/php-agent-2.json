@@ -8,5 +8,8 @@
                 "name": "php-agent-2"
             }
         }
+    },
+    "php": {
+        "ext_conf_dir": "/etc/php5/conf.d"
     }
 }

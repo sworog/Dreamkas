@@ -22,6 +22,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class CashFlow extends AbstractDocument
 {
+    const TYPE = 'Manual';
+
     const DIRECTION_IN = 'in';
     const DIRECTION_OUT = 'out';
 
@@ -70,7 +72,9 @@ class CashFlow extends AbstractDocument
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
      *      discriminatorMap={
-     *          "invoice"="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
+     *          "Invoice"="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
+     *          "SupplierReturn"="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn",
+     *          "Return"="Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
      *      }
      * )
      * @var CashFlowable
@@ -83,5 +87,15 @@ class CashFlow extends AbstractDocument
     public function isEditable()
     {
         return null === $this->reason;
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("type")
+     * @return string
+     */
+    public function getType()
+    {
+        return null === $this->reason ? self::TYPE : $this->reason->getCashFlowReasonType();
     }
 }

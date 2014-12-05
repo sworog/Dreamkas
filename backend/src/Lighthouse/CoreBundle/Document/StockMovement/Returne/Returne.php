@@ -5,9 +5,12 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\Returne;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlowable;
 use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
 use JMS\Serializer\Annotation as Serializer;
@@ -18,7 +21,7 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository")
  */
-class Returne extends Receipt
+class Returne extends Receipt implements CashFlowable
 {
     const TYPE = 'Return';
 
@@ -48,6 +51,38 @@ class Returne extends Receipt
      * @var Sale
      */
     protected $sale;
+
+    /**
+     * @return bool
+     */
+    public function cashFlowNeeded()
+    {
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowReasonType()
+    {
+        return 'StockMovement';
+    }
+
+    /**
+     * @return Money
+     */
+    public function getCashFlowAmount()
+    {
+        return $this->sumTotal;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowDirection()
+    {
+        return CashFlow::DIRECTION_OUT;
+    }
 
     /**
      * @param ReturnProduct[] $products

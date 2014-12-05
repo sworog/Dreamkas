@@ -2,11 +2,18 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use DateTime;
 
 class CashFlowControllerTest extends WebTestCase
 {
+    /**
+     * @return array
+     */
     protected function createCashFlows()
     {
         $cashFlow1 = $this->factory()
@@ -511,7 +518,7 @@ class CashFlowControllerTest extends WebTestCase
         $this->assertEmpty($deleteResponse);
 
         $this->client->setCatchException(true);
-        $getResponse = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             "/api/1/cashFlows/{$cashFlow->id}"
@@ -524,10 +531,10 @@ class CashFlowControllerTest extends WebTestCase
     {
         $product = $this->factory()->catalog()->getProduct();
 
-        $supplierReturn = $this->factory()
+        $this->factory()
             ->supplierReturn()
-            ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product->id, 100, 7)
+                ->createSupplierReturn(null, null, null, true)
+                ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
@@ -564,15 +571,12 @@ class CashFlowControllerTest extends WebTestCase
 
     public function testAutoCreatedCashFlowDelete()
     {
-        $user = $this->factory()->user()->getProjectUser();
-        $this->getContainer()->get('project.context')->authenticateByUser($user);
-
         $product = $this->factory()->catalog()->getProduct();
 
-        $supplierReturn = $this->factory()
+        $this->factory()
             ->supplierReturn()
-            ->createSupplierReturn(null, null, null, true)
-            ->createSupplierReturnProduct($product->id, 100, 7)
+                ->createSupplierReturn(null, null, null, true)
+                ->createSupplierReturnProduct($product->id, 100, 7)
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
@@ -601,5 +605,108 @@ class CashFlowControllerTest extends WebTestCase
             'message',
             $deleteResponse
         );
+    }
+
+    public function testAutoCreatedCashFlowGetForInvoice()
+    {
+        $store = $this->factory()->store()->getStore();
+        $product = $this->factory()->catalog()->getProduct();
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '2014-11-31 12:00:00'), $store->id)
+                ->createInvoiceProduct($product->id, 11, 5.78)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            array('dateFrom' => '2014-11-01', 'dateTo' => '2014-12-31')
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertCount(0, $response);
+
+        $expectedPaidDateTime = date('Y-m-d\T00:00:00O');
+        $this->factory()
+            ->invoice()
+                ->editInvoice($invoice->id, array('paid' => true))
+            ->flush();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            array('dateFrom' => '2014-11-01', 'dateTo' => '2014-12-31')
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $response);
+        Assert::assertJsonPathEquals($expectedPaidDateTime, '0.date', $response);
+        Assert::assertJsonPathEquals('StockMovement', '0.type', $response);
+    }
+
+    public function testAutoCreatedCashFlowGetForReturn()
+    {
+        $store = $this->factory()->store()->getStore();
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '2014-11-31 12:00:00'), $store->id, null, null, false)
+                ->createInvoiceProduct($products['1']->id, 11, 1.78)
+                ->createInvoiceProduct($products['2']->id, 22, 2.78)
+                ->createInvoiceProduct($products['3']->id, 33, 3.78)
+            ->flush();
+
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-12-01 01:39:12')
+                ->createReceiptProduct($products['1']->id, 2, 2.09)
+            ->flush();
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-12-01 03:34:09')
+                ->createReceiptProduct($products['2']->id, 1, 3.49)
+                ->createReceiptProduct($products['3']->id, 5.089, 4.99)
+            ->persist()
+                ->createSale($store, '2014-12-01 22:56:43')
+                ->createReceiptProduct($products['3']->id, 2.89, 4.49)
+            ->flush();
+
+        $return1 = $this->factory()
+            ->receipt()
+                ->createReturn($store, '2014-12-02 10:30:00', $sale1)
+                ->createReceiptProduct($products['1']->id, 1, 2.09)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            array('dateFrom' => '2014-12-02', 'dateTo' => '2014-12-31')
+        );
+
+        $expectedReturnCashFlowDate = date(DateTime::ISO8601, strtotime('2014-12-02 10:30:00'));
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $response);
+        Assert::assertJsonPathEquals(CashFlow::DIRECTION_OUT, '0.direction', $response);
+        Assert::assertJsonPathEquals($expectedReturnCashFlowDate, '0.date', $response);
+        Assert::assertJsonPathEquals('2.09', '0.amount', $response);
+        Assert::assertJsonPathEquals('StockMovement', '0.type', $response);
+        Assert::assertJsonPathEquals(Returne::TYPE, '0.reason.type', $response);
+        Assert::assertJsonPathEquals($return1->id, '0.reason.id', $response);
     }
 }

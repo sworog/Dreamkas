@@ -38,9 +38,18 @@ public class CashFlowListPage extends BootstrapPageObject{
 
             @Override
             public void clickByLocator(String locator) {
-                String [] locators = locator.split(":");
-                String convertedDate = DateTimeHelper.getDate(locators[0]);
-                super.clickByLocator(convertedDate + ":" + locators[1]);
+                super.clickByLocator(getLocator(locator));
+            }
+
+            @Override
+            protected Boolean locateObject(AbstractObject abstractObject, String objectLocator) {
+                return super.locateObject(abstractObject, getLocator(objectLocator));
+            }
+
+            private String getLocator(String locator) {
+                String [] locatorArray = locator.split(":");
+                String convertedDate = DateTimeHelper.getDate(locatorArray[0]);
+                return convertedDate + ":" + locatorArray[1];
             }
         });
         put("Приход", new NonType(this, "in"));

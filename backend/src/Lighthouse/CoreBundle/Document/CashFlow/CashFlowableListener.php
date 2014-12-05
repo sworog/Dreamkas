@@ -38,18 +38,10 @@ class CashFlowableListener extends AbstractMongoDBListener
         $uow = $dm->getUnitOfWork();
 
         foreach ($uow->getScheduledDocumentInsertions() as $document) {
-            if ($document instanceof CashFlowable) {
-                if ($document->cashFlowNeeded()) {
-                    /** @var CashFlow $cashFlow */
-                    $cashFlow = $this->cashFlowRepository->createNew();
-                    $cashFlow->amount = $document->getCashFlowAmount();
-                    $cashFlow->date = new DateTime("00:00:00");
-                    $cashFlow->direction = $document->getCashFlowDirection();
-                    $cashFlow->reason = $document;
-
-                    $dm->persist($cashFlow);
-                    $this->computeChangeSet($dm, $cashFlow);
-                }
+            if ($document instanceof CashFlowable && $document->cashFlowNeeded()) {
+                $cashFlow = $this->cashFlowRepository->createNewByReason($document);
+                $dm->persist($cashFlow);
+                $this->computeChangeSet($dm, $cashFlow);
             }
         }
 
@@ -58,11 +50,7 @@ class CashFlowableListener extends AbstractMongoDBListener
                 if ($document->cashFlowNeeded()) {
                     $cashFlow = $this->cashFlowRepository->findOneByReason($document);
                     if (null === $cashFlow) {
-                        $cashFlow = $this->cashFlowRepository->createNew();
-                        $cashFlow->amount = $document->getCashFlowAmount();
-                        $cashFlow->date = new DateTime("00:00:00");
-                        $cashFlow->direction = $document->getCashFlowDirection();
-                        $cashFlow->reason = $document;
+                        $cashFlow = $this->cashFlowRepository->createNewByReason($document);
                     } else {
                         $cashFlow->amount = $document->getCashFlowAmount();
                         $cashFlow->direction = $document->getCashFlowDirection();

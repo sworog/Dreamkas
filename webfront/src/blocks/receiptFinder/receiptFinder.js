@@ -15,6 +15,32 @@ define(function(require, exports, module) {
                     .removeClass('receiptFinder__resultLink_active');
 
                 this.trigger('click:receipt', e.currentTarget.dataset.receiptId);
+            },
+            'select .autocomplete': function(e, product){
+
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.models.product.set(product);
+                block.findReceipts();
+            },
+            'clear .autocomplete': function(e){
+
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.models.product.clear();
+                block.findReceipts();
+            },
+            'update .inputDateRange': function(e){
+
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.findReceipts();
             }
         },
         models: {
@@ -28,41 +54,11 @@ define(function(require, exports, module) {
             }
         },
 		blocks: {
-			product_autocomplete: function() {
-				var block = this,
-					ProductAutocomplete = require('blocks/autocomplete/autocomplete_products/autocomplete_products.deprecated'),
-					productAutocomplete;
-
-                productAutocomplete = new ProductAutocomplete({
-                    value: block.models.product.get('name')
-                });
-
-                productAutocomplete.$el.on('typeahead:selected', function(e, product) {
-                    block.models.product.set(product);
-                    block.findReceipts(block.$('.tt-input.form-control'));
-                });
-
-                productAutocomplete.on('input:clear', function(e, product) {
-                    block.models.product.clear();
-                    block.findReceipts(block.$('.tt-input.form-control'));
-                });
-
-                return productAutocomplete;
-            },
-            inputDateRange: function(params) {
-                var block = this,
-                    DateRangeInput = require('blocks/inputDateRange/inputDateRange'),
-                    dateRangeInput = new DateRangeInput(params);
-
-                dateRangeInput.on('change:values', function(data) {
-                    block.findReceipts(block.$('.inputDateRange input'));
-                });
-
-                return dateRangeInput;
-            },
+			product_autocomplete: require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
+            inputDateRange: require('blocks/inputDateRange/inputDateRange'),
             receiptFinder__results: require('./receiptFinder__results')
         },
-        findReceipts: function(input) {
+        findReceipts: function() {
             var block = this,
                 dateFrom = this.$el.find('.inputDateRange input[name="dateFrom"]').val(),
                 dateTo = this.$el.find('.inputDateRange input[name="dateTo"]').val();
@@ -70,8 +66,6 @@ define(function(require, exports, module) {
             if (!dateFrom || !dateTo) {
                 return;
             }
-
-            $(input).addClass('loading');
 
             block.collections.receipts.fetch({
                 filters: {
@@ -87,7 +81,7 @@ define(function(require, exports, module) {
                     product: block.models.product.get('id')
                 });
 
-                $(input).removeClass('loading');
+                block.$('.loading').removeClass('loading');
             });
         }
     });
