@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\CashFlow;
 
 use DateTime;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
@@ -47,26 +48,15 @@ class CashFlowableListener extends AbstractMongoDBListener
 
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
             if ($document instanceof CashFlowable) {
-                if ($document->cashFlowNeeded()) {
-                    $cashFlow = $this->cashFlowRepository->findOneByReason($document);
-                    if (null === $cashFlow) {
-                        $cashFlow = $this->cashFlowRepository->createNewByReason($document);
-                    } else {
-                        $cashFlow->amount = $document->getCashFlowAmount();
-                        $cashFlow->direction = $document->getCashFlowDirection();
-                    }
-
-                    $dm->persist($cashFlow);
-                    $this->computeChangeSet($dm, $cashFlow);
-                } else {
-                    $cashFlow = $this->cashFlowRepository->findOneByReason($document);
-                    if (null !== $cashFlow) {
-                        $dm->remove($cashFlow);
-                    }
-                }
+                $this->proccessUpdateCashFlowable($dm, $document);
             }
         }
 
+        foreach ($uow->getScheduledDocumentUpserts() as $document) {
+            if ($document instanceof CashFlowable) {
+                $this->proccessUpdateCashFlowable($dm, $document);
+            }
+        }
 
         foreach ($uow->getScheduledDocumentDeletions() as $document) {
             if ($document instanceof CashFlowable) {
@@ -74,6 +64,31 @@ class CashFlowableListener extends AbstractMongoDBListener
                 if (null !== $cashFlow) {
                     $dm->remove($cashFlow);
                 }
+            }
+        }
+    }
+
+    /**
+     * @param DocumentManager $dm
+     * @param CashFlowable $document
+     */
+    protected function proccessUpdateCashFlowable(DocumentManager $dm, CashFlowable $document)
+    {
+        if ($document->cashFlowNeeded()) {
+            $cashFlow = $this->cashFlowRepository->findOneByReason($document);
+            if (null === $cashFlow) {
+                $cashFlow = $this->cashFlowRepository->createNewByReason($document);
+            } else {
+                $cashFlow->amount = $document->getCashFlowAmount();
+                $cashFlow->direction = $document->getCashFlowDirection();
+            }
+
+            $dm->persist($cashFlow);
+            $this->computeChangeSet($dm, $cashFlow);
+        } else {
+            $cashFlow = $this->cashFlowRepository->findOneByReason($document);
+            if (null !== $cashFlow) {
+                $dm->remove($cashFlow);
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn;
 
+use DateTime;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlowable;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
@@ -97,5 +98,13 @@ class SupplierReturn extends StockMovement implements CashFlowable
     public function getCashFlowDirection()
     {
         return CashFlow::DIRECTION_IN;
+    }
+
+    /**
+     * @return DateTime;
+     */
+    public function getCashFlowDate()
+    {
+        return new DateTime('00:00:00');
     }
 }

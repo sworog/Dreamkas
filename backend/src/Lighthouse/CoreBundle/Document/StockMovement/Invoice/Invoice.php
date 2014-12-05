@@ -195,4 +195,12 @@ class Invoice extends StockMovement implements CashFlowable
     {
         return CashFlow::DIRECTION_OUT;
     }
+
+    /**
+     * @return DateTime;
+     */
+    public function getCashFlowDate()
+    {
+        return new DateTime('00:00:00');
+    }
 }

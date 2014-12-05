@@ -248,4 +248,42 @@ class CashFlowTest extends WebTestCase
         $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
         $this->assertCount(0, $cashFlowsCursor);
     }
+
+    public function testSalesByDay()
+    {
+        $product = $this->factory()->catalog()->getProduct();
+
+        $this->factory()
+            ->receipt()
+                ->createSale(null, '-5 day 05:33:33')
+                    ->createReceiptProduct($product->id, 100.1, 7)
+            ->persist()
+                ->createSale(null, '-5 day 12:15:45')
+                    ->createReceiptProduct($product->id, 100.1, 7)
+            ->persist()
+                ->createSale(null, '-6 day 15:33:45')
+                    ->createReceiptProduct($product->id, 77, 10)
+            ->flush();
+
+        $this->createConsoleTester(false, true)->runCommand('lighthouse:reports:recalculate');
+
+        $this->authenticateProject();
+
+        $cashFlowsCursor = $this->getCashFlowRepository()->findAll();
+        $this->assertCount(2, $cashFlowsCursor);
+
+        /** @var CashFlow $cashFlow */
+        $cashFlow = $cashFlowsCursor->getNext();
+
+        $this->assertSame('1401.40', $cashFlow->amount->toString(), 'Amount not equals expected');
+        $this->assertEquals('in', $cashFlow->direction);
+        $this->assertEquals(new DateTime("-5 day 00:00:00"), $cashFlow->date);
+
+        /** @var CashFlow $cashFlow */
+        $cashFlow = $cashFlowsCursor->getNext();
+
+        $this->assertSame('770.00', $cashFlow->amount->toString(), 'Amount not equals expected');
+        $this->assertEquals('in', $cashFlow->direction);
+        $this->assertEquals(new DateTime("-6 day 00:00:00"), $cashFlow->date);
+    }
 }

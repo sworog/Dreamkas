@@ -26,4 +26,9 @@ interface CashFlowable
      * @return string
      */
     public function getCashFlowDirection();
+
+    /**
+     * @return DateTime;
+     */
+    public function getCashFlowDate();
 }
