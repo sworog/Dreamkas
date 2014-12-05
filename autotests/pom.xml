@@ -14,14 +14,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--thucydides-->
-        <thucydides.version>0.9.273</thucydides.version>
-        <thucydides.jbehave.version>0.9.273</thucydides.jbehave.version>
-        <thucydides.maven.version>0.9.273</thucydides.maven.version>
-        <thucydides.browser.width>1280</thucydides.browser.width>
-        <thucydides.browser.height>1024</thucydides.browser.height>
-        <thucydides.outputDirectory>${project.reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
-        <thucydides.sourceDirectory>${thucydides.outputDirectory}</thucydides.sourceDirectory>
-        <thucydides.take.screenshots>FOR_FAILURES</thucydides.take.screenshots>
+        <serenity.version>1.0.6</serenity.version>
+        <serenity.jbehave.version>1.0.6</serenity.jbehave.version>
+        <serenity.maven.version>1.0.6</serenity.maven.version>
+        <serenity.browser.width>1280</serenity.browser.width>
+        <serenity.browser.height>1024</serenity.browser.height>
+        <serenity.outputDirectory>${project.reporting.outputDirectory}/thucydides</serenity.outputDirectory>
+        <serenity.sourceDirectory>${serenity.outputDirectory}</serenity.sourceDirectory>
+        <serenity.take.screenshots>FOR_FAILURES</serenity.take.screenshots>
         <!--webdriver-->
         <webdriver.base.url>http://${init}.autotests.webfront.lighthouse.pro</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
@@ -47,6 +47,22 @@
         <api.staging>autotests</api.staging>
     </properties>
 
+    <!-- Define the Bintray repos for convenience -->
+    <repositories>
+        <repository>
+            <id>serenity</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/serenity/maven</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>serenity</id>
+            <name>bintray-plugins</name>
+            <url>http://dl.bintray.com/serenity/maven</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>com.github.crystalservice</groupId>
@@ -64,19 +80,20 @@
             <version>1.9.5</version>
         </dependency>
         <dependency>
-            <groupId>net.thucydides</groupId>
-            <artifactId>thucydides-core</artifactId>
-            <version>${thucydides.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>core</artifactId>
+            <version>${serenity.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.thucydides</groupId>
-            <artifactId>thucydides-junit</artifactId>
-            <version>${thucydides.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+            <version>${serenity.version}</version>
+            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
-            <groupId>net.thucydides</groupId>
-            <artifactId>thucydides-jbehave-plugin</artifactId>
-            <version>${thucydides.jbehave.version}</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-jbehave</artifactId>
+            <version>${serenity.jbehave.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -168,9 +185,9 @@
                     </includes>
                     <disableXmlReport>true</disableXmlReport>
                     <systemPropertyVariables>
-                        <thucydides.browser.width>${thucydides.browser.width}</thucydides.browser.width>
-                        <thucydides.browser.height>${thucydides.browser.height}</thucydides.browser.height>
-                        <thucydides.outputDirectory>${thucydides.outputDirectory}</thucydides.outputDirectory>
+                        <thucydides.browser.width>${serenity.browser.width}</thucydides.browser.width>
+                        <thucydides.browser.height>${serenity.browser.height}</thucydides.browser.height>
+                        <thucydides.outputDirectory>${serenity.outputDirectory}</thucydides.outputDirectory>
                         <thucydides.capability.types>sprint,user story</thucydides.capability.types>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
@@ -212,12 +229,19 @@
                 <version>2.9</version>
             </plugin>
             <plugin>
-                <groupId>net.thucydides.maven.plugins</groupId>
-                <artifactId>maven-thucydides-plugin</artifactId>
-                <version>${thucydides.maven.version}</version>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.serenity-bdd</groupId>
+                        <artifactId>core</artifactId>
+                        <version>1.0.6</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
-                        <id>thucydides-reports</id>
+                        <id>serenity-reports</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>aggregate</goal>
