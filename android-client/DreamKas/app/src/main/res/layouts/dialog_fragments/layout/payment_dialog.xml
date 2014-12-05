@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="#CC000000"
+        android:gravity="center">
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="800dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ru.dreamkas.pos.view.components.HorizontalPager
+                android:id="@+id/horizontal_pager"
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/White">
+                    <LinearLayout
+                        android:id="@+id/tbDialog"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:orientation="horizontal">
+                        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/InactiveFirst">
+
+                                <ImageButton
+                                    android:id="@+id/btnCloseModal"
+                                    android:background="@color/InactiveFirst"
+                                    android:src="@drawable/ic_close_black_24dp"
+                                    android:layout_width="70dp"
+                                    android:layout_height="match_parent" />
+                                <LinearLayout
+                                    android:id="@+id/llHeader"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:layout_gravity="center_vertical|left"
+                                    android:gravity="center_vertical|left">
+                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                        android:id="@+id/lblTotal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="1 003.00 Р"
+                                        app:font_style="medium"
+                                        android:textSize="20sp"
+                                        android:textColor="@color/Black"
+                                        />
+                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="Сумма"
+                                        android:textSize="14sp"
+                                        android:textColor="@color/Black"
+                                        />
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:fillViewport="true"
+                        android:measureAllChildren="false">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+
+                            <LinearLayout
+                                android:id="@+id/llMain"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:paddingLeft="80dp"
+                                android:paddingRight="80dp">
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="78dp"
+                                    android:layout_marginTop="40dp"
+                                    android:layout_marginRight="0dp"
+                                    android:layout_marginLeft="0dp">
+                                    <ru.dreamkas.pos.view.components.NumericEditText
+                                        android:id="@+id/txtCash"
+                                        android:text="dasds"
+                                        app:minimum_fraction_digits="2"
+                                        app:maximum_fraction_digits="2"
+                                        app:maximum_value="10000000"
+                                        android:singleLine="true"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="56dp"
+                                        android:gravity="bottom"
+                                        android:inputType="numberDecimal"
+                                        android:digits="0123456789.,"
+                                        android:textSize="16sp"
+                                        app:baseColor="@color/Gray"
+                                        app:primaryColor="@color/ActiveMain"
+                                        android:layout_weight="100"
+                                        android:textAppearance="?android:attr/textAppearanceMedium"
+                                        app:floatingLabel="normal"
+                                        android:hint="Внесенная сумма"
+                                        android:textAlignment="gravity"
+                                        />
+
+                                    <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
+                                        android:id="@+id/btnSellWithCash"
+                                        android:layout_width="120dp"
+                                        android:layout_height="48dp"
+                                        android:layout_marginTop="8dp"
+                                        android:background="@color/ActiveMain"
+                                        android:layout_marginLeft="20dp"
+                                        android:text="ОПЛАТИТЬ"
+                                        android:layout_weight="1"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="78dp"
+                                    android:layout_marginRight="80dp"
+                                    android:layout_marginLeft="0dp">
+
+                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Сумма"
+                                        android:layout_marginLeft="5dp"
+                                        android:textSize="12sp"
+                                        app:font_opacity="0.54"
+                                        android:textColor="@color/Black"
+                                        />
+
+                                    <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
+                                        android:id="@+id/btnSellWithCard"
+                                        android:layout_width="300dp"
+                                        android:layout_height="48dp"
+                                        android:background="@color/ActiveMain"
+                                        android:textColor="@color/ActiveMain"
+                                        android:text="ОПЛАТИТЬ Банковской картой"
+                                        />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llDone"
+                                android:visibility="gone"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:paddingLeft="80dp"
+                                android:paddingRight="80dp"
+                                android:paddingTop="80dp"
+                                >
+
+                                <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                    android:id="@+id/lblDone"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:text="Оплачено банковской картой"
+                                    android:layout_marginLeft="5dp"
+                                    android:textSize="24sp"
+                                    app:font_opacity="0.87"
+                                    android:textColor="@color/Black"
+                                    />
+                                <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                    android:id="@+id/lblInfo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_gravity="center"
+                                    android:text="Оплачено банковской картой"
+                                    android:layout_marginLeft="5dp"
+                                    android:textSize="14sp"
+                                    app:font_opacity="0.54"
+                                    android:textColor="@color/Black"
+                                    />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_ok"/>
+
+                                <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
+                                    android:id="@+id/btnNewReceipt"
+                                    android:layout_gravity="center"
+                                    android:layout_width="120dp"
+                                    android:layout_height="48dp"
+                                    android:background="@color/ActiveMain"
+                                    android:text="НОВЫЙ ЧЕК"
+                                    />
+
+                            </LinearLayout>
+
+
+
+                        </RelativeLayout>
+
+
+
+
+                    </ScrollView>
+                </LinearLayout>
+
+        </ru.dreamkas.pos.view.components.HorizontalPager>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/llFragmentContainer"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

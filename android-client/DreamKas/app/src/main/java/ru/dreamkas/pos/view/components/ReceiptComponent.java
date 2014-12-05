@@ -12,15 +12,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
-import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
-import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 
 import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 
@@ -37,6 +32,7 @@ import ru.dreamkas.pos.model.Receipt;
 import ru.dreamkas.pos.model.ReceiptItem;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.misc.StringDecorator;
+import ru.dreamkas.pos.view.popup.PaymentDialog;
 import ru.dreamkas.pos.view.popup.ReceiptItemEditDialog;
 
 @EViewGroup(R.layout.receipt_component)
@@ -87,6 +83,8 @@ public class ReceiptComponent extends LinearLayout {
 
         addFooterClearButton();
 
+        btnRegisterReceipt.setRippleSpeed(30);
+
         btnClearReceipt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 clearReceipt();
@@ -129,7 +127,25 @@ public class ReceiptComponent extends LinearLayout {
 
     @Click(R.id.btnRegisterReceipt)
     void registerReceipt(){
-        //todo register
+        if(mDialogInProgress){
+            return ;
+        }
+        mDialogInProgress = true;
+        final PaymentDialog dialog = new PaymentDialog(getContext(), mReceipt);
+        dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(final DialogInterface arg0) {
+                mDialogInProgress = false;
+                switch (dialog.getResult()){
+                    case Pay:
+                        clearReceipt();
+                        break;
+                    case Cancel:
+                        break;
+                }
+            }
+        });
     }
 
     @ItemClick

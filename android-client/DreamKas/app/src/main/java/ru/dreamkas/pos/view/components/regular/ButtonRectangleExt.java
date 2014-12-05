@@ -16,9 +16,11 @@ public class ButtonRectangleExt extends ButtonRectangle {
     public ButtonRectangleExt(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TextView buttonText = getTextView();
-        Typeface typeface = Typeface.createFromAsset(DreamkasApp.getContext().getAssets(), MEDIUM_FONT);
-        buttonText.setTypeface(typeface);
+        if(DreamkasApp.getContext() != null && DreamkasApp.getContext().getAssets() != null && getTextView() != null){
+            TextView buttonText = getTextView();
+            Typeface typeface = Typeface.createFromAsset(DreamkasApp.getContext().getAssets(), MEDIUM_FONT);
+            buttonText.setTypeface(typeface);
+        }
 
         this.setAttrs(getContext(), attrs);
     }

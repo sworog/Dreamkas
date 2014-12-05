@@ -10,7 +10,6 @@
     android:paddingBottom="8dp"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
-    android:background="@color/White"
     android:layout_gravity="center_vertical">
 
     <ru.dreamkas.pos.view.components.regular.TextViewTypefaced

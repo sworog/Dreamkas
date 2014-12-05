@@ -39,6 +39,7 @@
     <string name="msgClearReceiptConfitmationText">Подтвердить очистку чека</string>
     <string name="msgSellInTheAmountOff">ОПЛАТИТЬ %1$s %2$c</string>
     <string name="msg_info_ruble_value">%1$s %2$c</string>
+    <string name="msg_info_change_from">Сдача с %1$s</string>
     <string name="msgSelectedNullStore">\u003CМагазин не выбран\u003E</string>
 
     <string name="msg_error_negative_value">Значение не должно быть меньше нуля</string>
