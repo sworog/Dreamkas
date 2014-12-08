@@ -83,7 +83,7 @@ services:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\ReportsBundle\Document\GrossReturn\Network\GrossReturnNetworkRepository
         arguments:
-            - LighthouseReportsBundle:GrossReturn\Network\GrossReturn
+            - LighthouseReportsBundle:GrossReturn\Network\GrossReturnNetwork
         calls:
             - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]

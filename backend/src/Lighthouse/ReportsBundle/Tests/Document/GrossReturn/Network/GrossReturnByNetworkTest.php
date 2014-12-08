@@ -5,7 +5,7 @@ namespace Document\GrossReturn\Network;
 use DateTime;
 use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Lighthouse\ReportsBundle\Document\GrossReturn\Network\GrossReturn;
+use Lighthouse\ReportsBundle\Document\GrossReturn\Network\GrossReturnNetwork;
 use Lighthouse\ReportsBundle\Document\GrossReturn\Network\GrossReturnNetworkRepository;
 
 class GrossReturnByNetworkTest extends WebTestCase
@@ -36,7 +36,7 @@ class GrossReturnByNetworkTest extends WebTestCase
         $grossReturn,
         $quantity
     ) {
-        /** @var GrossReturn $report */
+        /** @var GrossReturnNetwork $report */
         $report = $this->getGrossReturnRepository()->findOneByDay(new DateTime($day));
         $this->assertSame($grossReturn, $report->grossReturn->toString());
         $this->assertSame($quantity, $report->quantity->toString());
