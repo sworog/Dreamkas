@@ -10,10 +10,12 @@ define(function(require, exports, module) {
     var posWindowReference = null,
         previousPage;
 
-    var openPos = function() {
+    var openPos = function(opt) {
+
+        opt = opt || {};
 
         var posStoreId = cookies.get('posStoreId'),
-            posUrl = '/pos' + (posStoreId ? ('/stores/' + posStoreId) : '');
+            posUrl = opt.posUrl;
 
         if (posWindowReference == null || posWindowReference.closed) {
             /* if the pointer to the window object in memory does not exist
@@ -28,13 +30,22 @@ define(function(require, exports, module) {
              window with the focus() method. There would be no need to re-create
              the window or to reload the referenced resource. */
         }
+
+        posWindowReference.addEventListener("beforeunload", function(e){
+
+            console.log(111);
+
+            posWindowReference.removeEventListener("beforeunload");
+        }, false);
     };
 
     $(document)
         .on('click', '.page__posLink', function(e) {
             e.preventDefault();
 
-            openPos();
+            openPos({
+                posUrl: e.target.href
+            });
         });
 
     return Block.extend({
@@ -51,8 +62,10 @@ define(function(require, exports, module) {
 
         currentUserModel: require('resources/currentUser/model.inst'),
 
-        test: {
-            model: require('resources/currentUser/model.inst')
+        posUrl: function(){
+            var posStoreId = cookies.get('posStoreId');
+
+            return '/pos' + (posStoreId ? ('/stores/' + posStoreId) : '');
         },
 
         content: function() {

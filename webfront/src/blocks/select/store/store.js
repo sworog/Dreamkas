@@ -22,8 +22,6 @@ define(function(require, exports, module) {
 
             var StoreCollection = require('resources/store/collection');
 
-            console.log(PAGE);
-
             return PAGE.get('collections.stores') || new StoreCollection;
         },
         blocks: {

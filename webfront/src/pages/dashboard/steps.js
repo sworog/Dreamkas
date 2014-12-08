@@ -19,6 +19,14 @@ define(function(require, exports, module) {
 
             return Block.prototype.initialize.apply(block, arguments);
         },
+        posUrl: function(){
+            var block = this,
+                stores = _.filter(block.resources.firstStart.get('stores'), function(storeItem) {
+                return storeItem.inventoryCostOfGoods;
+            });
+
+            return '/pos/' + (stores.length == 1 ? stores[0].store.id : '') + '?firstStart=1';
+        },
         render: function() {
 
             var block = this;

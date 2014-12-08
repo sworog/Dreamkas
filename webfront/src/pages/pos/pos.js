@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             'change select[name="store"]': function(e){
                 var page = this;
 
-                page.$('[href^="/pos/stores/"]').attr('href', '/pos/stores/' + e.target.value);
+                page.$('[href^="/pos/stores/"]').attr('href', '/pos/stores/' + e.target.value + (page.params.firstStart ? '?firstStart=1' : ''));
             }
         },
         collections: {
