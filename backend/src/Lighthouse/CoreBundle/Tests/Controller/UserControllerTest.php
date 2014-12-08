@@ -731,6 +731,7 @@ class UserControllerTest extends WebTestCase
                     'configs' => array(),
                     'departments' => array(),
                     'files' => array(),
+                    'firstStart' => array(),
                     'groups' => array(),
                     'integration/export/products' => array(),
                     'invoices' => array(),
@@ -846,6 +847,7 @@ class UserControllerTest extends WebTestCase
                     'configs' => array(),
                     'departments' => array(),
                     'files' => array(),
+                    'firstStart' => array(),
                     'groups' => array(),
                     'integration/export/products' => array(),
                     'invoices' => array(),
@@ -957,6 +959,10 @@ class UserControllerTest extends WebTestCase
                     ),
                     'files' => array(
                         'POST',
+                    ),
+                    'firstStart' => array(
+                        'GET',
+                        'PUT'
                     ),
                     'groups' => array(
                         'DELETE::{group}',
@@ -1108,6 +1114,7 @@ class UserControllerTest extends WebTestCase
                     ),
                     'departments' => array(),
                     'files' => array(),
+                    'firstStart' => array(),
                     'groups' => array(),
                     'integration/export/products' => array(),
                     'invoices' => array(),
