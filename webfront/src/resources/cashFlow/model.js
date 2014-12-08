@@ -31,7 +31,7 @@ define(function(require, exports, module) {
                         comment = 'Возвраты';
                         break;
 
-                    case 'Sale':
+                    case 'Sales':
                         comment = 'Продажи';
                         break;
 
@@ -40,7 +40,7 @@ define(function(require, exports, module) {
                         break;
                 }
 
-                comment += ' от ' + formatDate(data.reason.date || data.date);
+                comment += ' от ' + formatDate(data.reason.day || data.date);
             }
 
             data.comment = comment;
