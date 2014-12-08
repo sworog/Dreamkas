@@ -263,3 +263,5 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:FirstStart\FirstStart
+        calls:
+            - [setStoreRepository, ["@lighthouse.core.document.repository.store"]]

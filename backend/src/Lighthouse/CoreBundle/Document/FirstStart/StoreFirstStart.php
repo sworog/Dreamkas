@@ -2,16 +2,17 @@
 
 namespace Lighthouse\CoreBundle\Document\FirstStart;
 
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 /**
  * @property Store $store
- * @property Money $costOfGoods
+ * @property Money $inventoryCostOfGoods
  * @property Sale  $sale
  */
-class FirstStartStore
+class StoreFirstStart extends AbstractDocument
 {
     /**
      * @var Store
@@ -21,7 +22,7 @@ class FirstStartStore
     /**
      * @var Money
      */
-    protected $costOfGoods;
+    protected $inventoryCostOfGoods;
 
     /**
      * @var Sale
