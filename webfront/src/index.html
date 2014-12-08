@@ -27,7 +27,16 @@
 <script src="/require.config.js"></script>
 
 <script>
-    require(['app'], function(app){
+    require([
+        'app',
+        '/resources/currentUser/mocks/get.js',
+        '/resources/store/mocks/post.js',
+        '/resources/store/mocks/get_0.js',
+        '/resources/supplier/mocks/get_0.js',
+        '/resources/group/mocks/get_0.js',
+        '/resources/stockMovement/mocks/post.js',
+        '/resources/firstStart/mocks/get.js'
+    ], function(app) {
         app.start();
     });
 </script>

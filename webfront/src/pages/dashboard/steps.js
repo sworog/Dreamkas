@@ -7,26 +7,45 @@ define(function(require, exports, module) {
         resources: {
             firstStart: require('resources/firstStart/firstStart')
         },
-        initialize: function(){
+        initialize: function() {
 
             var block = this;
 
             block.listenTo(this.resources.firstStart, {
-                fetched: function(){
+                fetched: function() {
                     block.render();
                 }
             });
 
             return Block.prototype.initialize.apply(block, arguments);
         },
-        render: function(){
+        render: function() {
 
-            this.activeStep = 1;
+            var block = this;
+
+            var step1 = !block.resources.firstStart.data.length;
+
+            var step2 = _.find(block.resources.firstStart.data, function(item) {
+                return item && item.store;
+            });
+
+            var step3 = _.find(block.resources.firstStart.data, function(item) {
+                return item && item.store && item.store.costOfGoods;
+            });
+
+            if (step1) {
+                this.activeStep = 1;
+            }
+
+            if (step2) {
+                this.activeStep = 2;
+            }
+
+            if (step3) {
+                this.activeStep = 3;
+            }
 
             return Block.prototype.render.apply(this, arguments);
-        },
-        blocks: {
-            modal_store: require('blocks/modal/store/store')
         }
     });
 });

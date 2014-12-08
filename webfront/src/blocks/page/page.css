@@ -40,6 +40,8 @@
 .page__title {
     font-size: 25px;
     font-weight: 300;
+    height: 40px;
+    line-height: 40px;
 }
 
 .page__title .fa {

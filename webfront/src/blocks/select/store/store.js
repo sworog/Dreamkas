@@ -19,7 +19,12 @@ define(function(require, exports, module) {
             }
         },
         collection: function(){
-            return PAGE.collections.stores;
+
+            var StoreCollection = require('resources/store/collection');
+
+            console.log(PAGE);
+
+            return PAGE.get('collections.stores') || new StoreCollection;
         },
         blocks: {
             modal_store: require('blocks/modal/store/store')

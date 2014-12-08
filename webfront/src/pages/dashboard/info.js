@@ -11,7 +11,7 @@ define(function(require, exports, module) {
 
             var block = this;
 
-            block.listenTo(this.resources.firstStart, {
+            block.listenTo(block.resources.firstStart, {
                 fetched: function(){
                     block.render();
                 }
@@ -20,7 +20,12 @@ define(function(require, exports, module) {
             return Block.prototype.initialize.apply(block, arguments);
         },
         isUserReady: function() {
-            return true;
+
+            var block = this;
+
+            return _.find(block.resources.firstStart.data, function(item){
+                return item && item.sale;
+            });
         }
     });
 });
