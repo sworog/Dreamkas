@@ -85,6 +85,57 @@ class FirstStartControllerTest extends WebTestCase
 
     public function testGetFirstStartInvoice()
     {
+        $this->markTestIncomplete();
+
+        $stores = $this->factory()->store()->getStores(array('1', '2'));
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/firstStart'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, 'stores.*.store', $response);
+        Assert::assertNotJsonHasPath('stores.*.sale', $response);
+        Assert::assertNotJsonHasPath('stores.*.inventoryCostOfGoods', $response);
+
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '-3 days'), $stores['1']->id)
+                ->createInvoiceProduct($products['1']->id, 10, 50)
+                ->createInvoiceProduct($products['2']->id, 20, 40)
+                ->createInvoiceProduct($products['3']->id, 30, 30)
+            ->persist()
+                ->createInvoice(array('date' => '-2 days'), $stores['2']->id)
+                ->createInvoiceProduct($products['1']->id, 15, 55)
+                ->createInvoiceProduct($products['2']->id, 25, 45)
+                ->createInvoiceProduct($products['3']->id, 35, 35)
+            ->flush();
+
+        $this->runRecalculateCommand();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/firstStart'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, 'stores.*.store', $response);
+
+        Assert::assertJsonPathEquals('2200.00', 'stores.0.inventoryCostOfGoods', $response);
+        Assert::assertJsonPathEquals('3175.00', 'stores.1.inventoryCostOfGoods', $response);
+    }
+
+    public function testGetFirstStartSale()
+    {
         $stores = $this->factory()->store()->getStores(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
