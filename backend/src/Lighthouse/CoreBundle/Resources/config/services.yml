@@ -258,3 +258,8 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:CashFlow\CashFlow
+
+    lighthouse.core.document.repository.first_start:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:FirstStart\FirstStart
