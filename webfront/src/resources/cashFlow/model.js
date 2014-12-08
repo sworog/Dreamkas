@@ -22,7 +22,7 @@ define(function(require, exports, module) {
             var comment = data.comment;
 
             if (data.reason){
-                switch (data.reason.type){
+                switch (data.type){
                     case 'Invoice':
                         comment = 'Оплата приёмки';
                         break;
