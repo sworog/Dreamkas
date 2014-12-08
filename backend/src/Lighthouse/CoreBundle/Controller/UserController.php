@@ -21,7 +21,8 @@ use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -48,10 +49,16 @@ class UserController extends AbstractRestController
     public $userProvider;
 
     /**
-     * @DI\Inject("security.context")
-     * @var SecurityContextInterface
+     * @DI\Inject("security.token_storage")
+     * @var TokenStorageInterface
      */
-    public $securityContext;
+    public $tokenStorage;
+
+    /**
+     * @DI\Inject("security.authorization_checker")
+     * @var AuthorizationCheckerInterface
+     */
+    public $authorizationChecker;
 
     /**
      * @DI\Inject("lighthouse.core.security.permissions_extractor")
@@ -117,7 +124,7 @@ class UserController extends AbstractRestController
      */
     public function putUsersCurrentAction(Request $request)
     {
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
 
         $form = $this->createForm(
             new CurrentUserType(),
@@ -232,7 +239,7 @@ class UserController extends AbstractRestController
     public function postUsersCurrentChangePasswordAction(Request $request)
     {
         $userProvider = $this->userProvider;
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
         return $this->processFormCallback(
             $request,
             function (UserChangePasswordModel $formModel) use ($userProvider, $user) {
@@ -254,7 +261,7 @@ class UserController extends AbstractRestController
      */
     public function getUsersCurrentAction()
     {
-        return $this->securityContext->getToken()->getUser();
+        return $this->tokenStorage->getToken()->getUser();
     }
 
     /**
@@ -265,7 +272,7 @@ class UserController extends AbstractRestController
      */
     public function getUsersPermissionsAction()
     {
-        return $this->permissionExtractor->extractForCurrentUser($this->securityContext);
+        return $this->permissionExtractor->extractForCurrentUser($this->authorizationChecker);
     }
 
     /**

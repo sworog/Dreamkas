@@ -511,7 +511,7 @@ class CashFlowControllerTest extends WebTestCase
         $this->assertEmpty($deleteResponse);
 
         $this->client->setCatchException(true);
-        $getResponse = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             "/api/1/cashFlows/{$cashFlow->id}"

@@ -3,8 +3,8 @@
 namespace Lighthouse\CoreBundle\Validator\Constraints\User;
 
 use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraint;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -21,22 +21,22 @@ class CurrentUserPasswordValidator extends ConstraintValidator
     protected $encoderFactory;
 
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    protected $securityContext;
+    protected $tokenStorage;
 
     /**
      * @DI\InjectParams({
      *      "encoderFactory" = @DI\Inject("security.encoder_factory"),
-     *      "securityContext" = @DI\Inject("security.context"),
+     *      "tokenStorage" = @DI\Inject("security.token_storage"),
      * })
      * @param EncoderFactoryInterface $encoderFactory
-     * @param SecurityContextInterface $securityContext
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, SecurityContextInterface $securityContext)
+    public function __construct(EncoderFactoryInterface $encoderFactory, TokenStorageInterface $tokenStorage)
     {
         $this->encoderFactory = $encoderFactory;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -46,7 +46,7 @@ class CurrentUserPasswordValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         /* @var UserInterface $user */
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
         $encoder = $this->encoderFactory->getEncoder($user);
         $encodedPassword = $encoder->encodePassword($value, $user->getSalt());
         if ($encodedPassword !== $user->getPassword()) {
