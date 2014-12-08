@@ -1,6 +1,6 @@
 <div class="page__dashboard__info">
 
-    <% _.forEach(resources.firstStart.data, function(data){ %>
+    <% _.forEach(resources.firstStart.get('stores'), function(storeItem){ %>
 
     <div class="page__dashboard__infoRow row">
         <div class="page__dashboard__infoCell col-md-4">
@@ -9,19 +9,19 @@
                 Магазин:
             </div>
             <div class="page__dashboard__infoValue">
-                <%- data.store.name %>
+                <%- storeItem.store.name %>
             </div>
 
         </div>
         <div class="page__dashboard__infoCell col-md-4">
-
-            <% if (data.store && data.store.costOfGoods) { %>
+            
+            <% if (storeItem.inventoryCostOfGoods) { %>
             <div class="page__dashboard__infoTitle">
                 Товаров в магазине на сумму:
             </div>
 
             <div class="page__dashboard__infoValue">
-                <%- formatMoney(data.store.costOfGoods) %> <i style="font-size: 19px;" class="fa fa-rub"></i>
+                <%- formatMoney(storeItem.inventoryCostOfGoods) %> <i style="font-size: 19px;" class="fa fa-rub"></i>
             </div>
             <% } %>
 

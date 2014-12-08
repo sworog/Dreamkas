@@ -25,12 +25,12 @@ define(function(require, exports, module) {
 
             var step1 = !block.resources.firstStart.data.length;
 
-            var step2 = _.find(block.resources.firstStart.data, function(item) {
-                return item && item.store;
+            var step2 = _.find(block.resources.firstStart.get('stores'), function(storeItem) {
+                return storeItem.store;
             });
 
-            var step3 = _.find(block.resources.firstStart.data, function(item) {
-                return item && item.store && item.store.costOfGoods;
+            var step3 = _.find(block.resources.firstStart.get('stores'), function(storeItem) {
+                return storeItem.inventoryCostOfGoods;
             });
 
             if (step1) {

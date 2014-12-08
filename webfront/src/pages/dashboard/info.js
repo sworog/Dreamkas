@@ -23,8 +23,8 @@ define(function(require, exports, module) {
 
             var block = this;
 
-            return _.find(block.resources.firstStart.data, function(item){
-                return item && item.sale;
+            return _.find(block.resources.firstStart.get('stores'), function(storeItem){
+                return storeItem.sale;
             });
         }
     });

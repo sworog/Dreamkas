@@ -15,44 +15,55 @@ define(function(require, exports, module) {
 
             var response;
 
-            var response1 = [];
+            var response1 = {
+                complete: false
+            };
 
-            var response2 = [
-                {
-                    store: {
-                        id: "54759dbe2cde6e2f198b4567",
-                        address: "Ленина 34",
-                        name: "Первый"
+            var response2 = {
+                complete: false,
+                stores: [
+                    {
+                        store: {
+                            id: "54759dbe2cde6e2f198b4567",
+                            address: "Ленина 34",
+                            name: "Первый"
+                        }
                     }
-                }
-            ];
+                ]
+            };
 
-            var response3 = [
-                {
-                    store: {
-                        id: "54759dbe2cde6e2f198b4567",
-                        address: "Ленина 34",
-                        costOfGoods: 122300, // себестоимость
-                        name: "Первый"
+            var response3 = {
+                complete: false,
+                stores: [
+                    {
+                        store: {
+                            id: "54759dbe2cde6e2f198b4567",
+                            address: "Ленина 34",
+                            name: "Первый"
+                        },
+                        inventoryCostOfGoods: 122300 // себестоимость
                     }
-                }
-            ];
+                ]
+            };
 
-            var response4 = [
-                {
-                    store: {
-                        id: "54759dbe2cde6e2f198b4567",
-                        address: "Ленина 34",
-                        costOfGoods: 122300, // себестоимость
-                        name: "Первый"
-                    },
-                    sale: {
-                        costOfGoods: 12300, // себестоимость
-                        grossSales: 435600, // прибыль
-                        amount: 3450 // последняя продажа
+            var response4 = {
+                complete: false,
+                stores: [
+                    {
+                        store: {
+                            id: "54759dbe2cde6e2f198b4567",
+                            address: "Ленина 34",
+                            name: "Первый"
+                        },
+                        inventoryCostOfGoods: 122300, // себестоимость
+                        sale: {
+                            costOfGoods: 12300, // себестоимость
+                            grossSales: 435600, // прибыль
+                            amount: 3450 // последняя продажа
+                        }
                     }
-                }
-            ];
+                ]
+            };
 
             var response5 = {
                 complete: true
