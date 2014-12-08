@@ -74,7 +74,8 @@ class CashFlow extends AbstractDocument
      *      discriminatorMap={
      *          "Invoice"="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
      *          "SupplierReturn"="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn",
-     *          "Return"="Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
+     *          "GrossReturn"="Lighthouse\ReportBundle\Document\GrossReturn\Network\GrossReturn",
+     *          "GrossMarginSales"="Lighthouse\ReportBundle\Document\GrossMarginSales\Network\GrossMarginSales",
      *      }
      * )
      * @var CashFlowable

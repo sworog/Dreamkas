@@ -6,6 +6,8 @@ use DateTime;
 use JMS\Serializer\Annotation\Exclude;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlowable;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
@@ -20,7 +22,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * )
  * @MongoDB\Index(keys={"day"="asc"})
  */
-class GrossReturn extends AbstractDocument
+class GrossReturn extends AbstractDocument implements CashFlowable
 {
     /**
      * @MongoDB\Id(strategy="NONE")
@@ -46,4 +48,44 @@ class GrossReturn extends AbstractDocument
      * @var Quantity
      */
     protected $quantity;
+
+    /**
+     * @return bool
+     */
+    public function cashFlowNeeded()
+    {
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowReasonType()
+    {
+        return 'GrossReturn';
+    }
+
+    /**
+     * @return Money
+     */
+    public function getCashFlowAmount()
+    {
+        return $this->grossReturn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowDirection()
+    {
+        return CashFlow::DIRECTION_OUT;
+    }
+
+    /**
+     * @return DateTime;
+     */
+    public function getCashFlowDate()
+    {
+        return $this->day;
+    }
 }
