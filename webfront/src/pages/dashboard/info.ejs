@@ -14,6 +14,17 @@
 
         </div>
         <div class="page__dashboard__infoCell col-md-4">
+
+            <% if (data.store && data.store.costOfGoods) { %>
+            <div class="page__dashboard__infoTitle">
+                Товаров в магазине на сумму:
+            </div>
+
+            <div class="page__dashboard__infoValue">
+                <%- formatMoney(data.store.costOfGoods) %> <i style="font-size: 19px;" class="fa fa-rub"></i>
+            </div>
+            <% } %>
+
         </div>
         <div class="page__dashboard__infoCell col-md-4">
         </div>

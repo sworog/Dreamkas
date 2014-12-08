@@ -22,7 +22,7 @@ define(function(require, exports, module) {
                     store: {
                         id: "54759dbe2cde6e2f198b4567",
                         address: "Ленина 34",
-                        name: "3"
+                        name: "Первый"
                     }
                 }
             ];
@@ -31,16 +31,9 @@ define(function(require, exports, module) {
                 {
                     store: {
                         id: "54759dbe2cde6e2f198b4567",
-                        costOfGoods: 122300, // себестоимость,
-                        address: "Марата 5",
-                        name: "1"
-                    }
-                },
-                {
-                    store: {
-                        id: "54759dbe2cde6e2f198b4567",
                         address: "Ленина 34",
-                        name: "3"
+                        costOfGoods: 122300, // себестоимость
+                        name: "Первый"
                     }
                 }
             ];
@@ -49,29 +42,14 @@ define(function(require, exports, module) {
                 {
                     store: {
                         id: "54759dbe2cde6e2f198b4567",
-                        costOfGoods: 122300, // себестоимость,
-                        address: "Марата 5",
-                        name: "1"
+                        address: "Ленина 34",
+                        costOfGoods: 122300, // себестоимость
+                        name: "Первый"
                     },
                     sale: {
-                        costOfGoods: 12300, // себестоимость,
+                        costOfGoods: 12300, // себестоимость
                         grossSales: 435600, // прибыль
                         amount: 3450 // последняя продажа
-                    }
-                },
-                {
-                    store: {
-                        id: "54759dbe2cde6e2f198b4567",
-                        costOfGoods: 122300, // себестоимость,
-                        address: "Советская 1",
-                        name: "2"
-                    }
-                },
-                {
-                    store: {
-                        id: "54759dbe2cde6e2f198b4567",
-                        address: "Ленина 34",
-                        name: "3"
                     }
                 }
             ];
