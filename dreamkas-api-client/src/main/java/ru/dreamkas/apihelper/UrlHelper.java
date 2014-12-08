@@ -5,7 +5,11 @@ import ru.dreamkas.apiStorage.ApiStorage;
 /**
  * The helper is used for getting required url for api mechanism
  */
-public class UrlHelper {
+public final class UrlHelper {
+
+    private UrlHelper() {
+        throw new UnsupportedOperationException();
+    }
 
     public static String getApiUrl() {
         return getWebFrontUrl().replace("webfront", "api");
