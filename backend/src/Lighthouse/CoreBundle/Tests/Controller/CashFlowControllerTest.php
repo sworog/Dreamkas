@@ -650,6 +650,56 @@ class CashFlowControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(1, '*.id', $response);
         Assert::assertJsonPathEquals($expectedPaidDateTime, '0.date', $response);
-        Assert::assertJsonPathEquals('StockMovement', '0.type', $response);
+        Assert::assertJsonPathEquals('Invoice', '0.type', $response);
+    }
+
+    public function testAutoCreatedCashFlowGetForSalesByDay()
+    {
+        $store = $this->factory()->store()->getStore();
+        $product = $this->factory()->catalog()->getProduct();
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '-2 month'), $store->id)
+                ->createInvoiceProduct($product->id, 11, 5.78)
+            ->flush();
+
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale(null, '-2 day')
+                ->createReceiptProduct($product->id, 7, 10)
+            ->flush();
+
+        $return = $this->factory()
+            ->receipt()
+                ->createReturn(null, '-1 day', $sale)
+                ->createReceiptProduct($product->id, 7, 10)
+            ->flush();
+
+        $this->createConsoleTester(false, true)->runCommand('lighthouse:reports:recalculate');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $expectedSalesDateTime = date('Y-m-d\T00:00:00O', strtotime('-2 day'));
+        $expectedReturnsDateTime = date('Y-m-d\T00:00:00O', strtotime('-1 day'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            array('dateFrom' => date('Y-m-d', strtotime('-3 day')), 'dateTo' => date('Y-m-d', strtotime('+3 day')))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $response);
+
+        Assert::assertJsonPathEquals($expectedReturnsDateTime, '0.date', $response);
+        Assert::assertJsonPathEquals('Returns', '0.type', $response);
+
+        Assert::assertJsonPathEquals($expectedSalesDateTime, '1.date', $response);
+        Assert::assertJsonPathEquals('Sales', '1.type', $response);
+
     }
 }

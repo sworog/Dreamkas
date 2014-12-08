@@ -62,7 +62,7 @@ class GrossReturnNetwork extends AbstractDocument implements CashFlowable
      */
     public function getCashFlowReasonType()
     {
-        return 'GrossReturnNetwork';
+        return 'Returns';
     }
 
     /**
