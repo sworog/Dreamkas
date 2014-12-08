@@ -41,15 +41,15 @@ define(function(require, exports, module) {
                             address: "Ленина 34",
                             name: "Первый"
                         },
-                        inventoryCostOfGoods: 122300 // себестоимость
+                        inventoryCostOfGoods: 122300.45 // себестоимость
                     },
                     {
                         store: {
                             id: "54759dbe2cde6e2f198b4527",
-                            address: "Марата 4",
-                            name: "Второй"
+                            address: "Ленина 34",
+                            name: "Первый"
                         },
-                        inventoryCostOfGoods: 3456.45 // себестоимость
+                        inventoryCostOfGoods: 13400.45 // себестоимость
                     }
                 ]
             };

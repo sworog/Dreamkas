@@ -25,7 +25,7 @@ define(function(require, exports, module) {
                 return storeItem.inventoryCostOfGoods;
             });
 
-            return '/pos/' + (stores.length == 1 ? stores[0].store.id : '') + '?firstStart=1';
+            return '/pos' + (stores.length == 1 ? '/stores/' + stores[0].store.id : '') + '?firstStart=1';
         },
         render: function() {
 
