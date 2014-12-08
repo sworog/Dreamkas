@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Receipt\GrossMarginSalesByReceipt;
 
 /**
  * @property Store $store
@@ -25,7 +26,15 @@ class StoreFirstStart extends AbstractDocument
     protected $inventoryCostOfGoods;
 
     /**
-     * @var Sale
+     * @var GrossMarginSalesByReceipt
      */
     protected $sale;
+
+    /**
+     * @param Store $store
+     */
+    public function __construct(Store $store)
+    {
+        $this->store = $store;
+    }
 }

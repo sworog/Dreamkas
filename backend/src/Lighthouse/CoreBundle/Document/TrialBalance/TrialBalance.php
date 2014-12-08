@@ -205,4 +205,14 @@ class TrialBalance extends AbstractDocument
         $this->product = $this->storeProduct->product;
         $this->subCategory = $this->reason->product->subCategory;
     }
+
+    /**
+     * @return Money
+     */
+    public function getGrossMargin()
+    {
+        if ($this->costOfGoods && $this->totalPrice) {
+            return $this->totalPrice->sub($this->costOfGoods);
+        }
+    }
 }

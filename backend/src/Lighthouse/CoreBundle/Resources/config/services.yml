@@ -265,3 +265,5 @@ services:
             - LighthouseCoreBundle:FirstStart\FirstStart
         calls:
             - [setStoreRepository, ["@lighthouse.core.document.repository.store"]]
+            - [setReceiptRepository, ["@lighthouse.core.document.repository.receipt"]]
+            - [setReceiptReportManager, ["@lighthouse.reports.gross_margin_sales.receipt.manager"]]
