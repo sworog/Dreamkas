@@ -78,3 +78,12 @@ services:
         calls:
             - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.reports.document.gross_return.network.repository:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\ReportsBundle\Document\GrossReturn\Network\GrossReturnNetworkRepository
+        arguments:
+            - LighthouseReportsBundle:GrossReturn\Network\GrossReturn
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]

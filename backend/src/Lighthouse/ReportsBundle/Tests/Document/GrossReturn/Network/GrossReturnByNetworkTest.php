@@ -2,8 +2,11 @@
 
 namespace Document\GrossReturn\Network;
 
+use DateTime;
 use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\ReportsBundle\Document\GrossReturn\Network\GrossReturn;
+use Lighthouse\ReportsBundle\Document\GrossReturn\Network\GrossReturnNetworkRepository;
 
 class GrossReturnByNetworkTest extends WebTestCase
 {
@@ -13,6 +16,30 @@ class GrossReturnByNetworkTest extends WebTestCase
     protected function runRecalculateCommand()
     {
         return $this->createConsoleTester(false, true)->runCommand('lighthouse:reports:recalculate');
+    }
+
+    /**
+     * @return GrossReturnNetworkRepository
+     */
+    protected function getGrossReturnRepository()
+    {
+        return $this->getContainer()->get('lighthouse.reports.document.gross_return.network.repository');
+    }
+
+    /**
+     * @param string $day
+     * @param string|float $grossReturn
+     * @param string|float $quantity
+     */
+    protected function assertGrossReturnDay(
+        $day,
+        $grossReturn,
+        $quantity
+    ) {
+        /** @var GrossReturn $report */
+        $report = $this->getGrossReturnRepository()->findOneByDay(new DateTime($day));
+        $this->assertSame($grossReturn, $report->grossReturn->toString());
+        $this->assertSame($quantity, $report->quantity->toString());
     }
 
     public function testNetworkGrossReturnSimple()
@@ -33,12 +60,13 @@ class GrossReturnByNetworkTest extends WebTestCase
 
         $this->factory()
             ->receipt()
-                ->createReturn(null, '-4 day 3:44:45')
+                ->createReturn(null, '-4 day 3:44:45', $sale1)
                 ->createReceiptProduct($product->id, 50, 7)
             ->flush();
 
         $this->runRecalculateCommand();
 
-
+        $this->authenticateProject();
+        $this->assertGrossReturnDay('-4 day 00:00:00', '350.00', '50.000');
     }
 }
