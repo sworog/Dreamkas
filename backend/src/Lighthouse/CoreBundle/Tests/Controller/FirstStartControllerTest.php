@@ -202,6 +202,111 @@ class FirstStartControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('343.01', 'stores.1.sale.grossSales', $response);
         Assert::assertJsonPathEquals('306.66', 'stores.1.sale.costOfGoods', $response);
         Assert::assertJsonPathEquals('36.35', 'stores.1.sale.grossMargin', $response);
+
+        /* TODO uncomment when done
+        Assert::assertJsonPathEquals('1872.88', 'stores.0.inventoryCostOfGoods', $response);
+        Assert::assertJsonPathEquals('2868.34', 'stores.1.inventoryCostOfGoods', $response);
+        */
+    }
+
+    public function testPutFirstStartComplete()
+    {
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/firstStart'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, 'stores.*.store', $getResponse);
+        Assert::assertJsonPathEquals(false, 'complete', $getResponse);
+
+        $this->factory()->store()->getStores(array('1', '2'));
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/firstStart'
+        );
+
+        Assert::assertJsonPathCount(2, 'stores.*.store', $getResponse);
+        Assert::assertJsonPathEquals(false, 'complete', $getResponse);
+        Assert::assertNotJsonHasPath('stores.*.sale', $getResponse);
+        Assert::assertNotJsonHasPath('stores.*.inventoryCostOfGoods', $getResponse);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/firstStart',
+            array(
+                'complete' => true,
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, 'stores.*.store', $putResponse);
+        Assert::assertJsonPathEquals(true, 'complete', $putResponse);
+        Assert::assertNotJsonHasPath('stores.*.sale', $putResponse);
+        Assert::assertNotJsonHasPath('stores.*.inventoryCostOfGoods', $putResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/firstStart'
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertSame($putResponse, $getResponse);
+    }
+
+    public function testPutFirstStartCompleteUndo()
+    {
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->factory()->store()->getStores(array('1', '2'));
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/firstStart',
+            array(
+                'complete' => true,
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, 'stores.*.store', $putResponse);
+        Assert::assertJsonPathEquals(true, 'complete', $putResponse);
+
+        $undoResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/firstStart',
+            array(
+                'complete' => false,
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, 'stores.*.store', $undoResponse);
+        Assert::assertJsonPathEquals(false, 'complete', $undoResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/firstStart'
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertSame($undoResponse, $getResponse);
     }
 
     /**

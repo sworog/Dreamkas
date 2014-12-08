@@ -63,17 +63,17 @@ class FirstStartRepository extends DocumentRepository
             $firstStart = $this->createNew();
             $this->save($firstStart);
         }
-        $this->populateFirstStart($firstStart);
         return $firstStart;
     }
 
     /**
      * @param FirstStart $firstStart
+     * @return FirstStart
      */
     public function populateFirstStart(FirstStart $firstStart)
     {
         if ($firstStart->complete) {
-            return;
+            return $firstStart;
         }
 
         $stores = $this->storeRepository->findAllActive();
@@ -86,6 +86,8 @@ class FirstStartRepository extends DocumentRepository
 
             $firstStart->addStoreFirstStart($storeFirstStart);
         }
+
+        return $firstStart;
     }
 
     /**
