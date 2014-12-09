@@ -29,7 +29,7 @@ public class ConsoleCommand {
         return new ConsoleCommandResult(resultValue, readOutput(process));
     }
 
-    private String[] cmd(String command, String host) {
+    protected String[] cmd(String command, String host) {
         if (isUnix()) {
             return new String[]{
                     "/bin/bash",

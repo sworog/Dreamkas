@@ -1,4 +1,4 @@
-package ru.dreamkas.unit.console;
+package ru.dreamkas.console;
 
 import org.junit.Test;
 import ru.dreamkas.console.ConsoleCommandResult;
