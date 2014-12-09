@@ -113,6 +113,8 @@
     DPLogFast(@"");
     
     [self viewTouched:nil];
+    
+    [self.navigationController pushViewController:ControllerById(FinalPaymentViewControllerID) animated:YES];
 }
 
 @end

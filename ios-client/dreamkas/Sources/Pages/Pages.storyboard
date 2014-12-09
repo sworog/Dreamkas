@@ -1274,14 +1274,32 @@
                         <rect key="frame" x="0.0" y="44" width="768" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="105,00 P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y75-jc-uCe" customClass="CustomLabel">
+                                <rect key="frame" x="64" y="214" width="640" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Сдача с 10 030,95" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh8-3X-aam" customClass="CustomLabel">
+                                <rect key="frame" x="64" y="250" width="640" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Оплачено банковской картой" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLj-M5-0bA" customClass="CustomLabel">
+                                <rect key="frame" x="64" y="240" width="640" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="V" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zSU-Wf-U6A">
-                                <rect key="frame" x="332" y="316" width="104" height="104"/>
+                                <rect key="frame" x="319" y="290" width="130" height="130"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fp-Bd-RO5" customClass="RaisedButton">
-                                <rect key="frame" x="322" y="450" width="124" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fp-Bd-RO5" customClass="RaisedFilledButton" customModule="dreamkas">
+                                <rect key="frame" x="322" y="435" width="124" height="36"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <state key="normal" title="НОВЫЙ ЧЕК">
@@ -1291,18 +1309,6 @@
                                     <action selector="theNewSaleButtonClicked:" destination="gZ9-lf-IDY" eventType="touchUpInside" id="Q9C-8o-4NO"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="105,00 P" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y75-jc-uCe" customClass="CustomLabel">
-                                <rect key="frame" x="64" y="216" width="640" height="35"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Сдача с 10 030,95" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh8-3X-aam" customClass="CustomLabel">
-                                <rect key="frame" x="64" y="259" width="640" height="35"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1316,6 +1322,7 @@
                         <outlet property="changeFromTotalLabel" destination="uh8-3X-aam" id="3SY-dk-3UH"/>
                         <outlet property="changeLabel" destination="Y75-jc-uCe" id="Bf9-Vt-g5Z"/>
                         <outlet property="checkCircle" destination="zSU-Wf-U6A" id="aAd-aa-gmD"/>
+                        <outlet property="paidByCardLabel" destination="bLj-M5-0bA" id="daT-1E-18g"/>
                         <outlet property="theNewSaleButton" destination="5Fp-Bd-RO5" id="lBN-7J-as8"/>
                     </connections>
                 </viewController>

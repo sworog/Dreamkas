@@ -34,6 +34,7 @@
 "payment_page_pay_by_using_card_button" = "Оплатить банковской картой";
 "final_payment_page_new_sale_button" = "Новый чек";
 "final_payment_page_payed_by_card_title" = "Оплачено банковской картой";
+"final_payment_page_change_from" = "Сдача с";
 
 /*
  *  ============================================================================
