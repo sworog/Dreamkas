@@ -205,11 +205,18 @@
     position: relative;
 }
 
-/*------------------------ dashboard info ----------------------------*/
+/*------------------------ dashboard progressbar ----------------------------*/
+
+.page_dashboard__text {
+    font-size: 30px;
+    text-align: center;
+    color: #000;
+    margin: 10px 0 34px;
+}
 
 .page__dashboard__progressbar {
     position: relative;
-    margin: 10px 13% 88px;
+    margin: 10px 13% 40px;
     padding: 0 45px; /*компенсация паддингов у steps*/
 }
 
