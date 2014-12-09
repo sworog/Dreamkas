@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return Block.extend({
         template: require('ejs!./info.ejs'),
-        models: {
+        resources: {
             firstStart: function() {
                 return PAGE.resources.firstStart;
             }

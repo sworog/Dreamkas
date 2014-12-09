@@ -67,6 +67,7 @@ define(function(require, exports, module) {
 
             block.__collections = block.__collections || block.collections;
             block.__models = block.__models || block.models;
+            block.__resources = block.__resources || block.resources;
 
             block.__collection = block.__collection || block.collection;
             block.__model = block.__model || block.model;
@@ -75,6 +76,7 @@ define(function(require, exports, module) {
 
                 _.extend(block.__collections, data.collections);
                 _.extend(block.__models, data.models);
+                _.extend(block.__resources, data.resources);
 
                 block.__collection = data.collection || block.__collection;
                 block.__model = data.model || block.__model;
@@ -90,9 +92,12 @@ define(function(require, exports, module) {
                 result[key] = block.get('__models.' + key);
             });
 
+            block.resources = _.transform(block.__resources, function(result, resourceInitializer, key) {
+                result[key] = block.get('__resources.' + key);
+            });
+
             block.collection = block.get('__collection');
             block.model = block.get('__model');
-
         },
 
         render: function() {

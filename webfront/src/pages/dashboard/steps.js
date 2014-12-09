@@ -4,9 +4,14 @@ define(function(require, exports, module) {
 
     return Block.extend({
         template: require('ejs!./steps.ejs'),
+        resources: {
+            firstStart: function() {
+                return PAGE.resources.firstStart;
+            }
+        },
         posUrl: function(){
-            var block = this,
-                stores = _.filter(block.resources.firstStart.get('stores'), function(storeItem) {
+            var block = this;
+            var stores = _.filter(block.resources.firstStart.get('stores'), function(storeItem) {
                 return storeItem.inventoryCostOfGoods;
             });
 
