@@ -49,6 +49,7 @@ class StoreCostOfInventoryRepository extends DocumentRepository
      */
     protected function aggregateByStores()
     {
+        $multiplier = $this->numericFactory->createQuantityFromCount(1)->toNumber();
         $ops = array(
             array(
                 '$match' => array(
@@ -74,7 +75,7 @@ class StoreCostOfInventoryRepository extends DocumentRepository
                     ),
                     'costOfInventory' => array(
                         '$sum' => array(
-                            '$multiply' => array('$price', '$inventoryCount')
+                            '$multiply' => array('$price', '$inventoryCount', $multiplier)
                         ),
                     )
                 ),
