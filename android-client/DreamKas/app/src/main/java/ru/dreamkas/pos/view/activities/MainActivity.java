@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.test.PerformanceTestCase;
 import android.text.SpannableStringBuilder;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +54,7 @@ public class MainActivity extends ActionBarActivity implements RestFragmentConta
 
         Intent intent = getIntent();
         mToken = intent.getStringExtra("access_token");
-
+        PreferencesManager.getInstance().setToken(mToken);
     }
 
     @AfterViews
@@ -124,6 +125,7 @@ public class MainActivity extends ActionBarActivity implements RestFragmentConta
 
     public void changeState(final DrawerMenu.AppStates state)
     {
+        PreferencesManager.initializeInstance(this);
         switch (state){
             case Kas:
                 if(!StringUtils.hasText(PreferencesManager.getInstance().getCurrentStore())){

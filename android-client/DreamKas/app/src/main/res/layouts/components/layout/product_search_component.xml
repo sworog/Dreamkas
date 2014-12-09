@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:foreground="@drawable/right_pane_shadow"
+
         >
 
 <LinearLayout
@@ -26,13 +26,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:padding="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            >
 
             <EditText android:id="@+id/txtProductSearchQuery"
                 android:layout_gravity="left"
                 android:layout_width="fill_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:textColorHighlight="@color/Black"
                 android:hint="Наименование или артикул товара"
                 android:inputType="textVisiblePassword"/>
 

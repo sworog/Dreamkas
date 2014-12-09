@@ -2,4 +2,5 @@
 <resources>
     <item name="header_shadow" type="drawable">@drawable/bottom_shadow</item>
     <item name="right_pane_shadow" type="drawable">@drawable/bottom2_shadow</item>
+    <item name="left_pane_shadow" type="drawable">@drawable/left_shadow</item>
 </resources>

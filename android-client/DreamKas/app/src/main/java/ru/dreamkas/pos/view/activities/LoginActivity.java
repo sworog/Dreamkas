@@ -22,6 +22,7 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.apache.commons.lang3.math.Fraction;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
@@ -103,13 +104,11 @@ public class LoginActivity extends Activity implements IAuthRequestHandler{
             Toast.makeText(this, BuildConfig.ServerAddress, Toast.LENGTH_SHORT).show();
 
             DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-
             this.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
-
             float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
             float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-
-            Toast.makeText(this, "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
+            Fraction f = Fraction.getFraction((int)Math.round(dpWidth),(int)Math.round(dpHeight));
+            Toast.makeText(this, "f: " + f + "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
 
             txtUsername.setText("androidpos@lighthouse.pro");
             txtPassword.setText("lighthouse");

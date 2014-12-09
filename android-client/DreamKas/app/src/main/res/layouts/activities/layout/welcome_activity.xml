@@ -21,6 +21,7 @@
     </ru.dreamkas.pos.view.components.HorizontalPager>
 
     <LinearLayout
+        android:id="@+id/llBottomPane"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"

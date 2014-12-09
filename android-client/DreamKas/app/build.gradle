@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android'
 apply plugin: 'android-apt'
 
 
@@ -47,7 +48,7 @@ android
     {
         applicationId 'ru.dreamkas.pos'
         minSdkVersion 17
-        targetSdkVersion 21
+        targetSdkVersion 19
 
         //def host = "http://av.staging.api.lighthouse.pro"
         def host = "http://android.autotests.api.lighthouse.pro"
@@ -87,13 +88,19 @@ android
     {
         release
         {
-            runProguard false
+            //runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug
         {
             applicationIdSuffix ".debug"
         }
+
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 
@@ -109,7 +116,7 @@ apt
 spoon
 {
     debug = true;
-    noAnimation = true;
+//    noAnimation = true;
     if (project.hasProperty('spoonClassName')) {
         className = project.spoonClassName
 
@@ -132,12 +139,15 @@ dependencies
             compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
             compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
             compile 'org.androidannotations:androidannotations-api:3.0'
-            compile "com.android.support:appcompat-v7:21.0.+"
+            compile 'com.android.support:appcompat-v7:21.0.+'
             compile 'com.google.zxing:core:3.0.0'
-            compile project(':materialDesign')
-            compile (project(':materialEditText')){
+            compile('com.rengwuxian.materialedittext:library:1.6.0') {
                 exclude group: 'com.nineoldandroids', module: 'library'
             }
+            compile project(':materialDesign')
+            /*compile (project(':materialEditText')){
+                                        exclude group: 'com.nineoldandroids', module: 'library'
+                                    }*/
         }
 
 

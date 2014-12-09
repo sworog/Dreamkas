@@ -1,32 +1,39 @@
 package ru.dreamkas.pos.view.activities;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
-import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.apache.commons.lang3.math.Fraction;
+
+import ru.dreamkas.pos.BuildConfig;
+import ru.dreamkas.pos.DreamkasApp;
+import ru.dreamkas.pos.MathHelper;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.controller.PreferencesManager;
 import ru.dreamkas.pos.view.components.HorizontalPager;
-import ru.dreamkas.pos.view.popup.LoginDialog;
+import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
+import ru.dreamkas.pos.view.popup.LoginDialog_;
 
 @EActivity(R.layout.welcome_activity)
 public class WelcomeActivity extends Activity {
     public boolean isActive = false;
 
-    private Context context;
-
     @ViewById
     HorizontalPager pagerWelcome;
+    @ViewById
+    LinearLayout llBottomPane;
 
     @ViewById
     RadioGroup radioGroup;
@@ -49,6 +56,33 @@ public class WelcomeActivity extends Activity {
         radioGroup.setOnCheckedChangeListener(onCheckedChangedListener);
 
         btnLogin.setTextColor(getResources().getColor(R.color.ActiveMain));
+
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+        int dpHeight = (int)Math.floor(displayMetrics.heightPixels / displayMetrics.density);
+        int dpWidth = (int)Math.floor(displayMetrics.widthPixels / displayMetrics.density);
+
+        //dirty
+        if(dpHeight == 600 && dpWidth == 961){
+            dpWidth = 960;
+        }
+
+        Fraction ratio = MathHelper.asFraction(dpWidth, dpHeight);
+
+        DreamkasApp.setRatio(ratio, dpWidth);
+
+        switch(DreamkasApp.getRatio()){
+            case _16_10:
+                pagerWelcome.setLayoutParams(new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*6)));
+                llBottomPane.setLayoutParams(new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*4)));
+                break;
+            case _3_4:
+                break;
+        }
+
+        if (BuildConfig.DEBUG) {
+            Toast.makeText(this, "ratio: " + ratio + "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Click(R.id.btnLogin)
@@ -58,20 +92,21 @@ public class WelcomeActivity extends Activity {
         }
         mDialogInProgress = true;
 
-        final LoginDialog dialog = new LoginDialog(this);
-        final Context context = this;
-        dialog.show();
+        final LoginDialog_ dialog = new LoginDialog_();
+
+        dialog.show(getFragmentManager(), "login_dialog");
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(final DialogInterface arg0) {
                 mDialogInProgress = false;
                 switch (dialog.getResult()){
-                    case Login:
-                        Intent intent = new Intent(context, MainActivity_.class);
+                    case OK:
+                        Intent intent = new Intent(getBaseContext(), MainActivity_.class);
                         intent.putExtra("access_token", dialog.getAccessToken());
                         startActivity(intent);
                         break;
-                    case Cancel:
+                    case CANCEL:
                         break;
                 }
             }

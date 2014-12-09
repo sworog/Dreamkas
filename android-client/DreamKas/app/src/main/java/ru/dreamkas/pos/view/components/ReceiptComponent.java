@@ -3,6 +3,7 @@ package ru.dreamkas.pos.view.components;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
@@ -17,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import ru.dreamkas.pos.Constants;
+import ru.dreamkas.pos.controller.PreferencesManager;
 import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 
 import org.androidannotations.annotations.AfterViews;
@@ -33,6 +36,7 @@ import ru.dreamkas.pos.model.ReceiptItem;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.misc.StringDecorator;
 import ru.dreamkas.pos.view.popup.PaymentDialog;
+import ru.dreamkas.pos.view.popup.PaymentDialog_;
 import ru.dreamkas.pos.view.popup.ReceiptItemEditDialog;
 
 @EViewGroup(R.layout.receipt_component)
@@ -49,6 +53,13 @@ public class ReceiptComponent extends LinearLayout {
 
     @ViewById
     LinearLayout llReceipt;
+
+    @Click(R.id.btnSlide)
+    void slide(){
+        Animation animation = new TranslateAnimation(0, 100, 0, 0);
+        animation.setDuration(1000);
+        this.startAnimation(animation);
+    }
 
     private Receipt mReceipt;
     private ConfirmButtonComponent btnClearReceipt;
@@ -91,6 +102,12 @@ public class ReceiptComponent extends LinearLayout {
             }
         });
 
+
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbReceipt);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -111,8 +128,12 @@ public class ReceiptComponent extends LinearLayout {
 
         btnClearReceipt.setLayoutParams(params);
 
-        btnClearReceipt.setConfirmationText(DreamkasApp.getResourceString(R.string.msgClearReceiptConfitmationText));
-        btnClearReceipt.setTouchOwner((Activity) mContext);
+        if(!this.isInEditMode()){
+            btnClearReceipt.setConfirmationText(DreamkasApp.getResourceString(R.string.msgClearReceiptConfitmationText));
+            btnClearReceipt.setTouchOwner((Activity) mContext);
+        }
+
+
         lvReceipt.addFooterView(btnClearReceipt);
 
         btnClearReceipt.setRippleSpeed(30);
@@ -131,17 +152,25 @@ public class ReceiptComponent extends LinearLayout {
             return ;
         }
         mDialogInProgress = true;
-        final PaymentDialog dialog = new PaymentDialog(getContext(), mReceipt);
-        dialog.show();
+
+        final PaymentDialog_ dialog = new PaymentDialog_();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.ACCESS_TOKEN, PreferencesManager.getInstance().getToken());
+        dialog.setArguments(bundle);
+
+        dialog.setReceipt(mReceipt);
+        dialog.show(((Activity)mContext).getFragmentManager(), "payment_dialog");
+
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(final DialogInterface arg0) {
                 mDialogInProgress = false;
                 switch (dialog.getResult()){
-                    case Pay:
+                    case OK:
                         clearReceipt();
                         break;
-                    case Cancel:
+                    case CANCEL:
                         break;
                 }
             }

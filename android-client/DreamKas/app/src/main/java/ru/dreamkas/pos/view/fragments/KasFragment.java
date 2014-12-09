@@ -1,6 +1,9 @@
 package ru.dreamkas.pos.view.fragments;
 
 import android.os.Bundle;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -12,6 +15,7 @@ import org.androidannotations.annotations.ViewById;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
+import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.controller.Command;
 import ru.dreamkas.pos.controller.PreferencesManager;
@@ -41,6 +45,10 @@ public class KasFragment extends AuthRequestsContainingFragment{
     @ViewById
     ReceiptComponent ccReceipt;
 
+    @ViewById
+    LinearLayout llLeftPane;
+    @ViewById
+    RelativeLayout rlRightPane;
 
     @Override
     public void onCreate(Bundle bundle){
@@ -54,6 +62,15 @@ public class KasFragment extends AuthRequestsContainingFragment{
         loadStoreInfo();
 
         cKasMainBlock.init(new SearchProductsCommand(), new AddProductToReceiptCommand());
+
+        switch(DreamkasApp.getRatio()){
+            case _16_10:
+                llLeftPane.setLayoutParams(new LinearLayout.LayoutParams(DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*9), WindowManager.LayoutParams.MATCH_PARENT));
+                rlRightPane.setLayoutParams(new LinearLayout.LayoutParams(DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*7), WindowManager.LayoutParams.MATCH_PARENT));
+                break;
+            case _3_4:
+                break;
+        }
     }
 
     public class AddProductToReceiptCommand implements Command<Product>{

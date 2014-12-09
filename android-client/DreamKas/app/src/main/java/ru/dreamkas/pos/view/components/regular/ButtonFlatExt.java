@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonFlat;
@@ -18,13 +19,16 @@ public class ButtonFlatExt extends ButtonFlat {
     public ButtonFlatExt(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TextView buttonText = getTextView();
-        Typeface typeface = Typeface.createFromAsset(DreamkasApp.getContext().getAssets(), MEDIUM_FONT);
+        if(!this.isInEditMode()){
+            TextView buttonText = getTextView();
+            Typeface typeface = Typeface.createFromAsset(DreamkasApp.getContext().getAssets(), MEDIUM_FONT);
+            buttonText.setTypeface(typeface, Typeface.NORMAL);
+            buttonText.setTextColor(Color.BLACK);
+            this.setAttrs(getContext(), attrs);
+        }
 
-        buttonText.setTypeface(typeface, Typeface.NORMAL);
-        buttonText.setTextColor(Color.BLACK);
 
-        this.setAttrs(getContext(), attrs);
+
     }
 
     private void setAttrs(Context context, AttributeSet attrs) {

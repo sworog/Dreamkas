@@ -17,7 +17,9 @@
             android:gravity="center_horizontal"
             android:layout_width="800dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <ru.dreamkas.pos.view.components.HorizontalPager
                 android:id="@+id/horizontal_pager"
@@ -96,17 +98,20 @@
                         android:measureAllChildren="false">
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-
-
+                            android:layout_height="match_parent"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            >
                             <LinearLayout
                                 android:id="@+id/llMain"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:paddingLeft="80dp"
-                                android:paddingRight="80dp">
+                                android:paddingRight="80dp"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                >
 
                                 <LinearLayout
                                     android:orientation="horizontal"
@@ -114,10 +119,12 @@
                                     android:layout_height="78dp"
                                     android:layout_marginTop="40dp"
                                     android:layout_marginRight="0dp"
-                                    android:layout_marginLeft="0dp">
+                                    android:layout_marginLeft="0dp"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
+                                    >
                                     <ru.dreamkas.pos.view.components.NumericEditText
                                         android:id="@+id/txtCash"
-                                        android:text="dasds"
                                         app:minimum_fraction_digits="2"
                                         app:maximum_fraction_digits="2"
                                         app:maximum_value="10000000"
@@ -135,6 +142,7 @@
                                         app:floatingLabel="normal"
                                         android:hint="Внесенная сумма"
                                         android:textAlignment="gravity"
+
                                         />
 
                                     <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
@@ -181,6 +189,7 @@
 
                             </LinearLayout>
 
+
                             <LinearLayout
                                 android:id="@+id/llDone"
                                 android:visibility="gone"
@@ -210,7 +219,7 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
                                     android:layout_gravity="center"
-                                    android:text="Оплачено банковской картой"
+                                    android:text="Сдача 1000"
                                     android:layout_marginLeft="5dp"
                                     android:textSize="14sp"
                                     app:font_opacity="0.54"

@@ -12,6 +12,8 @@ import ru.dreamkas.pos.model.api.GroupApiObject;
 import ru.dreamkas.pos.model.api.NamedObject;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.model.api.ProductApiObject;
+import ru.dreamkas.pos.model.api.ReceiptApiObject;
+import ru.dreamkas.pos.model.api.SaleApiObject;
 import ru.dreamkas.pos.model.api.StoreApiObject;
 import ru.dreamkas.pos.model.api.collections.NamedObjects;
 import ru.dreamkas.pos.model.api.Token;
@@ -51,4 +53,8 @@ public interface DreamkasRestClient {
     @Post("/api/1/products")
     @RequiresHeader("Authorization")
     Product createProduct(ProductApiObject product);
+
+    @Post("/api/1/stores/{store}/sales")
+    @RequiresHeader("Authorization")
+    SaleApiObject registerReceipt(CharSequence store, ReceiptApiObject receipt);
 }

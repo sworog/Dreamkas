@@ -2,12 +2,17 @@ package ru.dreamkas.pos.view.popup;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -16,60 +21,78 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
+
+import ru.dreamkas.pos.controller.requests.AuthRequest;
 import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 
-import com.gc.materialdesign.views.ButtonRectangle;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.exception.RequestCancelledException;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
 import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
-import ru.dreamkas.pos.controller.DreamkasSpiceService;
 import ru.dreamkas.pos.controller.listeners.request.AuthRequestListener;
 import ru.dreamkas.pos.controller.listeners.request.IAuthRequestHandler;
 import ru.dreamkas.pos.controller.requests.AuthRequest_;
 import ru.dreamkas.pos.model.api.AuthObject;
 import ru.dreamkas.pos.model.api.Token;
 
-public class LoginDialog extends Dialog implements IAuthRequestHandler {
+@EFragment(R.layout.login_dialog)
+public class LoginDialog extends RequestContainingDialog implements IAuthRequestHandler {
 
-    private final Activity mOwnerActivity;
-    private DialogResult result = DialogResult.Cancel;
-    private ImageButton btnClose;
-    private ButtonRectangleExt btnLogin;
-    private EditText txtUsername;
-    private EditText txtPassword;
+    @ViewById
+    ImageButton btnCloseModal;
 
-    private SpiceManager mSpiceManager;
-    private AuthRequest_ authRequest;
-    public ProgressDialog progressDialog;
+    @ViewById
+    ButtonRectangleExt btnLogin;
 
+    @ViewById
+    EditText txtUsername;
+
+    @ViewById
+    EditText txtPassword;
+
+    @ViewById
+    ButtonFlat btnRestorePassword;
 
     public AuthRequestListener authRequestListener = new AuthRequestListener(this);
+
     private Token mAuthResult;
-    private ButtonFlat btnRestorePassword;
+
+    public LoginDialog() {
+        super();
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        txtUsername.addTextChangedListener(mValidateTextWatcher);
+        txtPassword.addTextChangedListener(mValidateTextWatcher);
+
+        validate(false);
+    }
 
     public String getAccessToken() {
         return mAuthResult.getAccess_token();
     }
 
-    public enum DialogResult{Login, Cancel;}
-
     private TextWatcher mValidateTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override
@@ -78,118 +101,32 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
         }
     };
 
-    public LoginDialog(Activity context) {
-        super(context, R.style.dialog_slide_anim);
-        mOwnerActivity = context;
+    @Click(R.id.btnRestorePassword)
+    void resotePassword(){
+        txtUsername.setText("androidpos@lighthouse.pro");
+        txtPassword.setText("lighthouse");
     }
 
-    @Override
-    public void show(){
-        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.login_dialog);
-        setCanceledOnTouchOutside(true);
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(getWindow().getAttributes());
-        lp.width = 800;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-
-        super.show();
-
-        getWindow().setAttributes(lp);
-
-        this.init();
-
-        startService();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return false;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public void dismiss(){
-        stopService();
-        super.dismiss();
-    }
-
-    @Override
-    public void cancel(){
-        result = DialogResult.Cancel;
-        stopService();
-        super.cancel();
-    }
-
-    private void startService(){
-        mSpiceManager = new SpiceManager(DreamkasSpiceService.class);
-        mSpiceManager.start(mOwnerActivity);
-        authRequest = AuthRequest_.getInstance_(getContext());
-    }
-
-    private void stopService() {
-        if(mSpiceManager.isStarted()){
-            mSpiceManager.shouldStop();
-        }
-    }
-
-    private void init() {
-        btnLogin = (ButtonRectangleExt) findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-
-        btnClose = (ImageButton) findViewById(R.id.btnCloseModal);
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancel();
-            }
-        });
-
-        btnRestorePassword = (ButtonFlat) findViewById(R.id.btnRestorePassword);
-        btnRestorePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                txtUsername.setText("androidpos@lighthouse.pro");
-                txtPassword.setText("lighthouse");
-            }
-        });
-
-        txtUsername = (EditText) findViewById(R.id.txtUsername);
-        txtPassword = (EditText) findViewById(R.id.txtPassword);
-
-        txtUsername.addTextChangedListener(mValidateTextWatcher);
-        txtPassword.addTextChangedListener(mValidateTextWatcher);
-
-        validate(false);
-    }
-
+    @Click(R.id.btnLogin)
     public void login(){
-        InputMethodManager imm = (InputMethodManager)mOwnerActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(txtPassword.getWindowToken(), 0);
 
-        showProgressDialog();
+        showProgressDialog(getResources().getString(R.string.auth_dialog_title));
         String username = txtUsername.getText().toString();
         String password = txtPassword.getText().toString();
         //todo get secret from? get client_id from?
         AuthObject ao = new AuthObject("webfront_webfront", username, password, "secret");
+        AuthRequest authRequest = AuthRequest_.getInstance_(getActivity());
         authRequest.setCredentials(ao);
-        mSpiceManager.execute(authRequest, null, DurationInMillis.NEVER, authRequestListener);
+        getSpiceManager().execute(authRequest, null, DurationInMillis.NEVER, authRequestListener);
         authRequestListener.requestStarted();
     }
 
-    public DialogResult getResult(){
-        return result;
+    @Override
+    @Click(R.id.btnCloseModal)
+    public void cancel(){
+        super.cancel();
     }
 
     private void validate(){
@@ -225,7 +162,7 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
     @Override
     public void onAuthSuccessRequest(Token authResult){
         progressDialog.dismiss();
-        result = DialogResult.Login;
+        setResult(DialogResult.OK);
         mAuthResult = authResult;
         dismiss();
     }
@@ -239,7 +176,7 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
             HttpClientErrorException exception = (HttpClientErrorException)spiceException.getCause();
             if(exception.getStatusCode().equals(HttpStatus.BAD_REQUEST)){
                 //wrong credentials
-                msg = getContext().getResources().getString(R.string.error_bad_credentials);
+                msg = getActivity().getResources().getString(R.string.error_bad_credentials);
             }
             else{
                 //other Network exception
@@ -255,14 +192,7 @@ public class LoginDialog extends Dialog implements IAuthRequestHandler {
             msg = spiceException.getMessage();
         }
 
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
-    }
-
-    protected void showProgressDialog(){
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage(getContext().getResources().getString(R.string.auth_dialog_title));
-        progressDialog.setIndeterminate(true);
-        progressDialog.setCancelable(true);
-        progressDialog.show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
     }
 }
+

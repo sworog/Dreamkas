@@ -2,160 +2,144 @@ package ru.dreamkas.pos.view.popup;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Dialog;
 import android.content.Context;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import java.math.BigDecimal;
-
+import com.octo.android.robospice.persistence.exception.SpiceException;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
 import ru.dreamkas.pos.Constants;
 import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
+import ru.dreamkas.pos.controller.Command;
+import ru.dreamkas.pos.controller.PreferencesManager;
+import ru.dreamkas.pos.controller.requests.AuthorisedRequestWrapper;
+import ru.dreamkas.pos.controller.requests.RegisterReceiptRequest;
 import ru.dreamkas.pos.model.Receipt;
+import ru.dreamkas.pos.model.api.SaleApiObject;
 import ru.dreamkas.pos.view.components.NumericEditText;
 import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 import ru.dreamkas.pos.view.components.regular.TextViewTypefaced;
 import ru.dreamkas.pos.view.misc.StringDecorator;
 
-public class PaymentDialog extends Dialog {
+@EFragment(R.layout.payment_dialog)
+public class PaymentDialog extends AuthRequestContainingDialog {
 
-    private TextViewTypefaced lblTotal;
-    private TextViewTypefaced lblDone;
-    private TextViewTypefaced lblInfo;
+    @ViewById
+    TextViewTypefaced lblTotal;
+    @ViewById
+    TextViewTypefaced lblDone;
+    @ViewById
+    TextViewTypefaced lblInfo;
+    @ViewById
+    LinearLayout llDone;
+    @ViewById
+    LinearLayout llMain;
+    @ViewById
+    LinearLayout llHeader;
 
-    private DialogResult result = DialogResult.Cancel;
-    private ImageButton btnClose;
+    @ViewById
+    NumericEditText txtCash;
+
+    @ViewById
+    ImageButton btnCloseModal;
+    @ViewById
+    ButtonRectangleExt btnSellWithCash;
+    @ViewById
+    ButtonRectangleExt btnSellWithCard;
+
+    @Bean
+    protected AuthorisedRequestWrapper mRegisterReceiptRequestWrapped;
 
     private Receipt mReceipt;
 
-    private NumericEditText txtCash;
-    private ButtonRectangleExt btnSellWithCash;
-    private ButtonRectangleExt btnSellWithCard;
-    private LinearLayout llDone;
-    private LinearLayout llMain;
-    private LinearLayout llHeader;
-    private ButtonRectangleExt btnNewReceipt;
-
-    public enum DialogResult{Pay, Cancel;}
-
-    public PaymentDialog(Context context, Receipt receipt) {
-        super(context, R.style.dialog_slide_anim);
-        setReceipt(receipt);
+    public PaymentDialog() {
+        super();
     }
 
     @Override
-    public void show(){
-        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.payment_dialog);
-        setCanceledOnTouchOutside(true);
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(getWindow().getAttributes());
-        lp.width = 800;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-
-        super.show();
-
-        getWindow().setAttributes(lp);
-
-        this.init();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return false;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public void cancel(){
-        result = DialogResult.Cancel;
-        super.cancel();
-    }
-
-    private void init() {
-
-        btnSellWithCash = (ButtonRectangleExt) findViewById(R.id.btnSellWithCash);
-        btnSellWithCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sellWithCash(100);
-            }
-        });
-
-        btnSellWithCard = (ButtonRectangleExt) findViewById(R.id.btnSellWithCard);
+    public void onStart(){
+        super.onStart();
         btnSellWithCard.setRippleSpeed(20);
-        btnSellWithCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sellWithCard();
-            }
-        });
-
-        lblTotal = (TextViewTypefaced) findViewById(R.id.lblTotal);
-        lblDone = (TextViewTypefaced) findViewById(R.id.lblDone);
-        lblInfo = (TextViewTypefaced) findViewById(R.id.lblInfo);
-
         calcTotal();
-
-        llDone = (LinearLayout) findViewById(R.id.llDone);
-        llMain = (LinearLayout) findViewById(R.id.llMain);
-        llHeader = (LinearLayout) findViewById(R.id.llHeader);
-
-        btnClose = (ImageButton) findViewById(R.id.btnCloseModal);
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancel();
-            }
-        });
-
-        btnNewReceipt = (ButtonRectangleExt) findViewById(R.id.btnNewReceipt);
-        btnNewReceipt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                done();
-            }
-        });
-
-        txtCash = (NumericEditText) findViewById(R.id.txtCash);
         txtCash.setAllowEmptyValue(true);
         addCashChangeListeners();
-
         validate();
     }
 
-    private void sellWithCash(double change) {
-        SpannableStringBuilder changeStr = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(change), StringDecorator.RUBLE_CODE);
-        lblDone.setText(changeStr);
-        String changeFrom = DreamkasApp.getResourceString(R.string.msg_info_change_from).format(DreamkasApp.getMoneyFormat().format(mReceipt.getTotal()));
-        lblInfo.setText(changeFrom);
-        sell();
+    @Override
+    @Click(R.id.btnCloseModal)
+    public void cancel(){
+        super.cancel();
     }
 
-    private void sellWithCard() {
-        lblInfo.setVisibility(View.GONE);
-        sell();
+    @Override
+    @Click(R.id.btnNewReceipt)
+    public void done(){
+        super.done();
     }
 
-    private void sell() {
+    @Click(R.id.btnSellWithCash)
+    void sellWithCash() {
+        mReceipt.setPaymentMethod(Receipt.PaymentMethod.CASH);
+        mReceipt.setAmountTendered(txtCash.getValue());
+        registerReceipt();
+    }
+
+    @Click(R.id.btnSellWithCard)
+    void sellWithCard() {
+        mReceipt.setPaymentMethod(Receipt.PaymentMethod.BANCCARD);
+        registerReceipt();
+    }
+
+    private void registerReceipt() {
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(txtCash.getWindowToken(), 0);
+
+        showProgressDialog("Регистрация продажи...");
+        RegisterReceiptRequest request = new RegisterReceiptRequest();
+        request.setReceipt(mReceipt);
+        request.setStore(PreferencesManager.getInstance().getCurrentStore());
+
+        mRegisterReceiptRequestWrapped.init(getSpiceManager(), request, getToken());
+        mRegisterReceiptRequestWrapped.execute(new registerReceiptRequestSuccessFinishCommand(), new registerReceiptRequestFailureFinishCommand());
+    }
+
+    public class registerReceiptRequestSuccessFinishCommand implements Command<SaleApiObject> {
+        public void execute(SaleApiObject data){
+            stopProgressDialog();
+            sold(data.getPayment().getChange());
+        }
+    }
+
+    public class registerReceiptRequestFailureFinishCommand implements Command<SpiceException>{
+        public void execute(SpiceException spiceException){
+            stopProgressDialog();
+            showRequestErrorToast(spiceException);
+        }
+    }
+
+    private void sold(Double change) {
+        if(change != null){
+            SpannableStringBuilder changeStr = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(change), StringDecorator.RUBLE_CODE);
+            lblDone.setText(changeStr);
+
+            String enderedAmount = DreamkasApp.getMoneyFormat().format(mReceipt.getTotal());
+            String changeFrom = String.format(DreamkasApp.getResourceString(R.string.msg_info_change_from), enderedAmount);
+            lblInfo.setText(changeFrom);
+        }else {
+            lblInfo.setVisibility(View.GONE);
+        }
         llHeader.animate()
                 .alpha(0f)
-                .setDuration(500)
+                .setDuration(1000)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -163,9 +147,9 @@ public class PaymentDialog extends Dialog {
                     }
                 });
 
-        btnClose.animate()
+        btnCloseModal.animate()
                 .alpha(0f)
-                .setDuration(500)
+                .setDuration(1000)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -197,7 +181,6 @@ public class PaymentDialog extends Dialog {
 
     }
 
-
     private void calcTotal() {
         SpannableStringBuilder total = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(mReceipt.getTotal()), StringDecorator.RUBLE_CODE);
         lblTotal.setText(total);
@@ -215,15 +198,6 @@ public class PaymentDialog extends Dialog {
             public void beforeTextChanged(CharSequence s, int start, int count, int after){}
             public void onTextChanged(CharSequence s, int start, int before, int count){}
         });
-    }
-
-    public void done(){
-        result = DialogResult.Pay;
-        dismiss();
-    }
-
-    public DialogResult getResult(){
-        return result;
     }
 
     private void validate() {
