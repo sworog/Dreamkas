@@ -6,13 +6,13 @@ import ru.dreamkas.apiStorage.ApiStorage;
 /**
  * symfony:user:create cap command implementation
  */
-public class SymfonyUserCreateCommand extends BackendCommand {
+public class SymfonyUserCreateConsoleCommand extends BackendConsoleCommand {
 
-    public SymfonyUserCreateCommand(String email, String password, String customProjectName) {
+    public SymfonyUserCreateConsoleCommand(String email, String password, String customProjectName) {
         super(String.format("symfony:user:create -S email=%s -S userpass=%s -S custom_project_name=%s", email, password, customProjectName));
     }
 
-    public SymfonyUserCreateCommand(String email, String password) {
+    public SymfonyUserCreateConsoleCommand(String email, String password) {
         this(email, password, userProjectId(email));
     }
 

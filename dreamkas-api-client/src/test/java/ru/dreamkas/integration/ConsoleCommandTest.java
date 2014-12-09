@@ -8,7 +8,7 @@ import org.junit.Test;
 import ru.dreamkas.api.http.HttpExecutor;
 import ru.dreamkas.apiStorage.ApiStorage;
 import ru.dreamkas.apihelper.UrlHelper;
-import ru.dreamkas.console.backend.BackendCommand;
+import ru.dreamkas.console.backend.BackendConsoleCommand;
 import ru.dreamkas.jbehave.GivenConsoleCommandsUserSteps;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class ConsoleCommandTest {
     public void before() throws IOException, InterruptedException {
         ApiStorage.getConfigurationVariableStorage().setProperty("webdriver.base.url", "integration-tests.autotests.webfront.lighthouse.pro");
         System.setProperty("api.staging", "autotests");
-        new BackendCommand("deploy").run();
+        new BackendConsoleCommand("deploy").run();
     }
 
     @Test
@@ -32,7 +32,7 @@ public class ConsoleCommandTest {
 
     @After
     public void after() throws IOException, InterruptedException {
-        new BackendCommand("deploy:remove").run();
+        new BackendConsoleCommand("deploy:remove").run();
         ApiStorage.getConfigurationVariableStorage().setProperty("webdriver.base.url", null);
         System.setProperty("api.staging", null);
     }

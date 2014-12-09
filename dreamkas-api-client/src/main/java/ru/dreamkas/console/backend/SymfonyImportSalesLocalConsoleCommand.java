@@ -3,16 +3,16 @@ package ru.dreamkas.console.backend;
 
 import ru.dreamkas.apiStorage.ApiStorage;
 
-public class SymfonyImportSalesLocalCommand extends BackendCommand {
+public class SymfonyImportSalesLocalConsoleCommand extends BackendConsoleCommand {
 
     private static final String COMMAND_NAME = "symfony:import:sales:local -S file=%s -S projectId=%s";
 
-    public SymfonyImportSalesLocalCommand(String filePath) {
+    public SymfonyImportSalesLocalConsoleCommand(String filePath) {
         super(
                 format(filePath, ApiStorage.getUserVariableStorage().getUserProjectName()));
     }
 
-    public SymfonyImportSalesLocalCommand(String filePath, String projectName) {
+    public SymfonyImportSalesLocalConsoleCommand(String filePath, String projectName) {
         super(
                 format(filePath, projectName));
 

@@ -5,14 +5,14 @@ import ru.dreamkas.console.exception.ConsoleCommandFailureException;
 
 import java.io.IOException;
 
-public class CommandExecutor {
+public class ConsoleCommandExecutor {
 
     private String folder;
     private String command;
 
     private static final String STAGING = System.getProperty("api.staging");
 
-    public CommandExecutor(String command, String folder) {
+    public ConsoleCommandExecutor(String command, String folder) {
         this.command = command;
         this.folder = folder;
     }

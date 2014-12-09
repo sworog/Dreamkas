@@ -1,10 +1,10 @@
 package ru.dreamkas.console.backend;
 
-public class SymfonyEnvInitCommand extends BackendCommand {
+public class SymfonyEnvInitConsoleCommand extends BackendConsoleCommand {
 
     private static final String COMMAND_NAME = "symfony:env:init";
 
-    public SymfonyEnvInitCommand() {
+    public SymfonyEnvInitConsoleCommand() {
         super(COMMAND_NAME);
     }
 }

@@ -5,16 +5,16 @@ import ru.dreamkas.apiStorage.ApiStorage;
 /**
  * symfony:products:recalculate_metrics cap command implementation
  */
-public class SymfonyProductsRecalculateMetricsCommand extends BackendCommand {
+public class SymfonyProductsRecalculateMetricsConsoleCommand extends BackendConsoleCommand {
 
     private static final String COMMAND_NAME = "symfony:products:recalculate_metrics -S projectId=%s";
 
-    public SymfonyProductsRecalculateMetricsCommand() {
+    public SymfonyProductsRecalculateMetricsConsoleCommand() {
         this(
                 ApiStorage.getUserVariableStorage().getUserProjectName());
     }
 
-    public SymfonyProductsRecalculateMetricsCommand(String projectName) {
+    public SymfonyProductsRecalculateMetricsConsoleCommand(String projectName) {
         super(
                 String.format(COMMAND_NAME, projectName)
         );

@@ -15,7 +15,7 @@ public class ConsoleCommandSteps extends ScenarioSteps {
 
     @Step
     public void runCapAutoTestsSymfonyImportSalesLocalCommand(String filePath) throws IOException, InterruptedException {
-        new SymfonyImportSalesLocalCommand(filePath).run();
+        new SymfonyImportSalesLocalConsoleCommand(filePath).run();
     }
 
     @Step
@@ -25,28 +25,28 @@ public class ConsoleCommandSteps extends ScenarioSteps {
 
     @Step
     public void runCapAutoTestsSymfonyProductsRecalculateMetricsCommand() throws IOException, InterruptedException {
-        new SymfonyProductsRecalculateMetricsCommand().run();
+        new SymfonyProductsRecalculateMetricsConsoleCommand().run();
     }
 
     @Step
     public void runCapAutoTestSymfonyEnvInitCommand() throws IOException, InterruptedException {
-        new SymfonyEnvInitCommand().run();
+        new SymfonyEnvInitConsoleCommand().run();
     }
 
     @Step
     public void runCapAutoTestsSymfonyReportsRecalculateCommand() throws IOException, InterruptedException {
-        new SymfonyReportsRecalculateCommand().run();
+        new SymfonyReportsRecalculateConsoleCommand().run();
     }
 
     @Step
     public ConsoleCommandResult runCapAutoTestsSymfonyCreateUserCommand(String email, String password) throws IOException, InterruptedException, JSONException {
-        return new SymfonyUserCreateCommand(email, password).run();
+        return new SymfonyUserCreateConsoleCommand(email, password).run();
     }
 
     @Step
     public void runCapAutoTestsSymfonyCreateUserCommandWithEmailGeneratedAndCommonPassword() throws IOException, InterruptedException {
         String generatedEmail = String.format("%s@lighthouse.pro", new UUIDGenerator().generate());
         ApiStorage.getCustomVariableStorage().setEmail(generatedEmail);
-        new SymfonyUserCreateCommand(generatedEmail, "lighthouse").run();
+        new SymfonyUserCreateConsoleCommand(generatedEmail, "lighthouse").run();
     }
 }
