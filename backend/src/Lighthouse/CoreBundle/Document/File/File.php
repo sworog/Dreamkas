@@ -42,6 +42,9 @@ class File extends AbstractDocument
      */
     protected $size;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->id = (string) new MongoId();

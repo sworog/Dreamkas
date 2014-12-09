@@ -11,7 +11,6 @@ use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use string;
 use Symfony\Component\Translation\TranslatorInterface;
 use Lighthouse\IntegrationBundle\Set10\Import\Products\GoodElement;
 

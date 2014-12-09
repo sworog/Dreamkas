@@ -189,6 +189,9 @@ class TrialBalance extends AbstractDocument
      */
     protected $reason;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->createdDate = new DateTime;

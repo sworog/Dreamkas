@@ -374,6 +374,10 @@ class SupplierControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $supplierData = array(

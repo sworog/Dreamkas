@@ -106,6 +106,9 @@ class Organization extends AbstractDocument implements Organizationable
      */
     protected $bankAccounts;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->bankAccounts = new ArrayCollection();

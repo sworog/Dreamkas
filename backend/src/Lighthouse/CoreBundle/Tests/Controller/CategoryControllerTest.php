@@ -577,6 +577,9 @@ class CategoryControllerTest extends WebTestCase
         $this->assertResponseCode($responseCode);
     }
 
+    /**
+     * @return array
+     */
     public function accessCategoryProvider()
     {
         return array(
@@ -1111,6 +1114,10 @@ class CategoryControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $group = $this->factory()->catalog()->getGroup();

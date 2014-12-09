@@ -14,6 +14,10 @@ use JMS\DiExtraBundle\Annotation as DI;
  */
 class EnumType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addViewTransformer(new EnumViewTransformer());

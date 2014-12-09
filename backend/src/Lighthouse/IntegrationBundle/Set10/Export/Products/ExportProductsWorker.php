@@ -30,8 +30,19 @@ class ExportProductsWorker implements WorkerInterface
      */
     protected $configRepository;
 
+    /**
+     * @var string
+     */
     protected $set10Url = '';
+
+    /**
+     * @var string
+     */
     protected $set10Login = '';
+
+    /**
+     * @var string
+     */
     protected $set10Password = '';
 
     /**

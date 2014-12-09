@@ -7,6 +7,9 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class CashFlowControllerTest extends WebTestCase
 {
+    /**
+     * @return array
+     */
     protected function createCashFlows()
     {
         $cashFlow1 = $this->factory()
@@ -213,6 +216,9 @@ class CashFlowControllerTest extends WebTestCase
         $this->performJsonAssertions($postResponse, $assertions);
     }
 
+    /**
+     * @return array
+     */
     public function validateProvider()
     {
         return array(

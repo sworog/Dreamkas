@@ -881,6 +881,9 @@ class ProductControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function validateProvider()
     {
         return array(
@@ -2517,6 +2520,9 @@ class ProductControllerTest extends WebTestCase
         $this->assertResponseCode($responseCode);
     }
 
+    /**
+     * @return array
+     */
     public function accessProductProvider()
     {
         return array(
@@ -2664,6 +2670,10 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('10003', '*.sku', $jsonResponses, 1);
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $productData = $this->getProductData();

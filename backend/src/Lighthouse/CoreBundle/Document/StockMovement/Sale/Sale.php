@@ -47,6 +47,9 @@ class Sale extends Receipt
      */
     protected $payment;
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
