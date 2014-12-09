@@ -1,10 +1,9 @@
-package ru.dreamkas.unit.apihelper;
+package ru.dreamkas.apihelper;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.dreamkas.apiStorage.ApiStorage;
-import ru.dreamkas.apihelper.UrlHelper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

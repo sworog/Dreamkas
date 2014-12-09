@@ -14,7 +14,7 @@ import ru.dreamkas.jbehave.GivenConsoleCommandsUserSteps;
 import java.io.IOException;
 
 @Ignore
-public class ConsoleCommandTest {
+public class IntegrationConsoleCommandTest {
 
     @Before
     public void before() throws IOException, InterruptedException {

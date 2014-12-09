@@ -1,7 +1,6 @@
-package ru.dreamkas.unit.apihelper;
+package ru.dreamkas.apihelper;
 
 import org.junit.Test;
-import ru.dreamkas.apihelper.UUIDGenerator;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.not;
