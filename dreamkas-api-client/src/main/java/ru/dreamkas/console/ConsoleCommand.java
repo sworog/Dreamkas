@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public class ConsoleCommand {
 
-    private static final String CONSOLE_COMMAND_TEMPLATE = "%s -S host=%s -S branch=qwerty";
+    private static final String CONSOLE_COMMAND_TEMPLATE = "%s -S host=%s -S branch=master";
 
     private String folder;
     private String host;
