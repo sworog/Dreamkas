@@ -193,6 +193,9 @@ class GrossMarginManager
         return $this->costOfGoodCalculator->calculateUnprocessed($output);
     }
 
+    /**
+     * @return int
+     */
     public function recalculateDayGrossMargin()
     {
         return $this->dayGrossMarginRepository->recalculate();
