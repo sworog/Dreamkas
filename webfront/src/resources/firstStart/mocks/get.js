@@ -42,14 +42,6 @@ define(function(require, exports, module) {
                             name: "Первый"
                         },
                         inventoryCostOfGoods: 122300.45 // себестоимость
-                    },
-                    {
-                        store: {
-                            id: "54759dbe2cde6e2f198b4527",
-                            address: "Ленина 34",
-                            name: "Первый"
-                        },
-                        inventoryCostOfGoods: 13400.45 // себестоимость
                     }
                 ]
             };
