@@ -64,6 +64,9 @@
 #define DigitsAfterDotInPrices              2
 #define DigitsAfterDotInQuantity            3
 
+#define kPaymentTypeCash                    @"cash"
+#define kPaymentTypeCard                    @"card"
+
 //
 // Клиент-серверное взаимодействие
 //

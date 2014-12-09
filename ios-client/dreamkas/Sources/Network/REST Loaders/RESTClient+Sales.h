@@ -13,6 +13,8 @@
 /**
  * Отправка запроса на оплату чека
  */
-- (void)sendPayment:(ArrayResponseBlock)completionBlock;
+- (void)sendPayment:(NSString *)amountTendered
+        paymentType:(NSString *)paymentType
+       onCompletion:(ArrayResponseBlock)completionBlock;
 
 @end

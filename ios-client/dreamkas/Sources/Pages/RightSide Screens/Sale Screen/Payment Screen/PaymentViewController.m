@@ -101,10 +101,24 @@
 {
     DPLogFast(@"");
     
-    [self viewTouched:nil];
+    [self.paymentSumField setUserInteractionEnabled:NO];
     
-    [NetworkManager sendPayment:^(NSArray *data, NSError *error) {
-        //..
+    [self viewTouched:nil];
+    [self showLoading];
+    
+    __weak typeof(self)weak_self = self;
+    [NetworkManager sendPayment:self.paymentSumField.text
+                    paymentType:kPaymentTypeCash
+                   onCompletion:^(NSArray *data, NSError *error)
+    {
+        __strong typeof(self)strong_self = weak_self;
+        [strong_self hideLoading];
+        
+        if (error != nil) {
+            [DialogHelper showRequestError];
+            return;
+        }
+        [strong_self.navigationController pushViewController:ControllerById(FinalPaymentViewControllerID) animated:YES];
     }];
 }
 
@@ -114,7 +128,20 @@
     
     [self viewTouched:nil];
     
-    [self.navigationController pushViewController:ControllerById(FinalPaymentViewControllerID) animated:YES];
+    __weak typeof(self)weak_self = self;
+    [NetworkManager sendPayment:@""
+                    paymentType:kPaymentTypeCard
+                   onCompletion:^(NSArray *data, NSError *error)
+     {
+         __strong typeof(self)strong_self = weak_self;
+         [strong_self hideLoading];
+         
+         if (error != nil) {
+             [DialogHelper showRequestError];
+             return;
+         }
+         [strong_self.navigationController pushViewController:ControllerById(FinalPaymentViewControllerID) animated:YES];
+     }];
 }
 
 @end
