@@ -31,9 +31,9 @@ define(function(require, exports, module) {
              the window or to reload the referenced resource. */
         }
 
-        posWindowReference.addEventListener("beforeunload", function(e){
+        posWindowReference.addEventListener("beforeunload", function(e) {
 
-            if (PAGE.resources.firstStart){
+            if (PAGE.resources.firstStart) {
                 PAGE.resources.firstStart.fetch();
             }
 
@@ -47,6 +47,21 @@ define(function(require, exports, module) {
             openPos({
                 posUrl: e.target.href
             });
+        })
+        .on('click', '.page__tab', function(e) {
+            e.preventDefault();
+
+            var selector = e.currentTarget.getAttribute('rel');
+
+            $(e.currentTarget)
+                .addClass('active')
+                .siblings('.active')
+                .removeClass('active');
+
+            $(selector)
+                .addClass('active')
+                .siblings('.active')
+                .removeClass('active');
         });
 
     return Block.extend({
@@ -63,7 +78,7 @@ define(function(require, exports, module) {
 
         currentUserModel: require('resources/currentUser/model.inst'),
 
-        posUrl: function(){
+        posUrl: function() {
             var posStoreId = cookies.get('posStoreId');
 
             return '/pos' + (posStoreId ? ('/stores/' + posStoreId) : '');

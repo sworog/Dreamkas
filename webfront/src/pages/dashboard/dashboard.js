@@ -10,6 +10,28 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'dashboard',
+
+        params: {
+            firstStart: 1
+        },
+
+        events: {
+            'click .page_dashboard__finishButton': function(e){
+
+                if (e.target.classList.contains('loading')){
+                    return;
+                }
+
+                e.target.classList.add('loading');
+
+                firstStartResource.put({
+                    complete: true
+                }).then(function(){
+                    e.target.classList.remove('loading');
+                });
+            }
+        },
+
         collections: {
             stores: require('resources/store/collection'),
             suppliers: require('resources/supplier/collection'),
@@ -52,15 +74,16 @@ define(function(require, exports, module) {
 
             var page = this;
 
-            page.listenTo(page.resources.firstStart, {
-                fetched: function() {
-                    setTimeout(function(){
-                        page.render();
-                    }, 1);
-                }
-            });
+            return Page.prototype.initialize.apply(page, arguments).then(function(){
 
-            return Page.prototype.initialize.apply(page, arguments);
+                page.listenTo(page.resources.firstStart, {
+                    reset: function() {
+                        setTimeout(function(){
+                            page.render();
+                        }, 1);
+                    }
+                });
+            });
         },
         render: function() {
 

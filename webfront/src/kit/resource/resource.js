@@ -13,6 +13,9 @@ define(function(require, exports, module) {
         deepExtend(resource, params);
 
     }, {
+        get: function(path) {
+            return path ? get(this, 'data.' + path) : this.data;
+        },
         fetch: function(opt) {
 
             var resource = this;
@@ -26,12 +29,45 @@ define(function(require, exports, module) {
 
             return resource.request.then(function(data) {
                 resource.data = data;
-                resource.trigger('fetched', data);
+                resource.trigger('reset', data);
             });
 
         },
-        get: function(path) {
-            return path ? get(this, 'data.' + path) : this.data;
+        post: function(data, opt) {
+
+            var resource = this;
+
+            opt = deepExtend({
+                url: get(this, 'url')
+            }, opt, {
+                data: data,
+                type: 'POST'
+            });
+
+            resource.request = $.ajax(opt);
+
+            return resource.request.then(function(data) {
+                resource.data = data;
+                resource.trigger('reset', data);
+            });
+        },
+        put: function(data, opt) {
+
+            var resource = this;
+
+            opt = deepExtend({
+                url: get(this, 'url')
+            }, opt, {
+                data: data,
+                type: 'PUT'
+            });
+
+            resource.request = $.ajax(opt);
+
+            return resource.request.then(function(data) {
+                resource.data = data;
+                resource.trigger('reset', data);
+            });
         }
     }, Backbone.Events);
 });

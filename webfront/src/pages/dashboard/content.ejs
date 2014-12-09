@@ -2,15 +2,19 @@
 <div class="page__head">
     <div class="page__title">Обзор</div>
 
-    <ul class="page__tabs nav nav-tabs">
-        <li class="active"><a href="/dashboard">Быстрый старт</a></li>
-        <li><a href="#">Основная статистика</a></li>
-    </ul>
+    <div class="page__tabs">
+        <a rel=".page_dashboard__firstStartContent" class="page__tab <%- resources.firstStart.data.complete ? '' : 'active' %>">
+            Быстрый старт
+        </a>
+        <a rel=".page_dashboard__statsContent" class="page__tab <%- resources.firstStart.data.complete ? 'active' : '' %>">
+            Основная статистика
+        </a>
+    </div>
 </div>
 <!--END TITLE PAGE-->
 
 <!--BEGIN CONTENT-->
-<div class="page__content">
+<div class="page__content page__tabContent page_dashboard__firstStartContent <%- resources.firstStart.data.complete ? '' : 'active' %>">
 
     <div class="page_dashboard__text">Добро пожаловать!</div>
 
@@ -19,6 +23,12 @@
     <b block="steps"></b>
 
     <b block="info"></b>
+
+</div>
+
+<div class="page__content page__tabContent page_dashboard__statsContent <%- resources.firstStart.data.complete ? 'active' : '' %>">
+
+    Статистика
 
 </div>
 <!--END CONTENT-->
