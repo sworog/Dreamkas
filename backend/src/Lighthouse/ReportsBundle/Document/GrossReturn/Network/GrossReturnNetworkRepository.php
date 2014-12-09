@@ -42,20 +42,20 @@ class GrossReturnNetworkRepository extends DocumentRepository
     }
 
     /**
-     * @param GrossReturn $dayReport
+     * @param GrossReturnNetwork $dayReport
      * @return string
      */
-    protected function getReportId(GrossReturn $dayReport)
+    protected function getReportId(GrossReturnNetwork $dayReport)
     {
         return (string) $dayReport->day->getTimestamp();
     }
 
     /**
-     * @param GrossReturn $report
+     * @param GrossReturnNetwork $report
      * @param array $result
-     * @return GrossReturn
+     * @return GrossReturnNetwork
      */
-    protected function setReportValues(GrossReturn $report, array $result)
+    protected function setReportValues(GrossReturnNetwork $report, array $result)
     {
         $report->day = DateTimestamp::createFromParts(
             $result['_id']['year'],
@@ -90,7 +90,7 @@ class GrossReturnNetworkRepository extends DocumentRepository
         $dotHelper->setTotalPositions(count($results));
 
         foreach ($results as $result) {
-            $report = new GrossReturn();
+            $report = new GrossReturnNetwork();
             $this->setReportValues($report, $result);
 
             $this->dm->persist($report);

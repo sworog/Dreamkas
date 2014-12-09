@@ -177,7 +177,7 @@ class Invoice extends StockMovement implements CashFlowable
      */
     public function getCashFlowReasonType()
     {
-        return 'StockMovement';
+        return 'Invoice';
     }
 
     /**

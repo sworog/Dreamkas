@@ -22,16 +22,16 @@ define(function(require, exports, module) {
             var comment = data.comment;
 
             if (data.reason){
-                switch (data.reason.type){
+                switch (data.type){
                     case 'Invoice':
                         comment = 'Оплата приёмки';
                         break;
 
-                    case 'Return':
+                    case 'Returns':
                         comment = 'Возвраты';
                         break;
 
-                    case 'Sale':
+                    case 'Sales':
                         comment = 'Продажи';
                         break;
 
@@ -40,7 +40,7 @@ define(function(require, exports, module) {
                         break;
                 }
 
-                comment += ' от ' + formatDate(data.reason.date || data.date);
+                comment += ' от ' + formatDate(data.reason.day || data.date);
             }
 
             data.comment = comment;

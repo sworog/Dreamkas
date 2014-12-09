@@ -22,7 +22,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * )
  * @MongoDB\Index(keys={"day"="asc"})
  */
-class GrossReturn extends AbstractDocument implements CashFlowable
+class GrossReturnNetwork extends AbstractDocument implements CashFlowable
 {
     /**
      * @MongoDB\Id(strategy="NONE")
@@ -62,7 +62,7 @@ class GrossReturn extends AbstractDocument implements CashFlowable
      */
     public function getCashFlowReasonType()
     {
-        return 'GrossReturn';
+        return 'Returns';
     }
 
     /**
