@@ -27,7 +27,7 @@ define(function(require, exports, module) {
                         comment = 'Оплата приёмки';
                         break;
 
-                    case 'Return':
+                    case 'Returns':
                         comment = 'Возвраты';
                         break;
 
