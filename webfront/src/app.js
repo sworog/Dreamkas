@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
     var currentUserModel = require('resources/currentUser/model.inst'),
-        firstStart = require('resources/firstStart/firstStart'),
         Error = require('blocks/error/error'),
         cookies = require('cookies'),
         router = require('router'),
@@ -98,9 +97,7 @@ define(function(require) {
 
             loading && loading.abort();
 
-            loading = currentUserModel.fetch().then(function(){
-                return firstStart.fetch();
-            });
+            loading = currentUserModel.fetch();
 
             loading.done(function() {
                 routes = 'routes/authorized';

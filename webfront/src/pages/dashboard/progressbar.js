@@ -12,10 +12,9 @@ define(function(require, exports, module) {
                 $completeIcon = block.$('.page__dashboard__progressbarCompleteIcon'),
                 width;
 
-            switch (Number(block.activeStep)) {
+            switch (Number(PAGE.activeStep)) {
                 case 1:
                     width = 5;
-                    $filler.css('background', 'transparent');
                     break;
                 case 2:
                     width = 51;

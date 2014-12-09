@@ -167,7 +167,7 @@ define(function(require, exports, module) {
 
             var dataList = _.values(block.collections).concat(_.filter(block.models, function(model) {
                 return model && model.id;
-            }));
+            })).concat(_.values(block.resources));
 
             var fetchList = _.map(dataList, function(data) {
                 return (data && typeof data.fetch === 'function') ? data.fetch() : data;
