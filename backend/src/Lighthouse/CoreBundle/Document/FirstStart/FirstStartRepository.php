@@ -86,10 +86,6 @@ class FirstStartRepository extends DocumentRepository
      */
     public function populateFirstStart(FirstStart $firstStart)
     {
-        if ($firstStart->complete) {
-            return $firstStart;
-        }
-
         $stores = $this->storeRepository->findAllActive();
 
         foreach ($stores as $store) {

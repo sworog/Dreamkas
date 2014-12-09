@@ -244,7 +244,7 @@ class FirstStartControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(0, 'stores.*.store', $putResponse);
+        Assert::assertJsonPathCount(2, 'stores.*.store', $getResponse);
         Assert::assertJsonPathEquals(true, 'complete', $putResponse);
         Assert::assertNotJsonHasPath('stores.*.sale', $putResponse);
         Assert::assertNotJsonHasPath('stores.*.costOfInventory', $putResponse);
@@ -277,7 +277,7 @@ class FirstStartControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(0, 'stores.*.store', $putResponse);
+        Assert::assertJsonPathCount(2, 'stores.*.store', $putResponse);
         Assert::assertJsonPathEquals(true, 'complete', $putResponse);
 
         $undoResponse = $this->clientJsonRequest(
