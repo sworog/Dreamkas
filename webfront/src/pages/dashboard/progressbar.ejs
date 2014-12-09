@@ -1,8 +1,11 @@
 <div class="page__dashboard__progressbar">
-    <div class="page__dashboard__progressbarContainer">
-        <div class="page__dashboard__progressbarFiller" style="width: <%= width() %>%;">
+    <div class="page__dashboard__progressbarContainer" <%= activeStep == 4 ? 'style="overflow: hidden;"' : '' %>>
+        <div class="page__dashboard__progressbarFiller" style="width: <%= get('width') %>%;">
         </div>
         <div class="page__dashboard__progressbarFillerTriangle"></div>
+    </div>
+    <div class="page__dashboard__progressbarCompleteIcon">
+        <i class="fa fa-check-circle-o"></i>
     </div>
 </div>
 

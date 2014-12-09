@@ -208,7 +208,8 @@
 /*------------------------ dashboard info ----------------------------*/
 
 .page__dashboard__progressbar {
-    margin: 10px 13% 60px;
+    position: relative;
+    margin: 10px 13% 88px;
     padding: 0 45px; /*компенсация паддингов у steps*/
 }
 
@@ -240,6 +241,15 @@
     position: absolute;
     top: 14px;
     margin-left: -20px;
+}
+
+.page__dashboard__progressbarCompleteIcon {
+    position: absolute;
+    display: none;
+    color: #1ABDB5;
+    font-size: 24px;
+    top: -11px;
+    right: -30px;
 }
 
 /*------------------------ dashboard steps ----------------------------*/
