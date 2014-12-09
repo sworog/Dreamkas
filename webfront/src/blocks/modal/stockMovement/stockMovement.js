@@ -47,7 +47,7 @@ define(function(require, exports, module) {
         model: function(){
             var Model = this.Model;
 
-            if (this.itemId){
+            if (this.itemId && this.itemId != 0){
                 return PAGE.collections.stockMovements.get(this.itemId);
             } else {
                 return new Model;
