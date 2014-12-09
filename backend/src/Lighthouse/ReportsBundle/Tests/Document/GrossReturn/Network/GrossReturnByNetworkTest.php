@@ -38,9 +38,10 @@ class GrossReturnByNetworkTest extends WebTestCase
         $quantity
     ) {
         $day = new DateTimestamp($day);
-        $day->setTime(0, 0, 0);
+        $day->setTime(00, 00, 00);
         /** @var GrossReturnNetwork $report */
         $report = $this->getGrossReturnRepository()->findOneByDay($day);
+        $this->assertNotNull($report, 'Report not found');
         $this->assertSame($grossReturn, $report->grossReturn->toString());
         $this->assertSame($quantity, $report->quantity->toString());
     }
@@ -51,7 +52,7 @@ class GrossReturnByNetworkTest extends WebTestCase
     public function assertGrossReturnDayNotFound($day)
     {
         $day = new DateTimestamp($day);
-        $day->setTime(0, 0, 0);
+        $day->setTime(00, 00, 00);
         $report = $this->getGrossReturnRepository()->findOneByDay($day);
 
         $this->assertNull($report);
