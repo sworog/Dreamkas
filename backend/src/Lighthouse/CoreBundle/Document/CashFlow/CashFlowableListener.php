@@ -48,13 +48,13 @@ class CashFlowableListener extends AbstractMongoDBListener
 
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
             if ($document instanceof CashFlowable) {
-                $this->proccessUpdateCashFlowable($dm, $document);
+                $this->processUpdateCashFlowable($dm, $document);
             }
         }
 
         foreach ($uow->getScheduledDocumentUpserts() as $document) {
             if ($document instanceof CashFlowable) {
-                $this->proccessUpdateCashFlowable($dm, $document);
+                $this->processUpdateCashFlowable($dm, $document);
             }
         }
 
@@ -72,7 +72,7 @@ class CashFlowableListener extends AbstractMongoDBListener
      * @param DocumentManager $dm
      * @param CashFlowable $document
      */
-    protected function proccessUpdateCashFlowable(DocumentManager $dm, CashFlowable $document)
+    protected function processUpdateCashFlowable(DocumentManager $dm, CashFlowable $document)
     {
         if ($document->cashFlowNeeded()) {
             $cashFlow = $this->cashFlowRepository->findOneByReason($document);

@@ -277,14 +277,14 @@ class CashFlowTest extends WebTestCase
 
         $this->assertSame('1401.40', $cashFlow->amount->toString(), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime("-5 day 00:00:00"), $cashFlow->date);
+        $this->assertEquals(new DateTime("-5 day 23:59:59"), $cashFlow->date);
 
         /** @var CashFlow $cashFlow */
         $cashFlow = $cashFlowsCursor->getNext();
 
         $this->assertSame('770.00', $cashFlow->amount->toString(), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
-        $this->assertEquals(new DateTime("-6 day 00:00:00"), $cashFlow->date);
+        $this->assertEquals(new DateTime("-6 day 23:59:59"), $cashFlow->date);
     }
 
     public function testReturnsByDay()
@@ -309,6 +309,8 @@ class CashFlowTest extends WebTestCase
                 ->createReceiptProduct($product->id, 77)
             ->flush();
 
+        // Tests for double run calculate, don`t edit
+        $this->createConsoleTester(false, true)->runCommand('lighthouse:reports:recalculate');
         $this->createConsoleTester(false, true)->runCommand('lighthouse:reports:recalculate');
 
         $this->authenticateProject();
@@ -320,19 +322,19 @@ class CashFlowTest extends WebTestCase
 
         /** @var CashFlow $cashFlow */
         $cashFlow = $cashFlowsCursor->getNext();
-        $this->assertEquals(new DateTime("-10 day 00:00:00"), $cashFlow->date);
+        $this->assertEquals(new DateTime("-10 day 23:59:59"), $cashFlow->date);
         $this->assertSame('7000.00', $cashFlow->amount->toString(), 'Amount not equals expected');
         $this->assertEquals('in', $cashFlow->direction);
 
 
         $cashFlow = $cashFlowsCursor->getNext();
-        $this->assertEquals(new DateTime("-5 day 00:00:00"), $cashFlow->date);
+        $this->assertEquals(new DateTime("-5 day 23:59:59"), $cashFlow->date);
         $this->assertSame('1401.40', $cashFlow->amount->toString(), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
 
 
         $cashFlow = $cashFlowsCursor->getNext();
-        $this->assertEquals(new DateTime("-6 day 00:00:00"), $cashFlow->date);
+        $this->assertEquals(new DateTime("-6 day 23:59:59"), $cashFlow->date);
         $this->assertSame('539.00', $cashFlow->amount->toString(), 'Amount not equals expected');
         $this->assertEquals('out', $cashFlow->direction);
     }

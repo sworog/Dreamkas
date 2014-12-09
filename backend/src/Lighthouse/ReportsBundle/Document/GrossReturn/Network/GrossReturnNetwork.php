@@ -86,6 +86,6 @@ class GrossReturnNetwork extends AbstractDocument implements CashFlowable
      */
     public function getCashFlowDate()
     {
-        return $this->day;
+        return $this->day->setTime(23, 59, 59);
     }
 }

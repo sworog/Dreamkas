@@ -56,27 +56,12 @@ class CashFlowRepository extends DocumentRepository
      */
     public function findOneByReason(CashFlowable $reason)
     {
-        return $this->findOneByReasonTypeReasonId($reason->id, $reason->getCashFlowReasonType());
-    }
-
-    /**
-     * @param string $reasonIdString
-     * @param string $reasonType
-     * @return null|CashFlow
-     */
-    public function findOneByReasonTypeReasonId($reasonIdString, $reasonType)
-    {
-        try {
-            $reasonId = new MongoId($reasonIdString);
-        } catch (MongoException $e) {
-            $reasonId = $reasonIdString;
-        }
-
+        // TODO: Переписать на queryBuilder
+        $dbRef = $this->dm->createDBRef($reason);
         $criteria = array(
-            'reason.$id' => $reasonId,
-            'reason.$ref' => $reasonType,
+            'reason.$id' => $dbRef['$id'],
+            'reason.$ref' => $dbRef['$ref'],
         );
-
         return $this->findOneBy($criteria);
     }
 }
