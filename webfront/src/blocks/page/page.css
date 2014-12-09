@@ -351,3 +351,15 @@
     font-weight: bold;
 }
 
+.page_dashboard__infoSubTitle{
+    color: #999;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.page_dashboard__infoSubValue{
+    color: #999;
+    font-size: 16px;
+}
+
