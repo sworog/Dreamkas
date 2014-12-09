@@ -93,4 +93,14 @@ class CashFlow extends AbstractDocument
     {
         return null === $this->reason ? self::TYPE : $this->reason->getCashFlowReasonType();
     }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("reasonDate")
+     * @return string
+     */
+    public function getReasonType()
+    {
+        return null === $this->reason ? null : $this->reason->getCashFlowReasonDate();
+    }
 }

@@ -31,4 +31,9 @@ interface CashFlowable
      * @return DateTime;
      */
     public function getCashFlowDate();
+
+    /**
+     * @return DateTime
+     */
+    public function getCashFlowReasonDate();
 }

@@ -64,4 +64,12 @@ class GrossMarginSalesNetwork extends GrossMarginSales implements CashFlowable
     {
         return $this->day->setTime(23, 59, 59);
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getCashFlowReasonDate()
+    {
+        return $this->day;
+    }
 }

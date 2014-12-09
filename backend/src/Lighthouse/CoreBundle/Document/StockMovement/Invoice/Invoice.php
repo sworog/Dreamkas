@@ -203,4 +203,12 @@ class Invoice extends StockMovement implements CashFlowable
     {
         return new DateTime('00:00:00');
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getCashFlowReasonDate()
+    {
+        return $this->date;
+    }
 }

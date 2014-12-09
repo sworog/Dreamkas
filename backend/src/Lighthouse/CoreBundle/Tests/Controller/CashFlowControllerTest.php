@@ -652,7 +652,7 @@ class CashFlowControllerTest extends WebTestCase
         Assert::assertJsonPathCount(1, '*.id', $response);
         Assert::assertJsonPathEquals($expectedPaidDateTime, '0.date', $response);
         Assert::assertJsonPathEquals('Invoice', '0.type', $response);
-        Assert::assertJsonPathEquals($expectedInvoiceDateTime, '0.reason.date', $response);
+        Assert::assertJsonPathEquals($expectedInvoiceDateTime, '0.reasonDate', $response);
     }
 
     public function testAutoCreatedCashFlowGetForSalesByDay()
@@ -699,8 +699,10 @@ class CashFlowControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($expectedReturnsDateTime, '0.date', $response);
         Assert::assertJsonPathEquals('Returns', '0.type', $response);
+        Assert::assertJsonPathEquals($expectedReturnsDateTime, '0.reasonDate', $response);
 
         Assert::assertJsonPathEquals($expectedSalesDateTime, '1.date', $response);
+        Assert::assertJsonPathEquals($expectedSalesDateTime, '1.reasonDate', $response);
         Assert::assertJsonPathEquals('Sales', '1.type', $response);
 
     }
