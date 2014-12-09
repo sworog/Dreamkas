@@ -41,7 +41,7 @@ define(function(require, exports, module) {
                             address: "Ленина 34",
                             name: "Первый"
                         },
-                        inventoryCostOfGoods: 122300.45 // себестоимость
+                        costOfInventory: 122300.45 // себестоимость
                     },
                     {
                         store: {
@@ -49,7 +49,7 @@ define(function(require, exports, module) {
                             address: "Марата 4",
                             name: "Второй"
                         },
-                        inventoryCostOfGoods: 124300.50 // себестоимость
+                        costOfInventory: 124300.50 // себестоимость
                     }
                 ]
             };
@@ -63,7 +63,7 @@ define(function(require, exports, module) {
                             address: "Ленина 34",
                             name: "Первый"
                         },
-                        inventoryCostOfGoods: 122300, // себестоимость
+                        costOfInventory: 122300, // себестоимость
                         sale: {
                             costOfGoods: 12300, // себестоимость
                             grossSales: 435600, // прибыль

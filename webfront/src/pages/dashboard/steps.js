@@ -12,7 +12,7 @@ define(function(require, exports, module) {
         posUrl: function(){
             var block = this;
             var stores = _.filter(block.resources.firstStart.get('stores'), function(storeItem) {
-                return storeItem.inventoryCostOfGoods;
+                return storeItem.costOfInventory;
             });
 
             return '/pos' + (stores.length == 1 ? '/stores/' + stores[0].store.id : '') + '?firstStart=1';

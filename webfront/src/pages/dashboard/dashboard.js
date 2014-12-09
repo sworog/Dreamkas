@@ -101,7 +101,7 @@ define(function(require, exports, module) {
             });
 
             var step3 = _.find(page.resources.firstStart.get('stores'), function(storeItem) {
-                return storeItem.inventoryCostOfGoods;
+                return storeItem.costOfInventory;
             });
 
             var step4 = _.find(page.resources.firstStart.get('stores'), function(storeItem) {

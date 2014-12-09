@@ -15,13 +15,13 @@
         </div>
         <div class="page_dashboard__infoCell col-md-4">
 
-            <% if (storeItem.inventoryCostOfGoods) { %>
+            <% if (storeItem.costOfInventory) { %>
             <div class="page_dashboard__infoTitle">
                 Товаров в магазине на сумму:
             </div>
 
             <div class="page_dashboard__infoValue">
-                <%- formatMoney(storeItem.inventoryCostOfGoods) %> <i style="font-size: 19px;" class="fa fa-rub"></i>
+                <%- formatMoney(storeItem.costOfInventory) %> <i style="font-size: 19px;" class="fa fa-rub"></i>
             </div>
             <% } %>
 
