@@ -22,14 +22,14 @@ public class ConsoleCommand {
     }
 
     public ConsoleCommandResult exec(String command) throws IOException, InterruptedException {
-        String[] cmd = cmd(command, host);
+        String[] cmd = cmd(command);
         File dir = new File(folder);
         Process process = Runtime.getRuntime().exec(cmd, null, dir);
         int resultValue = process.waitFor();
         return new ConsoleCommandResult(resultValue, readOutput(process));
     }
 
-    protected String[] cmd(String command, String host) {
+    protected String[] cmd(String command) {
         if (isUnix()) {
             return new String[]{
                     "/bin/bash",

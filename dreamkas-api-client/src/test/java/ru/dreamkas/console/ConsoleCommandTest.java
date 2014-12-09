@@ -42,24 +42,24 @@ public class ConsoleCommandTest {
     public void testUnixCmdOutPut() throws IOException, InterruptedException {
         System.setProperty("os.name", "Unix");
         assertThat(
-                new ConsoleCommand("/folder", "host").cmd("/folder", "host"),
-                Matchers.is(new String[]{"/bin/bash", "-c", "/folder -S host=host -S branch=master"}));
+                new ConsoleCommand("/folder", "host").cmd("command"),
+                Matchers.is(new String[]{"/bin/bash", "-c", "command -S host=host -S branch=master"}));
     }
 
     @Test
     public void testWindowsCmdOutPut() throws IOException, InterruptedException {
         System.setProperty("os.name", "windows");
         assertThat(
-                new ConsoleCommand("/folder", "host").cmd("/folder", "host"),
-                Matchers.is(new String[]{"cmd", "/c", "/folder -S host=host -S branch=master"}));
+                new ConsoleCommand("/folder", "host").cmd("command"),
+                Matchers.is(new String[]{"cmd", "/c", "command -S host=host -S branch=master"}));
     }
 
     @Test
     public void testMacCmdOutPut() throws IOException, InterruptedException {
         System.setProperty("os.name", "mac");
         assertThat(
-                new ConsoleCommand("/folder", "host").cmd("/folder", "host"),
-                Matchers.is(new String[]{"/bin/bash", "-c", "LC_ALL=en_US.UTF-8 /folder -S host=host -S branch=master"}));
+                new ConsoleCommand("/folder", "host").cmd("command"),
+                Matchers.is(new String[]{"/bin/bash", "-c", "LC_ALL=en_US.UTF-8 command -S host=host -S branch=master"}));
     }
 
     @Test
