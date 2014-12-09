@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc4f9f70bcdbc23385d675050784e74d",
+    "hash": "faea02abe694014baa7b1bdf7771a482",
     "packages": [
         {
             "name": "clamidity/profiler-bundle",
@@ -3132,16 +3132,16 @@
         },
         {
             "name": "rackspace/php-opencloud",
-            "version": "v1.12.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rackspace/php-opencloud.git",
-                "reference": "7a1854ac95061331b51aa5f456bbf2fae58e4164"
+                "reference": "ed22aa68966ee8a6c26779453cf90b5e5b96a922"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/7a1854ac95061331b51aa5f456bbf2fae58e4164",
-                "reference": "7a1854ac95061331b51aa5f456bbf2fae58e4164",
+                "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/ed22aa68966ee8a6c26779453cf90b5e5b96a922",
+                "reference": "ed22aa68966ee8a6c26779453cf90b5e5b96a922",
                 "shasum": ""
             },
             "require": {
@@ -3153,7 +3153,6 @@
                 "fabpot/php-cs-fixer": "1.0.*@dev",
                 "guzzle/guzzle": "~3.8",
                 "jakub-onderka/php-parallel-lint": "0.*",
-                "phpunit/phpunit": "4.3.*",
                 "satooshi/php-coveralls": "0.6.*@dev"
             },
             "type": "library",
@@ -3188,7 +3187,7 @@
                 "rackspace",
                 "swift"
             ],
-            "time": "2014-12-04 15:05:23"
+            "time": "2014-10-24 13:49:43"
         },
         {
             "name": "sebastian/comparator",

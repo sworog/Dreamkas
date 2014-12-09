@@ -38,7 +38,7 @@
         "doctrine/data-fixtures": "~1.0",
         "ekino/newrelic-bundle": "~1.0",
         "leezy/pheanstalk-bundle": "~2.1",
-        "rackspace/php-opencloud": "~1.9",
+        "rackspace/php-opencloud": "~1.11.0",
         "munkie/karzer": "dev-phpunit-4.0",
         "clamidity/profiler-bundle": "dev-master",
         "liuggio/ExcelBundle": "~2.0",
