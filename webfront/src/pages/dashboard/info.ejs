@@ -1,6 +1,6 @@
 <div class="page__dashboard__info">
 
-    <% _.forEach(resources.firstStart.get('stores'), function(storeItem){ %>
+    <% _.forEach(models.firstStart.get('stores'), function(storeItem){ %>
 
     <div class="page__dashboard__infoRow row">
         <div class="page__dashboard__infoCell col-md-4">
@@ -32,7 +32,7 @@
 
     <% }) %>
 
-    <% if (isUserReady()) { %>
+    <% if (activeStep == 4) { %>
 
     <div style="text-align: center">
         <a class="btn btn-primary btn-md">

@@ -205,7 +205,44 @@
     position: relative;
 }
 
-/*------------------- dashboard ----------------------------*/
+/*------------------------ dashboard info ----------------------------*/
+
+.page__dashboard__progressbar {
+    margin: 10px 13% 60px;
+    padding: 0 45px; /*компенсация паддингов у steps*/
+}
+
+.page__dashboard__progressbarContainer {
+    position: relative;
+    border-radius: 8px;
+    margin: 0 -45px; /*компенсация паддингов у steps*/
+    background-color: #fff;
+}
+
+.page__dashboard__progressbarFiller {
+    display: inline-block;
+    border-radius: 8px 0 0 8px;
+    background-color: #1ABDB5;
+}
+
+.page__dashboard__progressbarContainer,
+.page__dashboard__progressbarFiller {
+    height: 14px;
+}
+
+.page__dashboard__progressbarFillerTriangle {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 12px 10px 0 10px;
+    border-color: #1ABDB5 transparent transparent transparent;
+    position: absolute;
+    top: 14px;
+    margin-left: -20px;
+}
+
+/*------------------------ dashboard steps ----------------------------*/
 
 .page_dashboard__steps {
     padding: 40px 0 0;
@@ -266,6 +303,8 @@
     visibility: visible;
 }
 
+/*------------------------ dashboard info ----------------------------*/
+
 .page__dashboard__infoRow {
     background-color: #fff;
     margin: 20px 0;
@@ -285,3 +324,4 @@
     font-size: 21px;
     font-weight: bold;
 }
+

@@ -4,28 +4,10 @@ define(function(require, exports, module) {
 
     return Block.extend({
         template: require('ejs!./info.ejs'),
-        resources: {
-            firstStart: require('resources/firstStart/firstStart')
-        },
-        initialize: function(){
-
-            var block = this;
-
-            block.listenTo(block.resources.firstStart, {
-                fetched: function(){
-                    block.render();
-                }
-            });
-
-            return Block.prototype.initialize.apply(block, arguments);
-        },
-        isUserReady: function() {
-
-            var block = this;
-
-            return _.find(block.resources.firstStart.get('stores'), function(storeItem){
-                return storeItem.sale;
-            });
+        models: {
+            firstStart: function() {
+                return PAGE.resources.firstStart;
+            }
         }
     });
 });

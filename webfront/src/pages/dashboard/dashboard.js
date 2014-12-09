@@ -1,11 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page'),
-        Form_store = require('blocks/form/store/store'),
-        Form_invoice = require('blocks/form/stockMovement/invoice/invoice'),
-        Modal_store = require('blocks/modal/store/store'),
-        Modal_invoice = require('blocks/modal/stockMovement/invoice/invoice'),
-        firstStartResource = require('resources/firstStart/firstStart');
+    var Page = require('blocks/page/page');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
@@ -15,32 +10,89 @@ define(function(require, exports, module) {
             suppliers: require('resources/supplier/collection'),
             groups: require('resources/group/collection')
         },
+        resources: {
+            firstStart: require('resources/firstStart/firstStart')
+        },
+        globalEvents: {
+            'submit:success': function(data, block) {
+
+                var page = this,
+                    modal = block.$el.closest('.modal')[0];
+
+                if (modal && !modal.referrer) {
+
+                    page.resources.firstStart.fetch();
+                }
+
+            }
+        },
         blocks: {
+            progressbar: require('./progressbar'),
             steps: require('./steps'),
             info: require('./info'),
+            modal_store: require('blocks/modal/store/store'),
+            modal_invoice: require('blocks/modal/stockMovement/invoice/invoice')
+        },
+        initialize: function(){
 
-            modal_store: Modal_store.extend({
-                blocks: {
-                    form_store: Form_store.extend({
-                        submit: function() {
-                            return Form_store.prototype.submit.apply(this, arguments).then(function() {
-                                return firstStartResource.fetch();
-                            });
-                        }
-                    })
+            var page = this;
+
+            page.listenTo(page.resources.firstStart, {
+                fetched: function(){
+                    page.render();
                 }
-            }),
+            });
 
-            modal_invoice: Modal_invoice.extend({
-                Form: Form_invoice.extend({
-                    submit: function() {
-                        return Form_invoice.prototype.submit.apply(this, arguments).then(function() {
-                            return firstStartResource.fetch();
-                        });
-                    }
-                })
-            })
+            return Page.prototype.initialize.apply(page, arguments);
+        },
+        render: function() {
 
+            this.activeStep = this.getActiveStep();
+
+            return Page.prototype.render.apply(this, arguments);
+        },
+        getActiveStep: function() {
+            var page = this;
+
+            var step1 = !page.resources.firstStart.data.length;
+
+            var step2 = _.find(page.resources.firstStart.get('stores'), function(storeItem) {
+                return storeItem.store;
+            });
+
+            var step3 = _.find(page.resources.firstStart.get('stores'), function(storeItem) {
+                return storeItem.inventoryCostOfGoods;
+            });
+
+            var step4 = page.isUserReady();
+
+            var activeStep;
+
+            if (step1) {
+                activeStep = 1;
+            }
+
+            if (step2) {
+                activeStep = 2;
+            }
+
+            if (step3) {
+                activeStep = 3;
+            }
+
+            if (step4) {
+                activeStep = 4;
+            }
+
+            return activeStep;
+        },
+        isUserReady: function() {
+
+            var page = this;
+
+            return _.find(page.resources.firstStart.get('stores'), function(storeItem){
+                return storeItem.sale;
+            });
         }
     });
 });
