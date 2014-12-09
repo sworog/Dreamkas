@@ -614,9 +614,10 @@ class CashFlowControllerTest extends WebTestCase
 
         $invoice = $this->factory()
             ->invoice()
-                ->createInvoice(array('date' => '2014-11-31 12:00:00'), $store->id)
+                ->createInvoice(array('date' => '2014-11-31 00:00:00'), $store->id)
                 ->createInvoiceProduct($product->id, 11, 5.78)
             ->flush();
+        $expectedInvoiceDateTime = date('Y-m-d\T00:00:00O', strtotime('2014-11-31 00:00:00'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
@@ -651,6 +652,7 @@ class CashFlowControllerTest extends WebTestCase
         Assert::assertJsonPathCount(1, '*.id', $response);
         Assert::assertJsonPathEquals($expectedPaidDateTime, '0.date', $response);
         Assert::assertJsonPathEquals('Invoice', '0.type', $response);
+        Assert::assertJsonPathEquals($expectedInvoiceDateTime, '0.reason.date', $response);
     }
 
     public function testAutoCreatedCashFlowGetForSalesByDay()
