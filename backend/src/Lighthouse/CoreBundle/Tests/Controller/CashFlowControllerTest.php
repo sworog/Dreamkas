@@ -683,7 +683,9 @@ class CashFlowControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $expectedSalesDateTime = date('Y-m-d\T23:59:59O', strtotime('-2 day'));
+        $expectedSalesReasonDateTime = date('Y-m-d\T00:00:00O', strtotime('-2 day'));
         $expectedReturnsDateTime = date('Y-m-d\T23:59:59O', strtotime('-1 day'));
+        $expectedReturnsReasonDateTime = date('Y-m-d\T00:00:00O', strtotime('-1 day'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -698,11 +700,11 @@ class CashFlowControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, '*.id', $response);
 
         Assert::assertJsonPathEquals($expectedReturnsDateTime, '0.date', $response);
+        Assert::assertJsonPathEquals($expectedReturnsReasonDateTime, '0.reasonDate', $response);
         Assert::assertJsonPathEquals('Returns', '0.type', $response);
-        Assert::assertJsonPathEquals($expectedReturnsDateTime, '0.reasonDate', $response);
 
         Assert::assertJsonPathEquals($expectedSalesDateTime, '1.date', $response);
-        Assert::assertJsonPathEquals($expectedSalesDateTime, '1.reasonDate', $response);
+        Assert::assertJsonPathEquals($expectedSalesReasonDateTime, '1.reasonDate', $response);
         Assert::assertJsonPathEquals('Sales', '1.type', $response);
 
     }
