@@ -1,4 +1,4 @@
-package ru.dreamkas.unit;
+package ru.dreamkas.unit.apihelper;
 
 import org.junit.After;
 import org.junit.Before;
