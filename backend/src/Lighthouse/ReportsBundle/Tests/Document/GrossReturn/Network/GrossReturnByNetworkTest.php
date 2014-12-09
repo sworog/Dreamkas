@@ -197,5 +197,4 @@ class GrossReturnByNetworkTest extends WebTestCase
         $this->assertGrossReturnDayNotFound('-4 days');
         $this->assertGrossReturnDay('-5 days', '60.00', '2.000');
     }
-
 }
