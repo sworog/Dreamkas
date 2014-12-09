@@ -1,4 +1,4 @@
-package ru.dreamkas.jbehave;
+package ru.dreamkas.unit;
 
 import org.junit.Test;
 import ru.dreamkas.apihelper.UUIDGenerator;
