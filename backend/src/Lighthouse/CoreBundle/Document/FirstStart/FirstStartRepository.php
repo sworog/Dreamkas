@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\LockMode;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
+use Lighthouse\ReportsBundle\Document\CostOfInventory\Store\StoreCostOfInventoryRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Receipt\ReceiptGrossMarginSalesManager;
 
 /**
@@ -30,6 +31,11 @@ class FirstStartRepository extends DocumentRepository
     protected $receiptReportManager;
 
     /**
+     * @var StoreCostOfInventoryRepository
+     */
+    protected $storeCostOfInventoryRepository;
+
+    /**
      * @param StoreRepository $storeRepository
      */
     public function setStoreRepository(StoreRepository $storeRepository)
@@ -51,6 +57,14 @@ class FirstStartRepository extends DocumentRepository
     public function setReceiptReportManager(ReceiptGrossMarginSalesManager $receiptReportManager)
     {
         $this->receiptReportManager = $receiptReportManager;
+    }
+
+    /**
+     * @param StoreCostOfInventoryRepository $storeCostOfInventoryRepository
+     */
+    public function setStoreCostOfInventoryRepository(StoreCostOfInventoryRepository $storeCostOfInventoryRepository)
+    {
+        $this->storeCostOfInventoryRepository = $storeCostOfInventoryRepository;
     }
 
     /**
@@ -95,7 +109,10 @@ class FirstStartRepository extends DocumentRepository
      */
     public function populateStoreFirstStartInventoryCostOfGoods(StoreFirstStart $storeFirstStart)
     {
-        // TODO implement
+        $storeReport = $this->storeCostOfInventoryRepository->find($storeFirstStart->store->id);
+        if ($storeReport) {
+            $storeFirstStart->costOfInventory = $storeReport->costOfInventory;
+        }
     }
 
     /**

@@ -55,6 +55,7 @@ class RecalculateReportsCommand extends Command
             function (Project $project, ContainerInterface $container) use ($output) {
                 $grossMarginManager = $container->get('lighthouse.reports.gross_margin.manager');
                 $grossMarginSalesReportManager = $container->get('lighthouse.reports.gross_margin_sales.manager');
+                $costOfInventoryManager = $container->get('lighthouse.reports.cost_of_inventory.manager');
 
                 try {
                     $output->writeln("<info>Recalculate reports for project {$project->getName()}");
@@ -74,6 +75,11 @@ class RecalculateReportsCommand extends Command
 
                     $output->writeln("<info>Network</info>");
                     $grossMarginSalesReportManager->recalculateNetworkReport($output);
+
+                    $output->writeln("<info>Cost of inventory</info>");
+                    $output->writeln("<info>Stores</info>");
+                    $costOfInventoryManager->recalculateStoreCostOfInventory($output);
+
                 } catch (\Exception $e) {
                     $output->writeln(sprintf("<error>%s</error>", (string) $e));
                 }

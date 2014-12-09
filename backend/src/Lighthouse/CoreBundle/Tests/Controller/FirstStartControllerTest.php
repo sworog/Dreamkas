@@ -85,8 +85,6 @@ class FirstStartControllerTest extends WebTestCase
 
     public function testGetFirstStartInvoice()
     {
-        $this->markTestIncomplete();
-
         $stores = $this->factory()->store()->getStores(array('1', '2'));
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
@@ -101,7 +99,7 @@ class FirstStartControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(2, 'stores.*.store', $response);
         Assert::assertNotJsonHasPath('stores.*.sale', $response);
-        Assert::assertNotJsonHasPath('stores.*.inventoryCostOfGoods', $response);
+        Assert::assertNotJsonHasPath('stores.*.costOfInventory', $response);
 
         $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
@@ -130,8 +128,8 @@ class FirstStartControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(2, 'stores.*.store', $response);
 
-        Assert::assertJsonPathEquals('2200.00', 'stores.0.inventoryCostOfGoods', $response);
-        Assert::assertJsonPathEquals('3175.00', 'stores.1.inventoryCostOfGoods', $response);
+        Assert::assertJsonPathEquals('2200.00', 'stores.0.costOfInventory', $response);
+        Assert::assertJsonPathEquals('3175.00', 'stores.1.costOfInventory', $response);
     }
 
     public function testGetFirstStartSale()
@@ -150,7 +148,7 @@ class FirstStartControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(2, 'stores.*.store', $response);
         Assert::assertNotJsonHasPath('stores.*.sale', $response);
-        Assert::assertNotJsonHasPath('stores.*.inventoryCostOfGoods', $response);
+        Assert::assertNotJsonHasPath('stores.*.costOfInventory', $response);
 
         $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
@@ -203,10 +201,8 @@ class FirstStartControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('306.66', 'stores.1.sale.costOfGoods', $response);
         Assert::assertJsonPathEquals('36.35', 'stores.1.sale.grossMargin', $response);
 
-        /* TODO uncomment when done
-        Assert::assertJsonPathEquals('1872.88', 'stores.0.inventoryCostOfGoods', $response);
-        Assert::assertJsonPathEquals('2868.34', 'stores.1.inventoryCostOfGoods', $response);
-        */
+        Assert::assertJsonPathEquals('1872.88', 'stores.0.costOfInventory', $response);
+        Assert::assertJsonPathEquals('2868.34', 'stores.1.costOfInventory', $response);
     }
 
     public function testPutFirstStartComplete()
@@ -235,7 +231,7 @@ class FirstStartControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, 'stores.*.store', $getResponse);
         Assert::assertJsonPathEquals(false, 'complete', $getResponse);
         Assert::assertNotJsonHasPath('stores.*.sale', $getResponse);
-        Assert::assertNotJsonHasPath('stores.*.inventoryCostOfGoods', $getResponse);
+        Assert::assertNotJsonHasPath('stores.*.costOfInventory', $getResponse);
 
         $putResponse = $this->clientJsonRequest(
             $accessToken,
@@ -251,7 +247,7 @@ class FirstStartControllerTest extends WebTestCase
         Assert::assertJsonPathCount(0, 'stores.*.store', $putResponse);
         Assert::assertJsonPathEquals(true, 'complete', $putResponse);
         Assert::assertNotJsonHasPath('stores.*.sale', $putResponse);
-        Assert::assertNotJsonHasPath('stores.*.inventoryCostOfGoods', $putResponse);
+        Assert::assertNotJsonHasPath('stores.*.costOfInventory', $putResponse);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,

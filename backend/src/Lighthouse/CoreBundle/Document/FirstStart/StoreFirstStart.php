@@ -10,7 +10,7 @@ use Lighthouse\ReportsBundle\Reports\GrossMarginSales\Receipt\GrossMarginSalesBy
 
 /**
  * @property Store $store
- * @property Money $inventoryCostOfGoods
+ * @property Money $costOfInventory
  * @property Sale  $sale
  */
 class StoreFirstStart extends AbstractDocument
@@ -23,7 +23,7 @@ class StoreFirstStart extends AbstractDocument
     /**
      * @var Money
      */
-    protected $inventoryCostOfGoods;
+    protected $costOfInventory;
 
     /**
      * @var GrossMarginSalesByReceipt
