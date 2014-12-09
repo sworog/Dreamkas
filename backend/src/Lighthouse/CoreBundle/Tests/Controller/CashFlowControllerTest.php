@@ -680,8 +680,8 @@ class CashFlowControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
-        $expectedSalesDateTime = date('Y-m-d\T00:00:00O', strtotime('-2 day'));
-        $expectedReturnsDateTime = date('Y-m-d\T00:00:00O', strtotime('-1 day'));
+        $expectedSalesDateTime = date('Y-m-d\T23:59:59O', strtotime('-2 day'));
+        $expectedReturnsDateTime = date('Y-m-d\T23:59:59O', strtotime('-1 day'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
