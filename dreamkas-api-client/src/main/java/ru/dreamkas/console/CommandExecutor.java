@@ -1,7 +1,7 @@
 package ru.dreamkas.console;
 
-import junit.framework.Assert;
 import ru.dreamkas.apiStorage.ApiStorage;
+import ru.dreamkas.console.exception.ConsoleCommandFailureException;
 
 import java.io.IOException;
 
@@ -21,12 +21,15 @@ public class CommandExecutor {
         String webDriverBaseUrl = ApiStorage.getConfigurationVariableStorage().getProperty("webdriver.base.url");
         String regexPattern = String.format("http://(.*).%s.webfront.lighthouse.pro", STAGING);
         String host = webDriverBaseUrl.replaceAll(regexPattern, "$1");
-        String commandToExecute = String.format("bundle exec cap %s log:debug %s", STAGING, command);
-        ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(commandToExecute);
+        ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(getCommandToExecute());
         if (!consoleCommandResult.isOk()) {
-            String errorMessage = String.format("Output: '%s'. Command: '%s'. Host: '%s'.", consoleCommandResult.getOutput(), commandToExecute, host);
-            Assert.fail(errorMessage);
+            String errorMessage = String.format("Output: '%s'. Command: '%s'. Host: '%s'.", consoleCommandResult.getOutput(), getCommandToExecute(), host);
+            throw new ConsoleCommandFailureException(errorMessage);
         }
         return consoleCommandResult;
+    }
+
+    protected String getCommandToExecute() {
+        return String.format("bundle exec cap %s log:debug %s", STAGING, command);
     }
 }
