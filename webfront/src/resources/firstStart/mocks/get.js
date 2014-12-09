@@ -42,6 +42,14 @@ define(function(require, exports, module) {
                             name: "Первый"
                         },
                         inventoryCostOfGoods: 122300.45 // себестоимость
+                    },
+                    {
+                        store: {
+                            id: "54759dbe2cde6e2f198b4527",
+                            address: "Марата 4",
+                            name: "Второй"
+                        },
+                        inventoryCostOfGoods: 124300.50 // себестоимость
                     }
                 ]
             };
