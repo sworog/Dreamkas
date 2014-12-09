@@ -33,9 +33,10 @@ define(function(require, exports, module) {
 
         posWindowReference.addEventListener("beforeunload", function(e){
 
-            console.log(111);
+            if (PAGE.resources.firstStart){
+                PAGE.resources.firstStart.fetch();
+            }
 
-            posWindowReference.removeEventListener("beforeunload");
         }, false);
     };
 
