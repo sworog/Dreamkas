@@ -22,6 +22,8 @@
         #else
             self.networkManager = [[RESTClient alloc] initWithBaseURL:[NSURL URLWithString:API_SERVER_URL]];
         #endif
+        self.networkManager.requestSerializer = [AFJSONRequestSerializer serializer];
+        self.networkManager.responseSerializer = [AFJSONResponseSerializer serializer];
     }
     
     return self;
