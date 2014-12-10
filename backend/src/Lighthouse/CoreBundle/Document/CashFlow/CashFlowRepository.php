@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\CashFlow;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
+use MongoException;
 use MongoId;
 use DateTime;
 
@@ -21,7 +22,7 @@ class CashFlowRepository extends DocumentRepository
     {
         $cashFlow = $this->createNew();
         $cashFlow->amount = $reason->getCashFlowAmount();
-        $date = ($reason instanceof Returne) ? $reason->date : new DateTime("00:00:00");
+        $date = $reason->getCashFlowDate();
         $cashFlow->date = $date;
         $cashFlow->direction = $reason->getCashFlowDirection();
         $cashFlow->reason = $reason;
@@ -55,19 +56,11 @@ class CashFlowRepository extends DocumentRepository
      */
     public function findOneByReason(CashFlowable $reason)
     {
-        return $this->findOneByReasonTypeReasonId($reason->id, $reason->getCashFlowReasonType());
-    }
-
-    /**
-     * @param string $reasonId
-     * @param string $reasonType
-     * @return null|CashFlow
-     */
-    public function findOneByReasonTypeReasonId($reasonId, $reasonType)
-    {
+        // TODO: Переписать на queryBuilder
+        $dbRef = $this->dm->createDBRef($reason);
         $criteria = array(
-            'reason.$id' => new MongoId($reasonId),
-            'reason.$ref' => $reasonType,
+            'reason.$id' => $dbRef['$id'],
+            'reason.$ref' => $dbRef['$ref'],
         );
         return $this->findOneBy($criteria);
     }

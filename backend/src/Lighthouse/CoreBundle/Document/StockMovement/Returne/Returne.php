@@ -21,7 +21,7 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository")
  */
-class Returne extends Receipt implements CashFlowable
+class Returne extends Receipt
 {
     const TYPE = 'Return';
 
@@ -51,38 +51,6 @@ class Returne extends Receipt implements CashFlowable
      * @var Sale
      */
     protected $sale;
-
-    /**
-     * @return bool
-     */
-    public function cashFlowNeeded()
-    {
-        return true;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCashFlowReasonType()
-    {
-        return 'StockMovement';
-    }
-
-    /**
-     * @return Money
-     */
-    public function getCashFlowAmount()
-    {
-        return $this->sumTotal;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCashFlowDirection()
-    {
-        return CashFlow::DIRECTION_OUT;
-    }
 
     /**
      * @param ReturnProduct[] $products

@@ -177,7 +177,7 @@ class Invoice extends StockMovement implements CashFlowable
      */
     public function getCashFlowReasonType()
     {
-        return 'StockMovement';
+        return 'Invoice';
     }
 
     /**
@@ -194,5 +194,21 @@ class Invoice extends StockMovement implements CashFlowable
     public function getCashFlowDirection()
     {
         return CashFlow::DIRECTION_OUT;
+    }
+
+    /**
+     * @return DateTime;
+     */
+    public function getCashFlowDate()
+    {
+        return new DateTime('00:00:00');
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCashFlowReasonDate()
+    {
+        return $this->date;
     }
 }

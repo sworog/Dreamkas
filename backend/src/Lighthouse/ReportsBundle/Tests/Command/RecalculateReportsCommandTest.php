@@ -115,6 +115,7 @@ Stores
 Network
 Cost of inventory
 Stores
+Gross Return
 Recalculate reports for project project2
 Cost Of Goods
 ....                                                 4 / 4
@@ -130,6 +131,7 @@ Network
 Cost of inventory
 Stores
 ..                                                   2 / 2
+Gross Return
 Recalculate reports for project project3
 Cost Of Goods
 ......                                               6 / 6
@@ -145,6 +147,7 @@ Network
 Cost of inventory
 Stores
 ...                                                  3 / 3
+Gross Return
 Recalculate reports finished
 
 EOF;

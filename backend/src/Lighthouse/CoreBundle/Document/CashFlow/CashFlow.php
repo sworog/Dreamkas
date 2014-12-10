@@ -71,11 +71,6 @@ class CashFlow extends AbstractDocument
     /**
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
-     *      discriminatorMap={
-     *          "Invoice"="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
-     *          "SupplierReturn"="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn",
-     *          "Return"="Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
-     *      }
      * )
      * @var CashFlowable
      */
@@ -97,5 +92,15 @@ class CashFlow extends AbstractDocument
     public function getType()
     {
         return null === $this->reason ? self::TYPE : $this->reason->getCashFlowReasonType();
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("reasonDate")
+     * @return string
+     */
+    public function getReasonType()
+    {
+        return null === $this->reason ? null : $this->reason->getCashFlowReasonDate();
     }
 }
