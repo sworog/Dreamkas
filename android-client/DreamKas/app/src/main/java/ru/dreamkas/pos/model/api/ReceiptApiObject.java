@@ -37,7 +37,7 @@ public class ReceiptApiObject {
                 break;
         }
 
-        TimeZone tz = TimeZone.getTimeZone("UTC");
+        TimeZone tz = TimeZone.getDefault();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
         df.setTimeZone(tz);
         date = df.format(new Date());
