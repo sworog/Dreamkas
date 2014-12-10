@@ -82,6 +82,49 @@ class SupplierReturnBuilder
     }
 
     /**
+     * @param $supplierReturnId
+     * @param Store $store
+     * @param string $date
+     * @param Supplier $supplier
+     * @param bool $paid
+     * @return SupplierReturnBuilder
+     */
+    public function editSupplierReturn(
+        $supplierReturnId,
+        Store $store = null,
+        $date = null,
+        Supplier $supplier = null,
+        $paid = null
+    ) {
+        $this->supplierReturn = $this->factory->supplierReturn()->getSupplierReturnById($supplierReturnId);
+
+        if ($store) {
+            $this->supplierReturn->store = $store;
+        }
+        if ($supplier) {
+            $this->supplierReturn->supplier = $supplier;
+        }
+        if (null !== $paid) {
+            $this->supplierReturn->paid = $paid;
+        }
+        if ($date) {
+            $this->supplierReturn->date = new DateTimestamp($date);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $supplierReturnId
+     */
+    public function removeSupplierReturn($supplierReturnId)
+    {
+        $this->supplierReturn = $this->factory->supplierReturn()->getSupplierReturnById($supplierReturnId);
+        $this->repository->getDocumentManager()->remove($this->supplierReturn);
+        $this->repository->getDocumentManager()->flush();
+    }
+
+    /**
      * @param string $productId
      * @param float $quantity
      * @param float $price
@@ -99,6 +142,25 @@ class SupplierReturnBuilder
         $supplierReturnProduct->price = $this->numericFactory->createMoney($price);
 
         $this->supplierReturn->products->add($supplierReturnProduct);
+
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @return SupplierReturnBuilder
+     */
+    public function editSupplierReturnProduct($index, $productId, $quantity, $price)
+    {
+        $supplierReturnProduct = $this->supplierReturn->products[$index];
+        $supplierReturnProduct->parent = $this->supplierReturn;
+        $supplierReturnProduct->product = $this->factory->createProductVersion($productId);
+        $supplierReturnProduct->quantity = $this->numericFactory->createQuantity($quantity);
+        $supplierReturnProduct->price = $this->numericFactory->createMoney($price);
+        $supplierReturnProduct->calculateTotals();
 
         return $this;
     }

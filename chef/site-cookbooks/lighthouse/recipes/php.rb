@@ -17,8 +17,17 @@ php_pear "mongo" do
   action :install
 end
 
-link "/etc/php5/cli/conf.d/20-mongo.ini" do
-	to "/etc/php5/mods-available/mongo.ini"
-end
+puts node
 
-package "php5-apcu"
+if platform?('ubuntu')
+
+  if Chef::VersionConstraint.new('> 12.04').include?(node[:platform_version])
+    link "/etc/php5/cli/conf.d/20-mongo.ini" do
+      to "/etc/php5/mods-available/mongo.ini"
+    end
+
+    package "php5-apcu"
+  else
+    package "php-apc"
+  end
+end

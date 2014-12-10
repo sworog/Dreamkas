@@ -92,9 +92,10 @@ public class DateTimeHelper {
             case "todayDate":
                 return getTodayDate(DATE_PATTERN_REVERT);
             case "saleTodayDate":
+            case "saleReturnTodayDate":
                 return getTodayDateForSaleRegistering();
             default:
-                if (value.contains("saleTodayDate-")) {
+                if (value.contains("saleTodayDate-") || value.contains("saleReturnTodayDate-")) {
                     String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
                     int numberOfDay = Integer.parseInt(replacedValue);
                     return getTodayDateForSaleRegistering(numberOfDay);

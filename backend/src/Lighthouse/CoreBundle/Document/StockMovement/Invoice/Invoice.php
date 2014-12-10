@@ -2,10 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
+use DateTime;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlowable;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
@@ -31,7 +34,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository")
  * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
  */
-class Invoice extends StockMovement
+class Invoice extends StockMovement implements CashFlowable
 {
     const TYPE = 'Invoice';
 
@@ -158,5 +161,54 @@ class Invoice extends StockMovement
             $this->sumTotalWithoutVAT = $this->sumTotalWithoutVAT->add($invoiceProduct->totalPriceWithoutVAT);
             $this->totalAmountVAT = $this->totalAmountVAT->add($invoiceProduct->totalAmountVAT);
         }
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function cashFlowNeeded()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowReasonType()
+    {
+        return 'Invoice';
+    }
+
+    /**
+     * @return Money
+     */
+    public function getCashFlowAmount()
+    {
+        return $this->sumTotal;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowDirection()
+    {
+        return CashFlow::DIRECTION_OUT;
+    }
+
+    /**
+     * @return DateTime;
+     */
+    public function getCashFlowDate()
+    {
+        return new DateTime('00:00:00');
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCashFlowReasonDate()
+    {
+        return $this->date;
     }
 }

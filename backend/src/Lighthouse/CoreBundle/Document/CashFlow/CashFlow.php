@@ -16,11 +16,17 @@ use JMS\Serializer\Annotation as Serializer;
  * @property string $direction
  * @property Money $amount
  * @property string $comment
+ * @property CashFlowable $reason
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\CashFlow\CashFlowRepository")
  */
 class CashFlow extends AbstractDocument
 {
+    const TYPE = 'Manual';
+
+    const DIRECTION_IN = 'in';
+    const DIRECTION_OUT = 'out';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -61,4 +67,40 @@ class CashFlow extends AbstractDocument
      * @var string
      */
     protected $comment;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *      discriminatorField="reasonType",
+     * )
+     * @var CashFlowable
+     */
+    protected $reason;
+
+    /**
+     * @return bool
+     */
+    public function isEditable()
+    {
+        return null === $this->reason;
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("type")
+     * @return string
+     */
+    public function getType()
+    {
+        return null === $this->reason ? self::TYPE : $this->reason->getCashFlowReasonType();
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("reasonDate")
+     * @return string
+     */
+    public function getReasonType()
+    {
+        return null === $this->reason ? null : $this->reason->getCashFlowReasonDate();
+    }
 }

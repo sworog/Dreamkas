@@ -1,6 +1,5 @@
 define(function(require) {
-    var config = require('config'),
-        googleAnalyticsId = config.googleAnalyticsId;
+    var googleAnalyticsId = CONFIG.googleAnalyticsId;
 
     return {
         init: function () {

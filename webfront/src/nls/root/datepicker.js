@@ -1,7 +1,5 @@
 define(function(require, exports, module) {
     //requirements
-    var $ = require('jquery');
-
     require('datepicker');
 
     $.fn.datepicker.dates['ru'] = {

@@ -2,11 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn;
 
+use DateTime;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlowable;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
@@ -21,7 +25,7 @@ use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
  *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnRepository"
  * )
  */
-class SupplierReturn extends StockMovement
+class SupplierReturn extends StockMovement implements CashFlowable
 {
     const TYPE = 'SupplierReturn';
 
@@ -63,4 +67,52 @@ class SupplierReturn extends StockMovement
      * @var bool
      */
     protected $paid;
+
+    /**
+     * @return bool
+     */
+    public function cashFlowNeeded()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowReasonType()
+    {
+        return 'SupplierReturn';
+    }
+
+    /**
+     * @return Money
+     */
+    public function getCashFlowAmount()
+    {
+        return $this->sumTotal;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCashFlowDirection()
+    {
+        return CashFlow::DIRECTION_IN;
+    }
+
+    /**
+     * @return DateTime;
+     */
+    public function getCashFlowDate()
+    {
+        return new DateTime('00:00:00');
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCashFlowReasonDate()
+    {
+        return $this->date;
+    }
 }

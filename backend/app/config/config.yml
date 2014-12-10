@@ -100,9 +100,11 @@ fos_rest:
         codes:
             'Lighthouse\CoreBundle\Exception\NotEmptyException': 409
             'Lighthouse\CoreBundle\Exception\HasDeletedException': 409
+            'Lighthouse\CoreBundle\Exception\NotEditableException': 409
         messages:
             'Lighthouse\CoreBundle\Exception\NotEmptyException': true
             'Lighthouse\CoreBundle\Exception\HasDeletedException': true
+            'Lighthouse\CoreBundle\Exception\NotEditableException': true
 
 nelmio_cors:
     paths:

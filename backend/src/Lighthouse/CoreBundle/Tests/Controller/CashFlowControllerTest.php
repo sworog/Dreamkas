@@ -2,11 +2,18 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use DateTime;
 
 class CashFlowControllerTest extends WebTestCase
 {
+    /**
+     * @return array
+     */
     protected function createCashFlows()
     {
         $cashFlow1 = $this->factory()
@@ -511,12 +518,194 @@ class CashFlowControllerTest extends WebTestCase
         $this->assertEmpty($deleteResponse);
 
         $this->client->setCatchException(true);
-        $getResponse = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             "/api/1/cashFlows/{$cashFlow->id}"
         );
 
         $this->assertResponseCode(404);
+    }
+
+    public function testAutoCreatedCashFlowEdit()
+    {
+        $product = $this->factory()->catalog()->getProduct();
+
+        $this->factory()
+            ->supplierReturn()
+                ->createSupplierReturn(null, null, null, true)
+                ->createSupplierReturnProduct($product->id, 100, 7)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows'
+        );
+
+        $this->assertResponseCode(200);
+
+        $cashFlow = $getResponse[0];
+        $cashFlowData = $cashFlow;
+        unset($cashFlowData['id'], $cashFlowData['reason']);
+        $cashFlowData['amount'] = 3333.3;
+
+        $this->client->setCatchException(true);
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/cashFlows/{$cashFlow['id']}",
+            $cashFlowData
+        );
+
+        $this->assertResponseCode(409);
+
+        Assert::assertJsonPathEquals(
+            'Невозможно изменить/удалить автоматически созданную запись',
+            'message',
+            $deleteResponse
+        );
+    }
+
+    public function testAutoCreatedCashFlowDelete()
+    {
+        $product = $this->factory()->catalog()->getProduct();
+
+        $this->factory()
+            ->supplierReturn()
+                ->createSupplierReturn(null, null, null, true)
+                ->createSupplierReturnProduct($product->id, 100, 7)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows'
+        );
+
+        $this->assertResponseCode(200);
+
+        $cashFlow = $getResponse[0];
+
+        $this->client->setCatchException(true);
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/cashFlows/{$cashFlow['id']}"
+        );
+
+        $this->assertResponseCode(409);
+
+        Assert::assertJsonPathEquals(
+            'Невозможно изменить/удалить автоматически созданную запись',
+            'message',
+            $deleteResponse
+        );
+    }
+
+    public function testAutoCreatedCashFlowGetForInvoice()
+    {
+        $store = $this->factory()->store()->getStore();
+        $product = $this->factory()->catalog()->getProduct();
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '2014-11-31 00:00:00'), $store->id)
+                ->createInvoiceProduct($product->id, 11, 5.78)
+            ->flush();
+        $expectedInvoiceDateTime = date('Y-m-d\T00:00:00O', strtotime('2014-11-31 00:00:00'));
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            array('dateFrom' => '2014-11-01', 'dateTo' => '2014-12-31')
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertCount(0, $response);
+
+        $expectedPaidDateTime = date('Y-m-d\T00:00:00O');
+        $this->factory()
+            ->invoice()
+                ->editInvoice($invoice->id, array('paid' => true))
+            ->flush();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            array('dateFrom' => '2014-11-01', 'dateTo' => '2014-12-31')
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(1, '*.id', $response);
+        Assert::assertJsonPathEquals($expectedPaidDateTime, '0.date', $response);
+        Assert::assertJsonPathEquals('Invoice', '0.type', $response);
+        Assert::assertJsonPathEquals($expectedInvoiceDateTime, '0.reasonDate', $response);
+    }
+
+    public function testAutoCreatedCashFlowGetForSalesByDay()
+    {
+        $store = $this->factory()->store()->getStore();
+        $product = $this->factory()->catalog()->getProduct();
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array('date' => '-2 month'), $store->id)
+                ->createInvoiceProduct($product->id, 11, 5.78)
+            ->flush();
+
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale(null, '-2 day')
+                ->createReceiptProduct($product->id, 7, 10)
+            ->flush();
+
+        $return = $this->factory()
+            ->receipt()
+                ->createReturn(null, '-1 day', $sale)
+                ->createReceiptProduct($product->id, 7, 10)
+            ->flush();
+
+        $this->createConsoleTester(false, true)->runCommand('lighthouse:reports:recalculate');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $expectedSalesDateTime = date('Y-m-d\T23:59:59O', strtotime('-2 day'));
+        $expectedSalesReasonDateTime = date('Y-m-d\T00:00:00O', strtotime('-2 day'));
+        $expectedReturnsDateTime = date('Y-m-d\T23:59:59O', strtotime('-1 day'));
+        $expectedReturnsReasonDateTime = date('Y-m-d\T00:00:00O', strtotime('-1 day'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/cashFlows',
+            null,
+            array('dateFrom' => date('Y-m-d', strtotime('-3 day')), 'dateTo' => date('Y-m-d', strtotime('+3 day')))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $response);
+
+        Assert::assertJsonPathEquals($expectedReturnsDateTime, '0.date', $response);
+        Assert::assertJsonPathEquals($expectedReturnsReasonDateTime, '0.reasonDate', $response);
+        Assert::assertJsonPathEquals('Returns', '0.type', $response);
+
+        Assert::assertJsonPathEquals($expectedSalesDateTime, '1.date', $response);
+        Assert::assertJsonPathEquals($expectedSalesReasonDateTime, '1.reasonDate', $response);
+        Assert::assertJsonPathEquals('Sales', '1.type', $response);
+
     }
 }

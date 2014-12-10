@@ -4,14 +4,11 @@ define(function(require) {
         Error = require('blocks/error/error'),
         cookies = require('cookies'),
         router = require('router'),
-        $ = require('jquery'),
         _ = require('lodash'),
         moment = require('moment'),
         getText = require('kit/getText/getText'),
         numeral = require('numeral'),
         googleAnalytics = require('kit/googleAnalytics/googleAnalytics');
-
-    require('bower_components/bootstrap/dist/js/bootstrap');
 
     googleAnalytics.init();
 
@@ -92,23 +89,33 @@ define(function(require) {
         confirmLink_active.removeClass('confirmLink_active');
     });
 
-    loading = currentUserModel.fetch();
 
-    loading.done(function() {
-        routes = 'routes/authorized';
-    });
+    return {
+        start: function(url){
 
-    loading.fail(function() {
-        routes = 'routes/unauthorized';
-    });
+            url && window.history.pushState({}, document.title, url);
 
-    loading.always(function() {
-        requirejs([
-            routes
-        ], function(routesMap) {
-            isStarted = true;
-            _.extend(router.routes, routesMap);
-            router.start();
-        });
-    });
+            loading && loading.abort();
+
+            loading = currentUserModel.fetch();
+
+            loading.done(function() {
+                routes = 'routes/authorized';
+            });
+
+            loading.fail(function() {
+                routes = 'routes/unauthorized';
+            });
+
+            loading.always(function() {
+                requirejs([
+                    routes
+                ], function(routesMap) {
+                    isStarted = true;
+                    _.extend(router.routes, routesMap);
+                    router.start();
+                });
+            });
+        }
+    }
 });

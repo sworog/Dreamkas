@@ -26,10 +26,7 @@ public class JSInput extends CommonItem {
     }
 
     public void evaluateUpdatingQueryScript() {
-        String commitChangesScript = String.format(
-                "document.querySelector('.receiptFinder').block.findReceipts('[name=\"%s\"]')",
-                name);
-        getPageObject().evaluateJavascript(commitChangesScript);
+        getPageObject().evaluateJavascript("document.querySelector('.inputDateRange').block.trigger('update')");
     }
 
     @Override

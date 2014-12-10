@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlowFilter;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlowRepository;
+use Lighthouse\CoreBundle\Exception\NotEditableException;
 use Lighthouse\CoreBundle\Form\CashFlowFilterType;
 use Lighthouse\CoreBundle\Form\CashFlowType;
 use Symfony\Component\Form\FormInterface;
@@ -58,6 +59,7 @@ class CashFlowController extends AbstractRestController
      */
     public function putCashFlowsAction(Request $request, CashFlow $cashFlow)
     {
+        $this->checkCashFlowIsEditable($cashFlow);
         return $this->processForm($request, $cashFlow);
     }
 
@@ -105,6 +107,20 @@ class CashFlowController extends AbstractRestController
      */
     public function deleteCashFlowAction(CashFlow $cashFlow)
     {
+        $this->checkCashFlowIsEditable($cashFlow);
         $this->processDelete($cashFlow);
+    }
+
+    /**
+     * @param CashFlow $cashFlow
+     */
+    protected function checkCashFlowIsEditable(CashFlow $cashFlow)
+    {
+        if (!$cashFlow->isEditable()) {
+            throw new NotEditableException(
+                $this->container->get('translator')
+                    ->trans('lighthouse.messages.cash_flow.edit', array(), 'messages')
+            );
+        }
     }
 }

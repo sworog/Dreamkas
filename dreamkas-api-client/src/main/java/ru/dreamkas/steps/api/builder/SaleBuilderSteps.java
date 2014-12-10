@@ -51,5 +51,6 @@ public class SaleBuilderSteps {
         Store store = ApiStorage.getCustomVariableStorage().getStores().get(storeName);
         sale.setStore(store);
         new ApiFactory(userContainer.getEmail(), userContainer.getPassword()).createObject(sale);
+        ApiStorage.getCustomVariableStorage().setLastSaleObject(sale);
     }
 }

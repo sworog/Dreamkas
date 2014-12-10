@@ -128,7 +128,6 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$('input').val('');
-            block.$('[name="product.name"]').typeahead('val', '');
             block.renderTotalSum();
         },
         selectProduct: function(product) {
