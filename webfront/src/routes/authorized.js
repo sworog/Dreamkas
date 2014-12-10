@@ -7,9 +7,6 @@ define(function(require) {
         'settings(/)': require('pages/settings/settings'),
         'logout(/)': require('kit/logout/logout'),
 
-        //dashboard
-        'dashboard(/)': require('pages/dashboard/dashboard'),
-
 		//stockMovement
 		'stockMovements(/)': require('pages/stockMovements/stockMovements'),
 
