@@ -40,7 +40,7 @@ define(function(require, exports, module) {
                         break;
                 }
 
-                comment += ' от ' + formatDate(data.reason.day || data.date);
+                comment += ' от ' + formatDate(data.reasonDate || data.date);
             }
 
             data.comment = comment;
