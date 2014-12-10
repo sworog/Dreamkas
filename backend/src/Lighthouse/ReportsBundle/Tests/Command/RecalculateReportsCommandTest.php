@@ -113,6 +113,8 @@ Products
 Catalog Groups
 Stores
 Network
+Cost of inventory
+Stores
 Recalculate reports for project project2
 Cost Of Goods
 ....                                                 4 / 4
@@ -125,6 +127,9 @@ Stores
 ..                                                   2 / 2
 Network
 ..                                                   2 / 2
+Cost of inventory
+Stores
+..                                                   2 / 2
 Recalculate reports for project project3
 Cost Of Goods
 ......                                               6 / 6
@@ -136,6 +141,9 @@ Catalog Groups
 Stores
 ....                                                 4 / 4
 Network
+...                                                  3 / 3
+Cost of inventory
+Stores
 ...                                                  3 / 3
 Recalculate reports finished
 
