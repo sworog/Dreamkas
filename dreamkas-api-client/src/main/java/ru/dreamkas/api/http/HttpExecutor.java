@@ -1,6 +1,7 @@
 package ru.dreamkas.api.http;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpMessage;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
@@ -25,12 +26,20 @@ import static junit.framework.Assert.fail;
 
 public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
 
-    private String userName;
-    private String password;
+    private HttpClientFacade httpClientFacade;
+    private AccessToken accessToken;
 
     private HttpExecutor(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
+        httpClientFacade = new HttpClientFacade();
+        accessToken = new AccessToken(userName, password);
+    }
+
+    protected void setHttpClientFacade(HttpClientFacade httpClientFacade) {
+        this.httpClientFacade = httpClientFacade;
+    }
+
+    public void setAccessToken(AccessToken accessToken) {
+        this.accessToken = accessToken;
     }
 
     public static AnonymousHttpRequestable getSimpleHttpRequestable() {
@@ -41,16 +50,23 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
         return new HttpExecutor(userName, password);
     }
 
-    private void setHeaders(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) {
-        httpEntityEnclosingRequestBase.setHeader("Accept", "application/json");
-        httpEntityEnclosingRequestBase.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
+    private void setHeaders(HttpMessage httpMessage) {
+        httpMessage.setHeader("Accept", "application/json");
+        httpMessage.setHeader("Authorization", "Bearer " + accessToken.get());
     }
 
-    public HttpPost getHttpPost(String url) {
+    private HttpPost getHttpPost(String url) {
         HttpPost httpPost = new HttpPost(url);
         setHeaders(httpPost);
         return httpPost;
     }
+
+    private HttpGet getHttpGet(String url) {
+        HttpGet httpGet = new HttpGet(url);
+        setHeaders(httpGet);
+        return httpGet;
+    }
+
 
     private HttpPut getHttpPut(String url) {
         HttpPut httpPut = new HttpPut(url);
@@ -66,7 +82,7 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
     }
 
     public String executeHttpMethod(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException {
-        HttpResponse response = new HttpClientFacade().build().execute(httpEntityEnclosingRequestBase);
+        HttpResponse response = httpClientFacade.build().execute(httpEntityEnclosingRequestBase);
         HttpEntity httpEntity = response.getEntity();
         if (httpEntity != null) {
             String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
@@ -181,10 +197,8 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
 
     public String executeGetRequest(String targetUrl) throws IOException {
         // TODO Work around for token expiration 401 : The access token provided has expired.
-        HttpGet request = new HttpGet(targetUrl);
-        request.setHeader("Accept", "application/json");
-        request.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
-        HttpResponse response = new HttpClientFacade().build().execute(request);
+        HttpGet request = getHttpGet(targetUrl);
+        HttpResponse response = httpClientFacade.build().execute(request);
 
         // TODO
         // response.getStatusLine().getStatusCode() != 204
