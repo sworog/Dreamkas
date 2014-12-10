@@ -1,9 +1,8 @@
-package ru.dreamkas.api.objects.token.cashFlow;
+package ru.dreamkas.api.objects.cashFlow;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
-import ru.dreamkas.api.objects.cashFlow.CashFlow;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
