@@ -15,7 +15,6 @@ import ru.dreamkas.pos.model.api.NamedObject;
 public class NamedObjectSpinnerAdapter extends NamedObjectsAdapter implements SpinnerAdapter{
     private int dropdownLayoutResourceId;
 
-
     public NamedObjectSpinnerAdapter(Context context, int layoutResourceId, int dropdownLayoutResourceId, ArrayList<NamedObject> data){
         super(context, layoutResourceId, data);
 

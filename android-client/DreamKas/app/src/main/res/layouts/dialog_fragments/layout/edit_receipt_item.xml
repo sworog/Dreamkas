@@ -51,17 +51,7 @@
                                     android:layout_width="70dp"
                                     android:layout_height="match_parent" />
 
-                                <TextView
-                                    android:id="@+id/lblTotal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:layout_marginLeft="10dp"
-                                    android:text="103 Р"
-                                    android:textSize="20sp"
-                                    android:textColor="@color/Black"
-                                    />
+
                             </LinearLayout>
 
                             <Button
@@ -98,7 +88,7 @@
                             android:paddingLeft="80dp"
                             android:paddingRight="80dp">
 
-                            <TextView
+                            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
                                 android:id="@+id/lblProductName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -121,35 +111,8 @@
                                     android:layout_height="fill_parent"
                                     android:descendantFocusability="beforeDescendants"
                                     android:focusableInTouchMode="true"
-                                    android:paddingBottom="4dp"
                                     android:layout_weight="1">
-
-                                    <TextView
-                                        android:text="Цена продажи"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="wrap_content"/>
-                                    <ru.dreamkas.pos.view.components.NumericEditText
-                                        android:id="@+id/txtSellingPrice"
-                                        android:text="0"
-                                        app:minimum_fraction_digits="2"
-                                        app:maximum_fraction_digits="2"
-                                        app:maximum_value="10000000"
-                                        android:singleLine="true"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent"
-                                        android:gravity="center_vertical"
-                                        android:inputType="numberDecimal"
-                                        android:digits="0123456789.,"
-                                        android:textAppearance="?android:attr/textAppearanceMedium"/>
-                                </LinearLayout>
-                                <LinearLayout
-                                    android:orientation="vertical"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:descendantFocusability="beforeDescendants"
-                                    android:focusableInTouchMode="true"
-                                    android:layout_weight="1">
-                                    <TextView
+                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
                                         android:text="Количество"
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"/>
@@ -159,7 +122,40 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="fill_parent"/>
                                 </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:descendantFocusability="beforeDescendants"
+                                    android:focusableInTouchMode="true"
+                                    android:paddingBottom="4dp"
+                                    android:layout_weight="1">
+
+                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                        android:text="Цена продажи"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:gravity="right"
+                                        />
+                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                        android:id="@+id/lblTotal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="right"
+                                        android:gravity="right|center_vertical"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="103 Р"
+                                        app:font_style="medium"
+                                        android:textSize="16sp"
+                                        android:textColor="@color/Black"
+
+                                        />
+                                </LinearLayout>
                             </LinearLayout>
+
+
 
                             <RelativeLayout
                                 android:layout_width="match_parent"

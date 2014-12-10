@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     <!--android:background="?android:attr/activatedBackgroundIndicator"-->
-<TextView
+<ru.dreamkas.pos.view.components.regular.TextViewTypefaced
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:background="?android:attr/activatedBackgroundIndicator"
     android:textColor="#fff"

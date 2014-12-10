@@ -8,7 +8,7 @@
     android:paddingBottom="2dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip">
-    <TextView
+    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
         android:id="@+id/txtListItemTitle"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"

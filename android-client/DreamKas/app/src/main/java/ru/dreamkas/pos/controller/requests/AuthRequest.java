@@ -26,7 +26,6 @@ public class AuthRequest extends SpiceRequest<Token>{
 
     @Override
     public Token loadDataFromNetwork() throws Exception{
-
         Token token = restClient.Auth(authObject);
         return token;
     }
