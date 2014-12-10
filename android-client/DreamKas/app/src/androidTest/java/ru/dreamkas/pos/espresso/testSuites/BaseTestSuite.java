@@ -3,16 +3,24 @@ package ru.dreamkas.pos.espresso.testSuites;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
+import android.util.Log;
 import android.util.Pair;
 
 import com.google.android.apps.common.testing.testrunner.ActivityLifecycleMonitorRegistry;
 import com.google.android.apps.common.testing.testrunner.Stage;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import ru.dreamkas.pos.BuildConfig;
 import ru.dreamkas.pos.ServerTuner;
 import ru.dreamkas.pos.espresso.ScreenshotFailureHandler;
+import ru.dreamkas.pos.espresso.SystemAnimations;
 import ru.dreamkas.pos.remoteCommand.Status;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.setFailureHandler;
@@ -22,6 +30,8 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
     private final ServerTuner mServerTuner;
     private static boolean mIsFirstLaunch = true;
     protected boolean mSholdTuneServer = false;
+    private static final String TAG = "Primer";
+    private static final String ANIMATION_PERMISSION = "android.permission.SET_ANIMATION_SCALE";
 
     @SuppressWarnings("deprecation")
     protected BaseTestSuite(String pkg, Class<T> activityClass) {
@@ -53,12 +63,13 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
+        systemAnimations.enableAll();
         if(mSholdTuneServer){
             tuneServer();
             mSholdTuneServer = false;
         }
     }
-
+    private SystemAnimations systemAnimations;
     @Override
     protected void setUp() throws Exception
     {
@@ -70,6 +81,8 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
         }
 
         clearPreferences();
+        systemAnimations = new SystemAnimations(getInstrumentation().getContext());
+        systemAnimations.disableAll();
         getActivity();
     }
 
@@ -110,4 +123,6 @@ public abstract class BaseTestSuite<T extends Activity> extends ActivityInstrume
     public void changeCurrentActivity() throws Throwable {
         setFailureHandler(new ScreenshotFailureHandler(getInstrumentation().getTargetContext(), getCurrentActivity()));
     }
+
+
 }

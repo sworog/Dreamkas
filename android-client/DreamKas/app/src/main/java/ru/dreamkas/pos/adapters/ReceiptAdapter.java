@@ -100,11 +100,10 @@ public class ReceiptAdapter extends ArrayAdapter<ReceiptItem> {
         quantityFormat.setMaximumFractionDigits(Constants.SCALE_QUANTITY);
 
         ReceiptItem namedObject = mItems.get(position);
-        holder.txtTitle.setText(String.format("%s / %s" + (namedObject.getProduct().getBarcode() == null ? "" : " / " + namedObject.getProduct().getBarcode()), namedObject.getProduct().getName(), namedObject.getProduct().getSku()));
+        holder.txtTitle.setText(namedObject.getProduct().getName());
         holder.txtQuantity.setText(String.format("x%s %s", quantityFormat.format(namedObject.getQuantity()), namedObject.getProduct().getUnits() == null ? "шт" : namedObject.getProduct().getUnits()));
 
         SpannableStringBuilder cost = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(namedObject.getTotal()), StringDecorator.RUBLE_CODE);
-        //SpannableStringBuilder cost = StringDecorator.buildStringWithRubleSymbol(msg_info_ruble_value,  namedObject.getSellingPrice() == null ? "0.00" : namedObject.getTotal().toString() ,StringDecorator.RUBLE_CODE);
         holder.txtCost.setText(cost);
 
 

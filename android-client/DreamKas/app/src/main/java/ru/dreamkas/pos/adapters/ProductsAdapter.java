@@ -38,6 +38,14 @@ public class ProductsAdapter extends ArrayAdapter<Product>{
         TextViewTypefaced txtSellingPrice;
     }
 
+    public ProductsAdapter(Context context, int layoutResourceId, ArrayList<Product> data){
+        super(context, layoutResourceId, data);
+        this.layoutResourceId = layoutResourceId;
+        this.context = context;
+        this.mItems = data;
+        this.mHighlightStr = "";
+    }
+
     public ProductsAdapter(Context context, int layoutResourceId, ArrayList<Product> data, String highlightStr){
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;

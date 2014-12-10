@@ -45,6 +45,8 @@ public class Receipt extends ArrayList<ReceiptItem> {
         return super.add(new ReceiptItem(product));
     }
 
+
+
     @Override
     public void clear() {
         mTotal = BigDecimal.ZERO;

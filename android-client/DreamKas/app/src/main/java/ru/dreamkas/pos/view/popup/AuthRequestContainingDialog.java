@@ -17,7 +17,7 @@ public class AuthRequestContainingDialog extends RequestContainingDialog {
         //mToken = PreferencesManager.getInstance().getToken();
     }
 
-    protected String getToken(){
+    public String getToken(){
         return mToken;
     }
 }

@@ -9,14 +9,14 @@ import ru.dreamkas.pos.espresso.steps.KasThen;
 import ru.dreamkas.pos.espresso.steps.LoginSteps;
 import ru.dreamkas.pos.espresso.steps.StoreSteps;
 import ru.dreamkas.pos.model.api.Product;
-import ru.dreamkas.pos.view.activities.LoginActivity_;
+import ru.dreamkas.pos.view.activities.WelcomeActivity_;
 
-public class Us113_4 extends BaseTestSuite<LoginActivity_> {
+public class Us113_4 extends BaseTestSuite<WelcomeActivity_> {
     @SuppressWarnings("deprecation")
     public Us113_4()
     {
         // This constructor was deprecated - but we want to support lower API levels.
-        super("ru.crystals.vaverjanov.dreamkas.view", LoginActivity_.class);
+        super("ru.crystals.vaverjanov.dreamkas.view", WelcomeActivity_.class);
     }
 
     //Scenario: Проверка формирования чека

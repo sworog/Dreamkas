@@ -199,7 +199,7 @@ public class MainActivity extends ActionBarActivity implements RestFragmentConta
     private void logoff()
     {
         mToken = null;
-        Intent objsignOut = new Intent(getBaseContext(),LoginActivity_.class);
+        Intent objsignOut = new Intent(getBaseContext(),WelcomeActivity_.class);
         startActivity(objsignOut);
         finish();
     }

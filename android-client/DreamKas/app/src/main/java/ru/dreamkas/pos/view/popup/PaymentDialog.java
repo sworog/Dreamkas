@@ -131,7 +131,7 @@ public class PaymentDialog extends AuthRequestContainingDialog {
             SpannableStringBuilder changeStr = StringDecorator.buildStringWithRubleSymbol(DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(change), StringDecorator.RUBLE_CODE);
             lblDone.setText(changeStr);
 
-            String enderedAmount = DreamkasApp.getMoneyFormat().format(mReceipt.getTotal());
+            String enderedAmount = DreamkasApp.getMoneyFormat().format(mReceipt.getAmountTendered());
             String changeFrom = String.format(DreamkasApp.getResourceString(R.string.msg_info_change_from), enderedAmount);
             lblInfo.setText(changeFrom);
         }else {

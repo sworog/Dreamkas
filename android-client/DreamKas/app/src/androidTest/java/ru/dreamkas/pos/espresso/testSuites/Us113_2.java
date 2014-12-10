@@ -6,17 +6,17 @@ import ru.dreamkas.pos.espresso.steps.DrawerSteps;
 import ru.dreamkas.pos.espresso.steps.LoginSteps;
 import ru.dreamkas.pos.espresso.steps.StoreSteps;
 import ru.dreamkas.pos.model.DrawerMenu;
-import ru.dreamkas.pos.view.activities.LoginActivity_;
+import ru.dreamkas.pos.view.activities.WelcomeActivity_;
 
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static ru.dreamkas.pos.espresso.EspressoHelper.waitForView;
 
-public class Us113_2 extends BaseTestSuite<LoginActivity_> {
+public class Us113_2 extends BaseTestSuite<WelcomeActivity_> {
     @SuppressWarnings("deprecation")
     public Us113_2()
     {
         // This constructor was deprecated - but we want to support lower API levels.
-        super("ru.crystals.vaverjanov.dreamkas.view", LoginActivity_.class);
+        super("ru.crystals.vaverjanov.dreamkas.view", WelcomeActivity_.class);
     }
 
     //Scenario: Выбор магазина при первом старте

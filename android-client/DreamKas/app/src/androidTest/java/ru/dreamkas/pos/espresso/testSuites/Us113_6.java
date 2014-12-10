@@ -13,7 +13,7 @@ import ru.dreamkas.pos.espresso.steps.KasThen;
 import ru.dreamkas.pos.espresso.steps.LoginSteps;
 import ru.dreamkas.pos.espresso.steps.StoreSteps;
 import ru.dreamkas.pos.model.api.Product;
-import ru.dreamkas.pos.view.activities.LoginActivity_;
+import ru.dreamkas.pos.view.activities.WelcomeActivity_;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.setFailureHandler;
@@ -25,12 +25,12 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static ru.dreamkas.pos.espresso.EspressoHelper.waitForView;
 
-public class Us113_6 extends BaseTestSuite<LoginActivity_> {
+public class Us113_6 extends BaseTestSuite<WelcomeActivity_> {
     @SuppressWarnings("deprecation")
     public Us113_6()
     {
         // This constructor was deprecated - but we want to support lower API levels.
-        super("ru.crystals.vaverjanov.dreamkas.view", LoginActivity_.class);
+        super("ru.crystals.vaverjanov.dreamkas.view", WelcomeActivity_.class);
     }
 
     //Scenario: Проверка модального окна редактирования товарной позиции

@@ -88,21 +88,63 @@ android
     {
         release
         {
-            //runProguard false
+            runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug
         {
             applicationIdSuffix ".debug"
         }
-
-
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    productFlavors {
+        dev {
+            // The one for development/testing
+        }
+        live {
+            // The flavour for releasing
+        }
+    }
 }
+
+task grantAnimationPermission(type: Exec, dependsOn: 'installDevDebug') { // or install{productFlavour}{buildType}
+    //commandLine "adb shell pm grant ru.dreamkas.pos.debug.test android.permission.SET_ANIMATION_SCALE".split(' ')
+    commandLine "adb shell pm grant ru.dreamkas.pos android.permission.SET_ANIMATION_SCALE".split(' ')
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('connectedAndroidTest')) {
+        task.dependsOn grantAnimationPermission
+    }
+}
+
+def copyAndReplaceText(source, dest, Closure replaceText) {
+    dest.write(replaceText(source.text))
+}
+
+// Override Data in Manifest - This can be done using different Manifest files for each flavor, this way there's no need to modify the manifest
+/*android.applicationVariants.all { variant ->
+    if (variant.name.startsWith('dev')) { // Where dev is the one you'll use to run Espresso tests
+        System.out.println("Not removing the SET_ANIMATION_SCALE permission for $variant.name")
+        return
+    }
+
+    System.out.println("Removing the SET_ANIMATION_SCALE permission for $variant.name")
+    variant.processManifest.doLast {
+        copyAndReplaceText(manifestOutputFile, manifestOutputFile) {
+            def replaced = it.replace('<uses-permission android:name="android.permission.SET_ANIMATION_SCALE"/>', '');
+            if (replaced.contains('SET_ANIMATION_SCALE')) {
+                // For security, imagine an extra space is added before closing tag, then the replace would fail - TODO use regex
+                throw new RuntimeException("Don't ship with this permission! android.permission.SET_ANIMATION_SCALE")
+            }
+            replaced
+        }
+    }
+}*/
 
 apt
 {
@@ -116,10 +158,9 @@ apt
 spoon
 {
     debug = true;
-//    noAnimation = true;
+    //noAnimation = true;
     if (project.hasProperty('spoonClassName')) {
         className = project.spoonClassName
-
     }
 }
 

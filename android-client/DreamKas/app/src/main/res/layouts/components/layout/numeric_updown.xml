@@ -2,13 +2,13 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_width="fill_parent">
         <ru.dreamkas.pos.view.components.NumericEditText
             android:id="@+id/txtValue"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="72dp"
             android:imeOptions="actionSearch"
             android:layout_weight="1"
             android:inputType="numberDecimal"
@@ -16,13 +16,14 @@
             app:minimum_fraction_digits="1"
             app:maximum_fraction_digits="3"
             android:lines="1" />
-        <Button android:text="−"
+        <ru.dreamkas.pos.view.components.regular.ButtonFlatExt
+            android:text="−"
             android:id="@+id/btnDown"
             android:background="@color/White"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-        </Button>
+            android:layout_gravity="center_vertical"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            />
         <Button android:text="+"
             android:id="@+id/btnUp"
             android:background="@color/White"
