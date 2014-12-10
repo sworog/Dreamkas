@@ -47,6 +47,8 @@ define(function(require, exports, module) {
             progressbar: require('./progressbar'),
             steps: require('./steps'),
             info: require('./info'),
+            grossSales: require('./grossSales'),
+            grossMargin: require('./grossMargin'),
 
             modal_store: Modal_store.extend({
                 blocks: {
