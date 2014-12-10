@@ -10,7 +10,8 @@
 
 @interface PaymentViewController () <UITextFieldDelegate>
 
-@property (nonatomic, weak) IBOutlet RaisedEmptyButton *payButton, *payByUsingCard;
+@property (nonatomic, weak) IBOutlet RaisedFilledButton *payButton;
+@property (nonatomic, weak) IBOutlet RaisedEmptyButton *payByUsingCard;
 @property (nonatomic, weak) IBOutlet CustomLabel *firstLabel, *secondLabel;
 @property (nonatomic, weak) IBOutlet StaticTextField *paymentSumField;
 
