@@ -4,8 +4,8 @@ define(function(require, exports, module) {
 
     //mocks
     var ajaxMock = require('kit/ajaxMock/ajaxMock'),
-        stores_3 = require('resources/store/mocks/1'),
-        stores_0 = require('resources/store/mocks/2');
+        stores_3 = require('resources/store/mocks/get_3'),
+        stores_0 = require('resources/store/mocks/get_0');
 
     describe(module.id, function(){
 
