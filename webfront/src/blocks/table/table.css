@@ -91,6 +91,14 @@
     margin-left: 14px;
 }
 
+.table_storesGrossSales__difference .fa {
+    vertical-align: middle;
+}
+
+.table_storesGrossSales__differenceValue .fa {
+    vertical-align: middle;
+}
+
 .table_storesGrossSales__difference > div {
 
 }
