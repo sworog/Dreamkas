@@ -42,7 +42,7 @@
     
     [self POST:CompleteURL(str)
     parameters:dict
-       success:^(NSURLSessionDataTask *task, id responseObject) {
+       success:^(NSURLSessionDataTask * __unused task, id JSON) {
            DPLog(LOG_ON, @"Получили распарсенный ответ сервера");
            
            // маппинг полученных данных в экземпляры сущностей
@@ -56,7 +56,8 @@
            DPLog(LOG_ON, @"Сохранили изменения в БД");
            
            completionBlock(models, nil);
-       } failure:^(NSURLSessionDataTask *task, NSError *error) {
+           
+       } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
            // передаем данные в блок обработки
            if (completionBlock)
                completionBlock(nil, error);
