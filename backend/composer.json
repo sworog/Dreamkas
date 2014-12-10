@@ -51,7 +51,7 @@
     "require-dev": {
         "phpunit/phpunit": "~4.0",
         "phpmd/phpmd": "~2.0",
-        "squizlabs/php_codesniffer": "~2.0",
+        "squizlabs/php_codesniffer": "~1.5",
         "munkie/phpunit-teamcity-testlistener": "dev-master",
         "guzzle/plugin": "~3.8"
     },
