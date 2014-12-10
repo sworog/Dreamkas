@@ -70,7 +70,9 @@ define(function(require, exports, module) {
                         });
                     }
                 })
-            })
+            }),
+
+            table_storesGrossSales: require('blocks/table/storesGrossSales/storesGrossSales')
         },
         initialize: function() {
 

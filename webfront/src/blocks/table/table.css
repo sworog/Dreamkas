@@ -84,3 +84,27 @@
 .table_cashFlows td[name="amount"] {
     width: 16%;
 }
+
+.table_storesGrossSales__difference {
+    display: inline-block;
+    font-size: 13px;
+    margin-left: 14px;
+}
+
+.table_storesGrossSales__difference > div {
+
+}
+
+.table_storesGrossSales__difference .fa-arrow-circle-o-up,
+.table_storesGrossSales__difference .fa-arrow-circle-o-down {
+    font-size: 18px;
+    margin-right: 6px;
+}
+
+.table_storesGrossSales__difference .fa-arrow-circle-o-up {
+    color: darkgreen;
+}
+
+.table_storesGrossSales__difference .fa-arrow-circle-o-down {
+    color: #DB5154;
+}
