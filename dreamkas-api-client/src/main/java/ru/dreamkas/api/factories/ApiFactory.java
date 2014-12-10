@@ -19,4 +19,11 @@ public class ApiFactory {
         httpRequestable.executePostRequest(object);
         return object;
     }
+
+    /*
+    For test purpose
+     */
+    protected void setHttpRequestable(HttpRequestable httpRequestable) {
+        this.httpRequestable = httpRequestable;
+    }
 }

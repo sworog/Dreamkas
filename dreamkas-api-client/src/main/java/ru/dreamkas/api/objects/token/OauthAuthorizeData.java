@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class OauthAuthorizeData {
 
-    JSONObject jsonObject;
+    private JSONObject jsonObject;
 
     public OauthAuthorizeData(JSONObject jsonObject) {
         this.jsonObject = jsonObject;
