@@ -38,7 +38,7 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
         this.httpClientFacade = httpClientFacade;
     }
 
-    public void setAccessToken(AccessToken accessToken) {
+    protected void setAccessToken(AccessToken accessToken) {
         this.accessToken = accessToken;
     }
 
@@ -66,7 +66,6 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
         setHeaders(httpGet);
         return httpGet;
     }
-
 
     private HttpPut getHttpPut(String url) {
         HttpPut httpPut = new HttpPut(url);
