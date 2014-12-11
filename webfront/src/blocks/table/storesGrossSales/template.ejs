@@ -1,0 +1,81 @@
+<div class="panel">
+    <div class="panel-heading">Продажи по магазинам на это время</div>
+    <div class="panel-body">
+        <table style="margin-bottom: 0"
+               class="table table_storesGrossSales table-hover table-striped">
+            <thead>
+            <tr>
+                <th>
+                    Магазин
+                </th>
+                <th>
+                    Сегодня, <i class="fa fa-rub"></i>
+                </th>
+                <th>
+                    Вчера, <i class="fa fa-rub"></i>
+                </th>
+                <th>
+                    Неделю назад, <i class="fa fa-rub"></i>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr name="store">
+                <td name="name">
+                    Первый
+                </td>
+                <td name="today">
+                    <%- formatMoney(18317.87) %>
+                    <div class="table_storesGrossSales__difference"><i class="fa fa-arrow-circle-o-down"></i>
+                        <span class="table_storesGrossSales__differenceValue">меньше, чем вчера</span>
+                    </div>
+                </td>
+                <td name="yesterday">
+                    <%- formatMoney(10317.87) %>
+                </td>
+                <td name="week_ago">
+                    <%- formatMoney(1317.00) %>
+                </td>
+            </tr>
+
+            <tr name="store">
+                <td name="name">
+                    Второй
+                </td>
+                <td name="today">
+                    <%- formatMoney(18317.87) %>
+                    <div class="table_storesGrossSales__difference">
+                        <i class="fa fa-arrow-circle-o-up"></i><span class="table_storesGrossSales__differenceValue">больше, чем вчера</span>
+                    </div>
+                </td>
+                <td name="yesterday">
+                    <%- formatMoney(10317.87) %>
+                </td>
+                <td name="week_ago">
+                    <%- formatMoney(1317.00) %>
+                </td>
+            </tr>
+
+            <tr name="store">
+                <td name="name">
+                    Третий
+                </td>
+                <td name="today">
+                    <%- formatMoney(18317.87) %>
+                    <div class="table_storesGrossSales__difference">
+                        <i class="fa fa-arrow-circle-o-up"></i><span class="table_storesGrossSales__differenceValue">больше, чем вчера</span>
+                    </div>
+                </td>
+                <td name="yesterday">
+                    <%- formatMoney(10317.87) %>
+                </td>
+                <td name="week_ago">
+                    <%- formatMoney(1317.00) %>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
