@@ -1,7 +1,7 @@
 package ru.dreamkas.jbehave.catalog;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import ru.dreamkas.steps.catalog.CatalogSteps;
 
@@ -11,6 +11,7 @@ public class WhenCatalogUserSteps {
     CatalogSteps catalogSteps;
 
     @When("the user clicks on the add new group button on the catalog page")
+    @Alias("пользователь нажимает на кнопку создать группу")
     public void whenTheUserClicksOnTheAddNewGroupButtonOnTheCatalogPage() {
         catalogSteps.addGroupButtonClick();
     }
@@ -66,6 +67,7 @@ public class WhenCatalogUserSteps {
     }
 
     @When("the user clicks on the edit group icon")
+    @Alias("пользователь нажимает на кнопку редактирования группы")
     public void whenTheUserClicksOnTheEditGroupIcon() {
         catalogSteps.editGroupIconClick();
     }

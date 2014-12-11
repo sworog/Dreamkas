@@ -98,7 +98,7 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void assertPopOverContent(String expectedContent) {
-        String actualContent = getCommonPageObject().findVisibleElement(By.className("popover-content")).getText();
+        String actualContent = getCommonPageObject().findVisibleElement(By.xpath("//*[contains(@class, 'modal_visible')]//*[@class='removeButton__error']")).getText();
         Assert.assertThat(actualContent, Matchers.is(expectedContent));
     }
 

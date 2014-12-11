@@ -1,7 +1,17 @@
 <resources>
-    <style name="AppTheme" parent="android:Theme.Holo.Light">
-        <item name="android:activatedBackgroundIndicator">@drawable/list_activated_background</item>
-        <item name="android:buttonStyle">@style/dk_button</item>
+
+    <!--parent="android:Theme.Material.Light.NoActionBar"-->
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/ActiveMain</item>
+        <item name="colorPrimaryDark">@color/ActiveMain</item>
+        <item name="colorAccent">@color/ActiveMain</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="actionBarSize">80dp</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/InactiveThird</item>
     </style>
 
     <style name="dialog_theme" parent="android:Theme.Dialog">
@@ -10,16 +20,25 @@
 
     <style name="dk_button" parent="@android:style/Widget.Button">
         <item name="android:textColor">@drawable/dk_button_text_color</item>
-        <item name="android:background">@drawable/dk_button_bg</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:background">@drawable/regular_btn_bg</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:padding">5dp</item>
     </style>
 
-    <style name="dialog_slide_anim" parent="@android:style/Theme.Holo.Light.Dialog">
+    <!--<style name="dk_button" parent="@android:style/Widget.Button">
+        <item name="android:textColor">@drawable/dk_button_text_color</item>
+        <item name="android:background">@drawable/dk_button_bg</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:padding">5dp</item>
+    </style>-->
+
+    <!--<style name="dialog_slide_anim" parent="@android:style/Theme.Holo.Light.Dialog">-->
+    <style name="dialog_slide_anim" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/dialog_animation</item>
     </style>
 
     <style name="dialog_animation">
         <item name="android:windowEnterAnimation">@anim/bottom_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
     </style>
 </resources>

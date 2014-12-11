@@ -9,12 +9,6 @@
 #import "SelectStoreViewController.h"
 #import "StoreSelectionCell.h"
 
-@interface SelectStoreViewController ()
-
-@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
-
-@end
-
 @implementation SelectStoreViewController
 
 #pragma mark - Инициализация
@@ -32,30 +26,32 @@
 {
     [super viewDidLoad];
     
-    // ..
+    // показываем кнопку закрытия только если магазин был выбран ранее
+    if ([[CurrentUser lastUsedStoreID] length]) {
+        [self initCloseButton];
+    }
 }
 
 #pragma mark - Configuration Methods
 
 - (void)configureLocalization
 {
-    // ..
+    [self setTitle:NSLocalizedString(@"select_store_title_name", nil)];
 }
 
 - (void)configureAccessibilityLabels
 {
-    [self.titleLabel setText:NSLocalizedString(@"select_store_title_name", nil)];
     [self.tableViewItem setAccessibilityLabel:AI_SelectStorePage_Table];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)closeButtonClicked:(id)sender
+- (void)closeButtonClicked
 {
     DPLogFast(@"");
     
     if ([[CurrentUser lastUsedStoreID] length]) {
-        [self hideModalViewController];
+        [super closeButtonClicked];
     }
     else {
         [DialogHelper showError:@"Для работы необходимо выбрать магазин"];
@@ -129,7 +125,7 @@
     StoreModel *store = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [CurrentUser updateLastUsedStoreID:[store pk]];
     
-    [self hideModalViewController];
+    [self closeButtonClicked];
 }
 
 @end

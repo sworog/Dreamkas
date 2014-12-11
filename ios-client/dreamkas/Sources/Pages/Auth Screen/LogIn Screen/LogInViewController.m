@@ -7,20 +7,19 @@
 //
 
 #import "LogInViewController.h"
+#import "CustomNavigationBar.h"
+#import "ModalViewController.h"
 
 #define PasswordMinLength 6
 
 @interface LogInViewController () <UITextFieldDelegate>
 
-@property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
-@property (nonatomic, weak) IBOutlet CustomFilledButton *logInButton;
+@property (nonatomic, weak) IBOutlet DynamicTextField *loginField;
+@property (nonatomic, weak) IBOutlet DynamicTextField *passwordField;
 
-@property (nonatomic, weak) IBOutlet UIButton *closeButton;
+@property (nonatomic, weak) IBOutlet FlatButton *forgetButton;
 
-@property (nonatomic, weak) IBOutlet UIView *containerView;
-
-@property (nonatomic, weak) IBOutlet CustomTextField *loginField;
-@property (nonatomic, weak) IBOutlet CustomTextField *passwordField;
+@property (nonatomic) RaisedFilledButton *logInButton;
 
 @end
 
@@ -32,36 +31,60 @@
 {
     [super viewDidLoad];
     
-    [self.logInButton setEnabled:NO];
+    [self initCloseButton];
+    [self initLogInButton];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.loginField becomeFirstResponder];
 }
 
 #pragma mark - Configuration Methods
 
 - (void)configureLocalization
 {
-    [self.titleLabel setText:NSLocalizedString(@"log_in_title_name", nil)];
-    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
+    [self setTitle:NSLocalizedString(@"log_in_title_name", nil)];
+    
+    [self.loginField setAttributedPlaceholder:NSLocalizedString(@"login_page_login_field_placeholder", nil)];
+    [self.passwordField setAttributedPlaceholder:NSLocalizedString(@"login_page_passward_field_placeholder", nil)];
+    
+    [self.forgetButton setTitle:NSLocalizedString(@"login_page_forget_button", nil) forState:UIControlStateNormal];
 }
 
 - (void)configureAccessibilityLabels
 {
-    [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
-    [self.closeButton setAccessibilityLabel:AI_LogInPage_CloseButton];
-    
     [self.loginField setAccessibilityLabel:AI_LogInPage_LoginField];
     [self.passwordField setAccessibilityLabel:AI_LogInPage_PwdField];
+    
+    [self.forgetButton setAccessibilityLabel:AI_LogInPage_ForgetButton];
+}
+
+/**
+ * Инициализация кнопки Close
+ */
+- (void)initLogInButton
+{
+    self.logInButton = [RaisedFilledButton buttonWithType:UIButtonTypeCustom];
+    self.logInButton.frame = CGRectMake(0, 0, 100, DefaultButtonHeight);
+    
+    [self.logInButton setAccessibilityLabel:AI_LogInPage_LogInButton];
+    [self.logInButton setTitle:NSLocalizedString(@"log_in_button_title", nil) forState:UIControlStateNormal];
+    [self.logInButton addTarget:self action:@selector(logInButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *right_btn = [[UIBarButtonItem alloc] initWithCustomView:self.logInButton];
+    UIBarButtonItem *right_btn_space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    right_btn_space.width = 8.f;
+    self.navigationItem.rightBarButtonItems = @[right_btn_space, right_btn];
+    
+    [self.logInButton setEnabled:NO];
 }
 
 #pragma mark - Обработка пользовательского взаимодействия
 
-- (IBAction)closeButtonClicked:(id)sender
-{
-    DPLogFast(@"");
-    
-    [self hideModalViewController];
-}
-
-- (IBAction)logInButtonClicked:(id)sender
+- (void)logInButtonClicked:(id)sender
 {
     DPLogFast(@"");
     
@@ -83,8 +106,12 @@
              // если авторизация прошла успешно - запоминаем данные пользователя
              [CurrentUser updateLastUsedLogin:self.loginField.text
                              lastUsedPassword:self.passwordField.text];
-             
-             [strong_self performSegueWithIdentifier:LogInToTicketWindowSegueName sender:self];
+
+             // скрываем контейнер модального окна и переходим к контроллеру кассы
+             ModalViewController *modal_vc = (ModalViewController *)self.navigationController.parentViewController;
+             [modal_vc hideContainerView:^(BOOL finished) {
+                 [modal_vc.navigationController pushViewController:ControllerById(TicketWindowViewControllerID) animated:YES];
+             }];
          }
          else {
              [DialogHelper showRequestError];
@@ -99,6 +126,13 @@
     [self.loginField setText:API_TEST_LOGIN];
     [self.passwordField setText:API_TEST_PWD];
     [self.logInButton setEnabled:YES];
+}
+
+- (IBAction)viewTouched:(id)sender
+{
+    DPLogFast(@"");
+    
+    [self.view endEditing:YES];
 }
 
 #pragma mark - Методы UITextField Delegate
@@ -129,6 +163,20 @@
         else {
             [self.logInButton setEnabled:NO];
         }
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    DPLogFast(@"");
+    
+    if ([textField isEqual:self.loginField]) {
+        [self.passwordField becomeFirstResponder];
+    }
+    else {
+        [self.view endEditing:YES];
     }
     
     return YES;

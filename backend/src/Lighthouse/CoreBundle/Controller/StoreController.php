@@ -97,7 +97,7 @@ class StoreController extends AbstractRestController
      */
     public function getStoresAction()
     {
-        return $this->documentRepository->findAll();
+        return $this->documentRepository->findAllActive();
     }
 
     /**
@@ -109,6 +109,18 @@ class StoreController extends AbstractRestController
     public function getStoreAction(Store $store)
     {
         return $store;
+    }
+
+    /**
+     * @param Store $store
+     *
+     * @Rest\View(statusCode=204)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteStoreAction(Store $store)
+    {
+        $this->processDelete($store);
     }
 
     /**

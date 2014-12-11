@@ -1,0 +1,30 @@
+
+.totalResults {
+	margin: 10px 0 28px 0;
+}
+
+.totalResults__cell:not(:first-child) {
+	padding-left: 40px;
+}
+
+.totalResults__cell:not(:last-child) {
+	border-right: 1px solid #eee;
+}
+
+.totalResults__cellCaption {
+	font-size: 14px;
+}
+
+.totalResults__cellValue,
+.totalResults__cellValueBig {
+	color: #000;
+	font-weight: bold;
+}
+
+.totalResults__cellValue {
+	font-size: 21px;
+}
+
+.totalResults__cellValueBig {
+	font-size: 30px;
+}

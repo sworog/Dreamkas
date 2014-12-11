@@ -724,6 +724,7 @@ class UserControllerTest extends WebTestCase
             User::ROLE_DEPARTMENT_MANAGER => array(
                 User::ROLE_DEPARTMENT_MANAGER,
                 array(
+                    'cashFlows' => array(),
                     'catalog/groups' => array(),
                     'categories' => array(),
                     'categories/{category}/subcategories' => array(),
@@ -838,6 +839,7 @@ class UserControllerTest extends WebTestCase
             User::ROLE_STORE_MANAGER => array(
                 User::ROLE_STORE_MANAGER,
                 array(
+                    'cashFlows' => array(),
                     'catalog/groups' => array(),
                     'categories' => array(),
                     'categories/{category}/subcategories' => array(),
@@ -924,6 +926,13 @@ class UserControllerTest extends WebTestCase
             User::ROLE_COMMERCIAL_MANAGER => array(
                 User::ROLE_COMMERCIAL_MANAGER,
                 array(
+                    'cashFlows' => array(
+                        'DELETE::{cashFlow}',
+                        'GET',
+                        'GET::{cashFlow}',
+                        'POST',
+                        'PUT::{cashFlow}',
+                    ),
                     'catalog/groups' => array(
                         'DELETE::{catalogGroup}',
                         'GET',
@@ -1018,6 +1027,7 @@ class UserControllerTest extends WebTestCase
                         'GET'
                     ),
                     'stores' => array(
+                        'DELETE::{store}',
                         'GET',
                         'GET::{store}',
                         'GET::{store}/departmentManagers',
@@ -1052,6 +1062,7 @@ class UserControllerTest extends WebTestCase
                         'PUT::{supplierReturn}',
                     ),
                     'suppliers' => array(
+                        'DELETE::{supplier}',
                         'GET',
                         'GET::{supplier}',
                         'PATCH::{supplier}',
@@ -1084,6 +1095,7 @@ class UserControllerTest extends WebTestCase
             User::ROLE_ADMINISTRATOR => array(
                 User::ROLE_ADMINISTRATOR,
                 array(
+                    'cashFlows' => array(),
                     'catalog/groups' => array(),
                     'categories' => array(),
                     'categories/{category}/subcategories' => array(),

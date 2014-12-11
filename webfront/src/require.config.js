@@ -1,11 +1,12 @@
 require.config({
 
+    baseUrl: '/',
+
     paths: {
         'moment': 'bower_components/momentjs/moment',
-        'jquery': 'bower_components/jquery/dist/jquery',
-        'select2': 'bower_components/select2/select2',
-        'select2_locale_ru': 'bower_components/select2/select2_locale_ru',
         'mockjax': 'bower_components/jquery-mockjax/jquery.mockjax',
+        'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
+        'jquery': 'bower_components/jquery/dist/jquery.min',
 
         //plugins
         'i18n': 'bower_components/requirejs-i18n/i18n',
@@ -25,13 +26,13 @@ require.config({
             'form2js': 'bower_components/form2js/src/form2js',
             'numeral': 'bower_components/numeral/numeral',
             'amd-loader': 'bower_components/amd-loader/amd-loader',
-            'datepicker': 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker',
-            'typeahead': 'bower_components/typeahead.js/dist/typeahead.bundle'
+            'datepicker': 'bower_components/bootstrap-datepicker/js/bootstrap-datepicker'
         }
     },
 
     shim: {
-        'select2_locale_ru': ['select2']
+        'datepicker': ['bootstrap']
     }
 
 });
+

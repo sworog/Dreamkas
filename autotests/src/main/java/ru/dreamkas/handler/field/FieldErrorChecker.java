@@ -28,7 +28,7 @@ public class FieldErrorChecker {
             if (commonItem instanceof SelectByVisibleText) {
                 actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../../../*[contains(@class, 'form__errorMessage')]")).getText();
             } else {
-                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./..")).getText();
+                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../*[contains(@class, 'form__errorMessage_visible')]")).getText();
             }
             Assert.assertThat(actualFieldErrorMessage, Matchers.is(expectedFieldErrorMessage));
         } catch (NoSuchElementException e) {

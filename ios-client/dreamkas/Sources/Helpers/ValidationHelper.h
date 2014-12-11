@@ -45,4 +45,11 @@
  */
 + (BOOL)isEmailValid:(NSString*)email;
 
+/** Проверка валидности цены
+ 
+ @param price - цена для проверки
+ @return - признак правильности цены
+ */
++ (BOOL)isPriceValid:(NSString*)price;
+
 @end

@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\Request\StockMovementBuilder;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class ReturnControllerTest extends WebTestCase
@@ -13,20 +14,20 @@ class ReturnControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
-        $sale = $this->factory()->receipt()
-            ->createSale($store, '2014-09-11T19:31:50+0400')
-                ->createReceiptProduct($productId, 10, 13.33)
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+0400')
+                ->createReceiptProduct($product->id, 10, 13.33)
             ->flush();
-
 
         $returnData = array(
             'date' => '2014-09-11T20:31:50+0400',
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 7
                 )
             )
@@ -51,7 +52,7 @@ class ReturnControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product->id, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('7.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
         Assert::assertJsonPathEquals('93.31', 'products.0.totalPrice', $response);
@@ -68,13 +69,14 @@ class ReturnControllerTest extends WebTestCase
      */
     public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore();
 
-        $sale1 = $this->factory()->receipt()
-            ->createSale($store)
-            ->createReceiptProduct($productIds['1'], 10, 17.68)
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store)
+                ->createReceiptProduct($products['1']->id, 10, 17.68)
             ->flush();
 
         $returnData = array(
@@ -82,7 +84,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale1->id,
             'products' => array(
                 $data + array(
-                    'product' => $productIds['1'],
+                    'product' => $products['1']->id,
                     'quantity' => 7
                 )
             ),
@@ -236,13 +238,13 @@ class ReturnControllerTest extends WebTestCase
      */
     public function testPostValidation($expectedCode, array $data, array $assertions = array())
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore();
 
         $sale1 = $this->factory()->receipt()
             ->createSale($store)
-            ->createReceiptProduct($productIds['1'], 10, 17.68)
+            ->createReceiptProduct($products['1']->id, 10, 17.68)
             ->flush();
 
         $returnData = $data + array(
@@ -250,7 +252,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale1->id,
             'products' => array(
                 array(
-                    'product' => $productIds['1'],
+                    'product' => $products['1']->id,
                     'quantity' => 7
                 )
             ),
@@ -292,11 +294,12 @@ class ReturnControllerTest extends WebTestCase
     public function testTwoReturnForOneSaleQuantityValidation()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
-        $sale = $this->factory()->receipt()
-            ->createSale($store, '2014-09-11T19:31:50+0400')
-            ->createReceiptProduct($productId, 10, 13.33)
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+0400')
+                ->createReceiptProduct($product->id, 10, 13.33)
             ->flush();
 
 
@@ -305,7 +308,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 7
                 )
             )
@@ -330,7 +333,7 @@ class ReturnControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product->id, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('7.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
         Assert::assertJsonPathEquals('93.31', 'products.0.totalPrice', $response);
@@ -344,7 +347,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 6
                 )
             )
@@ -373,7 +376,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 3
                 )
             )
@@ -398,7 +401,7 @@ class ReturnControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($sale->id, 'sale.id', $response);
 
         Assert::assertJsonPathCount(1, 'products.*.id', $response);
-        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals($product->id, 'products.0.product.id', $response);
         Assert::assertJsonPathEquals('3.000', 'products.0.quantity', $response);
         Assert::assertJsonPathEquals('13.33', 'products.0.price', $response);
         Assert::assertJsonPathEquals('39.99', 'products.0.totalPrice', $response);
@@ -412,7 +415,7 @@ class ReturnControllerTest extends WebTestCase
             'sale' => $sale->id,
             'products' => array(
                 array(
-                    'product' => $productId,
+                    'product' => $product->id,
                     'quantity' => 6
                 )
             )
@@ -439,31 +442,60 @@ class ReturnControllerTest extends WebTestCase
     public function testProductInventoryChangeOnReturn()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProductByName();
+        $product = $this->factory()->catalog()->getProduct();
 
         $this->factory()
             ->invoice()
-            ->createInvoice(array(), $store->id)
-            ->createInvoiceProduct($productId, 100, 15.00)
+               ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 100, 15.00)
             ->flush();
 
-        $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 100, 15.00);
 
         $sale = $this->factory()
             ->receipt()
-            ->createSale($store, '2014-09-07T08:23:12+04:00')
-            ->createReceiptProduct($productId, 90, 15)
+                ->createSale($store, '2014-09-07T08:23:12+04:00')
+                ->createReceiptProduct($product->id, 90, 15)
             ->flush();
 
-        $this->assertStoreProductTotals($store->id, $productId, 10, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 10, 15.00);
 
-        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:23:12+04:00', $productId, 10);
+        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:23:12+04:00', $product->id, 10);
 
-        $this->assertStoreProductTotals($store->id, $productId, 20, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 20, 15.00);
 
-        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:24:54+04:00', $productId, 4.555);
+        $this->postReturnWithOneProduct($store, $sale, '2014-09-09T08:24:54+04:00', $product->id, 4.555);
 
-        $this->assertStoreProductTotals($store->id, $productId, 24.555, 15.00);
+        $this->assertStoreProductTotals($store->id, $product->id, 24.555, 15.00);
+    }
+
+    public function testPostWithDeletedStore()
+    {
+        $store = $this->factory()->store()->createStore();
+
+        $product = $this->factory()->catalog()->getProductByName();
+
+        $this->factory()->store()->deleteStore($store);
+
+        $saleData = StockMovementBuilder::create()
+            ->addProduct($product->id, 10, 5.99)
+            ->toArray();
+
+        $accessToken = $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/returns",
+            $saleData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals(
+            'Операции с участием удаленного магазина запрещены',
+            'errors.errors.0',
+            $postResponse
+        );
     }
 
     /**

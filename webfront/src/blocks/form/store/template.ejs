@@ -2,27 +2,34 @@
     <div class="form-group">
         <label class="control-label">Название *</label>
 
-        <div class="input-icon right">
-            <input
-                    name="name"
-                    type="text"
-                    placeholder="Название магазина"
-                    class="form-control"
-                    autofocus
-                    value="<%- model.get('name') %>">
-        </div>
+        <input
+                name="name"
+                type="text"
+                placeholder="Название магазина"
+                class="form-control"
+                autofocus
+                value="<%- model.get('name') %>">
     </div>
 
     <div class="form-group">
         <label class="control-label">Адрес</label>
 
-        <div class="input-icon right">
-            <input
-                    name="address"
-                    type="text"
-                    placeholder="Адрес магазина"
-                    class="form-control"
-                    value="<%- model.get('address') %>">
-        </div>
+        <input
+                name="address"
+                type="text"
+                placeholder="Адрес магазина"
+                class="form-control"
+                value="<%- model.get('address') %>">
     </div>
+
+    <% if (model.id) { %>
+
+    <div style="padding-top: 20px;">
+
+        <b block="removeButton"></b>
+
+    </div>
+
+
+    <% } %>
 </form>

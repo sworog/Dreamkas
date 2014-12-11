@@ -20,11 +20,9 @@ public class WriteOffCreateModalWindow extends StockMovementModalPage {
     public void createElements() {
         super.createElements();
         put("cause", new Input(this, "//*[@class='form_stockMovementProducts__controls']//*[@name='cause']"));
-    }
 
-    @Override
-    public void confirmationOkClick() {
-        confirmationOkClick("Списать");
+        putDefaultConfirmationOkButton(
+                getConfirmationOkButton("Списать"));
     }
 
     @Override

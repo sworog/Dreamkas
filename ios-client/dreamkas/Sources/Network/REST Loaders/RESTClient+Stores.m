@@ -61,7 +61,8 @@
           
           DPLog(LOG_ON, @"Сохранили изменения в БД");
           
-          completionBlock(models, nil);
+          if (completionBlock)
+              completionBlock(models, nil);
       } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
           // передаем данные в блок обработки
           if (completionBlock)
@@ -101,7 +102,8 @@
           
           DPLog(LOG_ON, @"Сохранили изменения в БД");
           
-          completionBlock(models, nil);
+          if (completionBlock)
+              completionBlock(models, nil);
       } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
           // передаем данные в блок обработки
           if (completionBlock)
@@ -141,7 +143,8 @@
           
           DPLog(LOG_ON, @"Сохранили изменения в БД");
           
-          completionBlock(models, nil);
+          if (completionBlock)
+              completionBlock(models, nil);
       } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
           // передаем данные в блок обработки
           if (completionBlock)

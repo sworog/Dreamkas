@@ -2,6 +2,8 @@
 
 <div id="<%- id %>" class="modal modal_supplier">
 
+    <% if (!deleted) { %>
+
     <div class="modal__header">
 
         <% if (referrer) { %>
@@ -30,4 +32,25 @@
            data-id="<%- formId %>"></b>
 
     </div>
+
+    <% } else { %>
+
+    <div class="modal__body" style="text-align: center">
+        <h3 name="successRemoveTitle" style="padding-bottom: 20px;">
+            Поставщик удален
+        </h3>
+        <h4 name="removedSupplierName" style="padding-bottom: 60px;">
+            <%- models.supplier.get('name') %>
+        </h4>
+
+        <div style="padding-bottom: 30px;">
+            <a name="removeContinue" class="btn btn-primary modal__closeLink"
+               style="padding: 10px 30px;">
+                Продолжить работу
+            </a>
+        </div>
+    </div>
+
+    <% } %>
+
 </div>

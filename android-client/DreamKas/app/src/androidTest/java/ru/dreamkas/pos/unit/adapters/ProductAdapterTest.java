@@ -39,7 +39,7 @@ public class ProductAdapterTest extends AndroidTestCase {
         data.add(product1);
         data.add(product2);
 
-        mAdapter = new ProductsAdapter(getContext(), R.layout.arrow_listview_item, data);
+        mAdapter = new ProductsAdapter(getContext(), R.layout.product_search_listview_item, data);
     }
 
     public void testGetItem() {

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import ru.dreamkas.apihelper.DateTimeHelper;
 import ru.dreamkas.collection.abstractObjects.AbstractObjectCollection;
 import ru.dreamkas.elements.bootstrap.buttons.PrimaryBtnFacade;
+import ru.dreamkas.elements.bootstrap.buttons.TransparentBtnFacade;
 import ru.dreamkas.elements.items.DateInput;
 import ru.dreamkas.elements.items.Input;
 import ru.dreamkas.elements.items.NonType;
@@ -33,6 +34,7 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
         put("quantity", new Input(this, "//*[@name='quantity']"));
 
         put("заголовок успешного удаления", new NonType(this, "//*[@name='successRemoveTitle']"));
+        put("кнопка 'Создать магазин'", new TransparentBtnFacade(this, "Создать магазин"));
     }
 
     public abstract AbstractObjectCollection getProductCollection();
@@ -48,24 +50,8 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
 
     public abstract Integer getProductRowsCount();
 
-    @Override
-    public void deleteButtonClick() {
-        String xpath = String.format("%s//*[@class='removeLink']", modalWindowXpath());
-        findVisibleElement(By.xpath(xpath)).click();
-    }
-
-    protected void confirmationOkClick(String buttonLabel) {
-        new PrimaryBtnFacade(this, buttonLabel).click();
-    }
-
-    protected void deleteButtonClick(String cssClass) {
-        String xpath = String.format("%s//*[@class='removeLink %s']", modalWindowXpath(), cssClass);
-        findVisibleElement(By.xpath(xpath)).click();
-    }
-
-    public void confirmDeleteButtonClick() {
-        String xpath = String.format("%s//*[@class='confirmLink__confirmation']//*[contains(@class, '__removeLink')]", modalWindowXpath());
-        findVisibleElement(By.xpath(xpath)).click();
+    protected PrimaryBtnFacade getConfirmationOkButton(String buttonLabel) {
+        return new PrimaryBtnFacade(this, buttonLabel);
     }
 
     protected Integer getProductRowsCount(String tableClass) {

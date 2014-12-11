@@ -6,10 +6,16 @@ use JMS\Serializer\SerializerInterface;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Test\Assert;
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
-class MetaDocumentTest extends DataAwareTestCase
+class MetaDocumentTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+    }
+
     /**
      * @return SerializerInterface
      */
@@ -28,14 +34,14 @@ class MetaDocumentTest extends DataAwareTestCase
 
     public function testInvoiceProductsReferenceManyIsSerialized()
     {
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
+        $product1 = $this->factory()->catalog()->getProduct('1');
+        $product2 = $this->factory()->catalog()->getProduct('2');
         $store = $this->factory()->store()->getStore();
         $invoice = $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId1, 10, 12.80)
-                ->createInvoiceProduct($productId2, 15, 18.70)
+                ->createInvoiceProduct($product1->id, 10, 12.80)
+                ->createInvoiceProduct($product2->id, 15, 18.70)
             ->flush();
 
         $metaDocument = new MetaDocument($invoice);
@@ -51,15 +57,15 @@ class MetaDocumentTest extends DataAwareTestCase
 
     public function testWriteOffProductsReferenceManyIsSerialized()
     {
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
+        $product1 = $this->factory()->catalog()->getProduct('1');
+        $product2 = $this->factory()->catalog()->getProduct('2');
         $store = $this->factory()->store()->getStore();
 
         $writeOff = $this->factory()
             ->writeOff()
                 ->createWriteOff($store)
-                ->createWriteOffProduct($productId1, 10, 12.8, '*')
-                ->createWriteOffProduct($productId2, 5, 18.7, '**')
+                ->createWriteOffProduct($product1->id, 10, 12.8, '*')
+                ->createWriteOffProduct($product2->id, 5, 18.7, '**')
             ->flush();
 
         $metaDocument = new MetaDocument($writeOff);

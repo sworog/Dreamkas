@@ -6,6 +6,7 @@ import ru.dreamkas.common.pageObjects.CommonPageObject;
 
 import static junit.framework.Assert.fail;
 
+@Deprecated
 public class Autocomplete extends CommonItem {
 
     public static final String AUTOCOMPLETE_XPATH_PATTERN = "//*[@role='presentation']/*[text()='%s']";

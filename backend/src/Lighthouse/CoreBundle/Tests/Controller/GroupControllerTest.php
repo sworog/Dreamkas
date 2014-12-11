@@ -20,7 +20,7 @@ class GroupControllerTest extends WebTestCase
             'rounding' => 'nearest1'
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -41,7 +41,7 @@ class GroupControllerTest extends WebTestCase
             'name' => 'Продовольственные товары',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -59,14 +59,14 @@ class GroupControllerTest extends WebTestCase
 
     public function testPutGroupActionRoundingUpdated()
     {
-        $groupId = $this->createGroup('Алкоголь');
+        $group = $this->factory()->catalog()->getGroup('Алкоголь');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$group->id}"
         );
 
         $this->assertResponseCode(200);
@@ -81,7 +81,7 @@ class GroupControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/groups/' . $groupId,
+            "/api/1/groups/{$group->id}",
             $groupData
         );
 
@@ -92,7 +92,7 @@ class GroupControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$group->id}"
         );
 
         $this->assertResponseCode(200);
@@ -124,7 +124,7 @@ class GroupControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -267,19 +267,19 @@ class GroupControllerTest extends WebTestCase
      */
     public function testPutGroupValidation($expectedCode, array $data, array $assertions = array())
     {
-        $groupId = $this->createGroup('Прод тов');
+        $group = $this->factory()->catalog()->getGroup('Прод тов');
 
         $groupData = $data + array(
             'name' => 'Продовольственные товары',
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/groups/' . $groupId,
+            "/api/1/groups/{$group->id}",
             $groupData
         );
 
@@ -294,17 +294,17 @@ class GroupControllerTest extends WebTestCase
 
     public function testGetGroup()
     {
-        $groupId = $this->createGroup('Прод Тов');
+        $group = $this->factory()->catalog()->getGroup('Прод Тов');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$group->id}"
         );
 
-        Assert::assertJsonPathEquals($groupId, 'id', $postResponse);
+        Assert::assertJsonPathEquals($group->id, 'id', $postResponse);
         Assert::assertJsonPathEquals('Прод Тов', 'name', $postResponse);
         Assert::assertJsonHasPath('rounding.name', $postResponse);
         Assert::assertJsonHasPath('rounding.title', $postResponse);
@@ -312,28 +312,30 @@ class GroupControllerTest extends WebTestCase
 
     public function testGetGroupWithCategoriesAndSubCategories()
     {
-        $groupId = $this->createGroup('1');
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                '1' => array(
+                    '1.1' => array(
+                        '1.1.1' => array(),
+                        '1.1.2' => array(),
+                        '1.1.3' => array(),
+                    ),
+                    '1.2' => array(
+                        '1.2.1' => array(),
+                        '1.2.2' => array(),
+                        '1.2.3' => array(),
+                        '1.2.4' => array(),
+                    )
+                )
+            )
+        );
 
-        $categoryId1 = $this->createCategory($groupId, '1.1');
-        $categoryId2 = $this->createCategory($groupId, '1.2');
-
-        $this->createSubCategory($categoryId1, '1.1.1');
-        $this->createSubCategory($categoryId1, '1.1.2');
-        $this->createSubCategory($categoryId1, '1.1.3');
-
-        $this->createSubCategory($categoryId2, '1.2.1');
-        $this->createSubCategory($categoryId2, '1.2.2');
-        $this->createSubCategory($categoryId2, '1.2.3');
-        $this->createSubCategory($categoryId2, '1.2.4');
-
-        $this->client->shutdownKernelBeforeRequest();
-
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$catalog['1']->id}"
         );
 
         $this->assertResponseCode(200);
@@ -341,8 +343,8 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonHasPath('categories', $getResponse);
 
         Assert::assertJsonPathCount(2, 'categories.*.id', $getResponse);
-        Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1.1']->id, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1.2']->id, 'categories.*.id', $getResponse, 1);
 
         Assert::assertJsonPathCount(true, 'categories.0.subCategories.*.id', $getResponse);
         Assert::assertJsonPathCount(true, 'categories.1.subCategories.*.id', $getResponse);
@@ -350,12 +352,17 @@ class GroupControllerTest extends WebTestCase
 
     public function testGetGroups()
     {
-        $groupIds = array();
-        for ($i = 0; $i < 5; $i++) {
-            $groupIds[$i] = $this->createGroup('Прод Тов' . $i);
-        }
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                'Прод Тов 1' => array(),
+                'Прод Тов 2' => array(),
+                'Прод Тов 3' => array(),
+                'Прод Тов 4' => array(),
+                'Прод Тов 5' => array(),
+            )
+        );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -366,20 +373,20 @@ class GroupControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $postResponse);
 
-        foreach ($groupIds as $id) {
-            Assert::assertJsonPathEquals($id, '*.id', $postResponse);
+        foreach ($catalog as $group) {
+            Assert::assertJsonPathEquals($group->id, '*.id', $postResponse, 1);
         }
     }
 
     public function testGroupUnique()
     {
-        $this->createGroup('Прод Тов');
+        $this->factory()->catalog()->getGroup('Прод Тов');
 
         $postData = array(
             'name' => 'Прод Тов',
         );
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -394,14 +401,14 @@ class GroupControllerTest extends WebTestCase
 
     public function testDeleteGroupNoCategories()
     {
-        $groupId = $this->createGroup();
+        $group = $this->factory()->catalog()->getGroup();
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$group->id}"
         );
 
         $this->assertResponseCode(200);
@@ -409,7 +416,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$group->id}"
         );
 
         $this->assertResponseCode(204);
@@ -418,7 +425,7 @@ class GroupControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$group->id}"
         );
 
         $this->assertResponseCode(404);
@@ -426,44 +433,53 @@ class GroupControllerTest extends WebTestCase
 
     public function testDeleteGroupWithCategories()
     {
-        $groupId = $this->createGroup();
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                '0' => array(
+                    '1' => array(),
+                    '2' => array(),
+                )
+            )
+        );
 
-        $this->createCategory($groupId, '1');
-        $this->createCategory($groupId, '2');
-
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->client->setCatchException();
-        $this->clientJsonRequest(
+        $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$catalog[0]->id}"
         );
 
         $this->assertResponseCode(409);
+        Assert::assertJsonHasPath('message', $response);
     }
 
     public function testGroupWithCategories()
     {
-        $groupId = $this->createGroup();
-
-        $categoryId1 = $this->createCategory($groupId, '1');
-        $categoryId2 = $this->createCategory($groupId, '2');
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                '0' => array(
+                    '1' => array(),
+                    '2' => array()
+                )
+            )
+        );
 
         $this->client->shutdownKernelBeforeRequest();
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/groups/' . $groupId
+            "/api/1/groups/{$catalog['0']->id}"
         );
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(2, 'categories.*.id', $getResponse);
-        Assert::assertJsonPathEquals($categoryId1, 'categories.*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($categoryId2, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['1']->id, 'categories.*.id', $getResponse, 1);
+        Assert::assertJsonPathEquals($catalog['2']->id, 'categories.*.id', $getResponse, 1);
     }
 
     /**
@@ -477,9 +493,9 @@ class GroupControllerTest extends WebTestCase
      */
     public function testAccessGroup($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $groupId = $this->createGroup();
+        $group = $this->factory()->catalog()->getGroup();
 
-        $url = str_replace('__GROUP_ID__', $groupId, $url);
+        $url = str_replace('__GROUP_ID__', $group->id, $url);
 
         $accessToken = $this->factory()->oauth()->authAsRole($role);
 
@@ -508,25 +524,25 @@ class GroupControllerTest extends WebTestCase
             array(
                 '/api/1/groups',
                 'GET',                              // Method
-                'ROLE_COMMERCIAL_MANAGER',          // Role
+                User::ROLE_COMMERCIAL_MANAGER,          // Role
                 200,                              // Response Code
             ),
             array(
                 '/api/1/groups',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
+                User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups',
                 'GET',
-                'ROLE_STORE_MANAGER',
+                User::ROLE_STORE_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups',
                 'GET',
-                'ROLE_ADMINISTRATOR',
+                User::ROLE_ADMINISTRATOR,
                 403,
             ),
 
@@ -536,25 +552,25 @@ class GroupControllerTest extends WebTestCase
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
-                'ROLE_COMMERCIAL_MANAGER',
+                User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
-                'ROLE_DEPARTMENT_MANAGER',
+                User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
-                'ROLE_STORE_MANAGER',
+                User::ROLE_STORE_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'GET',
-                'ROLE_ADMINISTRATOR',
+                User::ROLE_ADMINISTRATOR,
                 403,
             ),
 
@@ -564,25 +580,25 @@ class GroupControllerTest extends WebTestCase
             array(
                 '/api/1/groups',
                 'POST',
-                'ROLE_COMMERCIAL_MANAGER',
+                User::ROLE_COMMERCIAL_MANAGER,
                 201,
             ),
             array(
                 '/api/1/groups',
                 'POST',
-                'ROLE_DEPARTMENT_MANAGER',
+                User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups',
                 'POST',
-                'ROLE_STORE_MANAGER',
+                User::ROLE_STORE_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups',
                 'POST',
-                'ROLE_ADMINISTRATOR',
+                User::ROLE_ADMINISTRATOR,
                 403,
             ),
 
@@ -592,25 +608,25 @@ class GroupControllerTest extends WebTestCase
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
-                'ROLE_COMMERCIAL_MANAGER',
+                User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
-                'ROLE_DEPARTMENT_MANAGER',
+                User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
-                'ROLE_STORE_MANAGER',
+                User::ROLE_STORE_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'PUT',
-                'ROLE_ADMINISTRATOR',
+                User::ROLE_ADMINISTRATOR,
                 403,
             ),
 
@@ -620,25 +636,25 @@ class GroupControllerTest extends WebTestCase
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
-                'ROLE_COMMERCIAL_MANAGER',
+                User::ROLE_COMMERCIAL_MANAGER,
                 204,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
-                'ROLE_DEPARTMENT_MANAGER',
+                User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
-                'ROLE_STORE_MANAGER',
+                User::ROLE_STORE_MANAGER,
                 403,
             ),
             array(
                 '/api/1/groups/__GROUP_ID__',
                 'DELETE',
-                'ROLE_ADMINISTRATOR',
+                User::ROLE_ADMINISTRATOR,
                 403,
             ),
         );
@@ -653,21 +669,21 @@ class GroupControllerTest extends WebTestCase
     {
         $manager = $this->factory()->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
-        $groupId = $this->createGroup();
-        $storeId = $this->factory()->store()->getStoreId();
+        $group = $this->factory()->catalog()->getGroup();
+        $store = $this->factory()->store()->getStore();
 
-        $this->factory()->store()->linkManagers($storeId, $manager->id, $rel);
+        $this->factory()->store()->linkManagers($store->id, $manager->id, $rel);
 
         $accessToken = $this->factory()->oauth()->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/groups/' . $groupId
+            "/api/1/stores/{$store->id}/groups/{$group->id}"
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals($groupId, 'id', $getResponse);
+        Assert::assertJsonPathEquals($group->id, 'id', $getResponse);
         Assert::assertJsonHasPath('rounding.name', $getResponse);
     }
 
@@ -680,11 +696,11 @@ class GroupControllerTest extends WebTestCase
     {
         $manager = $this->factory()->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
-        $groupId = $this->createGroup();
-        $storeId1 = $this->factory()->store()->getStoreId('42');
-        $storeId2 = $this->factory()->store()->getStoreId('43');
+        $group = $this->factory()->catalog()->getGroup();
+        $store1 = $this->factory()->store()->getStore('42');
+        $store2 = $this->factory()->store()->getStore('43');
 
-        $this->factory()->store()->linkManagers($storeId1, $manager->id, $rel);
+        $this->factory()->store()->linkManagers($store1->id, $manager->id, $rel);
 
         $accessToken = $this->factory()->oauth()->auth($manager, 'password');
 
@@ -692,7 +708,7 @@ class GroupControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/groups/' . $groupId
+            "/api/1/stores/{$store2->id}/groups/{$group->id}"
         );
 
         $this->assertResponseCode(403);
@@ -708,8 +724,8 @@ class GroupControllerTest extends WebTestCase
     {
         $manager = $this->factory()->user()->getRoleUser($role);
 
-        $groupId = $this->createGroup();
-        $storeId = $this->factory()->store()->getStoreId();
+        $group = $this->factory()->catalog()->getGroup();
+        $store = $this->factory()->store()->getStore();
 
         $accessToken = $this->factory()->oauth()->auth($manager, 'password');
 
@@ -717,7 +733,7 @@ class GroupControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/groups/' . $groupId
+            "/api/1/stores/{$store->id}/groups/{$group->id}"
         );
 
         $this->assertResponseCode(403);
@@ -734,27 +750,31 @@ class GroupControllerTest extends WebTestCase
     {
         $manager = $this->factory()->user()->getRoleUser($role);
 
-        $groupId1 = $this->createGroup('1');
-        $groupId2 = $this->createGroup('2');
-        $groupId3 = $this->createGroup('3');
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                '1' => array(),
+                '2' => array(),
+                '3' => array()
+            )
+        );
 
-        $storeId = $this->factory()->store()->getStoreId();
+        $store = $this->factory()->store()->getStore();
 
-        $this->factory()->store()->linkManagers($storeId, $manager->id, $rel);
+        $this->factory()->store()->linkManagers($store->id, $manager->id, $rel);
 
         $accessToken = $this->factory()->oauth()->auth($manager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/groups'
+            "/api/1/stores/{$store->id}/groups"
         );
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(3, '*.id', $getResponse);
-        Assert::assertJsonPathEquals($groupId1, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId2, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($groupId3, '*.id', $getResponse, 1);
+        foreach ($catalog as $group) {
+            Assert::assertJsonPathEquals($group->id, '*.id', $getResponse, 1);
+        }
     }
 
     /**
@@ -809,13 +829,10 @@ class GroupControllerTest extends WebTestCase
 
         $group = new Group();
 
-        $documentManagerMock = $this->getMock(
-            'Doctrine\\ODM\\MongoDB\\DocumentManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $documentManagerMock = $this->getMockBuilder('Doctrine\\ODM\\MongoDB\\DocumentManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $documentManagerMock
             ->expects($this->once())
             ->method('persist');
@@ -826,18 +843,15 @@ class GroupControllerTest extends WebTestCase
             ->with($this->isEmpty())
             ->will($this->throwException($exception));
 
-        $groupRepositoryMock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\GroupRepository',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $groupRepositoryMock = $this->getMockBuilder(
+            'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\GroupRepository'
+        )->disableOriginalConstructor()->getMock();
 
         $groupRepositoryMock
             ->expects($this->once())
             ->method('createNew')
             ->will($this->returnValue($group));
+
         $groupRepositoryMock
             ->expects($this->exactly(2))
             ->method('getDocumentManager')

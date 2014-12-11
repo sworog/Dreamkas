@@ -38,6 +38,7 @@
 #import "NSDate+Utilities.h"
 #import "UIView+Positioning.h"
 #import "NSString+CaseMethods.h"
+#import "PriceNumberFormatter.h"
 
 //
 // Модели и их обработчики
@@ -48,6 +49,9 @@
 #import "StoreModel.h"
 #import "ProductModel.h"
 #import "GroupModel.h"
+#import "SaleItemModel.h"
+#import "SaleItemModel+Helper.h"
+#import "SaleModel.h"
 
 //
 // Менеджеры и хэлперы
@@ -58,6 +62,7 @@
 #import "CurrentUserHelper.h"
 #import "DeviceInfoHelper.h"
 #import "DialogHelper.h"
+#import "CountSaleHelper.h"
 
 //
 // Вспомогательные протоколы
@@ -73,10 +78,13 @@
 #import "RESTClient.h"
 #import "RESTClient+Auth.h"
 #import "RESTClient+Stores.h"
+#import "RESTClient+Sales.h"
 
 //
 // Кастомные компоненты
 //
+
+#import "dreamkas-Swift.h"
 
 #import "AbstractNavigationController.h"
 
@@ -84,14 +92,16 @@
 #import "AbstractViewController+Modal.h"
 #import "AbstractViewController+Sidemenu.h"
 #import "AbstractViewController+Keyboard.h"
+#import "AbstractViewController+ActionButton.h"
 
 #import "AbstractTableViewController.h"
 
 #import "CustomLabel.h"
 #import "WordWrappingLabel.h"
-#import "CustomFilledButton.h"
-#import "CustomEmptyButton.h"
-#import "CustomTextField.h"
+#import "CustomFilledButton.h" // TODO: delete
+#import "CustomEmptyButton.h" // TODO: delete
+#import "OldCustomTextField.h" // TODO: delete
 #import "CustomTableViewCell.h"
+#import "ActionButton.h"
 
 #endif

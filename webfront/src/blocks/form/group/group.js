@@ -6,19 +6,18 @@ define(function(require, exports, module) {
         id: 'form_group',
         groupId: 0,
         template: require('ejs!./template.ejs'),
-        events: {
-            'click .form_group__removeLink': function(e) {
-                var block = this;
+        blocks: {
+            popover: require('blocks/popover/popover'),
+            removeButton: function(){
 
-                e.target.classList.add('loading');
+                var block = this,
+                    RemoveButton = require('blocks/removeButton/removeButton');
 
-                block.model.destroy().then(function() {
-                    e.target.classList.remove('loading');
+                return new RemoveButton({
+                    model: block.model,
+                    removeText: 'Удалить группу'
                 });
             }
-        },
-        blocks: {
-            popover: require('blocks/popover/popover')
         },
         model: function(){
             var GroupModel = require('resources/group/model');

@@ -83,10 +83,6 @@ lighthouse.core.bank_account:
     resource: Lighthouse\CoreBundle\Controller\BankAccountController
     type:     rest
 
-lighthouse.core.job:
-    resource: Lighthouse\CoreBundle\Controller\JobController
-    type:     rest
-
 lighthouse.core.log:
     resource: Lighthouse\CoreBundle\Controller\LogController
     type:     rest
@@ -115,4 +111,8 @@ lighthouse.core.order:
 lighthouse.core.order_product:
     resource: Lighthouse\CoreBundle\Controller\OrderProductController
     parent:   lighthouse.core.order
+    type:     rest
+
+lighthouse.core.cash_flow:
+    resource: Lighthouse\CoreBundle\Controller\CashFlowController
     type:     rest

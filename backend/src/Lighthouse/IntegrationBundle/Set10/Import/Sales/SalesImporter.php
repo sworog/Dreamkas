@@ -121,7 +121,7 @@ class SalesImporter
      * @param ProductRepository $productRepository
      * @param StoreRepository $storeRepository
      * @param VersionRepository $productVersionRepository
-     * @param \Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository $receiptRepository
+     * @param ReceiptRepository $receiptRepository
      * @param ValidatorInterface $validator
      * @param MoneyModelTransformer $moneyTransformer
      * @param NumericFactory $numericFactory
@@ -286,7 +286,7 @@ class SalesImporter
     /**
      * @param PurchaseElement $purchaseElement
      * @param DatePeriod $datePeriod
-     * @return Sale|\Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne|null
+     * @return Sale|Returne|null
      */
     public function createReceipt(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
@@ -303,7 +303,7 @@ class SalesImporter
      * @param PurchaseElement $purchaseElement
      * @param DatePeriod $datePeriod
      * @throws \Exception
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale
+     * @return Sale
      */
     public function createSale(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
@@ -340,7 +340,7 @@ class SalesImporter
     /**
      * @param PurchaseElement $purchaseElement
      * @param DatePeriod $datePeriod
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne
+     * @return Returne
      */
     public function createReturn(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
@@ -409,7 +409,7 @@ class SalesImporter
 
     /**
      * @param PositionElement $positionElement
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct
+     * @return SaleProduct
      */
     public function createSaleProduct(PositionElement $positionElement)
     {
@@ -423,7 +423,7 @@ class SalesImporter
 
     /**
      * @param PositionElement $positionElement
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct
+     * @return ReturnProduct
      */
     public function createReturnProduct(PositionElement $positionElement)
     {

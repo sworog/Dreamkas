@@ -1,0 +1,47 @@
+{
+    "name": "beanstalkd",
+    "description": "",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "default_attributes": {
+        "beanstalkd": {
+            "opts": {
+                "l": "0.0.0.0",
+                "p": "11300"
+            },
+            "start_during_boot": true
+        },
+        "iptables-ng": {
+            "rules": {
+                "filter": {
+                    "INPUT": {
+                        "01-beanstalkd-local": {
+                            "rule": "-p tcp -s 127.0.0.1 --dport 11300 -j ACCEPT",
+                            "ip_version": 4
+                        },
+                        "01-beanstalkd-remote-office": {
+                            "rule": "-p tcp -s 85.114.29.78 --dport 11300 -j ACCEPT",
+                            "ip_version": 4
+                        },
+                        "01-beanstalkd-remote-android-agent": {
+                            "rule": "-p tcp -s 95.213.151.58 --dport 11300 -j ACCEPT",
+                            "ip_version": 4
+                        },
+                        "01-beanstalkd-guia": {
+                            "rule": "-p tcp -s 37.200.69.192 --dport 11300 -j ACCEPT",
+                            "ip_version": 4
+                        },
+                        "10-beanstalkd-deny": {
+                            "rule": "-p tcp --dport 11300 -j DROP"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[beanstalkd]",
+        "recipe[iptables-ng]"
+    ]
+}

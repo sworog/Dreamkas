@@ -31,6 +31,7 @@ define(function(require, exports, module) {
 
     return Block.extend({
         referrer: null,
+        showDeletedMessage: true,
         events: {
             'click [data-modal-dialog]': function(e) {
                 var block = this,
@@ -49,6 +50,16 @@ define(function(require, exports, module) {
                     block.hide();
                 }
             }
+        },
+        initialize: function(data){
+
+            data = data || {};
+
+            if (typeof data.deleted === 'undefined') {
+                this.deleted = false;
+            }
+
+            return Block.prototype.initialize.apply(this, arguments);
         },
         render: function() {
             var block = this,
@@ -81,8 +92,17 @@ define(function(require, exports, module) {
 
             block.$('[autofocus]').focus();
         },
-        hide: function() {
+        hide: function(options) {
             var block = this;
+
+            options = options || {};
+
+            if (!options.submitSuccess &&
+                block.isChanged() &&
+                !confirm('Изменения не будут сохранены. Отменить изменения?'))
+            {
+                return;
+            }
 
             document.body.classList.remove('modal-open');
 
@@ -92,12 +112,21 @@ define(function(require, exports, module) {
 
             block.reset();
 
-            block.trigger('hidden');
+            block.trigger('hidden', options);
         },
         reset: function() {
             this.$('form').each(function() {
                 this.block && this.block.reset();
             });
+        },
+        isChanged: function() {
+            var isChanged = false;
+
+            this.$('form').each(function() {
+                isChanged = isChanged || (this.block && this.block.isChanged());
+            });
+
+            return isChanged;
         }
     });
 });

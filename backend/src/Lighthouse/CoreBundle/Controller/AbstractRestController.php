@@ -12,6 +12,8 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
 use Exception;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 abstract class AbstractRestController extends FOSRestController
 {
@@ -31,14 +33,16 @@ abstract class AbstractRestController extends FOSRestController
      * @param FormTypeInterface $formType
      * @param bool $save
      * @param bool $clearMissing
-     * @return FormInterface|AbstractDocument
+     * @param ConstraintViolationListInterface $extraViolations
+     * @return AbstractDocument|FormInterface
      */
     protected function processForm(
         Request $request,
         AbstractDocument $document = null,
         FormTypeInterface $formType = null,
         $save = true,
-        $clearMissing = true
+        $clearMissing = true,
+        ConstraintViolationListInterface $extraViolations = null
     ) {
         return $this->processFormCallback(
             $request,
@@ -46,7 +50,8 @@ abstract class AbstractRestController extends FOSRestController
             $document,
             $formType,
             $save,
-            $clearMissing
+            $clearMissing,
+            $extraViolations
         );
     }
 
@@ -57,6 +62,7 @@ abstract class AbstractRestController extends FOSRestController
      * @param FormTypeInterface $formType
      * @param bool $save
      * @param bool $clearMissing
+     * @param ConstraintViolationListInterface $extraViolations
      * @return AbstractDocument|FormInterface
      */
     protected function processFormCallback(
@@ -65,9 +71,14 @@ abstract class AbstractRestController extends FOSRestController
         $document = null,
         FormTypeInterface $formType = null,
         $save = true,
-        $clearMissing = true
+        $clearMissing = true,
+        ConstraintViolationListInterface $extraViolations = null
     ) {
         $form = $this->submitForm($request, $document, $formType, $clearMissing);
+
+        if ($extraViolations) {
+            $this->addFormErrorByViolationList($form, $extraViolations);
+        }
 
         if ($form->isValid()) {
             $document = ($document) ?: $form->getData();
@@ -196,6 +207,35 @@ abstract class AbstractRestController extends FOSRestController
         );
         $violationMapper = new ViolationMapper();
         $violationMapper->mapViolation($violation, $form);
+        return $form;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param ConstraintViolationInterface $violation
+     * @return FormInterface
+     */
+    protected function addFormErrorByViolation(FormInterface $form, ConstraintViolationInterface $violation)
+    {
+        return $this->addFormError(
+            $form,
+            $violation->getPropertyPath(),
+            $violation->getMessageTemplate(),
+            $violation->getMessageParameters()
+        );
+    }
+
+
+    /**
+     * @param FormInterface $form
+     * @param ConstraintViolationListInterface|ConstraintViolationInterface[] $violationList
+     * @return FormInterface
+     */
+    protected function addFormErrorByViolationList(FormInterface $form, ConstraintViolationListInterface $violationList)
+    {
+        foreach ($violationList as $violation) {
+            $this->addFormErrorByViolation($form, $violation);
+        }
         return $form;
     }
 }

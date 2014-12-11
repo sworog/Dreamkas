@@ -25,6 +25,12 @@ public class GeneralEndUserSteps {
         generalSteps.openPage();
     }
 
+    @Given("пользователь* открывает страницу '$pageObjectName'")
+    public void givenTheUserOpensPageByPageObjectName(String pageObjectName) {
+        generalSteps.setCurrentPageObject(pageObjectName);
+        generalSteps.openPage();
+    }
+
     @When("пользователь* вводит данные в поля $exampleTable")
     public void userInputsField(ExamplesTable exampleTable) {
         generalSteps.input(exampleTable);
@@ -45,6 +51,11 @@ public class GeneralEndUserSteps {
     @When("пользователь* нажимает на елемент с именем '$name'")
     public void whenTheUserClicksOnElementWithName(String name) {
         generalSteps.clickOnCommonItemWihName(name);
+    }
+
+    @When("пользователь* нажимает на кнопку создания '$button'")
+    public void whenTheUserClicksOnCreateButton() {
+        generalSteps.clickOnDefaultAddObjectButton();
     }
 
     @Then("пользователь* проверяет, что поле с именем '$elementName' имеет значение '$value'")
@@ -96,5 +107,25 @@ public class GeneralEndUserSteps {
     @Then("пользователь проверяет, что у элемента с именем '$commonItemName' css '$cssValue' имеет значение '$value'")
     public void thenTheUserChecksCommonItemCssValue(String commonItemName, String cssValue, String value) {
         generalSteps.assertCommonItemCssValue(commonItemName, cssValue, value);
+    }
+
+    @Then("пользователь* проверяет, что список '$collectionName' не содержит элемент с именем '$locator'")
+    public void thenUserChecksThatCollectionNotContainObjectWithLocator(String locator) {
+        generalSteps.collectionNotContainObjectWithLocator(locator);
+    }
+
+    @Then("пользователь* проверяет, что список '$collectionName' содержит элемент с именем '$locator'")
+    public void thenUserChecksThatCollectionContainObjectWithLocator(String locator) {
+        generalSteps.collectionContainObjectWithLocator(locator);
+    }
+
+    @Then("пользователь* проверяет, что селект с именем '$elementName' не содержит опцию '$option'")
+    public void thenUserChecksThatSelectNotContainExactlyOption(String elementName, String option) {
+        generalSteps.selectNotContainExactlyOption(elementName, option);
+    }
+
+    @Then("пользователь* проверяет, что селект с именем '$elementName' не содержит опцию like '$option'")
+    public void thenUserChecksThatSelectNotContainOption(String elementName, String option) {
+        generalSteps.selectNotContainOption(elementName, option);
     }
 }

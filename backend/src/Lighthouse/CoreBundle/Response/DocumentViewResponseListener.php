@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Response;
 
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Response\DocumentViewResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\HttpKernel\HttpKernelInterface;

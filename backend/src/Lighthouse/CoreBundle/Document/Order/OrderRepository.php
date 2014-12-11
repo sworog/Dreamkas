@@ -3,8 +3,12 @@
 namespace Lighthouse\CoreBundle\Document\Order;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\LockMode;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
+/**
+ * @method Order find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ */
 class OrderRepository extends DocumentRepository
 {
     /**

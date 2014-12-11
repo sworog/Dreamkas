@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Doctrine\ODM\MongoDB\Cursor;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
@@ -29,6 +30,12 @@ class InvoiceController extends AbstractRestController
      * @var InvoiceRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("validator")
+     * @var ValidatorInterface
+     */
+    protected $validator;
 
     /**
      * @return InvoiceType
@@ -57,37 +64,6 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
-     * @param Request $request
-     * @return FormInterface|Invoice
-     *
-     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(resource=true)
-     */
-    public function postInvoicesAction(Request $request)
-    {
-        $invoice = $this->documentRepository->createNew();
-        $formType = new InvoiceType(true);
-        return $this->processForm($request, $invoice, $formType);
-    }
-
-    /**
-     * @param Invoice $invoice
-     * @param Request $request
-     * @return FormInterface|Invoice
-     *
-     * @Rest\View(serializerEnableMaxDepthChecks=true)
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
-     */
-    public function putInvoicesAction(Invoice $invoice, Request $request)
-    {
-        $formType = new InvoiceType(true);
-        $this->documentRepository->resetProducts($invoice);
-        return $this->processForm($request, $invoice, $formType);
-    }
-
-    /**
      * @param Invoice $invoice
      * @return Invoice
      *
@@ -98,76 +74,6 @@ class InvoiceController extends AbstractRestController
     public function getInvoiceAction(Invoice $invoice)
     {
         return $invoice;
-    }
-
-    /**
-     * @param Invoice $invoice
-     * @return void
-     *
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
-     */
-    public function deleteInvoiceAction(Invoice $invoice)
-    {
-        $this->processDelete($invoice);
-    }
-
-    /**
-     * @param Store $store
-     * @param Request $request
-     * @return FormInterface|Invoice
-     *
-     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function postStoreInvoicesAction(Store $store, Request $request)
-    {
-        $invoice = $this->documentRepository->createNew();
-        $invoice->store = $store;
-        return $this->processForm($request, $invoice);
-    }
-
-    /**
-     * @param Store $store
-     * @param Invoice $invoice
-     * @param Request $request
-     * @return FormInterface|Invoice
-     *
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @Rest\View(serializerEnableMaxDepthChecks=true)
-     * @ApiDoc
-     */
-    public function putStoreInvoicesAction(Store $store, Invoice $invoice, Request $request)
-    {
-        $this->checkInvoiceStore($store, $invoice);
-        $this->documentRepository->resetProducts($invoice);
-        return $this->processForm($request, $invoice);
-    }
-
-    /**
-     * @param Store $store
-     * @param InvoiceFilter $filter
-     * @return MetaCollection|Invoice[]|Cursor
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
-     * @Rest\Route("stores/{store}/invoices")
-     * @Rest\View(serializerEnableMaxDepthChecks=true)
-     */
-    public function getStoreInvoicesAction(Store $store, InvoiceFilter $filter)
-    {
-        $cursor = $this->documentRepository->findByStore($store->id, $filter);
-        if ($filter->hasNumberOrSupplierInvoiceNumber()) {
-            $collection = new MetaCollection(
-                $cursor,
-                new InvoiceHighlightGenerator($filter)
-            );
-        } else {
-            $collection = $cursor;
-        }
-        return $collection;
     }
 
     /**
@@ -199,6 +105,112 @@ class InvoiceController extends AbstractRestController
         }
         $invoice = $this->documentRepository->createByOrder($order);
         return $invoice;
+    }
+
+    /**
+     * @param Store $store
+     * @param InvoiceFilter $filter
+     * @return MetaCollection|Invoice[]|Cursor
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc(
+     *      resource=true
+     * )
+     * @Rest\Route("stores/{store}/invoices")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     */
+    public function getStoreInvoicesAction(Store $store, InvoiceFilter $filter)
+    {
+        $cursor = $this->documentRepository->findByStore($store->id, $filter);
+        if ($filter->hasNumberOrSupplierInvoiceNumber()) {
+            $collection = new MetaCollection(
+                $cursor,
+                new InvoiceHighlightGenerator($filter)
+            );
+        } else {
+            $collection = $cursor;
+        }
+        return $collection;
+    }
+
+    /**
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(resource=true)
+     */
+    public function postInvoicesAction(Request $request)
+    {
+        $invoice = $this->documentRepository->createNew();
+        $formType = new InvoiceType(true);
+        return $this->processForm($request, $invoice, $formType);
+    }
+
+    /**
+     * @param Store $store
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     */
+    public function postStoreInvoicesAction(Store $store, Request $request)
+    {
+        $invoice = $this->documentRepository->createNew();
+        $invoice->store = $store;
+        return $this->processForm($request, $invoice);
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function putInvoicesAction(Invoice $invoice, Request $request)
+    {
+        $preViolations = $this->validator->validate($invoice, null, array('NotDeleted'));
+
+        $formType = new InvoiceType(true);
+        $this->documentRepository->resetProducts($invoice);
+        return $this->processForm($request, $invoice, $formType, true, true, $preViolations);
+    }
+
+    /**
+     * @param Store $store
+     * @param Invoice $invoice
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @ApiDoc
+     */
+    public function putStoreInvoicesAction(Store $store, Invoice $invoice, Request $request)
+    {
+        $this->checkInvoiceStore($store, $invoice);
+
+        $preViolations = $this->validator->validate($invoice, null, array('NotDeleted'));
+
+        $this->documentRepository->resetProducts($invoice);
+        return $this->processForm($request, $invoice, null, true, true, $preViolations);
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @return void
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteInvoiceAction(Invoice $invoice)
+    {
+        $this->processDelete($invoice);
     }
 
     /**

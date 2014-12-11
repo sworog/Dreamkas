@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle;
 
-use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
+use Lighthouse\CoreBundle\DependencyInjection\Compiler\ModifyNewRelicRequestListenerPriority;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\MongoDBDocumentManagerPass;
@@ -43,9 +43,9 @@ class LighthouseCoreBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
+        $container->addCompilerPass(new ModifyNewRelicRequestListenerPriority());
         $container->addCompilerPass(new AddRoundingsToManagerPass());
         $container->addCompilerPass(new AddReferenceProvidersPass());
-        $container->addCompilerPass(new AddJobWorkersPass());
         $container->addCompilerPass(new MongoDBDocumentManagerPass());
     }
 }

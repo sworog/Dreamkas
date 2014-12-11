@@ -9,8 +9,6 @@ use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Form\DocumentType;
 use Lighthouse\CoreBundle\Form\Listener\DefaultCheckboxValueListener;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 class InvoiceType extends DocumentType
 {

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
@@ -46,21 +47,81 @@ class CatalogFactory extends AbstractFactory
     /**
      * @param string $name
      * @param SubCategory $subCategory
+     * @param array $extraData
      * @return Product
      */
-    public function createProductByName($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    public function createProductByName(
+        $name = self::DEFAULT_PRODUCT_NAME,
+        SubCategory $subCategory = null,
+        array $extraData = array()
+    ) {
+        $data = $extraData + array('name' => $name);
+        return $this->createProduct($data, $subCategory);
+    }
+
+    /**
+     * @param array $data
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function createProduct(array $data, SubCategory $subCategory = null)
     {
         $product = new Product();
-        $product->name = $name;
-        $product->vat = 18;
+
+        $data = $data + array('vat' => 18, 'name' => self::DEFAULT_PRODUCT_NAME);
+
+        $this->populate($product, $this->prepareData($data));
 
         $product->subCategory = $subCategory ?: $this->getSubCategory();
 
-        $this->save($product);
+        $this->doSave($product);
 
-        $this->productNames[$name] = $product->id;
+        $this->productNames[$product->name] = $product->id;
 
         return $product;
+    }
+
+    /**
+     * @param array $data
+     * @return Product
+     */
+    public function createProductByForm(array $data)
+    {
+        $product = new Product();
+
+        $formType = $this->container->get('lighthouse.core.form.product_type');
+        $formFactory = $this->container->get('form.factory');
+        $form = $formFactory->create($formType, $product);
+
+        if (!$form->submit($data, false)->isValid()) {
+            throw new \RuntimeException('Product validation failed');
+        }
+
+        $this->doSave($product, false);
+
+        $this->productNames[$product->name] = $product->id;
+
+        return $product;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function prepareData(array $data)
+    {
+        foreach ($data as $key => &$value) {
+            switch ($key) {
+                case 'purchasePrice':
+                case 'sellingPrice':
+                case 'retailPriceMin':
+                case 'retailPriceMax':
+                    $value = $this->getNumericFactory()->createMoney($value);
+                    break;
+            }
+        }
+
+        return $data;
     }
 
     /**
@@ -74,6 +135,16 @@ class CatalogFactory extends AbstractFactory
             $this->createProductByName($name, $subCategory);
         }
         return $this->getProductById($this->productNames[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @param SubCategory $subCategory
+     * @return Product
+     */
+    public function getProduct($name = self::DEFAULT_PRODUCT_NAME, SubCategory $subCategory = null)
+    {
+        return $this->getProductByName($name, $subCategory);
     }
 
     /**
@@ -122,7 +193,7 @@ class CatalogFactory extends AbstractFactory
         $group->retailMarkupMax = $retailMarkupMax;
         $group->rounding = $this->getRounding($rounding);
 
-        $this->save($group);
+        $this->doSave($group);
 
         $this->groupNames[$group->name] = $group->id;
 
@@ -283,6 +354,28 @@ class CatalogFactory extends AbstractFactory
             $subCategories[$name] = $this->getSubCategory($name);
         }
         return $subCategories;
+    }
+
+    /**
+     * @param array $catalogData
+     * @return AbstractNode[]|SubCategory[]
+     */
+    public function createCatalog(array $catalogData)
+    {
+        $catalog = array();
+        foreach ($catalogData as $groupName => $categories) {
+            $group = $this->createGroup($groupName);
+            $catalog[$groupName] = $group;
+            foreach ($categories as $categoryName => $subCategories) {
+                $category = $this->createCategory($group->id, $categoryName);
+                $catalog[$categoryName] = $category;
+                foreach ($subCategories as $subCategoryName => $void) {
+                    $subCategory = $this->createSubCategory($category->id, $subCategoryName);
+                    $catalog[$subCategoryName] = $subCategory;
+                }
+            }
+        }
+        return $catalog;
     }
 
     /**

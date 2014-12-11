@@ -1,6 +1,9 @@
 package ru.dreamkas.pos.view.fragments;
 
 import android.os.Bundle;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.octo.android.robospice.exception.RequestCancelledException;
@@ -12,6 +15,7 @@ import org.androidannotations.annotations.ViewById;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
+import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.controller.Command;
 import ru.dreamkas.pos.controller.PreferencesManager;
@@ -21,6 +25,7 @@ import ru.dreamkas.pos.controller.requests.SearchProductsRequest;
 import ru.dreamkas.pos.model.api.NamedObject;
 import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.model.api.collections.Products;
+import ru.dreamkas.pos.view.components.KasMainBlockComponent;
 import ru.dreamkas.pos.view.components.ProductSearchComponent;
 import ru.dreamkas.pos.view.components.ReceiptComponent;
 
@@ -35,11 +40,15 @@ public class KasFragment extends AuthRequestsContainingFragment{
     protected AuthorisedRequestWrapper getStoreRequestWrapped;
 
     @ViewById
-    ProductSearchComponent scProducts;
+    KasMainBlockComponent cKasMainBlock;
 
     @ViewById
     ReceiptComponent ccReceipt;
 
+    @ViewById
+    LinearLayout llLeftPane;
+    @ViewById
+    RelativeLayout rlRightPane;
 
     @Override
     public void onCreate(Bundle bundle){
@@ -51,7 +60,17 @@ public class KasFragment extends AuthRequestsContainingFragment{
     public void onStart(){
         super.onStart();
         loadStoreInfo();
-        scProducts.init(new SearchProductsCommand(), new AddProductToReceiptCommand());
+
+        cKasMainBlock.init(new SearchProductsCommand(), new AddProductToReceiptCommand());
+
+        switch(DreamkasApp.getRatio()){
+            case _16_10:
+                llLeftPane.setLayoutParams(new LinearLayout.LayoutParams(DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*9), WindowManager.LayoutParams.MATCH_PARENT));
+                rlRightPane.setLayoutParams(new LinearLayout.LayoutParams(DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*7), WindowManager.LayoutParams.MATCH_PARENT));
+                break;
+            case _3_4:
+                break;
+        }
     }
 
     public class AddProductToReceiptCommand implements Command<Product>{
@@ -79,26 +98,26 @@ public class KasFragment extends AuthRequestsContainingFragment{
     public class SearchProductsRequestSuccessFinishCommand implements Command<Products>{
         public void execute(Products data)
         {
-            scProducts.setSearchResultToListView(data);
+            cKasMainBlock.getSearchProductComponent().setSearchResultToListView(data);
         }
     }
 
     public class SearchProductsRequestFailureFinishCommand implements Command<SpiceException>{
         public void execute(SpiceException spiceException){
-            scProducts.setSearchResultToListView(null);
+            cKasMainBlock.getSearchProductComponent().setSearchResultToListView(null);
             showRequestErrorToast(spiceException);
         }
     }
 
     public class GetStoreRequestSuccessFinishCommand implements Command<NamedObject>{
         public void execute(NamedObject data){
-            getActivity().getActionBar().setTitle(data.getName());
+            //getActivity().getActionBar().setTitle(data.getName());
         }
     }
 
     public class GetStoreRequestFailureFinishCommand implements Command<SpiceException>{
         public void execute(SpiceException spiceException){
-            scProducts.setSearchResultToListView(null);
+            cKasMainBlock.getSearchProductComponent().setSearchResultToListView(null);
             showRequestErrorToast(spiceException);
         }
     }

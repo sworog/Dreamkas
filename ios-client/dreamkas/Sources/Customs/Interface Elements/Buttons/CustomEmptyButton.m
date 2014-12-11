@@ -49,7 +49,7 @@
     [[self layer] setShadowOpacity:DefaultBtnShadowOpacity];
     [[self layer] setShadowOffset:CGSizeMake(0.f, 0.f)];
     
-    self.titleLabel.font = DefaultFont(16);
+    self.titleLabel.font = DefaultMediumFont(14);
     [self setTitleColor:DefaultCyanColor forState:UIControlStateNormal];
     [self setTitleColor:DefaultLightCyanColor forState:UIControlStateHighlighted];
     [self setTitleColor:DefaultGrayColor forState:UIControlStateDisabled];

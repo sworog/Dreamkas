@@ -13,10 +13,17 @@ define(function(require, exports, module) {
         request: null,
         valueKey: 'name',
         value: '',
+        clearLink: 0,
         suggestionTemplate: function() {
         },
         autofocus: false,
         events: {
+            'click .autocomplete__clearLink': function(e){
+
+                var block = this;
+
+                block.clear();
+            },
             'keydown .autocomplete__input': function(e) {
 
                 var block = this;
@@ -61,7 +68,6 @@ define(function(require, exports, module) {
                     }
 
                     return;
-
                 }
 
                 if (checkKey(e.keyCode, ['ESC'])) {
@@ -72,7 +78,15 @@ define(function(require, exports, module) {
                 }
 
                 if (checkKey(e.keyCode, ['UP'])) {
-                    block.focusPrevItem();
+
+                    if (block.$tetherElement.is(':hidden')) {
+                        block.showSuggestion();
+
+                    } else if (block.data.length > 0) {
+
+                        block.focusPrevItem();
+                    }
+
                     return false;
                 }
 
@@ -80,9 +94,11 @@ define(function(require, exports, module) {
 
                     if (block.$tetherElement.is(':hidden')) {
                         block.showSuggestion();
+
+                    } else if (block.data.length > 0) {
+                         block.focusNextItem();
                     }
 
-                    block.focusNextItem();
                     return false;
                 }
 
@@ -93,10 +109,15 @@ define(function(require, exports, module) {
 
                     block.getData();
 
-                } else if (input.value.length) {
-                    block.showSuggestion();
                 } else {
-                    block.hideSuggestion();
+
+                    block.data = [];
+
+                    if (input.value.length) {
+                        block.showSuggestion();
+                    } else {
+                        block.hideSuggestion();
+                    }
                 }
 
             },
@@ -116,15 +137,28 @@ define(function(require, exports, module) {
 
             return init;
         },
+        isBodyFitsBelow: function(input, body) {
+
+            var offsetTop = input.offset().top,
+                aboveHeight,
+                belowHeight;
+
+            aboveHeight = offsetTop;
+            belowHeight = $(window).height() - input.height() - offsetTop;
+
+            return ($(body).height() < belowHeight) ? true : (belowHeight > aboveHeight);
+        },
         render: function() {
             var block = this;
 
-            var render = Block.prototype.render.apply(block, arguments);
+            var render = Block.prototype.render.apply(block, arguments),
+                isBodyFitsBelow;
 
             block.$tetherElement = block.$('.autocomplete__tether');
             block.$input = block.$('.autocomplete__input');
 
-            if (block.$tetherElement.length){
+            if (block.$tetherElement.length) {
+
                 block.tether = new Tether({
                     element: block.$tetherElement,
                     target: block.$input,
@@ -155,36 +189,76 @@ define(function(require, exports, module) {
 
             var block = this,
                 $currentFocusedItem = block.$tetherElement.find('.autocomplete__item_focused'),
-                currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem);
+                $items = block.$tetherElement.find('.autocomplete__item'),
+                currentFocusedItemIndex = $items.index($currentFocusedItem);
 
-            block.focusItemByIndex(currentFocusedItemIndex + 1);
+            $currentFocusedItem = block.focusItemByIndex(currentFocusedItemIndex == $items.length - 1 ? 0 : currentFocusedItemIndex + 1);
+
+            block.scrollToItem($currentFocusedItem);
         },
         focusPrevItem: function() {
 
             var block = this,
                 $currentFocusedItem = block.$tetherElement.find('.autocomplete__item_focused'),
-                currentFocusedItemIndex = block.$tetherElement.find('.autocomplete__item').index($currentFocusedItem);
+                $items = block.$tetherElement.find('.autocomplete__item'),
+                currentFocusedItemIndex = $items.index($currentFocusedItem);
 
-            block.focusItemByIndex(currentFocusedItemIndex - 1);
+            $currentFocusedItem = block.focusItemByIndex(currentFocusedItemIndex == -1 ? $items.length - 1 : currentFocusedItemIndex - 1);
+
+            block.scrollToItem($currentFocusedItem);
+        },
+        scrollToItem: function($item) {
+
+            var offset = $item.position().top,
+                $suggestion = $item.parent(),
+                suggestionHeight = $suggestion.height(),
+                $items = $suggestion.find('.autocomplete__item');
+
+            if (offset < 0 || offset > suggestionHeight) {
+
+                if (offset < 0) {
+
+                    offset += $suggestion.scrollTop();
+
+                } else {
+                    offset = ($items.index($item) + 1) * $items.eq(0).outerHeight() - suggestionHeight;
+
+                }
+
+                $suggestion.scrollTop(offset);
+            }
         },
         focusItemByIndex: function(index) {
 
             var block = this,
-                itemToFocus = block.$tetherElement.find('.autocomplete__item')[index];
+                $itemToFocus = block.$tetherElement.find('.autocomplete__item').eq(index);
 
-            $(itemToFocus)
+            $itemToFocus
                 .addClass('autocomplete__item_focused')
                 .siblings('.autocomplete__item')
                 .removeClass('autocomplete__item_focused');
 
+            return $itemToFocus;
         },
         showSuggestion: function() {
 
-            var block = this;
+            var block = this,
+                isBodyFitsBelow;
 
             block.$tetherElement.html(block.suggestionTemplate(block));
 
             block.$tetherElement.width(block.$input.outerWidth());
+
+            isBodyFitsBelow = block.isBodyFitsBelow(block.$input, block.$tetherElement);
+
+            block.tether.setOptions({
+                element: block.$tetherElement,
+                target: block.$input,
+                attachment: isBodyFitsBelow ? 'top left' : 'bottom left',
+                targetAttachment: isBodyFitsBelow ? 'bottom left' : 'top left',
+                enabled: false
+            });
+
             block.tether.enable();
             block.tether.position();
         },
@@ -201,7 +275,7 @@ define(function(require, exports, module) {
 
             if (typeof block.source === 'string') {
 
-                block.$input.addClass('loading');
+                block.el.classList.add('loading');
 
                 block.request = $.ajax({
                     url: block.source,
@@ -217,7 +291,7 @@ define(function(require, exports, module) {
 
                     block.showSuggestion();
 
-                    block.$input.removeClass('loading');
+                    block.el.classList.remove('loading');
                 });
 
                 return block.request;
@@ -257,6 +331,17 @@ define(function(require, exports, module) {
             block.el.classList.remove('autocomplete_selected');
 
             block.trigger('deselect');
+        },
+        clear: function(){
+
+            var block = this;
+
+            block.deselect();
+            block.hideSuggestion();
+
+            block.el.querySelector('.autocomplete__input').value = '';
+
+            block.trigger('clear');
         },
         remove: function() {
 

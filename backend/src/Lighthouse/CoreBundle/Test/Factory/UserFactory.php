@@ -74,7 +74,7 @@ class UserFactory extends AbstractFactory
      * @param array|string $roles
      * @param string $name
      * @param string $position
-     * @param \Lighthouse\CoreBundle\Document\Project\Project $project
+     * @param Project $project
      * @return User
      */
     public function createUser(

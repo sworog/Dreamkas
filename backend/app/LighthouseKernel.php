@@ -1,9 +1,13 @@
 <?php
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Karzer\Karzer;
 
+/**
+ * @method Container getContainer()
+ */
 class LighthouseKernel extends Kernel
 {
     /**
@@ -36,6 +40,7 @@ class LighthouseKernel extends Kernel
             new Lighthouse\CoreBundle\LighthouseCoreBundle(),
             new Lighthouse\ReportsBundle\LighthouseReportsBundle(),
             new Lighthouse\IntegrationBundle\LighthouseIntegrationBundle(),
+            new Lighthouse\JobBundle\LighthouseJobBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Ornicar\ApcBundle\OrnicarApcBundle(),
             new Hackzilla\Bundle\PasswordGeneratorBundle\HackzillaPasswordGeneratorBundle(),

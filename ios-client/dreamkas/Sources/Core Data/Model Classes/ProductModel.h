@@ -2,7 +2,7 @@
 //  ProductModel.h
 //  dreamkas
 //
-//  Created by sig on 29.10.14.
+//  Created by sig on 11.12.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSNumber * purchasePrice;
 @property (nonatomic, retain) NSNumber * sellingPrice;
 @property (nonatomic, retain) NSString * sku;
+@property (nonatomic, retain) NSString * units;
 @property (nonatomic, retain) GroupModel *group;
 
 @end

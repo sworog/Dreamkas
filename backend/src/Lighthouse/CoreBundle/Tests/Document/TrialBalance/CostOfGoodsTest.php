@@ -24,32 +24,32 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testIndexRangeCreatedOnInvoiceConsecutiveInsert()
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore('701');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-12 12:23:13'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 105.678, 16.36)
-                ->createInvoiceProduct($productIds['3'], 320, 178.34)
+                ->createInvoiceProduct($products['1']->id, 105.678, 16.36)
+                ->createInvoiceProduct($products['3']->id, 320, 178.34)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-13 19:56:04'), $store->id)
-                ->createInvoiceProduct($productIds['2'], 45.04, 189.67)
-                ->createInvoiceProduct($productIds['3'], 115.12, 176.51)
+                ->createInvoiceProduct($products['2']->id, 45.04, 189.67)
+                ->createInvoiceProduct($products['3']->id, 115.12, 176.51)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-13 20:03:14'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 111.67, 201.15)
-                ->createInvoiceProduct($productIds['3'], 115, 176.51)
+                ->createInvoiceProduct($products['1']->id, 111.67, 201.15)
+                ->createInvoiceProduct($products['3']->id, 115, 176.51)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-14 08:15:31'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 300.01, 201.15)
+                ->createInvoiceProduct($products['1']->id, 300.01, 201.15)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        foreach ($productIds as $productId) {
-            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        foreach ($products as $product) {
+            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $product->id);
             $prevEndIndex = '0.000';
             $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
@@ -66,56 +66,56 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testIndexRangeCreatedOnSaleConsecutiveInsert()
     {
-        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $store = $this->factory()->store()->getStore('701');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-10 12:23:13'), $store->id)
-                ->createInvoiceProduct($productIds['1'], 16.36, 10.09)
-                ->createInvoiceProduct($productIds['2'], 10.067, 29.56)
-                ->createInvoiceProduct($productIds['3'], 20, 30.05)
+                ->createInvoiceProduct($products['1']->id, 16.36, 10.09)
+                ->createInvoiceProduct($products['2']->id, 10.067, 29.56)
+                ->createInvoiceProduct($products['3']->id, 20, 30.05)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-11 13:45:09')
-                ->createReceiptProduct($productIds['1'], 9.102, 12.11)
-                ->createReceiptProduct($productIds['3'], 7, 34.12)
-                ->createReceiptProduct($productIds['3'], 1, 34.12)
+                ->createReceiptProduct($products['1']->id, 9.102, 12.11)
+                ->createReceiptProduct($products['3']->id, 7, 34.12)
+                ->createReceiptProduct($products['3']->id, 1, 34.12)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-12 15:45:09')
-                ->createReceiptProduct($productIds['2'], 2.056, 34.99)
-                ->createReceiptProduct($productIds['3'], 6, 35.15)
+                ->createReceiptProduct($products['2']->id, 2.056, 34.99)
+                ->createReceiptProduct($products['3']->id, 6, 35.15)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-12 15:45:10', 110.23)
-                ->createReceiptProduct($productIds['1'], 4.56, 11.49)
-                ->createReceiptProduct($productIds['3'], 2, 35.15)
+                ->createReceiptProduct($products['1']->id, 4.56, 11.49)
+                ->createReceiptProduct($products['3']->id, 2, 35.15)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $countAssertions = array(
-            $productIds['1'] => 2,
-            $productIds['2'] => 1,
-            $productIds['3'] => 4,
+            '1' => 2,
+            '2' => 1,
+            '3' => 4,
         );
 
-        foreach ($productIds as $productId) {
-            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        foreach ($products as $name => $product) {
+            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $product->id);
             $prevEndIndex = '0.000';
             $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
                 SaleProduct::TYPE
             );
-            $this->assertEquals($countAssertions[$productId], $trailBalances->count(true));
+            $this->assertEquals($countAssertions[$name], $trailBalances->count(true));
             foreach ($trailBalances as $trailBalance) {
                 $this->assertInstanceOf(Quantity::getClassName(), $trailBalance->startIndex);
                 $this->assertSame($prevEndIndex, $trailBalance->startIndex->toString());
@@ -127,21 +127,21 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testIndexRangeCreatedOnSaleInsertManyPositionsInOneSale()
     {
-        $productId = $this->createProduct('1');
+        $product = $this->factory()->catalog()->getProduct('1');
 
         $store = $this->factory()->store()->getStore('701');
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-11 13:45:09')
-                ->createReceiptProduct($productId, 3, 34.12)
-                ->createReceiptProduct($productId, 7, 34.12)
-                ->createReceiptProduct($productId, 1, 34.12)
+                ->createReceiptProduct($product->id, 3, 34.12)
+                ->createReceiptProduct($product->id, 7, 34.12)
+                ->createReceiptProduct($product->id, 1, 34.12)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $product->id);
         $prevEndIndex = '0.000';
         $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
             $storeProductId,
@@ -157,28 +157,28 @@ class CostOfGoodsTest extends WebTestCase
     }
 
     /**
+     * @dataProvider findInvoiceByRangeIndexProvider
      * @param float $start
      * @param float $end
      * @param array $expectedSkus
-     * @dataProvider findInvoiceByRangeIndexProvider
      */
     public function testFindInvoiceByRangeIndex($start, $end, array $expectedSkus)
     {
-        $productId = $this->createProduct('1');
+        $product = $this->factory()->catalog()->getProduct('1');
         $store = $this->factory()->store()->getStore('701');
 
-        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $product->id);
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-12 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId, 5, 10.09)
+                ->createInvoiceProduct($product->id, 5, 10.09)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-12 13:23:12'), $store->id)
-                ->createInvoiceProduct($productId, 3, 10.09)
+                ->createInvoiceProduct($product->id, 3, 10.09)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-12 14:23:12'), $store->id)
-                ->createInvoiceProduct($productId, 2, 10.09)
+                ->createInvoiceProduct($product->id, 2, 10.09)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -278,27 +278,27 @@ class CostOfGoodsTest extends WebTestCase
     }
 
     /**
+     * @dataProvider costOfGoodsCalculateByIndexRangeProvider
      * @param float $start
      * @param float $end
      * @param string $expectedCostOfGoods
-     * @dataProvider costOfGoodsCalculateByIndexRangeProvider
      */
     public function testCostOfGoodsCalculateByIndexRange($start, $end, $expectedCostOfGoods)
     {
-        $productId = $this->createProduct('1');
+        $product = $this->factory()->catalog()->getProduct('1');
         $store = $this->factory()->store()->getStore('701');
-        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreAndProduct($store, $product);
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-12 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId, 5, 11.09)
+                ->createInvoiceProduct($product->id, 5, 11.09)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-12 13:23:12'), $store->id)
-                ->createInvoiceProduct($productId, 3, 12.13)
+                ->createInvoiceProduct($product->id, 3, 12.13)
             ->persist()
                 ->createInvoice(array('date' => '2014-01-12 14:23:12'), $store->id)
-                ->createInvoiceProduct($productId, 2, 10.09)
+                ->createInvoiceProduct($product->id, 2, 10.09)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -390,45 +390,45 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculate()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct('1');
-        $this->createProduct('2');
+        $product = $this->factory()->catalog()->getProduct('1');
+        $this->factory()->catalog()->getProduct('2');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
-                ->createInvoiceProduct($productId, 1.345, 23.77)
+                ->createInvoiceProduct($product->id, 1.345, 23.77)
             ->flush();
         $this->factory()
             ->stockIn()
                 ->createStockIn($store, date('c', strtotime('now')))
-                ->createStockInProduct($productId, 2.332, 0.1)
+                ->createStockInProduct($product->id, 2.332, 0.1)
             ->flush();
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
-                ->createInvoiceProduct($productId, 3, 13.3)
-                ->createInvoiceProduct($productId, 4.23, 14)
+                ->createInvoiceProduct($product->id, 3, 13.3)
+                ->createInvoiceProduct($product->id, 4.23, 14)
             ->flush();
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('now'))), $store->id)
-                ->createInvoiceProduct($productId, 5.7, 17.99)
+                ->createInvoiceProduct($product->id, 5.7, 17.99)
             ->flush();
         // Total quantity = 16.607
 
         $sale1 = $this->factory()
             ->receipt()
                 ->createSale($store, '-1 hour')
-                ->createReceiptProduct($productId, 2.435, 2.33)
-                ->createReceiptProduct($productId, 1.32, 2.33)
-                ->createReceiptProduct($productId, 0.76, 2.33)
+                ->createReceiptProduct($product->id, 2.435, 2.33)
+                ->createReceiptProduct($product->id, 1.32, 2.33)
+                ->createReceiptProduct($product->id, 0.76, 2.33)
             ->flush();
 
         $sale2 = $this->factory()
             ->receipt()
                 ->createSale($store, 'now')
-                ->createReceiptProduct($productId, 1, 2.33)
-                ->createReceiptProduct($productId, 1.7, 2.33)
+                ->createReceiptProduct($product->id, 1, 2.33)
+                ->createReceiptProduct($product->id, 1.7, 2.33)
             ->flush();
 
         // Total quantity = 7.215
@@ -449,20 +449,20 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculateAfterInsertOldReceipts()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct('1');
+        $product = $this->factory()->catalog()->getProduct('1');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId, 5, 100)
-                ->createInvoiceProduct($productId, 5, 150)
-                ->createInvoiceProduct($productId, 5, 200)
+                ->createInvoiceProduct($product->id, 5, 100)
+                ->createInvoiceProduct($product->id, 5, 150)
+                ->createInvoiceProduct($product->id, 5, 200)
             ->flush();
 
         $sale = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-10 12:23:12')
-                ->createReceiptProduct($productId, 6, 250)
+                ->createReceiptProduct($product->id, 6, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -472,7 +472,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleBehindhand1 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 12:23:12')
-                ->createReceiptProduct($productId, 7, 250)
+                ->createReceiptProduct($product->id, 7, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -483,7 +483,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleBehindhand2 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 16:23:12')
-                ->createReceiptProduct($productId, 2, 250)
+                ->createReceiptProduct($product->id, 2, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -496,33 +496,33 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculateDuplicateReceipt()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct('1');
+        $product = $this->factory()->catalog()->getProduct('1');
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId, 5, 100)
-                ->createInvoiceProduct($productId, 5, 150)
-                ->createInvoiceProduct($productId, 5, 200)
+                ->createInvoiceProduct($product->id, 5, 100)
+                ->createInvoiceProduct($product->id, 5, 150)
+                ->createInvoiceProduct($product->id, 5, 200)
             ->flush();
 
 
         $sale1 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 12:23:12')
-                ->createReceiptProduct($productId, 7, 250)
+                ->createReceiptProduct($product->id, 7, 250)
             ->flush();
 
         $sale2 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 16:23:12')
-                ->createReceiptProduct($productId, 2, 250)
+                ->createReceiptProduct($product->id, 2, 250)
             ->flush();
 
         $sale3 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-10 12:23:12')
-                ->createReceiptProduct($productId, 6, 250)
+                ->createReceiptProduct($product->id, 6, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -541,7 +541,7 @@ class CostOfGoodsTest extends WebTestCase
         $sale4 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 12:23:12')
-                ->createReceiptProduct($productId, 4, 250)
+                ->createReceiptProduct($product->id, 4, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -560,45 +560,45 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculateEditInvoice()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct('1');
-        $productOtherId = $this->createProduct('Other');
+        $product = $this->factory()->catalog()->getProduct('1');
+        $productOther = $this->factory()->catalog()->getProduct('Other');
 
         $invoice1 = $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 5, 100)
-                ->createInvoiceProduct($productOtherId, 1, 1)
+                ->createInvoiceProduct($product->id, 5, 100)
+                ->createInvoiceProduct($productOther->id, 1, 1)
             ->flush();
 
         $invoice2 = $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 5, 150)
-                ->createInvoiceProduct($productOtherId, 1, 1)
+                ->createInvoiceProduct($product->id, 5, 150)
+                ->createInvoiceProduct($productOther->id, 1, 1)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-03 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 10, 200)
+                ->createInvoiceProduct($product->id, 10, 200)
             ->flush();
 
         $sale1 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 12:23:12')
-                ->createReceiptProduct($productId, 7, 250)
+                ->createReceiptProduct($product->id, 7, 250)
             ->flush();
 
         $sale2 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 16:23:12')
-                ->createReceiptProduct($productId, 2, 250)
+                ->createReceiptProduct($product->id, 2, 250)
             ->flush();
 
         $sale3 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-10 12:23:12')
-                ->createReceiptProduct($productId, 6, 250)
+                ->createReceiptProduct($product->id, 6, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -611,7 +611,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->editInvoice($invoice1->id)
-                ->editInvoiceProduct(0, $productId, 6, 50)
+                ->editInvoiceProduct(0, $product->id, 6, 50)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -625,7 +625,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->editInvoice($invoice1->id)
-                ->editInvoiceProduct(0, $productOtherId, 1, 11)
+                ->editInvoiceProduct(0, $productOther->id, 1, 11)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -640,7 +640,7 @@ class CostOfGoodsTest extends WebTestCase
             ->clear()
             ->invoice()
                 ->editInvoice($invoice1->id)
-                ->editInvoiceProduct(0, $productId, 5, 100)
+                ->editInvoiceProduct(0, $product->id, 5, 100)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -668,7 +668,7 @@ class CostOfGoodsTest extends WebTestCase
             ->clear()
             ->invoice()
                 ->editInvoice($invoice2->id)
-                ->createInvoiceProduct($productId, 5, 150)
+                ->createInvoiceProduct($product->id, 5, 150)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -694,44 +694,44 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculateEditInvoiceDate()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct('1');
-        $this->createProduct('Other');
+        $product = $this->factory()->catalog()->getProduct('1');
+        $this->factory()->catalog()->getProduct('Other');
 
-        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $product->id);
 
         $invoice1 = $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 5, 100, $store->id)
+                ->createInvoiceProduct($product->id, 5, 100, $store->id)
             ->flush();
         $invoice2 = $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 5, 150, $store->id)
+                ->createInvoiceProduct($product->id, 5, 150, $store->id)
             ->flush();
 
         $invoice3 = $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-03 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 10, 200, $store->id)
+                ->createInvoiceProduct($product->id, 10, 200, $store->id)
             ->flush();
 
         $sale1 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 12:23:12')
-                ->createReceiptProduct($productId, 7, 250)
+                ->createReceiptProduct($product->id, 7, 250)
             ->flush();
 
         $sale2 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 16:23:12')
-                ->createReceiptProduct($productId, 2, 250)
+                ->createReceiptProduct($product->id, 2, 250)
             ->flush();
 
         $sale3 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-10 12:23:12')
-                ->createReceiptProduct($productId, 6, 250)
+                ->createReceiptProduct($product->id, 6, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -745,27 +745,6 @@ class CostOfGoodsTest extends WebTestCase
             ->invoice()
                 ->editInvoice($invoice2->id, array('date' => '2014-01-01 10:00'))
             ->flush();
-
-        /*
-        $this->assertStoreProductTrialBalance(
-            $storeProductId,
-            InvoiceProduct::REASON_TYPE,
-            array(
-                array(
-                    'reasonId' => $invoice2->products[0]->id,
-                    'status' => TrialBalance::PROCESSING_STATUS_UNPROCESSED
-                ),
-                array(
-                    'reasonId' => $invoice1->products[0]->id,
-                    'status' => TrialBalance::PROCESSING_STATUS_OK
-                ),
-                array(
-                    'reasonId' => $invoice3->products[0]->id,
-                    'status' => TrialBalance::PROCESSING_STATUS_OK
-                ),
-            )
-        );
-        */
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
@@ -808,13 +787,13 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculateOutOfStock()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct(array('purchasePrice' => 100));
-        $this->createProduct('Other');
+        $product = $this->factory()->catalog()->createProduct(array('purchasePrice' => 100));
+        $this->factory()->catalog()->getProduct('Other');
 
         $sale1 = $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-09 12:23:12')
-                ->createReceiptProduct($productId, 7, 250)
+                ->createReceiptProduct($product->id, 7, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -826,7 +805,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 5, 150)
+                ->createInvoiceProduct($product->id, 5, 150)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -836,7 +815,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
-                ->createInvoiceProduct($productId, 1, 200)
+                ->createInvoiceProduct($product->id, 1, 200)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -847,13 +826,13 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculateProductWithoutPurchasePrice()
     {
         $store = $this->factory()->store()->getStore('1');
-        $productId = $this->createProduct(array('purchasePrice' => ''));
-        $this->createProduct('Other');
+        $product = $this->factory()->catalog()->createProduct(array('purchasePrice' => ''));
+        $this->factory()->catalog()->getProduct('Other');
 
         $sale1 = $this->factory()
             ->receipt()
             ->createSale($store, '2014-01-09 12:23:12')
-            ->createReceiptProduct($productId, 7, 250)
+            ->createReceiptProduct($product->id, 7, 250)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -865,7 +844,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->invoice()
             ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
-            ->createInvoiceProduct($productId, 5, 150)
+            ->createInvoiceProduct($product->id, 5, 150)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -875,7 +854,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->invoice()
             ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
-            ->createInvoiceProduct($productId, 1, 200)
+            ->createInvoiceProduct($product->id, 1, 200)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -886,36 +865,36 @@ class CostOfGoodsTest extends WebTestCase
     public function testCostOfGoodsCalculateWithAllStockMovementProductTypes()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
+        $product = $this->factory()->catalog()->getProduct();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => date('c', strtotime('-200 hour'))), $store->id)
-                ->createInvoiceProduct($productId, 3, 11)
+                ->createInvoiceProduct($product->id, 3, 11)
             ->flush();
 
         $this->factory()
             ->stockIn()
                 ->createStockIn($store, date('c', strtotime('-190 hour')))
-                ->createStockInProduct($productId, 5, 15)
+                ->createStockInProduct($product->id, 5, 15)
             ->flush();
 
         $sale = $this->factory()
             ->receipt()
                 ->createSale($store, date('c', strtotime('-180 hour')))
-                ->createReceiptProduct($productId, 4, 20)
+                ->createReceiptProduct($product->id, 4, 20)
             ->flush();
 
         $writeOff = $this->factory()
             ->writeOff()
                 ->createWriteOff($store, date('c', strtotime('-170 hour')))
-                ->createWriteOffProduct($productId, 2, 18)
+                ->createWriteOffProduct($product->id, 2, 18)
             ->flush();
 
         $supplierReturn = $this->factory()
             ->supplierReturn()
                 ->createSupplierReturn($store, date('c', strtotime('-160 hour')))
-                ->createSupplierReturnProduct($productId, 2, 15)
+                ->createSupplierReturnProduct($product->id, 2, 15)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
@@ -928,13 +907,13 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->receipt()
                 ->createReturn($store, date('c', strtotime('-150 hour')), $sale)
-                ->createReceiptProduct($productId, 1)
+                ->createReceiptProduct($product->id, 1)
             ->flush();
 
         $sale2 = $this->factory()
             ->receipt()
                 ->createSale($store, date('c', strtotime('-140 hour')))
-                ->createReceiptProduct($productId, 1, 20)
+                ->createReceiptProduct($product->id, 1, 20)
             ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();

@@ -60,11 +60,18 @@
 #define CurrentUser                         [CurrentUserHelper instance]
 #define CurrentIOSVersion                   [DeviceInfoHelper iOSVersion]
 
+#define DigitsBeforeDotInPrices             8
+#define DigitsAfterDotInPrices              2
+#define DigitsAfterDotInQuantity            3
+
+#define kPaymentTypeCash                    @"cash"
+#define kPaymentTypeCard                    @"bankcard"
+
 //
 // Клиент-серверное взаимодействие
 //
 
-#define API_SERVER_URL                      @"http://demo.dreamkas.ru/"
+#define API_SERVER_URL                      @"http://beta.dreamkas.ru/"
 #define API_SERVER_PATH                     @"api/1/"
 
 #define API_TEST_SERVER_URL                 @"http://ios.staging.api.lighthouse.pro/"

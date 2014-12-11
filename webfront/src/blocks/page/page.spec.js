@@ -26,7 +26,9 @@ define(function(require, exports, module) {
 
         });
 
-        it('первая ссылка в меню навигации - Обзор', function() {
+        //--------------------------------- sidebar items --------------------------------------------
+
+        it('1 ссылка в меню навигации - Обзор', function() {
 
             var item = page.$('.sideBar__item')[0];
 
@@ -35,7 +37,7 @@ define(function(require, exports, module) {
 
         });
 
-        it('вторая ссылка в меню навигации - Товародвижение', function() {
+        it('2 ссылка в меню навигации - Товародвижение', function() {
 
             var item = page.$('.sideBar__item')[1];
 
@@ -44,36 +46,45 @@ define(function(require, exports, module) {
 
         });
 
-        it('третья ссылка в меню навигации - Отчеты', function() {
+        it('3 ссылка в меню навигации - Деньги', function() {
 
             var item = page.$('.sideBar__item')[2];
+
+            expect($.trim(item.textContent)).toBe('Деньги');
+            expect(item.getAttribute('href')).toBe('/cashFlow');
+
+        });
+
+        it('4 ссылка в меню навигации - Отчеты', function() {
+
+            var item = page.$('.sideBar__item')[3];
 
             expect($.trim(item.textContent)).toBe('Отчеты');
             expect(item.getAttribute('href')).toBe('/reports');
 
         });
 
-        it('четвертая ссылка в меню навигации - Ассортимент', function() {
+        it('5 ссылка в меню навигации - Ассортимент', function() {
 
-            var item = page.$('.sideBar__item')[3];
+            var item = page.$('.sideBar__item')[4];
 
             expect($.trim(item.textContent)).toBe('Ассортимент');
             expect(item.getAttribute('href')).toBe('/catalog');
 
         });
 
-        it('пятая ссылка в меню навигации - Поставщики', function() {
+        it('6 ссылка в меню навигации - Поставщики', function() {
 
-            var item = page.$('.sideBar__item')[4];
+            var item = page.$('.sideBar__item')[5];
 
             expect($.trim(item.textContent)).toBe('Поставщики');
             expect(item.getAttribute('href')).toBe('/suppliers');
 
         });
 
-        it('шестая ссылка в меню навигации - Магазины', function() {
+        it('7 ссылка в меню навигации - Магазины', function() {
 
-            var item = page.$('.sideBar__item')[5];
+            var item = page.$('.sideBar__item')[6];
 
             expect($.trim(item.textContent)).toBe('Магазины');
             expect(item.getAttribute('href')).toBe('/stores');

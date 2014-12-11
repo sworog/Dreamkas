@@ -5,7 +5,7 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsManager;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
@@ -22,95 +22,93 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProductByName('1');
-        $productId2 = $this->createProductByName('2');
-        $productId3 = $this->createProductByName('3');
+        $products = $this->factory()->catalog()->getProductByNames(array('1', '2', '3'));
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId1, 5, 100)
-                ->createInvoiceProduct($productId2, 10, 201)
-                ->createInvoiceProduct($productId3, 5, 120)
+                ->createInvoiceProduct($products['1']->id, 5, 100)
+                ->createInvoiceProduct($products['2']->id, 10, 201)
+                ->createInvoiceProduct($products['3']->id, 5, 120)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId1, 5, 101)
-                ->createInvoiceProduct($productId2, 5, 200)
-                ->createInvoiceProduct($productId3, 10, 130)
+                ->createInvoiceProduct($products['1']->id, 5, 101)
+                ->createInvoiceProduct($products['2']->id, 5, 200)
+                ->createInvoiceProduct($products['3']->id, 10, 130)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-03 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId1, 5, 102)
-                ->createInvoiceProduct($productId2, 5, 205)
-                ->createInvoiceProduct($productId3, 10, 135)
+                ->createInvoiceProduct($products['1']->id, 5, 102)
+                ->createInvoiceProduct($products['2']->id, 5, 205)
+                ->createInvoiceProduct($products['3']->id, 10, 135)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-04 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId1, 20, 101)
-                ->createInvoiceProduct($productId2, 5, 200)
-                ->createInvoiceProduct($productId3, 10, 130)
+                ->createInvoiceProduct($products['1']->id, 20, 101)
+                ->createInvoiceProduct($products['2']->id, 5, 200)
+                ->createInvoiceProduct($products['3']->id, 10, 130)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-05 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId1, 5, 101)
-                ->createInvoiceProduct($productId2, 5, 200)
-                ->createInvoiceProduct($productId3, 10, 130)
+                ->createInvoiceProduct($products['1']->id, 5, 101)
+                ->createInvoiceProduct($products['2']->id, 5, 200)
+                ->createInvoiceProduct($products['3']->id, 10, 130)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-06 12:23:12'), $store->id)
-                ->createInvoiceProduct($productId1, 5, 101)
-                ->createInvoiceProduct($productId2, 5, 200)
-                ->createInvoiceProduct($productId3, 10, 130)
+                ->createInvoiceProduct($products['1']->id, 5, 101)
+                ->createInvoiceProduct($products['2']->id, 5, 200)
+                ->createInvoiceProduct($products['3']->id, 10, 130)
             ->flush();
 
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-02 12:23:12')
-                ->createReceiptProduct($productId1, 3, 150)  // 450 - (3 x 100 = 300) = 150
-                ->createReceiptProduct($productId2, 3, 250)  // 750 - (3 x 201 = 603) = 147
-                ->createReceiptProduct($productId3, 3, 150)  // 450 - (3 x 120 = 360) = 90
+                ->createReceiptProduct($products['1']->id, 3, 150)  // 450 - (3 x 100 = 300) = 150
+                ->createReceiptProduct($products['2']->id, 3, 250)  // 750 - (3 x 201 = 603) = 147
+                ->createReceiptProduct($products['3']->id, 3, 150)  // 450 - (3 x 120 = 360) = 90
             ->persist()
                 ->createSale($store, '2014-01-03 12:23:12')
-                ->createReceiptProduct($productId1, 3, 150)  // 450 - (2 x 100 + 1 x 101 = 301) = 149
-                ->createReceiptProduct($productId2, 8, 250)  // 2000 - (7 x 201 + 1 x 200 = 1607) = 393
-                ->createReceiptProduct($productId3, 3, 150)  // 450 - (2 x 120 + 1 x 130 = 370) = 80
+                ->createReceiptProduct($products['1']->id, 3, 150)  // 450 - (2 x 100 + 1 x 101 = 301) = 149
+                ->createReceiptProduct($products['2']->id, 8, 250)  // 2000 - (7 x 201 + 1 x 200 = 1607) = 393
+                ->createReceiptProduct($products['3']->id, 3, 150)  // 450 - (2 x 120 + 1 x 130 = 370) = 80
             ->persist()
                 ->createSale($store, '2014-01-05 12:23:12')
-                ->createReceiptProduct($productId1, 8, 150)  // 1200 - (4 x 101 + 4 x 102 = 812) = 388
-                ->createReceiptProduct($productId2, 3, 250)  // 750 - (3 x 200 = 600) = 150
-                ->createReceiptProduct($productId3, 6, 150)  // 900 - (6 x 130 = 780) = 120
+                ->createReceiptProduct($products['1']->id, 8, 150)  // 1200 - (4 x 101 + 4 x 102 = 812) = 388
+                ->createReceiptProduct($products['2']->id, 3, 250)  // 750 - (3 x 200 = 600) = 150
+                ->createReceiptProduct($products['3']->id, 6, 150)  // 900 - (6 x 130 = 780) = 120
             ->persist()
                 ->createSale($store, '2014-01-06 12:23:12')
-                ->createReceiptProduct($productId1, 5, 150)  // 750 - (1 x 102 + 4 x 101 = 506) = 244
-                ->createReceiptProduct($productId2, 6, 250)  // 1500 - (1 x 200 + 5 x 205 = 1225) = 275
-                ->createReceiptProduct($productId3, 2, 150)  // 300 - (2 x 130 = 260) = 40
+                ->createReceiptProduct($products['1']->id, 5, 150)  // 750 - (1 x 102 + 4 x 101 = 506) = 244
+                ->createReceiptProduct($products['2']->id, 6, 250)  // 1500 - (1 x 200 + 5 x 205 = 1225) = 275
+                ->createReceiptProduct($products['3']->id, 2, 150)  // 300 - (2 x 130 = 260) = 40
             ->persist()
                 ->createSale($store, '2014-01-07 12:23:12')
-                ->createReceiptProduct($productId1, 6, 150)  // 900 - (6 x 101 = 606) = 294
-                ->createReceiptProduct($productId2, 3, 250)  // 750 - (3 x 200 = 600) = 150
-                ->createReceiptProduct($productId3, 15, 150) // 2250 -(1x130+10x135+4x130=2000) = 250
+                ->createReceiptProduct($products['1']->id, 6, 150)  // 900 - (6 x 101 = 606) = 294
+                ->createReceiptProduct($products['2']->id, 3, 250)  // 750 - (3 x 200 = 600) = 150
+                ->createReceiptProduct($products['3']->id, 15, 150) // 2250 -(1x130+10x135+4x130=2000) = 250
             ->persist()
                 ->createSale($store, '2014-01-08 12:23:12')
-                ->createReceiptProduct($productId1, 8, 150)  // 1200 - (8 x 101 = 808) = 392
-                ->createReceiptProduct($productId2, 3, 250)  // 750 - (3 x 200 = 600) = 150
-                ->createReceiptProduct($productId3, 10, 150) // 1500 - (10 x 130 = 1300) = 200
+                ->createReceiptProduct($products['1']->id, 8, 150)  // 1200 - (8 x 101 = 808) = 392
+                ->createReceiptProduct($products['2']->id, 3, 250)  // 750 - (3 x 200 = 600) = 150
+                ->createReceiptProduct($products['3']->id, 10, 150) // 1500 - (10 x 130 = 1300) = 200
             ->persist()
                 ->createSale($store, '2014-01-09 12:23:12')
-                ->createReceiptProduct($productId1, 3, 150)  // 450 - (3 x 101 = 303) = 147
-                ->createReceiptProduct($productId2, 7, 250)  // 1750 - (7 x 200 = 1400) = 350
-                ->createReceiptProduct($productId3, 1, 150)  // 150 - (1 x 130 = 130) = 20
+                ->createReceiptProduct($products['1']->id, 3, 150)  // 450 - (3 x 101 = 303) = 147
+                ->createReceiptProduct($products['2']->id, 7, 250)  // 1750 - (7 x 200 = 1400) = 350
+                ->createReceiptProduct($products['3']->id, 1, 150)  // 150 - (1 x 130 = 130) = 20
             ->flush();
 
         return $store->id;
@@ -251,7 +249,7 @@ class GrossMarginControllerTest extends WebTestCase
     public function testGetStoreGrossMarginReportsWithDataFromAutotests()
     {
         $store = $this->factory()->store()->getStore('1');
-        $product = $this->createProductByName('1');
+        $product = $this->factory()->catalog()->getProduct();
 
         $date = new DateTimestamp();
 
@@ -261,22 +259,22 @@ class GrossMarginControllerTest extends WebTestCase
                     array('date' => $this->createDate('-2 days 08:00')),
                     $store->id
                 )
-                ->createInvoiceProduct($product, 50, 90)
+                ->createInvoiceProduct($product->id, 50, 90)
             ->persist()
                 ->createInvoice(
                     array('date' => $this->createDate('-1 day 08:00')),
                     $store->id
                 )
-                ->createInvoiceProduct($product, 35, 100)
+                ->createInvoiceProduct($product->id, 35, 100)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, $date->copy()->modify('-2 days 10:00'))
-                ->createReceiptProduct($product, 25, 125)
+                ->createReceiptProduct($product->id, 25, 125)
             ->persist()
                 ->createSale($store, $date->copy()->modify('-1 day 10:00'))
-                ->createReceiptProduct($product, 30, 120)
+                ->createReceiptProduct($product->id, 30, 120)
             ->flush();
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
@@ -308,15 +306,15 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore('1');
         $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
-        $product = $this->createProductByName('1');
+        $product = $this->factory()->catalog()->getProduct();
 
         // Begin inventory
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:23:12'), $store->id)
-                ->createInvoiceProduct($product, 3, 100)
-                ->createInvoiceProduct($product, 1, 101)
-                ->createInvoiceProduct($product, 2, 102)
+                ->createInvoiceProduct($product->id, 3, 100)
+                ->createInvoiceProduct($product->id, 1, 101)
+                ->createInvoiceProduct($product->id, 2, 102)
             ->flush();
 
 
@@ -324,8 +322,8 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:23:12'), $store->id)
-                ->createInvoiceProduct($product, 1, 101)
-                ->createInvoiceProduct($product, 2, 102)
+                ->createInvoiceProduct($product->id, 1, 101)
+                ->createInvoiceProduct($product->id, 2, 102)
             ->flush();
 
 
@@ -333,11 +331,11 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()
                 ->receipt()
                     ->createSale($store, '2014-01-02 12:23:12')
-                    ->createReceiptProduct($product, 7, 150)
+                    ->createReceiptProduct($product->id, 7, 150)
                 ->flush();
 
         // Calculate CostOfGoods
-        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
         /* @var GrossMarginManager $grossMarginReportManager */
@@ -347,7 +345,7 @@ class GrossMarginControllerTest extends WebTestCase
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/reports/grossMargin',
+            "/api/1/stores/{$store->id}/reports/grossMargin",
             null,
             array('time' => date('c', strtotime('2014-01-03 10:35:47')))
         );
@@ -366,40 +364,40 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore('1');
         $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
-        $product = $this->createProductByName('1');
+        $product = $this->factory()->catalog()->getProduct();
 
         // Begin inventory
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:23:12'), $store->id)
-                ->createInvoiceProduct($product, 3, 1)
-                ->createInvoiceProduct($product, 2, 2)
+                ->createInvoiceProduct($product->id, 3, 1)
+                ->createInvoiceProduct($product->id, 2, 2)
             ->flush();
 
         // Day one
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:23:12'), $store->id)
-                ->createInvoiceProduct($product, 3, 3)
+                ->createInvoiceProduct($product->id, 3, 3)
             ->flush();
 
         $this->factory()
                 ->receipt()
                     ->createSale($store, '2014-01-02 12:23:12')
-                    ->createReceiptProduct($product, 4, 5)
+                    ->createReceiptProduct($product->id, 4, 5)
                 ->flush();
 
         // Day two
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-03 12:23:12'), $store->id)
-                ->createInvoiceProduct($product, 2, 2)
+                ->createInvoiceProduct($product->id, 2, 2)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store, '2014-01-03 12:23:12')
-                ->createReceiptProduct($product, 3, 5)
+                ->createReceiptProduct($product->id, 3, 5)
             ->flush();
 
 
@@ -448,7 +446,7 @@ class GrossMarginControllerTest extends WebTestCase
         $costOfGoodsManager->createCalculateJobsForUnprocessed();
 
         /* @var JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager = $this->getContainer()->get('lighthouse.job.manager');
         $jobManager->startWatchingTubes();
         while (1) {
             $job = $jobManager->reserveJob(0);
@@ -523,63 +521,63 @@ class GrossMarginControllerTest extends WebTestCase
     {
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
-        $productId = $this->createProductByName('1');
+        $product = $this->factory()->catalog()->getProduct();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:56'), $store1->id)
-                ->createInvoiceProduct($productId, 5, 100)
+                ->createInvoiceProduct($product->id, 5, 100)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:56'), $store1->id)
-                ->createInvoiceProduct($productId, 5, 150)
+                ->createInvoiceProduct($product->id, 5, 150)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-03 12:56'), $store1->id)
-                ->createInvoiceProduct($productId, 10, 200)
+                ->createInvoiceProduct($product->id, 10, 200)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-01 12:00'), $store2->id)
-                ->createInvoiceProduct($productId, 5, 100)
+                ->createInvoiceProduct($product->id, 5, 100)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-02 12:00'), $store2->id)
-                ->createInvoiceProduct($productId, 5, 150)
+                ->createInvoiceProduct($product->id, 5, 150)
             ->flush();
 
         $this->factory()
             ->invoice()
                 ->createInvoice(array('date' => '2014-01-03 12:00'), $store2->id)
-                ->createInvoiceProduct($productId, 10, 200)
+                ->createInvoiceProduct($product->id, 10, 200)
             ->flush();
 
         $this->factory()
             ->receipt()
                 ->createSale($store1, "2014-01-08 12:23:12")
-                ->createReceiptProduct($productId, 7, 250)  // CoG: 800
+                ->createReceiptProduct($product->id, 7, 250)  // CoG: 800
             ->persist()
                 ->createSale($store1, "2014-01-08 16:23:12")
-                ->createReceiptProduct($productId, 2, 250)  // CoG: 300
+                ->createReceiptProduct($product->id, 2, 250)  // CoG: 300
             ->persist()
                 ->createSale($store1, "2014-01-10 12:23:12")
-                ->createReceiptProduct($productId, 6, 250)  // CoG: 1150
+                ->createReceiptProduct($product->id, 6, 250)  // CoG: 1150
             ->persist()
                 ->createSale($store2, "2014-01-08 12:30:12")
-                ->createReceiptProduct($productId, 7, 300)  // CoG: 800
+                ->createReceiptProduct($product->id, 7, 300)  // CoG: 800
             ->persist()
                 ->createSale($store2, "2014-01-08 16:30:12")
-                ->createReceiptProduct($productId, 2, 300)  // CoG: 300
+                ->createReceiptProduct($product->id, 2, 300)  // CoG: 300
             ->persist()
                 ->createSale($store2, "2014-01-10 12:30:12")
-                ->createReceiptProduct($productId, 6, 300)  // CoG: 1150
+                ->createReceiptProduct($product->id, 6, 300)  // CoG: 1150
             ->flush();
 
 

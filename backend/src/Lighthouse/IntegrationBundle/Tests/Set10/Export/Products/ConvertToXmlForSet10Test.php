@@ -2,7 +2,7 @@
 
 namespace Lighthouse\IntegrationBundle\Tests\Set10\Export\Products;
 
-use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
+use Lighthouse\IntegrationBundle\Document\Integration\Set10\ExportProductsJob;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
@@ -13,7 +13,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\IntegrationBundle\Set10\Export\Products\ExportProductsWorker;
 use Lighthouse\IntegrationBundle\Set10\Export\Products\Set10Export;
 use Lighthouse\IntegrationBundle\Set10\Export\Products\Set10ProductConverter;
-use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\JobBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
 use Symfony\Component\Filesystem\Filesystem;
@@ -55,20 +55,19 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function initBase()
     {
-        $groupData = array(
-            'name' => 'Группа',
-            'id' => $this->createGroup('Группа'),
+        $this->authenticateProject();
+
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                'Группа' => array(
+                    'Категория' => array(
+                        'Подкатегория' => array()
+                    )
+                )
+            )
         );
 
-        $categoryData = array(
-            'name' => 'Категория',
-            'id' => $this->createCategory($groupData['id'], 'Категория'),
-        );
-
-        $subCategoryData = array(
-            'name' => 'Подкатегория',
-            'id' => $this->createSubCategory($categoryData['id'], 'Подкатегория'),
-        );
+        $subCategoryId = $catalog['Подкатегория']->id;
 
         $storesData = array(
             1 => array(
@@ -101,7 +100,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailMarkupMin' => '40',
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
-                'subCategory' => $subCategoryData['id'],
+                'subCategory' => $subCategoryId,
                 'typeProperties' => array(
                     'nameOnScales' => 'Название на весах',
                     'descriptionOnScales' => "Описание\nна весах",
@@ -118,7 +117,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'vendor' => 'Петмол',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '55',
-                'subCategory' => $subCategoryData['id'],
+                'subCategory' => $subCategoryId,
             ),
             3 => array(
                 'name' => 'Продукт 3',
@@ -131,7 +130,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailPriceMin' => '67.33',
                 'retailPriceMax' => '117.54',
                 'retailPricePreference' => 'retailPrice',
-                'subCategory' => $subCategoryData['id'],
+                'subCategory' => $subCategoryId,
             ),
             4 => array(
                 'name' => 'Продукт 4 без цены',
@@ -144,7 +143,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailPriceMin' => '',
                 'retailPriceMax' => '',
                 'retailPricePreference' => 'retailPrice',
-                'subCategory' => $subCategoryData['id'],
+                'subCategory' => $subCategoryId,
             ),
             5 => array(
                 'name' => 'Виски 365 Дней',
@@ -157,7 +156,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailMarkupMin' => '40',
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
-                'subCategory' => $subCategoryData['id'],
+                'subCategory' => $subCategoryId,
                 'typeProperties' => array(
                     'alcoholByVolume' => '38,5',
                     'volume' => '0,375'
@@ -174,14 +173,13 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailMarkupMin' => '0',
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
-                'subCategory' => $subCategoryData['id'],
+                'subCategory' => $subCategoryId,
             ),
         );
 
-        $productRepository = $this->getProductRepository();
-        for ($key = 1; $key < count($productsData) + 1; $key++) {
-            $productsData[$key]['id'] = $this->createProduct($productsData[$key], $productsData[$key]['subCategory']);
-            $productsData[$key]['model'] = $productRepository->find($productsData[$key]['id']);
+        foreach ($productsData as &$productData) {
+            $productData['model'] = $this->factory()->catalog()->createProductByForm($productData);
+            $productData['id'] = $productData['model']->id;
         }
 
         $store1Product1Data = array(
@@ -192,7 +190,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $this->clientJsonRequest(
             $storeManager1AccessToken,
             'PUT',
-            '/api/1/stores/' . $storesData[1]['id'] . '/products/' . $productsData[1]['id'],
+            "/api/1/stores/{$storesData[1]['id']}/products/{$productsData[1]['id']}",
             $store1Product1Data
         );
 
@@ -206,7 +204,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $this->clientJsonRequest(
             $storeManager2AccessToken,
             'PUT',
-            '/api/1/stores/' . $storesData[2]['id'] . '/products/' . $productsData[3]['id'],
+            "/api/1/stores/{$storesData[2]['id']}/products/{$productsData[3]['id']}",
             $store2Product3Data
         );
 
@@ -455,6 +453,17 @@ EOF;
     public function testBarcodesExport()
     {
         $this->factory()->store()->getStoreIds(array('666', '777', '888'));
+
+        $catalog = $this->factory()->catalog()->createCatalog(
+            array(
+                'Продовольственные товары' => array(
+                    'Винно-водочные изделия' => array(
+                        'Водка' => '',
+                    )
+                )
+            )
+        );
+
         $productData = array(
             'name' => 'Продукт 1',
             'barcode' => '7770000000001',
@@ -466,6 +475,7 @@ EOF;
             'retailMarkupMin' => '40',
             'retailMarkupMax' => '60',
             'retailPricePreference' => 'retailMarkup',
+            'subCategory' => $catalog['Водка']->id,
             'typeProperties' => array(
                 'nameOnScales' => 'Название на весах',
                 'descriptionOnScales' => "Описание\nна весах",
@@ -474,27 +484,18 @@ EOF;
                 'nutritionFacts' => '"Углеводы - 12гр"'
             )
         );
-        $catalog = $this->createCatalog(
-            array(
-                'Продовольственные товары' => array(
-                    'Винно-водочные изделия' => array(
-                        'Водка' => '',
-                    )
-                )
-            )
-        );
 
-        $productId = $this->createProduct($productData, $catalog['Водка']);
+        $product = $this->factory()->catalog()->createProductByForm($productData);
 
         $barcodesData = array(
             array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
             array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
             array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
         );
-        $this->updateProductBarcodes($productId, $barcodesData);
+        $this->updateProductBarcodes($product->id, $barcodesData);
 
         /* @var Product $product */
-        $product = $this->getProductRepository()->find($productId);
+        $product = $this->getProductRepository()->find($product->id);
 
         $actualXml = $this->getConverter()->makeXmlByProduct($product, false);
 
@@ -603,7 +604,7 @@ EOF;
         $this->getDocumentManager()->clear();
 
         /* @var JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager = $this->getContainer()->get('lighthouse.job.manager');
 
         $jobManager->startWatchingTubes();
         $job = $jobManager->reserveJob(0);
@@ -837,7 +838,7 @@ EOF;
      */
     protected function getJobManager()
     {
-        return $this->getContainer()->get('lighthouse.core.job.manager');
+        return $this->getContainer()->get('lighthouse.job.manager');
     }
 
     /**

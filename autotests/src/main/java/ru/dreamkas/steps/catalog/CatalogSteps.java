@@ -101,7 +101,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void createGroupModalPageCloseIconClick() {
-        createGroupModalPage.closeIconClick();
+        createGroupModalPage.close();
         new WaitForModalWindowClose(getDriver()).await();
     }
 
@@ -123,7 +123,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void editGroupModalPageCloseIconClick() {
-        editGroupModalPage.closeIconClick();
+        editGroupModalPage.close();
         new WaitForModalWindowClose(getDriver()).await();
     }
 
@@ -134,7 +134,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void editGroupModalPageDeleteGroupConfirmButtonClick() {
-        editGroupModalPage.deleteButtonConfirmClick();
+        editGroupModalPage.confirmDeleteButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 

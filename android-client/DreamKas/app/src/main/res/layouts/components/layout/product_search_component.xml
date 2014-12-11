@@ -1,71 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        >
 
 <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent">
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbSearch"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:padding="5dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="right|center_vertical"
-            android:background="@android:drawable/ic_menu_search" />
-
-        <EditText android:id="@+id/txtProductSearchQuery"
-            android:layout_gravity="left"
-            android:layout_width="fill_parent"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:hint="Наименование или артикул товара"
-            android:inputType="textVisiblePassword"/>
-
-        <ImageButton
-            android:id="@+id/btnSearchEditTextClear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="right|center_vertical"
-            android:background="@android:drawable/ic_delete" />
-    </LinearLayout>
-
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/lblSearchResultEmpty"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_margin="10dp"
-        android:textColor="#31708f"
-        android:background="@drawable/layout_color_border"
-        android:text="@string/msgSearchReq"
-        android:padding="10dp"
-        />
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <ListView
-            android:id="@+id/lvProductsSearchResult"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/InactiveFirst"
+        >
+        <LinearLayout
+            android:id="@+id/llToolbarChilds"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            />
-        <ProgressBar
-            android:id="@+id/pbSearchProduct"
-            android:layout_width="fill_parent"
-            android:layout_gravity="top|center_horizontal"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_marginTop="9dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             >
-        </ProgressBar>
-    </FrameLayout>
+
+            <EditText android:id="@+id/txtProductSearchQuery"
+                android:layout_gravity="left"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textColorHighlight="@color/Black"
+                android:hint="Наименование или артикул товара"
+                android:inputType="textVisiblePassword"/>
+
+            <ImageButton
+                android:id="@+id/btnSearchEditTextClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="right|center_vertical"
+                android:background="@drawable/ic_remove" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <!--android:foreground="@drawable/header_shadow"-->
+        <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/lblSearchResultEmpty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            app:font_opacity="0.54"
+            android:textColor="@color/Black"
+            android:text="@string/msgSearchReq"
+            android:padding="10dp"
+            />
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <ListView
+                android:id="@+id/lvProductsSearchResult"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
+            <ProgressBar
+                android:id="@+id/pbSearchProduct"
+                android:layout_width="fill_parent"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                >
+            </ProgressBar>
+        </FrameLayout>
+    </FrameLayout >
 </LinearLayout>
+</FrameLayout >
 </merge>

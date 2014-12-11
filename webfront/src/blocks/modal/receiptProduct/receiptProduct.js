@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
+        showDeletedMessage: false,
         models: {
             receiptProduct: require('resources/receiptProduct/model')
         },

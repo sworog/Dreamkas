@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 use DateTime;
@@ -54,6 +55,10 @@ abstract class StockMovement extends AbstractDocument implements Storeable
      *     simple=true
      * )
      * @Assert\NotBlank
+     * @AssertLH\NotDeleted(
+     *      message="lighthouse.validation.errors.deleted.store.forbid.edit",
+     *      groups={"Default","NotDeleted"}
+     * )
      * @Serializer\MaxDepth(2)
      * @var Store
      */

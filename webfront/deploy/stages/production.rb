@@ -8,6 +8,4 @@ set (:application_url) {"http://#{host}.dreamkas.ru"}
 
 set :google_analytics_id, 'UA-56269916-1'
 
-set :npm_flag, '--production'
-
 server domain, :app, :web, :primary => true

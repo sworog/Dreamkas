@@ -5,15 +5,16 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn;
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnRepository;
-use Lighthouse\CoreBundle\Form\SupplierReturnType;
+use Lighthouse\CoreBundle\Form\StockMovement\SupplierReturnType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SupplierReturnController extends AbstractRestController
 {
@@ -22,6 +23,12 @@ class SupplierReturnController extends AbstractRestController
      * @var SupplierReturnRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("validator")
+     * @var ValidatorInterface
+     */
+    protected $validator;
 
     /**
      * @return SupplierReturnType|FormInterface
@@ -75,9 +82,11 @@ class SupplierReturnController extends AbstractRestController
      */
     public function putSupplierReturnsAction(SupplierReturn $supplierReturn, Request $request)
     {
+        $preViolations = $this->validator->validate($supplierReturn, null, array('NotDeleted'));
+
         $formType = new SupplierReturnType(true);
         $this->documentRepository->resetProducts($supplierReturn);
-        return $this->processForm($request, $supplierReturn, $formType);
+        return $this->processForm($request, $supplierReturn, $formType, true, true, $preViolations);
     }
 
     /**
@@ -92,9 +101,11 @@ class SupplierReturnController extends AbstractRestController
      */
     public function putStoreSupplierReturnsAction(Store $store, SupplierReturn $supplierReturn, Request $request)
     {
+        $preViolations = $this->validator->validate($supplierReturn, null, array('NotDeleted'));
+
         $this->checkSupplierReturnStore($store, $supplierReturn);
         $this->documentRepository->resetProducts($supplierReturn);
-        return $this->processForm($request, $supplierReturn);
+        return $this->processForm($request, $supplierReturn, null, true, true, $preViolations);
     }
 
     /**

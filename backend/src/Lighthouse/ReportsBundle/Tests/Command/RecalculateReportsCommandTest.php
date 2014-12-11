@@ -2,10 +2,17 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Command;
 
-use Lighthouse\CoreBundle\Test\DataAwareTestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
-class RecalculateReportsCommandTest extends DataAwareTestCase
+class RecalculateReportsCommandTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->clearMongoDb();
+        $this->authenticateProject();
+    }
+    
     protected function prepareDataForProject2()
     {
         $factory = $this->factory('project2');
@@ -106,6 +113,7 @@ Products
 Catalog Groups
 Stores
 Network
+Gross Return
 Recalculate reports for project project2
 Cost Of Goods
 ....                                                 4 / 4
@@ -118,6 +126,7 @@ Stores
 ..                                                   2 / 2
 Network
 ..                                                   2 / 2
+Gross Return
 Recalculate reports for project project3
 Cost Of Goods
 ......                                               6 / 6
@@ -130,6 +139,7 @@ Stores
 ....                                                 4 / 4
 Network
 ...                                                  3 / 3
+Gross Return
 Recalculate reports finished
 
 EOF;

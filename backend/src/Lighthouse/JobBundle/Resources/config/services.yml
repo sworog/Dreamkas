@@ -1,0 +1,5 @@
+services:
+    lighthouse.job.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseJobBundle:Job\Job

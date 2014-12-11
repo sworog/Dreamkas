@@ -1,0 +1,69 @@
+<form id="<%- id %>" class="form form_cashFlow">
+    <div class="form-group">
+        <label class="control-label">Тип *</label>
+
+        <div>
+            <div class="radioGroup">
+                <label>
+                    <input type="radio" name="direction"
+                           value="out" <%- model.get('direction') === 'out' ? 'checked' : '' %>>
+
+                    <div class="radioGroup__text">
+                        Расход
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="direction"
+                           value="in" <%- model.get('direction') === 'in' ? 'checked' : '' %>>
+
+                    <div class="radioGroup__text">
+                        Приход
+                    </div>
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Дата *</label>
+
+        <div style="width: 202px;">
+            <b block="inputDate"
+               data-value="<%- model.get('date') ? formatDate(model.get('date')) : formatDate(Date.now()) %>"></b>
+        </div>
+
+        <div class="form__errorMessage" for="date"></div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Сумма, <i class="fa fa-rub"></i> *</label>
+
+        <input type="text"
+               name="amount"
+               class="form-control"
+               value="<%- model.get('amount') ? formatMoney(model.get('amount')) : '' %>"
+               style="width: 100px;">
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Комментарий</label>
+
+        <input type="text"
+               name="comment"
+               class="form-control"
+               value="<%- model.get('comment') %>">
+
+    </div>
+
+    <% if (model.id && !model.get('reason')) { %>
+
+    <div style="padding-top: 20px;">
+
+        <b block="removeButton"></b>
+
+    </div>
+
+    <% } %>
+</form>

@@ -16,15 +16,6 @@
 #define IntroToAuthScreenSegueName                  @"IntroToAuthScreenSegue"
 #define IntroToCashierPwdScreenSegueName            @"IntroToCashierPwdScreenSegue"
 
-#define AuthToTicketWindowScreenSegueName           @"AuthToTicketWindowScreenSegue"
-#define AuthToLogInScreenSegueName                  @"AuthToLogInScreenSegue"
-#define AuthToSignInScreenSegueName                 @"AuthToSignInScreenSegue"
-
-#define LogInToTicketWindowSegueName                @"LogInToTicketWindowSegue"
-#define SignInToTicketWindowSegueName               @"SignInToTicketWindowSegue"
-
-#define TicketWindowToSelectStoreSegueName          @"TicketWindowToSelectStoreSegue"
-
 #define GroupsToProductsSegueName                   @"GroupsToProductsSegue"
 #define GroupsToSearchSegueName                     @"GroupsToSearchSegue"
 
@@ -33,17 +24,24 @@
 //
 
 #define MainNavigationControllerID                  @"MainNavigationControllerID"
+#define ModalViewControllerID                       @"ModalViewControllerID"
+#define ModalNavigationControllerID                 @"ModalNavigationControllerID"
+
 #define LogInViewControllerID                       @"LogInViewControllerID"
 #define SignInViewControllerID                      @"SignInViewControllerID"
 
-#define SelectStoreViewControllerID                 @"SelectStoreViewControllerID"
+#define TicketWindowViewControllerID                @"TicketWindowViewControllerID"
 #define SidemenuViewControllerID                    @"SidemenuViewControllerID"
-
 #define LeftSideNavigationControllerID              @"LeftSideNavigationControllerID"
 #define RightSideNavigationControllerID             @"RightSideNavigationControllerID"
 
+#define SelectStoreViewControllerID                 @"SelectStoreViewControllerID"
+
 #define GroupsViewControllerID                      @"GroupsViewControllerID"
 #define SearchViewControllerID                      @"SearchViewControllerID"
-#define CheckViewControllerID                       @"CheckViewControllerID"
+#define SaleViewControllerID                        @"SaleViewControllerID"
+
+#define PaymentViewControllerID                     @"PaymentViewControllerID"
+#define FinalPaymentViewControllerID                @"FinalPaymentViewControllerID"
 
 #endif

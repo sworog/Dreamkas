@@ -1,11 +1,40 @@
 /*
  *  ============================================================================
+ *      НАЗВАНИЯ ЭКРАНОВ
+ *  ============================================================================
+ */
+
+"intro_screen_title" = "ДРИМКАС";
+"log_in_title_name" = "Вход";
+"sign_in_title_name" = "Новый аккаунт";
+
+"select_store_title_name" = "Выбор магазина";
+
+"sale_page_title" = "Чек";
+"payment_page_title" = "Сумма";
+"final_payment_page_title" = "Оплачено";
+
+/*
+ *  ============================================================================
  *      НАЗВАНИЯ КНОПОК
  *  ============================================================================
  */
 
 "sign_up_button_title" = "Создать аккаунт";
 "log_in_button_title" = "Войти";
+"sign_in_button_title" = "Создать";
+"login_page_forget_button" = "Я забыл пароль";
+
+"make_sale_button_title" = "Оплатить";
+
+"clear_sale_button_title" = "Очистить чек";
+"clear_sale_button_confirm_title" = "Подтвердить удаление";
+
+"payment_page_pay_button" = "Оплатить";
+"payment_page_pay_by_using_card_button" = "Оплатить банковской картой";
+"final_payment_page_new_sale_button" = "Новый чек";
+"final_payment_page_payed_by_card_title" = "Оплачено банковской картой";
+"final_payment_page_change_from" = "Сдача с";
 
 /*
  *  ============================================================================
@@ -13,15 +42,18 @@
  *  ============================================================================
  */
 
-"intro_screen_title" = "ДРИМКАС";
-"log_in_title_name" = "Вход";
-"sign_in_button_title" = "Создать";
-"sign_in_title_name" = "Новый аккаунт";
-"select_store_title_name" = "Выбор магазина";
+"login_page_login_field_placeholder" = "Электронная почта";
+"login_page_passward_field_placeholder" = "Пароль";
 
 "product_search_empty_message" = "Для поиска товара введите 3 или более символа";
 "product_search_no_results_message" = "Товаров не найдено";
 "product_search_field_placeholder" = "Наименование, штрих-код или артикул";
+
+
+"sale_page_empty_check" = "Товаров в чеке нет";
+
+"payment_page_payment_text" = "Внесенная сумма";
+"payment_page_card_payment_text" = "Оплата с помощью карты";
 
 /*
  *  ============================================================================

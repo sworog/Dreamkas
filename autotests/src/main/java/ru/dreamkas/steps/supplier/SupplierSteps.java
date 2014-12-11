@@ -62,12 +62,12 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierCreateModalPageCloseIconClick() {
-        supplierCreateModalPage.closeIconClick();
+        supplierCreateModalPage.close();
     }
 
     @Step
     public void supplierEditModalPageCloseIconClick() {
-        supplierEditModalPage.closeIconClick();
+        supplierEditModalPage.close();
     }
 
     @Step

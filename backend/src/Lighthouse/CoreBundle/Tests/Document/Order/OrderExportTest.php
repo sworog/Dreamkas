@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document\Order;
 
-use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Order\OrderExcelGenerator;
+use Lighthouse\CoreBundle\Document\Order\OrderRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Liuggio\ExcelBundle\Factory;
 
@@ -13,12 +13,12 @@ class OrderExportTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $product1 = $this->createProduct(array(
+        $product1 = $this->factory()->catalog()->createProduct(array(
             'name' => 'Длинное название с многим количеством слов что бы проверить перенос строк',
             'barcode' => '1234567891234' // 13-и знаковый штрихкод
         ));
-        $product2 = $this->createProduct(array('name' => 'Кефир2Назв', 'barcode' => '2222222'));
-        $product3 = $this->createProduct(array('name' => 'Кефир3Назв', 'barcode' => '3333333'));
+        $product2 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир2Назв', 'barcode' => '2222222'));
+        $product3 = $this->factory()->catalog()->createProduct(array('name' => 'Кефир3Назв', 'barcode' => '3333333'));
 
         $this->factory()->flush();
 
@@ -26,15 +26,15 @@ class OrderExportTest extends WebTestCase
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'product' => $product1,
+                    'product' => $product1->id,
                     'quantity' => 3.11,
                 ),
                 array(
-                    'product' => $product2,
+                    'product' => $product2->id,
                     'quantity' => 2,
                 ),
                 array(
-                    'product' => $product3,
+                    'product' => $product3->id,
                     'quantity' => 7.77,
                 ),
             )
@@ -44,25 +44,19 @@ class OrderExportTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/orders',
+            "/api/1/stores/{$store->id}/orders",
             $postData
         );
 
-        /** @var OrderExcelGenerator $orderExcelGenerator */
-        $orderExcelGenerator = $this->getContainer()->get('lighthouse.core.integration.excel.export.orders.generator');
+        $order = $this->getOrderRepository()->find($response['id']);
 
-        /** @var Order $order */
-        $order = $this->getContainer()->get('lighthouse.core.document.repository.order')->find($response['id']);
-
-        $orderExcelGenerator->setOrder($order);
-        $orderExcelGenerator->generate();
+        $this->getOrderExcelGenerator()->setOrder($order);
+        $this->getOrderExcelGenerator()->generate();
 
         $filename = '/tmp/' . uniqid('order-') . '.xlsx';
-        $orderExcelGenerator->getWriter()->save($filename);
+        $this->getOrderExcelGenerator()->getWriter()->save($filename);
 
-        /** @var Factory $phpExcel */
-        $phpExcel = $this->getContainer()->get('phpexcel');
-        $fileObject = $phpExcel->createPHPExcelObject($filename);
+        $fileObject = $this->getPhpExcelFactory()->createPHPExcelObject($filename);
 
         /**
          * Title
@@ -134,5 +128,29 @@ class OrderExportTest extends WebTestCase
 
             $startCell++;
         }
+    }
+
+    /**
+     * @return OrderExcelGenerator
+     */
+    protected function getOrderExcelGenerator()
+    {
+        return $this->getContainer()->get('lighthouse.core.integration.excel.export.orders.generator');
+    }
+
+    /**
+     * @return OrderRepository
+     */
+    protected function getOrderRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.order');
+    }
+
+    /**
+     * @return Factory
+     */
+    protected function getPhpExcelFactory()
+    {
+        return $this->getContainer()->get('phpexcel');
     }
 }
