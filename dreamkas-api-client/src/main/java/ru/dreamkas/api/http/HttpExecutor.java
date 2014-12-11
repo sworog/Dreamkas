@@ -50,30 +50,30 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
         return new HttpExecutor(userName, password);
     }
 
-    private void setHeaders(HttpMessage httpMessage) {
+    private void initHeaders(HttpMessage httpMessage) {
         httpMessage.setHeader("Accept", "application/json");
         httpMessage.setHeader("Authorization", "Bearer " + accessToken.get());
     }
 
-    private HttpPost getHttpPost(String url) {
+    private HttpPost createHttpPostWithUrl(String url) {
         HttpPost httpPost = new HttpPost(url);
-        setHeaders(httpPost);
+        initHeaders(httpPost);
         return httpPost;
     }
 
-    private HttpGet getHttpGet(String url) {
+    private HttpGet createHttpGetWithUrl(String url) {
         HttpGet httpGet = new HttpGet(url);
-        setHeaders(httpGet);
+        initHeaders(httpGet);
         return httpGet;
     }
 
-    private HttpPut getHttpPut(String url) {
+    private HttpPut createHttpPutWithUrl(String url) {
         HttpPut httpPut = new HttpPut(url);
-        setHeaders(httpPut);
+        initHeaders(httpPut);
         return httpPut;
     }
 
-    private StringEntity getStringEntity(String data) throws UnsupportedEncodingException {
+    private StringEntity createStringEntityWithParams(String data) throws UnsupportedEncodingException {
         StringEntity entity = new StringEntity(data, "UTF-8");
         entity.setContentType("application/json;charset=UTF-8");
         entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
@@ -93,8 +93,8 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
     }
 
     private String executePutRequest(String targetURL, String urlParameters) throws IOException {
-        HttpPut httpPut = getHttpPut(targetURL);
-        StringEntity stringEntity = getStringEntity(urlParameters);
+        HttpPut httpPut = createHttpPutWithUrl(targetURL);
+        StringEntity stringEntity = createStringEntityWithParams(urlParameters);
         httpPut.setEntity(stringEntity);
         return executeHttpMethod(httpPut);
     }
@@ -104,15 +104,15 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
     }
 
     public String executePostRequest(String targetURL, String urlParameters) throws IOException {
-        HttpPost httpPost = getHttpPost(targetURL);
-        StringEntity stringEntity = getStringEntity(urlParameters);
+        HttpPost httpPost = createHttpPostWithUrl(targetURL);
+        StringEntity stringEntity = createStringEntityWithParams(urlParameters);
         httpPost.setEntity(stringEntity);
         return executeHttpMethod(httpPost);
     }
 
     public String executeSimplePostRequest(String targetUrl, String urlParameters) throws IOException {
         HttpPost httpPost = new HttpPost(targetUrl);
-        StringEntity stringEntity = getStringEntity(urlParameters);
+        StringEntity stringEntity = createStringEntityWithParams(urlParameters);
         httpPost.setEntity(stringEntity);
         return executeHttpMethod(httpPost);
     }
@@ -133,7 +133,7 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
 
     public void executeLinkRequest(String url, String linkHeader) throws JSONException, IOException {
         String data = "_method=LINK";
-        HttpPost httpPost = getHttpPost(url);
+        HttpPost httpPost = createHttpPostWithUrl(url);
         httpPost.setHeader("Link", linkHeader);
         StringEntity entity = new StringEntity(data, "UTF-8");
         entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
@@ -196,7 +196,7 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
 
     public String executeGetRequest(String targetUrl) throws IOException {
         // TODO Work around for token expiration 401 : The access token provided has expired.
-        HttpGet request = getHttpGet(targetUrl);
+        HttpGet request = createHttpGetWithUrl(targetUrl);
         HttpResponse response = httpClientFacade.build().execute(request);
 
         // TODO
