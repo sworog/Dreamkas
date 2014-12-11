@@ -15,6 +15,6 @@
  */
 - (void)sendPayment:(NSString *)amountTendered
         paymentType:(NSString *)paymentType
-       onCompletion:(ArrayResponseBlock)completionBlock;
+       onCompletion:(ModelResponseBlock)completionBlock;
 
 @end

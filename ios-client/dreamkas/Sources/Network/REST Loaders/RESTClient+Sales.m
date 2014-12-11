@@ -17,7 +17,7 @@
  */
 - (void)sendPayment:(NSString *)amountTendered
         paymentType:(NSString *)paymentType
-       onCompletion:(ArrayResponseBlock)completionBlock
+       onCompletion:(ModelResponseBlock)completionBlock
 {
     NSString *str = [NSString stringWithFormat:@"stores/%@/sales", [CurrentUser lastUsedStoreID]];
     
@@ -38,7 +38,7 @@
                            @"payment" : payment_dict,
                            @"products" : products_array};
     
-    DPLogFast(@"dict = %@", dict);
+    DPLogFast(@"payment params = %@", dict);
     
     [self POST:CompleteURL(str)
     parameters:dict
@@ -46,7 +46,7 @@
            DPLog(LOG_ON, @"Получили распарсенный ответ сервера");
            
            // маппинг полученных данных в экземпляры сущностей
-           NSArray *models = nil;//[GroupModel mapModelsFromList:JSON];
+           SaleModel *model = [SaleModel mapModelFromData:JSON];
            
            DPLog(LOG_ON, @"Закончили маппинг ответа сервера");
            
@@ -55,7 +55,8 @@
            
            DPLog(LOG_ON, @"Сохранили изменения в БД");
            
-           completionBlock(models, nil);
+           if (completionBlock)
+               completionBlock(model, nil);
            
        } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
            // передаем данные в блок обработки

@@ -110,7 +110,7 @@
     __weak typeof(self)weak_self = self;
     [NetworkManager sendPayment:self.paymentSumField.text
                     paymentType:kPaymentTypeCash
-                   onCompletion:^(NSArray *data, NSError *error)
+                   onCompletion:^(AbstractModel *object, NSError *error)
     {
         __strong typeof(self)strong_self = weak_self;
         [strong_self hideLoading];
@@ -132,7 +132,7 @@
     __weak typeof(self)weak_self = self;
     [NetworkManager sendPayment:@""
                     paymentType:kPaymentTypeCard
-                   onCompletion:^(NSArray *data, NSError *error)
+                   onCompletion:^(AbstractModel *object, NSError *error)
      {
          __strong typeof(self)strong_self = weak_self;
          [strong_self hideLoading];
