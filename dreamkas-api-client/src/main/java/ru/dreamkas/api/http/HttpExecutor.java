@@ -80,7 +80,7 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
         return entity;
     }
 
-    public String executeHttpMethod(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException {
+    private String executeHttpMethod(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException {
         HttpResponse response = httpClientFacade.build().execute(httpEntityEnclosingRequestBase);
         HttpEntity httpEntity = response.getEntity();
         if (httpEntity != null) {
