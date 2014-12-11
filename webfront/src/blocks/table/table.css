@@ -108,3 +108,7 @@
 .table_storesGrossSales__difference .fa-arrow-circle-o-down {
     color: #DB5154;
 }
+
+.table_topSales__filters {
+    padding: 0 0 20px 0;
+}
