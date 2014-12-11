@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "textfield_bg.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "textfield_bg@2x.png"
+      "filename" : "110513_heckler_design-796_f_2.jpg"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "110513_heckler_design-796_f_2-1.jpg"
     }
   ],
   "info" : {

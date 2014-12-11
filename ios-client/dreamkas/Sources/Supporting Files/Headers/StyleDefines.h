@@ -39,30 +39,35 @@
 #define DefaultSuperLightCyanColor          RGB(146, 213, 251)
 
 #define DefaultDarkGrayColor                RGB(105, 105, 105)
-#define DefaultGrayColor                    RGB(158, 158, 158)
-#define DefaultLightGrayColor               RGB(236, 236, 236)
+#define DefaultGrayColor                    RGB(161, 161, 161)
+#define DefaultPreLightGrayColor            RGB(222, 222, 222)
+#define DefaultLightGrayColor               RGB(249, 249, 249)
+
+#define DefaultNavbarLightColor             RGB(235, 238, 240)
+#define DefaultNavbarDarkColor              RGB(55, 71, 79)
 
 #define DefaultWhiteColor                   [UIColor whiteColor]
 #define DefaultBlackColor                   [UIColor blackColor]
-#define DefaultRedColor                     RGB(244, 67, 55)
+#define DefaultRedColor                     RGB(244, 67, 54)
 
 //
 // Размеры приложения
 //
 
-#define DefaultButtonHeight                 52.0f
+#define DefaultButtonHeight                 36.0f
 #define DefaultCornerRadius                 2.f
 
 #define DefaultBtnShadowRadius              2.f
 #define DefaultBtnShadowOpacity             0.6f
 
 #define DefaultTextFieldHeight              52.f
+#define DefaultModalOverlayAlpha            0.5f
 
 #define DefaultSingleLineCellHeight         52.f
 #define DefaultCellSeparatorHeight          1.f
 #define DefaultVerticalCellInsets           17.f
 
-#define DefaultSidemenuOverlayAlpha         0.6f
+#define DefaultSidemenuOverlayAlpha         0.5f
 #define DefaultSidemenuWidth                256.f
 #define DefaultSidemenuHeight               768.f
 

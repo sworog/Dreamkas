@@ -22,6 +22,7 @@
 #define AI_Common_ConfirmAlert              @"AI_Common_ConfirmAlert"
 
 #define AI_Common_NavbarBackButton          @"AI_Common_NavbarBackButton"
+#define AI_Common_NavbarCloseButton         @"AI_Common_NavbarCloseButton"
 
 #define AI_Common_CellAtIndexPath(sid,rid)  [NSString stringWithFormat:@"AI_Common_CellAtIndexPath_s%ld_r%ld", sid, rid]
 
@@ -38,14 +39,14 @@
 
 #define AI_LogInPage_LoginField             @"AI_LogInPage_LoginField"
 #define AI_LogInPage_PwdField               @"AI_LogInPage_PwdField"
+#define AI_LogInPage_ForgetButton           @"AI_LogInPage_ForgetButton"
 #define AI_LogInPage_LogInButton            @"AI_LogInPage_LogInButton"
-#define AI_LogInPage_CloseButton            @"AI_LogInPage_CloseButton"
 
 //
 // Экран регистрации в приложении
 //
 
-#define AI_SignInPage_CloseButton           @"AI_SignInPage_CloseButton"
+// ..
 
 //
 // Экран входа в приложение по пин-коду

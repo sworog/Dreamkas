@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
-#import "CustomTextField.h"
+#import "OldCustomTextField.h"
 
 #define LeftSpace 0
 
-@implementation CustomTextField
+@implementation OldCustomTextField
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {

@@ -73,7 +73,7 @@
     NSRegularExpression *emailRegex = [NSRegularExpression regularExpressionWithPattern:@"^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{1,9})$"
                                                                                 options:NSRegularExpressionCaseInsensitive
                                                                                   error:&myError];
-    NSUInteger number_of_matches = [emailRegex numberOfMatchesInString: email
+    NSUInteger number_of_matches = [emailRegex numberOfMatchesInString:email
                                                                options:0
                                                                  range:NSMakeRange(0, [email length]-1)];
     if (myError)
@@ -81,6 +81,76 @@
     
     //NSLog(@"numberOfMatchesEmails = %d", number_of_matches);
     return (number_of_matches > 0);
+}
+
++ (BOOL)isPriceValid:(NSString*)price
+{
+    //
+    // PRICE FORMAT: 99000000,99 or 6.35 or .075
+    //
+    
+    if ([price length] < 1)
+        return NO;
+    
+    // проверка на разрешенный словарь символов
+    NSCharacterSet *allowed_charactes = [NSCharacterSet characterSetWithCharactersInString:@"0123456789.,"];
+    NSCharacterSet *not_allowed_charactes = [allowed_charactes invertedSet];
+    if ([price rangeOfCharacterFromSet:not_allowed_charactes].location != NSNotFound) {
+        return NO;
+    }
+    
+    // проверка на дублирование разделителей дробной части
+    NSMutableString *tmp = [NSMutableString stringWithString:price];
+    int matches = 0;
+    matches = [tmp replaceOccurrencesOfString:@"."
+                                   withString:@"!"
+                                      options:NSLiteralSearch
+                                        range:NSMakeRange(0, [tmp length])];
+    
+    matches += [tmp replaceOccurrencesOfString:@","
+                                    withString:@"!"
+                                       options:NSLiteralSearch
+                                         range:NSMakeRange(0, [tmp length])];
+    if (matches > 1) {
+        return NO;
+    }
+    
+    // проверка, что целая часть не длиннее 8 цифр, а дробная - не длиннее 2
+    NSArray *components = nil;
+    if ([price rangeOfString:@"."].location != NSNotFound) {
+        components = [price componentsSeparatedByString:@"."];
+    }
+    else {
+        components = [price componentsSeparatedByString:@","];
+    }
+    if ([components count] == 1) {
+        if ([price hasPrefix:@"."] || [price hasPrefix:@","]) {
+            // если имеется только дробная часть
+            NSString *str = [components firstObject];
+            if ([str length] > DigitsAfterDotInPrices) {
+                return NO;
+            }
+        }
+        else {
+            // если имеется только целая часть
+            NSString *str = [components firstObject];
+            if ([str length] > DigitsBeforeDotInPrices) {
+                return NO;
+            }
+        }
+    }
+    else {
+        NSString *first_part = [components firstObject];
+        NSString *last_part = [components lastObject];
+        if ([first_part length] > DigitsBeforeDotInPrices) {
+            return NO;
+        }
+        if ([last_part length] > DigitsAfterDotInPrices) {
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 @end

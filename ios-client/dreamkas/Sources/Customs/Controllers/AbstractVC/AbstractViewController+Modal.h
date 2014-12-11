@@ -8,6 +8,8 @@
 
 #import "AbstractViewController.h"
 
+@class ModalViewController;
+
 @interface AbstractViewController (Modal)
 
 /** Дополнительный слой, который содержит размытое изображение экрана */
@@ -16,10 +18,14 @@
 /** Создание слоя с размытым изображением экрана */
 - (UIView*)createBlurredView;
 
-/** Отображение модального контроллера */
-- (void)showViewControllerModally:(AbstractViewController *)abstractVC segueId:(NSString *)segueId;
+/**
+ * Отображение модального контроллера
+ */
+- (void)showViewControllerModally:(AbstractViewController *)destinationVC;
 
-/** Скрытие модального контроллера */
-- (void)hideModalViewController;
+/**
+ * Скрытие модального контроллера
+ */
+- (void)hideModalViewController:(ModalViewController *)modalViewController;
 
 @end

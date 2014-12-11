@@ -12,7 +12,7 @@
 
 @property (nonatomic, weak) IBOutlet CustomLabel *titleLabel;
 
-@property (nonatomic, weak) IBOutlet CustomFilledButton *changeStoreButton;
+@property (nonatomic, weak) IBOutlet RaisedEmptyButton *changeStoreButton;
 
 @end
 
@@ -56,8 +56,7 @@
 {
     DPLogFast(@"");
     
-    [(AbstractViewController*)self.parentViewController showViewControllerModally:ControllerById(SelectStoreViewControllerID)
-                                                                          segueId:TicketWindowToSelectStoreSegueName];
+    [(AbstractViewController*)self.parentViewController showViewControllerModally:ControllerById(SelectStoreViewControllerID)];
 }
 
 - (IBAction)logoutButtonClicked:(id)sender
@@ -66,7 +65,7 @@
     
     [CurrentUser resetLastUsedAuthData];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end
