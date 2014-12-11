@@ -72,6 +72,7 @@ class CashFlow extends AbstractDocument
      * @MongoDB\ReferenceOne(
      *      discriminatorField="reasonType",
      * )
+     * @Serializer\MaxDepth(2)
      * @var CashFlowable
      */
     protected $reason;
