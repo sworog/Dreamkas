@@ -36,7 +36,7 @@
     [self.paidByCardLabel setTextColor:[DefaultBlackColor colorWithAlphaComponent:0.87]];
     
     // настройка окружения
-    if (false) {
+    if ([[self.referenceModel paymentType] isEqualToString:kPaymentTypeCard]) {
         [self.paidByCardLabel setHidden:NO];
         
         [self.changeLabel setHidden:YES];
@@ -48,8 +48,8 @@
         [self.changeLabel setHidden:NO];
         [self.changeFromTotalLabel setHidden:NO];
         
-        NSNumber *change_value = @(125.90);
-        NSNumber *total_value = @(1230.00);
+        NSNumber *change_value = [self.referenceModel paymentChange];
+        NSNumber *total_value = [self.referenceModel paymentAmountTendered];
         
         PriceNumberFormatter *formatter = [PriceNumberFormatter new];
         NSMutableString *change_str = [NSMutableString stringWithFormat:@"%@ ₽", [formatter stringFromNumber:change_value]];
@@ -98,8 +98,6 @@
 - (IBAction)theNewSaleButtonClicked:(id)sender
 {
     DPLogFast(@"");
-    
-    // TODO: сброс чека в локальной БД
     
     [self closeButtonClicked];
 }

@@ -10,4 +10,6 @@
 
 @interface FinalPaymentViewController : AbstractViewController
 
+@property (nonatomic) SaleModel *referenceModel;
+
 @end

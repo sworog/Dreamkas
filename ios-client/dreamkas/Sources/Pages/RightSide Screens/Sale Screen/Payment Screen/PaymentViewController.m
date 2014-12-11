@@ -7,6 +7,7 @@
 //
 
 #import "PaymentViewController.h"
+#import "FinalPaymentViewController.h"
 
 @interface PaymentViewController () <UITextFieldDelegate>
 
@@ -102,8 +103,6 @@
 {
     DPLogFast(@"");
     
-    [self.paymentSumField setUserInteractionEnabled:NO];
-    
     [self viewTouched:nil];
     [self showLoading];
     
@@ -119,7 +118,14 @@
             [DialogHelper showRequestError];
             return;
         }
-        [strong_self.navigationController pushViewController:ControllerById(FinalPaymentViewControllerID) animated:YES];
+        
+        // чистим чек
+        [SaleItemModel MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
+        
+        // переходим к финальному экрану
+        FinalPaymentViewController *final_vc = ControllerById(FinalPaymentViewControllerID);
+        [final_vc setReferenceModel:(SaleModel *)object];
+        [strong_self.navigationController pushViewController:final_vc animated:YES];
     }];
 }
 
@@ -128,6 +134,7 @@
     DPLogFast(@"");
     
     [self viewTouched:nil];
+    [self showLoading];
     
     __weak typeof(self)weak_self = self;
     [NetworkManager sendPayment:@""
@@ -141,7 +148,14 @@
              [DialogHelper showRequestError];
              return;
          }
-         [strong_self.navigationController pushViewController:ControllerById(FinalPaymentViewControllerID) animated:YES];
+         
+         // чистим чек
+         [SaleItemModel MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
+         
+         // переходим к финальному экрану
+         FinalPaymentViewController *final_vc = ControllerById(FinalPaymentViewControllerID);
+         [final_vc setReferenceModel:(SaleModel *)object];
+         [strong_self.navigationController pushViewController:final_vc animated:YES];
      }];
 }
 
