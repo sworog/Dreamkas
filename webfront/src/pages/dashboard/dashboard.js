@@ -72,7 +72,8 @@ define(function(require, exports, module) {
                 })
             }),
 
-            table_storesGrossSales: require('blocks/table/storesGrossSales/storesGrossSales')
+            table_storesGrossSales: require('blocks/table/storesGrossSales/storesGrossSales'),
+            table_topSales: require('blocks/table/topSales/topSales')
         },
         initialize: function() {
 
