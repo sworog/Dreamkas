@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return ajaxMock({
         //request
-        url: '/reports/grossMargin',
+        url: '/reports/grossSales',
         type: 'GET',
 
         //response

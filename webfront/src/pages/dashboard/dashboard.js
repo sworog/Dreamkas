@@ -5,6 +5,7 @@ define(function(require, exports, module) {
         Form_invoice = require('blocks/form/stockMovement/invoice/invoice'),
         Modal_store = require('blocks/modal/store/store'),
         Modal_invoice = require('blocks/modal/stockMovement/invoice/invoice'),
+        MainInfo = require('./mainInfo'),
         firstStartResource = require('resources/firstStart/firstStart');
 
     return Page.extend({
@@ -41,16 +42,28 @@ define(function(require, exports, module) {
         resources: {
             firstStart: firstStartResource,
             productCount: require('resources/product/count'),
-            grossSales: require('resources/grossSales/grossSales')
+            grossSales: require('resources/grossSales/grossSales'),
+            grossMargin: require('resources/grossMargin/grossMargin')
         },
 
         blocks: {
             progressbar: require('./progressbar'),
             steps: require('./steps'),
             info: require('./info'),
-            grossSales: require('./grossSales'),
-            grossMargin: require('./grossMargin'),
+            grossSales: function(options) {
 
+                options.title = 'Продажи по сети за сегодня на это время';
+                options.resource = this.resources.grossSales;
+
+                return new MainInfo(options);
+            },
+            grossMargin: function(options) {
+
+                options.title = 'Прибыль по сети за сегодня на это время';
+                options.resource = this.resources.grossMargin;
+
+                return new MainInfo(options);
+            },
             modal_store: Modal_store.extend({
                 blocks: {
                     form_store: Form_store.extend({

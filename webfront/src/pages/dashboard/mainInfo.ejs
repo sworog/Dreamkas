@@ -1,21 +1,21 @@
 <div class="panel">
     <div class="panel-heading">
-        Продажи по сети за сегодня на это время
+        <%- title %>
     </div>
 
     <div class="panel-body">
         <div class="page_dashboard__value1">
-            <%- formatMoney(resources.grossSales.get('today').now.value) %> <i class="fa fa-rub"></i>
+            <%- formatMoney(resource.get('today').now.value) %> <i class="fa fa-rub"></i>
         </div>
 
-        <% var diff = resources.grossSales.get('yesterday').now.diff; %>
+        <% var diff = resource.get('yesterday').now.diff; %>
 
         <div class="page_dashboard__value2 page_dashboard__valueMinus">
             <i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i> <%- Math.abs(diff) %> %
             <span class="page_dashboard__valueHint"><%- diff >= 0 ? 'больше' : 'меньше' %>, чем вчера</span>
         </div>
 
-        <% var diff = resources.grossSales.get('weekAgo').now.diff; %>
+        <% var diff = resource.get('weekAgo').now.diff; %>
 
         <div class="page_dashboard__value2 page_dashboard__valuePlus">
             <i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i> <%- Math.abs(diff) %> %
