@@ -1,5 +1,6 @@
 /.bundle/
 src/config.js
+diff/
 node_modules/
 phantomjsdriver.log
 build/

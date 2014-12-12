@@ -21,14 +21,12 @@ describe('Store page with stores', function() {
             .waitFor('body[status="loaded"]', 5000, done)
     });
     
-    it('Store modal', function(done) {
+    it.only('Store modal', function(done) {
 
         browser
             .click('.store__link')
             .waitForVisible('.modal_store')
-            .isVisible('.modal_store', function(err, isVisible){
-                expect(isVisible).to.be.true();
-            })
+            .diff('test')
             .call(done);
 
     });
