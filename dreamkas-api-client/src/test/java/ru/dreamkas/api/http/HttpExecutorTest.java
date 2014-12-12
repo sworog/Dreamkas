@@ -54,111 +54,73 @@ public class HttpExecutorTest {
 
 
     @Before
-    public void before() {
+    public void before() throws IOException {
         initMocks(this);
-    }
-
-    @Test
-    public void testGetRequestExecution() throws Exception {
-        HttpExecutor httpExecutor = (HttpExecutor)HttpExecutor.getHttpRequestable("email", "password");
-        httpExecutor.setHttpClientFacade(httpClientFacade);
-        httpExecutor.setAccessToken(accessToken);
+        mockStatic(EntityUtils.class);
+        when(EntityUtils.toString(httpEntity, "UTF-8")).thenReturn("{}");
+        when(abstractObject.getApiUrl()).thenReturn("/url");
+        when(abstractObject.getJsonObject()).thenReturn(new JSONObject());
         when(accessToken.get()).thenReturn("access_token");
         when(httpClientFacade.build()).thenReturn(closeableHttpClient);
         when(httpClientFacade.build().execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
         when(httpResponse.getEntity()).thenReturn(httpEntity);
         when(httpResponse.getStatusLine()).thenReturn(statusLine);
         when(statusLine.getStatusCode()).thenReturn(200);
-        mockStatic(EntityUtils.class);
-        when(EntityUtils.toString(httpEntity, "UTF-8")).thenReturn("test");
-        assertThat(httpExecutor.executeGetRequest("test"), is("test"));
+    }
+
+    @Test
+    public void testGetRequestExecution() throws Exception {
+        HttpRequestable httpRequestable = HttpExecutor.getHttpRequestable("email", "password");
+        initHttpExecutorWithParams((HttpExecutor)httpRequestable);
+        assertThat(httpRequestable.executeGetRequest("test"), is("{}"));
+    }
+
+    private void initHttpExecutorWithParams(HttpExecutor httpExecutor) {
+        httpExecutor.setHttpClientFacade(httpClientFacade);
+        httpExecutor.setAccessToken(accessToken);
     }
 
     @Test
     public void testIfHttpEntityIsNullRequestReturnsEmptyJson() throws Exception {
-        ApiStorage.getConfigurationVariableStorage().setProperty("webdriver.base.url", "http://test.autotests.webfront.lighthouse.pro");
-        HttpExecutor httpExecutor = (HttpExecutor)HttpExecutor.getHttpRequestable("email", "password");
-        httpExecutor.setHttpClientFacade(httpClientFacade);
-        httpExecutor.setAccessToken(accessToken);
-        when(abstractObject.getApiUrl()).thenReturn("/url");
-        when(abstractObject.getJsonObject()).thenReturn(new JSONObject());
-        when(accessToken.get()).thenReturn("access_token");
-        when(httpClientFacade.build()).thenReturn(closeableHttpClient);
-        when(httpClientFacade.build().execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
-        when(httpResponse.getStatusLine()).thenReturn(statusLine);
-        when(statusLine.getStatusCode()).thenReturn(200);
-        httpExecutor.executePostRequest(abstractObject);
+        initBaseUrlProperty();
+        HttpRequestable httpRequestable = HttpExecutor.getHttpRequestable("email", "password");
+        when(httpResponse.getEntity()).thenReturn(null);
+        initHttpExecutorWithParams((HttpExecutor)httpRequestable);
+        httpRequestable.executePostRequest(abstractObject);
+    }
+
+    @Test
+    public void testPostRequestExecution() throws IOException, JSONException {
+        initBaseUrlProperty();
+        HttpRequestable httpRequestable = HttpExecutor.getHttpRequestable("email", "password");
+        initHttpExecutorWithParams((HttpExecutor) httpRequestable);
+        httpRequestable.executePostRequest(abstractObject);
+    }
+
+    @Test
+    public void testPutRequestExecution() throws IOException, JSONException {
+        initBaseUrlProperty();
+        HttpRequestable httpRequestable = HttpExecutor.getHttpRequestable("email", "password");
+        initHttpExecutorWithParams((HttpExecutor) httpRequestable);
+        httpRequestable.executePutRequest("http://url", abstractObject.getJsonObject());
+    }
+
+    @Test
+    public void testLinkRequestExecution() throws IOException, JSONException {
+        initBaseUrlProperty();
+        HttpRequestable httpRequestable = HttpExecutor.getHttpRequestable("email", "password");
+        initHttpExecutorWithParams((HttpExecutor) httpRequestable);
+        httpRequestable.executeLinkRequest("http://url", "header");
     }
 
     @Test
     public void testSimplePostExecution() throws IOException {
         HttpExecutor httpExecutor = (HttpExecutor) HttpExecutor.getSimpleHttpRequestable();
         httpExecutor.setHttpClientFacade(httpClientFacade);
-        httpExecutor.setAccessToken(accessToken);
-        when(httpClientFacade.build()).thenReturn(closeableHttpClient);
-        when(httpClientFacade.build().execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
-        when(httpResponse.getEntity()).thenReturn(httpEntity);
-        when(httpResponse.getStatusLine()).thenReturn(statusLine);
-        when(statusLine.getStatusCode()).thenReturn(200);
-        mockStatic(EntityUtils.class);
-        when(EntityUtils.toString(httpEntity, "UTF-8")).thenReturn("test");
-        assertThat(httpExecutor.executeSimplePostRequest("http://localhost", "url"), is("test"));
+        assertThat(httpExecutor.executeSimplePostRequest("http://localhost", "url"), is("{}"));
     }
 
-    @Test
-    public void testPostRequestExecution() throws IOException, JSONException {
+    private void initBaseUrlProperty() {
         ApiStorage.getConfigurationVariableStorage().setProperty("webdriver.base.url", "http://test.autotests.webfront.lighthouse.pro");
-        HttpExecutor httpExecutor = (HttpExecutor)HttpExecutor.getHttpRequestable("email", "password");
-        httpExecutor.setHttpClientFacade(httpClientFacade);
-        httpExecutor.setAccessToken(accessToken);
-        when(abstractObject.getApiUrl()).thenReturn("/url");
-        when(abstractObject.getJsonObject()).thenReturn(new JSONObject());
-        when(accessToken.get()).thenReturn("access_token");
-        when(httpClientFacade.build()).thenReturn(closeableHttpClient);
-        when(httpClientFacade.build().execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
-        when(httpResponse.getEntity()).thenReturn(httpEntity);
-        when(httpResponse.getStatusLine()).thenReturn(statusLine);
-        when(statusLine.getStatusCode()).thenReturn(200);
-        mockStatic(EntityUtils.class);
-        when(EntityUtils.toString(httpEntity, "UTF-8")).thenReturn("{}");
-        httpExecutor.executePostRequest(abstractObject);
-    }
-
-    @Test
-    public void testPutRequestExecution() throws IOException, JSONException {
-        ApiStorage.getConfigurationVariableStorage().setProperty("webdriver.base.url", "http://test.autotests.webfront.lighthouse.pro");
-        HttpExecutor httpExecutor = (HttpExecutor)HttpExecutor.getHttpRequestable("email", "password");
-        httpExecutor.setHttpClientFacade(httpClientFacade);
-        httpExecutor.setAccessToken(accessToken);
-        when(abstractObject.getApiUrl()).thenReturn("/url");
-        when(abstractObject.getJsonObject()).thenReturn(new JSONObject());
-        when(accessToken.get()).thenReturn("access_token");
-        when(httpClientFacade.build()).thenReturn(closeableHttpClient);
-        when(httpClientFacade.build().execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
-        when(httpResponse.getEntity()).thenReturn(httpEntity);
-        when(httpResponse.getStatusLine()).thenReturn(statusLine);
-        when(statusLine.getStatusCode()).thenReturn(200);
-        mockStatic(EntityUtils.class);
-        when(EntityUtils.toString(httpEntity, "UTF-8")).thenReturn("{}");
-        httpExecutor.executePutRequest("http://url", abstractObject.getJsonObject());
-    }
-
-    @Test
-    public void testLinkRequestExecution() throws IOException, JSONException {
-        ApiStorage.getConfigurationVariableStorage().setProperty("webdriver.base.url", "http://test.autotests.webfront.lighthouse.pro");
-        HttpExecutor httpExecutor = (HttpExecutor)HttpExecutor.getHttpRequestable("email", "password");
-        httpExecutor.setHttpClientFacade(httpClientFacade);
-        httpExecutor.setAccessToken(accessToken);
-        when(abstractObject.getApiUrl()).thenReturn("/url");
-        when(abstractObject.getJsonObject()).thenReturn(new JSONObject());
-        when(accessToken.get()).thenReturn("access_token");
-        when(httpClientFacade.build()).thenReturn(closeableHttpClient);
-        when(httpClientFacade.build().execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
-        when(httpResponse.getEntity()).thenReturn(httpEntity);
-        when(httpResponse.getStatusLine()).thenReturn(statusLine);
-        when(statusLine.getStatusCode()).thenReturn(200);
-        mockStatic(EntityUtils.class);
-        when(EntityUtils.toString(httpEntity, "UTF-8")).thenReturn("{}");
-        httpExecutor.executeLinkRequest("http://url", "header");
     }
 }
