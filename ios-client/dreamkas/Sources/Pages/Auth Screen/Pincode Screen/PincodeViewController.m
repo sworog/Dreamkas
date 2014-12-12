@@ -10,7 +10,7 @@
 
 @interface PincodeViewController ()
 
-@property (nonatomic, weak) IBOutlet CustomFilledButton *goAheadButton;
+@property (nonatomic, weak) IBOutlet RaisedFilledButton *goAheadButton;
 
 @end
 

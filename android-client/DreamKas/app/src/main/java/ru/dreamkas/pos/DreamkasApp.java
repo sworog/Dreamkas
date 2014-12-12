@@ -3,6 +3,8 @@ package ru.dreamkas.pos;
 import android.app.Application;
 import android.content.Context;
 
+import org.apache.commons.lang3.math.Fraction;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -10,11 +12,44 @@ public class DreamkasApp extends Application {
 
     private static Context mContext;
     private static DecimalFormat mMoneyDecimalFormat;
+    private static float mMakeupSquareSide;
+    private static SupportedRatio mRatio;
+    static float mScale; //getResources().getDisplayMetrics().density;
+
+    public static int getDpValueInPixels(float value) {
+        return (int) (value * mScale + 0.5f);
+    }
+
+    public enum SupportedRatio{_16_10, _3_4};
+
+    public static void setRatio(Fraction ratio, float width) {
+        if(ratio.getDenominator() == 5 && ratio.getNumerator() == 8){
+            DreamkasApp.mRatio = SupportedRatio._16_10;
+            mMakeupSquareSide = width/16;
+        }else if(ratio.equals("4/3")){
+            DreamkasApp.mRatio = SupportedRatio._3_4;
+            mMakeupSquareSide = width/4;
+        }else {
+            DreamkasApp.mRatio = SupportedRatio._16_10;
+        }
+    }
+
+    public static float getSquareSide() {
+        return mMakeupSquareSide;
+    }
+
+    public static SupportedRatio getRatio() {
+        return mRatio;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this;
+
+        mScale = mContext.getResources().getDisplayMetrics().density;
+
+
 
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
         otherSymbols.setDecimalSeparator(Constants.COMMA);
@@ -25,6 +60,7 @@ public class DreamkasApp extends Application {
     }
 
     public static Context getContext(){
+
         return mContext;
     }
 

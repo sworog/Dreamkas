@@ -52,7 +52,7 @@
     self.titleLabel.font = DefaultMediumFont(14);
     [self setTitleColor:DefaultWhiteColor forState:UIControlStateNormal];
     [self setTitleColor:DefaultWhiteColor forState:UIControlStateHighlighted];
-    [self setTitleColor:DefaultGrayColor forState:UIControlStateDisabled];
+    [self setTitleColor:DefaultDarkGrayColor forState:UIControlStateDisabled];
 }
 
 - (void)setTitle:(NSString *)title forState:(UIControlState)state
@@ -69,7 +69,7 @@
 {
     [super setEnabled:enabled];
     
-    [[self layer] setBackgroundColor:(enabled)?DefaultCyanColor.CGColor:DefaultLightGrayColor.CGColor];
+    [[self layer] setBackgroundColor:(enabled)?DefaultCyanColor.CGColor:DefaultPreLightGrayColor.CGColor];
 }
 
 @end

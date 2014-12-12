@@ -45,6 +45,7 @@ class QueueCommandTest extends ContainerAwareTestCase
      * @param InvocationMatcher $putInTubeMatcher
      * @param string $commandInput
      * @param string $replyTo
+     * @param array $workerCommandOptions
      * @return array statuses
      */
     protected function executeCommand(
@@ -52,7 +53,8 @@ class QueueCommandTest extends ContainerAwareTestCase
         MockObject $pheanstalkMock,
         InvocationMatcher $putInTubeMatcher,
         $commandInput,
-        $replyTo
+        $replyTo,
+        array $workerCommandOptions = array()
     ) {
         $request = new ClientRequest($commandInput, $replyTo);
         $job = new Job(1, $request->toString());
@@ -90,7 +92,7 @@ class QueueCommandTest extends ContainerAwareTestCase
             ->method('delete')
             ->with($this->isInstanceOf('\Pheanstalk_Job'));
 
-        $tester->runCommand('lighthouse:queue:command', array('--max-tries' => 3));
+        $tester->runCommand('lighthouse:queue:command', array('--max-tries' => 3), $workerCommandOptions);
 
         return $replies;
     }
@@ -251,6 +253,59 @@ EOF;
         $this->assertReply($lastReply, Reply::STATUS_FAILED, "Command \"{$commandInput}\" is not defined.");
 
         $this->assertCount(0, $replies, 'No progress status should be found');
+    }
+
+    public function testHelpVerboseOutput()
+    {
+        $commandInput = 'help';
+        $replyTo = 'reply_1';
+
+        $pheanstalkMock = $this->getPheanstalkMock();
+
+        $tester = $this->createQueueCommandTester($pheanstalkMock);
+
+        $replies = $this->executeCommand(
+            $tester,
+            $pheanstalkMock,
+            $this->atLeast(3),
+            $commandInput,
+            $replyTo,
+            array('verbosity' => 2)
+        );
+
+        $this->assertSame(0, $tester->getStatusCode());
+
+        $display = $tester->getDisplay();
+
+        $expectedDisplayStart = <<<EOF
+No queue command jobs found
+Got the job 1: {"command":"{$commandInput}","replyTo":"{$replyTo}"}
+EOF;
+
+        $this->assertStringStartsWith($expectedDisplayStart, $display);
+
+        $expectedVerboseOutput = <<<EOF
+Usage:
+ help [--xml] [--format="..."] [--raw] [command_name]
+
+Arguments:
+ command               The command to execute
+ command_name          The command name (default: "help")
+EOF;
+
+        $this->assertContains($expectedVerboseOutput, $display);
+
+        $firstReply = array_shift($replies);
+        $lastReply = array_pop($replies);
+
+        $this->assertReply($firstReply, Reply::STATUS_STARTED, '');
+        $this->assertReply($lastReply, Reply::STATUS_FINISHED, 0);
+
+        $this->assertGreaterThan(4, count($replies));
+
+        foreach ($replies as $reply) {
+            $this->assertReply($reply, Reply::STATUS_PROCESSING);
+        }
     }
 
     /**

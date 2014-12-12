@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android'
 apply plugin: 'android-apt'
 
 
@@ -23,8 +24,8 @@ repositories {
 
 android
 {
-    compileSdkVersion 19
-    buildToolsVersion '20.0.0'
+    compileSdkVersion 21
+    buildToolsVersion '21.0.1'
 
     lintOptions
     {
@@ -49,7 +50,8 @@ android
         minSdkVersion 17
         targetSdkVersion 19
 
-        def host = "http://av.staging.api.lighthouse.pro"
+        //def host = "http://av.staging.api.lighthouse.pro"
+        def host = "http://android.autotests.api.lighthouse.pro"
         if(project.hasProperty("server_address")){
             host = project.getProperty("server_address");
         }
@@ -94,7 +96,55 @@ android
             applicationIdSuffix ".debug"
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    productFlavors {
+        dev {
+            // The one for development/testing
+        }
+        live {
+            // The flavour for releasing
+        }
+    }
 }
+
+task grantAnimationPermission(type: Exec, dependsOn: 'installDevDebug') { // or install{productFlavour}{buildType}
+    //commandLine "adb shell pm grant ru.dreamkas.pos.debug.test android.permission.SET_ANIMATION_SCALE".split(' ')
+    commandLine "adb shell pm grant ru.dreamkas.pos android.permission.SET_ANIMATION_SCALE".split(' ')
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith('connectedAndroidTest')) {
+        task.dependsOn grantAnimationPermission
+    }
+}
+
+def copyAndReplaceText(source, dest, Closure replaceText) {
+    dest.write(replaceText(source.text))
+}
+
+// Override Data in Manifest - This can be done using different Manifest files for each flavor, this way there's no need to modify the manifest
+/*android.applicationVariants.all { variant ->
+    if (variant.name.startsWith('dev')) { // Where dev is the one you'll use to run Espresso tests
+        System.out.println("Not removing the SET_ANIMATION_SCALE permission for $variant.name")
+        return
+    }
+
+    System.out.println("Removing the SET_ANIMATION_SCALE permission for $variant.name")
+    variant.processManifest.doLast {
+        copyAndReplaceText(manifestOutputFile, manifestOutputFile) {
+            def replaced = it.replace('<uses-permission android:name="android.permission.SET_ANIMATION_SCALE"/>', '');
+            if (replaced.contains('SET_ANIMATION_SCALE')) {
+                // For security, imagine an extra space is added before closing tag, then the replace would fail - TODO use regex
+                throw new RuntimeException("Don't ship with this permission! android.permission.SET_ANIMATION_SCALE")
+            }
+            replaced
+        }
+    }
+}*/
 
 apt
 {
@@ -108,6 +158,10 @@ apt
 spoon
 {
     debug = true;
+    //noAnimation = true;
+    if (project.hasProperty('spoonClassName')) {
+        className = project.spoonClassName
+    }
 }
 
 dependencies
@@ -118,15 +172,24 @@ dependencies
             }
             androidTestCompile 'com.google.guava:guava:11.0.2'
             androidTestCompile 'com.squareup.spoon:spoon-client:1.1.0'
-
+            androidTestCompile 'com.surftools:BeanstalkClient:1.4.6'
             apt "org.androidannotations:androidannotations:3.0"
-            compile 'com.android.support:support-v4:19.0.0'
+            //compile 'com.android.support:support-v4:19.0.0'
             compile 'com.octo.android.robospice:robospice:1.4.12'
             compile 'com.octo.android.robospice:robospice-spring-android:1.4.12'
             compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
-            compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
+            compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
             compile 'org.androidannotations:androidannotations-api:3.0'
+            compile 'com.android.support:appcompat-v7:21.0.+'
             compile 'com.google.zxing:core:3.0.0'
+            compile('com.rengwuxian.materialedittext:library:1.6.0') {
+                exclude group: 'com.nineoldandroids', module: 'library'
+            }
+            compile project(':materialDesign')
+            /*compile (project(':materialEditText')){
+                                        exclude group: 'com.nineoldandroids', module: 'library'
+                                    }*/
         }
+
 
 

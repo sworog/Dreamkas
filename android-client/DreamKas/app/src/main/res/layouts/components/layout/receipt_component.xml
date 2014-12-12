@@ -1,36 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/lblReceiptEmpty"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_margin="10dp"
-        android:textColor="#31708f"
-        android:background="@drawable/layout_color_border"
-        android:text="@string/msgEmptyReceipt"
-        android:padding="10dp"
-        android:visibility="visible"/>
-    <LinearLayout
-        android:id="@+id/llReceipt"
-        android:layout_weight="3"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:visibility="gone">
-        <ListView
-            android:id="@+id/lvReceipt"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:layout_width="fill_parent">
-        </ListView>
-        <Button xmlns:android="http://schemas.android.com/apk/res/android"
-            android:text="Продать"
-            android:id="@+id/btnRegisterReceipt"
-            android:background="@color/DarkCyan"
-            android:textColor="@color/White"
-            android:layout_width="match_parent"
+        android:foreground="@drawable/left_pane_shadow"
+        android:paddingLeft="10dp">
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/White"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbReceipt"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"/>
+            android:layout_width="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/InactiveSecond"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            >
+
+            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Чек"
+                android:textColor="@color/InactiveFirst"
+                android:textSize="20sp"
+                android:layout_gravity="left"
+                android:id="@+id/toolbar_title" />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btnSlide"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/lblReceiptEmpty"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                app:font_opacity="0.54"
+                android:textColor="@color/Black"
+                android:text="@string/msgEmptyReceipt"
+                android:padding="10dp"/>
+
+            <LinearLayout
+                android:id="@+id/llReceipt"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:visibility="gone">
+
+                <ListView
+                    android:id="@+id/lvReceipt"
+                    android:layout_weight="1"
+                    android:divider="@null"
+                    android:transcriptMode="alwaysScroll"
+                    android:dividerHeight="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_width="fill_parent">
+                </ListView>
+                <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
+                    android:id="@+id/btnRegisterReceipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="78dp"
+                    android:textSize="21sp"
+                    android:background="@color/ActiveMain"
+                    android:textColor="@color/White"
+                    android:text="ПРОДАТЬ"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="20dp"
+                    />
+
+            </LinearLayout>
+
+        </RelativeLayout>
     </LinearLayout>
+</FrameLayout>
 </merge>

@@ -8,6 +8,8 @@ import android.text.Spanned;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -19,7 +21,7 @@ import ru.dreamkas.pos.Constants;
 import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
 
-public class NumericEditText extends EditText{
+public class NumericEditText extends MaterialEditText {
     private DecimalFormat mDecimalFormat;
     private Integer mMaximumFractionDigits = 1;
     private Integer mMinimumFractionDigits = 1;
@@ -33,6 +35,11 @@ public class NumericEditText extends EditText{
         }
     }
 
+    public void setAllowEmptyValue(boolean mAllowEmptyValue) {
+        this.mAllowEmptyValue = mAllowEmptyValue;
+    }
+
+    private boolean mAllowEmptyValue = false;
     private InputFilter mInputFilter = new InputFilter() {
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
             String currentValue = dest.toString();
@@ -71,7 +78,7 @@ public class NumericEditText extends EditText{
 
             if(result == ""){
                 targetValue = currentValue.substring(0, dstart) + currentValue.substring(dend, currentValue.length());
-                if(targetValue.length() == 0){
+                if(targetValue.length() == 0 && !mAllowEmptyValue){
                     setError(DreamkasApp.getResourceString(R.string.msg_error_empty_value));
                 }
             }else {
@@ -163,8 +170,8 @@ public class NumericEditText extends EditText{
             BigDecimal bd = (BigDecimal)mDecimalFormat.parse(str);
             return bd.setScale(mMaximumFractionDigits, BigDecimal.ROUND_HALF_UP);
         }catch (ParseException ex){
-            setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-            setError(DreamkasApp.getResourceString(R.string.msg_error_wrong_format));
+            //setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+            //setError(DreamkasApp.getResourceString(R.string.msg_error_wrong_format));
         }
         return null;
     }

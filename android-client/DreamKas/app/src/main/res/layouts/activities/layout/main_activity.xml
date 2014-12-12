@@ -6,26 +6,44 @@
     android:layout_height="match_parent"
     tools:context="ru.dreamkas.pos.view.MainActivity">
 
-
-
     <LinearLayout
         android:focusable="true"
-
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        >
-        <FrameLayout
-            android:id="@+id/content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        </LinearLayout>
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/llFragmentContainer"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/mainLyt"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <FrameLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/bottomBar"/>
+
+            <LinearLayout
+                android:id="@+id/bottomBar"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/my_awesome_toolbar"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:minHeight="?attr/actionBarSize"
+                    android:background="@color/White" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""/>
+                </android.support.v7.widget.Toolbar>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 
     <ListView android:id="@+id/lstDrawer"
         android:focusable="false"

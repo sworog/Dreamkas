@@ -2,7 +2,7 @@
 //  SaleItemModel.h
 //  dreamkas
 //
-//  Created by sig on 18.11.14.
+//  Created by sig on 11.12.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -10,13 +10,11 @@
 #import <CoreData/CoreData.h>
 #import "AbstractModel.h"
 
-@class SaleModel;
 
 @interface SaleItemModel : AbstractModel
 
 @property (nonatomic, retain) NSString * productId;
 @property (nonatomic, retain) NSNumber * quantity;
 @property (nonatomic, retain) NSDate * submitDate;
-@property (nonatomic, retain) SaleModel *sale;
 
 @end

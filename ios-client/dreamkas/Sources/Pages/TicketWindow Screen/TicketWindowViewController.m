@@ -41,8 +41,7 @@
     [super viewDidAppear:animated];
     
     if ([[CurrentUser lastUsedStoreID] length] < 1) {
-        [self showViewControllerModally:ControllerById(SelectStoreViewControllerID)
-                                segueId:TicketWindowToSelectStoreSegueName];
+        [self showViewControllerModally:ControllerById(SelectStoreViewControllerID)];
     }
 }
 

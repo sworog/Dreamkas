@@ -9,10 +9,12 @@
 #ifndef dreamkas_BlockDefines_h
 #define dreamkas_BlockDefines_h
 
+@class AbstractModel;
+
 typedef void (^VoidResponseBlock)();
 
 typedef void (^ResponseBlock)(id data, NSError *error);
-//typedef void (^ModelResponseBlock)(AbstractModel *object, NSError *error);
+typedef void (^ModelResponseBlock)(AbstractModel *object, NSError *error);
 
 typedef void (^ArrayResponseBlock)(NSArray *data, NSError *error);
 typedef void (^DictionaryResponseBlock)(NSDictionary *data, NSError *error);

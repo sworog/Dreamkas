@@ -13,6 +13,16 @@
 /**
  * Подсчет финальной суммы к оплате по добавленным в чек продуктовым единицам
  */
-+ (NSString *)countSaleItemsTotalSum;
++ (double)calculateFinalPrice;
+
+/**
+ * Подсчет финальной суммы к оплате по добавленным в чек продуктовым единицам в виде строки
+ */
++ (NSString *)calculateFinalPriceStringValue;
+
+/**
+ * Проверка, что размер внесенной суммы к оплате досточен для осуществления платежа
+ */
++ (BOOL)isThereIsEnoughProvidedPayment:(NSString *)paymentString;
 
 @end

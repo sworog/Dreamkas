@@ -65,6 +65,18 @@
     // После чего производится перепозиционирование всех боковых элементов
     UINavigationItem *navigation_item = [self topItem];
     for (UIView *subview in [self subviews]) {
+        
+        // выравнивание всех элементов справа по вертикальному центру
+        for (UIBarButtonItem *bar_item in navigation_item.rightBarButtonItems) {
+            [bar_item.customView setCenter:CGPointMake(bar_item.customView.centerX, self.height/2)];
+        }
+        
+        // выравнивание всех элементов слева по вертикальному центру
+        for (UIBarButtonItem *bar_item in navigation_item.leftBarButtonItems) {
+            [bar_item.customView setCenter:CGPointMake(bar_item.customView.centerX, self.height/2)];
+        }
+        
+        // позиционирование по горизонтали
         if (subview == [[navigation_item rightBarButtonItem] customView]) {
             [subview setCenter:CGPointMake(self.width-subview.width/2, self.height/2)];
         } else if (subview == [[navigation_item leftBarButtonItem] customView]) {

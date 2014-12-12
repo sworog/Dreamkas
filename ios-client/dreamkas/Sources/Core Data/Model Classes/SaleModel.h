@@ -2,7 +2,7 @@
 //  SaleModel.h
 //  dreamkas
 //
-//  Created by sig on 18.11.14.
+//  Created by sig on 11.12.14.
 //  Copyright (c) 2014 Dreamkas. All rights reserved.
 //
 
@@ -10,22 +10,17 @@
 #import <CoreData/CoreData.h>
 #import "AbstractModel.h"
 
-@class SaleItemModel, StoreModel;
+@class StoreModel;
 
 @interface SaleModel : AbstractModel
 
-@property (nonatomic, retain) NSString * paymentType;
-@property (nonatomic, retain) NSNumber * sumTotal;
 @property (nonatomic, retain) NSNumber * itemsCount;
-@property (nonatomic, retain) NSSet *items;
+@property (nonatomic, retain) NSNumber * paymentAmountTendered;
+@property (nonatomic, retain) NSNumber * paymentChange;
+@property (nonatomic, retain) NSString * paymentType;
+@property (nonatomic, retain) NSDate * saleDate;
+@property (nonatomic, retain) NSNumber * sumTotal;
+@property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) StoreModel *store;
-@end
-
-@interface SaleModel (CoreDataGeneratedAccessors)
-
-- (void)addItemsObject:(SaleItemModel *)value;
-- (void)removeItemsObject:(SaleItemModel *)value;
-- (void)addItems:(NSSet *)values;
-- (void)removeItems:(NSSet *)values;
 
 @end
