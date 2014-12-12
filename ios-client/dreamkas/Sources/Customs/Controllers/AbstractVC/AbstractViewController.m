@@ -165,7 +165,7 @@
     // redefine me if needed
     //
     
-    [self hideModalViewController:(ModalViewController *)self.navigationController.parentViewController];
+    [self hideModalViewController:(ModalViewController *)self.navigationController.parentViewController onCompletion:nil];
 }
 
 #pragma mark - Индикация загрузки данных

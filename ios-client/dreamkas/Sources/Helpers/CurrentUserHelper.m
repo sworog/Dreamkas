@@ -101,6 +101,11 @@
     
     [UserDefaults setValue:lastUsedStoreID forKey:UserDefaultsKey(lastUsedStoreID)];
     [UserDefaults synchronize];
+    
+    // рассылаем уведомление о смене магазина
+    NSNotification *notification = [NSNotification notificationWithName:StoreChangedNotificationName
+                                                                 object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 @end
