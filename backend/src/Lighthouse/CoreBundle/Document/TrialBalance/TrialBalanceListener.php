@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
+use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
@@ -16,7 +17,7 @@ use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculato
 use Lighthouse\JobBundle\Job\JobManager;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"onFlush"}, priority=128)
+ * @DI\DoctrineMongoDBListener(events={"onFlush", "postFlush"}, priority=128)
  */
 class TrialBalanceListener extends AbstractMongoDBListener
 {
@@ -41,6 +42,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected $jobManager;
 
     /**
+     * @var array|string[]
+     */
+    protected $scheduledRecalculateStoreProduct = array();
+
+    /**
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
@@ -62,6 +68,15 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $this->storeProductRepository = $storeProductRepository;
         $this->costOfGoodsCalculator = $costOfGoodsCalculator;
         $this->jobManager = $jobManager;
+    }
+
+    /**
+     * @param PostFlushEventArgs $eventArgs
+     */
+    public function postFlush(PostFlushEventArgs $eventArgs)
+    {
+        $this->createJobsForScheduledStoreProducts();
+        $this->scheduledRecalculateStoreProduct = array();
     }
 
     /**
@@ -119,7 +134,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
             );
         }
 
-        $this->createJobForStoreProduct($trialBalance->storeProduct);
+        $this->scheduleRecalculateStoreProduct($trialBalance->storeProduct);
     }
 
     /**
@@ -151,12 +166,12 @@ class TrialBalanceListener extends AbstractMongoDBListener
                 $dm->persist($needProcessedTrialProduct);
                 $this->computeChangeSet($dm, $needProcessedTrialProduct);
 
-                $this->createJobForStoreProduct($trialBalance->storeProduct);
+                $this->scheduleRecalculateStoreProduct($trialBalance->storeProduct);
             }
         }
 
         $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-        $this->createJobForStoreProduct($trialBalance->storeProduct);
+        $this->scheduleRecalculateStoreProduct($trialBalance->storeProduct);
     }
 
     /**
@@ -193,7 +208,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $dm->persist($trialBalance);
         $this->computeChangeSet($dm, $trialBalance);
 
-        $this->createJobForStoreProduct($trialBalance->storeProduct);
+        $this->scheduleRecalculateStoreProduct($trialBalance->storeProduct);
     }
     
     /**
@@ -222,7 +237,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
         $this->computeChangeSet($dm, $trialBalance);
 
-        $this->createJobForStoreProduct($storeProduct);
+        $this->scheduleRecalculateStoreProduct($storeProduct);
     }
 
     /**
@@ -237,7 +252,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $this->processSupportsRangeIndexRemove($trialBalance, $dm);
         }
 
-        $this->createJobForStoreProduct($trialBalance->storeProduct);
+        $this->scheduleRecalculateStoreProduct($trialBalance->storeProduct);
 
         $dm->remove($trialBalance);
     }
@@ -280,17 +295,24 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
             $this->computeChangeSet($dm, $trialBalance);
 
-            $this->createJobForStoreProduct($trialBalance->storeProduct);
+            $this->scheduleRecalculateStoreProduct($trialBalance->storeProduct);
         }
     }
 
     /**
      * @param StoreProduct $storeProduct
      */
-    protected function createJobForStoreProduct(StoreProduct $storeProduct)
+    protected function scheduleRecalculateStoreProduct(StoreProduct $storeProduct)
     {
-        $job = new CostOfGoodsCalculateJob();
-        $job->storeProductId = $storeProduct->id;
-        $this->jobManager->addJob($job);
+        $this->scheduledRecalculateStoreProduct[] = $storeProduct->id;
+    }
+
+    protected function createJobsForScheduledStoreProducts()
+    {
+        foreach ($this->scheduledRecalculateStoreProduct as $storeProductId) {
+            $job = new CostOfGoodsCalculateJob();
+            $job->storeProductId = $storeProductId;
+            $this->jobManager->addJob($job);
+        }
     }
 }
