@@ -8,7 +8,7 @@
             <div class="page_dashboard__infoTitle">
                 Магазин:
             </div>
-            <div class="page_dashboard__infoValue">
+            <div class="page_dashboard__infoValue" name="storeName">
                 <%- storeItem.store.name %>
             </div>
 
@@ -20,7 +20,7 @@
                 Товаров в магазине на сумму:
             </div>
 
-            <div class="page_dashboard__infoValue">
+            <div class="page_dashboard__infoValue" name="costOfInventory">
                 <%- formatMoney(storeItem.costOfInventory) %> <i style="font-size: 19px;" class="fa fa-rub"></i>
             </div>
             <% } %>
@@ -32,7 +32,7 @@
             <div class="page_dashboard__infoTitle">
                 Продажа:
             </div>
-            <div class="page_dashboard__infoValue">
+            <div class="page_dashboard__infoValue" name="sumTotal">
                 <%- formatMoney(storeItem.sale.receipt.sumTotal) %> <i style="font-size: 19px;" class="fa fa-rub"></i>
             </div>
 
@@ -43,7 +43,7 @@
                         Себестоимость:
                     </div>
 
-                    <div class="page_dashboard__infoSubValue">
+                    <div class="page_dashboard__infoSubValue" name="costOfGoods">
                         <%- formatMoney(storeItem.sale.costOfGoods) %> <i style="font-size: 14px;" class="fa fa-rub"></i>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         Прибыль:
                     </div>
 
-                    <div class="page_dashboard__infoSubValue">
+                    <div class="page_dashboard__infoSubValue" name="grossMargin">
                         <%- formatMoney(storeItem.sale.grossMargin) %> <i style="font-size: 14px;" class="fa fa-rub"></i>
                     </div>
                 </div>
