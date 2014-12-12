@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        moment = require('moment');
+        weekAgoDays = require('kit/weekAgoDays/weekAgoDays');
 
     return Block.extend({
         template: require('ejs!./grossSales.ejs'),
@@ -11,7 +11,7 @@ define(function(require, exports, module) {
             }
         },
         weekAgoDay: function() {
-            return moment(this.resources.grossSales.get('weekAgo').now.date).subtract(6, 'days').calendar();
+            return weekAgoDays[moment(this.resources.grossSales.get('weekAgo').now.date).weekday()];
         }
     });
 
