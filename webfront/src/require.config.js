@@ -3,7 +3,7 @@ require.config({
     baseUrl: '/',
 
     paths: {
-        'moment': 'bower_components/momentjs/moment',
+        'moment': 'bower_components/momentjs/min/moment-with-locales.js',
         'mockjax': 'bower_components/jquery-mockjax/jquery.mockjax',
         'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
         'jquery': 'bower_components/jquery/dist/jquery.min',

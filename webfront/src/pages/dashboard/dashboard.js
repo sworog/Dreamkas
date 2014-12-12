@@ -40,7 +40,8 @@ define(function(require, exports, module) {
 
         resources: {
             firstStart: firstStartResource,
-            productCount: require('resources/product/count')
+            productCount: require('resources/product/count'),
+            grossSales: require('resources/grossSales/grossSales')
         },
 
         blocks: {
