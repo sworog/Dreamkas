@@ -88,7 +88,7 @@ public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
             validateResponseMessage(httpEntityEnclosingRequestBase.getURI().toURL().toString(), response, responseMessage);
             return responseMessage;
         } else {
-            return "";
+            return "{}";
         }
     }
 

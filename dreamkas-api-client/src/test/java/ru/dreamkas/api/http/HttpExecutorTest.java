@@ -75,6 +75,22 @@ public class HttpExecutorTest {
     }
 
     @Test
+    public void testIfHttpEntityIsNullRequestReturnsEmptyJson() throws Exception {
+        ApiStorage.getConfigurationVariableStorage().setProperty("webdriver.base.url", "http://test.autotests.webfront.lighthouse.pro");
+        HttpExecutor httpExecutor = (HttpExecutor)HttpExecutor.getHttpRequestable("email", "password");
+        httpExecutor.setHttpClientFacade(httpClientFacade);
+        httpExecutor.setAccessToken(accessToken);
+        when(abstractObject.getApiUrl()).thenReturn("/url");
+        when(abstractObject.getJsonObject()).thenReturn(new JSONObject());
+        when(accessToken.get()).thenReturn("access_token");
+        when(httpClientFacade.build()).thenReturn(closeableHttpClient);
+        when(httpClientFacade.build().execute(any(HttpUriRequest.class))).thenReturn(httpResponse);
+        when(httpResponse.getStatusLine()).thenReturn(statusLine);
+        when(statusLine.getStatusCode()).thenReturn(200);
+        httpExecutor.executePostRequest(abstractObject);
+    }
+
+    @Test
     public void testSimplePostExecution() throws IOException {
         HttpExecutor httpExecutor = (HttpExecutor) HttpExecutor.getSimpleHttpRequestable();
         httpExecutor.setHttpClientFacade(httpClientFacade);
