@@ -3,7 +3,7 @@
     <% _.forEach(resources.firstStart.get('stores'), function(storeItem){ %>
 
     <div class="page_dashboard__infoRow row">
-        <div class="page_dashboard__infoCell col-md-4">
+        <div class="page_dashboard__infoCell col-md-4" name="store">
 
             <div class="page_dashboard__infoTitle">
                 Магазин:
@@ -13,7 +13,7 @@
             </div>
 
         </div>
-        <div class="page_dashboard__infoCell col-md-4">
+        <div class="page_dashboard__infoCell col-md-4" name="products">
 
             <% if (typeof storeItem.costOfInventory != 'undefined') { %>
             <div class="page_dashboard__infoTitle">
@@ -26,7 +26,7 @@
             <% } %>
 
         </div>
-        <div class="page_dashboard__infoCell col-md-4">
+        <div class="page_dashboard__infoCell col-md-4" name="sales">
 
             <% if (storeItem.sale) { %>
             <div class="page_dashboard__infoTitle">
