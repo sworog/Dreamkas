@@ -26,29 +26,28 @@ var browser = webdriverio
 var diffDir = 'test/diff/',
     screenshotDir = 'test/screenshots/';
 
-fs.exists(diffDir, function(exists){
+fs.exists(diffDir, function(exists) {
     !exists && fs.mkdirSync(diffDir);
 });
 
-fs.exists(screenshotDir, function(exists){
+fs.exists(screenshotDir, function(exists) {
     !exists && fs.mkdirSync(screenshotDir);
 });
 
 browser.addCommand("diff", function(screen, cb) {
 
-    var diffPath = 'test/diff/' + screen + '.png',
-        originPath = 'test/screenshots/' + screen + '.png',
-        failPath = 'test/fails/' + screen + '.png';
+    var diffPath = diffDir + screen + '.png',
+        originPath = screenshotDir + screen + '.png';
 
     fs.exists(originPath, function(exists) {
 
         browser.saveScreenshot(diffPath, function(err) {
 
-            if (exists){
+            if (exists) {
                 resemble(diffPath).compareTo(originPath).onComplete(function(data) {
                     console.log(data);
 
-                    if (data.misMatchPercentage < 0.1){
+                    if (data.misMatchPercentage < 0.1) {
                         fs.unlinkSync(diffPath)
                     }
 
@@ -69,6 +68,14 @@ browser.addCommand("diff", function(screen, cb) {
 });
 
 after(function(done) {
+
+    var diffData = {};
+
+    fs.readdir(diffDir, function(err, files) {
+        diffData.images = files;
+        fs.writeFileSync('test/diff.js', 'var DIFF = ' + JSON.stringify(diffData, null, 4));
+    });
+
     browser.end(done);
 });
 
