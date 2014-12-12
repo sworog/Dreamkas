@@ -36,7 +36,8 @@ define(function(require, exports, module) {
         collections: {
             stores: require('resources/store/collection'),
             suppliers: require('resources/supplier/collection'),
-            groups: require('resources/group/collection')
+            groups: require('resources/group/collection'),
+            storesGrossSales: require('resources/storesGrossSales/collection')
         },
 
         resources: {

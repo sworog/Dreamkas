@@ -21,59 +21,33 @@
             </thead>
             <tbody>
 
-            <tr name="store">
-                <td name="name">
-                    Первый
-                </td>
-                <td name="today">
-                    <%- formatMoney(18317.87) %>
-                    <div class="table_storesGrossSales__difference"><i class="fa fa-arrow-circle-o-down"></i>
-                        <span class="table_storesGrossSales__differenceValue">меньше, чем вчера</span>
-                    </div>
-                </td>
-                <td name="yesterday">
-                    <%- formatMoney(10317.87) %>
-                </td>
-                <td name="week_ago">
-                    <%- formatMoney(1317.00) %>
-                </td>
-            </tr>
+                <% sortedCollection.forEach(function(item) {
 
-            <tr name="store">
-                <td name="name">
-                    Второй
-                </td>
-                <td name="today">
-                    <%- formatMoney(18317.87) %>
-                    <div class="table_storesGrossSales__difference">
-                        <i class="fa fa-arrow-circle-o-up"></i><span class="table_storesGrossSales__differenceValue">больше, чем вчера</span>
-                    </div>
-                </td>
-                <td name="yesterday">
-                    <%- formatMoney(10317.87) %>
-                </td>
-                <td name="week_ago">
-                    <%- formatMoney(1317.00) %>
-                </td>
-            </tr>
+                    var todayValue = item.get('today').now.value;
+                    var yesterdayValue = item.get('yesterday').now.value;
+                    var diff = todayValue - yesterdayValue;
 
-            <tr name="store">
-                <td name="name">
-                    Третий
-                </td>
-                <td name="today">
-                    <%- formatMoney(18317.87) %>
-                    <div class="table_storesGrossSales__difference">
-                        <i class="fa fa-arrow-circle-o-up"></i><span class="table_storesGrossSales__differenceValue">больше, чем вчера</span>
-                    </div>
-                </td>
-                <td name="yesterday">
-                    <%- formatMoney(10317.87) %>
-                </td>
-                <td name="week_ago">
-                    <%- formatMoney(1317.00) %>
-                </td>
-            </tr>
+                %>
+
+                <tr name="store">
+                    <td name="name">
+                        <%- item.get('store').name %>
+                    </td>
+                    <td name="today">
+                        <%- formatMoney(todayValue) %>
+                        <div class="table_storesGrossSales__difference"><i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i>
+                            <span class="table_storesGrossSales__differenceValue"><%- diff >= 0 ? 'больше' : 'меньше' %>, чем вчера</span>
+                        </div>
+                    </td>
+                    <td name="yesterday">
+                        <%- formatMoney(yesterdayValue) %>
+                    </td>
+                    <td name="week_ago">
+                        <%- formatMoney(item.get('weekAgo').now.value) %>
+                    </td>
+                </tr>
+
+                <% }) %>
 
             </tbody>
         </table>

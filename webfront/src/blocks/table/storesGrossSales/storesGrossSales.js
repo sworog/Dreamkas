@@ -3,6 +3,9 @@ define(function(require, exports, module) {
     var Table = require('blocks/table/table');
 
     return Table.extend({
-        template: require('ejs!./template.ejs')
+        template: require('ejs!./template.ejs'),
+        collection: function() {
+            return PAGE.collections.storesGrossSales;
+        }
     });
 });
