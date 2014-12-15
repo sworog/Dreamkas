@@ -23,14 +23,12 @@ console.log('HOST=' + process.env.host);
 
 var browser = webdriverio
     .remote(options)
-    .init();
-
-browser.setViewportSize({
-    width: 1024,
-    height: 500
-});
-
-browser.timeoutsAsyncScript(5000);
+    .init()
+    .setViewportSize({
+        width: 1024,
+        height: 500
+    })
+    .timeoutsAsyncScript(5000);
 
 var diffDir = 'test/diff/',
     screenshotDir = 'test/screenshots/';
