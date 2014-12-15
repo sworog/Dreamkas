@@ -11,6 +11,9 @@ class StockInHighlightGenerator implements MetaGeneratorInterface
      */
     protected $filter;
 
+    /**
+     * @param StockInFilter $filter
+     */
     public function __construct(StockInFilter $filter)
     {
         $this->filter = $filter;

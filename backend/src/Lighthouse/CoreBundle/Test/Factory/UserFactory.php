@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserFactory extends AbstractFactory
 {
@@ -169,7 +169,7 @@ class UserFactory extends AbstractFactory
     public function authProject($name = self::PROJECT_DEFAULT_NAME)
     {
         $token = new ProjectToken($this->getProject($name));
-        $this->getSecurityContext()->setToken($token);
+        $this->getTokenStorage()->setToken($token);
         return $token;
     }
 
@@ -198,10 +198,10 @@ class UserFactory extends AbstractFactory
     }
 
     /**
-     * @return SecurityContextInterface
+     * @return TokenStorageInterface
      */
-    protected function getSecurityContext()
+    protected function getTokenStorage()
     {
-        return $this->container->get('security.context');
+        return $this->container->get('security.token_storage');
     }
 }

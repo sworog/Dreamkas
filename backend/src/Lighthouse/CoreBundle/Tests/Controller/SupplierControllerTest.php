@@ -374,6 +374,10 @@ class SupplierControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $supplierData = array(
@@ -482,8 +486,7 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testPatchAction(array $postData, $expectedCode, array $assertions = array())
     {
-        $user = $this->factory()->user()->createProjectUser();
-        $accessToken = $this->factory()->oauth()->auth($user);
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -494,7 +497,7 @@ class SupplierControllerTest extends WebTestCase
         $patchResponse = $this->clientJsonRequest(
             $accessToken,
             'PATCH',
-            '/api/1/suppliers/' . $supplier->id,
+            "/api/1/suppliers/{$supplier->id}",
             $data
         );
 
@@ -507,7 +510,7 @@ class SupplierControllerTest extends WebTestCase
             $getResponse = $this->clientJsonRequest(
                 $accessToken,
                 'GET',
-                '/api/1/suppliers/' . $supplier->id
+                "/api/1/suppliers/{$supplier->id}"
             );
 
             $this->assertResponseCode(200);

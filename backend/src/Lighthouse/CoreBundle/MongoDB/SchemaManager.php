@@ -92,6 +92,9 @@ class SchemaManager extends BaseSchemaManager
         }
     }
 
+    /**
+     * @param Project $project
+     */
     public function dropProjectCollections(Project $project)
     {
         foreach ($this->getAllClassMetadata(self::PROJECT_DB) as $class) {
@@ -106,6 +109,11 @@ class SchemaManager extends BaseSchemaManager
         }
     }
 
+    /**
+     * @param string $documentName
+     * @param Project $project
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
     public function dropProjectDocumentCollection($documentName, Project $project)
     {
         $class = $this->getClassMetadata($documentName);

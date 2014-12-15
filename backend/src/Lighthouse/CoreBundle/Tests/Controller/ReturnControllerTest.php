@@ -272,6 +272,9 @@ class ReturnControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions);
     }
 
+    /**
+     * @return array
+     */
     public function validateReturnProvider()
     {
         return array(

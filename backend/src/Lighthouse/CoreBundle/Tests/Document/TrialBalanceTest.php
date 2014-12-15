@@ -106,6 +106,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
         }
     }
 
+    /**
+     * @return array
+     */
     public function trialBalanceDataProvider()
     {
         return array(

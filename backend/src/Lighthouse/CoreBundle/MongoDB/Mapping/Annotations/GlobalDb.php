@@ -9,5 +9,8 @@ use Doctrine\Common\Annotations\Annotation;
  */
 final class GlobalDb extends Annotation
 {
+    /**
+     * @var bool
+     */
     public $value = true;
 }

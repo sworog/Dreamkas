@@ -9,7 +9,14 @@ use Symfony\Component\Validator\Constraint;
  */
 class NotEqualsField extends Constraint
 {
+    /**
+     * @var string
+     */
     public $message = 'lighthouse.validation.errors.not_equals_field';
+
+    /**
+     * @var string
+     */
     public $field;
 
     /**

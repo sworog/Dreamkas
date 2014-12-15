@@ -127,7 +127,11 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
             function (SplFileInfo $a, SplFileInfo $b) use ($self, $direction) {
                 $timestampA = $self->stripTimestampFromFilename($a->getFilename(), $direction);
                 $timestampB = $self->stripTimestampFromFilename($b->getFilename(), $direction);
-                return $timestampA - $timestampB;
+                $diff = $timestampA - $timestampB;
+                if (0 == $diff) {
+                    $diff = strcmp($a->getFilename(), $b->getFilename());
+                }
+                return $diff;
             },
             $direction
         );
@@ -151,12 +155,14 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
     public function filterPurchaseFiles()
     {
         $this->initialize();
-        foreach ($this->files as $i => $file) {
+        /* @var SplFileInfo[] $files*/
+        $files = $this->files->getArrayCopy();
+        foreach ($files as $i => $file) {
             if (!preg_match('/^purchases-(\d{2}-\d{2}-\d{4}_\d{2}-\d{2}-\d{2})/iu', $file->getFilename())) {
-                $this->files->offsetUnset($i);
+                unset($files[$i]);
             }
         }
-        $this->files = new ArrayIterator(array_values($this->files->getArrayCopy()));
+        $this->files = new ArrayIterator(array_values($files));
     }
 
     /**

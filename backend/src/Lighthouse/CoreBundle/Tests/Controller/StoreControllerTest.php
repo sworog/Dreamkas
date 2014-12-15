@@ -128,6 +128,9 @@ class StoreControllerTest extends WebTestCase
         }
     }
 
+    /**
+     * @return array
+     */
     public function validationStoreProvider()
     {
         return array(
@@ -375,6 +378,9 @@ class StoreControllerTest extends WebTestCase
         $this->assertResponseCode($responseCode);
     }
 
+    /**
+     * @return array
+     */
     public function accessStoreProvider()
     {
         return array(
@@ -531,6 +537,10 @@ class StoreControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Такой магазин уже есть', '*.errors.children.name.errors.0', $jsonResponses, 2);
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $storeData = array(
