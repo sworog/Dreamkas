@@ -27,7 +27,7 @@ var browser = webdriverio
 
 browser.setViewportSize({
     width: 1024,
-    height: 768
+    height: 500
 });
 
 browser.timeoutsAsyncScript(5000);
