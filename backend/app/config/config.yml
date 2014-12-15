@@ -168,4 +168,4 @@ lighthouse_core:
         container: "%database_name%_%kernel.environment%"
 
 lighthouse_job:
-    tube.prefix: "%database_name%_%kernel.environment%"
+    tube_prefix: "%database_name%_%kernel.environment%"

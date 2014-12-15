@@ -20,7 +20,7 @@ class Pheanstalk extends PheanstalkProxy
     /**
      * @DI\InjectParams({
      *      "dispatcher" = @DI\Inject("event_dispatcher"),
-     *      "tubePrefix" = @DI\Inject("%lighthouse_job.tube.prefix%")
+     *      "tubePrefix" = @DI\Inject("%lighthouse.job.tube.prefix%")
      * })
      * @param EventDispatcherInterface $dispatcher
      * @param string $tubePrefix
