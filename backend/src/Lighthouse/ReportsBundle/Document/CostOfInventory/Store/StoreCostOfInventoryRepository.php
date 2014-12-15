@@ -87,17 +87,17 @@ class StoreCostOfInventoryRepository extends DocumentRepository
     }
 
     /**
-     * @param Store $store
+     * @param string $storeId
      * @return ArrayIterator
      */
-    protected function aggregateByStore(Store $store)
+    protected function aggregateByStore($storeId)
     {
         $multiplier = $this->numericFactory->createQuantityFromCount(1)->toNumber();
         $ops = array(
             array(
                 '$match' => array(
                     'reason.$ref' => InvoiceProduct::TYPE,
-                    'store' => new MongoId($store->id)
+                    'store' => new MongoId($storeId)
                 ),
             ),
             array(
@@ -182,12 +182,16 @@ class StoreCostOfInventoryRepository extends DocumentRepository
     }
 
     /**
-     * @param Store $store
+     * @param string|Store $storeId
      * @return int
      */
-    public function recalculateStore(Store $store)
+    public function recalculateStore($storeId)
     {
-        $results = $this->aggregateByStore($store);
+        if ($storeId instanceof Store) {
+            $storeId = $storeId->id;
+        }
+
+        $results = $this->aggregateByStore($storeId);
 
         if (isset ($results[0])) {
             $report = $this->createByAggregateResult($results[0]);
@@ -197,7 +201,7 @@ class StoreCostOfInventoryRepository extends DocumentRepository
 
             return 1;
         } else {
-            $oldReport = $this->find($store->id);
+            $oldReport = $this->find($storeId);
             if (null !== $oldReport) {
                 $this->dm->remove($oldReport);
                 $this->dm->flush();
@@ -214,10 +218,23 @@ class StoreCostOfInventoryRepository extends DocumentRepository
     public function recalculateStoreIsNeeded($storeId)
     {
         $report = $this->find($storeId);
-        if ($report->needRecalculate) {
-            return $this->recalculateStore($report->store);
+        if ($report === null || $report->needRecalculate) {
+            return $this->recalculateStore($storeId);
         }
 
         return 0;
+    }
+
+    /**
+     * @param Store $store
+     */
+    public function markRecalculateNeedByStore(Store $store)
+    {
+        $this->dm->createQueryBuilder(StoreCostOfInventory::getClassName())
+            ->update()
+            ->field('id')->equals($store->id)
+            ->field('needRecalculate')->set(true)
+            ->getQuery()
+            ->execute();
     }
 }
