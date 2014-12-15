@@ -9,9 +9,6 @@ use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
-/**
- * @method GrossHourNetwork[]|Cursor findAll()
- */
 class GrossHourNetworkRepository extends DocumentRepository
 {
     /**
@@ -103,5 +100,13 @@ class GrossHourNetworkRepository extends DocumentRepository
         );
 
         return $this->trialBalanceRepository->aggregate($ops);
+    }
+
+    /**
+     * @return Cursor|GrossHourNetwork[]
+     */
+    public function findAll()
+    {
+        return $this->findBy(array(), array('hourDate' => self::SORT_ASC));
     }
 }

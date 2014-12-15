@@ -64,6 +64,11 @@ class HourGrossNetworkTest extends ContainerAwareTestCase
                 ->createReceiptProduct($products['2']->id, 2, 10.59)
                 ->createReceiptProduct($products['3']->id, 2, 11.59)
             ->persist()
+                ->createSale($stores['3'], '2014-12-01 17:30:00')
+                ->createReceiptProduct($products['1']->id, 2.5, 9.59)
+                ->createReceiptProduct($products['2']->id, 1.5, 10.59)
+                ->createReceiptProduct($products['3']->id, 1.3, 11.59)
+            ->persist()
                 ->createSale($stores['3'], '2014-12-01 23:59:59')
                 ->createReceiptProduct($products['1']->id, 1, 9.59)
                 ->createReceiptProduct($products['2']->id, 2, 10.59)
@@ -93,8 +98,32 @@ class HourGrossNetworkTest extends ContainerAwareTestCase
 
         $grossHourNetworks = $this->getGrossHourNetworkRepository()->findAll();
 
+        $expectedValues = array(
+            '2014-12-01T09:00:00+0000' => array('52.82', '65.54',  '12.72', '6.000'),
+            '2014-12-01T10:00:00+0000' => array('52.42', '61.54',  '9.12',  '6.000'),
+            '2014-12-01T17:00:00+0000' => array('98.99', '118.48', '19.49', '11.300'),
+            '2014-12-01T23:00:00+0000' => array('52.82', '65.54',  '12.72', '6.000'),
+            '2014-12-02T01:00:00+0000' => array('52.82', '65.54',  '12.72', '6.000'),
+            '2014-12-03T18:00:00+0000' => array('57.81', '71.73',  '13.92', '6.566'),
+        );
+
         foreach ($grossHourNetworks as $grossHourNetwork) {
-            $this->assertNotNull($grossHourNetwork->grossSales->toString());
+            $expectedValue = current($expectedValues);
+            $expectedHourDate = key($expectedValues);
+
+            $this->assertNotFalse($expectedValue);
+
+            $hourDate = $grossHourNetwork->hourDate->setTimezone(new \DateTimeZone('UTC'));
+            $this->assertSame($expectedHourDate, $hourDate->format(DATE_ISO8601));
+
+            $this->assertSame($expectedValue[0], $grossHourNetwork->costOfGoods->toString());
+            $this->assertSame($expectedValue[1], $grossHourNetwork->grossSales->toString());
+            $this->assertSame($expectedValue[2], $grossHourNetwork->grossMargin->toString());
+            $this->assertSame($expectedValue[3], $grossHourNetwork->quantity->toString());
+
+            next($expectedValues);
         }
+
+        $this->assertFalse(current($expectedValues));
     }
 }
