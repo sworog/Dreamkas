@@ -13,11 +13,8 @@
 /** Сущность синглтона */
 + (CurrentUserHelper *)instance;
 
-/** Ссылка на последний использованный логин */
-@property (nonatomic, readonly) NSString *lastUsedLogin;
-
-/** Ссылка на последний использованный пароль */
-@property (nonatomic, readonly) NSString *lastUsedPassword;
+/** Токен для автологина или повторной авторизации, если accessToken устарел */
+@property (nonatomic, readonly) NSString *refreshToken;
 
 /** Ссылка на последний использованный магазин */
 @property (nonatomic, readonly) NSString *lastUsedStoreID;
@@ -30,7 +27,7 @@
 /**
  * Метод для установки новых авторизационных данныех для входа в приложение
  */
-- (void)updateLastUsedLogin:(NSString *)newLogin lastUsedPassword:(NSString *)newPassword;
+- (void)updateRefreshToken:(NSString *)refToken;
 
 /**
  * Метод для сброса последних использованных авторизационных данных

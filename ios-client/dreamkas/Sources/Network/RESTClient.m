@@ -71,8 +71,8 @@
 
 - (BOOL)tokenNotExpired
 {
-    return (refreshingOAuthTokenInProgress || (oauthTokenExpirationDate == nil) ||
-            ([[NSDate date] isLaterThanDate:oauthTokenExpirationDate] == NO));
+    return (refreshingOAuthTokenInProgress || (accessTokenExpirationDate == nil) ||
+            ([[NSDate date] isLaterThanDate:accessTokenExpirationDate] == NO));
 }
 
 - (NSURLSessionDataTask *)GET:(NSString *)URLString

@@ -50,21 +50,18 @@ static const CGFloat TimeoutBeforeStart = 1.f;
     [self showLoading];
     __weak typeof(self)weak_self = self;
     
-    [NetworkManager authWithLogin:[CurrentUser lastUsedLogin]
-                         password:[CurrentUser lastUsedPassword]
-                     onCompletion:^(NSDictionary *data, NSError *error)
-     {
-         __strong typeof(self)strong_self = weak_self;
-         [strong_self hideLoading];
-         
-         if (error == nil) {
-             // если авторизация прошла успешно - переходим к кассе
-             [self performSegueWithIdentifier:IntroToCashierPwdScreenSegueName sender:self];
-         }
-         else {
-             [DialogHelper showRequestError:error];
-         }
-     }];
+    [NetworkManager reAuth:^(NSDictionary *data, NSError *error) {
+        __strong typeof(self)strong_self = weak_self;
+        [strong_self hideLoading];
+        
+        if (error == nil) {
+            // если авторизация прошла успешно - переходим к кассе
+            [self performSegueWithIdentifier:IntroToCashierPwdScreenSegueName sender:self];
+        }
+        else {
+            [DialogHelper showRequestError:error];
+        }
+    }];
 }
 
 @end

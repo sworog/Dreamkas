@@ -103,10 +103,6 @@
          [strong_self hideLoading];
          
          if (error == nil) {
-             // если авторизация прошла успешно - запоминаем данные пользователя
-             [CurrentUser updateLastUsedLogin:self.loginField.text
-                             lastUsedPassword:self.passwordField.text];
-
              // скрываем контейнер модального окна и переходим к контроллеру кассы
              ModalViewController *modal_vc = (ModalViewController *)self.navigationController.parentViewController;
              AbstractNavigationController *abstr_nc = (AbstractNavigationController*)modal_vc.presentingViewController;
