@@ -77,6 +77,10 @@ class LinksParamConverter implements ParamConverterInterface
         return new Link($rel, $resourceUri);
     }
 
+    /**
+     * @param Link $link
+     * @param Request $request
+     */
     protected function resolveResource(Link $link, Request $request)
     {
         $subRequest = $this->createSubRequest($link, $request);

@@ -50,6 +50,9 @@ class NotFloatValidatorTest extends ConstraintTestCase
         $this->assertCount(0, $violations);
     }
 
+    /**
+     * @return array
+     */
     public function validationPassedProvider()
     {
         return array(

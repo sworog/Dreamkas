@@ -16,6 +16,9 @@ class RangeValidator extends ConstraintValidator
      */
     protected $comparator;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->comparator = new Comparator();

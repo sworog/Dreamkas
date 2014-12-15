@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Security\Voter\StoreManagerVoter;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Nelmio\ApiDocBundle\Extractor\ApiDocExtractor;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use ReflectionMethod;
 
 /**
@@ -91,17 +91,17 @@ class PermissionExtractor
     }
 
     /**
-     * @param SecurityContextInterface $securityContext
+     * @param AuthorizationCheckerInterface $authorizationChecker
      * @return array
      */
-    public function extractForCurrentUser(SecurityContextInterface $securityContext)
+    public function extractForCurrentUser(AuthorizationCheckerInterface $authorizationChecker)
     {
         $resources = $this->extractAll();
         $userPermissions = array();
         foreach ($resources as $resourceName => $methods) {
             $userPermissions[$resourceName] = array();
             foreach ($methods as $method => $roles) {
-                if (true === $roles || $securityContext->isGranted($roles)) {
+                if (true === $roles || $authorizationChecker->isGranted($roles)) {
                     $userPermissions[$resourceName][] = $method;
                 }
             }

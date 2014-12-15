@@ -881,6 +881,9 @@ class ProductControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function validateProvider()
     {
         return array(
@@ -1026,7 +1029,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('vat' => -30),
                 array(
-                    'errors.children.vat.errors.0' => 'Значение должно быть 0 или больше.',
+                    'errors.children.vat.errors.0' => 'Значение должно быть "0" или больше.',
                 ),
             ),
             'not valid vat empty' => array(
@@ -2517,6 +2520,9 @@ class ProductControllerTest extends WebTestCase
         $this->assertResponseCode($responseCode);
     }
 
+    /**
+     * @return array
+     */
     public function accessProductProvider()
     {
         return array(
@@ -2664,6 +2670,10 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('10003', '*.sku', $jsonResponses, 1);
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $productData = $this->getProductData();

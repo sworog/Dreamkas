@@ -9,5 +9,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class NotFloat extends Constraint
 {
+    /**
+     * @var string
+     */
     public $invalidMessage = 'lighthouse.validation.errors.not_float.invalid';
 }

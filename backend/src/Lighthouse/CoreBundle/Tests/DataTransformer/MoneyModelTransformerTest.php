@@ -21,6 +21,9 @@ class MoneyModelTransformerTest extends TestCase
         $transformer->transform($value);
     }
 
+    /**
+     * @return array
+     */
     public function invalidTransformValueProvider()
     {
         return array(

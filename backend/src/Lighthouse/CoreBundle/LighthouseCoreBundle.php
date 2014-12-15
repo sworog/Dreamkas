@@ -17,6 +17,9 @@ use Doctrine\ODM\MongoDB\Types\Type;
 
 class LighthouseCoreBundle extends Bundle
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->registerMongoTypes();

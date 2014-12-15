@@ -53,6 +53,9 @@ class ProductVersion extends Product implements VersionInterface
      */
     protected $createdDate;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->createdDate = new DateTimestamp();

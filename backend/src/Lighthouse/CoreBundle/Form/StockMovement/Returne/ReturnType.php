@@ -11,6 +11,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ReturnType extends DocumentType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

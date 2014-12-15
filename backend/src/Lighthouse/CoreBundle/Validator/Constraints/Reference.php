@@ -9,6 +9,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class Reference extends Constraint
 {
+    /**
+     * @var string
+     */
     public $message = 'lighthouse.validation.errors.reference.not_found';
 
     /**

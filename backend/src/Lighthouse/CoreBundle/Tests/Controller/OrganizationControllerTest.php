@@ -254,8 +254,7 @@ class OrganizationControllerTest extends WebTestCase
      */
     public function testPatchAction(array $postData, $expectedCode, array $assertions = array())
     {
-        $user = $this->factory()->user()->createProjectUser();
-        $accessToken = $this->factory()->oauth()->auth($user);
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
         $organizationId = $this->createOrganization('Контора', $accessToken);
 
@@ -266,7 +265,7 @@ class OrganizationControllerTest extends WebTestCase
         $patchResponse = $this->clientJsonRequest(
             $accessToken,
             'PATCH',
-            '/api/1/organizations/' . $organizationId,
+            "/api/1/organizations/{$organizationId}",
             $data
         );
 
@@ -279,7 +278,7 @@ class OrganizationControllerTest extends WebTestCase
             $getResponse = $this->clientJsonRequest(
                 $accessToken,
                 'GET',
-                '/api/1/organizations/' . $organizationId
+                "/api/1/organizations/{$organizationId}"
             );
 
             $this->assertResponseCode(200);
@@ -549,7 +548,9 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'errors.children.legalDetails.children.certificateDate.errors.0' => 'Значение недопустимо.',
+                    'errors.children.legalDetails.children.certificateDate.errors.0'
+                    =>
+                    'Вы ввели неверную дату 20 февраля 2001г., формат должен быть следующий дд.мм.гггг чч:мм',
                 )
             ),
             'entrepreneur invalid certificate date with time' => array(
@@ -561,7 +562,9 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'errors.children.legalDetails.children.certificateDate.errors.0' => 'Значение недопустимо.',
+                    'errors.children.legalDetails.children.certificateDate.errors.0'
+                    =>
+                    'Вы ввели неверную дату 2014-02-34T00:00:00+03:00, формат должен быть следующий дд.мм.гггг чч:мм',
                 )
             ),
         );

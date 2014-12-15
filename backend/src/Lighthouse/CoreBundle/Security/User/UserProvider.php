@@ -15,9 +15,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Templating\EngineInterface;
-use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Swift_Mailer;
+use Swift_Message;
 
 /**
  * @DI\Service("lighthouse.core.user.provider")
@@ -58,7 +59,7 @@ class UserProvider implements UserProviderInterface
     protected $container;
 
     /**
-     * @var Translator
+     * @var TranslatorInterface
      */
     protected $translator;
 
@@ -79,7 +80,7 @@ class UserProvider implements UserProviderInterface
      * @param Swift_Mailer $mailer
      * @param ContainerInterface $container
      * @param PasswordGenerator $passwordGenerator
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         UserRepository $userRepository,
@@ -88,7 +89,7 @@ class UserProvider implements UserProviderInterface
         Swift_Mailer $mailer,
         ContainerInterface $container,
         PasswordGenerator $passwordGenerator,
-        Translator $translator
+        TranslatorInterface $translator
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
@@ -244,11 +245,11 @@ class UserProvider implements UserProviderInterface
     {
         $messageBody = $this->getSignUpMessageBody($password);
 
-        /* @var \Swift_Message $message */
-        $message = \Swift_Message::newInstance()
+        /* @var Swift_Message $message */
+        $message = Swift_Message::newInstance()
             ->setFrom(array(self::MESSAGE_FROM_EMAIL => self::MESSAGE_FROM_NAME))
             ->setTo($user->email)
-            ->setSubject($this->translator->trans("lighthouse.email.register.subject", array(), 'emails'))
+            ->setSubject($this->translator->trans('lighthouse.email.register.subject', array(), 'emails'))
             ->setBody($messageBody);
 
         $this->mailer->send($message);
@@ -289,8 +290,8 @@ class UserProvider implements UserProviderInterface
     {
         $messageBody = $this->getRestorePasswordMessageBody($password);
 
-        /* @var \Swift_Message $message */
-        $message = \Swift_Message::newInstance()
+        /* @var Swift_Message $message */
+        $message = Swift_Message::newInstance()
             ->setFrom(array(self::MESSAGE_FROM_EMAIL => self::MESSAGE_FROM_NAME))
             ->setTo($user->email)
             ->setSubject($this->translator->trans("lighthouse.email.restore_password.subject", array(), 'emails'))
