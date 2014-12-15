@@ -167,5 +167,6 @@ lighthouse_core:
             password: 1avrj2rw
         container: "%database_name%_%kernel.environment%"
 
-lighthouse_job:
-    tube_prefix: "%database_name%_%kernel.environment%"
+lighthouse:
+    job:
+        tube.prefix: "%database_name%_%kernel.environment%"
