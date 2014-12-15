@@ -25,6 +25,11 @@ var browser = webdriverio
     .remote(options)
     .init();
 
+browser.setViewportSize({
+    width: 1024,
+    height: 768
+});
+
 var diffDir = 'test/diff/',
     screenshotDir = 'test/screenshots/';
 
