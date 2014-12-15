@@ -4,7 +4,6 @@ define(function(require, exports, module) {
 
     return Select.extend({
         template: require('ejs!./template.ejs'),
-        selected: '1',
         items: {
             '1': 'Сегодня',
             '2': 'Вчера',
