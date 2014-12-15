@@ -9,6 +9,7 @@ describe.only('US 139: Дашборд', function() {
 
         browser
             .url(process.env.host + '/test.html')
+            .waitFor('body[status="loaded"]', 5000)
             .pause(1000, done)
     });
 
