@@ -115,7 +115,7 @@
              }];
          }
          else {
-             [DialogHelper showRequestError];
+             [DialogHelper showRequestError:error];
          }
      }];
 }

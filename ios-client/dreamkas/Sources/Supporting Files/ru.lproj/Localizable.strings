@@ -64,6 +64,8 @@
 "dialog_helper_alert_yes_button" = "Да";
 "dialog_helper_alert_no_button" = "Нет";
 "dialog_helper_alert_title" = "Ошибка";
+"dialog_helper_alert_title_with_code" = "Код ошибки";
+"dialog_helper_alert_title_with_message" = "Текст ошибки";
 "dialog_helper_alert_ok_button" = "ОК";
 "dialog_helper_alert_cancel_button" = "Отмена";
 "dialog_helper_request_error" = "Во время запроса произошла ошибка. Попробуйте снова";

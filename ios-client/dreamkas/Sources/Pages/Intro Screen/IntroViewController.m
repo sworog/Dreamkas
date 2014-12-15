@@ -62,7 +62,7 @@ static const CGFloat TimeoutBeforeStart = 1.f;
              [self performSegueWithIdentifier:IntroToCashierPwdScreenSegueName sender:self];
          }
          else {
-             [DialogHelper showRequestError];
+             [DialogHelper showRequestError:error];
          }
      }];
 }

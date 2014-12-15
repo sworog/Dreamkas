@@ -115,7 +115,7 @@
         [strong_self hideLoading];
         
         if (error != nil) {
-            [DialogHelper showRequestError];
+            [DialogHelper showRequestError:error];
             return;
         }
         
@@ -145,7 +145,7 @@
          [strong_self hideLoading];
          
          if (error != nil) {
-             [DialogHelper showRequestError];
+             [DialogHelper showRequestError:error];
              return;
          }
          

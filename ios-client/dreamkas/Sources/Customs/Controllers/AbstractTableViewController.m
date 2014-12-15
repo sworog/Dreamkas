@@ -438,7 +438,7 @@
     // остановка анимаций загрузки
     [self stopLoadingAnimations];
     
-    [DialogHelper showRequestError];
+    [DialogHelper showRequestError:error];
 }
 
 #pragma mark - Вспомогательные методы при загрузке данных
