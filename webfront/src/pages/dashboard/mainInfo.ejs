@@ -11,14 +11,14 @@
         <% var diff = resource.get('yesterday').now.diff; %>
 
         <div class="page_dashboard__value2 page_dashboard__valueMinus">
-            <i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i> <%- Math.abs(diff) %> %
+            <i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i> <%- Math.abs(diff) %>%
             <span class="page_dashboard__valueHint"><%- diff >= 0 ? 'больше' : 'меньше' %>, чем вчера</span>
         </div>
 
         <% diff = resource.get('weekAgo').now.diff; %>
 
         <div class="page_dashboard__value2 page_dashboard__valuePlus">
-            <i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i> <%- Math.abs(diff) %> %
+            <i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i> <%- Math.abs(diff) %>%
             <span class="page_dashboard__valueHint"><%- diff >= 0 ? 'больше' : 'меньше' %>, чем в <%- get('weekAgoDay') %></span>
         </div>
     </div>
