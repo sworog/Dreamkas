@@ -26,6 +26,7 @@ public class PreferencesManager{
     }
 
     public static synchronized PreferencesManager getInstance(){
+
         if (sInstance == null){
             throw new IllegalStateException(PreferencesManager.class.getSimpleName() + " is not initialized, call initializeInstance(..) method first.");
         }

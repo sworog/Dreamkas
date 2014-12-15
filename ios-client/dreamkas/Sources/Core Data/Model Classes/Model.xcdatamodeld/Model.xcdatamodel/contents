@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AbstractModel" representedClassName="AbstractModel" isAbstract="YES" syncable="YES">
         <attribute name="pk" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
     </entity>
@@ -20,26 +20,28 @@
         <attribute name="productId" attributeType="String" minValueString="0" syncable="YES"/>
         <attribute name="quantity" attributeType="Float" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="submitDate" attributeType="Date" syncable="YES"/>
-        <relationship name="sale" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SaleModel" inverseName="items" inverseEntity="SaleModel" syncable="YES"/>
     </entity>
     <entity name="SaleModel" representedClassName="SaleModel" parentEntity="AbstractModel" syncable="YES">
-        <attribute name="itemsCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="itemsCount" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="paymentAmountTendered" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="paymentChange" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="paymentType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="sumTotal" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SaleItemModel" inverseName="sale" inverseEntity="SaleItemModel" syncable="YES"/>
-        <relationship name="store" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreModel" inverseName="purchases" inverseEntity="StoreModel" syncable="YES"/>
+        <attribute name="saleDate" attributeType="Date" syncable="YES"/>
+        <attribute name="sumTotal" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="type" attributeType="String" syncable="YES"/>
+        <relationship name="store" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StoreModel" inverseName="sales" inverseEntity="StoreModel" syncable="YES"/>
     </entity>
     <entity name="StoreModel" representedClassName="StoreModel" parentEntity="AbstractModel" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="purchases" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SaleModel" inverseName="store" inverseEntity="SaleModel" syncable="YES"/>
+        <relationship name="sales" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SaleModel" inverseName="store" inverseEntity="SaleModel" syncable="YES"/>
     </entity>
     <elements>
         <element name="AbstractModel" positionX="-56" positionY="-0" width="128" height="60"/>
         <element name="GroupModel" positionX="-540" positionY="80" width="128" height="73"/>
         <element name="ProductModel" positionX="-333" positionY="180" width="128" height="148"/>
-        <element name="SaleItemModel" positionX="333" positionY="266" width="128" height="103"/>
-        <element name="SaleModel" positionX="-261" positionY="371" width="128" height="118"/>
-        <element name="StoreModel" positionX="241" positionY="9" width="128" height="90"/>
+        <element name="SaleItemModel" positionX="333" positionY="266" width="128" height="88"/>
+        <element name="SaleModel" positionX="-261" positionY="371" width="128" height="165"/>
+        <element name="StoreModel" positionX="241" positionY="9" width="128" height="88"/>
     </elements>
 </model>

@@ -65,6 +65,7 @@ class CashFlowController extends AbstractRestController
 
     /**
      * @Rest\Route("cashFlows")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      *
      * @param Request $request
      * @return CashFlow[]|Cursor

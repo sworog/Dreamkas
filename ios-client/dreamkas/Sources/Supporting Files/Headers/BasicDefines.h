@@ -60,6 +60,13 @@
 #define CurrentUser                         [CurrentUserHelper instance]
 #define CurrentIOSVersion                   [DeviceInfoHelper iOSVersion]
 
+#define DigitsBeforeDotInPrices             8
+#define DigitsAfterDotInPrices              2
+#define DigitsAfterDotInQuantity            3
+
+#define kPaymentTypeCash                    @"cash"
+#define kPaymentTypeCard                    @"bankcard"
+
 //
 // Клиент-серверное взаимодействие
 //

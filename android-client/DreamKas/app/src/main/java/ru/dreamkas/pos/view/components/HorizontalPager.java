@@ -88,6 +88,7 @@ public final class HorizontalPager extends ViewGroup {
     private int mTouchState = TOUCH_STATE_REST;
     private VelocityTracker mVelocityTracker;
     private int mLastSeenLayoutWidth = -1;
+    public boolean allowTouchControl = true;
 
     /**
      * Simple constructor to use when creating a view from code.
@@ -143,6 +144,10 @@ public final class HorizontalPager extends ViewGroup {
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
+        /*if(!allowTouchControl){
+            return;
+        }*/
+
         final int width = MeasureSpec.getSize(widthMeasureSpec);
         final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         if (widthMode != MeasureSpec.EXACTLY) {
@@ -165,7 +170,7 @@ public final class HorizontalPager extends ViewGroup {
             mFirstLayout = false;
         }
 
-        else if (width != mLastSeenLayoutWidth) { // Width has changed
+        else if (width != mLastSeenLayoutWidth && allowTouchControl) { // Width has changed
             /*
              * Recalculate the width and scroll to the right position to be sure we're in the right
              * place in the event that we had a rotation that didn't result in an activity restart
@@ -211,6 +216,11 @@ public final class HorizontalPager extends ViewGroup {
          * let the children, but once a scroll registers for y-wise scrolling, let the children
          * handle it exclusively.
          */
+
+        if(!allowTouchControl){
+            return false;
+        }
+
         final int action = ev.getAction();
         boolean intercept = false;
 
@@ -281,6 +291,11 @@ public final class HorizontalPager extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(final MotionEvent ev) {
+
+        if(!allowTouchControl){
+            return false;
+        }
+
 
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();

@@ -26,8 +26,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/White"
-                >
+                android:background="@color/White">
                 <LinearLayout
                     android:id="@+id/tbDialog"
                     android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                                 android:layout_width="70dp"
                                 android:layout_height="match_parent" />
 
-                            <TextView
+                            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
@@ -96,15 +95,15 @@
                         android:layout_height="match_parent">
 
 
-                        <TextView
-                            android:id="@+id/textView1"
+                        <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                            android:id="@+id/TextViewTypefaced1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="20dp"
                             android:text="asdasdasdasd"
                             android:textAppearance="?android:attr/textAppearanceLarge">
-                        </TextView>
+                        </ru.dreamkas.pos.view.components.regular.TextViewTypefaced>
                          <EditText
                              android:id="@+id/editText1"
                              android:layout_width="wrap_content"

@@ -108,6 +108,14 @@ class GrossMarginSalesStoreTest extends ContainerAwareTestCase
         $this->assertStoreReportNotFound($stores['2'], '-5 days 00:00:00');
     }
 
+    /**
+     * @param Store $store
+     * @param string $day
+     * @param float $grossSales
+     * @param float $costOfGoods
+     * @param float $grossMargin
+     * @param float $quantity
+     */
     public function assertStoreReport(
         Store $store,
         $day,

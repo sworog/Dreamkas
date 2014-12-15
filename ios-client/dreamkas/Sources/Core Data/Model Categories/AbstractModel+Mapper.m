@@ -68,6 +68,9 @@
         if (([self respondsToSelector:NSSelectorFromString(key)] == NO) &&
             (([data[key] isKindOfClass:[NSDictionary class]]) || ([data[key] isKindOfClass:[NSArray class]])) == NO) {
             DPLog(LOG_ON, @"There is no @property %@", key);
+            if ([self respondsToSelector:@selector(thoroughMap:forModelField:)]) {
+                [self thoroughMap:data forModelField:key];
+            }
             continue;
         }
         

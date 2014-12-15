@@ -10,12 +10,15 @@
 
 @implementation DatesHelper
 
+/**
+ * Форматтер даты по стандарту ISO-8601
+ */
 + (NSDateFormatter *)defaultDateFormatter
 {
     NSDateFormatter *df = [NSDateFormatter new];
-    df.locale = [NSLocale currentLocale];
-    [df setDateFormat:@"yyyy-MM-dd HH:mm"];
+    [df setLocale:[NSLocale currentLocale]];
     [df setTimeZone:[NSTimeZone localTimeZone]];
+    [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"];
     return df;
 }
 

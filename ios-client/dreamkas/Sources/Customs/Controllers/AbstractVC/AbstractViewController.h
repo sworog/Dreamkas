@@ -31,5 +31,9 @@
 - (void)configureBackground;
 /** Обработка нажатия по кнопке возврата к предыдущему экрану */
 - (void)backButtonClicked;
+/** Инициализация кнопки Close */
+- (void)initCloseButton;
+/** Обработка нажатия по кнопке закрытия */
+- (void)closeButtonClicked;
 
 @end

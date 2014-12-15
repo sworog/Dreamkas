@@ -10,6 +10,7 @@
 #import "UIView+Screenshot.h"
 #import "UIImage+ImageEffects.h"
 #import "CustomModalSegue.h"
+#import "ModalViewController.h"
 #import <objc/runtime.h>
 
 #define LOG_ON 1
@@ -37,23 +38,41 @@
 }
 
 /*
- * Создание слоя с размытым изображением экрана.
+ * Создание слоя с размытым изображением экрана
  */
 - (UIView*)createBlurredView
 {
     UIView *blurred_view = [[UIView alloc] initWithFrame:self.view.bounds];
     
-    UIImageView *blurred_image_view = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    UIImageView *image_view = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    image_view.image = self.view.imageRepresentation;
+    [blurred_view addSubview:image_view];
     
+    UIView *gray_color_view = [[UIView alloc] initWithFrame:self.view.bounds];
+    [gray_color_view setBackgroundColor:[DefaultBlackColor colorWithAlphaComponent:DefaultModalOverlayAlpha]];
+    [blurred_view addSubview:gray_color_view];
+    
+    /*
+    // эффект blur для iOS 8
+    if (NSClassFromString(@"UIVisualEffectView") != nil) {
+        image_view.image = self.view.imageRepresentation;
+        [blurred_view addSubview:image_view];
+        
+        UIVisualEffectView *visual_effect_view = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+        visual_effect_view.frame = self.view.bounds;
+        [blurred_view addSubview:visual_effect_view];
+        return blurred_view;
+    }
+    
+    // эффект blur для iOS 7
     UIColor *tintColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     //blurred_image_view.image = self.view.imageRepresentation;
-    blurred_image_view.image = [self.view.imageRepresentation applyBlurWithRadius:8
-                                                                        tintColor:tintColor
-                                                            saturationDeltaFactor:1.8
-                                                                        maskImage:nil];
+    image_view.image = [self.view.imageRepresentation applyBlurWithRadius:8
+                                                                tintColor:tintColor
+                                                    saturationDeltaFactor:1.8
+                                                                maskImage:nil];
     
-    [blurred_view addSubview:blurred_image_view];
-    
+    [blurred_view addSubview:image_view];*/
     return blurred_view;
 }
 
@@ -62,45 +81,57 @@
 /**
  * Отображение модального контроллера
  */
-- (void)showViewControllerModally:(AbstractViewController *)destVC segueId:(NSString *)segueId
+- (void)showViewControllerModally:(AbstractViewController *)destinationVC
 {
     DPLog(LOG_ON, @"");
     
-    if (destVC == nil)
+    if (destinationVC == nil)
         return;
     
-    CustomModalSegue *segue = [CustomModalSegue segueWithIdentifier:segueId source:self
-                                                        destination:destVC performHandler:^(void) {}];
-    [segue perform];
+    ModalViewController *modal_vc = (ModalViewController *)ControllerById(ModalViewControllerID);
+    [modal_vc placeViewController:destinationVC];
+    
+    UIView *blurred_view = [self createBlurredView];
+    modal_vc.blurredView = blurred_view;
+    [modal_vc.view insertSubview:modal_vc.blurredView atIndex:0];
+    
+    CATransition* transition = [CATransition animation];
+    transition.duration = KeyboardAnimationDuration;
+    transition.type = kCATransitionFade;
+    transition.subtype = kCATransitionFromBottom;
+    
+    [self.view.window.layer addAnimation:transition forKey:kCATransition];
+    [self.navigationController pushViewController:modal_vc animated:NO];
+    [CATransaction commit];
 }
 
 /**
  * Скрытие модального контроллера
  */
-- (void)hideModalViewController
+- (void)hideModalViewController:(ModalViewController *)modalViewController
 {
     DPLog(LOG_ON, @"");
     
     [self.view endEditing:YES];
     
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.15;
-    transition.type = kCATransitionFade;
-    transition.subtype = kCATransitionFromBottom;
-    transition.removedOnCompletion = YES;
-    
-    [[UIApplication sharedApplication].keyWindow.layer addAnimation:transition forKey:@"transition"];
-    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    [CATransaction setCompletionBlock:^(void) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(transition.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^ {
-            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-        });
+    [modalViewController hideContainerView:^(BOOL finished) {
+        CATransition *transition = [CATransition animation];
+        transition.duration = KeyboardAnimationDuration;
+        transition.type = kCATransitionFade;
+        transition.subtype = kCATransitionFromBottom;
+        transition.removedOnCompletion = YES;
+        
+        [[UIApplication sharedApplication].keyWindow.layer addAnimation:transition forKey:@"transition"];
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [CATransaction setCompletionBlock:^(void) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(transition.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^ {
+                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            });
+        }];
+        
+        [modalViewController.navigationController popViewControllerAnimated:NO];
+        [CATransaction commit];
     }];
-    
-    [self.navigationController popViewControllerAnimated:NO];
-    //[self dismissViewControllerAnimated:NO completion:nil];
-    
-    [CATransaction commit];
 }
 
 @end

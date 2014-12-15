@@ -15,6 +15,9 @@ class StoreDayGrossMarginTest extends ContainerAwareTestCase
         $this->authenticateProject();
     }
 
+    /**
+     * @return string
+     */
     public function prepareData()
     {
         $store = $this->factory()->store()->getStore('1');

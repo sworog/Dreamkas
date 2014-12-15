@@ -22,7 +22,7 @@
 - (void)initialize
 {
     //
-    // формат вывода: 1 000 357,50 (без символа валюты)
+    // формат вывода: 12 000 357,85 (без символа валюты)
     //
     
     [self setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -31,8 +31,9 @@
     [self setDecimalSeparator:@","];
     [self setAlwaysShowsDecimalSeparator:YES];
     [self setUsesGroupingSeparator:YES];
-    [self setMaximumFractionDigits:2];
-    [self setMinimumFractionDigits:2];
+    [self setRoundingMode:NSNumberFormatterRoundHalfUp];
+    [self setMaximumFractionDigits:DigitsAfterDotInPrices];
+    [self setMinimumFractionDigits:DigitsAfterDotInPrices];
 }
 
 @end

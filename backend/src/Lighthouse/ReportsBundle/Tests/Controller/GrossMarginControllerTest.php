@@ -18,6 +18,9 @@ class GrossMarginControllerTest extends WebTestCase
         $this->authenticateProject();
     }
 
+    /**
+     * @return string
+     */
     protected function prepareData()
     {
         $store = $this->factory()->store()->getStore();

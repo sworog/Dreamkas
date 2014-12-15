@@ -40,8 +40,8 @@
 - (void)initialize
 {
     self.backgroundColor = [UIColor clearColor];
-    [self setTitleColor:DefaultSuperLightCyanColor forState:UIControlStateNormal];
-    [self setTitleColor:DefaultWhiteColor forState:UIControlStateHighlighted];
+    [self setTitleColor:DefaultLightGrayColor forState:UIControlStateNormal];
+    [self setTitleColor:DefaultGrayColor forState:UIControlStateHighlighted];
     
     unichar ch = 0xf142;
     self.titleLabel.font = DefaultAwesomeFont(20);

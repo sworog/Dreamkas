@@ -10,8 +10,8 @@
 
 @interface AuthViewController ()
 
-@property (nonatomic, weak) IBOutlet CustomEmptyButton *logInButton;
-@property (nonatomic, weak) IBOutlet CustomFilledButton *signUpButton;
+@property (nonatomic, weak) IBOutlet RaisedFilledButton *signUpButton;
+@property (nonatomic, weak) IBOutlet RaisedEmptyButton *logInButton;
 
 @end
 
@@ -46,16 +46,14 @@
 {
     DPLogFast(@"");
     
-    [self showViewControllerModally:ControllerById(SignInViewControllerID)
-                            segueId:AuthToSignInScreenSegueName];
+    [self showViewControllerModally:ControllerById(SignInViewControllerID)];
 }
 
 - (IBAction)logInButtonClicked:(id)sender
 {
     DPLogFast(@"");
     
-    [self showViewControllerModally:ControllerById(LogInViewControllerID)
-                            segueId:AuthToLogInScreenSegueName];
+    [self showViewControllerModally:ControllerById(LogInViewControllerID)];
 }
 
 @end

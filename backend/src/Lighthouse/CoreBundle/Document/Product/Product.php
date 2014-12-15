@@ -247,6 +247,9 @@ class Product extends AbstractDocument implements VersionableInterface, SoftDele
      */
     protected $deletedAt;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->typeProperties = new UnitType();

@@ -398,7 +398,10 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseCode($expectedCode);
         $this->performJsonAssertions($response, $assertions, true);
     }
-    
+
+    /**
+     * @return array
+     */
     public function orderProductValidationProvider()
     {
         return array(
