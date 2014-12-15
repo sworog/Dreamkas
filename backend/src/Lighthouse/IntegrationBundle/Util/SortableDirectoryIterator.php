@@ -127,7 +127,11 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
             function (SplFileInfo $a, SplFileInfo $b) use ($self, $direction) {
                 $timestampA = $self->stripTimestampFromFilename($a->getFilename(), $direction);
                 $timestampB = $self->stripTimestampFromFilename($b->getFilename(), $direction);
-                return $timestampA - $timestampB;
+                $diff = $timestampA - $timestampB;
+                if (0 == $diff) {
+                    $diff = strcmp($a->getFilename(), $b->getFilename());
+                }
+                return $diff;
             },
             $direction
         );
