@@ -15,7 +15,7 @@
             <span class="page_dashboard__valueHint"><%- diff >= 0 ? 'больше' : 'меньше' %>, чем вчера</span>
         </div>
 
-        <% var diff = resource.get('weekAgo').now.diff; %>
+        <% diff = resource.get('weekAgo').now.diff; %>
 
         <div class="page_dashboard__value2 page_dashboard__valuePlus">
             <i class="fa <%- diff >= 0 ? 'fa-arrow-circle-o-up' : 'fa-arrow-circle-o-down' %>"></i> <%- Math.abs(diff) %> %
