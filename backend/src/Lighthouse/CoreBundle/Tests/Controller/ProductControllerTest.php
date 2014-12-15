@@ -1029,7 +1029,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('vat' => -30),
                 array(
-                    'errors.children.vat.errors.0' => 'Значение должно быть 0 или больше.',
+                    'errors.children.vat.errors.0' => 'Значение должно быть "0" или больше.',
                 ),
             ),
             'not valid vat empty' => array(
