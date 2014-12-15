@@ -6,8 +6,14 @@ use Lighthouse\IntegrationBundle\Test\ContainerAwareTestCase;
 use Lighthouse\ReportsBundle\Document\Gross\Hour\Network\GrossHourNetworkRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 
-class HourGrossNetworkTest extends ContainerAwareTestCase
+class GrossHourNetworkTest extends ContainerAwareTestCase
 {
+    protected function setUp()
+    {
+        $this->clearMongoDb();
+        $this->authenticateProject();
+    }
+
     /**
      * @return GrossHourNetworkRepository
      */
@@ -88,8 +94,6 @@ class HourGrossNetworkTest extends ContainerAwareTestCase
 
     public function testAggregateOut()
     {
-        $this->clearMongoDb();
-        $this->authenticateProject();
         $this->prepareData();
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
@@ -113,8 +117,7 @@ class HourGrossNetworkTest extends ContainerAwareTestCase
 
             $this->assertNotFalse($expectedValue);
 
-            $hourDate = $grossHourNetwork->hourDate->setTimezone(new \DateTimeZone('UTC'));
-            $this->assertSame($expectedHourDate, $hourDate->format(DATE_ISO8601));
+            $this->assertSame($expectedHourDate, $grossHourNetwork->hourDate->format(DATE_ISO8601));
 
             $this->assertSame($expectedValue[0], $grossHourNetwork->costOfGoods->toString());
             $this->assertSame($expectedValue[1], $grossHourNetwork->grossSales->toString());

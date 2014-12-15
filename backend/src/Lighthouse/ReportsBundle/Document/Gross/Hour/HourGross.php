@@ -12,7 +12,7 @@ use DateTime;
 class HourGross extends Gross
 {
     /**
-     * @MongoDB\Date
+     * @MongoDB\Field(type="DateTimeUTC")
      * @var DateTime
      */
     protected $hourDate;
