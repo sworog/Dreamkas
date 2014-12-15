@@ -30,6 +30,8 @@ browser.setViewportSize({
     height: 768
 });
 
+browser.timeoutsAsyncScript(5000);
+
 var diffDir = 'test/diff/',
     screenshotDir = 'test/screenshots/';
 
