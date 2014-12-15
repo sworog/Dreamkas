@@ -19,6 +19,8 @@ if (process.env.seleniumPort) {
     options.port = process.env.seleniumPort;
 }
 
+console.log('HOST=' + process.env.host);
+
 var browser = webdriverio
     .remote(options)
     .init();
@@ -45,8 +47,6 @@ browser.addCommand("diff", function(screen, cb) {
 
             if (exists) {
                 resemble(diffPath).compareTo(originPath).onComplete(function(data) {
-                    console.log(data);
-
                     if (data.misMatchPercentage < 0.1) {
                         fs.unlinkSync(diffPath)
                     }
