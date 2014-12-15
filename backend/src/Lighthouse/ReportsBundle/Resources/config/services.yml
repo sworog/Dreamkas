@@ -104,3 +104,12 @@ services:
         calls:
             - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.reports.document.gross.hour.store.repository:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\ReportsBundle\Document\Gross\Hour\Store\GrossHourStoreRepository
+        arguments:
+            - LighthouseReportsBundle:Gross\Hour\Store\GrossHourStore
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]

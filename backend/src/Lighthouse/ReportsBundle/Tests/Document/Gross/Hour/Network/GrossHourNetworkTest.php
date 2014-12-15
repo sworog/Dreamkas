@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Tests\Document\Gross\Hour\Network;
 
 use Lighthouse\IntegrationBundle\Test\ContainerAwareTestCase;
 use Lighthouse\ReportsBundle\Document\Gross\Hour\Network\GrossHourNetworkRepository;
+use Lighthouse\ReportsBundle\Document\Gross\Hour\Store\GrossHourStoreRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 
 class GrossHourNetworkTest extends ContainerAwareTestCase
@@ -20,6 +21,14 @@ class GrossHourNetworkTest extends ContainerAwareTestCase
     protected function getGrossHourNetworkRepository()
     {
         return $this->getContainer()->get('lighthouse.reports.document.gross.hour.network.repository');
+    }
+
+    /**
+     * @return GrossHourStoreRepository
+     */
+    protected function getGrossHourStoreRepository()
+    {
+        return $this->getContainer()->get('lighthouse.reports.document.gross.hour.store.repository');
     }
 
     /**
@@ -92,7 +101,7 @@ class GrossHourNetworkTest extends ContainerAwareTestCase
             ->flush();
     }
 
-    public function testAggregateOut()
+    public function testAggregateNetwork()
     {
         $this->prepareData();
 
@@ -123,6 +132,44 @@ class GrossHourNetworkTest extends ContainerAwareTestCase
             $this->assertSame($expectedValue[1], $grossHourNetwork->grossSales->toString());
             $this->assertSame($expectedValue[2], $grossHourNetwork->grossMargin->toString());
             $this->assertSame($expectedValue[3], $grossHourNetwork->quantity->toString());
+
+            next($expectedValues);
+        }
+
+        $this->assertFalse(current($expectedValues));
+    }
+
+    public function testAggregateStore()
+    {
+        $this->prepareData();
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+
+        $this->getGrossHourStoreRepository()->recalculate();
+
+        $grossHourStores = $this->getGrossHourStoreRepository()->findAll();
+
+        $expectedValues = array(
+            array('2014-12-01T09:00:00+0000', '1', '52.82', '65.54',  '12.72', '6.000'),
+            array('2014-12-01T10:00:00+0000', '2', '52.42', '61.54',  '9.12',  '6.000'),
+            array('2014-12-01T17:00:00+0000', '3', '98.99', '118.48', '19.49', '11.300'),
+            array('2014-12-01T23:00:00+0000', '3', '52.82', '65.54',  '12.72', '6.000'),
+            array('2014-12-02T01:00:00+0000', '2', '52.82', '65.54',  '12.72', '6.000'),
+            array('2014-12-03T18:00:00+0000', '1', '57.81', '71.73',  '13.92', '6.566'),
+        );
+
+        foreach ($grossHourStores as $grossHourStore) {
+            $expectedValue = current($expectedValues);
+
+            $this->assertNotFalse($expectedValue);
+
+            $this->assertSame($expectedValue[0], $grossHourStore->hourDate->format(DATE_ISO8601));
+            $this->assertSame($expectedValue[1], $grossHourStore->store->name);
+
+            $this->assertSame($expectedValue[2], $grossHourStore->costOfGoods->toString());
+            $this->assertSame($expectedValue[3], $grossHourStore->grossSales->toString());
+            $this->assertSame($expectedValue[4], $grossHourStore->grossMargin->toString());
+            $this->assertSame($expectedValue[5], $grossHourStore->quantity->toString());
 
             next($expectedValues);
         }
