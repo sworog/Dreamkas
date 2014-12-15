@@ -10,7 +10,7 @@ describe.only('US 139: Дашборд', function() {
         browser
             .url(process.env.host + '/test.html')
             .execute(function() {
-                require([
+                requirejs([
                     'app',
                     'resources/currentUser/mocks/get',
                     'resources/grossMargin/mocks/get',
