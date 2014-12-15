@@ -12,6 +12,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  * @property string $id
  * @property Store  $store
  * @property Money  $costOfInventory
+ * @property bool   $needRecalculate
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\ReportsBundle\Document\CostOfInventory\Store\StoreCostOfInventoryRepository"
@@ -40,4 +41,11 @@ class StoreCostOfInventory extends AbstractDocument
      * @var Money
      */
     protected $costOfInventory;
+
+    /**
+     * @MongoDB\Boolean
+     * @Serialize\Exclude
+     * @var bool
+     */
+    protected $needRecalculate = false;
 }

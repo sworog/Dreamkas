@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use MongoId;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -54,6 +55,49 @@ class StoreCostOfInventoryRepository extends DocumentRepository
             array(
                 '$match' => array(
                     'reason.$ref' => InvoiceProduct::TYPE,
+                ),
+            ),
+            array(
+                '$sort' => array(
+                    'createdDate.date' => self::SORT_ASC,
+                )
+            ),
+            array(
+                '$project' => array(
+                    'price' => true,
+                    'store' => true,
+                    'inventoryCount' => '$inventory.count'
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => array(
+                        'store' => '$store',
+                    ),
+                    'costOfInventory' => array(
+                        '$sum' => array(
+                            '$multiply' => array('$price', '$inventoryCount', $multiplier)
+                        ),
+                    )
+                ),
+            ),
+        );
+
+        return $this->trialBalanceRepository->aggregate($ops);
+    }
+
+    /**
+     * @param Store $store
+     * @return ArrayIterator
+     */
+    protected function aggregateByStore(Store $store)
+    {
+        $multiplier = $this->numericFactory->createQuantityFromCount(1)->toNumber();
+        $ops = array(
+            array(
+                '$match' => array(
+                    'reason.$ref' => InvoiceProduct::TYPE,
+                    'store' => new MongoId($store->id)
                 ),
             ),
             array(
@@ -135,5 +179,45 @@ class StoreCostOfInventoryRepository extends DocumentRepository
         $dotHelper->end();
 
         return $i;
+    }
+
+    /**
+     * @param Store $store
+     * @return int
+     */
+    public function recalculateStore(Store $store)
+    {
+        $results = $this->aggregateByStore($store);
+
+        if (isset ($results[0])) {
+            $report = $this->createByAggregateResult($results[0]);
+
+            $this->dm->persist($report);
+            $this->dm->flush();
+
+            return 1;
+        } else {
+            $oldReport = $this->find($store->id);
+            if (null !== $oldReport) {
+                $this->dm->remove($oldReport);
+                $this->dm->flush();
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param string $storeId
+     * @return int
+     */
+    public function recalculateStoreIsNeeded($storeId)
+    {
+        $report = $this->find($storeId);
+        if ($report->needRecalculate) {
+            return $this->recalculateStore($report->store);
+        }
+
+        return 0;
     }
 }
