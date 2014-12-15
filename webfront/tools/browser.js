@@ -27,7 +27,7 @@ var browser = webdriverio
 
 browser.setViewportSize({
     width: 1024,
-    height: 595
+    height: 768
 });
 
 var diffDir = 'test/diff/',
