@@ -26,6 +26,8 @@ describe.only('US 139: Дашборд', function() {
                     app.start('/');
                     done();
                 });
+            }, function(err){
+                console.log(err);
             })
             .waitFor('body[status="loaded"]', 5000)
             .pause(1000, done)
