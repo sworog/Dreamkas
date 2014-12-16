@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use MongoId;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -54,6 +55,49 @@ class StoreCostOfInventoryRepository extends DocumentRepository
             array(
                 '$match' => array(
                     'reason.$ref' => InvoiceProduct::TYPE,
+                ),
+            ),
+            array(
+                '$sort' => array(
+                    'createdDate.date' => self::SORT_ASC,
+                )
+            ),
+            array(
+                '$project' => array(
+                    'price' => true,
+                    'store' => true,
+                    'inventoryCount' => '$inventory.count'
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => array(
+                        'store' => '$store',
+                    ),
+                    'costOfInventory' => array(
+                        '$sum' => array(
+                            '$multiply' => array('$price', '$inventoryCount', $multiplier)
+                        ),
+                    )
+                ),
+            ),
+        );
+
+        return $this->trialBalanceRepository->aggregate($ops);
+    }
+
+    /**
+     * @param string $storeId
+     * @return ArrayIterator
+     */
+    protected function aggregateByStore($storeId)
+    {
+        $multiplier = $this->numericFactory->createQuantityFromCount(1)->toNumber();
+        $ops = array(
+            array(
+                '$match' => array(
+                    'reason.$ref' => InvoiceProduct::TYPE,
+                    'store' => new MongoId($storeId)
                 ),
             ),
             array(
@@ -135,5 +179,62 @@ class StoreCostOfInventoryRepository extends DocumentRepository
         $dotHelper->end();
 
         return $i;
+    }
+
+    /**
+     * @param string|Store $storeId
+     * @return int
+     */
+    public function recalculateStore($storeId)
+    {
+        if ($storeId instanceof Store) {
+            $storeId = $storeId->id;
+        }
+
+        $results = $this->aggregateByStore($storeId);
+
+        if (isset ($results[0])) {
+            $report = $this->createByAggregateResult($results[0]);
+
+            $this->dm->persist($report);
+            $this->dm->flush();
+
+            return 1;
+        } else {
+            $oldReport = $this->find($storeId);
+            if (null !== $oldReport) {
+                $this->dm->remove($oldReport);
+                $this->dm->flush();
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param string $storeId
+     * @return int
+     */
+    public function recalculateStoreIsNeeded($storeId)
+    {
+        $report = $this->find($storeId);
+        if ($report === null || $report->needRecalculate) {
+            return $this->recalculateStore($storeId);
+        }
+
+        return 0;
+    }
+
+    /**
+     * @param Store $store
+     */
+    public function markRecalculateNeedByStore(Store $store)
+    {
+        $this->dm->createQueryBuilder(StoreCostOfInventory::getClassName())
+            ->update()
+            ->field('id')->equals($store->id)
+            ->field('needRecalculate')->set(true)
+            ->getQuery()
+            ->execute();
     }
 }
