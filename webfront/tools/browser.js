@@ -61,7 +61,7 @@ browser.addCommand("diff", function(screen, cb) {
                     cb(err, data);
                 });
             } else {
-                console.log(diffPath + ' is a new screenshot.');
+                expect(diffPath + ' is a new screenshot.').to.be.true();
                 browser.saveScreenshot(originPath, function(err) {
                     cb(err);
                 });
