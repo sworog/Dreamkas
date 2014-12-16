@@ -9,6 +9,19 @@ define(function(require, exports, module) {
                 return PAGE.resources.firstStart;
             }
         },
+        initialize: function() {
+
+            var block = this,
+                initialize = Block.prototype.initialize.apply(block, arguments);
+
+            block.listenTo(block.resources.firstStart, {
+                reset: function() {
+                    block.render();
+                }
+            });
+
+            return initialize;
+        },
         posUrl: function(){
             var block = this;
             var stores = _.filter(block.resources.firstStart.get('stores'), function(storeItem) {

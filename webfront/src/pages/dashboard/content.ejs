@@ -3,10 +3,10 @@
     <div class="page__title">Обзор</div>
 
     <div class="page__tabs">
-        <a rel=".page_dashboard__firstStartContent" class="page__tab <%- resources.firstStart.data.complete ? '' : 'active' %>">
+        <a href="/firstStart" class="page__tab">
             Быстрый старт
         </a>
-        <a rel=".page_dashboard__statsContent" class="page__tab <%- resources.firstStart.data.complete ? 'active' : '' %>">
+        <a href="/dashboard" class="page__tab active">
             Основная статистика
         </a>
     </div>
@@ -14,19 +14,7 @@
 <!--END TITLE PAGE-->
 
 <!--BEGIN CONTENT-->
-<div class="page__content page__tabContent page_dashboard__firstStartContent <%- resources.firstStart.data.complete ? '' : 'active' %>">
-
-    <div class="page_dashboard__text">Добро пожаловать!</div>
-
-    <b block="progressbar"></b>
-
-    <b block="steps"></b>
-
-    <b block="info"></b>
-
-</div>
-
-<div class="page__content page__tabContent page_dashboard__statsContent <%- resources.firstStart.data.complete ? 'active' : '' %>">
+<div class="page__content page__tabContent">
 
     <div class="row">
 
@@ -66,8 +54,3 @@
 
 </div>
 <!--END CONTENT-->
-
-<!--MODALS-->
-<b block="modal_store"></b>
-<b block="modal_invoice"></b>
-<!--END MODALS-->

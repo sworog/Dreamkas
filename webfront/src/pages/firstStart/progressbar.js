@@ -4,6 +4,11 @@ define(function(require, exports, module) {
 
     return Block.extend({
         template: require('ejs!./progressbar.ejs'),
+        resources: {
+            firstStart: function() {
+                return PAGE.resources.firstStart;
+            }
+        },
         setFillerWidth: function() {
 
             var block = this,
@@ -12,7 +17,7 @@ define(function(require, exports, module) {
                 $completeIcon = block.$('.page__dashboard__progressbarCompleteIcon'),
                 width;
 
-            switch (Number(PAGE.activeStep)) {
+            switch (Number(PAGE.get('activeStep'))) {
                 case 1:
                     width = 5;
                     break;
@@ -30,6 +35,19 @@ define(function(require, exports, module) {
             }
 
             $filler.width(width + '%');
+        },
+        initialize: function() {
+
+            var block = this,
+                initialize = Block.prototype.initialize.apply(block, arguments);
+
+            block.listenTo(block.resources.firstStart, {
+                reset: function() {
+                    block.render();
+                }
+            });
+
+            return initialize;
         },
         render: function() {
             var block = this,

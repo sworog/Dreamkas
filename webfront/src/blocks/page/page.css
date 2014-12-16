@@ -84,17 +84,10 @@
 }
 
 .page__content {
+    display: block;
     padding: 20px 30px 50px;
     position: relative;
     z-index: 10;
-}
-
-.page__tabContent {
-    display: none;
-}
-
-.page__tabContent.active {
-    display: block;
 }
 
 .page__panel {
