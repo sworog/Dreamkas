@@ -52,7 +52,7 @@ public class ColorSelector extends android.app.Dialog implements OnValueChangedL
 			
 			@Override
 			public void run() {
-				LinearLayout.LayoutParams params = (LayoutParams) colorView.getLayoutParams();
+				LayoutParams params = (LayoutParams) colorView.getLayoutParams();
 				params.height = colorView.getWidth();
 				colorView.setLayoutParams(params);
 			}

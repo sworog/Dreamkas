@@ -89,10 +89,18 @@ public class ProductsAdapter extends ArrayAdapter<Product>{
         //holder.txtSellingPrice.setSpacing(0.5f);
         holder.txtDescription.setText(description);
 
-        SpannableStringBuilder cost = StringDecorator.buildStringWithRubleSymbol(true, DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(namedObject.getSellingPrice() == null? 0 : namedObject.getSellingPrice()), StringDecorator.RUBLE_CODE);
+
+
+        if(namedObject.getSellingPrice() != null){
+            SpannableStringBuilder cost = StringDecorator.buildStringWithRubleSymbol(true, DreamkasApp.getResourceString(R.string.msg_info_ruble_value), DreamkasApp.getMoneyFormat().format(namedObject.getSellingPrice()), StringDecorator.RUBLE_CODE);
+            holder.txtSellingPrice.setText(cost);
+        }else {
+            holder.txtSellingPrice.setText("");
+        }
+
         //holder.txtSellingPrice.setSpacing(1);
 
-        holder.txtSellingPrice.setText(cost);
+
         return row;
     }
 

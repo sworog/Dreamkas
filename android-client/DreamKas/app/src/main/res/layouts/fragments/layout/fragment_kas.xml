@@ -3,53 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ru.dreamkas.pos.view.KasFragment">
-
-
-
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:id="@+id/llLeftPane"
-        android:layout_weight="1"
-        >
-
-        <ru.dreamkas.pos.view.components.KasMainBlockComponent_
-            android:id="@+id/cKasMainBlock"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlRightPane"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:layout_marginLeft="-10dp"
-        >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
 
         <LinearLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/green"
-            android:layout_marginLeft="10dp"
-            >
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="fill_parent" />
-        </LinearLayout>
-        <ru.dreamkas.pos.view.components.ReceiptComponent_
-            android:id="@+id/ccReceipt"
+            android:layout_height="fill_parent"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-    </RelativeLayout>
-</LinearLayout>
+            android:id="@+id/llLeftPane"
+            android:layout_weight="1"
+            android:layout_marginRight="-25dp"
+            >
+
+            <ru.dreamkas.pos.view.components.KasMainBlockComponent_
+                android:id="@+id/cKasMainBlock"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlRightPane"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            >
+            <!--android:layout_marginLeft="-7px"-->
+
+            <ru.dreamkas.pos.view.components.ReceiptComponent_
+                android:id="@+id/ccReceipt"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        </RelativeLayout>
+
+
+    </LinearLayout>
 </FrameLayout>

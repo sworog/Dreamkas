@@ -48,26 +48,41 @@
                                     android:id="@+id/btnCloseModal"
                                     android:background="@color/White"
                                     android:src="@drawable/ic_close_black_24dp"
-                                    android:layout_width="70dp"
-                                    android:layout_height="match_parent" />
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp" />
+
+                                <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                    android:id="@+id/lblTota2l"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="Редактирование позиции"
+                                    app:font_style="medium"
+                                    android:textSize="20sp"
+                                    android:textColor="@color/Black"
+                                    app:font_opacity="0.87"
+                                    />
+
 
 
                             </LinearLayout>
 
-                            <Button
+                            <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
                                 android:id="@+id/btnSave"
                                 android:layout_width="120dp"
-                                android:layout_height="50dp"
+                                android:layout_height="48dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerInParent="true"
-                                android:layout_marginRight="10dp"
-                                android:text="Сохранить"
-                                style="@style/dk_button"
-                                />
+                                android:layout_marginRight="24dp"
+                                android:background="@color/ActiveMain"
+                                android:text="СОХРАНИТЬ" />
 
                         </RelativeLayout>
 
                     </LinearLayout>
+
 
                     <View
                         android:layout_width="fill_parent"
@@ -84,78 +99,119 @@
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingLeft="80dp"
-                            android:paddingRight="80dp">
-
-                            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
-                                android:id="@+id/lblProductName"
-                                android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:id="@+id/llContent"
+                                android:layout_width="match_parent"
+                                android:orientation="vertical"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="left"
-                                android:gravity="left"
-                                android:layout_marginTop="20dp"
-                                android:text="Молоко 'Веселый молочник'"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:paddingLeft="80dp"
+                                android:paddingRight="80dp"
+                                >
+                                <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                    android:id="@+id/lblProductName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="left"
+                                    android:gravity="left"
+                                    android:layout_marginTop="16dp"
+                                    android:text="Молоко 'Веселый молочник'"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    app:font_style="medium"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/Black"
+                                    />
+                                <LinearLayout
+                                    android:layout_marginTop="16dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:orientation="vertical"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:descendantFocusability="beforeDescendants"
+                                        android:focusableInTouchMode="true"
+                                        android:layout_weight="1">
+                                        <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                            android:text="Количество"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:textSize="12sp"
+                                            app:font_opacity="0.54"
+                                            />
+                                        <ru.dreamkas.pos.view.components.NumericUpDown_
+                                            android:id="@+id/nupQuantity"
+                                            android:gravity="center_vertical|left"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="40dp"
+                                            />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:orientation="vertical"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="fill_parent"
+                                        android:descendantFocusability="beforeDescendants"
+                                        android:focusableInTouchMode="true"
+                                        android:paddingBottom="4dp"
+                                        android:layout_weight="1">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:orientation="vertical"
+                                            android:layout_gravity="right"
+                                            >
+                                            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                                android:text="Сумма"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="left"
+                                                android:gravity="left"
+                                                android:textSize="12sp"
+                                                app:font_opacity="0.54"
+                                                />
+                                            <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                                android:id="@+id/lblTotal"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:layout_gravity="left"
+                                                android:gravity="left|center_vertical"
+
+                                                android:text="103 Р"
+                                                app:font_style="medium"
+                                                android:textSize="16sp"
+                                                android:textColor="@color/Black"
+
+                                                />
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="1dp"
+                                android:background="@android:color/darker_gray"
+                                android:layout_marginBottom="32dp"
+                                android:layout_marginTop="32dp"
                                 />
 
                             <LinearLayout
-                                android:layout_marginTop="40dp"
-                                android:orientation="horizontal"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="80dp"
+                                android:paddingRight="80dp">
 
-                                <LinearLayout
-                                    android:orientation="vertical"
+                                <!--<ru.dreamkas.pos.view.components.regular.TextViewTypefaced
+                                    android:text="Скидки"
                                     android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:descendantFocusability="beforeDescendants"
-                                    android:focusableInTouchMode="true"
-                                    android:layout_weight="1">
-                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
-                                        android:text="Количество"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="wrap_content"/>
-                                    <ru.dreamkas.pos.view.components.NumericUpDown_
-                                        android:id="@+id/nupQuantity"
-                                        android:gravity="center_vertical"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="fill_parent"/>
-                                </LinearLayout>
+                                    android:layout_height="44dp"
+                                    />-->
 
-                                <LinearLayout
-                                    android:orientation="vertical"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="fill_parent"
-                                    android:descendantFocusability="beforeDescendants"
-                                    android:focusableInTouchMode="true"
-                                    android:paddingBottom="4dp"
-                                    android:layout_weight="1">
-
-                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
-                                        android:text="Цена продажи"
-                                        android:layout_width="fill_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="right"
-                                        android:gravity="right"
-                                        />
-                                    <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
-                                        android:id="@+id/lblTotal"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_gravity="right"
-                                        android:gravity="right|center_vertical"
-                                        android:layout_marginLeft="10dp"
-                                        android:text="103 Р"
-                                        app:font_style="medium"
-                                        android:textSize="16sp"
-                                        android:textColor="@color/Black"
-
-                                        />
-                                </LinearLayout>
                             </LinearLayout>
-
-
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -169,6 +225,7 @@
                                     android:layout_alignParentBottom="true"
                                     android:background="@color/White"
                                     app:confirmation_text="Подтвердить удаление"
+                                    android:textSize="16sp"
                                     android:text="УДАЛИТЬ ИЗ ЧЕКА"/>
                             </RelativeLayout>
                         </LinearLayout>
@@ -178,12 +235,4 @@
         </ru.dreamkas.pos.view.components.HorizontalPager>
         </LinearLayout>
     </LinearLayout>
-
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/llFragmentContainer"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 </RelativeLayout>

@@ -66,7 +66,9 @@ public class KasFragment extends AuthRequestsContainingFragment{
         switch(DreamkasApp.getRatio()){
             case _16_10:
                 llLeftPane.setLayoutParams(new LinearLayout.LayoutParams(DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*9), WindowManager.LayoutParams.MATCH_PARENT));
-                rlRightPane.setLayoutParams(new LinearLayout.LayoutParams(DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*7), WindowManager.LayoutParams.MATCH_PARENT));
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide() * 7 + 7), WindowManager.LayoutParams.MATCH_PARENT);
+                lp.setMargins(DreamkasApp.getDpValueInPixels(-15),0,0,0);
+                rlRightPane.setLayoutParams(lp);
                 break;
             case _3_4:
                 break;

@@ -27,6 +27,7 @@ import ru.dreamkas.pos.model.ReceiptItem;
 import ru.dreamkas.pos.view.components.ConfirmButtonComponent;
 import ru.dreamkas.pos.view.components.NumericEditText;
 import ru.dreamkas.pos.view.components.NumericUpDown;
+import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 import ru.dreamkas.pos.view.misc.StringDecorator;
 
 public class ReceiptItemEditDialog extends Dialog {
@@ -38,9 +39,9 @@ public class ReceiptItemEditDialog extends Dialog {
     private ImageButton btnClose;
     private ReceiptItem mReceiptItem;
     private TextView lblProductName;
-    private NumericEditText txtSellingPrice;
+    //private NumericEditText txtSellingPrice;
     private NumericUpDown nupQuantity;
-    private Button btnSave;
+    private ButtonRectangleExt btnSave;
     private int mDeleteButtonVisibility = View.VISIBLE;
 
     public enum DialogResult{RemoveReceipt, Save, Cancel;}
@@ -97,11 +98,7 @@ public class ReceiptItemEditDialog extends Dialog {
     }
 
     private void init() {
-
-
-
-
-        btnSave = (Button) findViewById(R.id.btnSave);
+        btnSave = (ButtonRectangleExt) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,9 +129,6 @@ public class ReceiptItemEditDialog extends Dialog {
         lblProductName = (TextView) findViewById(R.id.lblProductName);
         lblProductName.setText(mReceiptItem.getProduct().getName());
 
-        txtSellingPrice = (NumericEditText) findViewById(R.id.txtSellingPrice);
-        txtSellingPrice.setValue(mReceiptItem.getSellingPrice());
-
         nupQuantity = (NumericUpDown) findViewById(R.id.nupQuantity);
         nupQuantity.setValueChangedListener(new ValueChangedListener<BigDecimal>() {
             @Override
@@ -145,8 +139,6 @@ public class ReceiptItemEditDialog extends Dialog {
             }
         });
         nupQuantity.setValue(mReceiptItem.getQuantity());
-
-        addSellingPriceChangeListeners();
 
         validate();
     }
@@ -163,16 +155,6 @@ public class ReceiptItemEditDialog extends Dialog {
 
     public ReceiptItem getReceiptItem() {
         return mReceiptItem;
-    }
-
-    private void addSellingPriceChangeListeners(){
-        txtSellingPrice.addTextChangedListener(new TextWatcher(){
-            public void afterTextChanged(Editable s){
-                validate();
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after){}
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
-        });
     }
 
     public void save(){
@@ -192,27 +174,7 @@ public class ReceiptItemEditDialog extends Dialog {
     private void validate() {
         mReceiptItem.setSellingPrice(BigDecimal.ZERO);
 
-        if (txtSellingPrice.length() > 0){
-            txtSellingPrice.setError(null);
-            try{
-                BigDecimal value = txtSellingPrice.getValue();
-                if(value.signum() < 0){
-                    txtSellingPrice.setError(DreamkasApp.getResourceString(R.string.msg_error_negative_value));
-                }else if(value.signum() == 0){
-                    txtSellingPrice.setError(DreamkasApp.getResourceString(R.string.msg_error_zero_value));
-                }else {
-                    mReceiptItem.setSellingPrice(value);
-                }
-            }catch (Exception ex){
-                txtSellingPrice.setError(DreamkasApp.getResourceString(R.string.msg_error_wrong_format));
-            }finally {
-                calcTotal();
-            }
-        }else if(txtSellingPrice.length() == 0){
-            txtSellingPrice.setError(DreamkasApp.getResourceString(R.string.msg_error_empty_value));
-        }
-
-        if(txtSellingPrice.getError() == null && nupQuantity.getError() == null){
+        if(nupQuantity.getError() == null){
             btnSave.setEnabled(true);
         }else {
             btnSave.setEnabled(false);

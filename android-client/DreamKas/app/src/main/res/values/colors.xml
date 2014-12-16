@@ -17,4 +17,6 @@
     <color name="InactiveThird">#B3E5FC</color>
 
     <color name="Error">#F44336</color>
+    <color name="DialogHeaderColor">#EBEEF0</color>
+
 </resources>

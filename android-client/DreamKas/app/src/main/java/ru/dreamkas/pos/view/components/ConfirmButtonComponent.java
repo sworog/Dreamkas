@@ -100,7 +100,7 @@ public class ConfirmButtonComponent extends ButtonFlatExt implements View.OnClic
 
                 break;
             case WAIT_FOR_CONFIRM:
-                getTextView().setTextColor(Color.RED);
+                getTextView().setTextColor(getResources().getColor(R.color.Error));
                 mRegularText = getText();
                 setText(mConfirmText);
 

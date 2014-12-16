@@ -110,36 +110,39 @@ containing a value of this type.
         public static int float_button1_shadowp=0x7f02000a;
         public static int float_button_shadow1=0x7f02000b;
         public static int ic_launcher=0x7f02000c;
-        public static int ic_reloj_max=0x7f02000d;
-        public static int shadow_down=0x7f02000e;
-        public static int shadow_right=0x7f02000f;
-        public static int sprite_check=0x7f020010;
+        public static int shadow_down=0x7f02000d;
+        public static int shadow_right=0x7f02000e;
+        public static int sprite_check=0x7f02000f;
     }
     public static final class id {
-        public static int blue=0x7f070003;
-        public static int button_accept=0x7f070008;
-        public static int button_cancel=0x7f070007;
-        public static int buttonflat=0x7f07000b;
-        public static int contentDialog=0x7f070004;
-        public static int green=0x7f070002;
-        public static int message=0x7f070006;
-        public static int number_indicator_spinner_content=0x7f070009;
-        public static int red=0x7f070001;
-        public static int shape_bacground=0x7f07000d;
-        public static int snackbar=0x7f07000a;
-        public static int text=0x7f07000c;
-        public static int title=0x7f070005;
-        public static int viewColor=0x7f070000;
+        public static int blue=0x7f080003;
+        public static int button_accept=0x7f080008;
+        public static int button_cancel=0x7f080007;
+        public static int buttonflat=0x7f08000b;
+        public static int contentDialog=0x7f080004;
+        public static int green=0x7f080002;
+        public static int message=0x7f080006;
+        public static int number_indicator_spinner_content=0x7f080009;
+        public static int red=0x7f080001;
+        public static int shape_bacground=0x7f08000d;
+        public static int snackbar=0x7f08000a;
+        public static int text=0x7f08000c;
+        public static int title=0x7f080005;
+        public static int viewColor=0x7f080000;
     }
     public static final class layout {
         public static int color_selector=0x7f030000;
         public static int dialog=0x7f030001;
         public static int number_indicator_spinner=0x7f030002;
         public static int snackbar=0x7f030003;
-        public static int text=0x7f030004;
     }
     public static final class string {
         public static int app_name=0x7f060000;
+    }
+    public static final class style {
+        /**  Customize your theme here. 
+         */
+        public static int AppTheme=0x7f070000;
     }
     public static final class styleable {
         /** Attributes that can be used with a CustomAttributes.

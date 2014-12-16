@@ -4,8 +4,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:foreground="@drawable/left_pane_shadow"
-        android:paddingLeft="10dp">
+        android:foreground="@drawable/receipt_shadow"
+        >
+        <!--android:foreground="@drawable/receipt_shadow"-->
+        <!--android:foreground="@drawable/left_pane_shadow"
+        android:paddingLeft="10dp"-->
 
     <LinearLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,6 +17,7 @@
         android:orientation="vertical"
         android:background="@color/White"
         >
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/tbReceipt"
             android:layout_height="wrap_content"
@@ -28,12 +32,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Чек"
-                android:textColor="@color/InactiveFirst"
+                android:textColor="@color/White"
                 android:textSize="20sp"
                 android:layout_gravity="left"
                 android:id="@+id/toolbar_title" />
             <Button
-                android:visibility="gone"
+
                 android:id="@+id/btnSlide"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
@@ -41,8 +45,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -83,7 +86,7 @@
                     android:textColor="@color/White"
                     android:text="ПРОДАТЬ"
                     android:layout_gravity="bottom"
-                    android:layout_margin="20dp"
+                    android:layout_margin="24dp"
                     />
 
             </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ru.dreamkas.pos.view.components.HorizontalPager
@@ -30,21 +31,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="10dp"
+
             android:text="Касса нового поколения"
-            android:layout_marginTop="15dp"
-            android:textSize="35sp"
+            android:layout_marginTop="24dp"
+            android:textSize="34sp"
+            app:font_opacity="0.87"
+            app:font_kerning="-0.5"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             />
+
         <ru.dreamkas.pos.view.components.regular.TextViewTypefaced
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="10dp"
-            android:text="Для защиты кассы мы сгенерируем пин-код и
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="Для защиты кассы мы сгенерируем пин-код и break
 вышлем его на ваш мобильный телефон."
             android:textSize="14sp"
+            app:font_opacity="0.54"
+            app:font_kerning="0.1"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"/>
 
@@ -53,10 +60,9 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:orientation="horizontal"
+            android:layout_marginTop="24dp"
             android:gravity="center_horizontal">
-            android:layout_gravity="center_horizontal"
 
-            >
             <RadioButton
                 android:id="@+id/radio_btn_0"
                 android:layout_height="10dp"
@@ -64,7 +70,6 @@
                 android:background="@drawable/solid_radio_bg"
                 android:button="@null"
                 android:checked="true"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 />
@@ -73,7 +78,6 @@
                 android:layout_height="10dp"
                 android:layout_width="10dp"
                 android:background="@drawable/solid_radio_bg"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:button="@null"/>
@@ -82,7 +86,6 @@
                 android:layout_height="10dp"
                 android:layout_width="10dp"
                 android:background="@drawable/solid_radio_bg"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:button="@null"/>
@@ -91,7 +94,6 @@
                 android:layout_height="10dp"
                 android:layout_width="10dp"
                 android:background="@drawable/solid_radio_bg"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:button="@null"/>
@@ -104,20 +106,24 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:layout_marginTop="30dp">
+            android:layout_marginBottom="24dp">
             <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
                 android:id="@+id/btnCreateAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@color/ActiveMain"
-                android:text="СОЗДАТЬ АККАУНТ" />
+                android:layout_marginRight="16dp"
+                android:text="СОЗДАТЬ АККАУНТ"
+                android:layout_marginBottom="24dp"/>
             <ru.dreamkas.pos.view.components.regular.ButtonRectangleExt
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@color/White"
                 android:textColor="@color/White"
-                android:text="ВОЙТИ" />
+                android:text="ВОЙТИ"
+                android:layout_marginBottom="24dp"
+                />
         </LinearLayout>
     </LinearLayout>
 

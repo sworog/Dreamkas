@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -41,7 +43,7 @@ public class PaymentDialog extends AuthRequestContainingDialog {
     @ViewById
     LinearLayout llDone;
     @ViewById
-    LinearLayout llMain;
+    LinearLayout llContent;
     @ViewById
     LinearLayout llHeader;
 
@@ -50,10 +52,15 @@ public class PaymentDialog extends AuthRequestContainingDialog {
 
     @ViewById
     ImageButton btnCloseModal;
+
     @ViewById
     ButtonRectangleExt btnSellWithCash;
+
     @ViewById
     ButtonRectangleExt btnSellWithCard;
+
+    @ViewById
+    ProgressBar pbRegister;
 
     @Bean
     protected AuthorisedRequestWrapper mRegisterReceiptRequestWrapped;
@@ -112,6 +119,16 @@ public class PaymentDialog extends AuthRequestContainingDialog {
         mRegisterReceiptRequestWrapped.execute(new registerReceiptRequestSuccessFinishCommand(), new registerReceiptRequestFailureFinishCommand());
     }
 
+    @Override
+    protected void showProgressDialog(String text){
+        pbRegister.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void stopProgressDialog(){
+        pbRegister.setVisibility(View.GONE);
+    }
+
     public class registerReceiptRequestSuccessFinishCommand implements Command<SaleApiObject> {
         public void execute(SaleApiObject data){
             stopProgressDialog();
@@ -143,7 +160,7 @@ public class PaymentDialog extends AuthRequestContainingDialog {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        llMain.setVisibility(View.GONE);
+                        llContent.setVisibility(View.GONE);
                     }
                 });
 
@@ -153,7 +170,7 @@ public class PaymentDialog extends AuthRequestContainingDialog {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        llMain.setVisibility(View.GONE);
+                        llContent.setVisibility(View.GONE);
                     }
                 });
 
@@ -169,13 +186,13 @@ public class PaymentDialog extends AuthRequestContainingDialog {
                 .setDuration(500)
                 .setListener(null);
 
-        llMain.animate()
+        llContent.animate()
                 .alpha(0f)
                 .setDuration(500)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        llMain.setVisibility(View.GONE);
+                        llContent.setVisibility(View.GONE);
                     }
                 });
 

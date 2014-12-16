@@ -187,8 +187,9 @@ dependencies
             }
             compile project(':materialDesign')
             /*compile (project(':materialEditText')){
-                                        exclude group: 'com.nineoldandroids', module: 'library'
-                                    }*/
+                                                    exclude group: 'com.nineoldandroids', module: 'library'
+                                                }*/
+
         }
 
 

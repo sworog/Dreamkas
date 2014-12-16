@@ -31,11 +31,19 @@ import ru.dreamkas.pos.Constants;
 import ru.dreamkas.pos.DreamkasApp;
 import ru.dreamkas.pos.R;
 import ru.dreamkas.pos.model.listeners.ValueChangedListener;
+import ru.dreamkas.pos.view.components.regular.ButtonFlatExt;
+import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 
 @EViewGroup(R.layout.numeric_updown)
 public class NumericUpDown extends LinearLayout {
     @ViewById
     NumericEditText txtValue;
+    @ViewById
+    ButtonRectangleExt btnDown;
+
+    @ViewById
+    ButtonRectangleExt btnUp;
+
     private ValueChangedListener mValueChangedListener;
 
 
@@ -55,6 +63,8 @@ public class NumericUpDown extends LinearLayout {
     void init(){
         setValue(BigDecimal.ZERO);
         txtValue.setSelection(txtValue.getText().length());
+        //btnUp.setRippleSpeed(1);
+        //btnDown.setRippleSpeed(1);
     }
 
     @Click(R.id.btnDown)

@@ -37,6 +37,7 @@ import ru.dreamkas.pos.model.api.Product;
 import ru.dreamkas.pos.view.misc.StringDecorator;
 import ru.dreamkas.pos.view.popup.PaymentDialog;
 import ru.dreamkas.pos.view.popup.PaymentDialog_;
+import ru.dreamkas.pos.view.popup.PricelessReceiptItemEditDialog;
 import ru.dreamkas.pos.view.popup.ReceiptItemEditDialog;
 
 @EViewGroup(R.layout.receipt_component)
@@ -105,9 +106,6 @@ public class ReceiptComponent extends LinearLayout {
 
 
 
-
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbReceipt);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -126,6 +124,7 @@ public class ReceiptComponent extends LinearLayout {
         AbsListView.LayoutParams params = new AbsListView.LayoutParams(LayoutParams.MATCH_PARENT,height);
         //params.topMargin = 15;
 
+        btnClearReceipt.getTextView().setTextSize(16);
         btnClearReceipt.setLayoutParams(params);
 
         if(!this.isInEditMode()){
@@ -263,10 +262,9 @@ public class ReceiptComponent extends LinearLayout {
 
         final ReceiptItem receiptItem = new ReceiptItem(product);
 
-        final ReceiptItemEditDialog dialog = new ReceiptItemEditDialog(getContext());
+        final PricelessReceiptItemEditDialog dialog = new PricelessReceiptItemEditDialog(getContext());
 
         dialog.setReceiptItem(receiptItem);
-        dialog.setDeleteButtonVisible(View.GONE);
         dialog.show();
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -277,7 +275,6 @@ public class ReceiptComponent extends LinearLayout {
                         addReceiptItem(receiptItem);
                         break;
                     case Cancel:
-                    case RemoveReceipt:
                         break;
                 }
             }

@@ -20,28 +20,39 @@
                 android:id="@+id/content_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/bottomBar"/>
+                android:layout_above="@+id/bottomBar"
+                android:layout_marginBottom="-15px"
+                />
 
-            <LinearLayout
-                android:id="@+id/bottomBar"
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/my_awesome_toolbar"
+            <!--android:foreground="@drawable/left_pane_shadow"
+            android:paddingLeft="10dp"-->
+                <FrameLayout
+                    android:id="@+id/bottomBar"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:minHeight="?attr/actionBarSize"
-                    android:background="@color/White" >
+                    android:layout_width="fill_parent"
+                    android:orientation="horizontal"
+                    android:layout_alignParentBottom="true"
+                    android:foreground="@drawable/actionbar_shadow"
+                    >
+                    <!--android:paddingTop="15px"-->
+                    <!--android:layout_marginTop="-15px"-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text=""/>
-                </android.support.v7.widget.Toolbar>
-            </LinearLayout>
+
+                    <android.support.v7.widget.Toolbar
+                        android:id="@+id/my_awesome_toolbar"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:minHeight="?attr/actionBarSize"
+                        android:background="@color/White" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text=""/>
+                    </android.support.v7.widget.Toolbar>
+                </FrameLayout>
+
         </RelativeLayout>
     </LinearLayout>
 

@@ -5,17 +5,28 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gc.materialdesign.utils.Utils;
+
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.apache.commons.lang3.math.Fraction;
+
+import java.util.ArrayList;
 
 import ru.dreamkas.pos.BuildConfig;
 import ru.dreamkas.pos.DreamkasApp;
@@ -46,16 +57,6 @@ public class WelcomeActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         PreferencesManager.initializeInstance(getApplicationContext());
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        pagerWelcome.setOnScreenSwitchListener(onScreenSwitchListener);
-
-        radioGroup.setOnCheckedChangeListener(onCheckedChangedListener);
-
-        btnLogin.setTextColor(getResources().getColor(R.color.ActiveMain));
 
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
@@ -69,11 +70,54 @@ public class WelcomeActivity extends Activity {
 
         Fraction ratio = MathHelper.asFraction(dpWidth, dpHeight);
 
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, getResources().getDisplayMetrics());
         DreamkasApp.setRatio(ratio, dpWidth);
+
+
+    }
+
+    private ArrayList<View> getAllChildren(View v) {
+
+        if (!(v instanceof ViewGroup)) {
+            ArrayList<View> viewArrayList = new ArrayList<View>();
+            viewArrayList.add(v);
+            return viewArrayList;
+        }
+
+        ArrayList<View> result = new ArrayList<View>();
+
+        ViewGroup viewGroup = (ViewGroup) v;
+        for (int i = 0; i < viewGroup.getChildCount(); i++) {
+
+            View child = viewGroup.getChildAt(i);
+
+            ArrayList<View> viewArrayList = new ArrayList<View>();
+            viewArrayList.add(v);
+            viewArrayList.addAll(getAllChildren(child));
+
+            result.addAll(viewArrayList);
+        }
+        return result;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+
+
+
+        pagerWelcome.setOnScreenSwitchListener(onScreenSwitchListener);
+
+        radioGroup.setOnCheckedChangeListener(onCheckedChangedListener);
+
+        btnLogin.setTextColor(getResources().getColor(R.color.ActiveMain));
 
         switch(DreamkasApp.getRatio()){
             case _16_10:
+                pagerWelcome.setTag("norm");
                 pagerWelcome.setLayoutParams(new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*6)));
+                llBottomPane.setTag("norm");
                 llBottomPane.setLayoutParams(new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, DreamkasApp.getDpValueInPixels(DreamkasApp.getSquareSide()*4)));
                 break;
             case _3_4:
@@ -81,7 +125,7 @@ public class WelcomeActivity extends Activity {
         }
 
         if (BuildConfig.DEBUG) {
-            Toast.makeText(this, "ratio: " + ratio + "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "ratio: " + ratio + "w: " + dpWidth + " h: " + dpHeight, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -168,6 +212,98 @@ public class WelcomeActivity extends Activity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     };
+
+   // @AfterViews
+    void afv(){
+
+        final View mainMenuLayout = getWindow().getDecorView().findViewById(android.R.id.content);
+        getWindow().getDecorView().findViewById(android.R.id.content).getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+
+                        mainMenuLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+
+                        ArrayList<View> childs = getAllChildren(mainMenuLayout);
+
+
+                        float dkp = DreamkasApp.getSquareSide() / 64;
+                        for(View view: childs){
+                            if(view.getTag() == "norm"){
+                                continue;
+                            }
+
+                            if(view instanceof TextView){
+
+                            }
+
+                            float width = view.getWidth() * dkp;
+                            float height = view.getHeight() * dkp;
+
+                            ViewGroup.LayoutParams lp = view.getLayoutParams();
+
+                            if(lp instanceof LinearLayout.LayoutParams){
+                                LinearLayout.LayoutParams lpNew = new LinearLayout.LayoutParams(Math.round(width), Math.round(height));
+                                int ml = Math.round(((LinearLayout.LayoutParams) lp).leftMargin * dkp);
+                                int mt = Math.round(((LinearLayout.LayoutParams) lp).topMargin * dkp);
+                                int mr = Math.round(((LinearLayout.LayoutParams) lp).rightMargin * dkp);
+                                int mb = Math.round(((LinearLayout.LayoutParams) lp).bottomMargin * dkp);
+                                lpNew.setMargins(ml, mt, mr, mb);
+                                lpNew.gravity = ((LinearLayout.LayoutParams) lp).gravity;
+
+                                view.setLayoutParams(lpNew);
+
+                            }else if(lp instanceof RelativeLayout.LayoutParams) {
+                                view.setLayoutParams(new RelativeLayout.LayoutParams(Math.round(width), Math.round(height)));
+
+                                RelativeLayout.LayoutParams lpNew = new RelativeLayout.LayoutParams(Math.round(width), Math.round(height));
+                                int ml = Math.round(((RelativeLayout.LayoutParams) lp).leftMargin * dkp);
+                                int mt = Math.round(((RelativeLayout.LayoutParams) lp).topMargin * dkp);
+                                int mr = Math.round(((RelativeLayout.LayoutParams) lp).rightMargin * dkp);
+                                int mb = Math.round(((RelativeLayout.LayoutParams) lp).bottomMargin * dkp);
+                                lpNew.setMargins(ml, mt, mr, mb);
+
+                                view.setLayoutParams(lpNew);
+                            }else if(lp instanceof FrameLayout.LayoutParams){
+                                view.setLayoutParams(new FrameLayout.LayoutParams(Math.round(width), Math.round(height)));
+
+                                FrameLayout.LayoutParams lpNew = new FrameLayout.LayoutParams(Math.round(width), Math.round(height));
+                                int ml = Math.round(((FrameLayout.LayoutParams) lp).leftMargin * dkp);
+                                int mt = Math.round(((FrameLayout.LayoutParams) lp).topMargin * dkp);
+                                int mr = Math.round(((FrameLayout.LayoutParams) lp).rightMargin * dkp);
+                                int mb = Math.round(((FrameLayout.LayoutParams) lp).bottomMargin * dkp);
+                                lpNew.setMargins(ml, mt, mr, mb);
+                                lpNew.gravity = ((FrameLayout.LayoutParams) lp).gravity;
+                                view.setLayoutParams(lpNew);
+                            }
+
+                            else if(lp instanceof ViewGroup.MarginLayoutParams) {
+                                view.setLayoutParams(new ViewGroup.MarginLayoutParams(Math.round(width), Math.round(height)));
+
+                                ViewGroup.MarginLayoutParams lpNew = new ViewGroup.MarginLayoutParams(Math.round(width), Math.round(height));
+                                int ml = Math.round(((ViewGroup.MarginLayoutParams) lp).leftMargin * dkp);
+                                int mt = Math.round(((ViewGroup.MarginLayoutParams) lp).topMargin * dkp);
+                                int mr = Math.round(((ViewGroup.MarginLayoutParams) lp).rightMargin * dkp);
+                                int mb = Math.round(((ViewGroup.MarginLayoutParams) lp).bottomMargin * dkp);
+                                lpNew.setMargins(ml, mt, mr, mb);
+
+
+                                view.setLayoutParams(lpNew);
+                            }
+                            else {
+                                view.setLayoutParams(new ViewGroup.LayoutParams(Math.round(width), Math.round(height)));
+
+                            }
+                            //ViewGroup.LayoutParams lp = view.getLayoutParams();
+                        }
+
+
+                    }
+                });
+
+
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus)

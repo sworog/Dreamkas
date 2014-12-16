@@ -5,20 +5,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-
         >
 
 <LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="fill_parent"
-    android:layout_width="fill_parent">
+    android:layout_width="fill_parent"
+    android:background="@color/White"
+    >
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbSearch"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize"
-        android:background="@color/InactiveFirst"
+        android:background="@color/DialogHeaderColor"
         >
         <LinearLayout
             android:id="@+id/llToolbarChilds"
@@ -31,14 +32,18 @@
             android:focusableInTouchMode="true"
             >
 
-            <EditText android:id="@+id/txtProductSearchQuery"
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/txtProductSearchQuery"
                 android:layout_gravity="left"
                 android:layout_width="fill_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColorHighlight="@color/Black"
                 android:hint="Наименование или артикул товара"
-                android:inputType="textVisiblePassword"/>
+                android:inputType="textVisiblePassword"
+                android:textSize="16sp"
+                app:hideUnderline="true"
+                />
 
             <ImageButton
                 android:id="@+id/btnSearchEditTextClear"
@@ -77,6 +82,7 @@
                 android:id="@+id/lvProductsSearchResult"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingRight="32dp"
                 />
             <ProgressBar
                 android:id="@+id/pbSearchProduct"

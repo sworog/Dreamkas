@@ -12,5 +12,6 @@
     <declare-styleable name="text_view">
         <attr name="font_style" format="string" />
         <attr name="font_opacity" format="float" />
+        <attr name="font_kerning" format="float" />
     </declare-styleable>
 </resources>

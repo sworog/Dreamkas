@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.gc.materialdesign.views.ButtonFlat;
 
 import ru.dreamkas.pos.controller.requests.AuthRequest;
+import ru.dreamkas.pos.view.components.regular.ButtonFlatExt;
 import ru.dreamkas.pos.view.components.regular.ButtonRectangleExt;
 
 import com.octo.android.robospice.SpiceManager;
@@ -62,7 +63,7 @@ public class LoginDialog extends RequestContainingDialog implements IAuthRequest
     EditText txtPassword;
 
     @ViewById
-    ButtonFlat btnRestorePassword;
+    ButtonFlatExt btnRestorePassword;
 
     public AuthRequestListener authRequestListener = new AuthRequestListener(this);
 
@@ -161,7 +162,8 @@ public class LoginDialog extends RequestContainingDialog implements IAuthRequest
 
     @Override
     public void onAuthSuccessRequest(Token authResult){
-        progressDialog.dismiss();
+        stopProgressDialog();
+
         setResult(DialogResult.OK);
         mAuthResult = authResult;
         dismiss();
@@ -169,7 +171,7 @@ public class LoginDialog extends RequestContainingDialog implements IAuthRequest
 
     @Override
     public void onAuthFailureRequest(SpiceException spiceException){
-        progressDialog.dismiss();
+        stopProgressDialog();
 
         String msg = "";
         if(spiceException.getCause() instanceof HttpClientErrorException){

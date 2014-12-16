@@ -20,6 +20,16 @@ public class DreamkasApp extends Application {
         return (int) (value * mScale + 0.5f);
     }
 
+    public static int toDkp(int widthSize) {
+        return Math.round(widthSize*DreamkasApp.getDkp());
+    }
+
+    public static int toDkpInPixels(int value) {
+        //(value * mScale + 0.5f)
+        //value*DreamkasApp.getDkp()
+        return DreamkasApp.getDpValueInPixels(DreamkasApp.toDkp(value));
+    }
+
     public enum SupportedRatio{_16_10, _3_4};
 
     public static void setRatio(Fraction ratio, float width) {
@@ -34,7 +44,14 @@ public class DreamkasApp extends Application {
         }
     }
 
+    public static float getDkp(){
+        return DreamkasApp.getSquareSide() / 64;
+    }
+
     public static float getSquareSide() {
+        if(mMakeupSquareSide == 0){
+            throw new IllegalStateException("SquareSide not initialized yet");
+        }
         return mMakeupSquareSide;
     }
 

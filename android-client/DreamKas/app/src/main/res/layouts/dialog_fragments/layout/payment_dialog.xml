@@ -36,6 +36,7 @@
                         android:id="@+id/tbDialog"
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
+                        android:background="@color/InactiveFirst"
                         android:orientation="horizontal">
                         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                             android:layout_width="fill_parent"
@@ -45,7 +46,8 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:background="@color/InactiveFirst">
+
+                                android:orientation="horizontal">
 
                                 <ImageButton
                                     android:id="@+id/btnCloseModal"
@@ -83,6 +85,13 @@
                                         android:textColor="@color/Black"
                                         />
                                 </LinearLayout>
+
+                                <ProgressBar
+                                    android:id="@+id/pbRegister"
+                                    android:layout_width="fill_parent"
+                                    android:layout_gravity="top|center_horizontal"
+                                    android:layout_height="wrap_content"
+                                    />
                             </LinearLayout>
 
 
@@ -103,7 +112,7 @@
                             android:focusableInTouchMode="true"
                             >
                             <LinearLayout
-                                android:id="@+id/llMain"
+                                android:id="@+id/llContent"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -112,7 +121,6 @@
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
                                 >
-
                                 <LinearLayout
                                     android:orientation="horizontal"
                                     android:layout_width="match_parent"
@@ -156,6 +164,8 @@
                                         android:layout_weight="1"
                                         />
 
+
+
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -186,6 +196,8 @@
                                         />
 
                                 </LinearLayout>
+
+
 
                             </LinearLayout>
 
