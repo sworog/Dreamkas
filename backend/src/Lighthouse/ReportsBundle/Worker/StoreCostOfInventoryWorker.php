@@ -58,5 +58,4 @@ class StoreCostOfInventoryWorker implements WorkerInterface
     {
         return 'store_cost_of_inventory';
     }
-
 }

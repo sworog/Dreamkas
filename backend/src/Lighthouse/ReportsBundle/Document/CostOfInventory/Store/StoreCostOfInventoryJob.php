@@ -41,4 +41,12 @@ class StoreCostOfInventoryJob extends Job
 
         $this->storeId = $tubeData['storeId'];
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return "store_cost_of_inventory";
+    }
 }
