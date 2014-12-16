@@ -24,9 +24,13 @@ console.log('HOST=' + process.env.host);
 var browser = webdriverio
     .remote(options)
     .init()
+    .windowHandlePosition(null, {
+        x: 0,
+        y: 0
+    })
     .setViewportSize({
-        width: 1024,
-        height: 500
+        width: 1280,
+        height: 900
     })
     .timeoutsAsyncScript(5000);
 
