@@ -43,7 +43,7 @@
     NSDictionary *dict = @{@"grant_type" : @"refresh_token",
                            @"client_id" : OAUTH_CLIENT_ID,
                            @"client_secret" : OAUTH_CLIENT_SECRET,
-                           @"refresh_token" : refreshOAuthToken};
+                           @"refresh_token" : [CurrentUser refreshToken]};
     
     [self.requestSerializer setValue:nil
                   forHTTPHeaderField:@"Authorization"];
@@ -68,8 +68,8 @@
                          forHTTPHeaderField:@"Authorization"];
            
            // запоминаем дату для обновления токена и refresh-токен
-           oauthTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:[JSON[@"expires_in"] doubleValue]];
-           refreshOAuthToken = JSON[@"refresh_token"];
+           accessTokenExpirationDate = [NSDate dateWithTimeIntervalSinceNow:[JSON[@"expires_in"] doubleValue]];
+           [CurrentUser updateRefreshToken:JSON[@"refresh_token"]];
            
            // передаем данные в блок обработки
            if (completionBlock)

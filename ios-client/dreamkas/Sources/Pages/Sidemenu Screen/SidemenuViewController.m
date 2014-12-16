@@ -18,6 +18,25 @@
 
 @implementation SidemenuViewController
 
+- (void)initialize
+{
+    if ([self respondsToSelector:@selector(onStoreChangedNotificationName:)]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onStoreChangedNotificationName:)
+                                                     name:StoreChangedNotificationName
+                                                   object:nil];
+    }
+}
+
+- (void)onStoreChangedNotificationName:(NSNotification *)notification
+{
+    if ([[CurrentUser lastUsedStoreID] length]) {
+        StoreModel *store = [StoreModel findByPK:[CurrentUser lastUsedStoreID]];
+        if ([[store name] length] > 0)
+            [self.titleLabel setText:[store name]];
+    }
+}
+
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad
@@ -56,7 +75,7 @@
 {
     DPLogFast(@"");
     
-    [(AbstractViewController*)self.parentViewController showViewControllerModally:ControllerById(SelectStoreViewControllerID)];
+    [(AbstractViewController*)self.parentViewController showViewControllerModally:ControllerById(SelectStoreViewControllerID) onCompletion:nil];
 }
 
 - (IBAction)logoutButtonClicked:(id)sender

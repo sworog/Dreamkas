@@ -46,14 +46,14 @@
 {
     DPLogFast(@"");
     
-    [self showViewControllerModally:ControllerById(SignInViewControllerID)];
+    [self showViewControllerModally:ControllerById(SignInViewControllerID) onCompletion:nil];
 }
 
 - (IBAction)logInButtonClicked:(id)sender
 {
     DPLogFast(@"");
     
-    [self showViewControllerModally:ControllerById(LogInViewControllerID)];
+    [self showViewControllerModally:ControllerById(LogInViewControllerID) onCompletion:nil];
 }
 
 @end

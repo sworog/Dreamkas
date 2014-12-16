@@ -15,9 +15,9 @@
     AbstractViewController *source_vc = (AbstractViewController *)self.sourceViewController;
     AbstractViewController *destination_vc = (AbstractViewController *)self.destinationViewController;
     
-    UIView *blurred_view = [source_vc createBlurredView];
-    destination_vc.blurredView = blurred_view;
-    [destination_vc.view insertSubview:destination_vc.blurredView atIndex:0];
+//    UIView *blurred_view = [source_vc createBlurredView];
+//    destination_vc.blurredView = blurred_view;
+//    [destination_vc.view insertSubview:destination_vc.blurredView atIndex:0];
     
     CATransition* transition = [CATransition animation];
     transition.duration = 0.05;

@@ -12,20 +12,16 @@
 
 @interface AbstractViewController (Modal)
 
-/** Дополнительный слой, который содержит размытое изображение экрана */
-@property (nonatomic, strong) UIView *blurredView;
-
-/** Создание слоя с размытым изображением экрана */
-- (UIView*)createBlurredView;
-
 /**
  * Отображение модального контроллера
  */
-- (void)showViewControllerModally:(AbstractViewController *)destinationVC;
+- (void)showViewControllerModally:(AbstractViewController *)destinationVC
+                     onCompletion:(void (^)(BOOL finished))completionBlock;
 
 /**
  * Скрытие модального контроллера
  */
-- (void)hideModalViewController:(ModalViewController *)modalViewController;
+- (void)hideModalViewController:(ModalViewController *)modalViewController
+                   onCompletion:(void (^)(BOOL finished))completionBlock;
 
 @end

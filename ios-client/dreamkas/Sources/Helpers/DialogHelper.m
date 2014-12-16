@@ -12,11 +12,26 @@
 
 #pragma mark - Сообщения
 
-+ (UIAlertView*)showRequestError
++ (UIAlertView*)showRequestError:(NSError *)error
 {
     if ([DeviceInfoHelper networkIsReachable] == NO) {
         return [self showError:NSLocalizedString(@"dialog_helper_network_not_reachable", nil)];
     }
+    
+    if (error) {
+        NSString *message = [error userInfo][@"message"];
+        NSString *reason = [error userInfo][@"reason"];
+        NSMutableString *text = [NSMutableString stringWithFormat:@"%@: %d", NSLocalizedString(@"dialog_helper_alert_title_with_code", nil), [error code]];
+
+        if ([message length]) {
+            [text appendFormat:@"\n%@: %@", NSLocalizedString(@"dialog_helper_alert_title_with_message", nil), message];
+        }
+        if ([reason length]) {
+            [text appendFormat:@"\n%@", reason];
+        }
+        return [self showError:text];
+    }
+    
     return [self showError:NSLocalizedString(@"dialog_helper_request_error", nil)];
 }
 
