@@ -3,6 +3,7 @@
 namespace Lighthouse\ReportsBundle\Tests\Document\Gross\Hour\Network;
 
 use Lighthouse\IntegrationBundle\Test\ContainerAwareTestCase;
+use Lighthouse\ReportsBundle\Document\Gross\Hour\Network\GrossHourNetwork;
 use Lighthouse\ReportsBundle\Document\Gross\Hour\Network\GrossHourNetworkRepository;
 use Lighthouse\ReportsBundle\Document\Gross\Hour\Store\GrossHourStoreRepository;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
@@ -107,10 +108,54 @@ class GrossHourNetworkTest extends ContainerAwareTestCase
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
 
-        $this->getGrossHourNetworkRepository()->recalculate();
+        $this->getGrossHourNetworkRepository()->recalculateAll();
 
         $grossHourNetworks = $this->getGrossHourNetworkRepository()->findAll();
 
+        $expectedValues = array(
+            '2014-12-01T09:00:00+0000' => array('52.82', '65.54',  '12.72', '6.000'),
+            '2014-12-01T10:00:00+0000' => array('52.42', '61.54',  '9.12',  '6.000'),
+            '2014-12-01T17:00:00+0000' => array('98.99', '118.48', '19.49', '11.300'),
+            '2014-12-01T23:00:00+0000' => array('52.82', '65.54',  '12.72', '6.000'),
+            '2014-12-02T01:00:00+0000' => array('52.82', '65.54',  '12.72', '6.000'),
+            '2014-12-03T18:00:00+0000' => array('57.81', '71.73',  '13.92', '6.566'),
+        );
+
+        foreach ($grossHourNetworks as $grossHourNetwork) {
+            $expectedValue = current($expectedValues);
+            $expectedHourDate = key($expectedValues);
+
+            $this->assertNotFalse($expectedValue);
+
+            $this->assertSame($expectedHourDate, $grossHourNetwork->hourDate->format(DATE_ISO8601));
+
+            $this->assertSame($expectedValue[0], $grossHourNetwork->costOfGoods->toString());
+            $this->assertSame($expectedValue[1], $grossHourNetwork->grossSales->toString());
+            $this->assertSame($expectedValue[2], $grossHourNetwork->grossMargin->toString());
+            $this->assertSame($expectedValue[3], $grossHourNetwork->quantity->toString());
+
+            next($expectedValues);
+        }
+
+        $this->assertFalse(current($expectedValues));
+    }
+
+    public function testAggregateNetworkCursor()
+    {
+        $this->prepareData();
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+
+        $grossHourNetworks = $this->getGrossHourNetworkRepository()->recalculateCursor();
+
+        $this->assertGrossHourNetwork($grossHourNetworks);
+    }
+
+    /**
+     * @param GrossHourNetwork[] $grossHourNetworks
+     */
+    public function assertGrossHourNetwork($grossHourNetworks)
+    {
         $expectedValues = array(
             '2014-12-01T09:00:00+0000' => array('52.82', '65.54',  '12.72', '6.000'),
             '2014-12-01T10:00:00+0000' => array('52.42', '61.54',  '9.12',  '6.000'),

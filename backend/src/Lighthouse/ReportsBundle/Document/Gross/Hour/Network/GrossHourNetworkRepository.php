@@ -7,6 +7,8 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
+use Lighthouse\CoreBundle\MongoDB\CommandCursor;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class GrossHourNetworkRepository extends DocumentRepository
@@ -38,13 +40,14 @@ class GrossHourNetworkRepository extends DocumentRepository
     }
 
     /**
-     * @return ArrayIterator
+     * @param DateTimestamp $dateFrom
+     * @param bool          $out
+     * @return array        pipeline ops
      */
-    public function recalculate()
+    protected function getAggregatePipeline(DateTimestamp $dateFrom = null, $out = false)
     {
         $quantityPrecision = $this->numericFactory->createQuantity(0)->getPrecision();
-
-        $ops = array(
+        $pipeline = array(
             array(
                 '$match' => array(
                     'reason.$ref' => SaleProduct::TYPE,
@@ -52,7 +55,7 @@ class GrossHourNetworkRepository extends DocumentRepository
             ),
             array(
                 '$sort' => array(
-                    'createdDate.date' => self::SORT_ASC,
+                    'createdDate.hourDate' => self::SORT_ASC,
                 )
             ),
             array(
@@ -94,12 +97,47 @@ class GrossHourNetworkRepository extends DocumentRepository
                     'hourDate' => '$_id'
                 )
             ),
-            array(
-                '$out' => $this->getDocumentCollection()->getName()
-            )
         );
 
-        return $this->trialBalanceRepository->aggregate($ops);
+        if ($dateFrom) {
+            $pipeline[0]['$match']['createdDate.hourDate'] = array(
+                '$gte' => $dateFrom->setMinutes(0)->setSeconds(0)->getMongoDate(),
+            );
+        }
+
+        if ($out) {
+            $pipeline[] = array(
+                '$out' => $this->getDocumentCollection()->getName()
+            );
+        } else {
+            $pipeline[] = array(
+                '$sort' => array(
+                    'hourDate' => self::SORT_ASC,
+                )
+            );
+        }
+
+        return $pipeline;
+    }
+
+    /**
+     * @param DateTimestamp $dateFrom
+     * @return ArrayIterator
+     */
+    public function recalculateAll(DateTimestamp $dateFrom = null)
+    {
+        $pipeline = $this->getAggregatePipeline($dateFrom, true);
+        return $this->trialBalanceRepository->aggregate($pipeline);
+    }
+
+    /**
+     * @param DateTimestamp $dateFrom
+     * @return CommandCursor|GrossHourNetwork[]
+     */
+    public function recalculateCursor(DateTimestamp $dateFrom = null)
+    {
+        $pipeline = $this->getAggregatePipeline($dateFrom);
+        return $this->trialBalanceRepository->aggregateCursor($pipeline, $this->class);
     }
 
     /**
