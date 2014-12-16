@@ -407,6 +407,9 @@ class DepartmentControllerTest extends WebTestCase
         $this->assertResponseCode($responseCode);
     }
 
+    /**
+     * @return array
+     */
     public function accessCategoryProvider()
     {
         return array(
@@ -569,6 +572,10 @@ class DepartmentControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $storeId = $this->factory()->store()->getStoreId();

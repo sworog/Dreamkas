@@ -220,6 +220,9 @@ class CashFlowControllerTest extends WebTestCase
         $this->performJsonAssertions($postResponse, $assertions);
     }
 
+    /**
+     * @return array
+     */
     public function validateProvider()
     {
         return array(

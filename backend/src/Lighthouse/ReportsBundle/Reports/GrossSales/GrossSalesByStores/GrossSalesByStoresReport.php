@@ -27,6 +27,9 @@ class GrossSalesByStoresReport extends AbstractDocument
         $this->runningSum = new Money(0);
     }
 
+    /**
+     * @param Money $money
+     */
     public function addRunningSum(Money $money)
     {
         $this->runningSum = $this->runningSum->add($money);

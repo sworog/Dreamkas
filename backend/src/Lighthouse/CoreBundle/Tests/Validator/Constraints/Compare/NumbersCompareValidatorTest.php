@@ -96,6 +96,9 @@ class NumbersCompareValidatorTest extends ConstraintTestCase
         $this->getValidator()->validate($value, $constraint, null);
     }
 
+    /**
+     * @return array
+     */
     public function unexpectedValueTypeProvider()
     {
         return array(

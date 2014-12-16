@@ -29,6 +29,9 @@ class Group extends AbstractNode
      */
     protected $categories;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->categories = new ArrayCollection();

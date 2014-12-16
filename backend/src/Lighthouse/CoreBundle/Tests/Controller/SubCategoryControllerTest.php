@@ -685,6 +685,9 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode($responseCode);
     }
 
+    /**
+     * @return array
+     */
     public function accessSubCategoryProvider()
     {
         return array(
@@ -1245,6 +1248,10 @@ class SubCategoryControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @param Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $category = $this->factory()->catalog()->getCategory();

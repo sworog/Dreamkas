@@ -47,6 +47,9 @@ class Category extends AbstractNode
      */
     protected $subCategories;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->subCategories = new ArrayCollection();

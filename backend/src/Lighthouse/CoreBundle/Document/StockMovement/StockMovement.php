@@ -94,6 +94,9 @@ abstract class StockMovement extends AbstractDocument implements Storeable
      */
     protected $products;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->products = new ArrayCollection();

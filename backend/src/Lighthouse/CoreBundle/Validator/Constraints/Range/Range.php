@@ -10,18 +10,59 @@ use Symfony\Component\Validator\Exception\MissingOptionsException;
  */
 class Range extends Constraint
 {
+    /**
+     * @var string
+     */
     public $ltMessage           = 'lighthouse.validation.errors.range.lt';
+
+    /**
+     * @var string
+     */
     public $lteMessage          = 'lighthouse.validation.errors.range.lte';
+
+    /**
+     * @var string
+     */
     public $gtMessage           = 'lighthouse.validation.errors.range.gt';
+
+    /**
+     * @var string
+     */
     public $gteMessage          = 'lighthouse.validation.errors.range.gte';
+
+    /**
+     * @var string
+     */
     public $invalidMessage      = 'lighthouse.validation.errors.range.invalid';
 
+    /**
+     * @var mixed
+     */
     public $lt;
+
+    /**
+     * @var mixed
+     */
     public $lte;
+
+    /**
+     * @var mixed
+     */
     public $gt;
+
+    /**
+     * @var mixed
+     */
     public $gte;
+
+    /**
+     * @var bool
+     */
     public $integer = false;
 
+    /**
+     * @param array|null $options
+     */
     public function __construct($options = null)
     {
         parent::__construct($options);

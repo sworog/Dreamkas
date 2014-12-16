@@ -5,8 +5,6 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use DateTime;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlow;
 use Lighthouse\CoreBundle\Document\CashFlow\CashFlowRepository;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class CashFlowFactory extends AbstractFactory
 {

@@ -9,8 +9,8 @@ use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Closure;
@@ -22,9 +22,9 @@ use LighthouseKernel;
 class ProjectContext implements ClassNameable
 {
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    protected $securityContext;
+    protected $tokenStorage;
 
     /**
      * @var ProjectRepository
@@ -43,23 +43,23 @@ class ProjectContext implements ClassNameable
 
     /**
      * @DI\InjectParams({
-     *      "securityContext" = @DI\Inject("security.context"),
+     *      "tokenStorage" = @DI\Inject("security.token_storage"),
      *      "projectRepository" = @DI\Inject("lighthouse.core.document.repository.project"),
      *      "userProvider" = @DI\Inject("lighthouse.core.user.provider"),
      *      "kernel" = @DI\Inject("kernel")
      * })
-     * @param SecurityContextInterface $securityContext
+     * @param TokenStorageInterface $tokenStorage
      * @param ProjectRepository $projectRepository
      * @param UserProviderInterface $userProvider
      * @param KernelInterface $kernel
      */
     public function __construct(
-        SecurityContextInterface $securityContext,
+        TokenStorageInterface $tokenStorage,
         ProjectRepository $projectRepository,
         UserProviderInterface $userProvider,
         KernelInterface $kernel
     ) {
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->projectRepository = $projectRepository;
         $this->userProvider  = $userProvider;
         $this->kernel = $kernel;
@@ -70,8 +70,8 @@ class ProjectContext implements ClassNameable
      */
     public function authenticate(Project $project)
     {
-        $projectToken = new ProjectToken($project, $this->securityContext->getToken());
-        $this->securityContext->setToken($projectToken);
+        $projectToken = new ProjectToken($project, $this->tokenStorage->getToken());
+        $this->tokenStorage->setToken($projectToken);
     }
 
     /**
@@ -108,14 +108,14 @@ class ProjectContext implements ClassNameable
 
     public function logout()
     {
-        $projectToken = $this->securityContext->getToken();
+        $projectToken = $this->tokenStorage->getToken();
         if (!$projectToken instanceof ProjectToken) {
             throw new RuntimeException(
                 'Failed to logout. Current token is not ProjectToken: %s',
                 get_class($projectToken)
             );
         }
-        $this->securityContext->setToken($projectToken->getOriginalToken());
+        $this->tokenStorage->setToken($projectToken->getOriginalToken());
     }
 
     /**
@@ -123,7 +123,7 @@ class ProjectContext implements ClassNameable
      */
     public function getCurrentProject()
     {
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
         if ($token instanceof ProjectToken) {
             return $token->getProject();
         } elseif ($token instanceof TokenInterface) {

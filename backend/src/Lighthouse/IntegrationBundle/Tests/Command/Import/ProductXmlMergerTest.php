@@ -11,6 +11,9 @@ use SplFileInfo;
 
 class ProductXmlMergerTest extends ContainerAwareTestCase
 {
+    /**
+     * @return string
+     */
     protected function prepareDirectory()
     {
         $dir = $this->getFixtureFilePath('Set10/Import/Products/XmlMerge');
