@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dreamkas</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/main.css"/>
+</head>
+
+<body>
+
+<div class="page"></div>
+
+<script>
+    setTimeout(function() {
+        document.body.setAttribute('status', 'loading');
+    }, 0);
+</script>
+
+<script src="/bower_components/requirejs/require.js"></script>
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/config.js"></script>
+<script src="/require.config.js"></script>
+
+<script>
+    requirejs([
+        'app',
+        'resources/currentUser/mocks/get',
+        'resources/grossMargin/mocks/get',
+        'resources/grossSales/mocks/get',
+        'resources/storesGrossSales/mocks/get',
+        'resources/topSales/mocks/get',
+        'resources/firstStart/mocks/get_success',
+        'resources/store/mocks/get_0',
+        'resources/group/mocks/get_0',
+        'resources/supplier/mocks/get_0',
+        'resources/product/mocks/get_0'
+    ], function(app) {
+        app.start('/');
+    });
+</script>
+
+</body>
+
+</html>
