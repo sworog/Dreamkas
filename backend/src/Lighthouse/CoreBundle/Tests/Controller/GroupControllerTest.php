@@ -140,6 +140,9 @@ class GroupControllerTest extends WebTestCase
         }
     }
 
+    /**
+     * @return array
+     */
     public function validationGroupProvider()
     {
         return array(
@@ -515,6 +518,9 @@ class GroupControllerTest extends WebTestCase
         $this->assertResponseCode($responseCode);
     }
 
+    /**
+     * @return array
+     */
     public function accessGroupProvider()
     {
         return array(
@@ -818,6 +824,10 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Такая группа уже есть', '*.errors.children.name.errors.0', $jsonResponses, 2);
     }
 
+    /**
+     * @param \Exception $exception
+     * @return array
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $groupData = array(

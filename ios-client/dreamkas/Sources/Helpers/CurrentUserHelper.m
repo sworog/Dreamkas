@@ -9,12 +9,12 @@
 #import "CurrentUserHelper.h"
 #import "AESCrypt.h"
 
-#define CurrentUserPrivateStorePassword @"RaSlccufRPZBDqoBfKC8"
+#define RefreshTokenPrivateStorePassword @"RaSlccufRPZBDqoBfKC8"
 #define UserDefaultsKey(pname) [NSString stringWithFormat:@"%@_%@", NSStringFromClass([self class]), NSStringFromSelector(@selector(pname))]
 
 @implementation CurrentUserHelper
 
-@synthesize lastUsedLogin, lastUsedPassword, lastUsedStoreID;
+@synthesize refreshToken, lastUsedStoreID;
 
 #pragma mark - Инициализация
 
@@ -33,12 +33,11 @@
 {
     self = [super init];
     if (self) {
-        lastUsedLogin = [UserDefaults valueForKey:UserDefaultsKey(lastUsedLogin)];
-        lastUsedPassword = [AESCrypt decrypt:[UserDefaults valueForKey:UserDefaultsKey(lastUsedPassword)]
-                                    password:CurrentUserPrivateStorePassword];
+        refreshToken = [AESCrypt decrypt:[UserDefaults valueForKey:UserDefaultsKey(refreshToken)]
+                                password:RefreshTokenPrivateStorePassword];
         lastUsedStoreID = [UserDefaults valueForKey:UserDefaultsKey(lastUsedStoreID)];
 
-        DPLogFast(@"lastUsedLogin = %@, lastUsedPassword = %@", lastUsedLogin, lastUsedPassword);
+        DPLogFast(@"refreshToken = %@", refreshToken);
         DPLogFast(@"lastUsedStoreID = %@", lastUsedStoreID);
     }
     
@@ -52,26 +51,26 @@
  */
 - (BOOL)hasActualAuthData
 {
-    return ([lastUsedLogin length] && [lastUsedPassword length]);
+    return [refreshToken length];
 }
 
 /**
  * Метод для установки новых авторизационных данныех для входа в приложение
  */
-- (void)updateLastUsedLogin:(NSString *)newLogin lastUsedPassword:(NSString *)newPassword
+- (void)updateRefreshToken:(NSString *)refToken
 {
     DPLogFast(@"");
     
-    if ([newLogin length] < 1 || [newPassword length] < 1)
+    if ([refToken length] < 1)
         return;
     
-    lastUsedLogin = newLogin.copy;
-    lastUsedPassword = newPassword.copy;
+    refreshToken = refToken.copy;
     
-    [UserDefaults setValue:lastUsedLogin forKey:UserDefaultsKey(lastUsedLogin)];
-    [UserDefaults setValue:[AESCrypt encrypt:lastUsedPassword password:CurrentUserPrivateStorePassword]
-                    forKey:UserDefaultsKey(lastUsedPassword)];
+    [UserDefaults setValue:[AESCrypt encrypt:refreshToken password:RefreshTokenPrivateStorePassword]
+                    forKey:UserDefaultsKey(refreshToken)];
     [UserDefaults synchronize];
+    
+    DPLogFast(@"refreshToken = %@", [UserDefaults valueForKey:UserDefaultsKey(refreshToken)]);
 }
 
 /**
@@ -79,11 +78,9 @@
  */
 - (void)resetLastUsedAuthData
 {
-    lastUsedLogin = nil;
-    lastUsedPassword = nil;
+    refreshToken = nil;
     
-    [UserDefaults setValue:nil forKey:UserDefaultsKey(lastUsedLogin)];
-    [UserDefaults setValue:nil forKey:UserDefaultsKey(lastUsedPassword)];
+    [UserDefaults setValue:nil forKey:UserDefaultsKey(refreshToken)];
     [UserDefaults synchronize];
 }
 
@@ -101,6 +98,11 @@
     
     [UserDefaults setValue:lastUsedStoreID forKey:UserDefaultsKey(lastUsedStoreID)];
     [UserDefaults synchronize];
+    
+    // рассылаем уведомление о смене магазина
+    NSNotification *notification = [NSNotification notificationWithName:StoreChangedNotificationName
+                                                                 object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 @end

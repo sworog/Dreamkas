@@ -10,7 +10,7 @@
 
 @interface DialogHelper : NSObject
 
-+ (UIAlertView*)showRequestError;
++ (UIAlertView*)showRequestError:(NSError *)error;
 + (UIAlertView*)showTimeoutError;
 + (UIAlertView*)showError:(NSString*)text;
 + (UIAlertView*)showError:(NSString*)text withDelegate:(id)delegate;

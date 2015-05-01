@@ -159,7 +159,7 @@
 {
     DPLogFast(@"");
     
-    [(AbstractViewController*)self.navigationController.parentViewController showViewControllerModally:ControllerById(PaymentViewControllerID)];
+    [(AbstractViewController*)self.navigationController.parentViewController showViewControllerModally:ControllerById(PaymentViewControllerID) onCompletion:nil];
 }
 
 #pragma mark - Методы KeyboardEventsListenerProtocol

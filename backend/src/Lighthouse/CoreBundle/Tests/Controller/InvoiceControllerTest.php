@@ -182,6 +182,9 @@ class InvoiceControllerTest extends WebTestCase
         $this->performJsonAssertions($getResponse, $assertions, true);
     }
 
+    /**
+     * @return array
+     */
     public function postInvoiceDataProvider()
     {
         return array(
@@ -1265,6 +1268,9 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function validationGroupDataProvider()
     {
         return array(

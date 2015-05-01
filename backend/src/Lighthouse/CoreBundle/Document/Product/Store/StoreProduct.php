@@ -180,6 +180,9 @@ class StoreProduct extends AbstractDocument
         return Decimal::createFromNumeric($this->averageDailySales, 2)->toNumber();
     }
 
+    /**
+     * @return Decimal
+     */
     public function getAverageDailySalesDecimal()
     {
         return Decimal::createFromNumeric($this->averageDailySales, 2);

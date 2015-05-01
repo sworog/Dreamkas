@@ -302,6 +302,9 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals($oldPasswordHash, $userModel->password);
     }
 
+    /**
+     * @return array
+     */
     public function editUserValidationPasswordProvider()
     {
         return $this->editUserValidationProvider() + array(
@@ -343,6 +346,9 @@ class UserControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function editUserValidationProvider()
     {
         return $this->emailUserValidationProvider() + array(
@@ -496,6 +502,9 @@ class UserControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function userValidationProvider()
     {
         return $this->editUserValidationProvider() + array(
@@ -681,6 +690,9 @@ class UserControllerTest extends WebTestCase
         Assert::assertJsonPathContains('GET::{user}', 'users', $response);
     }
 
+    /**
+     * @return array
+     */
     public function userProvider()
     {
         return array(
@@ -1199,6 +1211,9 @@ class UserControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @param Exception $exception
+     */
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $user = new User();

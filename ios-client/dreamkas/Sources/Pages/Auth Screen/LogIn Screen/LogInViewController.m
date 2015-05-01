@@ -103,18 +103,15 @@
          [strong_self hideLoading];
          
          if (error == nil) {
-             // если авторизация прошла успешно - запоминаем данные пользователя
-             [CurrentUser updateLastUsedLogin:self.loginField.text
-                             lastUsedPassword:self.passwordField.text];
-
              // скрываем контейнер модального окна и переходим к контроллеру кассы
              ModalViewController *modal_vc = (ModalViewController *)self.navigationController.parentViewController;
-             [modal_vc hideContainerView:^(BOOL finished) {
-                 [modal_vc.navigationController pushViewController:ControllerById(TicketWindowViewControllerID) animated:YES];
+             AbstractNavigationController *abstr_nc = (AbstractNavigationController*)modal_vc.presentingViewController;
+             [self hideModalViewController:modal_vc onCompletion:^(BOOL finished) {
+                 [abstr_nc pushViewController:ControllerById(TicketWindowViewControllerID) animated:YES];
              }];
          }
          else {
-             [DialogHelper showRequestError];
+             [DialogHelper showRequestError:error];
          }
      }];
 }

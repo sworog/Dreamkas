@@ -73,6 +73,9 @@ class GeneratedListener
         return $mappings;
     }
 
+    /**
+     * @param EventArgs $eventArgs
+     */
     public function postCreateCollection(EventArgs $eventArgs)
     {
         /* @var DocumentManager $documentManager */

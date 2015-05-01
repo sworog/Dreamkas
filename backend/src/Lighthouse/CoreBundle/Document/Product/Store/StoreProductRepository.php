@@ -51,6 +51,9 @@ class StoreProductRepository extends DocumentRepository
         $this->storeRepository = $storeRepository;
     }
 
+    /**
+     * @param NumericFactory $numericFactory
+     */
     public function setNumericFactory(NumericFactory $numericFactory)
     {
         $this->numericFactory = $numericFactory;

@@ -16,8 +16,7 @@
 
 @interface RESTClient : AFHTTPSessionManager
 {
-    NSString *refreshOAuthToken;
-    NSDate *oauthTokenExpirationDate;
+    NSDate *accessTokenExpirationDate;
     BOOL refreshingOAuthTokenInProgress;
 }
 

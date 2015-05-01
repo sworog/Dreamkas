@@ -103,6 +103,9 @@ class MoneyRangeValidatorTest extends ConstraintTestCase
         $this->getValidator()->validate($value, $constraint, null);
     }
 
+    /**
+     * @return array
+     */
     public function invalidOptionsProvider()
     {
         return array(
@@ -151,6 +154,9 @@ class MoneyRangeValidatorTest extends ConstraintTestCase
         $this->assertEquals('invalidMessage', $violations->get(0)->getMessageTemplate());
     }
 
+    /**
+     * @return array
+     */
     public function invalidValueProvider()
     {
         return array(

@@ -11,6 +11,9 @@ class WriteOffHighlightGenerator implements MetaGeneratorInterface
      */
     protected $filter;
 
+    /**
+     * @param WriteOffFilter $filter
+     */
     public function __construct(WriteOffFilter $filter)
     {
         $this->filter = $filter;
