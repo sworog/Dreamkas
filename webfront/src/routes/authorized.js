@@ -3,7 +3,12 @@ define(function(require) {
 
     return {
         //common
-        '(/)': require('pages/main/main'),
+        '(/)': require('kit/rootRoute/rootRoute'),
+
+        //dashboard
+        'firstStart(/)': require('pages/firstStart/firstStart'),
+        'dashboard(/)': require('pages/dashboard/dashboard'),
+
         'settings(/)': require('pages/settings/settings'),
         'logout(/)': require('kit/logout/logout'),
 

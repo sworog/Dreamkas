@@ -93,7 +93,7 @@ class CostOfGoodsCalculator
     }
 
     /**
-     * @param $storeProductId
+     * @param string $storeProductId
      * @param Quantity $startIndex
      * @param Quantity $endIndex
      * @return Money
@@ -120,10 +120,14 @@ class CostOfGoodsCalculator
             $costOfGoods = $costOfGoodsDonorPrice->mul($indexQuantity);
             $totalCostOfGoods = $totalCostOfGoods->add($costOfGoods);
             $index = $index->add($indexQuantity);
+
+            $increaseAmountProductTrialBalance->inventory = $increaseAmountProductTrialBalance->quantity->sub(
+                $indexQuantity
+            );
+            $this->trialBalanceRepository->getDocumentManager()->persist($increaseAmountProductTrialBalance);
         }
 
         if ($index->toNumber() < $endIndex->toNumber()) {
-            /** @var StoreProduct $storeProduct */
             $storeProduct = $this->storeProductRepository->find($storeProductId);
             $purchasePrice = $storeProduct->lastPurchasePrice?:$storeProduct->product->purchasePrice;
             $purchasePrice = $purchasePrice?:$this->numericFactory->createQuantity(0);
@@ -162,9 +166,7 @@ class CostOfGoodsCalculator
      */
     public function calculateUnprocessed(OutputInterface $output = null)
     {
-        if (null == $output) {
-            $output = new NullOutput();
-        }
+        $output = ($output) ?: new NullOutput();
         $dotHelper = new DotHelper($output);
 
         $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct(
@@ -341,7 +343,7 @@ class CostOfGoodsCalculator
                 $trialBalance,
                 $reasonTypes
             );
-            if (null != $previousTrialBalance) {
+            if (null !== $previousTrialBalance) {
                 $previousQuantity = $previousTrialBalance->endIndex;
             } else {
                 $previousQuantity = $this->numericFactory->createQuantity(0);
@@ -360,7 +362,6 @@ class CostOfGoodsCalculator
             }
 
             foreach ($allNeedRecalculateTrialBalance as $nextTrialBalance) {
-                /** @var TrialBalance $nextTrialBalance */
                 $nextTrialBalance->startIndex = $previousQuantity;
                 $nextTrialBalance->endIndex = $nextTrialBalance->startIndex->add($nextTrialBalance->quantity);
 

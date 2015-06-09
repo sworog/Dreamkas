@@ -144,6 +144,24 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
+     * @param TrialBalance $trialBalance
+     * @param StockMovementProduct $stockMovementProduct
+     * @param StoreProduct $storeProduct
+     */
+    protected function populateTrialBalanceByStockMovementProduct(
+        TrialBalance $trialBalance,
+        StockMovementProduct $stockMovementProduct,
+        StoreProduct $storeProduct
+    ) {
+        $trialBalance->price = $stockMovementProduct->price;
+        $trialBalance->quantity = $stockMovementProduct->quantity;
+        $trialBalance->inventory = $stockMovementProduct->quantity;
+        $trialBalance->storeProduct = $storeProduct;
+        $trialBalance->reason = $stockMovementProduct;
+        $trialBalance->createdDate = clone $stockMovementProduct->date;
+    }
+
+    /**
      * @param StockMovementProduct $document
      * @param DocumentManager $dm
      */
@@ -154,11 +172,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $this->computeChangeSet($dm, $storeProduct);
 
         $trialBalance = new TrialBalance();
-        $trialBalance->price = $document->price;
-        $trialBalance->quantity = $document->quantity;
-        $trialBalance->storeProduct = $storeProduct;
-        $trialBalance->reason = $document;
-        $trialBalance->createdDate = $document->date;
+        $this->populateTrialBalanceByStockMovementProduct($trialBalance, $document, $storeProduct);
 
         $dm->persist($trialBalance);
         $this->computeChangeSet($dm, $trialBalance);
@@ -183,10 +197,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $this->processSupportsRangeIndexUpdate($trialBalance, $storeProduct, $dm);
         }
 
-        $trialBalance->price = $document->price;
-        $trialBalance->quantity = $document->quantity;
-        $trialBalance->storeProduct = $storeProduct;
-        $trialBalance->createdDate = clone $document->date;
+        $this->populateTrialBalanceByStockMovementProduct($trialBalance, $document, $storeProduct);
 
         $dm->persist($storeProduct);
         $dm->persist($trialBalance);
